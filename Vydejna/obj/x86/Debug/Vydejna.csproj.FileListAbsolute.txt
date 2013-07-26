@@ -1,0 +1,13 @@
+C:\Documents and Settings\dan\dokumenty\visual studio 2010\Projects\Vydejna\Vydejna\bin\Debug\Vydejna.exe
+C:\Documents and Settings\dan\dokumenty\visual studio 2010\Projects\Vydejna\Vydejna\bin\Debug\Vydejna.pdb
+C:\Documents and Settings\dan\dokumenty\visual studio 2010\Projects\Vydejna\Vydejna\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\dan\dokumenty\visual studio 2010\Projects\Vydejna\Vydejna\obj\x86\Debug\Vydejna.Vydejna.resources
+C:\Documents and Settings\dan\dokumenty\visual studio 2010\Projects\Vydejna\Vydejna\obj\x86\Debug\Vydejna.Properties.Resources.resources
+C:\Documents and Settings\dan\dokumenty\visual studio 2010\Projects\Vydejna\Vydejna\obj\x86\Debug\GenerateResource.read.1.tlog
+C:\Documents and Settings\dan\dokumenty\visual studio 2010\Projects\Vydejna\Vydejna\obj\x86\Debug\GenerateResource.write.1.tlog
+C:\Documents and Settings\dan\dokumenty\visual studio 2010\Projects\Vydejna\Vydejna\obj\x86\Debug\Vydejna.exe
+C:\Documents and Settings\dan\dokumenty\visual studio 2010\Projects\Vydejna\Vydejna\obj\x86\Debug\Vydejna.pdb
+C:\Documents and Settings\dan\dokumenty\visual studio 2010\Projects\Vydejna\Vydejna\obj\x86\Debug\Vydejna.SkladovaKarta.resources
+C:\Documents and Settings\dan\dokumenty\visual studio 2010\Projects\Vydejna\Vydejna\obj\x86\Debug\Vydejna.PracovniciKarta.resources
+C:\Documents and Settings\dan\dokumenty\visual studio 2010\Projects\Vydejna\Vydejna\obj\x86\Debug\Vydejna.VraceneKarta.resources
+C:\Documents and Settings\dan\dokumenty\visual studio 2010\Projects\Vydejna\Vydejna\obj\x86\Debug\Vydejna.NastaveniDB.resources

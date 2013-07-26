@@ -1,0 +1,9 @@
+Umisteni :
+
+.........\Dokumenty\Visual Studio 2010\Projects\Vydejna
+Obsahuje:  Adresar Vydejna
+          //  adresare bin obj  Properties  a vlstni soubory
+
+          Soubor Vydejna pro Microsoft Visual studio
+          soubor sqlite-netFx40-setup-bundle
+   
