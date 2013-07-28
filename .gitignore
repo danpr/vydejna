@@ -1,0 +1,5 @@
+Vydejna/bin/Debug/*.exe
+Vydejna/bin/Debug/*.pdb
+Vydejna/obj/x86/Debug/*.exe
+Vydejna/obj/x86/Debug/*.pdb
+
