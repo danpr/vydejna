@@ -160,6 +160,16 @@ namespace Vydejna
             PracovniciKarta pracKarta = new PracovniciKarta(DBRow);
             pracKarta.ShowDialog();
         }
+
+        public override void pridejKartu(vDatabase myDataBase, DataGridView myDataGridView)
+        {
+            // zalozeni nove skladove karty
+            if ((myDataBase != null) && (myDataBase.DBIsOpened()))
+            {
+            }
+        }
+
+
     }
 
 }

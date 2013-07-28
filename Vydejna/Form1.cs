@@ -584,11 +584,10 @@ namespace Vydejna
         {
             //osoby
             labelView.Text = "Pracovníci provozu - Načítání";
-//            this.ContextMenu = null;
             Application.DoEvents();
             loadOsobyItems();
             karta = new detailOsoby();
-            contextMenuEnable(false);
+            contextMenuEnable(true);
             labelView.Text = "Pracovníci provozu";
         }
 
@@ -624,6 +623,7 @@ namespace Vydejna
             Application.DoEvents();
             loadPoskozenoItems();
             karta = new detailPoskozeno();
+            contextMenuEnable(false);
             labelView.Text = "Poškozené nářadí";
           
         }
