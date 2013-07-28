@@ -166,6 +166,13 @@ namespace Vydejna
             // zalozeni nove skladove karty
             if ((myDataBase != null) && (myDataBase.DBIsOpened()))
             {
+                PracovniciKarta pracKarta = new PracovniciKarta(myDataBase);
+                if (pracKarta.ShowDialog() == DialogResult.OK)
+                {
+
+
+
+                }
             }
         }
 

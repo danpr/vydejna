@@ -10,11 +10,73 @@ using System.Windows.Forms;
 
 namespace Vydejna
 {
+
+    public enum uKartaState { show, add, edit };
+
+    
     public partial class PracovniciKarta : Form
     {
-        public PracovniciKarta(Hashtable DBRow)
+
+
+        public class messager
+        {
+            public string prijmeni;
+            public string jmeno;
+            public string ulice;
+            public string mesto;
+            public string psc;
+            public string telHome;
+            public string oscislo;
+            public string stredisko;
+
+            public string cisZnamky;
+            public string oddeleni;
+            public string pracoviste;
+            public string telZam;
+            public string poznamka;
+
+            public messager(string prijmeni, string jmeno, string ulice, string mesto, string psc, string telHome, string oscislo, string stredisko, string cisZnamky,
+                            string oddeleni, string pracoviste, string telZam, string poznamka)
+            {
+                this.prijmeni = prijmeni;
+                this.jmeno = jmeno;
+                this.ulice = ulice;
+                this.mesto = mesto;
+                this.psc = psc;
+                this.telHome = telHome;
+                this.oscislo = oscislo;
+                this.stredisko = stredisko;
+
+                this.cisZnamky = cisZnamky;
+                this.oddeleni = oddeleni;
+                this.pracoviste = pracoviste;
+                this.telZam = telZam;
+                this.poznamka = poznamka;
+            }
+        }
+
+        private vDatabase myDB;
+        private uKartaState state;
+
+
+        public PracovniciKarta(Hashtable DBRow, vDatabase myDataBase, uKartaState state = uKartaState.show)
         {
             InitializeComponent();
+            this.state = state;
+            if (state == uKartaState.edit) setEditState();
+            myDB = myDataBase;
+            dataGridViewZmeny.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            if (state == uKartaState.show)
+            {
+                buttonOK.Visible = false;
+                buttonOK.Enabled = false;
+            }
+            else
+            {
+                buttonOK.Visible = true;
+                buttonOK.Enabled = true;
+            }
+
             setData(DBRow);
         }
 
@@ -38,5 +100,12 @@ namespace Vydejna
             textBoxPoznamka.Text = Convert.ToString(DBRow["poznamka"]);
         
         }
+        private void setEditState()
+        {
+            setAddState();
+            textBoxOsCislo.ReadOnly = true;
+        }
+
+
     }
 }
