@@ -65,7 +65,6 @@ namespace Vydejna
             this.state = state;
             if (state == uKartaState.edit) setEditState();
             myDB = myDataBase;
-            dataGridViewZmeny.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             if (state == uKartaState.show)
             {
                 buttonOK.Visible = false;
