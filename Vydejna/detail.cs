@@ -157,7 +157,7 @@ namespace Vydejna
     {
         public override void zobrazKartu(Hashtable DBRow, vDatabase myDataBase)
         {
-            PracovniciKarta pracKarta = new PracovniciKarta(DBRow);
+            PracovniciKarta pracKarta = new PracovniciKarta(DBRow, myDataBase);
             pracKarta.ShowDialog();
         }
 
@@ -170,6 +170,7 @@ namespace Vydejna
                 if (pracKarta.ShowDialog() == DialogResult.OK)
                 {
 
+                    PracovniciKarta.messager mesenger = pracKarta.getMesseger();
 
 
                 }

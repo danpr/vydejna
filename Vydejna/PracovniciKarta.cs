@@ -79,6 +79,15 @@ namespace Vydejna
             setData(DBRow);
         }
 
+        public PracovniciKarta(vDatabase myDataBase)
+        {
+            InitializeComponent();
+            myDB = myDataBase;
+            this.state = uKartaState.add;
+            setAddState();
+        }
+
+
 
         public void setData(Hashtable DBRow)
         {
@@ -103,6 +112,34 @@ namespace Vydejna
         {
             setAddState();
             textBoxOsCislo.ReadOnly = true;
+        }
+
+
+        private void setAddState()
+        {
+            textBoxPrijmeni.ReadOnly = false;
+            textBoxJmeno.ReadOnly = false;
+            textBoxUlice.ReadOnly = false;
+            textBoxMesto.ReadOnly = false;
+            textBoxPSC.ReadOnly = false;
+            textBoxTelDomu.ReadOnly = false;
+            textBoxOsCislo.ReadOnly = false;
+            textBoxStredisko.ReadOnly = false;
+            textBoxCisZnamky.ReadOnly = false;
+            textBoxProvoz.ReadOnly = false;
+            textBoxPracoviste.ReadOnly = false;
+            textBoxTelZamest.ReadOnly = false;
+            textBoxPoznamka.ReadOnly = false;
+        }
+
+
+        public messager getMesseger()
+        {
+            messager prepravka = new messager(textBoxPrijmeni.Text, textBoxJmeno.Text, textBoxUlice.Text, textBoxMesto.Text,
+                                              textBoxPSC.Text,textBoxTelDomu.Text,textBoxOsCislo.Text,textBoxStredisko.Text,
+                                              textBoxCisZnamky.Text, textBoxStredisko.Text,textBoxPracoviste.Text,textBoxTelZamest.Text,
+                                              textBoxPoznamka.Text);
+            return prepravka;
         }
 
 
