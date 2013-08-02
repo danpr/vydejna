@@ -7,3 +7,9 @@ Obsahuje:  Adresar Vydejna
           Soubor Vydejna pro Microsoft Visual studio
           soubor sqlite-netFx40-setup-bundle
    
+
+-------------------------------
+git clone git@github.com:danpr/vydejna
+
+git pull origin master
+git push origin master
