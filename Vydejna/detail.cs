@@ -178,6 +178,20 @@ namespace Vydejna
         }
 
 
+        public override void opravKartu(Hashtable DBRow, vDatabase myDataBase)
+        {
+            if ((myDataBase != null) && (myDataBase.DBIsOpened()))
+            {
+                PracovniciKarta pracKarta = new PracovniciKarta(DBRow, myDataBase, uKartaState.edit);
+                if (pracKarta.ShowDialog() == DialogResult.OK)
+                {
+                    PracovniciKarta.messager mesenger = pracKarta.getMesseger();
+                }
+            }
+        }
+
+
+
     }
 
 }

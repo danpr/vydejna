@@ -248,8 +248,6 @@ namespace Vydejna
 
         public messager getMesseger()
         {
-//            public messager(string nazev, string jk, string csn, string din, string rozmer, string vyrobce, decimal cenaKs,
-//                            decimal ucetCenaKs, decimal ucetCena, string ucet, Int64 minStav, Int64 ucetStav, string poznamka)
             messager prepravka = new messager(textBoxNazev.Text, textBoxJK.Text, textBoxCSN.Text, textBoxDIN.Text,
                                   textBoxRozmer.Text, textBoxVyrobce.Text, numericUpDownCenaKs.Value,
                                   numericUpDownUcetCenaKs.Value, numericUpDownUcetCena.Value, textBoxUcet.Text,

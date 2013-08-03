@@ -142,6 +142,66 @@ namespace Vydejna
             return prepravka;
         }
 
+        private void PracovniciKarta_Activated(object sender, EventArgs e)
+        {
+            textBoxJmeno.Focus();
+        }
+
+        private void buttonOK_Click(object sender, EventArgs e)
+        {
+            // stisknuti tlacitka OK
+            if (textBoxOsCislo.Text.Trim() == "")
+            {
+                MessageBox.Show("Položka Osobní číslo není vyplněna.");
+            }
+            else
+            {
+
+                if (state == uKartaState.add)
+                {
+                    if (myDB.tableOsobyItemExist(textBoxOsCislo.Text.Trim()))
+                    {
+                        MessageBox.Show("Pracovník s tímto osobním číslem již existuje.");
+                    }
+                    else
+                    {
+                        buttonOK.DialogResult = DialogResult.OK;
+                        this.DialogResult = DialogResult.OK;
+                        Close();
+                    }
+                }
+                else
+                {
+
+                    if (state == uKartaState.edit)
+                    {
+                        if (myDB.tableOsobyItemExist(textBoxOsCislo.Text.Trim()))
+                        {
+                            buttonOK.DialogResult = DialogResult.OK;
+                            this.DialogResult = DialogResult.OK;
+                            Close();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Pracovník s tímto osobním číslem již neexistuje.");
+                        }
+
+
+                    }
+
+
+                }
+
+
+
+
+
+            }
+
+
+
+        }
+
 
     }
 }

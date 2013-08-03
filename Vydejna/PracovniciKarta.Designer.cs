@@ -321,6 +321,7 @@
             this.buttonOK.TabIndex = 28;
             this.buttonOK.Text = "Budiž";
             this.buttonOK.UseVisualStyleBackColor = true;
+            this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
             // 
             // PracovniciKarta
             // 
@@ -358,6 +359,7 @@
             this.Controls.Add(this.label1);
             this.Name = "PracovniciKarta";
             this.Text = "PracovniciKarta";
+            this.Activated += new System.EventHandler(this.PracovniciKarta_Activated);
             this.ResumeLayout(false);
             this.PerformLayout();
 

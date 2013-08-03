@@ -240,6 +240,12 @@ namespace Vydejna
           return  tableItemExist("select count(*) as countJK from naradi where jk = ?", jk);
         }
 
+        public virtual Boolean tableOsobyItemExist(string oc)
+        {
+            return tableItemExist("select count(*) as countOC from osoby where oscislo = ?", oc);
+        }
+
+
 
         public Boolean tableItemExist(string DBSelect, string jk)
         {
