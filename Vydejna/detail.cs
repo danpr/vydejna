@@ -171,6 +171,7 @@ namespace Vydejna
                 {
 
                     PracovniciKarta.messager mesenger = pracKarta.getMesseger();
+                    Boolean stav = myDataBase.addNewLineOsoby(mesenger.prijmeni, mesenger.jmeno, mesenger.ulice, mesenger.mesto, mesenger.psc, mesenger.telHome, mesenger.oscislo, mesenger.oddeleni, mesenger.cisZnamky, mesenger.pracoviste, mesenger.ucetStav, mesenger.rozmer, mesenger.ucet, mesenger.ucetCenaKs, new DateTime(0));
 
 
                 }

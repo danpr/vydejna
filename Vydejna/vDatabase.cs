@@ -183,6 +183,17 @@ namespace Vydejna
         }
 
 
+
+        public virtual Int32 addNewLineOsoby(string DBprijmeni, string DBjmeno, string DBulice, string DBmesto,
+                                         string DBpsc, decimal DBtelHome, string DBosCislo, long DBcisZnamky,
+                                         decimal DBoddeleni, long DBpracoviste, long DBtelZam,
+                                         string DBpoznamka)
+        {
+            return -1;
+        }
+
+
+
         public virtual DataTable loadDataTable(string DBSelect)
         {
             return null;
@@ -247,17 +258,17 @@ namespace Vydejna
 
 
 
-        public Boolean tableItemExist(string DBSelect, string jk)
+        public Boolean tableItemExist(string DBSelect, string item)
         {
 
-           Int64 jkRows =  countOfRows(DBSelect, jk);
-           if (jkRows == -1)
+           Int64 itemRows =  countOfRows(DBSelect, item);
+           if (itemRows == -1)
            {
                return false;  // chyba
            }
            else
            {
-               if (jkRows == 0)
+               if (itemRows == 0)
                {
                    return false; // nenalezeno
                 }
