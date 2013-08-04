@@ -50,7 +50,7 @@
             this.textBoxOsCislo = new System.Windows.Forms.TextBox();
             this.textBoxStredisko = new System.Windows.Forms.TextBox();
             this.textBoxCisZnamky = new System.Windows.Forms.TextBox();
-            this.textBoxProvoz = new System.Windows.Forms.TextBox();
+            this.textBoxOddeleni = new System.Windows.Forms.TextBox();
             this.textBoxPracoviste = new System.Windows.Forms.TextBox();
             this.textBoxTelZamest = new System.Windows.Forms.TextBox();
             this.textBoxPoznamka = new System.Windows.Forms.TextBox();
@@ -257,14 +257,14 @@
             this.textBoxCisZnamky.Size = new System.Drawing.Size(83, 20);
             this.textBoxCisZnamky.TabIndex = 21;
             // 
-            // textBoxProvoz
+            // textBoxOddeleni
             // 
-            this.textBoxProvoz.Location = new System.Drawing.Point(78, 250);
-            this.textBoxProvoz.MaxLength = 20;
-            this.textBoxProvoz.Name = "textBoxProvoz";
-            this.textBoxProvoz.ReadOnly = true;
-            this.textBoxProvoz.Size = new System.Drawing.Size(179, 20);
-            this.textBoxProvoz.TabIndex = 22;
+            this.textBoxOddeleni.Location = new System.Drawing.Point(78, 250);
+            this.textBoxOddeleni.MaxLength = 20;
+            this.textBoxOddeleni.Name = "textBoxOddeleni";
+            this.textBoxOddeleni.ReadOnly = true;
+            this.textBoxOddeleni.Size = new System.Drawing.Size(179, 20);
+            this.textBoxOddeleni.TabIndex = 22;
             // 
             // textBoxPracoviste
             // 
@@ -334,7 +334,7 @@
             this.Controls.Add(this.textBoxPoznamka);
             this.Controls.Add(this.textBoxTelZamest);
             this.Controls.Add(this.textBoxPracoviste);
-            this.Controls.Add(this.textBoxProvoz);
+            this.Controls.Add(this.textBoxOddeleni);
             this.Controls.Add(this.textBoxCisZnamky);
             this.Controls.Add(this.textBoxStredisko);
             this.Controls.Add(this.textBoxOsCislo);
@@ -389,7 +389,7 @@
         private System.Windows.Forms.TextBox textBoxOsCislo;
         private System.Windows.Forms.TextBox textBoxStredisko;
         private System.Windows.Forms.TextBox textBoxCisZnamky;
-        private System.Windows.Forms.TextBox textBoxProvoz;
+        private System.Windows.Forms.TextBox textBoxOddeleni;
         private System.Windows.Forms.TextBox textBoxPracoviste;
         private System.Windows.Forms.TextBox textBoxTelZamest;
         private System.Windows.Forms.TextBox textBoxPoznamka;

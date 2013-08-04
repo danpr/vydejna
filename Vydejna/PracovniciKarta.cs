@@ -102,7 +102,7 @@ namespace Vydejna
 
             textBoxCisZnamky.Text = Convert.ToString(DBRow["cisznamky"]);
 
-            textBoxProvoz.Text = Convert.ToString(DBRow["odeleni"]);
+            textBoxOddeleni.Text = Convert.ToString(DBRow["odeleni"]);
             textBoxPracoviste.Text = Convert.ToString(DBRow["pracoviste"]);
             textBoxTelZamest.Text = Convert.ToString(DBRow["telzam"]);
             textBoxPoznamka.Text = Convert.ToString(DBRow["poznamka"]);
@@ -126,7 +126,7 @@ namespace Vydejna
             textBoxOsCislo.ReadOnly = false;
             textBoxStredisko.ReadOnly = false;
             textBoxCisZnamky.ReadOnly = false;
-            textBoxProvoz.ReadOnly = false;
+            textBoxOddeleni.ReadOnly = false;
             textBoxPracoviste.ReadOnly = false;
             textBoxTelZamest.ReadOnly = false;
             textBoxPoznamka.ReadOnly = false;
@@ -144,7 +144,7 @@ namespace Vydejna
 
         private void PracovniciKarta_Activated(object sender, EventArgs e)
         {
-            textBoxJmeno.Focus();
+            textBoxPrijmeni.Focus();
         }
 
         private void buttonOK_Click(object sender, EventArgs e)

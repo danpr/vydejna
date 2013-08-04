@@ -643,7 +643,7 @@ namespace Vydejna
 
         public override void addLineOsoby(string DBprijmeni, string DBjmeno, string DBulice, string DBmesto,
                                          string DBpsc, string DBtelHome, string DBosCislo, string DBodeleni, string DBtelZam,
-                                         string DBstredisko, string DBpusSoub, string DBpracoviste, string DBcisZnamky,
+                                         string DBstredisko, string DBpujSoub, string DBpracoviste, string DBcisZnamky,
                                          string DBPoznamka)
         {
 
@@ -679,7 +679,7 @@ namespace Vydejna
                 OdbcParameter p10 = new OdbcParameter("p10", OdbcType.NChar);
                 p10.Value = DBstredisko;
                 OdbcParameter p11 = new OdbcParameter("p11", OdbcType.NChar);
-                p11.Value = DBpusSoub;
+                p11.Value = DBpujSoub;
                 OdbcParameter p12 = new OdbcParameter("p12", OdbcType.NChar);
                 p12.Value = DBpracoviste;
                 OdbcParameter p13 = new OdbcParameter("p13", OdbcType.NChar);

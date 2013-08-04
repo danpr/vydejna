@@ -44,6 +44,26 @@ using System.Windows.Forms;
 // kodd       DBkodd    KD
 
 
+// Tabulka osoby
+// tabulka    promenna      prehled      add/edit okno
+//
+// jmeno      DBjmeno       Jmeno        TextBoxJmeno
+// prijmeni   DBprijmeni    Prijmeni     TextBoxJmeno
+// ulice      DBulice       Ulice        TextBoxUlice
+// mesto      DBmesto       Mesto        TextBoxMesto
+// psc        DBpsc         Psc          TextBoxPsc
+// telhome    DBtelHome     Tel. domu    TextBoxTelDomu
+// oscislo    DBosCislo     Osobni cislo TextBoxOsCislo
+// odeleni    DBodeleni     Provoz       TextBoxOddeleni
+// telzam     DBtelzam      Tel. zamest. TextBoxTelZamest
+// stredisko  DBstredisko   Stredisko    TextBoxStredisko
+// pujsoub    DBpujSoub
+// pracoviste DBpracoviste  Pracoviste   TextBoxPracoviste
+// cisznamky  DBcisZnamky   CisloZnamky  TextBoxCisZnamky
+// poznamka   DBpoznamka    Poznamky     TextBoxPoznamka
+
+
+
 namespace Vydejna
 {
     enum kodDB { dbNone = -1, dbSQLite, dbPostgresODBC, dbInformixODBC };
@@ -185,8 +205,8 @@ namespace Vydejna
 
 
         public virtual Int32 addNewLineOsoby(string DBprijmeni, string DBjmeno, string DBulice, string DBmesto,
-                                         string DBpsc, decimal DBtelHome, string DBosCislo, long DBcisZnamky,
-                                         decimal DBoddeleni, long DBpracoviste, long DBtelZam,
+                                         string DBpsc, string DBtelHome, string DBosCislo, string DBstredisko,
+                                         string DBcisZnamky, string DBoddeleni, string DBpracoviste, string DBtelZam,
                                          string DBpoznamka)
         {
             return -1;

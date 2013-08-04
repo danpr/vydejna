@@ -658,7 +658,7 @@ namespace Vydejna
 
         public override void addLineOsoby(string DBprijmeni, string DBjmeno, string DBulice, string DBmesto,
                                          string DBpsc, string DBtelHome, string DBosCislo, string DBodeleni, string DBtelZam,
-                                         string DBstredisko, string DBpusSoub, string DBpracoviste, string DBcisZnamky,
+                                         string DBstredisko, string DBpujSoub, string DBpracoviste, string DBcisZnamky,
                                          string DBPoznamka)
         {
 
@@ -694,7 +694,7 @@ namespace Vydejna
                 SQLiteParameter p10 = new SQLiteParameter("p10", DbType.String);
                 p10.Value = DBstredisko;
                 SQLiteParameter p11 = new SQLiteParameter("p11", DbType.String);
-                p11.Value = DBpusSoub;
+                p11.Value = DBpujSoub;
                 SQLiteParameter p12 = new SQLiteParameter("p12", DbType.String);
                 p12.Value = DBpracoviste;
                 SQLiteParameter p13 = new SQLiteParameter("p13", DbType.String);
