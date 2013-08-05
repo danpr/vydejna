@@ -204,7 +204,7 @@ namespace Vydejna
                     return maxporadi;
 
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     // doslo k chybe
                     if (transaction != null)

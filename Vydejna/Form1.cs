@@ -293,7 +293,7 @@ namespace Vydejna
                case (int)kodDB.dbSQLite:
                  string pathDbName =  nastaveniDB.umistemiDB + nastaveniDB.nameDB;
                  return new vSQLite (pathDbName,"","","","");
-                 break;
+//                 break;
                
                case (int)kodDB.dbPostgresODBC:
                  if (useUserPriv)
@@ -308,11 +308,11 @@ namespace Vydejna
 
                  }
 
-                 break;
+//                 break;
 
                 default:
                    return null;
-                 break; 
+//                 break; 
 
 
             }

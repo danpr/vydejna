@@ -1,3 +1,6 @@
+Vydejna/obj/x86/Debug/*.cache
+Vydejna/obj/x86/Debug/*.tlog
+
 #OS junk files
 [Tt]humbs.db
 *.DS_Store
@@ -28,8 +31,10 @@ ipch/
 obj/
 [Bb]in
 [Dd]ebug*/
+[Oo]bj*/
 [Rr]elease*/
 Ankh.NoLoad
+
 
 #InstallShield
 [Ss]ingle[Ii]mage/
