@@ -291,7 +291,8 @@ namespace Vydejna
             switch (nastaveniDB.codeDB)
             {
                case (int)kodDB.dbSQLite:
-                 string pathDbName =  nastaveniDB.umistemiDB + nastaveniDB.nameDB;
+                 string pathDbName =  nastaveniDB.umistemiDB +"\\"+ nastaveniDB.nameDB;
+
                  return new vSQLite (pathDbName,"","","","");
 //                 break;
                
