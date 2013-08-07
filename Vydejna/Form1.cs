@@ -736,9 +736,7 @@ namespace Vydejna
                             dataGridView1.CurrentCell = dataGridView1.Rows[counter].Cells[1];
                             dataGridView1.Rows[counter].Selected = true;
 
-
                         }
-                        
                     }
 
                     //("SELECT poradi, kodd, nazev, jk, ucetstav, analucet, normacsn, normadin, vyrobce, rozmer, fyzstav, cena, celkcena, minimum, poznamka, ucetkscen from naradi ORDER BY nazev"); 
