@@ -172,6 +172,16 @@ namespace Vydejna
 
                     PracovniciKarta.messager mesenger = pracKarta.getMesseger();
                     Int32 stav = myDataBase.addNewLineOsoby(mesenger.prijmeni, mesenger.jmeno, mesenger.ulice, mesenger.mesto, mesenger.psc, mesenger.telHome, mesenger.oscislo, mesenger.stredisko, mesenger.cisZnamky, mesenger.oddeleni, mesenger.pracoviste, mesenger.telZam, mesenger.poznamka);
+                    if (stav != -1)
+                    {
+                        (myDataGridView.DataSource as DataTable).Rows.Add(mesenger.prijmeni, mesenger.jmeno, mesenger.oscislo, mesenger.oddeleni, mesenger.stredisko, mesenger.pracoviste, mesenger.cisZnamky, mesenger.ulice,mesenger.psc, mesenger.mesto, mesenger.telHome, mesenger.telZam, mesenger.poznamka);
+                        int counter = myDataGridView.Rows.Count - 1;
+
+                        myDataGridView.FirstDisplayedScrollingRowIndex = myDataGridView.Rows[counter].Index;
+                        myDataGridView.Refresh();
+                        myDataGridView.CurrentCell = myDataGridView.Rows[counter].Cells[1];
+                        myDataGridView.Rows[counter].Selected = true;
+                    }
 
 
                 }
