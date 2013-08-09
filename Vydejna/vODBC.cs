@@ -787,6 +787,17 @@ namespace Vydejna
 
 
 
+
+
+                // pridani nove polozky do tabulky osoby
+        public override Int32 addNewLineOsoby(string DBprijmeni, string DBjmeno, string DBulice, string DBmesto,
+                                         string DBpsc, string DBtelHome, string DBosCislo, string DBstredisko,
+                                         string DBcisZnamky, string DBoddeleni, string DBpracoviste, string DBtelZam,
+                                         string DBpoznamka)
+        {
+            return -1;
+        }
+
         public override DataTable loadDataTable(string DBSelect)
         {
             if (DBIsOpened())
