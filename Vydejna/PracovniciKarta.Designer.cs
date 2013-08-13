@@ -54,7 +54,6 @@
             this.textBoxPracoviste = new System.Windows.Forms.TextBox();
             this.textBoxTelZamest = new System.Windows.Forms.TextBox();
             this.textBoxPoznamka = new System.Windows.Forms.TextBox();
-            this.checkBoxEditOk = new System.Windows.Forms.CheckBox();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonOK = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -293,20 +292,10 @@
             this.textBoxPoznamka.Size = new System.Drawing.Size(514, 20);
             this.textBoxPoznamka.TabIndex = 25;
             // 
-            // checkBoxEditOk
-            // 
-            this.checkBoxEditOk.AutoSize = true;
-            this.checkBoxEditOk.Location = new System.Drawing.Point(78, 354);
-            this.checkBoxEditOk.Name = "checkBoxEditOk";
-            this.checkBoxEditOk.Size = new System.Drawing.Size(89, 17);
-            this.checkBoxEditOk.TabIndex = 26;
-            this.checkBoxEditOk.Text = "Opravit údaje";
-            this.checkBoxEditOk.UseVisualStyleBackColor = true;
-            // 
             // buttonCancel
             // 
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(19, 399);
+            this.buttonCancel.Location = new System.Drawing.Point(12, 370);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 27;
@@ -315,7 +304,7 @@
             // 
             // buttonOK
             // 
-            this.buttonOK.Location = new System.Drawing.Point(518, 399);
+            this.buttonOK.Location = new System.Drawing.Point(518, 370);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
             this.buttonOK.TabIndex = 28;
@@ -327,10 +316,9 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(605, 429);
+            this.ClientSize = new System.Drawing.Size(605, 400);
             this.Controls.Add(this.buttonOK);
             this.Controls.Add(this.buttonCancel);
-            this.Controls.Add(this.checkBoxEditOk);
             this.Controls.Add(this.textBoxPoznamka);
             this.Controls.Add(this.textBoxTelZamest);
             this.Controls.Add(this.textBoxPracoviste);
@@ -393,7 +381,6 @@
         private System.Windows.Forms.TextBox textBoxPracoviste;
         private System.Windows.Forms.TextBox textBoxTelZamest;
         private System.Windows.Forms.TextBox textBoxPoznamka;
-        private System.Windows.Forms.CheckBox checkBoxEditOk;
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.Button buttonOK;
     }
