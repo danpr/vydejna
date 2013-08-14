@@ -1056,8 +1056,8 @@ namespace Vydejna
                         (transaction as SQLiteTransaction).Commit();
                     }
 
-                    if (!osCisloExist) return -1;
-                    else return 0;
+                    if (!osCisloExist) return 0; //os cislo existuje nezapisujeme
+                    else return -1;
 
                 }  //try
                 catch (Exception)

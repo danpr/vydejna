@@ -5,7 +5,12 @@ Obsahuje:  Adresar Vydejna
           //  adresare bin obj  Properties  a vlstni soubory
 
           Soubor Vydejna pro Microsoft Visual studio
-          soubor sqlite-netFx40-setup-bundle
+          soubor sqlite-netFx40-setup-bundle 
+                 podpora pro databazi sqlite je potreba naistalovat vse 
+
+          Soubor VFPOLEDBSetup instaluje VFPOLEDB.1 pro pristup k DBF souborum
+                  po instalaci je doporucen restart systemu
+
    
 
 -------------------------------
