@@ -1073,6 +1073,40 @@ namespace Vydejna
             else return -1;
         }
 
+        public virtual Boolean editNewLineNaradi(Int32 poradi, string DBnazev, string DBJK, string DBnormacsn, string DBnormadin,
+                                         string DBvyrobce, decimal DBcena, string DBpoznamka, long DBminstav,
+                                         decimal DBcelkcena, long DBucetstav, long DBfyzstav,
+                                         string DBrozmer, string DBanalucet, decimal DBucetkscen, DateTime DBkdatum)
+        {
+            string commandString2 = "UPDATE naradi set nazev = ?, jk = ?, normacsn = ?, normadin = ?, vyrobce = ?, cena = ?, poznamka = ?, minimum = ?, celkcena = ?,  ucetstav = ?, fyzstav = ?, rozmer = ?, analucet = ?, tdate = ?, stredisko = ?, kodzmeny = ?, druh = ?, odpis = ?, zavod = ?, ucetkscen = ?, test = ?, pomroz = ?, kdatum = ?, kodd =? " +
+                                     "where  poradi = ?";
+
+            SQLiteTransaction transaction = null;
+
+            if (DBIsOpened())
+            {
+                try
+                {
+                }
+                catch (Exception)
+                {
+                    // doslo k chybe
+                    if (transaction != null)
+                    {
+                        (transaction as SQLiteTransaction).Rollback();
+                    }
+                    return false;
+                }
+
+
+
+            }
+
+            return true;
+        }
+
+
+
 
     }
 }

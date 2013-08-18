@@ -30,8 +30,9 @@ namespace Vydejna
             public Int64 minStav;
             public Int64 ucetStav;
             public string poznamka;
+            public Int32 poradi;
 
-            public messager(string nazev, string jk, string csn, string din, string rozmer, string vyrobce, decimal cenaKs,
+            public messager(Int32 poradi, string nazev, string jk, string csn, string din, string rozmer, string vyrobce, decimal cenaKs,
                             decimal ucetCenaKs, decimal ucetCena, string ucet, Int64 minStav, Int64 ucetStav, string poznamka)
             {
                 this.nazev = nazev;
@@ -47,6 +48,7 @@ namespace Vydejna
                 this.minStav = minStav;
                 this.ucetStav = ucetStav;
                 this.poznamka = poznamka;
+                this.poradi = poradi;
             }
         }
 
@@ -248,7 +250,7 @@ namespace Vydejna
 
         public messager getMesseger()
         {
-            messager prepravka = new messager(textBoxNazev.Text, textBoxJK.Text, textBoxCSN.Text, textBoxDIN.Text,
+            messager prepravka = new messager(poradi, textBoxNazev.Text, textBoxJK.Text, textBoxCSN.Text, textBoxDIN.Text,
                                   textBoxRozmer.Text, textBoxVyrobce.Text, numericUpDownCenaKs.Value,
                                   numericUpDownUcetCenaKs.Value, numericUpDownUcetCena.Value, textBoxUcet.Text,
                                   Convert.ToInt64( numericUpDownMinStav.Value), Convert.ToInt64(numericUpDownUcetStav.Value), textBoxPoznamka.Text);
