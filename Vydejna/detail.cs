@@ -22,7 +22,7 @@ namespace Vydejna
             MessageBox.Show("Není implementováno.");
         }
 
-        public virtual void opravKartu(Hashtable DBRow, vDatabase myDataBase)
+        public virtual void opravKartu(Hashtable DBRow, vDatabase myDataBase, DataGridView myDataGridView)
         {
             MessageBox.Show("Není implementováno.");
         }
@@ -81,7 +81,7 @@ namespace Vydejna
         }
 
 
-        public override void opravKartu(Hashtable DBRow, vDatabase myDataBase)
+        public override void opravKartu(Hashtable DBRow, vDatabase myDataBase, DataGridView myDataGridView)
         {
             if ((myDataBase != null) && (myDataBase.DBIsOpened()))
             {
@@ -90,6 +90,17 @@ namespace Vydejna
                 {
                     SkladovaKarta.messager mesenger = sklKarta.getMesseger();
                     Boolean updateIsOk = myDataBase.editNewLineNaradi(mesenger.poradi ,mesenger.nazev, mesenger.jk, mesenger.csn, mesenger.din, mesenger.vyrobce, mesenger.cenaKs, mesenger.poznamka, mesenger.minStav, mesenger.ucetCena, mesenger.ucetStav, mesenger.ucetStav, mesenger.rozmer, mesenger.ucet, mesenger.ucetCenaKs, new DateTime(0));
+                    if (updateIsOk)
+                    {
+//                       (myDataGridView.DataSource as DataTable).Rows.Add(poradi, "", mesenger.nazev, mesenger.jk, mesenger.ucetStav, mesenger.ucet, mesenger.csn, mesenger.din, mesenger.vyrobce, mesenger.rozmer, 0, mesenger.cenaKs, mesenger.ucetCena, mesenger.minStav, mesenger.poznamka, mesenger.ucetCenaKs);
+
+                        //this.dataGridView1.Rows[1].Cells[0].Value = "new value";
+
+                        //(myDataGridView.DataSource as DataTable).Rows[2, 1].Value = mesenger.nazev; // sloupec, radka
+                        myDataGridView.Refresh();
+
+
+                    }
                 }
             }
         }
@@ -110,7 +121,7 @@ namespace Vydejna
             }
         }
 
-        public override void opravKartu(Hashtable DBRow, vDatabase myDataBase)
+        public override void opravKartu(Hashtable DBRow, vDatabase myDataBase, DataGridView myDataGridView)
         {
             if ((myDataBase != null) && (myDataBase.DBIsOpened()))
             {
@@ -128,7 +139,7 @@ namespace Vydejna
             sklKarta.ShowDialog();
         }
 
-        public override void opravKartu(Hashtable DBRow, vDatabase myDataBase)
+        public override void opravKartu(Hashtable DBRow, vDatabase myDataBase, DataGridView myDataGridView)
         {
             if ((myDataBase != null) && (myDataBase.DBIsOpened()))
             {
@@ -190,7 +201,7 @@ namespace Vydejna
         }
 
 
-        public override void opravKartu(Hashtable DBRow, vDatabase myDataBase)
+        public override void opravKartu(Hashtable DBRow, vDatabase myDataBase, DataGridView myDataGridView)
         {
             if ((myDataBase != null) && (myDataBase.DBIsOpened()))
             {
