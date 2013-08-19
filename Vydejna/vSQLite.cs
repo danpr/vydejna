@@ -1087,6 +1087,94 @@ namespace Vydejna
             {
                 try
                 {
+                    transaction = (myDBConn as SQLiteConnection).BeginTransaction(System.Data.IsolationLevel.ReadCommitted);
+
+                    SQLiteCommand cmd = new SQLiteCommand(commandString2, myDBConn as SQLiteConnection);
+
+                    SQLiteParameter p1 = new SQLiteParameter("p1", DbType.String);
+                    p1.Value = DBnazev;
+                    SQLiteParameter p2 = new SQLiteParameter("p2", DbType.String);
+                    p2.Value = DBJK;
+                    SQLiteParameter p3 = new SQLiteParameter("p3", DbType.String);
+                    p3.Value = DBnormacsn;
+                    SQLiteParameter p4 = new SQLiteParameter("p4", DbType.String);
+                    p4.Value = DBnormadin;
+                    SQLiteParameter p5 = new SQLiteParameter("p5", DbType.String);
+                    p5.Value = DBvyrobce;
+                    SQLiteParameter p6 = new SQLiteParameter("p6", DbType.Double);
+                    p6.Value = DBcena;
+                    SQLiteParameter p7 = new SQLiteParameter("p7", DbType.String);
+                    p7.Value = DBpoznamka;
+                    SQLiteParameter p8 = new SQLiteParameter("p8", DbType.Int64);
+                    p8.Value = DBminstav;
+                    SQLiteParameter p9 = new SQLiteParameter("p9", DbType.Double);
+                    p9.Value = DBcelkcena;
+                    SQLiteParameter p15 = new SQLiteParameter("p15", DbType.Int64);
+                    p15.Value = DBucetstav;
+                    SQLiteParameter p16 = new SQLiteParameter("p16", DbType.Int64);
+                    p16.Value = DBfyzstav;
+                    SQLiteParameter p17 = new SQLiteParameter("p17", DbType.String);
+                    p17.Value = DBrozmer;
+                    SQLiteParameter p18 = new SQLiteParameter("p18", DbType.String);
+                    p18.Value = DBanalucet;
+                    SQLiteParameter p19 = new SQLiteParameter("p19", DbType.Date);
+                    p19.Value = new DateTime(0);
+                    SQLiteParameter p20 = new SQLiteParameter("p20", DbType.String);
+                    p20.Value = "";
+                    SQLiteParameter p21 = new SQLiteParameter("p21", DbType.String);
+                    p21.Value = "";
+                    SQLiteParameter p22 = new SQLiteParameter("p22", DbType.String);
+                    p22.Value = "";
+                    SQLiteParameter p23 = new SQLiteParameter("p23", DbType.String);
+                    p23.Value = "";
+                    SQLiteParameter p24 = new SQLiteParameter("p24", DbType.String);
+                    p24.Value = "";
+                    SQLiteParameter p25 = new SQLiteParameter("p25", DbType.Double);
+                    p25.Value = DBucetkscen;
+                    SQLiteParameter p26 = new SQLiteParameter("p26", DbType.String);
+                    p26.Value = "";
+                    SQLiteParameter p27 = new SQLiteParameter("p27", DbType.String);
+                    p27.Value = "";
+                    SQLiteParameter p28 = new SQLiteParameter("p28", DbType.Date);
+                    p28.Value = DBkdatum;
+                    SQLiteParameter p29 = new SQLiteParameter("p29", DbType.String);
+                    p29.Value = "";
+                    SQLiteParameter p30 = new SQLiteParameter("p30", DbType.String);
+                    p30.Value = poradi;
+
+
+                    cmd.Parameters.Add(p1);
+                    cmd.Parameters.Add(p2);
+                    cmd.Parameters.Add(p3);
+                    cmd.Parameters.Add(p4);
+                    cmd.Parameters.Add(p5);
+                    cmd.Parameters.Add(p6);
+                    cmd.Parameters.Add(p7);
+                    cmd.Parameters.Add(p8);
+                    cmd.Parameters.Add(p9);
+                    cmd.Parameters.Add(p15);
+                    cmd.Parameters.Add(p16);
+                    cmd.Parameters.Add(p17);
+                    cmd.Parameters.Add(p18);
+                    cmd.Parameters.Add(p19);
+                    cmd.Parameters.Add(p20);
+                    cmd.Parameters.Add(p21);
+                    cmd.Parameters.Add(p22);
+                    cmd.Parameters.Add(p23);
+                    cmd.Parameters.Add(p24);
+                    cmd.Parameters.Add(p25);
+                    cmd.Parameters.Add(p26);
+                    cmd.Parameters.Add(p27);
+                    cmd.Parameters.Add(p28);
+                    cmd.Parameters.Add(p29);
+                    cmd.Parameters.Add(p30);
+                    cmd.ExecuteNonQuery();
+                    if (transaction != null)
+                    {
+                        (transaction as SQLiteTransaction).Commit();
+                    }
+                    return true;
+
                 }
                 catch (Exception)
                 {
@@ -1097,8 +1185,6 @@ namespace Vydejna
                     }
                     return false;
                 }
-
-
 
             }
 
