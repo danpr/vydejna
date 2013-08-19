@@ -795,7 +795,7 @@ namespace Vydejna
                     }
                     DBRow.Add(dataGridView1.Columns[i].Name,myRow.Cells[i].Value);
                 }
-                karta.opravKartu(DBRow, myDB);
+                karta.opravKartu(DBRow, myDB, dataGridView1);
             }
 
         }
