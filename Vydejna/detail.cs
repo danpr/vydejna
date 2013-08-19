@@ -93,7 +93,7 @@ namespace Vydejna
                     if (updateIsOk)
                     {
 //                       (myDataGridView.DataSource as DataTable).Rows.Add(poradi, "", mesenger.nazev, mesenger.jk, mesenger.ucetStav, mesenger.ucet, mesenger.csn, mesenger.din, mesenger.vyrobce, mesenger.rozmer, 0, mesenger.cenaKs, mesenger.ucetCena, mesenger.minStav, mesenger.poznamka, mesenger.ucetCenaKs);
-
+                        //dt.Rows[1].ItemArray[3] = "VALUE";
                         //this.dataGridView1.Rows[1].Cells[0].Value = "new value";
 
                         //(myDataGridView.DataSource as DataTable).Rows[2, 1].Value = mesenger.nazev; // sloupec, radka
