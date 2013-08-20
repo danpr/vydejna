@@ -22,7 +22,7 @@ namespace Vydejna
             MessageBox.Show("Není implementováno.");
         }
 
-        public virtual void opravKartu(Hashtable DBRow, vDatabase myDataBase, DataGridView myDataGridView)
+        public virtual void opravKartu(Hashtable DBRow, vDatabase myDataBase, DataGridView myDataGridView, Int32 rowIndex)
         {
             MessageBox.Show("Není implementováno.");
         }
@@ -71,6 +71,7 @@ namespace Vydejna
 
                        myDataGridView.FirstDisplayedScrollingRowIndex = myDataGridView.Rows[counter].Index;
                        myDataGridView.Refresh();
+
                        myDataGridView.CurrentCell = myDataGridView.Rows[counter].Cells[1];
                        myDataGridView.Rows[counter].Selected = true;
 
@@ -81,7 +82,7 @@ namespace Vydejna
         }
 
 
-        public override void opravKartu(Hashtable DBRow, vDatabase myDataBase, DataGridView myDataGridView)
+        public override void opravKartu(Hashtable DBRow, vDatabase myDataBase, DataGridView myDataGridView, Int32 rowIndex)
         {
             if ((myDataBase != null) && (myDataBase.DBIsOpened()))
             {
@@ -92,10 +93,17 @@ namespace Vydejna
                     Boolean updateIsOk = myDataBase.editNewLineNaradi(mesenger.poradi ,mesenger.nazev, mesenger.jk, mesenger.csn, mesenger.din, mesenger.vyrobce, mesenger.cenaKs, mesenger.poznamka, mesenger.minStav, mesenger.ucetCena, mesenger.ucetStav, mesenger.ucetStav, mesenger.rozmer, mesenger.ucet, mesenger.ucetCenaKs, new DateTime(0));
                     if (updateIsOk)
                     {
-                        (myDataGridView.DataSource as DataTable).Rows[1].ItemArray[2] = mesenger.nazev;
-                        (myDataGridView.DataSource as DataTable).Rows[1].ItemArray[3] = mesenger.jk;
+
+                       
+                        (myDataGridView.DataSource as DataTable).Rows[rowIndex].SetField(2, mesenger.nazev);
+                        (myDataGridView.DataSource as DataTable).Rows[rowIndex].SetField(3, mesenger.jk);
+                        (myDataGridView.DataSource as DataTable).Rows[rowIndex].SetField(6, mesenger.csn);
+                        (myDataGridView.DataSource as DataTable).Rows[rowIndex].SetField(7, mesenger.din);
+                        (myDataGridView.DataSource as DataTable).Rows[rowIndex].SetField(8, mesenger.vyrobce);
+                        
 
 //                       (myDataGridView.DataSource as DataTable).Rows.Add(poradi, "", mesenger.nazev, mesenger.jk, mesenger.ucetStav, mesenger.ucet, mesenger.csn, mesenger.din, mesenger.vyrobce, mesenger.rozmer, 0, mesenger.cenaKs, mesenger.ucetCena, mesenger.minStav, mesenger.poznamka, mesenger.ucetCenaKs);
+//                       (myDataGridView.DataSource as DataTable).Rows.Add(poradi, "", mesenger.ucetStav, mesenger.ucet,mesenger.rozmer, 0, mesenger.cenaKs, mesenger.ucetCena, mesenger.minStav, mesenger.poznamka, mesenger.ucetCenaKs);
                         //dt.Rows[1].ItemArray[3] = "VALUE";
                         //this.dataGridView1.Rows[1].Cells[0].Value = "new value";
 
@@ -124,7 +132,7 @@ namespace Vydejna
             }
         }
 
-        public override void opravKartu(Hashtable DBRow, vDatabase myDataBase, DataGridView myDataGridView)
+        public override void opravKartu(Hashtable DBRow, vDatabase myDataBase, DataGridView myDataGridView, Int32 rowIndex)
         {
             if ((myDataBase != null) && (myDataBase.DBIsOpened()))
             {
@@ -142,7 +150,7 @@ namespace Vydejna
             sklKarta.ShowDialog();
         }
 
-        public override void opravKartu(Hashtable DBRow, vDatabase myDataBase, DataGridView myDataGridView)
+        public override void opravKartu(Hashtable DBRow, vDatabase myDataBase, DataGridView myDataGridView, Int32 rowIndex)
         {
             if ((myDataBase != null) && (myDataBase.DBIsOpened()))
             {
@@ -204,7 +212,7 @@ namespace Vydejna
         }
 
 
-        public override void opravKartu(Hashtable DBRow, vDatabase myDataBase, DataGridView myDataGridView)
+        public override void opravKartu(Hashtable DBRow, vDatabase myDataBase, DataGridView myDataGridView, Int32 rowIndex)
         {
             if ((myDataBase != null) && (myDataBase.DBIsOpened()))
             {
