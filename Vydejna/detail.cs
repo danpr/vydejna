@@ -42,6 +42,26 @@ namespace Vydejna
     
     class detailSklad : detail  // karta naradi
     {
+
+        // DBRow        Sklad Karta             mesenger    
+        // poradi       poradi                  poradi
+        // kodd            --                    ---
+        // nazev        textBoxNazev.Text       nazev
+        // jk           textBoxJK               jk
+        // ucetstav     numericUpDownUcetStav   ucetStav
+        // analucet     textBoxUcet             ucet
+        // normacsn     textBoxCSN              csn
+        // normadin     textBoxDIN              din
+        // vyrobce      textBoxVyrobce          vyrobce
+        // rozmer       textBoxRozmer           rozmer
+        // fyzstav      fyzStav                 fyzStav
+        // cena         numericUpDownCenaKs     cenaKs
+        // celkcena     numericUpDownUcetCena   ucetCena
+        // minimum      numericUpDownMinStav    minStav
+        // poznamka     textBoxPoznamka         poznamka
+        // ucetkscen    numericUpDownUcetCenaKs ucetCenaKs
+         
+        
         public override void zobrazKartu(Hashtable DBRow, vDatabase myDataBase) 
             
         {
@@ -90,26 +110,37 @@ namespace Vydejna
                 if (sklKarta.ShowDialog() == DialogResult.OK)
                 {
                     SkladovaKarta.messager mesenger = sklKarta.getMesseger();
-                    Boolean updateIsOk = myDataBase.editNewLineNaradi(mesenger.poradi ,mesenger.nazev, mesenger.jk, mesenger.csn, mesenger.din, mesenger.vyrobce, mesenger.cenaKs, mesenger.poznamka, mesenger.minStav, mesenger.ucetCena, mesenger.ucetStav, mesenger.ucetStav, mesenger.rozmer, mesenger.ucet, mesenger.ucetCenaKs, new DateTime(0));
+                    Boolean updateIsOk = myDataBase.editNewLineNaradi(mesenger.poradi ,mesenger.nazev, mesenger.jk, mesenger.csn, mesenger.din, mesenger.vyrobce, mesenger.cenaKs, mesenger.poznamka, mesenger.minStav, mesenger.ucetCena, mesenger.ucetStav, mesenger.fyzStav, mesenger.rozmer, mesenger.ucet, mesenger.ucetCenaKs, new DateTime(0));
                     if (updateIsOk)
                     {
+                        // je potreba najit index v datove tabulce - po trideni neni schodny s indexem ve view
+                        Int32 dataRowIndex = -1;
+                        for (int x = 0; x < (myDataGridView.DataSource as DataTable).Rows.Count - 1; x++)
+                        {
+                            if (Convert.ToInt32((myDataGridView.DataSource as DataTable).Rows[x][0]) == mesenger.poradi)
+                            {
+                                dataRowIndex = x;
+                                break;
+                            }
 
-                       
-                        (myDataGridView.DataSource as DataTable).Rows[rowIndex].SetField(2, mesenger.nazev);
-                        (myDataGridView.DataSource as DataTable).Rows[rowIndex].SetField(3, mesenger.jk);
-                        (myDataGridView.DataSource as DataTable).Rows[rowIndex].SetField(6, mesenger.csn);
-                        (myDataGridView.DataSource as DataTable).Rows[rowIndex].SetField(7, mesenger.din);
-                        (myDataGridView.DataSource as DataTable).Rows[rowIndex].SetField(8, mesenger.vyrobce);
+                        }
+
+                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(2, mesenger.nazev);
+                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(3, mesenger.jk);
+
+                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(4, mesenger.ucetStav);
+                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(5, mesenger.ucet);
+
+                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(6, mesenger.csn);
+                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(7, mesenger.din);
+                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(8, mesenger.vyrobce);
+                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(9, mesenger.rozmer);
+                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(11, mesenger.cenaKs);
+                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(12, mesenger.ucetCena);
+                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(13, mesenger.minStav);
+                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(14, mesenger.poznamka);
                         
-
-//                       (myDataGridView.DataSource as DataTable).Rows.Add(poradi, "", mesenger.nazev, mesenger.jk, mesenger.ucetStav, mesenger.ucet, mesenger.csn, mesenger.din, mesenger.vyrobce, mesenger.rozmer, 0, mesenger.cenaKs, mesenger.ucetCena, mesenger.minStav, mesenger.poznamka, mesenger.ucetCenaKs);
-//                       (myDataGridView.DataSource as DataTable).Rows.Add(poradi, "", mesenger.ucetStav, mesenger.ucet,mesenger.rozmer, 0, mesenger.cenaKs, mesenger.ucetCena, mesenger.minStav, mesenger.poznamka, mesenger.ucetCenaKs);
-                        //dt.Rows[1].ItemArray[3] = "VALUE";
-                        //this.dataGridView1.Rows[1].Cells[0].Value = "new value";
-
-                        //(myDataGridView.DataSource as DataTable).Rows[2, 1].Value = mesenger.nazev; // sloupec, radka
                         myDataGridView.Refresh();
-
 
                     }
                 }
