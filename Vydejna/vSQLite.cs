@@ -1076,9 +1076,9 @@ namespace Vydejna
         public override Boolean editNewLineNaradi(Int32 poradi, string DBnazev, string DBJK, string DBnormacsn, string DBnormadin,
                                          string DBvyrobce, decimal DBcena, string DBpoznamka, long DBminstav,
                                          decimal DBcelkcena, long DBucetstav, long DBfyzstav,
-                                         string DBrozmer, string DBanalucet, decimal DBucetkscen, DateTime DBkdatum)
+                                         string DBrozmer, string DBanalucet, decimal DBucetkscen)
         {
-            string commandString2 = "UPDATE naradi set nazev = ?, jk = ?, normacsn = ?, normadin = ?, vyrobce = ?, cena = ?, poznamka = ?, minimum = ?, celkcena = ?,  ucetstav = ?, fyzstav = ?, rozmer = ?, analucet = ?, tdate = ?, stredisko = ?, kodzmeny = ?, druh = ?, odpis = ?, zavod = ?, ucetkscen = ?, test = ?, pomroz = ?, kdatum = ?, kodd =? " +
+            string commandString2 = "UPDATE naradi set nazev = ?, jk = ?, normacsn = ?, normadin = ?, vyrobce = ?, cena = ?, poznamka = ?, minimum = ?, celkcena = ?,  ucetstav = ?, fyzstav = ?, rozmer = ?, analucet = ?, ucetkscen = ? " +
                                      "where  poradi = ?";
 
             SQLiteTransaction transaction = null;
@@ -1117,28 +1117,8 @@ namespace Vydejna
                     p17.Value = DBrozmer;
                     SQLiteParameter p18 = new SQLiteParameter("p18", DbType.String);
                     p18.Value = DBanalucet;
-                    SQLiteParameter p19 = new SQLiteParameter("p19", DbType.Date);
-                    p19.Value = new DateTime(0);
-                    SQLiteParameter p20 = new SQLiteParameter("p20", DbType.String);
-                    p20.Value = "";
-                    SQLiteParameter p21 = new SQLiteParameter("p21", DbType.String);
-                    p21.Value = "";
-                    SQLiteParameter p22 = new SQLiteParameter("p22", DbType.String);
-                    p22.Value = "";
-                    SQLiteParameter p23 = new SQLiteParameter("p23", DbType.String);
-                    p23.Value = "";
-                    SQLiteParameter p24 = new SQLiteParameter("p24", DbType.String);
-                    p24.Value = "";
                     SQLiteParameter p25 = new SQLiteParameter("p25", DbType.Double);
                     p25.Value = DBucetkscen;
-                    SQLiteParameter p26 = new SQLiteParameter("p26", DbType.String);
-                    p26.Value = "";
-                    SQLiteParameter p27 = new SQLiteParameter("p27", DbType.String);
-                    p27.Value = "";
-                    SQLiteParameter p28 = new SQLiteParameter("p28", DbType.Date);
-                    p28.Value = DBkdatum;
-                    SQLiteParameter p29 = new SQLiteParameter("p29", DbType.String);
-                    p29.Value = "";
                     SQLiteParameter p30 = new SQLiteParameter("p30", DbType.String);
                     p30.Value = poradi;
 
@@ -1156,17 +1136,7 @@ namespace Vydejna
                     cmd.Parameters.Add(p16);
                     cmd.Parameters.Add(p17);
                     cmd.Parameters.Add(p18);
-                    cmd.Parameters.Add(p19);
-                    cmd.Parameters.Add(p20);
-                    cmd.Parameters.Add(p21);
-                    cmd.Parameters.Add(p22);
-                    cmd.Parameters.Add(p23);
-                    cmd.Parameters.Add(p24);
                     cmd.Parameters.Add(p25);
-                    cmd.Parameters.Add(p26);
-                    cmd.Parameters.Add(p27);
-                    cmd.Parameters.Add(p28);
-                    cmd.Parameters.Add(p29);
                     cmd.Parameters.Add(p30);
                     cmd.ExecuteNonQuery();
                     if (transaction != null)

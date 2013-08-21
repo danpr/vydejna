@@ -206,7 +206,7 @@ namespace Vydejna
         public virtual Boolean editNewLineNaradi(Int32 poradi, string DBnazev, string DBJK, string DBnormacsn, string DBnormadin,
                                          string DBvyrobce, decimal DBcena, string DBpoznamka, long DBminstav,
                                          decimal DBcelkcena, long DBucetstav, long DBfyzstav,
-                                         string DBrozmer, string DBanalucet, decimal DBucetkscen, DateTime DBkdatum)
+                                         string DBrozmer, string DBanalucet, decimal DBucetkscen)
         {
             return false;
         }
