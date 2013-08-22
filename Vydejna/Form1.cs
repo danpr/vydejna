@@ -788,9 +788,6 @@ namespace Vydejna
                //int index
                DataGridViewRow myRow = dataGridView1.SelectedRows[0];
 
-
-               Int32 rowIndex = dataGridView1.Rows.IndexOf(dataGridView1.SelectedRows[0]);
-               Int32 iii = (dataGridView1.DataSource as DataTable).Rows.IndexOf((dataGridView1.DataSource as DataTable).Rows[rowIndex]);
                for (int i = 0; i < dataGridView1.ColumnCount; i++)
                 {
                     if (DBRow.ContainsKey(dataGridView1.Columns[i].Name))
@@ -799,7 +796,7 @@ namespace Vydejna
                     }
                     DBRow.Add(dataGridView1.Columns[i].Name,myRow.Cells[i].Value);
                 }
-                karta.opravKartu(DBRow, myDB, dataGridView1, rowIndex);
+                karta.opravKartu(DBRow, myDB, dataGridView1);
             }
 
         }

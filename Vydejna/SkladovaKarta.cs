@@ -106,7 +106,7 @@ namespace Vydejna
             textBoxDIN.Text = Convert.ToString(DBRow["normadin"]);
             textBoxVyrobce.Text = Convert.ToString(DBRow["vyrobce"]);
             textBoxRozmer.Text = Convert.ToString(DBRow["rozmer"]);
-            fyzStav = Convert.ToInt32("fyzstav");
+            fyzStav = Convert.ToInt32(DBRow["fyzstav"]);
             cenaKs = Convert.ToDecimal(DBRow["cena"]);
             numericUpDownCenaKs.Value = Convert.ToDecimal(DBRow["cena"]);
             numericUpDownUcetCenaKs.Value = Convert.ToDecimal(DBRow["ucetkscen"]); 

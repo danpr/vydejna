@@ -22,7 +22,7 @@ namespace Vydejna
             MessageBox.Show("Není implementováno.");
         }
 
-        public virtual void opravKartu(Hashtable DBRow, vDatabase myDataBase, DataGridView myDataGridView, Int32 rowIndex)
+        public virtual void opravKartu(Hashtable DBRow, vDatabase myDataBase, DataGridView myDataGridView)
         {
             MessageBox.Show("Není implementováno.");
         }
@@ -102,7 +102,7 @@ namespace Vydejna
         }
 
 
-        public override void opravKartu(Hashtable DBRow, vDatabase myDataBase, DataGridView myDataGridView, Int32 rowIndex)
+        public override void opravKartu(Hashtable DBRow, vDatabase myDataBase, DataGridView myDataGridView)
         {
             if ((myDataBase != null) && (myDataBase.DBIsOpened()))
             {
@@ -163,7 +163,7 @@ namespace Vydejna
             }
         }
 
-        public override void opravKartu(Hashtable DBRow, vDatabase myDataBase, DataGridView myDataGridView, Int32 rowIndex)
+        public override void opravKartu(Hashtable DBRow, vDatabase myDataBase, DataGridView myDataGridView)
         {
             if ((myDataBase != null) && (myDataBase.DBIsOpened()))
             {
@@ -181,7 +181,7 @@ namespace Vydejna
             sklKarta.ShowDialog();
         }
 
-        public override void opravKartu(Hashtable DBRow, vDatabase myDataBase, DataGridView myDataGridView, Int32 rowIndex)
+        public override void opravKartu(Hashtable DBRow, vDatabase myDataBase, DataGridView myDataGridView)
         {
             if ((myDataBase != null) && (myDataBase.DBIsOpened()))
             {
@@ -243,7 +243,7 @@ namespace Vydejna
         }
 
 
-        public override void opravKartu(Hashtable DBRow, vDatabase myDataBase, DataGridView myDataGridView, Int32 rowIndex)
+        public override void opravKartu(Hashtable DBRow, vDatabase myDataBase, DataGridView myDataGridView)
         {
             if ((myDataBase != null) && (myDataBase.DBIsOpened()))
             {

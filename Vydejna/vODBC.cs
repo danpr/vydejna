@@ -803,7 +803,88 @@ namespace Vydejna
                                          decimal DBcelkcena, long DBucetstav, long DBfyzstav,
                                          string DBrozmer, string DBanalucet, decimal DBucetkscen)
         {
-            return false;
+            string commandString2 = "UPDATE naradi set nazev = ?, jk = ?, normacsn = ?, normadin = ?, vyrobce = ?, cena = ?, poznamka = ?, minimum = ?, celkcena = ?,  ucetstav = ?, fyzstav = ?, rozmer = ?, analucet = ?, ucetkscen = ? " +
+                            "where  poradi = ?";
+
+            OdbcTransaction transaction = null;
+
+            if (DBIsOpened())
+            {
+                try
+                {
+                    transaction = (myDBConn as OdbcConnection).BeginTransaction(System.Data.IsolationLevel.ReadCommitted);
+
+                    OdbcCommand cmd = new OdbcCommand(commandString2, myDBConn as OdbcConnection);
+
+                    OdbcParameter p1 = new OdbcParameter("p1", OdbcType.NChar);
+                    p1.Value = DBnazev;
+                    OdbcParameter p2 = new OdbcParameter("p2", OdbcType.NChar);
+                    p2.Value = DBJK;
+                    OdbcParameter p3 = new OdbcParameter("p3", OdbcType.NChar);
+                    p3.Value = DBnormacsn;
+                    OdbcParameter p4 = new OdbcParameter("p4", OdbcType.NChar);
+                    p4.Value = DBnormadin;
+                    OdbcParameter p5 = new OdbcParameter("p5", OdbcType.NChar);
+                    p5.Value = DBvyrobce;
+                    OdbcParameter p6 = new OdbcParameter("p6", OdbcType.Double);
+                    p6.Value = DBcena;
+                    OdbcParameter p7 = new OdbcParameter("p7", OdbcType.NChar);
+                    p7.Value = DBpoznamka;
+                    OdbcParameter p8 = new OdbcParameter("p8", OdbcType.Int);
+                    p8.Value = DBminstav;
+                    OdbcParameter p9 = new OdbcParameter("p9", OdbcType.Double);
+                    p9.Value = DBcelkcena;
+                    OdbcParameter p15 = new OdbcParameter("p15", OdbcType.Int);
+                    p15.Value = DBucetstav;
+                    OdbcParameter p16 = new OdbcParameter("p16", OdbcType.Int);
+                    p16.Value = DBfyzstav;
+                    OdbcParameter p17 = new OdbcParameter("p17", OdbcType.NChar);
+                    p17.Value = DBrozmer;
+                    OdbcParameter p18 = new OdbcParameter("p18", OdbcType.NChar);
+                    p18.Value = DBanalucet;
+                    OdbcParameter p25 = new OdbcParameter("p25", OdbcType.Double);
+                    p25.Value = DBucetkscen;
+                    OdbcParameter p30 = new OdbcParameter("p30", OdbcType.NChar);
+                    p30.Value = poradi;
+
+
+                    cmd.Parameters.Add(p1);
+                    cmd.Parameters.Add(p2);
+                    cmd.Parameters.Add(p3);
+                    cmd.Parameters.Add(p4);
+                    cmd.Parameters.Add(p5);
+                    cmd.Parameters.Add(p6);
+                    cmd.Parameters.Add(p7);
+                    cmd.Parameters.Add(p8);
+                    cmd.Parameters.Add(p9);
+                    cmd.Parameters.Add(p15);
+                    cmd.Parameters.Add(p16);
+                    cmd.Parameters.Add(p17);
+                    cmd.Parameters.Add(p18);
+                    cmd.Parameters.Add(p25);
+                    cmd.Parameters.Add(p30);
+                    cmd.ExecuteNonQuery();
+                    if (transaction != null)
+                    {
+                        (transaction as OdbcTransaction).Commit();
+                    }
+                    return true;
+
+                }
+                catch (Exception)
+                {
+                    // doslo k chybe
+                    if (transaction != null)
+                    {
+                        (transaction as OdbcTransaction).Rollback();
+                    }
+                    return false;
+                }
+
+            }
+
+            return true;
+
         }
 
 
