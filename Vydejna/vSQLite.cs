@@ -1162,6 +1162,91 @@ namespace Vydejna
         }
 
 
+        public override Boolean editNewLineOsoby(string DBprijmeni, string DBjmeno, string DBulice, string DBmesto,
+                                         string DBpsc, string DBtelHome, string DBosCislo, string DBstredisko,
+                                         string DBcisZnamky, string DBoddeleni, string DBpracoviste, string DBtelZam,
+                                         string DBpoznamka)
+        {
+
+
+            string commandString2 = "UPDATE osoby SET prijmeni = ?, jmeno = ?, ulice =?, mesto = ?, psc = ?, telhome = ?, odeleni = ?, telzam = ?, stredisko = ?, pujsoub = ?, pracoviste = ?, cisznamky = ?, poznamka = ?) " +
+                  "WHERE oscislo = ?";
+
+            SQLiteTransaction transaction = null;
+
+            if (DBIsOpened())
+            {
+                try
+                {
+                    transaction = (myDBConn as SQLiteConnection).BeginTransaction(System.Data.IsolationLevel.ReadCommitted);
+
+
+                    SQLiteCommand cmd = new SQLiteCommand(commandString2, myDBConn as SQLiteConnection);
+
+                    SQLiteParameter p1 = new SQLiteParameter("p1", DbType.String);
+                    p1.Value = DBprijmeni;
+                    SQLiteParameter p2 = new SQLiteParameter("p2", DbType.String);
+                    p2.Value = DBjmeno;
+                    SQLiteParameter p3 = new SQLiteParameter("p3", DbType.String);
+                    p3.Value = DBulice;
+                    SQLiteParameter p4 = new SQLiteParameter("p4", DbType.String);
+                    p4.Value = DBmesto;
+                    SQLiteParameter p5 = new SQLiteParameter("p5", DbType.String);
+                    p5.Value = DBpsc;
+                    SQLiteParameter p6 = new SQLiteParameter("p6", DbType.String);
+                    p6.Value = DBtelHome;
+                    SQLiteParameter p8 = new SQLiteParameter("p8", DbType.String);
+                    p8.Value = DBoddeleni;
+                    SQLiteParameter p9 = new SQLiteParameter("p9", DbType.String);
+                    p9.Value = DBtelZam;
+                    SQLiteParameter p10 = new SQLiteParameter("p10", DbType.String);
+                    p10.Value = DBstredisko;
+                    SQLiteParameter p11 = new SQLiteParameter("p11", DbType.String);
+                    p11.Value = "";
+                    SQLiteParameter p12 = new SQLiteParameter("p12", DbType.String);
+                    p12.Value = DBpracoviste;
+                    SQLiteParameter p13 = new SQLiteParameter("p13", DbType.String);
+                    p13.Value = DBcisZnamky;
+                    SQLiteParameter p14 = new SQLiteParameter("p14", DbType.String);
+                    p14.Value = DBpoznamka;
+                    SQLiteParameter p15 = new SQLiteParameter("p15", DbType.String);
+                    p15.Value = DBosCislo;
+  
+
+                    cmd.Parameters.Add(p1);
+                    cmd.Parameters.Add(p2);
+                    cmd.Parameters.Add(p3);
+                    cmd.Parameters.Add(p4);
+                    cmd.Parameters.Add(p5);
+                    cmd.Parameters.Add(p6);
+                    cmd.Parameters.Add(p8);
+                    cmd.Parameters.Add(p9);
+                    cmd.Parameters.Add(p10);
+                    cmd.Parameters.Add(p11);
+                    cmd.Parameters.Add(p12);
+                    cmd.Parameters.Add(p13);
+                    cmd.Parameters.Add(p14);
+                    cmd.Parameters.Add(p15);
+                    cmd.ExecuteNonQuery();
+                    if (transaction != null)
+                    {
+                        (transaction as SQLiteTransaction).Commit();
+                    }
+                    return true;
+
+                }  //try
+                catch (Exception)
+                {
+                    // doslo k chybe
+                    if (transaction != null)
+                    {
+                        (transaction as SQLiteTransaction).Rollback();
+                    }
+                    return false;
+                }
+            } // db is opened
+            else return true;
+        }
 
 
     }

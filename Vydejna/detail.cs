@@ -251,6 +251,49 @@ namespace Vydejna
                 if (pracKarta.ShowDialog() == DialogResult.OK)
                 {
                     PracovniciKarta.messager mesenger = pracKarta.getMesseger();
+
+                    Boolean updateIsOk = myDataBase.editNewLineOsoby(mesenger.prijmeni, mesenger.jmeno, mesenger.ulice, mesenger.mesto, mesenger.telHome, mesenger.oscislo, mesenger.stredisko, mesenger.cisZnamky, mesenger.oddeleni, mesenger.pracoviste, mesenger.telZam, mesenger.poznamka);
+                    if (updateIsOk)
+                    {
+                        // je potreba najit index v datove tabulce - po trideni neni schodny s indexem ve view
+                        Int32 dataRowIndex = -1;
+                        for (int x = 0; x < (myDataGridView.DataSource as DataTable).Rows.Count - 1; x++)
+                        {
+                            if (Convert.ToString((myDataGridView.DataSource as DataTable).Rows[x][2]) == mesenger.oscislo)
+                            {
+                                dataRowIndex = x;
+                                break;
+                            }
+
+                        }
+
+                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(2, mesenger.prijmeni);
+                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(3, mesenger.jmeno);
+
+                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(4, mesenger.oscislo);
+                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(5, mesenger.);
+
+                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(6, mesenger.stredisko);
+                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(7, mesenger.pracoviste);
+                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(8, mesenger.cisZnamky);
+                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(9, mesenger.ulice);
+                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(11, mesenger.psc);
+                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(12, mesenger.mesto);
+                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(13, mesenger.telHome);
+                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(14, mesenger.telZam);
+                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(15, mesenger.poznamka);
+
+                        myDataGridView.Refresh();
+
+                    }
+
+
+
+
+
+
+
+
                 }
             }
         }

@@ -225,6 +225,15 @@ namespace Vydejna
         }
 
 
+        public virtual Boolean editNewLineOsoby(string DBprijmeni, string DBjmeno, string DBulice, string DBmesto,
+                                 string DBpsc, string DBtelHome, string DBosCislo, string DBstredisko,
+                                 string DBcisZnamky, string DBoddeleni, string DBpracoviste, string DBtelZam,
+                                 string DBpoznamka)
+        {
+            return false;
+        }
+
+
 
         public virtual DataTable loadDataTable(string DBSelect)
         {
