@@ -211,6 +211,13 @@ namespace Vydejna
             return false;
         }
 
+        public virtual Boolean editNewLinePoskozene(Int32 poradi, string DBnazev, string DBJK, string DBnormacsn, string DBnormadin,
+                                         string DBvyrobce, decimal DBcena, string DBpoznamka, long DBminstav,
+                                         decimal DBcelkcena, long DBucetstav, long DBfyzstav,
+                                         string DBrozmer, string DBanalucet, decimal DBucetkscen)
+        {
+            return false;
+        }
 
 
 
