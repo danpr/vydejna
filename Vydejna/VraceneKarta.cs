@@ -103,14 +103,16 @@ namespace Vydejna
             textBoxRozmer.Text = Convert.ToString(DBRow["rozmer"]);
             textBoxCSN.Text = Convert.ToString(DBRow["csn"]);
             numericUpDownCena.Value = Convert.ToDecimal (DBRow["cena"]);
-            if (Convert.ToDateTime(DBRow["datum"] < DateTime('1.1.1753')) 
+//            DateTime minDate = new DateTime(1753,1,1);
+            if (Convert.ToDateTime(DBRow["datum"]) < new DateTime(1753, 1, 1)) 
             {
-                dateTimePickerDatum.Value = DateTime('1.1.1890');
+                dateTimePickerDatum.Value = new DateTime(1890,1,1);
             }
             else
             {
             dateTimePickerDatum.Value = Convert.ToDateTime(DBRow["datum"]);
             }
+
             textBoxZakázka.Text = Convert.ToString(DBRow["vyrobek"]);
             textBoxKonto.Text = Convert.ToString(DBRow["konto"]);
             poradi = Convert.ToInt32(DBRow["poradi"]);

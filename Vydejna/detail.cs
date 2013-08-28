@@ -175,6 +175,13 @@ namespace Vydejna
 
     class detailPoskozeno : detail
     {
+
+        // DBRow        Vrac Karta             mesenger    
+        // poradi       poradi                  poradi
+        // jmeno        textBoxJmeno.Text       jmeno
+        // prijmeni     textBoxPrijmeni.Text    prijmeni
+
+
         public override void zobrazKartu(Hashtable DBRow, vDatabase myDataBase)
         {
             VraceneKarta sklKarta = new VraceneKarta(DBRow);
@@ -189,8 +196,7 @@ namespace Vydejna
                 if (vracKarta.ShowDialog() == DialogResult.OK)
                 {
                     VraceneKarta.messager mesenger = vracKarta.getMesseger();
-//                    Boolean updateIsOk = myDataBase.editNewLinePoskozene(mesenger.poradi, mesenger.nazev, mesenger.jk, mesenger.csn, mesenger.din, mesenger.vyrobce, mesenger.cenaKs, mesenger.poznamka, mesenger.minStav, mesenger.ucetCena, mesenger.ucetStav, mesenger.fyzStav, mesenger.rozmer, mesenger.ucet, mesenger.ucetCenaKs);
-                    Boolean updateIsOk = true;
+                    Boolean updateIsOk = myDataBase.editNewLinePoskozene(mesenger.poradi, mesenger.jmeno, mesenger.prijmeni, mesenger.oscislo, mesenger.stredisko, mesenger.provoz, mesenger.nazev, mesenger.jk, mesenger.pocetKs, mesenger.rozmer, mesenger.csn, mesenger.cena, mesenger.datum, mesenger.zakazka, mesenger.konto);
                     if (updateIsOk)
                     {
                         // je potreba najit index v datove tabulce - po trideni neni schodny s indexem ve view
