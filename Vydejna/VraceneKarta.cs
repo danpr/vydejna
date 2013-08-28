@@ -15,8 +15,51 @@ namespace Vydejna
     public partial class VraceneKarta : Form
     {
 
+
+        public class messager
+        {
+            public string jmeno;
+            public string prijmeni;
+            public string oscislo;
+            public string stredisko;
+            public string provoz;
+            public string nazev;
+            public string jk;
+            public Int64 pocetKs; //cena
+            public string rozmer;
+            public string csn;
+            public decimal cena;
+            public DateTime datum;
+            public string zakazka;
+            public string konto;
+            public Int32 poradi;
+            
+            
+            public messager(Int32 poradi, string jmeno, string prijmeni, string oscislo, string stredisko, string provoz, string nazev, string jk,
+                            Int64 pocetKs, string rozmer, string csn, decimal cena, DateTime datum, string zakazka, string konto)
+            {
+                this.jmeno = jmeno;
+                this.prijmeni = prijmeni;
+                this.oscislo = oscislo;
+                this.stredisko = stredisko;
+                this.provoz = provoz;
+                this.nazev = nazev;
+                this.jk = jk;
+                this.pocetKs = pocetKs;
+                this.rozmer = rozmer;
+                this.csn = csn;
+                this.cena = cena;
+                this.datum = datum;
+                this.zakazka = zakazka;
+                this.konto = konto;
+                this.poradi = poradi;
+            }
+        }
+
+
         private vKartaState state;
         private vDatabase myDB;
+        private Int32 poradi;
 
 
         public VraceneKarta(Hashtable DBRow, vDatabase myDataBase, vKartaState state = vKartaState.show)
@@ -59,10 +102,18 @@ namespace Vydejna
             numericUpDownPocetKS.Value = Convert.ToInt32(DBRow["pocetks"]);   
             textBoxRozmer.Text = Convert.ToString(DBRow["rozmer"]);
             textBoxCSN.Text = Convert.ToString(DBRow["csn"]);
-            textBoxCena.Text = Convert.ToString(DBRow["cena"]);
+            numericUpDownCena.Value = Convert.ToDecimal (DBRow["cena"]);
+            if (Convert.ToDateTime(DBRow["datum"] < DateTime('1.1.1753')) 
+            {
+                dateTimePickerDatum.Value = DateTime('1.1.1890');
+            }
+            else
+            {
             dateTimePickerDatum.Value = Convert.ToDateTime(DBRow["datum"]);
+            }
             textBoxZakázka.Text = Convert.ToString(DBRow["vyrobek"]);
             textBoxKonto.Text = Convert.ToString(DBRow["konto"]);
+            poradi = Convert.ToInt32(DBRow["poradi"]);
 
         }
 
@@ -85,14 +136,23 @@ namespace Vydejna
             numericUpDownPocetKS.Enabled = true;
             textBoxRozmer.ReadOnly = false;
             textBoxCSN.ReadOnly = false;
-            textBoxCena.ReadOnly = false;
-
+            numericUpDownCena.ReadOnly = false;
+            numericUpDownCena.Enabled = true;
             dateTimePickerDatum.Enabled = true;
             textBoxZakázka.ReadOnly = false;
             textBoxKonto.ReadOnly = false;
 
         }
 
+        public messager getMesseger()
+        {
+            messager prepravka = new messager(poradi, textBoxJmeno.Text, textBoxPrijmeni.Text, textBoxOsCislo.Text, textBoxStredisko.Text,
+                                  textBoxProvoz.Text, textBoxNazev.Text, textBoxJK.Text, Convert.ToInt64(numericUpDownPocetKS.Value),
+                                  textBoxRozmer.Text, textBoxCSN.Text, numericUpDownCena.Value, dateTimePickerDatum.Value,
+                                  textBoxZakázka.Text, textBoxKonto.Text);
+                                  //Convert.ToInt64(numericUpDownMinStav.Value), Convert.ToInt64(numericUpDownUcetStav.Value), textBoxPoznamka.Text);
+            return prepravka;
+        }
 
 
     }

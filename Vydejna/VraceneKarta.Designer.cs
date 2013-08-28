@@ -52,11 +52,14 @@
             this.label13 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
-            this.textBoxCena = new System.Windows.Forms.TextBox();
             this.dateTimePickerDatum = new System.Windows.Forms.DateTimePicker();
             this.textBoxZakázka = new System.Windows.Forms.TextBox();
             this.textBoxKonto = new System.Windows.Forms.TextBox();
+            this.buttonCancel = new System.Windows.Forms.Button();
+            this.buttonOK = new System.Windows.Forms.Button();
+            this.numericUpDownCena = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPocetKS)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCena)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -275,14 +278,6 @@
             this.label15.TabIndex = 25;
             this.label15.Text = "Konto :";
             // 
-            // textBoxCena
-            // 
-            this.textBoxCena.Location = new System.Drawing.Point(104, 267);
-            this.textBoxCena.Name = "textBoxCena";
-            this.textBoxCena.ReadOnly = true;
-            this.textBoxCena.Size = new System.Drawing.Size(193, 20);
-            this.textBoxCena.TabIndex = 26;
-            // 
             // dateTimePickerDatum
             // 
             this.dateTimePickerDatum.Enabled = false;
@@ -309,15 +304,48 @@
             this.textBoxKonto.Size = new System.Drawing.Size(193, 20);
             this.textBoxKonto.TabIndex = 29;
             // 
+            // buttonCancel
+            // 
+            this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.buttonCancel.Location = new System.Drawing.Point(26, 380);
+            this.buttonCancel.Name = "buttonCancel";
+            this.buttonCancel.Size = new System.Drawing.Size(75, 23);
+            this.buttonCancel.TabIndex = 30;
+            this.buttonCancel.Text = "Zrušit";
+            this.buttonCancel.UseVisualStyleBackColor = true;
+            // 
+            // buttonOK
+            // 
+            this.buttonOK.Location = new System.Drawing.Point(526, 380);
+            this.buttonOK.Name = "buttonOK";
+            this.buttonOK.Size = new System.Drawing.Size(75, 23);
+            this.buttonOK.TabIndex = 31;
+            this.buttonOK.Text = "Budiž";
+            this.buttonOK.UseVisualStyleBackColor = true;
+            // 
+            // numericUpDownCena
+            // 
+            this.numericUpDownCena.Location = new System.Drawing.Point(104, 268);
+            this.numericUpDownCena.Maximum = new decimal(new int[] {
+            10000000,
+            0,
+            0,
+            0});
+            this.numericUpDownCena.Name = "numericUpDownCena";
+            this.numericUpDownCena.Size = new System.Drawing.Size(107, 20);
+            this.numericUpDownCena.TabIndex = 32;
+            // 
             // VraceneKarta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(621, 393);
+            this.ClientSize = new System.Drawing.Size(621, 415);
+            this.Controls.Add(this.numericUpDownCena);
+            this.Controls.Add(this.buttonOK);
+            this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.textBoxKonto);
             this.Controls.Add(this.textBoxZakázka);
             this.Controls.Add(this.dateTimePickerDatum);
-            this.Controls.Add(this.textBoxCena);
             this.Controls.Add(this.label15);
             this.Controls.Add(this.label14);
             this.Controls.Add(this.label13);
@@ -345,6 +373,7 @@
             this.Name = "VraceneKarta";
             this.Text = "Vracená karta";
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPocetKS)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCena)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -376,9 +405,11 @@
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.TextBox textBoxCena;
         private System.Windows.Forms.DateTimePicker dateTimePickerDatum;
         private System.Windows.Forms.TextBox textBoxZakázka;
         private System.Windows.Forms.TextBox textBoxKonto;
+        private System.Windows.Forms.Button buttonCancel;
+        private System.Windows.Forms.Button buttonOK;
+        private System.Windows.Forms.NumericUpDown numericUpDownCena;
     }
 }
