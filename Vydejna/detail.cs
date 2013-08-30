@@ -176,23 +176,21 @@ namespace Vydejna
     class detailPoskozeno : detail
     {
 
-        // DBRow        Vrac Karta             mesenger    
-        // nazev        textBozNazev
-        // jk           textBoxJK
-        // pocetks      numericUpDownPocetKS
-        // rozmer       textBoxRpzmer
-        // csn          textBoxCSN
+        // DBRow        Vrac Karta              mesenger    
+        // nazev        textBoxNazev            nazev
+        // jk           textBoxJK               jk
+        // pocetks      numericUpDownPocetKS    pocetKs
+        // rozmer       textBoxRozmer           rozmer
+        // csn          textBoxCSN              csn
         // cena         numericUpDownCena       cena
-        // datum
-        // vyrobek
-        // konto
-        // jmeno       textBoxPrijmeni.Text    prijmeni
-        // krjmeno     textBoxJmeno.Text       jmeno
-        // cislo
-        // dilna
-        // pracoviste
-
-
+        // datum        dateTimePickerDatum     datum
+        // vyrobek      textBoxZakázka          zakazka
+        // konto        textBoxKonto            konto
+        // jmeno        textBoxPrijmeni.Text    prijmeni
+        // krjmeno      textBoxJmeno.Text       jmeno
+        // cislo        textBoxOsCislo          oscislo
+        // dilna        textBoxStredisko        stredisko
+        // pracoviste   textBoxProvoz           provoz
 
 
 
