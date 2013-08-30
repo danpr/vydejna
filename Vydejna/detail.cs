@@ -177,9 +177,23 @@ namespace Vydejna
     {
 
         // DBRow        Vrac Karta             mesenger    
-        // poradi       poradi                  poradi
-        // jmeno        textBoxJmeno.Text       jmeno
-        // prijmeni     textBoxPrijmeni.Text    prijmeni
+        // nazev        textBozNazev
+        // jk           textBoxJK
+        // pocetks      numericUpDownPocetKS
+        // rozmer       textBoxRpzmer
+        // csn          textBoxCSN
+        // cena         numericUpDownCena       cena
+        // datum
+        // vyrobek
+        // konto
+        // jmeno       textBoxPrijmeni.Text    prijmeni
+        // krjmeno     textBoxJmeno.Text       jmeno
+        // cislo
+        // dilna
+        // pracoviste
+
+
+
 
 
         public override void zobrazKartu(Hashtable DBRow, vDatabase myDataBase)

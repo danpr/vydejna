@@ -53,7 +53,7 @@ using System.Windows.Forms;
 // mesto      DBmesto       Mesto        TextBoxMesto
 // psc        DBpsc         Psc          TextBoxPsc
 // telhome    DBtelHome     Tel. domu    TextBoxTelDomu
-// oscislo    DBosCislo     Osobni cislo TextBoxOsCislo
+// oscislo    DBosCislo     Osobni cislo TextBoxOsCislo     // unikatni hodnota
 // odeleni    DBodeleni     Provoz       TextBoxOddeleni
 // telzam     DBtelzam      Tel. zamest. TextBoxTelZamest
 // stredisko  DBstredisko   Stredisko    TextBoxStredisko
@@ -61,6 +61,28 @@ using System.Windows.Forms;
 // pracoviste DBpracoviste  Pracoviste   TextBoxPracoviste
 // cisznamky  DBcisZnamky   CisloZnamky  TextBoxCisZnamky
 // poznamka   DBpoznamka    Poznamky     TextBoxPoznamka
+
+
+// Tabulka Poskozeno
+// tabulka    promenna      prehled      add/edit okno         messenger
+// jmeno       DBjmeno      Prijmeni     textBoxPrijmeni       prijmeni
+// cislo       DBcislo      Os. Cislo    textBoxOsCislo        oscislo
+// dilna       DBdilna      Stredisko    textBoxStredisko      stredisko
+// pracoviste  DBpracoviste Provoz       textBoxProvoz         provoz
+// vyrobek     DBvyrobek    Zakazka      textBoxZakázka        zakazka
+// nazev       DBnazev      Nazev        textBoxNazev          nazev
+// jk          DBJK         Oznaceni JK  textBoxJK             jk                 //  unikatni hodnota
+// rozmer      DBrozmer     Rozmer       textBoxRozmer         rozmer
+// pocetks     DBpocetks    Vraceno KS   numericUpDownPocetKS  pocetKs 
+// cena        DBcena       Cena         numericUpDownCena     cena
+// datum       DBdate       Datum        dateTimePickerDatum   datum 
+// csn         DBnormacsn   Norma CSN    textBoxCsn            csn
+// krjmeno     DBkrjmeno    Jmeno        textBoxJmeno          jmeno
+// celkcena    DBcelkCena
+// vevcislo    DBvevCislo
+// konto       DBkonto      Konto        textBoxKonto          konto
+
+
 
 
 
@@ -211,10 +233,10 @@ namespace Vydejna
             return false;
         }
 
-        public virtual Boolean editNewLinePoskozene(Int32 poradi, string DBjmeno, string DBprijmeni, string DBosCislo, string DBstredsiko,
+        public virtual Boolean editNewLinePoskozene(Int32 poradi, string DBkrjmeno, string DBjmeno, string DBosCislo, string DBdilna,
                                          string DBprovoz, string DBnazev, string DBJK, long DBpocetKS,
                                          string DBrozmer, string DBCSN, decimal DBcena,
-                                         DateTime DBdatum, string DBzakazka, string DBkonto)
+                                         DateTime DBdatum, string DBvyrobek, string DBkonto)
         {
             return false;
         }
