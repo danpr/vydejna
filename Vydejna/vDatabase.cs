@@ -326,6 +326,17 @@ namespace Vydejna
             return tableItemExist("select count(*) as countOC from osoby where oscislo = ?", oc);
         }
 
+        public virtual Boolean tableVracenoItemExist(string oc)
+        {
+            return tableItemExist("select count(*) as countOC from wraceno where jk = ?", oc);
+        }
+
+
+        public virtual Boolean tablePoskozenoItemExist(string oc)
+        {
+            return tableItemExist("select count(*) as countOC from wraceno where jk = ?", oc);
+        }
+
 
 
         public Boolean tableItemExist(string DBSelect, string item)

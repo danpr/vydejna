@@ -156,6 +156,40 @@ namespace Vydejna
             return prepravka;
         }
 
+        private void buttonOK_Click(object sender, EventArgs e)
+        {
+
+            if (textBoxJK.Text.Trim() == "")
+            {
+                MessageBox.Show("Položka Označení JK není vyplněna.");
+            }
+            else
+            {
+
+                if (state == vKartaState.edit)
+                {
+                    if (myDB.tableVracenoItemExist(textBoxJK.Text.Trim()))
+                    {
+                        buttonOK.DialogResult = DialogResult.OK;
+                        this.DialogResult = DialogResult.OK;
+                        Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Položka již neexistuje.");
+                    }
+
+
+                }
+            }    
+
+        }
+
+        private void buttonCancel_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
 
     }
 }

@@ -313,6 +313,7 @@
             this.buttonCancel.TabIndex = 30;
             this.buttonCancel.Text = "Zrušit";
             this.buttonCancel.UseVisualStyleBackColor = true;
+            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
             // buttonOK
             // 
@@ -322,6 +323,7 @@
             this.buttonOK.TabIndex = 31;
             this.buttonOK.Text = "Budiž";
             this.buttonOK.UseVisualStyleBackColor = true;
+            this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
             // 
             // numericUpDownCena
             // 
