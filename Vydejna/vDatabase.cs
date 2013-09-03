@@ -69,7 +69,7 @@ using System.Windows.Forms;
 // cislo       DBcislo      Os. Cislo    textBoxOsCislo        oscislo
 // dilna       DBdilna      Stredisko    textBoxStredisko      stredisko
 // pracoviste  DBpracoviste Provoz       textBoxProvoz         provoz
-// vyrobek     DBvyrobek    Zakazka      textBoxZakázka        zakazka
+// vyrobek     FDBvyrobek    Zakazka      textBoxZakázka        zakazka
 // nazev       DBnazev      Nazev        textBoxNazev          nazev
 // jk          DBJK         Oznaceni JK  textBoxJK             jk                 //  unikatni hodnota
 // rozmer      DBrozmer     Rozmer       textBoxRozmer         rozmer
