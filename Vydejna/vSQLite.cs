@@ -1163,14 +1163,14 @@ namespace Vydejna
 
 
 
-        public virtual Boolean editNewLinePoskozene(Int32 poradi, string DBkrjmeno, string DBjmeno, string DBosCislo, string DBdilna,
+        public override Boolean editNewLinePoskozene(Int32 poradi, string DBkrjmeno, string DBjmeno, string DBosCislo, string DBdilna,
                                  string DBprovoz, string DBnazev, string DBJK, long DBpocetKS,
                                  string DBrozmer, string DBCSN, decimal DBcena,
                                  DateTime DBdatum, string DBvyrobek, string DBkonto)
         {
 
-            string commandString2 = "UPDATE poskozeno set jmeno = ?, cislo =?, dilna = ?, pracoviste = ?, vyrobek = ?, nazev = ?, rozmer = ?, pocetks = ?, cena = ?, datum = ?, csn = ?, krjmeno = ?, konto = ?" +
-                  "where  poradi = ?";
+            string commandString1 = "UPDATE poskozeno set jmeno = ?, cislo =?, dilna = ?, pracoviste = ?, vyrobek = ?, nazev = ?, rozmer = ?, pocetks = ?, cena = ?, datum = ?, csn = ?, krjmeno = ?, konto = ? " +
+                  "where  jk = ?";
 
             SQLiteTransaction transaction = null;
             if (DBIsOpened())
@@ -1179,7 +1179,7 @@ namespace Vydejna
                 {
                     transaction = (myDBConn as SQLiteConnection).BeginTransaction(System.Data.IsolationLevel.ReadCommitted);
 
-                    SQLiteCommand cmd = new SQLiteCommand(commandString2, myDBConn as SQLiteConnection);
+                    SQLiteCommand cmd = new SQLiteCommand(commandString1, myDBConn as SQLiteConnection);
 
                     SQLiteParameter p1 = new SQLiteParameter("p1", DbType.String);
                     p1.Value = DBjmeno;
@@ -1246,7 +1246,6 @@ namespace Vydejna
             }
 
             return true;
-            
         }
 
 

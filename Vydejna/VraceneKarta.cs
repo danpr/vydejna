@@ -168,7 +168,7 @@ namespace Vydejna
 
                 if (state == vKartaState.edit)
                 {
-                    if (myDB.tableVracenoItemExist(textBoxJK.Text.Trim()))
+                    if (myDB.tablePoskozenoItemExist(textBoxJK.Text.Trim()))
                     {
                         buttonOK.DialogResult = DialogResult.OK;
                         this.DialogResult = DialogResult.OK;

@@ -328,13 +328,13 @@ namespace Vydejna
 
         public virtual Boolean tableVracenoItemExist(string oc)
         {
-            return tableItemExist("select count(*) as countOC from wraceno where jk = ?", oc);
+            return tableItemExist("select count(*) as countOC from vraceno where jk = ?", oc);
         }
 
 
         public virtual Boolean tablePoskozenoItemExist(string oc)
         {
-            return tableItemExist("select count(*) as countOC from wraceno where jk = ?", oc);
+            return tableItemExist("select count(*) as countOC from poskozeno where jk = ?", oc);
         }
 
 
