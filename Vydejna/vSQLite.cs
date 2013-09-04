@@ -227,14 +227,14 @@ namespace Vydejna
                       "test char(1), pomroz char(1), kdatum date, kodd char(2) );";
 
 
-            string commandStringPoskozeno = "create table poskozeno ( jmeno char(15), cislo integer, dilna char(15)," +
+            string commandStringPoskozeno = "create table poskozeno ( poradi integer, jmeno char(15), cislo integer, dilna char(15)," +
                       "pracoviste char(20), vyrobek char(15),nazev char(60), jk char(15), rozmer char(25)," +
                       "pocetks integer, cena float, datum date, csn char(15), krjmeno char(15)," +
                       "celkcena float, vevcislo char(12), konto char(15) );";
 
 
 
-            string commandStringVraceno = "create table vraceno ( jmeno char(15), cislo integer, dilna char(15)," +
+            string commandStringVraceno = "create table vraceno ( poradi integer, jmeno char(15), cislo integer, dilna char(15)," +
                       "pracoviste char(20), vyrobek char(15),nazev char(60), jk char(15), rozmer char(25)," +
                       "pocetks integer, cena float, datum date, csn char(15), krjmeno char(15)," +
                       "celkcena float, vevcislo char(12), konto char(15) );";
@@ -515,11 +515,14 @@ namespace Vydejna
         }
 
 
-        public override void addLineVraceno(string DBjmeno, int DBcislo, string DBdilna, string DBpracoviste,
+        public override Int32 addLineVraceno(string DBjmeno, int DBcislo, string DBdilna, string DBpracoviste,
                                          string DBvyrobek, string DBnazev, string DBJK, string DBrozmer, int DBpocetks,
                                          double DBcena, DateTime DBdate, string DBnormacsn, string DBkrjmeno,
                                          double DBcelkCena, string DBvevCislo, string DBkonto)
         {
+            string commandStringSeq1 = "SELECT poradi FROM tabseq WHERE nazev = 'vraceno'";
+            string commandStringSeq2 = "UPDATE  tabseq set poradi = poradi +1 WHERE nazev = 'vraceno'";
+
 
             string commandString = "INSERT INTO vraceno ( jmeno, cislo, dilna, pracoviste, vyrobek, nazev, jk, rozmer, pocetks, cena, datum, csn, krjmeno, celkcena, vevcislo, konto) " +
                   "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
@@ -527,8 +530,16 @@ namespace Vydejna
             if (DBIsOpened())
             {
 
+                SQLiteCommand cmdSeq1 = new SQLiteCommand(commandStringSeq1, myDBConn as SQLiteConnection);
+                SQLiteDataReader seqReader = cmdSeq1.ExecuteReader();
+                seqReader.Read();
+                Int32 poradi = seqReader.GetInt32(0);
+                seqReader.Close();              
+
                 SQLiteCommand cmd = new SQLiteCommand(commandString, myDBConn as SQLiteConnection);
 
+                SQLiteParameter p0 = new SQLiteParameter(DbType.Int32);
+                p0.Value = poradi;
                 SQLiteParameter p1 = new SQLiteParameter("p1", DbType.String);
                 p1.Value = DBjmeno;
                 SQLiteParameter p2 = new SQLiteParameter("p2", DbType.Int32);
@@ -562,6 +573,7 @@ namespace Vydejna
                 SQLiteParameter p16 = new SQLiteParameter("p16", DbType.String);
                 p16.Value = DBkonto;
 
+                cmd.Parameters.Add(p0);
                 cmd.Parameters.Add(p1);
                 cmd.Parameters.Add(p2);
                 cmd.Parameters.Add(p3);
@@ -579,18 +591,26 @@ namespace Vydejna
                 cmd.Parameters.Add(p15);
                 cmd.Parameters.Add(p16);
                 cmd.ExecuteNonQuery();
+
+                SQLiteCommand cmdSeq2 = new SQLiteCommand(commandStringSeq2, myDBConn as SQLiteConnection);
+                cmdSeq2.ExecuteNonQuery();
+                return poradi;
+
             }
+            return 0;
         }
 
 
 
 
 
-        public override void addLinePoskozeno(string DBjmeno, int DBcislo, string DBdilna, string DBpracoviste,
+        public override Int32 addLinePoskozeno(string DBjmeno, int DBcislo, string DBdilna, string DBpracoviste,
                                          string DBvyrobek, string DBnazev, string DBJK, string DBrozmer, int DBpocetks,
                                          double DBcena, DateTime DBdate, string DBnormacsn, string DBkrjmeno,
                                          double DBcelkCena, string DBvevCislo, string DBkonto)
         {
+            string commandStringSeq1 = "SELECT poradi FROM tabseq WHERE nazev = 'poskozeno'";
+            string commandStringSeq2 = "UPDATE  tabseq set poradi = poradi +1 WHERE nazev = 'poskozeno'";
 
             string commandString = "INSERT INTO poskozeno ( jmeno, cislo, dilna, pracoviste, vyrobek, nazev, jk, rozmer, pocetks, cena, datum, csn, krjmeno, celkcena, vevcislo, konto) " +
                   "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
@@ -600,8 +620,16 @@ namespace Vydejna
             if (DBIsOpened())
             {
 
+                SQLiteCommand cmdSeq1 = new SQLiteCommand(commandStringSeq1, myDBConn as SQLiteConnection);
+                SQLiteDataReader seqReader = cmdSeq1.ExecuteReader();
+                seqReader.Read();
+                Int32 poradi = seqReader.GetInt32(0);
+                seqReader.Close();
+
                 SQLiteCommand cmd = new SQLiteCommand(commandString, myDBConn as SQLiteConnection);
 
+                SQLiteParameter p0 = new SQLiteParameter(DbType.Int32);
+                p0.Value = poradi;
                 SQLiteParameter p1 = new SQLiteParameter("p1", DbType.String);
                 p1.Value = DBjmeno;
                 SQLiteParameter p2 = new SQLiteParameter("p2", DbType.Int64);
@@ -635,6 +663,7 @@ namespace Vydejna
                 SQLiteParameter p16 = new SQLiteParameter("p16", DbType.String);
                 p16.Value = DBkonto;
 
+                cmd.Parameters.Add(p0);
                 cmd.Parameters.Add(p1);
                 cmd.Parameters.Add(p2);
                 cmd.Parameters.Add(p3);
@@ -652,7 +681,13 @@ namespace Vydejna
                 cmd.Parameters.Add(p15);
                 cmd.Parameters.Add(p16);
                 cmd.ExecuteNonQuery();
+
+                SQLiteCommand cmdSeq2 = new SQLiteCommand(commandStringSeq2, myDBConn as SQLiteConnection);
+                cmdSeq2.ExecuteNonQuery();
+                return poradi;
+
             }
+            return 0;
         }
 
 

@@ -82,6 +82,11 @@ namespace Vydejna
             setData(DBRow);
         }
 
+        public void setWinName (string winName)
+        {
+            this.Text = winName;
+        }
+
 
         public VraceneKarta(Hashtable DBRow)
         {

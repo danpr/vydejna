@@ -185,19 +185,21 @@ namespace Vydejna
             return 0;
         }
 
-        public virtual void addLineVraceno(string DBjmeno, int DBcislo, string DBdilna, string DBpracoviste,
+        public virtual Int32 addLineVraceno(string DBjmeno, int DBcislo, string DBdilna, string DBpracoviste,
                                          string DBvyrobek, string DBnazev, string DBJK, string DBrozmer, int DBpocetks,                                         
                                          double DBcena, DateTime DBdate, string DBnormacsn, string DBkrjmeno,
                                          double DBcelkCena, string DBvevCislo, string DBkonto)
         {
+            return 0
         }
 
 
-        public virtual void addLinePoskozeno(string DBjmeno, int DBcislo, string DBdilna, string DBpracoviste,
+        public virtual Int32 addLinePoskozeno(string DBjmeno, int DBcislo, string DBdilna, string DBpracoviste,
                                          string DBvyrobek, string DBnazev, string DBJK, string DBrozmer, int DBpocetks,
                                          double DBcena, DateTime DBdate, string DBnormacsn, string DBkrjmeno,
                                          double DBcelkCena, string DBvevCislo, string DBkonto)
         {
+            return 0;
         }
 
         public virtual void addLineOsoby(string DBprijmeni, string DBjmeno, string DBulice, string DBmesto,
