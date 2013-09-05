@@ -190,7 +190,7 @@ namespace Vydejna
                                          double DBcena, DateTime DBdate, string DBnormacsn, string DBkrjmeno,
                                          double DBcelkCena, string DBvevCislo, string DBkonto)
         {
-            return 0
+            return 0;
         }
 
 
@@ -296,14 +296,14 @@ namespace Vydejna
 
         public virtual DataTable loadDataTableVraceno()
         {
-            return loadDataTable("SELECT nazev, jk,  pocetks, rozmer, csn,"
+            return loadDataTable("SELECTporadi, nazev, jk,  pocetks, rozmer, csn,"
                                      + " cena, datum, vyrobek, konto, jmeno, krjmeno, cislo, dilna, pracoviste"
                                      + " from vraceno ORDER BY datum");
         }
 
         public virtual DataTable loadDataTablePoskozeno()
         {
-            return loadDataTable("SELECT nazev, jk,  pocetks, rozmer, csn,"
+            return loadDataTable("SELECT poradi, nazev, jk,  pocetks, rozmer, csn,"
                                      + " cena, datum, vyrobek, konto, jmeno, krjmeno, cislo, dilna, pracoviste"
                                      + " from poskozeno ORDER BY datum");
         }
@@ -328,15 +328,15 @@ namespace Vydejna
             return tableItemExist("select count(*) as countOC from osoby where oscislo = ?", oc);
         }
 
-        public virtual Boolean tableVracenoItemExist(string oc)
+        public virtual Boolean tableVracenoItemExist(Int32 oc)
         {
-            return tableItemExist("select count(*) as countOC from vraceno where jk = ?", oc);
+            return tableItemExist("select count(*) as countOC from vraceno where poradi = ?", oc);
         }
 
 
-        public virtual Boolean tablePoskozenoItemExist(string oc)
+        public virtual Boolean tablePoskozenoItemExist(Int32 oc)
         {
-            return tableItemExist("select count(*) as countOC from poskozeno where jk = ?", oc);
+            return tableItemExist("select count(*) as countOC from poskozeno where poradi = ?", oc);
         }
 
 
@@ -363,10 +363,39 @@ namespace Vydejna
         }
 
 
+        public Boolean tableItemExist(string DBSelect, Int32 item)
+        {
+
+            Int64 itemRows = countOfRows(DBSelect, item);
+            if (itemRows == -1)
+            {
+                return false;  // chyba
+            }
+            else
+            {
+                if (itemRows == 0)
+                {
+                    return false; // nenalezeno
+                }
+                else
+                {
+                    return true;  // nalezeno
+                }
+            }
+        }
+
+
         public virtual Int64 countOfRows(string DBSelect, string whileValue)
         {
             return -1;
         }
+
+        public virtual Int64 countOfRows(string DBSelect, Int32 whileValue)
+        {
+            return -1;
+        }
+
+
     }
 
 

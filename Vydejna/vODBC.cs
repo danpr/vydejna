@@ -500,20 +500,29 @@ namespace Vydejna
         }
 
 
-        public override void addLineVraceno(string DBjmeno, int DBcislo, string DBdilna, string DBpracoviste,
+        public override Int32 addLineVraceno(string DBjmeno, int DBcislo, string DBdilna, string DBpracoviste,
                                          string DBvyrobek, string DBnazev, string DBJK, string DBrozmer, int DBpocetks,
                                          double DBcena, DateTime DBdate, string DBnormacsn, string DBkrjmeno,
                                          double DBcelkCena, string DBvevCislo, string DBkonto)
         {
+            string commandStringSeq1 = "SELECT poradi FROM tabseq WHERE nazev = 'vraceno'";
+            string commandStringSeq2 = "UPDATE  tabseq set poradi = poradi +1 WHERE nazev = 'vraceno'";
 
-            string commandString = "INSERT INTO vraceno ( jmeno, cislo, dilna, pracoviste, vyrobek, nazev, jk, rozmer, pocetks, cena, datum, csn, krjmeno, celkcena, vevcislo, konto) " +
-                  "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
+            string commandString = "INSERT INTO vraceno ( poradi, jmeno, cislo, dilna, pracoviste, vyrobek, nazev, jk, rozmer, pocetks, cena, datum, csn, krjmeno, celkcena, vevcislo, konto) " +
+                  "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
 
             if (DBIsOpened())
             {
+                OdbcCommand cmdSeq1 = new OdbcCommand(commandStringSeq1, myDBConn as OdbcConnection);
+                OdbcDataReader seqReader = cmdSeq1.ExecuteReader();
+                seqReader.Read();
+                Int32 poradi = seqReader.GetInt32(0);
+                seqReader.Close();              
 
                 OdbcCommand cmd = new OdbcCommand(commandString, myDBConn as OdbcConnection);
 
+                SQLiteParameter p0 = new SQLiteParameter(DbType.Int32);
+                p0.Value = poradi;
                 OdbcParameter p1 = new OdbcParameter("p1", OdbcType.NChar);
                 p1.Value = DBjmeno;
                 OdbcParameter p2 = new OdbcParameter("p2", OdbcType.Int);
@@ -547,6 +556,7 @@ namespace Vydejna
                 OdbcParameter p16 = new OdbcParameter("p16", OdbcType.NChar);
                 p16.Value = DBkonto;
 
+                cmd.Parameters.Add(p0);
                 cmd.Parameters.Add(p1);
                 cmd.Parameters.Add(p2);
                 cmd.Parameters.Add(p3);
@@ -564,29 +574,46 @@ namespace Vydejna
                 cmd.Parameters.Add(p15);
                 cmd.Parameters.Add(p16);
                 cmd.ExecuteNonQuery();
+
+                OdbcCommand cmdSeq2 = new OdbcCommand(commandStringSeq2, myDBConn as OdbcConnection);
+                cmdSeq2.ExecuteNonQuery();
+                return poradi;
+
             }
+            return 0;
         }
 
 
 
 
 
-        public override void addLinePoskozeno(string DBjmeno, int DBcislo, string DBdilna, string DBpracoviste,
+        public override Int32 addLinePoskozeno(string DBjmeno, int DBcislo, string DBdilna, string DBpracoviste,
                                          string DBvyrobek, string DBnazev, string DBJK, string DBrozmer, int DBpocetks,
                                          double DBcena, DateTime DBdate, string DBnormacsn, string DBkrjmeno,
                                          double DBcelkCena, string DBvevCislo, string DBkonto)
         {
 
-            string commandString = "INSERT INTO poskozeno ( jmeno, cislo, dilna, pracoviste, vyrobek, nazev, jk, rozmer, pocetks, cena, datum, csn, krjmeno, celkcena, vevcislo, konto) " +
-                  "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
+            string commandStringSeq1 = "SELECT poradi FROM tabseq WHERE nazev = 'poskozeno'";
+            string commandStringSeq2 = "UPDATE  tabseq set poradi = poradi +1 WHERE nazev = 'poskozeno'";
+
+            string commandString = "INSERT INTO poskozeno ( poradi, jmeno, cislo, dilna, pracoviste, vyrobek, nazev, jk, rozmer, pocetks, cena, datum, csn, krjmeno, celkcena, vevcislo, konto) " +
+                  "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
 
 
 
             if (DBIsOpened())
             {
 
+                OdbcCommand cmdSeq1 = new OdbcCommand(commandStringSeq1, myDBConn as OdbcConnection);
+                OdbcDataReader seqReader = cmdSeq1.ExecuteReader();
+                seqReader.Read();
+                Int32 poradi = seqReader.GetInt32(0);
+                seqReader.Close();
+
                 OdbcCommand cmd = new OdbcCommand(commandString, myDBConn as OdbcConnection);
 
+                SQLiteParameter p0 = new SQLiteParameter(DbType.Int32);
+                p0.Value = poradi;
                 OdbcParameter p1 = new OdbcParameter("p1", OdbcType.NChar);
                 p1.Value = DBjmeno;
                 OdbcParameter p2 = new OdbcParameter("p2", OdbcType.Int);
@@ -620,6 +647,7 @@ namespace Vydejna
                 OdbcParameter p16 = new OdbcParameter("p15", OdbcType.NChar);
                 p16.Value = DBkonto;
 
+                cmd.Parameters.Add(p0);
                 cmd.Parameters.Add(p1);
                 cmd.Parameters.Add(p2);
                 cmd.Parameters.Add(p3);
@@ -637,7 +665,12 @@ namespace Vydejna
                 cmd.Parameters.Add(p15);
                 cmd.Parameters.Add(p16);
                 cmd.ExecuteNonQuery();
+
+                OdbcCommand cmdSeq2 = new OdbcCommand(commandStringSeq2, myDBConn as OdbcConnection);
+                cmdSeq2.ExecuteNonQuery();
+                return poradi;
             }
+            return 0;
         }
 
 
@@ -1014,6 +1047,24 @@ namespace Vydejna
             return -1;
         }
 
+        public override Int64 countOfRows(string DBSelect, Int32 whileValue)
+        {
+
+            if (DBIsOpened())
+            {
+                OdbcCommand cmd = new OdbcCommand(DBSelect, myDBConn as OdbcConnection);
+
+                OdbcParameter p1 = new OdbcParameter("p1", OdbcType.Int);
+                p1.Value = whileValue;
+                cmd.Parameters.Add(p1);
+                OdbcDataReader myReader = cmd.ExecuteReader();
+                myReader.Read();
+                Int64 countRows = myReader.GetInt64(0);
+                myReader.Close();
+                return countRows;
+            }
+            return -1;
+        }
 
 
     }
