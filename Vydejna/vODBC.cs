@@ -145,7 +145,9 @@ namespace Vydejna
         public override void CreateTables()
         {
             string commandStringSequence = "create table tabseq ( nazev char (15), poradi integer);";
-            string commandStringSequenceInit = "INSERT INTO tabseq ( nazev, poradi) VALUES ('naradi', 1)";
+            string commandStringSequenceInit1 = "INSERT INTO tabseq ( nazev, poradi) VALUES ('naradi', 1)";
+            string commandStringSequenceInit2 = "INSERT INTO tabseq ( nazev, poradi) VALUES ('vraceno', 1)";
+            string commandStringSequenceInit3 = "INSERT INTO tabseq ( nazev, poradi) VALUES ('poskozeno', 1)";
 
 //            string commandStringKarta = "create table karta ( poradi integer, nazev char(60), jk char(15), normacsn char (15)," +
 //                      "normadin char(15), vyrobce char(40), cena float, poznamka char(60), minimum integer,"+
@@ -160,14 +162,6 @@ namespace Vydejna
                       "stredisko char(5), kodzmeny char(3), druh char(3), odpis char(3), zavod char(3));";
 
 
-//            string commandStringNaradi = "create table naradi ( poradi integer, nazev char(60), jk char(15), normacsn char (15)," +
-//                      "normadin char(15), vyrobce char(40), cena float, poznamka char(60), minimum integer," +
-//                      "celkcena float, adrdir char(9), movsoub char(12), badrdir char(9), bmovsoub char(12)," +
-//                      "cntrcode char(12), ucetstav integer, fyzstav integer, rozmer char(20), analucet char(5), tdate date," +
-//                      "stredisko char(5), kodzmeny char(3), druh char(3), odpis char(3), zavod char(3), ucetkscen float," +
-//                      "test char(1), pomroz char(1), kdatum date, kodd char(2) );";
-
-
             string commandStringNaradi = "create table naradi ( poradi integer, nazev char(60), jk char(15), normacsn char (15)," +
                       "normadin char(15), vyrobce char(40), cena float, poznamka char(60), minimum integer," +
                       "celkcena float," +
@@ -176,21 +170,24 @@ namespace Vydejna
                       "test char(1), pomroz char(1), kdatum date, kodd char(2) );";
 
 
-            string commandStringPoskozeno = "create table poskozeno ( jmeno char(15), cislo integer, dilna char(15)," +
+            string commandStringPoskozeno = "create table poskozeno ( poradi integer, jmeno char(15), cislo integer, dilna char(15)," +
                       "pracoviste char(20), vyrobek char(15),nazev char(60), jk char(15), rozmer char(25)," +
                       "pocetks integer, cena float, datum date, csn char(15), krjmeno char(15)," +
                       "celkcena float, vevcislo char(12), konto char(15) );";
 
 
 
-            string commandStringVraceno = "create table vraceno ( jmeno char(15), cislo integer, dilna char(15)," +
+            string commandStringVraceno = "create table vraceno ( poradi integer, jmeno char(15), cislo integer, dilna char(15)," +
                       "pracoviste char(20), vyrobek char(15),nazev char(60), jk char(15), rozmer char(25)," +
                       "pocetks integer, cena float, datum date, csn char(15), krjmeno char(15)," +
                       "celkcena float, vevcislo char(12), konto char(15) );";
+
+
 
             string commandStringOsoby = "create table osoby ( jmeno char(15), prijmeni char(15), ulice char(20)," +
                       "mesto char(25), psc char(7),telhome char(15), oscislo char(8), odeleni char(20)," +
                       "telzam char(15), stredisko char(10), pujsoub char(12), pracoviste char(10), cisznamky char(5), poznamka char(120) );";
+
 
 
             string commandStringZmeny = "create table zmeny ( parporadi integer, pomozjk char(15), datum date, poznamka char(22)," +
@@ -206,7 +203,9 @@ namespace Vydejna
             OdbcCommand cmdKarta = new OdbcCommand(commandStringKarta, myDBConn as OdbcConnection);
             OdbcCommand cmdNaradi = new OdbcCommand(commandStringNaradi, myDBConn as OdbcConnection);
             OdbcCommand cmdSequence = new OdbcCommand(commandStringSequence, myDBConn as OdbcConnection);
-            OdbcCommand cmdSequenceInit = new OdbcCommand(commandStringSequenceInit, myDBConn as OdbcConnection);
+            OdbcCommand cmdSequenceInit1 = new OdbcCommand(commandStringSequenceInit1, myDBConn as OdbcConnection);
+            OdbcCommand cmdSequenceInit2 = new OdbcCommand(commandStringSequenceInit2, myDBConn as OdbcConnection);
+            OdbcCommand cmdSequenceInit3 = new OdbcCommand(commandStringSequenceInit3, myDBConn as OdbcConnection);
             OdbcCommand cmdVraceno = new OdbcCommand(commandStringVraceno, myDBConn as OdbcConnection);
             OdbcCommand cmdPoskozeno = new OdbcCommand(commandStringPoskozeno, myDBConn as OdbcConnection);
             OdbcCommand cmdOsoby = new OdbcCommand(commandStringOsoby, myDBConn as OdbcConnection);
@@ -217,7 +216,9 @@ namespace Vydejna
                     cmdKarta.ExecuteNonQuery();
                     cmdNaradi.ExecuteNonQuery();
                     cmdSequence.ExecuteNonQuery();
-                    cmdSequenceInit.ExecuteNonQuery();
+                    cmdSequenceInit1.ExecuteNonQuery();
+                    cmdSequenceInit2.ExecuteNonQuery();
+                    cmdSequenceInit3.ExecuteNonQuery();
                     cmdVraceno.ExecuteNonQuery();
                     cmdPoskozeno.ExecuteNonQuery();
                     cmdOsoby.ExecuteNonQuery();
@@ -235,7 +236,9 @@ namespace Vydejna
                     cmdOsoby.Dispose();
                     cmdPoskozeno.Dispose();
                     cmdVraceno.Dispose();
-                    cmdSequenceInit.Dispose();
+                    cmdSequenceInit1.Dispose();
+                    cmdSequenceInit2.Dispose();
+                    cmdSequenceInit3.Dispose();
                     cmdSequence.Dispose();
                     cmdNaradi.Dispose();
                     cmdKarta.Dispose();
@@ -521,7 +524,7 @@ namespace Vydejna
 
                 OdbcCommand cmd = new OdbcCommand(commandString, myDBConn as OdbcConnection);
 
-                SQLiteParameter p0 = new SQLiteParameter(DbType.Int32);
+                OdbcParameter p0 = new OdbcParameter("p0",OdbcType.Int);
                 p0.Value = poradi;
                 OdbcParameter p1 = new OdbcParameter("p1", OdbcType.NChar);
                 p1.Value = DBjmeno;
@@ -612,7 +615,7 @@ namespace Vydejna
 
                 OdbcCommand cmd = new OdbcCommand(commandString, myDBConn as OdbcConnection);
 
-                SQLiteParameter p0 = new SQLiteParameter(DbType.Int32);
+                OdbcParameter p0 = new OdbcParameter("p0", OdbcType.Int);
                 p0.Value = poradi;
                 OdbcParameter p1 = new OdbcParameter("p1", OdbcType.NChar);
                 p1.Value = DBjmeno;
