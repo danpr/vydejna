@@ -924,6 +924,96 @@ namespace Vydejna
         }
 
 
+        public override Boolean editNewLinePoskozene(Int32 poradi, string DBkrjmeno, string DBjmeno, string DBosCislo, string DBdilna,
+                                 string DBprovoz, string DBnazev, string DBJK, long DBpocetKS,
+                                 string DBrozmer, string DBCSN, decimal DBcena,
+                                 DateTime DBdatum, string DBvyrobek, string DBkonto)
+        {
+
+            string commandString1 = "UPDATE poskozeno set jmeno = ?, cislo =?, dilna = ?, pracoviste = ?, vyrobek = ?, nazev = ?, rozmer = ?, pocetks = ?, cena = ?, datum = ?, csn = ?, krjmeno = ?, konto = ?, jk = ? " +
+                  "where  poradi = ?";
+
+            OdbcTransaction transaction = null;
+            if (DBIsOpened())
+            {
+                try
+                {
+                    transaction = (myDBConn as OdbcConnection).BeginTransaction(System.Data.IsolationLevel.ReadCommitted);
+
+                    OdbcCommand cmd = new OdbcCommand(commandString1, myDBConn as OdbcConnection);
+
+                    OdbcParameter p1 = new OdbcParameter("p1", OdbcType.NChar);
+                    p1.Value = DBjmeno;
+                    OdbcParameter p2 = new OdbcParameter("p2", OdbcType.NChar);
+                    p2.Value = DBosCislo;
+                    OdbcParameter p3 = new OdbcParameter("p3", OdbcType.NChar);
+                    p3.Value = DBdilna;
+                    OdbcParameter p4 = new OdbcParameter("p4", OdbcType.NChar);
+                    p4.Value = DBprovoz;
+                    OdbcParameter p5 = new OdbcParameter("p5", OdbcType.NChar);
+                    p5.Value = DBvyrobek;
+                    OdbcParameter p6 = new OdbcParameter("p6", OdbcType.NChar);
+                    p6.Value = DBnazev;
+                    OdbcParameter p7 = new OdbcParameter("p7", OdbcType.NChar);
+                    p7.Value = DBrozmer;
+                    OdbcParameter p8 = new OdbcParameter("p8", OdbcType.Int);
+                    p8.Value = DBpocetKS;
+                    OdbcParameter p9 = new OdbcParameter("p9", OdbcType.Double);
+                    p9.Value = DBcena;
+                    OdbcParameter p10 = new OdbcParameter("p10", OdbcType.Date);
+                    p10.Value = DBdatum;
+                    OdbcParameter p11 = new OdbcParameter("p11", OdbcType.NChar);
+                    p11.Value = DBCSN;
+                    OdbcParameter p12 = new OdbcParameter("p12", OdbcType.NChar);
+                    p12.Value = DBkrjmeno;
+                    OdbcParameter p13 = new OdbcParameter("p13", OdbcType.NChar);
+                    p13.Value = DBkonto;
+                    OdbcParameter p14 = new OdbcParameter("p14", OdbcType.NChar);
+                    p14.Value = DBJK;
+                    OdbcParameter p15 = new OdbcParameter("p15", OdbcType.Int);
+                    p15.Value = poradi;
+
+
+                    cmd.Parameters.Add(p1);
+                    cmd.Parameters.Add(p2);
+                    cmd.Parameters.Add(p3);
+                    cmd.Parameters.Add(p4);
+                    cmd.Parameters.Add(p5);
+                    cmd.Parameters.Add(p6);
+                    cmd.Parameters.Add(p7);
+                    cmd.Parameters.Add(p8);
+                    cmd.Parameters.Add(p9);
+                    cmd.Parameters.Add(p10);
+                    cmd.Parameters.Add(p11);
+                    cmd.Parameters.Add(p12);
+                    cmd.Parameters.Add(p13);
+                    cmd.Parameters.Add(p14);
+                    cmd.Parameters.Add(p15);
+                    cmd.ExecuteNonQuery();
+                    if (transaction != null)
+                    {
+                        (transaction as OdbcTransaction).Commit();
+                    }
+                    return true;
+
+                }
+                catch (Exception)
+                {
+                    // doslo k chybe
+                    if (transaction != null)
+                    {
+                        (transaction as OdbcTransaction).Rollback();
+                    }
+                    return false;
+                }
+
+            }
+
+            return true;
+        }
+
+
+
 
 
         public override Boolean editNewLineOsoby(string DBprijmeni, string DBjmeno, string DBulice, string DBmesto,
