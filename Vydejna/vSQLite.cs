@@ -1319,6 +1319,94 @@ namespace Vydejna
         }
 
 
+        public override Boolean editNewLineVracene(Int32 poradi, string DBkrjmeno, string DBjmeno, string DBosCislo, string DBdilna,
+                                 string DBprovoz, string DBnazev, string DBJK, long DBpocetKS,
+                                 string DBrozmer, string DBCSN, decimal DBcena,
+                                 DateTime DBdatum, string DBvyrobek, string DBkonto)
+        {
+
+            string commandString1 = "UPDATE vraceno set jmeno = ?, cislo =?, dilna = ?, pracoviste = ?, vyrobek = ?, nazev = ?, rozmer = ?, pocetks = ?, cena = ?, datum = ?, csn = ?, krjmeno = ?, konto = ?, jk = ? " +
+                  "where  poradi = ?";
+
+            SQLiteTransaction transaction = null;
+            if (DBIsOpened())
+            {
+                try
+                {
+                    transaction = (myDBConn as SQLiteConnection).BeginTransaction(System.Data.IsolationLevel.ReadCommitted);
+
+                    SQLiteCommand cmd = new SQLiteCommand(commandString1, myDBConn as SQLiteConnection);
+
+                    SQLiteParameter p1 = new SQLiteParameter("p1", DbType.String);
+                    p1.Value = DBjmeno;
+                    SQLiteParameter p2 = new SQLiteParameter("p2", DbType.String);
+                    p2.Value = DBosCislo;
+                    SQLiteParameter p3 = new SQLiteParameter("p3", DbType.String);
+                    p3.Value = DBdilna;
+                    SQLiteParameter p4 = new SQLiteParameter("p4", DbType.String);
+                    p4.Value = DBprovoz;
+                    SQLiteParameter p5 = new SQLiteParameter("p5", DbType.String);
+                    p5.Value = DBvyrobek;
+                    SQLiteParameter p6 = new SQLiteParameter("p6", DbType.String);
+                    p6.Value = DBnazev;
+                    SQLiteParameter p7 = new SQLiteParameter("p7", DbType.String);
+                    p7.Value = DBrozmer;
+                    SQLiteParameter p8 = new SQLiteParameter("p8", DbType.Int64);
+                    p8.Value = DBpocetKS;
+                    SQLiteParameter p9 = new SQLiteParameter("p9", DbType.Double);
+                    p9.Value = DBcena;
+                    SQLiteParameter p10 = new SQLiteParameter("p10", DbType.Date);
+                    p10.Value = DBdatum;
+                    SQLiteParameter p11 = new SQLiteParameter("p11", DbType.String);
+                    p11.Value = DBCSN;
+                    SQLiteParameter p12 = new SQLiteParameter("p12", DbType.String);
+                    p12.Value = DBkrjmeno;
+                    SQLiteParameter p13 = new SQLiteParameter("p13", DbType.String);
+                    p13.Value = DBkonto;
+                    SQLiteParameter p14 = new SQLiteParameter("p14", DbType.String);
+                    p14.Value = DBJK;
+                    SQLiteParameter p15 = new SQLiteParameter("p15", DbType.Int32);
+                    p15.Value = poradi;
+
+
+                    cmd.Parameters.Add(p1);
+                    cmd.Parameters.Add(p2);
+                    cmd.Parameters.Add(p3);
+                    cmd.Parameters.Add(p4);
+                    cmd.Parameters.Add(p5);
+                    cmd.Parameters.Add(p6);
+                    cmd.Parameters.Add(p7);
+                    cmd.Parameters.Add(p8);
+                    cmd.Parameters.Add(p9);
+                    cmd.Parameters.Add(p10);
+                    cmd.Parameters.Add(p11);
+                    cmd.Parameters.Add(p12);
+                    cmd.Parameters.Add(p13);
+                    cmd.Parameters.Add(p14);
+                    cmd.Parameters.Add(p15);
+                    cmd.ExecuteNonQuery();
+                    if (transaction != null)
+                    {
+                        (transaction as SQLiteTransaction).Commit();
+                    }
+                    return true;
+
+                }
+                catch (Exception)
+                {
+                    // doslo k chybe
+                    if (transaction != null)
+                    {
+                        (transaction as SQLiteTransaction).Rollback();
+                    }
+                    return false;
+                }
+
+            }
+
+            return true;
+        }
+
 
         public override Boolean editNewLineOsoby(string DBprijmeni, string DBjmeno, string DBulice, string DBmesto,
                                          string DBpsc, string DBtelHome, string DBosCislo, string DBstredisko,

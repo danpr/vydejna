@@ -243,6 +243,13 @@ namespace Vydejna
             return false;
         }
 
+        public virtual Boolean editNewLineVracene(Int32 poradi, string DBkrjmeno, string DBjmeno, string DBosCislo, string DBdilna,
+                                         string DBprovoz, string DBnazev, string DBJK, long DBpocetKS,
+                                         string DBrozmer, string DBCSN, decimal DBcena,
+                                         DateTime DBdatum, string DBvyrobek, string DBkonto)
+        {
+            return false;
+        }
 
 
 

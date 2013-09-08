@@ -172,6 +172,7 @@ namespace Vydejna
                 SkladovaKarta sklKarta = new SkladovaKarta(DBRow, myDataBase, sKartaState.edit);
                 sklKarta.ShowDialog();
             }
+
         }
     }
 
@@ -208,6 +209,7 @@ namespace Vydejna
             if ((myDataBase != null) && (myDataBase.DBIsOpened()))
             {
                 VraceneKarta poskozKarta = new VraceneKarta(DBRow, myDataBase, vKartaState.edit);
+                poskozKarta.setWinName("Poškozeno");
                 if (poskozKarta.ShowDialog() == DialogResult.OK)
                 {
                     VraceneKarta.messager mesenger = poskozKarta.getMesseger();
@@ -258,10 +260,60 @@ namespace Vydejna
 
     class detailVraceno : detail
     {
+
         public override void zobrazKartu(Hashtable DBRow, vDatabase myDataBase)
         {
-            VraceneKarta sklKarta = new VraceneKarta(DBRow);
-            sklKarta.ShowDialog();
+            VraceneKarta vracKarta = new VraceneKarta(DBRow);
+            vracKarta.setWinName("Vraceno");
+            vracKarta.ShowDialog();
+        }
+       
+        
+        public override void opravKartu(Hashtable DBRow, vDatabase myDataBase, DataGridView myDataGridView)
+        {
+            VraceneKarta vracKarta = new VraceneKarta(DBRow);
+            vracKarta.setWinName("Vraceno");
+            if (vracKarta.ShowDialog() == DialogResult.OK)
+            {
+                VraceneKarta.messager mesenger = vracKarta.getMesseger();
+                Boolean updateIsOk = myDataBase.editNewLineVracene(mesenger.poradi, mesenger.jmeno, mesenger.prijmeni, mesenger.oscislo, mesenger.stredisko, mesenger.provoz, mesenger.nazev, mesenger.jk, mesenger.pocetKs, mesenger.rozmer, mesenger.csn, mesenger.cena, mesenger.datum, mesenger.zakazka, mesenger.konto);
+                if (updateIsOk)
+                {
+                    // je potreba najit index v datove tabulce - po trideni neni schodny s indexem ve view
+                    Int32 dataRowIndex = -1;
+                    for (int x = 0; x < (myDataGridView.DataSource as DataTable).Rows.Count - 1; x++)
+                    {
+                        if (Convert.ToInt32((myDataGridView.DataSource as DataTable).Rows[x][0]) == mesenger.poradi)
+                        {
+                            dataRowIndex = x;
+                            break;
+                        }
+
+                    }
+
+                    if (dataRowIndex != -1)
+                    {
+                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(1, mesenger.nazev);
+                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(2, mesenger.jk);
+
+                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(3, mesenger.pocetKs);
+                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(4, mesenger.rozmer);
+
+                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(5, mesenger.csn);
+                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(6, mesenger.cena);
+                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(7, mesenger.datum);
+                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(8, mesenger.zakazka);
+                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(9, mesenger.konto);
+                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(10, mesenger.prijmeni);
+                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(11, mesenger.jmeno);
+                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(12, mesenger.oscislo);
+                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(13, mesenger.stredisko);
+                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(14, mesenger.provoz);
+
+                        myDataGridView.Refresh();
+                    }
+                }
+            }
         }
 
     }
