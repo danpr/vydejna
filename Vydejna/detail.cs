@@ -208,7 +208,7 @@ namespace Vydejna
         {
             if ((myDataBase != null) && (myDataBase.DBIsOpened()))
             {
-                VraceneKarta poskozKarta = new VraceneKarta(DBRow, myDataBase, vKartaState.edit);
+                VraceneKarta poskozKarta = new VraceneKarta(DBRow, myDataBase, new tableItemExist(myDataBase.tablePoskozenoItemExist), vKartaState.edit);
                 poskozKarta.setWinName("Poškozeno");
                 if (poskozKarta.ShowDialog() == DialogResult.OK)
                 {
@@ -271,7 +271,7 @@ namespace Vydejna
         
         public override void opravKartu(Hashtable DBRow, vDatabase myDataBase, DataGridView myDataGridView)
         {
-            VraceneKarta vracKarta = new VraceneKarta(DBRow);
+            VraceneKarta vracKarta = new VraceneKarta(DBRow, myDataBase, new tableItemExist(myDataBase.tablePoskozenoItemExist), vKartaState.edit);
             vracKarta.setWinName("Vraceno");
             if (vracKarta.ShowDialog() == DialogResult.OK)
             {
