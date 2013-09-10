@@ -102,8 +102,8 @@ namespace Vydejna
 
         public void setData(Hashtable DBRow)
         {
-            textBoxJmeno.Text = Convert.ToString(DBRow["krjmeno"]);
-            textBoxPrijmeni.Text = Convert.ToString(DBRow["jmeno"]);
+            textBoxJmeno.Text = Convert.ToString(DBRow["krjmeno"]).Trim();
+            textBoxPrijmeni.Text = Convert.ToString(DBRow["jmeno"]).Trim();
             textBoxOsCislo.Text = Convert.ToString(DBRow["cislo"]);
             textBoxStredisko.Text = Convert.ToString(DBRow["dilna"]);
             textBoxProvoz.Text = Convert.ToString(DBRow["pracoviste"]);
@@ -113,7 +113,6 @@ namespace Vydejna
             textBoxRozmer.Text = Convert.ToString(DBRow["rozmer"]);
             textBoxCSN.Text = Convert.ToString(DBRow["csn"]);
             numericUpDownCena.Value = Convert.ToDecimal (DBRow["cena"]);
-//            DateTime minDate = new DateTime(1753,1,1);
             if (Convert.ToDateTime(DBRow["datum"]) < new DateTime(1753, 1, 1)) 
             {
                 dateTimePickerDatum.Value = new DateTime(1890,1,1);

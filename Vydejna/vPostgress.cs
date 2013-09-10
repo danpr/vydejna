@@ -109,15 +109,18 @@ namespace Vydejna
 
                     transaction = (myDBConn as OdbcConnection).BeginTransaction(System.Data.IsolationLevel.ReadCommitted);
 
-                    OdbcCommand cmd = new OdbcCommand(commandString1, myDBConn as OdbcConnection);
-                    OdbcDataReader myReader = cmd.ExecuteReader();
+                    OdbcCommand cmdr = new OdbcCommand(commandString1, myDBConn as OdbcConnection);
+
+                    cmdr.Transaction = transaction;
+
+                    OdbcDataReader myReader = cmdr.ExecuteReader();
                     myReader.Read();
                     Int32 maxporadi = myReader.GetInt32(0);
                     myReader.Close();
                     maxporadi++;
 
 
-                    cmd = new OdbcCommand(commandString2, myDBConn as OdbcConnection);
+                    OdbcCommand cmd = new OdbcCommand(commandString2, myDBConn as OdbcConnection);
 
                     OdbcParameter p0 = new OdbcParameter("p0", OdbcType.NChar);
                     p0.Value = maxporadi;
@@ -196,7 +199,12 @@ namespace Vydejna
                     cmd.Parameters.Add(p27);
                     cmd.Parameters.Add(p28);
                     cmd.Parameters.Add(p29);
+
+                    cmd.Transaction = transaction;
+
                     cmd.ExecuteNonQuery();
+
+                    
                     if (transaction != null)
                     {
                         (transaction as OdbcTransaction).Commit();
@@ -239,13 +247,14 @@ namespace Vydejna
                 {
                     transaction = (myDBConn as OdbcConnection).BeginTransaction(System.Data.IsolationLevel.ReadCommitted);
 
-                    OdbcCommand cmd = new OdbcCommand(commandString1, myDBConn as OdbcConnection);
+                    OdbcCommand cmdr = new OdbcCommand(commandString1, myDBConn as OdbcConnection);
 
                     OdbcParameter px = new OdbcParameter("px", DbType.String);
                     px.Value = DBosCislo;
-                    cmd.Parameters.Add(px);
+                    cmdr.Parameters.Add(px);
 
-                    OdbcDataReader myReader = cmd.ExecuteReader();
+                    cmdr.Transaction = transaction;
+                    OdbcDataReader myReader = cmdr.ExecuteReader();
 
 
                     bool osCisloExist = myReader.Read();
@@ -255,7 +264,7 @@ namespace Vydejna
                     if (!osCisloExist)
                     {
 
-                        cmd = new OdbcCommand(commandString2, myDBConn as OdbcConnection);
+                        OdbcCommand cmd = new OdbcCommand(commandString2, myDBConn as OdbcConnection);
 
                         OdbcParameter p1 = new OdbcParameter("p1", OdbcType.NChar);
                         p1.Value = DBprijmeni;
@@ -301,6 +310,9 @@ namespace Vydejna
                         cmd.Parameters.Add(p12);
                         cmd.Parameters.Add(p13);
                         cmd.Parameters.Add(p14);
+
+                        cmd.Transaction = transaction;
+
                         cmd.ExecuteNonQuery();
 
                     }
@@ -311,8 +323,8 @@ namespace Vydejna
                         (transaction as OdbcTransaction).Commit();
                     }
 
-                    if (!osCisloExist) return -1;
-                    else return 0;
+                    if (!osCisloExist) return 0;
+                    else return -1;
 
                 }  //try
                 catch (Exception)
