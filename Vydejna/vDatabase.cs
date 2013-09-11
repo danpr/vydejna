@@ -303,7 +303,7 @@ namespace Vydejna
 
         public virtual DataTable loadDataTableVraceno()
         {
-            return loadDataTable("SELECTporadi, nazev, jk,  pocetks, rozmer, csn,"
+            return loadDataTable("SELECT poradi, nazev, jk,  pocetks, rozmer, csn,"
                                      + " cena, datum, vyrobek, konto, jmeno, krjmeno, cislo, dilna, pracoviste"
                                      + " from vraceno ORDER BY datum");
         }

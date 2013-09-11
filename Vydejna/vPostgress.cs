@@ -87,7 +87,7 @@ namespace Vydejna
 
         }
 
-        // pridani nove polzky do tabulky naradi
+        // pridani nove polozky do tabulky naradi
         public override Int32 addNewLineNaradi(string DBnazev, string DBJK, string DBnormacsn, string DBnormadin,
                                          string DBvyrobce, decimal DBcena, string DBpoznamka, long DBminstav,
                                          decimal DBcelkcena,  long DBucetstav, long DBfyzstav,
@@ -95,7 +95,9 @@ namespace Vydejna
         {
 
 
-            string commandString1 = "SELECT MAX(poradi) as maxporadi from naradi";
+            string commandStringSeq1 = "SELECT MAX(poradi) as maxporadi from naradi";
+            string commandStringSeq2 = "UPDATE  tabseq set poradi = poradi +1 WHERE nazev = 'naradi'";
+
 
             string commandString2 = "INSERT INTO naradi ( poradi, nazev, jk, normacsn, normadin, vyrobce, cena, poznamka, minimum, celkcena,  ucetstav, fyzstav, rozmer, analucet, tdate, stredisko, kodzmeny, druh, odpis, zavod, ucetkscen, test, pomroz, kdatum, kodd ) " +
                   "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, '' )";
@@ -109,7 +111,7 @@ namespace Vydejna
 
                     transaction = (myDBConn as OdbcConnection).BeginTransaction(System.Data.IsolationLevel.ReadCommitted);
 
-                    OdbcCommand cmdr = new OdbcCommand(commandString1, myDBConn as OdbcConnection);
+                    OdbcCommand cmdr = new OdbcCommand(commandStringSeq1, myDBConn as OdbcConnection);
 
                     cmdr.Transaction = transaction;
 
@@ -201,8 +203,13 @@ namespace Vydejna
                     cmd.Parameters.Add(p29);
 
                     cmd.Transaction = transaction;
-
                     cmd.ExecuteNonQuery();
+
+
+                    OdbcCommand cmdSeq2 = new OdbcCommand(commandStringSeq2, myDBConn as OdbcConnection);
+
+                    cmdSeq2.Transaction = transaction;
+                    cmdSeq2.ExecuteNonQuery();
 
                     
                     if (transaction != null)

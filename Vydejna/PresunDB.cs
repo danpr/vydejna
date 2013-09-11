@@ -20,12 +20,17 @@ namespace Vydejna
     public static void presunVyrazene(vDatabase myDB, string filepath, Hashtable DBJoin)
     {
         DbTransaction myTransaction =  myDB.startTransaction();
-        OleDbConnection fbase = new OleDbConnection("Provider=VFPOLEDB.1;CodePage=437;Data Source=" + filepath + "\\DATA;Exclusive=false;Nulls=false");
-           fbase.Open();
-           OleDbCommand fbaseCom = new OleDbCommand("SELECT * FROM " + filepath + "\\DATA\\AR_KARET.DBF",fbase);
-           OleDbDataReader dr = fbaseCom.ExecuteReader();
-           if (dr.HasRows)
-           {
+
+
+        OleDbConnection fbase = new OleDbConnection("Provider=VFPOLEDB.1;CodePage=437;Data Source=" + filepath + "\\DATA;Exclusive=false;Nulls=false;Collating Sequence=general");
+
+//      OleDbConnection fbase = new OleDbConnection("Provider=VFPOLEDB.1;Data Source=" + filepath + "\\DATA;Exclusive=false;Nulls=false;Collating Sequence=general");
+//      OleDbConnection fbase = new OleDbConnection("Provider=VFPOLEDB.1;CodePage=437;Data Source=" + filepath + "\\DATA;Exclusive=false;Nulls=false");
+        fbase.Open();
+        OleDbCommand fbaseCom = new OleDbCommand("SELECT * FROM " + filepath + "\\DATA\\AR_KARET.DBF",fbase);
+        OleDbDataReader dr = fbaseCom.ExecuteReader();
+        if (dr.HasRows)
+        {
                     string DBnazev;
                     string DBJK;
                     string DBnormaCSN;
