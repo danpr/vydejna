@@ -205,7 +205,6 @@ namespace Vydejna
                     cmd.Transaction = transaction;
                     cmd.ExecuteNonQuery();
 
-
                     OdbcCommand cmdSeq2 = new OdbcCommand(commandStringSeq2, myDBConn as OdbcConnection);
 
                     cmdSeq2.Transaction = transaction;

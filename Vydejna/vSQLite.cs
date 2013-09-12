@@ -909,7 +909,8 @@ namespace Vydejna
                                          string DBrozmer, string DBanalucet, decimal DBucetkscen, DateTime DBkdatum)
         {
 
-            string commandString1 = "SELECT MAX(poradi) as maxporadi from naradi";
+            string commandStringSeq1 = "SELECT MAX(poradi) as maxporadi from naradi";
+            string commandStringSeq2 = "UPDATE  tabseq set poradi = poradi +1 WHERE nazev = 'naradi'";
 
             string commandString2 = "INSERT INTO naradi ( poradi, nazev, jk, normacsn, normadin, vyrobce, cena, poznamka, minimum, celkcena,  ucetstav, fyzstav, rozmer, analucet, tdate, stredisko, kodzmeny, druh, odpis, zavod, ucetkscen, test, pomroz, kdatum, kodd ) " +
                   "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, '' )";
@@ -922,7 +923,7 @@ namespace Vydejna
                 {
                     transaction = (myDBConn as SQLiteConnection).BeginTransaction(System.Data.IsolationLevel.ReadCommitted);
 
-                    SQLiteCommand cmd = new SQLiteCommand(commandString1, myDBConn as SQLiteConnection);
+                    SQLiteCommand cmd = new SQLiteCommand(commandStringSeq1, myDBConn as SQLiteConnection);
                     SQLiteDataReader myReader = cmd.ExecuteReader();
                     myReader.Read();
                     Int32 maxporadi = myReader.GetInt32(0);
@@ -1009,7 +1010,15 @@ namespace Vydejna
                     cmd.Parameters.Add(p27);
                     cmd.Parameters.Add(p28);
                     cmd.Parameters.Add(p29);
+
+                    cmd.Transaction = transaction; 
                     cmd.ExecuteNonQuery();
+
+                    SQLiteCommand cmdSeq2 = new SQLiteCommand(commandStringSeq2, myDBConn as SQLiteConnection);
+
+                    cmdSeq2.Transaction = transaction;
+                    cmdSeq2.ExecuteNonQuery();
+                    
                     if (transaction != null)
                     {
                         (transaction as SQLiteTransaction).Commit();
