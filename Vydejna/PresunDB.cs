@@ -24,8 +24,6 @@ namespace Vydejna
 
         OleDbConnection fbase = new OleDbConnection("Provider=VFPOLEDB.1;CodePage=437;Data Source=" + filepath + "\\DATA;Exclusive=false;Nulls=false;Collating Sequence=general");
 
-//      OleDbConnection fbase = new OleDbConnection("Provider=VFPOLEDB.1;Data Source=" + filepath + "\\DATA;Exclusive=false;Nulls=false;Collating Sequence=general");
-//      OleDbConnection fbase = new OleDbConnection("Provider=VFPOLEDB.1;CodePage=437;Data Source=" + filepath + "\\DATA;Exclusive=false;Nulls=false");
         fbase.Open();
         OleDbCommand fbaseCom = new OleDbCommand("SELECT * FROM " + filepath + "\\DATA\\AR_KARET.DBF",fbase);
         OleDbDataReader dr = fbaseCom.ExecuteReader();

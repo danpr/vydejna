@@ -252,6 +252,13 @@ namespace Vydejna
         }
 
 
+        public virtual Boolean editNewLineKaret(Int32 poradi, string DBnazev, string DBJK, string DBnormacsn, string DBnormadin,
+                                         string DBvyrobce, decimal DBcena, string DBpoznamka, long DBminstav,
+                                         decimal DBcelkcena, long DBucetstav, long DBfyzstav,
+                                         string DBrozmer, string DBanalucet)
+        {
+            return false;
+        }
 
 
         public virtual Int32 addNewLineOsoby(string DBprijmeni, string DBjmeno, string DBulice, string DBmesto,
@@ -261,6 +268,9 @@ namespace Vydejna
         {
             return -1;
         }
+
+
+
 
 
         public virtual Boolean editNewLineOsoby(string DBprijmeni, string DBjmeno, string DBulice, string DBmesto,

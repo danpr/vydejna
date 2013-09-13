@@ -68,6 +68,7 @@ namespace Vydejna
             if ((myDataBase != null) && (myDataBase.DBIsOpened()))
             {
                 SkladovaKarta sklKarta = new SkladovaKarta(DBRow, myDataBase);
+                sklKarta.setWinName("Skladová karta");
                 sklKarta.ShowDialog();
             }
         }
@@ -78,6 +79,7 @@ namespace Vydejna
             if ((myDataBase != null) && (myDataBase.DBIsOpened()))
             {
                 SkladovaKarta sklKarta = new SkladovaKarta(myDataBase);
+                sklKarta.setWinName("Skladová karta");
                 if (sklKarta.ShowDialog() == DialogResult.OK)
                 {
 
@@ -161,6 +163,7 @@ namespace Vydejna
             if ((myDataBase != null) && (myDataBase.DBIsOpened()))
             {
                 SkladovaKarta sklKarta = new SkladovaKarta(DBRow, myDataBase);
+                sklKarta.setWinName("Zrušená karta");
                 sklKarta.ShowDialog();
             }
         }
@@ -170,7 +173,47 @@ namespace Vydejna
             if ((myDataBase != null) && (myDataBase.DBIsOpened()))
             {
                 SkladovaKarta sklKarta = new SkladovaKarta(DBRow, myDataBase, sKartaState.edit);
-                sklKarta.ShowDialog();
+                sklKarta.setWinName("Zrušená karta");
+                if (sklKarta.ShowDialog() == DialogResult.OK)
+                {
+                    SkladovaKarta.messager mesenger = sklKarta.getMesseger();
+                    Boolean updateIsOk = myDataBase.editNewLineKaret(mesenger.poradi, mesenger.nazev, mesenger.jk, mesenger.csn, mesenger.din, mesenger.vyrobce, mesenger.cenaKs, mesenger.poznamka, mesenger.minStav, mesenger.ucetCena, mesenger.ucetStav, mesenger.fyzStav, mesenger.rozmer, mesenger.ucet);
+                    if (updateIsOk)
+                    {
+                        // je potreba najit index v datove tabulce - po trideni neni schodny s indexem ve view
+                        Int32 dataRowIndex = -1;
+                        for (int x = 0; x < (myDataGridView.DataSource as DataTable).Rows.Count - 1; x++)
+                        {
+                            if (Convert.ToInt32((myDataGridView.DataSource as DataTable).Rows[x][0]) == mesenger.poradi)
+                            {
+                                dataRowIndex = x;
+                                break;
+                            }
+
+                        }
+
+                        if (dataRowIndex != -1)
+                        {
+                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(1, mesenger.nazev);
+                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(2, mesenger.jk);
+
+                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(3, mesenger.ucetStav);
+                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(4, mesenger.ucet);
+
+                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(5, mesenger.csn);
+                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(6, mesenger.din);
+                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(7, mesenger.vyrobce);
+                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(8, mesenger.rozmer);
+                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(10, mesenger.cenaKs);
+                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(11, mesenger.ucetCena);
+                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(12, mesenger.minStav);
+                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(13, mesenger.poznamka);
+
+                            myDataGridView.Refresh();
+                        }
+                    }
+
+                }
             }
 
         }

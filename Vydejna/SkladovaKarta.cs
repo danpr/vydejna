@@ -94,6 +94,10 @@ namespace Vydejna
             setAddState();
         }
 
+        public void setWinName(string winName)
+        {
+            this.Text = winName;
+        }
 
 
         public void setData(Hashtable DBRow) 

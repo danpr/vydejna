@@ -1417,6 +1417,95 @@ namespace Vydejna
         }
 
 
+
+
+        public override Boolean editNewLineKaret(Int32 poradi, string DBnazev, string DBJK, string DBnormacsn, string DBnormadin,
+                                         string DBvyrobce, decimal DBcena, string DBpoznamka, long DBminstav,
+                                         decimal DBcelkcena, long DBucetstav, long DBfyzstav,
+                                         string DBrozmer, string DBanalucet)
+        {
+            string commandString2 = "UPDATE naradi set nazev = ?, jk = ?, normacsn = ?, normadin = ?, vyrobce = ?, cena = ?, poznamka = ?, minimum = ?, celkcena = ?,  ucetstav = ?, fyzstav = ?, rozmer = ?, analucet = ?" +
+                                     "where  poradi = ?";
+
+            SQLiteTransaction transaction = null;
+
+            if (DBIsOpened())
+            {
+                try
+                {
+                    transaction = (myDBConn as SQLiteConnection).BeginTransaction(System.Data.IsolationLevel.ReadCommitted);
+
+                    SQLiteCommand cmd = new SQLiteCommand(commandString2, myDBConn as SQLiteConnection);
+
+                    SQLiteParameter p1 = new SQLiteParameter("p1", DbType.String);
+                    p1.Value = DBnazev;
+                    SQLiteParameter p2 = new SQLiteParameter("p2", DbType.String);
+                    p2.Value = DBJK;
+                    SQLiteParameter p3 = new SQLiteParameter("p3", DbType.String);
+                    p3.Value = DBnormacsn;
+                    SQLiteParameter p4 = new SQLiteParameter("p4", DbType.String);
+                    p4.Value = DBnormadin;
+                    SQLiteParameter p5 = new SQLiteParameter("p5", DbType.String);
+                    p5.Value = DBvyrobce;
+                    SQLiteParameter p6 = new SQLiteParameter("p6", DbType.Double);
+                    p6.Value = DBcena;
+                    SQLiteParameter p7 = new SQLiteParameter("p7", DbType.String);
+                    p7.Value = DBpoznamka;
+                    SQLiteParameter p8 = new SQLiteParameter("p8", DbType.Int64);
+                    p8.Value = DBminstav;
+                    SQLiteParameter p9 = new SQLiteParameter("p9", DbType.Double);
+                    p9.Value = DBcelkcena;
+                    SQLiteParameter p15 = new SQLiteParameter("p15", DbType.Int64);
+                    p15.Value = DBucetstav;
+                    SQLiteParameter p16 = new SQLiteParameter("p16", DbType.Int64);
+                    p16.Value = DBfyzstav;
+                    SQLiteParameter p17 = new SQLiteParameter("p17", DbType.String);
+                    p17.Value = DBrozmer;
+                    SQLiteParameter p18 = new SQLiteParameter("p18", DbType.String);
+                    p18.Value = DBanalucet;
+                    SQLiteParameter p30 = new SQLiteParameter("p30", DbType.String);
+                    p30.Value = poradi;
+
+
+                    cmd.Parameters.Add(p1);
+                    cmd.Parameters.Add(p2);
+                    cmd.Parameters.Add(p3);
+                    cmd.Parameters.Add(p4);
+                    cmd.Parameters.Add(p5);
+                    cmd.Parameters.Add(p6);
+                    cmd.Parameters.Add(p7);
+                    cmd.Parameters.Add(p8);
+                    cmd.Parameters.Add(p9);
+                    cmd.Parameters.Add(p15);
+                    cmd.Parameters.Add(p16);
+                    cmd.Parameters.Add(p17);
+                    cmd.Parameters.Add(p18);
+                    cmd.Parameters.Add(p30);
+                    cmd.ExecuteNonQuery();
+                    if (transaction != null)
+                    {
+                        (transaction as SQLiteTransaction).Commit();
+                    }
+                    return true;
+
+                }
+                catch (Exception)
+                {
+                    // doslo k chybe
+                    if (transaction != null)
+                    {
+                        (transaction as SQLiteTransaction).Rollback();
+                    }
+                    return false;
+                }
+
+            }
+
+            return true;
+        }
+
+
+
         public override Boolean editNewLineOsoby(string DBprijmeni, string DBjmeno, string DBulice, string DBmesto,
                                          string DBpsc, string DBtelHome, string DBosCislo, string DBstredisko,
                                          string DBcisZnamky, string DBoddeleni, string DBpracoviste, string DBtelZam,
