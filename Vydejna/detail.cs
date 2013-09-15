@@ -67,7 +67,7 @@ namespace Vydejna
         {
             if ((myDataBase != null) && (myDataBase.DBIsOpened()))
             {
-                SkladovaKarta sklKarta = new SkladovaKarta(DBRow, myDataBase);
+                SkladovaKarta sklKarta = new SkladovaKarta(DBRow, myDataBase, new tableItemExistDelgStr(myDataBase.tableNaradiItemExist));
                 sklKarta.setWinName("Skladová karta");
                 sklKarta.ShowDialog();
             }
@@ -78,7 +78,7 @@ namespace Vydejna
             // zalozeni nove skladove karty
             if ((myDataBase != null) && (myDataBase.DBIsOpened()))
             {
-                SkladovaKarta sklKarta = new SkladovaKarta(myDataBase);
+                SkladovaKarta sklKarta = new SkladovaKarta(myDataBase, new tableItemExistDelgStr(myDataBase.tableNaradiItemExist));
                 sklKarta.setWinName("Skladová karta");
                 if (sklKarta.ShowDialog() == DialogResult.OK)
                 {
@@ -108,7 +108,7 @@ namespace Vydejna
         {
             if ((myDataBase != null) && (myDataBase.DBIsOpened()))
             {
-                SkladovaKarta sklKarta = new SkladovaKarta(DBRow, myDataBase, sKartaState.edit);
+                SkladovaKarta sklKarta = new SkladovaKarta(DBRow, myDataBase, new tableItemExistDelgStr(myDataBase.tableNaradiItemExist), sKartaState.edit);
                 if (sklKarta.ShowDialog() == DialogResult.OK)
                 {
                     SkladovaKarta.messager mesenger = sklKarta.getMesseger();
@@ -162,7 +162,7 @@ namespace Vydejna
         {
             if ((myDataBase != null) && (myDataBase.DBIsOpened()))
             {
-                SkladovaKarta sklKarta = new SkladovaKarta(DBRow, myDataBase);
+                SkladovaKarta sklKarta = new SkladovaKarta(DBRow, myDataBase, new tableItemExistDelgStr(myDataBase.tableZrusenoItemExist));
                 sklKarta.setWinName("Zrušená karta");
                 sklKarta.ShowDialog();
             }
@@ -172,7 +172,7 @@ namespace Vydejna
         {
             if ((myDataBase != null) && (myDataBase.DBIsOpened()))
             {
-                SkladovaKarta sklKarta = new SkladovaKarta(DBRow, myDataBase, sKartaState.edit);
+                SkladovaKarta sklKarta = new SkladovaKarta(DBRow, myDataBase,new tableItemExistDelgStr(myDataBase.tableZrusenoItemExist), sKartaState.edit);
                 sklKarta.setWinName("Zrušená karta");
                 if (sklKarta.ShowDialog() == DialogResult.OK)
                 {
@@ -251,7 +251,7 @@ namespace Vydejna
         {
             if ((myDataBase != null) && (myDataBase.DBIsOpened()))
             {
-                VraceneKarta poskozKarta = new VraceneKarta(DBRow, myDataBase, new tableItemExist(myDataBase.tablePoskozenoItemExist), vKartaState.edit);
+                VraceneKarta poskozKarta = new VraceneKarta(DBRow, myDataBase, new tableItemExistDelgInt(myDataBase.tablePoskozenoItemExist), vKartaState.edit);
                 poskozKarta.setWinName("Poškozeno");
                 if (poskozKarta.ShowDialog() == DialogResult.OK)
                 {
@@ -314,7 +314,7 @@ namespace Vydejna
         
         public override void opravKartu(Hashtable DBRow, vDatabase myDataBase, DataGridView myDataGridView)
         {
-            VraceneKarta vracKarta = new VraceneKarta(DBRow, myDataBase, new tableItemExist(myDataBase.tablePoskozenoItemExist), vKartaState.edit);
+            VraceneKarta vracKarta = new VraceneKarta(DBRow, myDataBase, new tableItemExistDelgInt(myDataBase.tablePoskozenoItemExist), vKartaState.edit);
             vracKarta.setWinName("Vraceno");
             if (vracKarta.ShowDialog() == DialogResult.OK)
             {

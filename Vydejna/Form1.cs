@@ -534,7 +534,7 @@ namespace Vydejna
             // zalozeni nove skladove karty
             if ((myDB != null) && (myDB.DBIsOpened()))
             {
-                SkladovaKarta mySkladovaKarta = new SkladovaKarta(myDB);
+                SkladovaKarta mySkladovaKarta = new SkladovaKarta(myDB, new tableItemExistDelgStr(myDB.tableNaradiItemExist));
                 mySkladovaKarta.ShowDialog();
             }
         }
@@ -722,7 +722,7 @@ namespace Vydejna
             // zalozeni nove skladove karty
             if ((myDB != null) && (myDB.DBIsOpened()))
             {
-                SkladovaKarta sklKarta = new SkladovaKarta(myDB);
+                SkladovaKarta sklKarta = new SkladovaKarta(myDB, new tableItemExistDelgStr(myDB.tableNaradiItemExist));
                 if (sklKarta.ShowDialog() == DialogResult.OK)
                 {
                     SkladovaKarta.messager mesenger = sklKarta.getMesseger();

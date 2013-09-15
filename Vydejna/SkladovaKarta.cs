@@ -61,11 +61,14 @@ namespace Vydejna
         private Int32 fyzStav;
         private vDatabase myDB;
         private sKartaState state;
+        private tableItemExistDelgStr testExistItem;
 
-        public SkladovaKarta(Hashtable DBRow, vDatabase myDataBase, sKartaState state = sKartaState.show)
+
+        public SkladovaKarta(Hashtable DBRow, vDatabase myDataBase, tableItemExistDelgStr testExistItem, sKartaState state = sKartaState.show)
         {
             InitializeComponent();
             this.state = state;
+            this.testExistItem = testExistItem;
             if (state == sKartaState.edit) setEditState();
             myDB = myDataBase;
             dataGridViewZmeny.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
@@ -85,7 +88,7 @@ namespace Vydejna
         }
 
 
-        public SkladovaKarta(vDatabase myDataBase)
+        public SkladovaKarta(vDatabase myDataBase, tableItemExistDelgStr testExistItem)
         {
             InitializeComponent();
             myDB = myDataBase;
@@ -222,8 +225,9 @@ namespace Vydejna
             {
                 if (state == sKartaState.add)
                 {
-                    if (myDB.tableNaradiItemExist(textBoxJK.Text.Trim()))
-                    {
+//                    if (myDB.tableNaradiItemExist(textBoxJK.Text.Trim()))
+                    if (testExistItem(textBoxJK.Text.Trim()))
+                        {
                         MessageBox.Show("Položka již existuje.");
                     }
                     else
@@ -237,8 +241,9 @@ namespace Vydejna
                 {
                     if (state == sKartaState.edit)
                     {
-                        if (myDB.tableNaradiItemExist(textBoxJK.Text.Trim()))
-                        {
+//                        if (myDB.tableNaradiItemExist(textBoxJK.Text.Trim()))
+                            if (testExistItem(textBoxJK.Text.Trim()))
+                            {
                             buttonOK.DialogResult = DialogResult.OK;
                             this.DialogResult = DialogResult.OK;
                             Close();

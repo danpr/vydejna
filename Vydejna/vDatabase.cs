@@ -91,7 +91,9 @@ namespace Vydejna
     enum kodDB { dbNone = -1, dbSQLite, dbPostgresODBC, dbInformixODBC };
     enum defaultPortDBValue { SQLitePortDef = 0, postgresPortDef = 5432, informixPortDef = 9996};
 
+    public delegate Boolean tableItemExistDelgInt(Int32 oc);
 
+    public delegate Boolean tableItemExistDelgStr(string oc);
 
     public abstract class vDatabase
     {
@@ -339,6 +341,12 @@ namespace Vydejna
         {
           return  tableItemExist("select count(*) as countJK from naradi where jk = ?", jk);
         }
+
+        public virtual Boolean tableZrusenoItemExist(string jk)
+        {
+            return tableItemExist("select count(*) as countJK from karta where jk = ?", jk);
+        }
+
 
         public virtual Boolean tableOsobyItemExist(string oc)
         {

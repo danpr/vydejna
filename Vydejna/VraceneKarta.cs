@@ -12,8 +12,6 @@ namespace Vydejna
 {
     public enum vKartaState { show, add, edit };
 
-    public delegate Boolean tableItemExist(Int32 oc);
-
     public partial class VraceneKarta : Form
     {
 
@@ -62,9 +60,9 @@ namespace Vydejna
         private vKartaState state;
         private vDatabase myDB;
         private Int32 poradi;
-        private tableItemExist testExistItem;
+        private tableItemExistDelgInt testExistItem;
 
-        public VraceneKarta(Hashtable DBRow, vDatabase myDataBase, tableItemExist testExistItem, vKartaState state = vKartaState.show)
+        public VraceneKarta(Hashtable DBRow, vDatabase myDataBase, tableItemExistDelgInt testExistItem, vKartaState state = vKartaState.show)
         {
             InitializeComponent();
             this.state = state;
