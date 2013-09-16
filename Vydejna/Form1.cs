@@ -331,11 +331,11 @@ namespace Vydejna
             myDB.closeDB();
             myDB = null;
 
-
+            // vztvorisi nove pripojeni na mayani tabulek
             vDatabase localDB = OpenDataBaseHandle(false);
             localDB.openDB();
             if (localDB.DBIsOpened())
-            {
+            {   // smaze tabulky
                 localDB.DropTables(); // take provede .closeDB()                localDB.closeDB();
             }
         }
@@ -478,38 +478,48 @@ namespace Vydejna
         private void vytvoreniToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // vytvoreni tabulek
-            labelView.Text = "Vytvářím tabulky";
-            contextMenuDisable();
-            dataGridView1.DataSource = null;
-            karta = new detailNone();
-            Application.DoEvents();
-            CreateDBTables();
-            labelView.Text = "";
+            if (MessageBox.Show("Opravdu chcete vytvořit tabulky v databázi?", "Vytvoření tabulek", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                labelView.Text = "Vytvářím tabulky";
+                contextMenuDisable();
+                dataGridView1.DataSource = null;
+                karta = new detailNone();
+                Application.DoEvents();
+                CreateDBTables();
+                labelView.Text = "";
+            }
         }
 
         private void smazániToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //zruseni tabulek
-            labelView.Text = "Ruším tabulky";
-            contextMenuDisable();
-            dataGridView1.DataSource = null;
-            karta = new detailNone();
-            Application.DoEvents();
-            DropDBTables();
-            labelView.Text = "";
+            if (MessageBox.Show("Opravdu chcete odstranit tabulky z databáze?", "Odstranění tabulek", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                //zruseni tabulek
+                labelView.Text = "Ruším tabulky";
+                contextMenuDisable();
+                dataGridView1.DataSource = null;
+                karta = new detailNone();
+                Application.DoEvents();
+                DropDBTables();
+                labelView.Text = "";
+            }
 
         }
 
 
         private void vymazáníToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            labelView.Text = "Mažu tabulky";
-            contextMenuDisable();
-            dataGridView1.DataSource = null;
-            karta = new detailNone();
-            Application.DoEvents();
-            DeleteDBTables();
-            labelView.Text = "";
+
+              if (MessageBox.Show("Opravdu chcete smazat tabulky v databázi?", "Vymazání tabulek", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                labelView.Text = "Mažu tabulky";
+                contextMenuDisable();
+                dataGridView1.DataSource = null;
+                karta = new detailNone();
+                Application.DoEvents();
+                DeleteDBTables();
+                labelView.Text = "";
+            }
         }
 
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
@@ -743,9 +753,6 @@ namespace Vydejna
 
                         }
                     }
-
-                    //("SELECT poradi, kodd, nazev, jk, ucetstav, analucet, normacsn, normadin, vyrobce, rozmer, fyzstav, cena, celkcena, minimum, poznamka, ucetkscen from naradi ORDER BY nazev"); 
-
 
 
                 }

@@ -201,8 +201,6 @@ namespace Vydejna
                     cmdSequence3.Dispose();
                     cmdKarta.Dispose();
                     cmdNaradi.Dispose();
-//                    myDBConn.Close();
-//                    myDBConn.Dispose();
                 }
             }
 
