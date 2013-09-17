@@ -1120,6 +1120,8 @@ namespace Vydejna
                         cmd.Parameters.Add(p12);
                         cmd.Parameters.Add(p13);
                         cmd.Parameters.Add(p14);
+
+                        cmd.Transaction = transaction;
                         cmd.ExecuteNonQuery();
 
                     }
@@ -1212,6 +1214,8 @@ namespace Vydejna
                     cmd.Parameters.Add(p18);
                     cmd.Parameters.Add(p25);
                     cmd.Parameters.Add(p30);
+
+                    cmd.Transaction = transaction;
                     cmd.ExecuteNonQuery();
                     if (transaction != null)
                     {
@@ -1302,6 +1306,8 @@ namespace Vydejna
                     cmd.Parameters.Add(p13);
                     cmd.Parameters.Add(p14);
                     cmd.Parameters.Add(p15);
+
+                    cmd.Transaction = transaction;
                     cmd.ExecuteNonQuery();
                     if (transaction != null)
                     {
@@ -1391,6 +1397,8 @@ namespace Vydejna
                     cmd.Parameters.Add(p13);
                     cmd.Parameters.Add(p14);
                     cmd.Parameters.Add(p15);
+
+                    cmd.Transaction = transaction;
                     cmd.ExecuteNonQuery();
                     if (transaction != null)
                     {
@@ -1479,6 +1487,7 @@ namespace Vydejna
                     cmd.Parameters.Add(p17);
                     cmd.Parameters.Add(p18);
                     cmd.Parameters.Add(p30);
+                    cmd.Transaction = transaction;
                     cmd.ExecuteNonQuery();
                     if (transaction != null)
                     {
@@ -1569,6 +1578,7 @@ namespace Vydejna
                     cmd.Parameters.Add(p13);
                     cmd.Parameters.Add(p14);
                     cmd.Parameters.Add(p15);
+                    cmd.Transaction = transaction;
                     cmd.ExecuteNonQuery();
                     if (transaction != null)
                     {
