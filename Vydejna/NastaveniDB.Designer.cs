@@ -29,6 +29,14 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.textBoxJmenoServeru = new System.Windows.Forms.TextBox();
+            this.buttonDriverDefault = new System.Windows.Forms.Button();
+            this.label11 = new System.Windows.Forms.Label();
+            this.textBoxDriver = new System.Windows.Forms.TextBox();
+            this.buttonLocalDefault = new System.Windows.Forms.Button();
+            this.textBoxLocal = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
             this.buttonPortDefault = new System.Windows.Forms.Button();
             this.buttonBrowseDialog = new System.Windows.Forms.Button();
             this.textBoxAdresa = new System.Windows.Forms.TextBox();
@@ -56,14 +64,6 @@
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.dbFolderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
-            this.label10 = new System.Windows.Forms.Label();
-            this.textBoxLocal = new System.Windows.Forms.TextBox();
-            this.buttonLocalDefault = new System.Windows.Forms.Button();
-            this.textBoxDriver = new System.Windows.Forms.TextBox();
-            this.label11 = new System.Windows.Forms.Label();
-            this.buttonDriverDefault = new System.Windows.Forms.Button();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.label12 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPort)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -73,7 +73,7 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.label12);
-            this.groupBox1.Controls.Add(this.textBox3);
+            this.groupBox1.Controls.Add(this.textBoxJmenoServeru);
             this.groupBox1.Controls.Add(this.buttonDriverDefault);
             this.groupBox1.Controls.Add(this.label11);
             this.groupBox1.Controls.Add(this.textBoxDriver);
@@ -96,6 +96,74 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Databáze";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(19, 113);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(100, 13);
+            this.label12.TabIndex = 17;
+            this.label12.Text = "Jmeno DB serveru :";
+            // 
+            // textBoxJmenoServeru
+            // 
+            this.textBoxJmenoServeru.Location = new System.Drawing.Point(202, 106);
+            this.textBoxJmenoServeru.Name = "textBoxJmenoServeru";
+            this.textBoxJmenoServeru.Size = new System.Drawing.Size(176, 20);
+            this.textBoxJmenoServeru.TabIndex = 16;
+            // 
+            // buttonDriverDefault
+            // 
+            this.buttonDriverDefault.Location = new System.Drawing.Point(384, 190);
+            this.buttonDriverDefault.Name = "buttonDriverDefault";
+            this.buttonDriverDefault.Size = new System.Drawing.Size(81, 23);
+            this.buttonDriverDefault.TabIndex = 15;
+            this.buttonDriverDefault.Text = "Doporučené";
+            this.buttonDriverDefault.UseVisualStyleBackColor = true;
+            this.buttonDriverDefault.Click += new System.EventHandler(this.buttonDriverDefault_Click);
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(23, 193);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(100, 13);
+            this.label11.TabIndex = 14;
+            this.label11.Text = "Ovladač databaze :";
+            // 
+            // textBoxDriver
+            // 
+            this.textBoxDriver.Location = new System.Drawing.Point(202, 190);
+            this.textBoxDriver.Name = "textBoxDriver";
+            this.textBoxDriver.Size = new System.Drawing.Size(176, 20);
+            this.textBoxDriver.TabIndex = 13;
+            // 
+            // buttonLocalDefault
+            // 
+            this.buttonLocalDefault.Location = new System.Drawing.Point(384, 164);
+            this.buttonLocalDefault.Name = "buttonLocalDefault";
+            this.buttonLocalDefault.Size = new System.Drawing.Size(81, 23);
+            this.buttonLocalDefault.TabIndex = 12;
+            this.buttonLocalDefault.Text = "Doporučené";
+            this.buttonLocalDefault.UseVisualStyleBackColor = true;
+            this.buttonLocalDefault.Click += new System.EventHandler(this.buttonLocalDefault_Click);
+            // 
+            // textBoxLocal
+            // 
+            this.textBoxLocal.Location = new System.Drawing.Point(202, 164);
+            this.textBoxLocal.Name = "textBoxLocal";
+            this.textBoxLocal.Size = new System.Drawing.Size(176, 20);
+            this.textBoxLocal.TabIndex = 11;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(20, 163);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(120, 13);
+            this.label10.TabIndex = 10;
+            this.label10.Text = "Lokalizace DB serveru :";
             // 
             // buttonPortDefault
             // 
@@ -340,74 +408,6 @@
             this.button2.Text = "Budiž";
             this.button2.UseVisualStyleBackColor = true;
             // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(20, 163);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(120, 13);
-            this.label10.TabIndex = 10;
-            this.label10.Text = "Lokalizace DB serveru :";
-            // 
-            // textBoxLocal
-            // 
-            this.textBoxLocal.Location = new System.Drawing.Point(202, 164);
-            this.textBoxLocal.Name = "textBoxLocal";
-            this.textBoxLocal.Size = new System.Drawing.Size(176, 20);
-            this.textBoxLocal.TabIndex = 11;
-            // 
-            // buttonLocalDefault
-            // 
-            this.buttonLocalDefault.Location = new System.Drawing.Point(384, 164);
-            this.buttonLocalDefault.Name = "buttonLocalDefault";
-            this.buttonLocalDefault.Size = new System.Drawing.Size(81, 23);
-            this.buttonLocalDefault.TabIndex = 12;
-            this.buttonLocalDefault.Text = "Doporučené";
-            this.buttonLocalDefault.UseVisualStyleBackColor = true;
-            this.buttonLocalDefault.Click += new System.EventHandler(this.buttonLocalDefault_Click);
-            // 
-            // textBoxDriver
-            // 
-            this.textBoxDriver.Location = new System.Drawing.Point(202, 190);
-            this.textBoxDriver.Name = "textBoxDriver";
-            this.textBoxDriver.Size = new System.Drawing.Size(176, 20);
-            this.textBoxDriver.TabIndex = 13;
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(23, 193);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(100, 13);
-            this.label11.TabIndex = 14;
-            this.label11.Text = "Ovladač databaze :";
-            // 
-            // buttonDriverDefault
-            // 
-            this.buttonDriverDefault.Location = new System.Drawing.Point(384, 190);
-            this.buttonDriverDefault.Name = "buttonDriverDefault";
-            this.buttonDriverDefault.Size = new System.Drawing.Size(81, 23);
-            this.buttonDriverDefault.TabIndex = 15;
-            this.buttonDriverDefault.Text = "Doporučené";
-            this.buttonDriverDefault.UseVisualStyleBackColor = true;
-            this.buttonDriverDefault.Click += new System.EventHandler(this.buttonDriverDefault_Click);
-            // 
-            // textBox3
-            // 
-            this.textBox3.Location = new System.Drawing.Point(202, 106);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(176, 20);
-            this.textBox3.TabIndex = 16;
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(19, 113);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(100, 13);
-            this.label12.TabIndex = 17;
-            this.label12.Text = "Jmeno DB serveru :";
-            // 
             // NastaveniDB
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -470,7 +470,7 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.TextBox textBoxDriver;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox textBoxJmenoServeru;
         private System.Windows.Forms.Button buttonDriverDefault;
     }
 }

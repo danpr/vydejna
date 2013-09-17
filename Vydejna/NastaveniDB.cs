@@ -119,6 +119,21 @@ namespace Vydejna
                 textBoxAdresa.Text = "";
             }
 
+            if (podporovaneDB[comboBoxTypDB.SelectedIndex].useNameServer)
+            {
+                textBoxJmenoServeru.Text = aktualniParamtryDB.nameDBServeru;
+                textBoxAdresa.ReadOnly = false;
+            }
+            else
+            {
+                aktualniParamtryDB.nameDBServeru = textBoxJmenoServeru.Text;
+                textBoxJmenoServeru.ReadOnly = true;
+                textBoxJmenoServeru.Text = "";
+            }
+
+
+
+
             if (podporovaneDB[comboBoxTypDB.SelectedIndex].usePort)
             {
                 numericUpDownPort.Value = aktualniParamtryDB.portServerDB;
@@ -134,6 +149,24 @@ namespace Vydejna
                 buttonPortDefault.Enabled = false;
                 numericUpDownPort.Value = 0;
             }
+
+            if (podporovaneDB[comboBoxTypDB.SelectedIndex].useLocale)
+            {
+                textBoxLocal.Text = aktualniParamtryDB.localizaceDBServeru;
+                textBoxLocal.ReadOnly = false;
+                textBoxLocal.Enabled = true;
+                buttonLocalDefault.Enabled = true;
+            }
+            else
+            {
+                aktualniParamtryDB.localizaceDBServeru = textBoxLocal.Text;
+                textBoxLocal.Enabled = false;
+                textBoxLocal.ReadOnly = true;
+                buttonLocalDefault.Enabled = false;
+                textBoxLocal.Text = "";
+            }
+
+
 
             if (podporovaneDB[comboBoxTypDB.SelectedIndex].useUserId)
             {
