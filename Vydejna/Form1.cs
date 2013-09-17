@@ -316,6 +316,22 @@ namespace Vydejna
 
 //                 break;
 
+
+               case (int)kodDB.dbInformixODBC:
+                 if (useUserPriv)
+                 {
+                     return new vInformixODBC(nastaveniDB.nameDB, nastaveniDB.adresaServerDB, nastaveniDB.portServerDB.ToString(),
+                            nastaveniDB.userIdDB, nastaveniDB.userPasswdDB);
+                 }
+                 else
+                 {
+                     return new vInformixODBC(nastaveniDB.nameDB, nastaveniDB.adresaServerDB, nastaveniDB.portServerDB.ToString(),
+                            nastaveniDB.adminIdDB, nastaveniDB.adminPasswdDB);
+
+                 }
+
+               //                 break;
+
                 default:
                    return null;
 //                 break; 

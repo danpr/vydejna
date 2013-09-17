@@ -16,19 +16,25 @@ namespace Vydejna
         public string nameDB;
         public Boolean useUmisteni;
         public Boolean useServer;
+        public Boolean useNameServer;
         public Boolean usePort;
+        public Boolean useLocale;
+        public Boolean useDriver;
         public Boolean useUserId;
         public Boolean useUserPasswd;
         public Boolean useAdminId;
         public Boolean useAdminPasswd;
 
 
-        public vlastnosti(string nameDB, Boolean useUmisteni, Boolean useServer, Boolean usePort, Boolean useUserId, Boolean useUserPasswd, Boolean useAdminId, Boolean useAdminPasswd)
+        public vlastnosti(string nameDB, Boolean useUmisteni, Boolean useServer, Boolean useNameServer, Boolean usePort, Boolean useLocale, Boolean useDriver, Boolean useUserId, Boolean useUserPasswd, Boolean useAdminId, Boolean useAdminPasswd)
         {
             this.nameDB = nameDB;
             this.useServer = useServer;
             this.useUmisteni = useUmisteni;
+            this.useNameServer = useNameServer;
             this.usePort = usePort;
+            this.useLocale = useLocale;
+            this.useDriver = useDriver;
             this.useUserId = useUserId;
             this.useUserPasswd = useUserPasswd;
             this.useAdminId = useAdminId;
@@ -41,9 +47,9 @@ namespace Vydejna
     public partial class NastaveniDB : Form
     {
 
-        private vlastnosti[] podporovaneDB = new vlastnosti[3] {new vlastnosti("SQLite",true,false,false,false,false,false,false), 
-                                                                new vlastnosti("Postgres-ODBC",false,true,true,true,true,true,true),
-                                                                new vlastnosti("Informix-ODBC",false,true,true,true,true,true,true)};
+        private vlastnosti[] podporovaneDB = new vlastnosti[3] {new vlastnosti("SQLite",true,false,false,false,false,false,false,false,false,false), 
+                                                                new vlastnosti("Postgres-ODBC",false,true,false,true,false,true,true,true,true,true),
+                                                                new vlastnosti("Informix-ODBC",false,true,true,true,true,true,true,true,true,true)};
 
         private parametryDB aktualniParamtryDB;
 
@@ -245,6 +251,29 @@ namespace Vydejna
             else
             {
                 textBoxAdminPasswd.PasswordChar = '*';
+            }
+
+        }
+
+        private void textBoxAdminPasswd_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonLocalDefault_Click(object sender, EventArgs e)
+        {
+            if (comboBoxTypDB.SelectedIndex > -1)
+            {
+                textBoxLocal.Text = vDatabase.defaultLocaleDB[comboBoxTypDB.SelectedIndex];
+            }
+
+        }
+
+        private void buttonDriverDefault_Click(object sender, EventArgs e)
+        {
+            if (comboBoxTypDB.SelectedIndex > -1)
+            {
+                textBoxDriver.Text = vDatabase.defaultDriverDB[comboBoxTypDB.SelectedIndex];
             }
 
         }

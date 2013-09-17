@@ -89,7 +89,10 @@ using System.Windows.Forms;
 namespace Vydejna
 {
     enum kodDB { dbNone = -1, dbSQLite, dbPostgresODBC, dbInformixODBC };
+    
     enum defaultPortDBValue { SQLitePortDef = 0, postgresPortDef = 5432, informixPortDef = 9996};
+
+
 
     public delegate Boolean tableItemExistDelgInt(Int32 oc);
 
@@ -102,7 +105,10 @@ namespace Vydejna
                                                 (int)defaultPortDBValue.informixPortDef};
 
 
-        //public static int[] defaultPortDB = new int[] { 0, 5432, 9996 };
+        public static string[] defaultLocaleDB = new string[] { "", "", "cs_cz.8859-2" };
+        public static string[] defaultDriverDB = new string[] { "", "PostgreSQL UNICODE", "IBM INFORMIX 3.82 32 BIT" };
+
+
 
         public bool dBConnectionState;
         public DbConnection myDBConn;
