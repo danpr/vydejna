@@ -122,7 +122,7 @@ namespace Vydejna
             if (podporovaneDB[comboBoxTypDB.SelectedIndex].useNameServer)
             {
                 textBoxJmenoServeru.Text = aktualniParamtryDB.nameDBServeru;
-                textBoxAdresa.ReadOnly = false;
+                textBoxJmenoServeru.ReadOnly = false;
             }
             else
             {
@@ -164,6 +164,23 @@ namespace Vydejna
                 textBoxLocal.ReadOnly = true;
                 buttonLocalDefault.Enabled = false;
                 textBoxLocal.Text = "";
+            }
+
+
+            if (podporovaneDB[comboBoxTypDB.SelectedIndex].useDriver)
+            {
+                textBoxDriver.Text = aktualniParamtryDB.driverDB;
+                textBoxDriver.ReadOnly = false;
+                textBoxDriver.Enabled = true;
+                buttonDriverDefault.Enabled = true;
+            }
+            else
+            {
+                aktualniParamtryDB.driverDB = textBoxDriver.Text;
+                textBoxDriver.Enabled = false;
+                textBoxDriver.ReadOnly = true;
+                buttonDriverDefault.Enabled = false;
+                textBoxDriver.Text = "";
             }
 
 
@@ -245,7 +262,10 @@ namespace Vydejna
             aktualniParamtryDB.nameDB = textBoxNazev.Text;
             aktualniParamtryDB.umistemiDB = textBoxUmisteni.Text;
             aktualniParamtryDB.adresaServerDB = textBoxAdresa.Text;
+            aktualniParamtryDB.nameDBServeru = textBoxJmenoServeru.Text;
             aktualniParamtryDB.portServerDB = (int)numericUpDownPort.Value;
+            aktualniParamtryDB.localizaceDBServeru = textBoxLocal.Text;
+            aktualniParamtryDB.driverDB = textBoxDriver.Text;
             aktualniParamtryDB.userIdDB = textBoxUserId.Text;
             aktualniParamtryDB.userPasswdDB = textBoxUserPasswd.Text;
             aktualniParamtryDB.adminIdDB = textBoxAdminId.Text;
@@ -310,6 +330,7 @@ namespace Vydejna
             }
 
         }
+
 
     }
 }

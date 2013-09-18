@@ -13,11 +13,11 @@ namespace Vydejna
 {
     class vPostgress : vODBC
     {
-        public vPostgress(string dataBaseName, string serverName, string port, string userName, string password)
-            : base(dataBaseName, serverName, port, userName, password)
+        public vPostgress(string dataBaseName, string serverAddress, string serverName, string port, string locale, string driver, string userName, string password)
+            : base(dataBaseName, serverAddress, serverName, port, locale, driver, userName, password)
         {
 
-            dBConnectStr = String.Format("Driver={{PostgreSQL UNICODE}};Server={0,1};Port={1,1};Database={2,1};Uid={3,1};Pwd={4,1}", serverName, port, dataBaseName, userName, password);
+            dBConnectStr = String.Format("Driver={{PostgreSQL UNICODE}};Server={0,1};Port={1,1};Database={2,1};Uid={3,1};Pwd={4,1}", serverAddress, port, dataBaseName, userName, password);
         
         }
 

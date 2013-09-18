@@ -15,8 +15,8 @@ namespace Vydejna
     {
 
 
-        public vSQLite(string dataBaseName, string serverName, string port, string userName, string password)
-            : base(dataBaseName, serverName, port, userName, password)
+        public vSQLite(string dataBaseName, string serverAddress, string serverName, string port, string locale, string driver, string userName, string password)
+            : base(dataBaseName, serverAddress, serverName, port, locale, driver, userName, password)
         {
             dBConnectStr = String.Format("Data Source={0,1};Version=3;New=False;Compress=True;", dataBaseName);
         }

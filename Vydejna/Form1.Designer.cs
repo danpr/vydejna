@@ -47,6 +47,7 @@
             this.vytvoreniToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.smazániToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.vymazáníToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.konecProgramuToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -54,7 +55,6 @@
             this.opravitPoložkuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.smazatPoložkuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.labelView = new System.Windows.Forms.Label();
-            this.konecProgramuToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
@@ -209,6 +209,17 @@
             this.vymazáníToolStripMenuItem.Text = "Vymazání";
             this.vymazáníToolStripMenuItem.Click += new System.EventHandler(this.vymazáníToolStripMenuItem_Click);
             // 
+            // konecProgramuToolStripMenuItem1
+            // 
+            this.konecProgramuToolStripMenuItem1.Name = "konecProgramuToolStripMenuItem1";
+            this.konecProgramuToolStripMenuItem1.Size = new System.Drawing.Size(178, 22);
+            this.konecProgramuToolStripMenuItem1.Text = "Konec programu";
+            this.konecProgramuToolStripMenuItem1.Click += new System.EventHandler(this.konecProgramuToolStripMenuItem_Click);
+            // 
+            // folderBrowserDialog1
+            // 
+            this.folderBrowserDialog1.HelpRequest += new System.EventHandler(this.folderBrowserDialog1_HelpRequest);
+            // 
             // dataGridView1
             // 
             this.dataGridView1.AllowUserToAddRows = false;
@@ -265,13 +276,6 @@
             this.labelView.Name = "labelView";
             this.labelView.Size = new System.Drawing.Size(0, 13);
             this.labelView.TabIndex = 4;
-            // 
-            // konecProgramuToolStripMenuItem1
-            // 
-            this.konecProgramuToolStripMenuItem1.Name = "konecProgramuToolStripMenuItem1";
-            this.konecProgramuToolStripMenuItem1.Size = new System.Drawing.Size(178, 22);
-            this.konecProgramuToolStripMenuItem1.Text = "Konec programu";
-            this.konecProgramuToolStripMenuItem1.Click += new System.EventHandler(this.konecProgramuToolStripMenuItem_Click);
             // 
             // Vydejna
             // 

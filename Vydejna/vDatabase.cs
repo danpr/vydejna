@@ -115,18 +115,25 @@ namespace Vydejna
         public string dBName;
         public string dBuserName;
         public string dBuserPassword;
-        public string dBServer;
-        public string dbPort;
+        public string dBServerAddress;
+        public string dBServerName;
+        public string dBPort;
+        public string dBLocale;
+        public string dBDriver;
         public string dBConnectStr;
 
-        public vDatabase(string dataBaseName, string serverName, string port, string userName, string password)
+        public vDatabase(string dataBaseName, string serverAdress, string serverName, string port, string locale, string driver, string userName, string password)
         {
             dBConnectionState = false;
             dBName = dataBaseName;
-            dBServer = port;
-            dBServer = serverName;
+            dBPort = port;
+            dBServerName = serverName;
+            dBServerAddress = serverAdress;
+            dBLocale = locale;
+            dBDriver = driver;
             dBuserName = userName;
             dBuserPassword = password;
+            
         }
 
         public bool DBIsOpened ()

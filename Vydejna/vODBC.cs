@@ -14,8 +14,8 @@ namespace Vydejna
     class vODBC : vDatabase
     {
 
-        public vODBC(string dataBaseName, string serverName, string port, string userName, string password)
-            : base(dataBaseName, serverName, port, userName, password)
+        public vODBC(string dataBaseName, string serverAddress, string serverName, string port, string locale, string driver, string userName, string password)
+            : base(dataBaseName, serverAddress, serverName, port, locale, driver, userName, password)
         {
         }
 

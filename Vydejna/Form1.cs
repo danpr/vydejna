@@ -298,19 +298,19 @@ namespace Vydejna
                case (int)kodDB.dbSQLite:
                  string pathDbName =  nastaveniDB.umistemiDB +"\\"+ nastaveniDB.nameDB;
 
-                 return new vSQLite (pathDbName,"","","","");
+                 return new vSQLite (pathDbName,"","","","","","","");
 //                 break;
                
                case (int)kodDB.dbPostgresODBC:
                  if (useUserPriv)
                  {
-                     return new vPostgress(nastaveniDB.nameDB, nastaveniDB.adresaServerDB, nastaveniDB.portServerDB.ToString(),
-                            nastaveniDB.userIdDB, nastaveniDB.userPasswdDB);
+                     return new vPostgress(nastaveniDB.nameDB, nastaveniDB.adresaServerDB, nastaveniDB.nameDBServeru, nastaveniDB.portServerDB.ToString(),
+                            nastaveniDB.localizaceDBServeru, nastaveniDB.driverDB, nastaveniDB.userIdDB, nastaveniDB.userPasswdDB);
                  }
                  else
                  {
-                     return new vPostgress(nastaveniDB.nameDB, nastaveniDB.adresaServerDB, nastaveniDB.portServerDB.ToString(),
-                            nastaveniDB.adminIdDB, nastaveniDB.adminPasswdDB);
+                     return new vPostgress(nastaveniDB.nameDB, nastaveniDB.adresaServerDB, nastaveniDB.nameDBServeru, nastaveniDB.portServerDB.ToString(),
+                            nastaveniDB.localizaceDBServeru, nastaveniDB.driverDB, nastaveniDB.adminIdDB, nastaveniDB.adminPasswdDB);
 
                  }
 
@@ -320,13 +320,13 @@ namespace Vydejna
                case (int)kodDB.dbInformixODBC:
                  if (useUserPriv)
                  {
-                     return new vInformixODBC(nastaveniDB.nameDB, nastaveniDB.adresaServerDB, nastaveniDB.portServerDB.ToString(),
-                            nastaveniDB.userIdDB, nastaveniDB.userPasswdDB);
+                     return new vInformixODBC(nastaveniDB.nameDB, nastaveniDB.adresaServerDB,  nastaveniDB.nameDBServeru, nastaveniDB.portServerDB.ToString(),
+                            nastaveniDB.localizaceDBServeru, nastaveniDB.driverDB, nastaveniDB.userIdDB, nastaveniDB.userPasswdDB);
                  }
                  else
                  {
-                     return new vInformixODBC(nastaveniDB.nameDB, nastaveniDB.adresaServerDB, nastaveniDB.portServerDB.ToString(),
-                            nastaveniDB.adminIdDB, nastaveniDB.adminPasswdDB);
+                     return new vInformixODBC(nastaveniDB.nameDB, nastaveniDB.adresaServerDB, nastaveniDB.nameDBServeru, nastaveniDB.portServerDB.ToString(),
+                            nastaveniDB.localizaceDBServeru, nastaveniDB.driverDB, nastaveniDB.adminIdDB, nastaveniDB.adminPasswdDB);
 
                  }
 
@@ -686,31 +686,84 @@ namespace Vydejna
 
         private void loadSettingDB(parametryDB myParametryDB)
         {
+            // nastavime default hodnoty
+            myParametryDB.nameDB = "";
+            myParametryDB.codeDB = -1;
+            myParametryDB.umistemiDB = "";
+            myParametryDB.adresaServerDB = "";
+            myParametryDB.nameDBServeru = "";
+            myParametryDB.portServerDB = 0;
+            myParametryDB.localizaceDBServeru = "";
+            myParametryDB.driverDB = "";
+            myParametryDB.userIdDB = "";
+            myParametryDB.userPasswdDB = "";
+            myParametryDB.adminIdDB = "";
+            myParametryDB.adminPasswdDB = "";
+
             RegistryKey klic = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\CS\DB", true);
             if (klic != null)
             {
-                myParametryDB.nameDB = klic.GetValue("Name").ToString();
-                myParametryDB.codeDB = Convert.ToInt32(klic.GetValue("CodeDB").ToString());
-                myParametryDB.umistemiDB = klic.GetValue("Location").ToString();
-                myParametryDB.adresaServerDB = klic.GetValue("ServerAddr").ToString();
-                myParametryDB.portServerDB = Convert.ToInt32(klic.GetValue("ServerPort").ToString());
-                myParametryDB.userIdDB = klic.GetValue("UserId").ToString();
-                myParametryDB.userPasswdDB= klic.GetValue("UserPassword").ToString();
-                myParametryDB.adminIdDB = klic.GetValue("AdminId").ToString();
-                myParametryDB.adminPasswdDB = klic.GetValue("AdminPassword").ToString();
+                try 
+                {
+                    myParametryDB.nameDB = klic.GetValue("Name").ToString();
+                }
+                catch  {}
+                try
+                {
+                    myParametryDB.codeDB = Convert.ToInt32(klic.GetValue("CodeDB").ToString());
+                }
+                catch {}
+                try
+                {
+                    myParametryDB.umistemiDB = klic.GetValue("Location").ToString();
+                }
+                catch {}
+                try
+                {
+                    myParametryDB.adresaServerDB = klic.GetValue("ServerAddr").ToString();
+                }
+                catch {}
+                try
+                {
+                    myParametryDB.nameDBServeru = klic.GetValue("ServerName").ToString();
+                }
+                catch {}
+                try
+                {
+                    myParametryDB.portServerDB = Convert.ToInt32(klic.GetValue("ServerPort").ToString());
+                }
+                catch {}
+                try
+                {
+                    myParametryDB.localizaceDBServeru = klic.GetValue("ServerLocale").ToString();
+                }
+                catch {}
+                try
+                {
+                    myParametryDB.driverDB = klic.GetValue("ServerDriver").ToString();
+                }
+                catch {}
+                try
+                {
+                    myParametryDB.userIdDB = klic.GetValue("UserId").ToString();
+                }
+                catch {}
+                try
+                {
+                    myParametryDB.userPasswdDB = klic.GetValue("UserPassword").ToString();
+                }
+                catch {}
+                try
+                {
+                    myParametryDB.adminIdDB = klic.GetValue("AdminId").ToString();
+                }
+                catch {}
+                try
+                {
+                    myParametryDB.adminPasswdDB = klic.GetValue("AdminPassword").ToString();
+                }
+                catch {}
 
-
-            }
-            else
-            {
-                myParametryDB.nameDB = "";
-                myParametryDB.codeDB = -1;
-                myParametryDB.umistemiDB = "";
-                myParametryDB.adresaServerDB = "";
-                myParametryDB.userIdDB = "";
-                myParametryDB.userPasswdDB = "";
-                myParametryDB.adminIdDB = "";
-                myParametryDB.adminPasswdDB = "";
             }
         }
 
@@ -735,7 +788,10 @@ namespace Vydejna
             klic.SetValue("CodeDB", myParametryDB.codeDB);
             klic.SetValue("Location", myParametryDB.umistemiDB);
             klic.SetValue("ServerAddr", myParametryDB.adresaServerDB);
+            klic.SetValue("ServerName", myParametryDB.nameDBServeru);
             klic.SetValue("ServerPort", myParametryDB.portServerDB);
+            klic.SetValue("ServerLocale", myParametryDB.localizaceDBServeru);
+            klic.SetValue("ServerDriver", myParametryDB.driverDB);
             klic.SetValue("UserId", myParametryDB.userIdDB);
             klic.SetValue("UserPassword", myParametryDB.userPasswdDB);
             klic.SetValue("AdminId", myParametryDB.adminIdDB);
@@ -836,6 +892,11 @@ namespace Vydejna
         }
 
         private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
+
+        private void folderBrowserDialog1_HelpRequest(object sender, EventArgs e)
         {
 
         }
