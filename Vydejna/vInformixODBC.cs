@@ -16,18 +16,10 @@ namespace Vydejna
         public vInformixODBC(string dataBaseName, string serverAddress, string serverName, string port, string locale, string driver, string userName, string password)
             : base(dataBaseName, serverAddress, serverName, port, locale, driver, userName, password)
         {
-//  funcni
-//            dBConnectStr = String.Format("Driver={{IBM INFORMIX 3.82 32 BIT}};Host=dell;Server=koma2000n;Service=ifxkoma2000;Protocol=onsoctcp;Database={2,1};Uid={3,1};Pwd={4,1};DB_LOCALE=cs_cz.8859-2;CLIENT_LOCALE=cs_cz.CP1250", serverName, port, dataBaseName, userName, password);
 
             dBConnectStr = String.Format("Driver={{{0,1}}};Host={1,1};Server={2,1};Port={3,1};Protocol=onsoctcp;Database={4,1};Uid={6,1};Pwd={7,1};DB_LOCALE={5,1};CLIENT_LOCALE=cs_cz.CP1250",
                 driver, serverAddress, serverName, port, dataBaseName, locale, userName, password);
 
-
-
-            //dBConnectStr = String.Format("Driver={{PostgreSQL UNICODE}};Server={0,1};Port={1,1};Database={2,1};Uid={3,1};Pwd={4,1}", serverName, port, dataBaseName, userName, password);
-            
-            
-            //dBConnectStr = String.Format("Driver={{PostgreSQL UNICODE}};Server={0,1};Port={1,1};Database={2,1};Uid={3,1};Pwd={4,1}", serverName, port, dataBaseName, userName, password);
             //Dsn='';Driver={INFORMIX 3.30 32 BIT};Host=hostname;Server=myServerAddress;
             //Service=service-name;Protocol=olsoctcp;Database=myDataBase;Uid=myUsername;
             //Pwd=myPassword;
@@ -119,8 +111,13 @@ namespace Vydejna
             {
                 try
                 {
-
-                    transaction = (myDBConn as OdbcConnection).BeginTransaction(System.Data.IsolationLevel.ReadCommitted);
+                    try
+                    {
+                        transaction = (myDBConn as OdbcConnection).BeginTransaction(System.Data.IsolationLevel.ReadCommitted);
+                    }
+                    catch
+                    {
+                    }
 
                     OdbcCommand cmdr = new OdbcCommand(commandStringSeq1, myDBConn as OdbcConnection);
 

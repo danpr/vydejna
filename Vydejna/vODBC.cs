@@ -307,10 +307,13 @@ namespace Vydejna
             string commandString = "INSERT INTO karta ( poradi, nazev, jk, normacsn, normadin, vyrobce, cena, poznamka, minimum, celkcena, ucetstav, fyzstav, rozmer, analucet, tdate, stredisko, kodzmeny, druh, odpis, zavod ) " +
                   "VALUES ( ? ,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
 
+
             if (DBIsOpened())
             {
 
+
                 OdbcCommand cmdSeq1 = new OdbcCommand(commandStringSeq1, myDBConn as OdbcConnection);
+
                 OdbcDataReader seqReader = cmdSeq1.ExecuteReader();
                 seqReader.Read();
                 int poradi = seqReader.GetInt32(0);
@@ -321,9 +324,9 @@ namespace Vydejna
 
                 OdbcParameter p0 = new OdbcParameter("p1", OdbcType.Int);
                 p0.Value = poradi;
-                OdbcParameter p1 = new OdbcParameter("p1", OdbcType.NChar);
+                OdbcParameter p1 = new OdbcParameter("p1", OdbcType.NVarChar);
                 p1.Value = DBnazev;
-                OdbcParameter p2 = new OdbcParameter("p2", OdbcType.NChar);
+                OdbcParameter p2 = new OdbcParameter("p2", OdbcType.NVarChar);
                 p2.Value = DBJK;
                 OdbcParameter p3 = new OdbcParameter("p3", OdbcType.NChar);
                 p3.Value = DBnormacsn;
@@ -384,7 +387,12 @@ namespace Vydejna
                 cmd.ExecuteNonQuery();
 
                 OdbcCommand cmdSeq2 = new OdbcCommand(commandStringSeq2, myDBConn as OdbcConnection);
+
+
                 cmdSeq2.ExecuteNonQuery();
+
+
+
                 return poradi;
             }
             else return 0;
