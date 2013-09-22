@@ -154,6 +154,7 @@
             this.numericUpDownPrijemKs.Name = "numericUpDownPrijemKs";
             this.numericUpDownPrijemKs.Size = new System.Drawing.Size(100, 20);
             this.numericUpDownPrijemKs.TabIndex = 18;
+            this.numericUpDownPrijemKs.ValueChanged += new System.EventHandler(this.numericUpDownPrijemKs_ValueChanged);
             // 
             // label13
             // 
@@ -171,6 +172,7 @@
             this.textBoxPoznamka.Name = "textBoxPoznamka";
             this.textBoxPoznamka.Size = new System.Drawing.Size(359, 20);
             this.textBoxPoznamka.TabIndex = 20;
+            this.textBoxPoznamka.Text = "Příjem";
             // 
             // buttonCancel
             // 
@@ -184,12 +186,14 @@
             // 
             // buttonOK
             // 
+            this.buttonOK.Enabled = false;
             this.buttonOK.Location = new System.Drawing.Point(408, 274);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
             this.buttonOK.TabIndex = 22;
             this.buttonOK.Text = "Budiž";
             this.buttonOK.UseVisualStyleBackColor = true;
+            this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
             // 
             // label4
             // 

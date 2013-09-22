@@ -32,6 +32,11 @@ namespace Vydejna
             MessageBox.Show("Není implementováno.");
         }
 
+        public virtual void Prijem(Hashtable DBRow, vDatabase myDataBase)
+        {
+            MessageBox.Show("Není implementováno.");
+        }
+
     
     }
 
@@ -148,6 +153,16 @@ namespace Vydejna
                         }
                     }
                 }
+            }
+        }
+
+
+        public override void Prijem(Hashtable DBRow, vDatabase myDataBase)
+        {
+            if ((myDataBase != null) && (myDataBase.DBIsOpened()))
+            {
+                PrijemkaMaterialu prijemka = new PrijemkaMaterialu(DBRow, myDataBase);
+                prijemka.ShowDialog();
             }
         }
 

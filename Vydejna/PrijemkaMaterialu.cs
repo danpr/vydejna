@@ -32,5 +32,32 @@ namespace Vydejna
         {
 
         }
+
+        private void numericUpDownPrijemKs_ValueChanged(object sender, EventArgs e)
+        {
+            setButtonOK();
+        }
+
+        private void buttonOK_Click(object sender, EventArgs e)
+        {
+            setButtonOK();
+        }
+
+        private void setButtonOK ()
+        {
+        if ((numericUpDownPrijemKs.Value > 0) && (textBoxPoznamka.Text.Trim() != ""))
+            {
+                buttonOK.Enabled = true;
+            }
+            else
+            {
+                buttonOK.Enabled = false;
+            }
+
+        }
+
+    
+    
+
     }
 }

@@ -901,6 +901,25 @@ namespace Vydejna
 
         }
 
+        private void conMenuAddMat(object sender, EventArgs e)
+        {
+            if (dataGridView1.SelectedRows.Count > 0)
+            {
+                //int index
+                DataGridViewRow myRow = dataGridView1.SelectedRows[0];
+
+                for (int i = 0; i < dataGridView1.ColumnCount; i++)
+                {
+                    if (DBRow.ContainsKey(dataGridView1.Columns[i].Name))
+                    {
+                        DBRow.Remove(dataGridView1.Columns[i].Name);
+                    }
+                    DBRow.Add(dataGridView1.Columns[i].Name, myRow.Cells[i].Value);
+                }
+                karta.Prijem(DBRow, myDB);
+            }
+        }
+
 
     }
 }
