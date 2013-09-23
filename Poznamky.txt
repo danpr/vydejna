@@ -12,6 +12,9 @@ Obsahuje:  Adresar Vydejna
                   po instalaci je doporucen restart systemu
 
    
+Materialova prijemka zobrazuje doposud vedeno - ucetni stav a
+po pridani materialu zvisi ucetni a fyzickz stav o stejnou hodnotu
+
 
 -------------------------------
 git clone git@github.com:danpr/vydejna
