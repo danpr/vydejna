@@ -35,7 +35,7 @@
             this.labelDosudKs = new System.Windows.Forms.Label();
             this.labelVyrobce = new System.Windows.Forms.Label();
             this.labelJK = new System.Windows.Forms.Label();
-            this.labeNazev = new System.Windows.Forms.Label();
+            this.labelNazev = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.numericUpDownPrijemKs = new System.Windows.Forms.NumericUpDown();
@@ -81,7 +81,7 @@
             this.groupBox1.Controls.Add(this.labelDosudKs);
             this.groupBox1.Controls.Add(this.labelVyrobce);
             this.groupBox1.Controls.Add(this.labelJK);
-            this.groupBox1.Controls.Add(this.labeNazev);
+            this.groupBox1.Controls.Add(this.labelNazev);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.label1);
@@ -96,6 +96,7 @@
             // labelDosudKs
             // 
             this.labelDosudKs.AutoSize = true;
+            this.labelDosudKs.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.labelDosudKs.Location = new System.Drawing.Point(144, 100);
             this.labelDosudKs.Name = "labelDosudKs";
             this.labelDosudKs.Size = new System.Drawing.Size(0, 13);
@@ -104,6 +105,7 @@
             // labelVyrobce
             // 
             this.labelVyrobce.AutoSize = true;
+            this.labelVyrobce.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.labelVyrobce.Location = new System.Drawing.Point(144, 71);
             this.labelVyrobce.Name = "labelVyrobce";
             this.labelVyrobce.Size = new System.Drawing.Size(0, 13);
@@ -111,18 +113,21 @@
             // 
             // labelJK
             // 
+            this.labelJK.AutoSize = true;
+            this.labelJK.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.labelJK.Location = new System.Drawing.Point(144, 43);
             this.labelJK.Name = "labelJK";
             this.labelJK.Size = new System.Drawing.Size(0, 13);
             this.labelJK.TabIndex = 14;
             // 
-            // labeNazev
+            // labelNazev
             // 
-            this.labeNazev.AutoSize = true;
-            this.labeNazev.Location = new System.Drawing.Point(144, 16);
-            this.labeNazev.Name = "labeNazev";
-            this.labeNazev.Size = new System.Drawing.Size(0, 13);
-            this.labeNazev.TabIndex = 13;
+            this.labelNazev.AutoSize = true;
+            this.labelNazev.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelNazev.Location = new System.Drawing.Point(144, 16);
+            this.labelNazev.Name = "labelNazev";
+            this.labelNazev.Size = new System.Drawing.Size(0, 13);
+            this.labelNazev.TabIndex = 13;
             // 
             // label3
             // 
@@ -144,8 +149,7 @@
             // 
             // numericUpDownPrijemKs
             // 
-            this.numericUpDownPrijemKs.Enabled = false;
-            this.numericUpDownPrijemKs.Location = new System.Drawing.Point(124, 172);
+            this.numericUpDownPrijemKs.Location = new System.Drawing.Point(159, 172);
             this.numericUpDownPrijemKs.Maximum = new decimal(new int[] {
             1000000,
             0,
@@ -167,12 +171,13 @@
             // 
             // textBoxPoznamka
             // 
-            this.textBoxPoznamka.Location = new System.Drawing.Point(124, 230);
+            this.textBoxPoznamka.Location = new System.Drawing.Point(159, 230);
             this.textBoxPoznamka.MaxLength = 60;
             this.textBoxPoznamka.Name = "textBoxPoznamka";
-            this.textBoxPoznamka.Size = new System.Drawing.Size(359, 20);
+            this.textBoxPoznamka.Size = new System.Drawing.Size(324, 20);
             this.textBoxPoznamka.TabIndex = 20;
             this.textBoxPoznamka.Text = "Příjem";
+            this.textBoxPoznamka.TextChanged += new System.EventHandler(this.textBoxPoznamka_TextChanged);
             // 
             // buttonCancel
             // 
@@ -207,8 +212,7 @@
             // 
             // dateTimePickerDatum
             // 
-            this.dateTimePickerDatum.Enabled = false;
-            this.dateTimePickerDatum.Location = new System.Drawing.Point(124, 201);
+            this.dateTimePickerDatum.Location = new System.Drawing.Point(159, 199);
             this.dateTimePickerDatum.Name = "dateTimePickerDatum";
             this.dateTimePickerDatum.Size = new System.Drawing.Size(193, 20);
             this.dateTimePickerDatum.TabIndex = 28;
@@ -255,6 +259,6 @@
         private System.Windows.Forms.Label labelDosudKs;
         private System.Windows.Forms.Label labelVyrobce;
         private System.Windows.Forms.Label labelJK;
-        private System.Windows.Forms.Label labeNazev;
+        private System.Windows.Forms.Label labelNazev;
     }
 }

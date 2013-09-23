@@ -551,7 +551,7 @@ namespace Vydejna
             loadNaradiItems();
             karta = new detailSklad();
             labelView.Text = "Výdejna nářadí přehled";
-            contextMenuEnable(true);
+            contextMenuEnable(true,true);
         }
 
 
@@ -833,7 +833,7 @@ namespace Vydejna
         }
 
 
-        private void contextMenuEnable(Boolean useAdd)
+        private void contextMenuEnable(Boolean useAdd, Boolean useMatAdd = false)
         {
             if (useAdd)
             {
@@ -845,6 +845,20 @@ namespace Vydejna
                 contextMenuStrip1.Items[0].Enabled = false;
                 contextMenuStrip1.Items[0].Visible = false;
             }
+            if (useMatAdd)
+            {
+                contextMenuStrip1.Items[3].Enabled = true;
+                contextMenuStrip1.Items[3].Visible = true;
+            }
+            else
+            {
+                contextMenuStrip1.Items[3].Enabled = false;
+                contextMenuStrip1.Items[3].Visible = false;
+            }
+
+
+
+
             contextMenuStrip1.Enabled = true;
             dataGridView1.ContextMenuStrip = contextMenuStrip1;
         }

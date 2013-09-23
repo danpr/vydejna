@@ -14,16 +14,14 @@ namespace Vydejna
     {
 
 
-
-        public PrijemkaMaterialu()
-        {
-            InitializeComponent();
-        }
-
-
         public PrijemkaMaterialu(Hashtable DBRow, vDatabase myDataBase)
         {
             InitializeComponent();
+            labelJK.Text = Convert.ToString(DBRow["jk"]);
+            labelVyrobce.Text = Convert.ToString(DBRow["vyrobce"]);
+            labelNazev.Text = Convert.ToString(DBRow["nazev"]);
+            labelDosudKs.Text = Convert.ToString(DBRow["ucetstav"]);
+
         }
 
 
@@ -40,7 +38,6 @@ namespace Vydejna
 
         private void buttonOK_Click(object sender, EventArgs e)
         {
-            setButtonOK();
         }
 
         private void setButtonOK ()
@@ -54,6 +51,11 @@ namespace Vydejna
                 buttonOK.Enabled = false;
             }
 
+        }
+
+        private void textBoxPoznamka_TextChanged(object sender, EventArgs e)
+        {
+            setButtonOK();
         }
 
     
