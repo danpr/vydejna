@@ -22,8 +22,7 @@ namespace Vydejna
         DbTransaction myTransaction =  myDB.startTransaction();
 
 
-        OleDbConnection fbase = new OleDbConnection("Provider=VFPOLEDB.1;CodePage=437;Data Source=" + filepath + "\\DATA;Exclusive=false;Nulls=false;Collating Sequence=general");
-
+        OleDbConnection fbase = new OleDbConnection("Provider=VFPOLEDB.1;CodePage=437;Data Source=" + filepath + ";Exclusive=false;Nulls=false;Collating Sequence=general");
         fbase.Open();
         OleDbCommand fbaseCom = new OleDbCommand("SELECT * FROM " + filepath + "\\DATA\\AR_KARET.DBF",fbase);
         OleDbDataReader dr = fbaseCom.ExecuteReader();
@@ -126,7 +125,7 @@ namespace Vydejna
     public static void presunNaradi(vDatabase myDB, string filepath, Hashtable DBJoin)
     {
         DbTransaction myTransaction = myDB.startTransaction();
-        OleDbConnection fbase = new OleDbConnection("Provider=VFPOLEDB.1;Data Source=" + filepath + "\\DATA;Exclusive=false;Nulls=false;Collating Sequence=general");
+        OleDbConnection fbase = new OleDbConnection("Provider=VFPOLEDB.1;Data Source=" + filepath + ";Exclusive=false;Nulls=false;Collating Sequence=general");
         fbase.Open();
         OleDbCommand fbaseCom = new OleDbCommand("SELECT * FROM " + filepath + "\\DATA\\NARADI.DBF", fbase);
         OleDbDataReader dr = fbaseCom.ExecuteReader();
@@ -230,7 +229,7 @@ namespace Vydejna
     public static void presunVracene(vDatabase myDB, string filepath)
     {
         DbTransaction myTransaction = myDB.startTransaction();
-        OleDbConnection fbase = new OleDbConnection("Provider=VFPOLEDB.1;CodePage=437;Data Source=" + filepath + "\\DATA;Exclusive=false;Nulls=false");
+        OleDbConnection fbase = new OleDbConnection("Provider=VFPOLEDB.1;CodePage=437;Data Source=" + filepath + ";Exclusive=false;Nulls=false");
         fbase.Open();
         OleDbCommand fbaseCom = new OleDbCommand("SELECT * FROM " + filepath + "\\DATA\\VRACSKL.DBF", fbase);
         OleDbDataReader dr = fbaseCom.ExecuteReader();
@@ -293,7 +292,7 @@ namespace Vydejna
     public static void presunPoskozene(vDatabase myDB, string filepath)
     {
         DbTransaction myTransaction = myDB.startTransaction();
-        OleDbConnection fbase = new OleDbConnection("Provider=VFPOLEDB.1;CodePage=437;Data Source=" + filepath + "\\DATA;Exclusive=false;Nulls=false");
+        OleDbConnection fbase = new OleDbConnection("Provider=VFPOLEDB.1;CodePage=437;Data Source=" + filepath + ";Exclusive=false;Nulls=false");
         fbase.Open();
         OleDbCommand fbaseCom = new OleDbCommand("SELECT * FROM " + filepath + "\\DATA\\POSKNAR.DBF", fbase);
         OleDbDataReader dr = fbaseCom.ExecuteReader();
@@ -356,7 +355,7 @@ namespace Vydejna
     public static void presunZmeny(vDatabase myDB, string filepath)
     {
         DbTransaction myTransaction = myDB.startTransaction();
-        OleDbConnection fbase = new OleDbConnection("Provider=VFPOLEDB.1;CodePage=437;Data Source=" + filepath + "\\DATA;Exclusive=false;Nulls=false");
+        OleDbConnection fbase = new OleDbConnection("Provider=VFPOLEDB.1;CodePage=437;Data Source=" + filepath + ";Exclusive=false;Nulls=false");
         fbase.Open();
         OleDbCommand fbaseCom = new OleDbCommand("SELECT * FROM " + filepath + "\\DATA\\POD_UCET.DBF", fbase);
         OleDbDataReader dr = fbaseCom.ExecuteReader();

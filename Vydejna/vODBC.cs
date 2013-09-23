@@ -324,9 +324,9 @@ namespace Vydejna
 
                 OdbcParameter p0 = new OdbcParameter("p1", OdbcType.Int);
                 p0.Value = poradi;
-                OdbcParameter p1 = new OdbcParameter("p1", OdbcType.NVarChar);
+                OdbcParameter p1 = new OdbcParameter("p1", OdbcType.NChar);
                 p1.Value = DBnazev;
-                OdbcParameter p2 = new OdbcParameter("p2", OdbcType.NVarChar);
+                OdbcParameter p2 = new OdbcParameter("p2", OdbcType.NChar);
                 p2.Value = DBJK;
                 OdbcParameter p3 = new OdbcParameter("p3", OdbcType.NChar);
                 p3.Value = DBnormacsn;

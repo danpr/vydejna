@@ -93,6 +93,7 @@ namespace Vydejna
             InitializeComponent();
             myDB = myDataBase;
             this.state = sKartaState.add;
+            this.testExistItem = testExistItem;
             dataGridViewZmeny.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             setAddState();
         }
@@ -225,7 +226,6 @@ namespace Vydejna
             {
                 if (state == sKartaState.add)
                 {
-//                    if (myDB.tableNaradiItemExist(textBoxJK.Text.Trim()))
                     if (testExistItem(textBoxJK.Text.Trim()))
                         {
                         MessageBox.Show("Položka již existuje.");
