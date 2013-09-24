@@ -312,31 +312,31 @@ namespace Vydejna
 
         public virtual DataTable loadDataTableNaradi()
         {
-            return loadDataTable("SELECT poradi, rtrim(kodd), rtrim(nazev), rtrim(jk), ucetstav, rtrim(analucet), rtrim(normacsn),"
-                                     + " rtrim(normadin), rtrim(vyrobce), rtrim(rozmer), fyzstav, cena, celkcena, minimum,"
-                                     + " rtrim(poznamka), ucetkscen from naradi ORDER BY nazev"); 
+            return loadDataTable("SELECT poradi, rtrim(kodd) as kodd, rtrim(nazev) as nazev, rtrim(jk) as jk, ucetstav, rtrim(analucet) as analucet, rtrim(normacsn) as normacsn,"
+                                     + " rtrim(normadin) as normadin, rtrim(vyrobce) as vyrobce, rtrim(rozmer) as rozmer, fyzstav, cena, celkcena, minimum,"
+                                     + " rtrim(poznamka) as poznamka, ucetkscen from naradi ORDER BY nazev"); 
         }
 
 
 
         public virtual DataTable loadDataTableZruseno()
         {
-            return loadDataTable("SELECT poradi, nazev, jk, ucetstav, analucet, normacsn,"
-                                     + " normadin, vyrobce, rozmer, fyzstav, cena, celkcena, minimum,"
-                                     + " poznamka from karta ORDER BY nazev");
+            return loadDataTable("SELECT poradi, rtrim(nazev) as nazev, rtrim(jk) as jk, ucetstav, rtrim(analucet) as analucet, rtrim(normacsn) as normacsn,"
+                                     + " rtrim(normadin) as normadin, rtrim(vyrobce) as vyrobce, rtrim(rozmer) as rozmer, fyzstav, cena, celkcena, minimum,"
+                                     + " rtrim(poznamka) as poznamka from karta ORDER BY nazev");
         }
 
         public virtual DataTable loadDataTableVraceno()
         {
-            return loadDataTable("SELECT poradi, nazev, jk,  pocetks, rozmer, csn,"
-                                     + " cena, datum, vyrobek, konto, jmeno, krjmeno, cislo, dilna, pracoviste"
+            return loadDataTable("SELECT poradi, rtrim(nazev) as nazev, rtrim(jk) as jk,  pocetks, rtrim(rozmer) as rozmer, rtrim(csn) as csn,"
+                                     + " cena, datum, rtrim(vyrobek) as vyrobek, rtrim(konto) as konto, rtrim(jmeno) as jmeno, rtrim(krjmeno) as krjmmeno, cislo, rtrim(dilna) as dilna, rtrim(pracoviste) as pracoviste"
                                      + " from vraceno ORDER BY datum");
         }
 
         public virtual DataTable loadDataTablePoskozeno()
         {
-            return loadDataTable("SELECT poradi, nazev, jk,  pocetks, rozmer, csn,"
-                                     + " cena, datum, vyrobek, konto, jmeno, krjmeno, cislo, dilna, pracoviste"
+            return loadDataTable("SELECT poradi, rtrim(nazev) as nazev, rtrim(jk) as jk,  pocetks, rtrim(rozmer) as rozmer, rtrim(csn) as csn,"
+                                     + " cena, datum, rtrim(vyrobek) as vyrobek, rtrim(konto) as konto, rtrim(jmeno) as jmeno, rtrim(krjmeno) as krjmeno, cislo, rtrim(dilna) as dilna, rtrim(pracoviste) as pracoviste"
                                      + " from poskozeno ORDER BY datum");
         }
 
@@ -344,8 +344,8 @@ namespace Vydejna
 
         public virtual DataTable loadDataTableOsoby()
         {
-            return loadDataTable("SELECT prijmeni, jmeno, oscislo, odeleni, stredisko, pracoviste, cisznamky,"
-                                     +"ulice, psc, mesto, telhome, telzam, poznamka from osoby order by prijmeni");
+            return loadDataTable("SELECT rtrim(prijmeni) as prijmeni, rtrim(jmeno) as jmeno, rtrim(oscislo) as oscislo, rtrim(odeleni) as odeleni, rtrim(stredisko) as stredisko, rtrim(pracoviste) as pracoviste, cisznamky,"
+                                     +"rtrim(ulice) as ulice, rtrim(psc) as psc, rtrim(mesto) as mesto, rtrim(telhome) as telhome, rtrim(telzam) as telzam, rtrim(poznamka) as poznamka from osoby order by prijmeni");
 
         }
 

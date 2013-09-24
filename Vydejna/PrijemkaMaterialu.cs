@@ -58,6 +58,11 @@ namespace Vydejna
             setButtonOK();
         }
 
+        private void numericUpDownPrijemKs_Enter(object sender, EventArgs e)
+        {
+            (sender as NumericUpDown).Select(0, (sender as NumericUpDown).Text.Length);
+        }
+
     
     
 

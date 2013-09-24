@@ -69,6 +69,7 @@ namespace Vydejna
             {
                 buttonOK.Visible = false;
                 buttonOK.Enabled = false;
+                buttonCancel.Focus();
             }
             else
             {

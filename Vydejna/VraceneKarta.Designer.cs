@@ -223,6 +223,7 @@
             this.numericUpDownPocetKS.ReadOnly = true;
             this.numericUpDownPocetKS.Size = new System.Drawing.Size(107, 20);
             this.numericUpDownPocetKS.TabIndex = 18;
+            this.numericUpDownPocetKS.Enter += new System.EventHandler(this.numericUpDownPocetKS_Enter);
             // 
             // textBoxRozmer
             // 
@@ -327,6 +328,7 @@
             // 
             // numericUpDownCena
             // 
+            this.numericUpDownCena.Enabled = false;
             this.numericUpDownCena.Location = new System.Drawing.Point(104, 268);
             this.numericUpDownCena.Maximum = new decimal(new int[] {
             10000000,
@@ -334,8 +336,10 @@
             0,
             0});
             this.numericUpDownCena.Name = "numericUpDownCena";
+            this.numericUpDownCena.ReadOnly = true;
             this.numericUpDownCena.Size = new System.Drawing.Size(107, 20);
             this.numericUpDownCena.TabIndex = 32;
+            this.numericUpDownCena.Enter += new System.EventHandler(this.numericUpDownCena_Enter);
             // 
             // VraceneKarta
             // 

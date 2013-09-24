@@ -159,6 +159,7 @@
             this.numericUpDownPrijemKs.Size = new System.Drawing.Size(100, 20);
             this.numericUpDownPrijemKs.TabIndex = 18;
             this.numericUpDownPrijemKs.ValueChanged += new System.EventHandler(this.numericUpDownPrijemKs_ValueChanged);
+            this.numericUpDownPrijemKs.Enter += new System.EventHandler(this.numericUpDownPrijemKs_Enter);
             // 
             // label13
             // 

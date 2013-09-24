@@ -188,6 +188,16 @@ namespace Vydejna
             Close();
         }
 
+        private void numericUpDownPocetKS_Enter(object sender, EventArgs e)
+        {
+            (sender as NumericUpDown).Select(0, (sender as NumericUpDown).Text.Length);
+        }
+
+        private void numericUpDownCena_Enter(object sender, EventArgs e)
+        {
+            (sender as NumericUpDown).Select(0, (sender as NumericUpDown).Text.Length);
+        }
+
 
     }
 }
