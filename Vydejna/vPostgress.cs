@@ -95,6 +95,7 @@ namespace Vydejna
         {
 
 
+            string commandStringSeq0 = "SELECT COUNT(*) as countporadi from naradi";
             string commandStringSeq1 = "SELECT MAX(poradi) as maxporadi from naradi";
             string commandStringSeq2 = "UPDATE  tabseq set poradi = poradi +1 WHERE nazev = 'naradi'";
 
@@ -114,19 +115,28 @@ namespace Vydejna
                         transaction = (myDBConn as OdbcConnection).BeginTransaction(System.Data.IsolationLevel.ReadCommitted);
                     }
                     catch
-                    { 
+                    {
                     }
 
-                    OdbcCommand cmdr = new OdbcCommand(commandStringSeq1, myDBConn as OdbcConnection);
+                    Int32 maxporadi;
 
-                    cmdr.Transaction = transaction;
+                    OdbcCommand cmdr0 = new OdbcCommand(commandStringSeq0, myDBConn as OdbcConnection);
+                    cmdr0.Transaction = transaction;
+                    OdbcDataReader myReader0 = cmdr0.ExecuteReader();
+                    myReader0.Read();
+                    Int32 countporadi = myReader0.GetInt32(0);
+                    myReader0.Close();
 
-                    OdbcDataReader myReader = cmdr.ExecuteReader();
-                    myReader.Read();
-                    Int32 maxporadi = myReader.GetInt32(0);
-                    myReader.Close();
-                    maxporadi++;
-
+                    if (countporadi == 0) maxporadi = 1;
+                    {
+                        OdbcCommand cmdr1 = new OdbcCommand(commandStringSeq1, myDBConn as OdbcConnection);
+                        cmdr1.Transaction = transaction;
+                        OdbcDataReader myReader1 = cmdr1.ExecuteReader();
+                        myReader1.Read();
+                        maxporadi = myReader1.GetInt32(0);
+                        myReader1.Close();
+                        maxporadi++;
+                    }
 
                     OdbcCommand cmd = new OdbcCommand(commandString2, myDBConn as OdbcConnection);
 
@@ -216,7 +226,7 @@ namespace Vydejna
                     cmdSeq2.Transaction = transaction;
                     cmdSeq2.ExecuteNonQuery();
 
-                    
+
                     if (transaction != null)
                     {
                         (transaction as OdbcTransaction).Commit();

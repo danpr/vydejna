@@ -906,7 +906,7 @@ namespace Vydejna
                                          decimal DBcelkcena, long DBucetstav, long DBfyzstav,
                                          string DBrozmer, string DBanalucet, decimal DBucetkscen, DateTime DBkdatum)
         {
-
+            string commandStringSeq0 = "SELECT count(*) as countporadi from naradi";
             string commandStringSeq1 = "SELECT MAX(poradi) as maxporadi from naradi";
             string commandStringSeq2 = "UPDATE  tabseq set poradi = poradi +1 WHERE nazev = 'naradi'";
 
@@ -919,17 +919,29 @@ namespace Vydejna
             {
                 try
                 {
+                    Int32 maxporadi;
                     transaction = (myDBConn as SQLiteConnection).BeginTransaction(System.Data.IsolationLevel.ReadCommitted);
 
-                    SQLiteCommand cmd = new SQLiteCommand(commandStringSeq1, myDBConn as SQLiteConnection);
-                    SQLiteDataReader myReader = cmd.ExecuteReader();
-                    myReader.Read();
-                    Int32 maxporadi = myReader.GetInt32(0);
-                    myReader.Close();
-                    maxporadi++;
+                    SQLiteCommand cmd0 = new SQLiteCommand(commandStringSeq0, myDBConn as SQLiteConnection);
+                    SQLiteDataReader myReader0 = cmd0.ExecuteReader();
+                    myReader0.Read();
+                    Int32 countporadi = myReader0.GetInt32(0);
+                    myReader0.Close();
+
+                    if (countporadi == 0) maxporadi = 1;
+                    else
+                    {
 
 
-                    cmd = new SQLiteCommand(commandString2, myDBConn as SQLiteConnection);
+                        SQLiteCommand cmd1 = new SQLiteCommand(commandStringSeq1, myDBConn as SQLiteConnection);
+                        SQLiteDataReader myReader1 = cmd1.ExecuteReader();
+                        myReader1.Read();
+                        maxporadi = myReader1.GetInt32(0);
+                        myReader1.Close();
+                        maxporadi++;
+                    }
+
+                    SQLiteCommand cmd = new SQLiteCommand(commandString2, myDBConn as SQLiteConnection);
 
                     SQLiteParameter p0 = new SQLiteParameter("p0", DbType.String);
                     p0.Value = maxporadi;

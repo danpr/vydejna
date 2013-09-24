@@ -124,6 +124,8 @@ namespace Vydejna
 
     public static void presunNaradi(vDatabase myDB, string filepath, Hashtable DBJoin)
     {
+
+
         DbTransaction myTransaction = myDB.startTransaction();
         OleDbConnection fbase = new OleDbConnection("Provider=VFPOLEDB.1;Data Source=" + filepath + ";Exclusive=false;Nulls=false;Collating Sequence=general");
         fbase.Open();
@@ -160,9 +162,10 @@ namespace Vydejna
             string DBtest;
             string DBpomRoz;
             string DBkodD;
-            while (dr.Read())
-            {
 
+
+            while (dr.Read())
+                {
                 if (dr.IsDBNull(0)) DBnazev = ""; else DBnazev = fbaseToUtf16(dr.GetString(0).Trim());
                 if (dr.IsDBNull(1)) DBJK = ""; else DBJK = dr.GetString(1).Trim();
                 if (dr.IsDBNull(2)) DBnormaCSN = ""; else DBnormaCSN = fbaseToUtf16(dr.GetString(2).Trim());
