@@ -374,6 +374,60 @@ namespace Vydejna
         }
 
 
+        // pridani nove polozky do tabulky zmeny
+        public override Int32 addNewLineZmeny(Int32 DBporadi , DateTime DBdatum, Int32 DBstav,  string DBpoznamka)
+        {
+            OdbcTransaction transaction = null;
+
+            if (DBIsOpened())
+            {
+                string commandString1 = "UPDATE naradi set fyzstav = fyzstav + ?, set ucetstav = ucetstav+ ?  where poradi = ? ";
+
+                try
+                {
+                    try
+                    {
+                        transaction = (myDBConn as OdbcConnection).BeginTransaction(System.Data.IsolationLevel.ReadCommitted);
+
+
+                        OdbcCommand cmd = new OdbcCommand(commandString1, myDBConn as OdbcConnection);
+
+                        OdbcParameter p1 = new OdbcParameter("p1", OdbcType.Int);
+                        p1.Value = DBstav;
+                        OdbcParameter p2 = new OdbcParameter("p2", OdbcType.Int);
+                        p2.Value = DBstav;
+                        OdbcParameter p3 = new OdbcParameter("p2", OdbcType.Int);
+                        p3.Value = DBporadi;
+
+                        cmd.Parameters.Add(p1);
+                        cmd.Parameters.Add(p2);
+                        cmd.Parameters.Add(p3);
+
+                        cmd.Transaction = transaction;
+
+                        cmd.ExecuteNonQuery();
+                    
+                    }
+                    catch
+                    {
+                    }
+
+
+                }
+                catch (Exception)
+                {
+                    // doslo k chybe
+                    if (transaction != null)
+                    {
+                        (transaction as OdbcTransaction).Rollback();
+                    }
+                    return -1;
+                }
+                return -1;
+            }
+            return 0;
+        }
+
 
 
     }

@@ -830,6 +830,10 @@ namespace Vydejna
         }
 
 
+        public override Int32 addNewLineZmeny(Int32 DBporadi, DateTime DBdatum, Int32 DBstav, string DBpoznamka)
+        {
+            return -1;
+        }
 
 
 
