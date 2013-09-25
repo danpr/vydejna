@@ -1613,5 +1613,113 @@ namespace Vydejna
         }
 
 
+        // pridani nove polozky do tabulky zmeny
+        public override Int32 addNewLineZmeny(Int32 DBporadi, DateTime DBdatum, Int32 DBstav, string DBpoznamka)
+        {
+            SQLiteTransaction transaction = null;
+
+            if (DBIsOpened())
+            {
+                string commandString1 = "UPDATE naradi set fyzstav = fyzstav + ?, set ucetstav = ucetstav+ ?  where poradi = ? ";
+                string commandString2 = "INSERT INTO zmeny (parporadi, pomozjk, datum, poznamka, prijem, vydej, zustatek, zapkarta, vevcislo, pocivc, contrcod, dosudnvrc, prijtyp, vydejtyp, poradi, stav )" + //, nazev, vyber, lastsoub, aktadr, cena, ucetkscen, jk )" +
+                      "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )"; //, ?, ?, ?, ?, ?, ?, ? )";
+
+                try
+                {
+                    try
+                    {
+                        transaction = (myDBConn as SQLiteConnection).BeginTransaction(System.Data.IsolationLevel.ReadCommitted);
+                    }
+                    catch
+                    {
+                    }
+
+                    SQLiteCommand cmd = new SQLiteCommand(commandString1, myDBConn as SQLiteConnection);
+ 
+                    SQLiteParameter pn1 = new SQLiteParameter("p1", DbType.String);
+                    pn1.Value = DBstav;
+                    SQLiteParameter pn2 = new SQLiteParameter("p2", DbType.String);
+                    pn2.Value = DBstav;
+                    SQLiteParameter pn3 = new SQLiteParameter("p3", DbType.String);
+                    pn3.Value = DBporadi;
+
+                    cmd.Parameters.Add(pn1);
+                    cmd.Parameters.Add(pn2);
+                    cmd.Parameters.Add(pn3);
+
+                    cmd.Transaction = transaction;
+                    cmd.ExecuteNonQuery();
+
+
+                    SQLiteCommand cmd2 = new SQLiteCommand(commandString2, myDBConn as SQLiteConnection);
+
+                    SQLiteParameter p0 = new SQLiteParameter("p0", DbType.Int32);
+                    p0.Value = DBporadi; // poradove cislo hlavicky
+                    SQLiteParameter p1 = new SQLiteParameter("p1", DbType.String);
+                    p1.Value = DBpomocJK; // jk
+                    SQLiteParameter p2 = new SQLiteParameter("p2", DbType.Date);
+                    p2.Value = DBdatum;
+                    SQLiteParameter p3 = new SQLiteParameter("p3", DbType.String);
+                    p3.Value = DBpoznamka;
+                    SQLiteParameter p4 = new SQLiteParameter("p4", DbType.Int64);
+                    p4.Value = DBstav; // prirustek
+                    SQLiteParameter p5 = new SQLiteParameter("p5", DbType.Int64);
+                    p5.Value = 0;    // odber
+                    SQLiteParameter p6 = new SQLiteParameter("p6", DbType.Int64);
+                    p6.Value = DBzustatek;  // zustatek
+                    SQLiteParameter p7 = new SQLiteParameter("p7", DbType.String);
+                    p7.Value = DBzapKarta; // cislo karty
+                    SQLiteParameter p8 = new SQLiteParameter("p8", DbType.String);
+                    p8.Value = DBvevCislo; // ''
+                    SQLiteParameter p9 = new SQLiteParameter("p9", DbType.Int64);
+                    p9.Value = DBpocIvc; //0
+                    SQLiteParameter p10 = new SQLiteParameter("p10", DbType.String);
+                    p10.Value = 0;
+                    SQLiteParameter p11 = new SQLiteParameter("p11", DbType.String);
+                    p11.Value = "";
+                    SQLiteParameter p12 = new SQLiteParameter("p12", DbType.String);
+                    p12.Value = "";
+                    SQLiteParameter p13 = new SQLiteParameter("p13", DbType.String);
+                    p13.Value = "";
+                    SQLiteParameter p14 = new SQLiteParameter("p14", DbType.Int64);
+                    p14.Value = DBporadi;
+                    SQLiteParameter p15 = new SQLiteParameter("p15", DbType.String);
+                    p15.Value = "";
+
+                    cmd.Parameters.Add(p0);
+                    cmd.Parameters.Add(p1);
+                    cmd.Parameters.Add(p2);
+                    cmd.Parameters.Add(p3);
+                    cmd.Parameters.Add(p4);
+                    cmd.Parameters.Add(p5);
+                    cmd.Parameters.Add(p6);
+                    cmd.Parameters.Add(p7);
+                    cmd.Parameters.Add(p8);
+                    cmd.Parameters.Add(p9);
+                    cmd.Parameters.Add(p10);
+                    cmd.Parameters.Add(p11);
+                    cmd.Parameters.Add(p12);
+                    cmd.Parameters.Add(p13);
+                    cmd.Parameters.Add(p14);
+                    cmd.Parameters.Add(p15);
+                    cmd.ExecuteNonQuery();
+
+
+                }
+                catch (Exception)
+                {
+                    // doslo k chybe
+                    if (transaction != null)
+                    {
+                        (transaction as OdbcTransaction).Rollback();
+                    }
+                    return -1;
+                }
+                return -1;
+            }
+            return 0;
+        }
+
+
     }
 }
