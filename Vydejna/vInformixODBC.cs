@@ -275,8 +275,11 @@ namespace Vydejna
             {
                 try
                 {
-                    transaction = (myDBConn as OdbcConnection).BeginTransaction(System.Data.IsolationLevel.ReadCommitted);
-
+                    try
+                    {
+                        transaction = (myDBConn as OdbcConnection).BeginTransaction(System.Data.IsolationLevel.ReadCommitted);
+                    }
+                    catch { }
                     OdbcCommand cmdr = new OdbcCommand(commandString1, myDBConn as OdbcConnection);
 
                     OdbcParameter px = new OdbcParameter("px", DbType.String);
@@ -296,33 +299,33 @@ namespace Vydejna
 
                         OdbcCommand cmd = new OdbcCommand(commandString2, myDBConn as OdbcConnection);
 
-                        OdbcParameter p1 = new OdbcParameter("p1", OdbcType.NChar);
+                        OdbcParameter p1 = new OdbcParameter("p1", OdbcType.NVarChar);
                         p1.Value = DBprijmeni;
-                        OdbcParameter p2 = new OdbcParameter("p2", OdbcType.NChar);
+                        OdbcParameter p2 = new OdbcParameter("p2", OdbcType.NVarChar);
                         p2.Value = DBjmeno;
-                        OdbcParameter p3 = new OdbcParameter("p3", OdbcType.NChar);
+                        OdbcParameter p3 = new OdbcParameter("p3", OdbcType.NVarChar);
                         p3.Value = DBulice;
-                        OdbcParameter p4 = new OdbcParameter("p4", OdbcType.NChar);
+                        OdbcParameter p4 = new OdbcParameter("p4", OdbcType.NVarChar);
                         p4.Value = DBmesto;
-                        OdbcParameter p5 = new OdbcParameter("p5", OdbcType.NChar);
+                        OdbcParameter p5 = new OdbcParameter("p5", OdbcType.NVarChar);
                         p5.Value = DBpsc;
-                        OdbcParameter p6 = new OdbcParameter("p6", OdbcType.NChar);
+                        OdbcParameter p6 = new OdbcParameter("p6", OdbcType.NVarChar);
                         p6.Value = DBtelHome;
-                        OdbcParameter p7 = new OdbcParameter("p7", OdbcType.NChar);
+                        OdbcParameter p7 = new OdbcParameter("p7", OdbcType.NVarChar);
                         p7.Value = DBosCislo;
-                        OdbcParameter p8 = new OdbcParameter("p8", OdbcType.NChar);
+                        OdbcParameter p8 = new OdbcParameter("p8", OdbcType.NVarChar);
                         p8.Value = DBoddeleni;
-                        OdbcParameter p9 = new OdbcParameter("p9", OdbcType.NChar);
+                        OdbcParameter p9 = new OdbcParameter("p9", OdbcType.NVarChar);
                         p9.Value = DBtelZam;
-                        OdbcParameter p10 = new OdbcParameter("p10", OdbcType.NChar);
+                        OdbcParameter p10 = new OdbcParameter("p10", OdbcType.NVarChar);
                         p10.Value = DBstredisko;
-                        OdbcParameter p11 = new OdbcParameter("p11", OdbcType.NChar);
+                        OdbcParameter p11 = new OdbcParameter("p11", OdbcType.NVarChar);
                         p11.Value = "";
-                        OdbcParameter p12 = new OdbcParameter("p12", OdbcType.NChar);
+                        OdbcParameter p12 = new OdbcParameter("p12", OdbcType.NVarChar);
                         p12.Value = DBpracoviste;
-                        OdbcParameter p13 = new OdbcParameter("p13", OdbcType.NChar);
+                        OdbcParameter p13 = new OdbcParameter("p13", OdbcType.NVarChar);
                         p13.Value = DBcisZnamky;
-                        OdbcParameter p14 = new OdbcParameter("p14", OdbcType.NChar);
+                        OdbcParameter p14 = new OdbcParameter("p14", OdbcType.NVarChar);
                         p14.Value = DBpoznamka;
 
 

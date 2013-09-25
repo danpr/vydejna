@@ -344,8 +344,8 @@ namespace Vydejna
 
         public virtual DataTable loadDataTableOsoby()
         {
-            return loadDataTable("SELECT rtrim(prijmeni) as prijmeni, rtrim(jmeno) as jmeno, rtrim(oscislo) as oscislo, rtrim(odeleni) as odeleni, rtrim(stredisko) as stredisko, rtrim(pracoviste) as pracoviste, cisznamky,"
-                                     +"rtrim(ulice) as ulice, rtrim(psc) as psc, rtrim(mesto) as mesto, rtrim(telhome) as telhome, rtrim(telzam) as telzam, rtrim(poznamka) as poznamka from osoby order by prijmeni");
+            return loadDataTable("SELECT prijmeni, jmeno, oscislo, odeleni, stredisko, pracoviste, cisznamky,"
+                                     +"ulice, psc, mesto, telhome, telzam, poznamka from osoby order by prijmeni");
 
         }
 
