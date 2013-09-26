@@ -412,7 +412,7 @@ namespace Vydejna
                         cmd1.Transaction = transaction;
                         cmd1.ExecuteNonQuery();
 
-                        OdbcCommand cmd2 = new OdbcCommand(commandString1, myDBConn as OdbcConnection);
+                        OdbcCommand cmd2 = new OdbcCommand(commandString2, myDBConn as OdbcConnection);
 
                         OdbcParameter p1 = new OdbcParameter("p1", OdbcType.Int);
                         p1.Value = DBporadi;
