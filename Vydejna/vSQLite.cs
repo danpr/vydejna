@@ -252,9 +252,7 @@ namespace Vydejna
 
             string commandStringZmeny = "create table zmeny ( parporadi integer, pomozjk char(15), datum date, poznamka char(22)," +
                       "prijem integer, vydej integer, zustatek integer, zapkarta char(5), vevcislo char(12)," +
-                      "pocivc integer, contrcod char(12), dosudnvrc char(1), prijtyp char(2), vydejtyp char(2)," +
-                      "poradi integer, stav char(1) );"; //, nazev char(60), vyber char(1), lastsoub char(8), aktadr char(9)," +
-//                      "cena float, ucetkscen float, jk char(15) );";
+                      "pocivc integer, stav char(1) );";
 
 
             openDB();
@@ -770,13 +768,11 @@ namespace Vydejna
 
         public override void addLineZmeny(int DBparPoradi, string DBpomocJK, DateTime DBdatum, string DBpoznamka, int DBPrijem,
                                          int DBvydej, int DBzustatek, string DBzapKarta, string DBvevCislo,
-                                         int DBpocIvc, string DBcontrCod, string DBdosudNvrc, string DBprijTyp,
-                                         string DBvydejTyp, int DBporadi, string DBstav) //, string DBnazev, string DBvyber,
-//                                         string DBlastSoub, string DBaktAdr, double DBcena, double DBucetKsCen, string DBjk)
+                                         int DBpocIvc, int DBporadi)
         {
 
-            string commandString = "INSERT INTO zmeny ( parporadi, pomozjk, datum, poznamka, prijem, vydej, zustatek, zapkarta, vevcislo, pocivc, contrcod, dosudnvrc, prijtyp, vydejtyp, poradi, stav )" + //, nazev, vyber, lastsoub, aktadr, cena, ucetkscen, jk )" +
-                  "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )"; //, ?, ?, ?, ?, ?, ?, ? )";
+            string commandString = "INSERT INTO zmeny ( parporadi, pomozjk, datum, poznamka, prijem, vydej, zustatek, zapkarta, vevcislo, pocivc, poradi )" + //, nazev, vyber, lastsoub, aktadr, cena, ucetkscen, jk )" +
+                  "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )"; //, ?, ?, ?, ?, ?, ?, ? )";
 
 
             //    string commandStringZmeny = "create table zmeny ( pomozjk char(15), datum date, poznamka char(22)," +
@@ -811,18 +807,18 @@ namespace Vydejna
                 p8.Value = DBvevCislo;
                 SQLiteParameter p9 = new SQLiteParameter("p9", DbType.Int64);
                 p9.Value = DBpocIvc;
-                SQLiteParameter p10 = new SQLiteParameter("p10", DbType.String);
-                p10.Value = DBcontrCod;
-                SQLiteParameter p11 = new SQLiteParameter("p11", DbType.String);
-                p11.Value = DBdosudNvrc;
-                SQLiteParameter p12 = new SQLiteParameter("p12", DbType.String);
-                p12.Value = DBprijTyp;
-                SQLiteParameter p13 = new SQLiteParameter("p13", DbType.String);
-                p13.Value = DBvydejTyp;
+//                SQLiteParameter p10 = new SQLiteParameter("p10", DbType.String);
+//                p10.Value = DBcontrCod;
+//                SQLiteParameter p11 = new SQLiteParameter("p11", DbType.String);
+//                p11.Value = DBdosudNvrc;
+//                SQLiteParameter p12 = new SQLiteParameter("p12", DbType.String);
+//                p12.Value = DBprijTyp;
+//                SQLiteParameter p13 = new SQLiteParameter("p13", DbType.String);
+//                p13.Value = DBvydejTyp;
                 SQLiteParameter p14 = new SQLiteParameter("p14", DbType.Int64);
                 p14.Value = DBporadi;
-                SQLiteParameter p15 = new SQLiteParameter("p15", DbType.String);
-                p15.Value = DBstav;
+//                SQLiteParameter p15 = new SQLiteParameter("p15", DbType.String);
+//                p15.Value = DBstav;
 
                 cmd.Parameters.Add(p0);
                 cmd.Parameters.Add(p1);
@@ -834,12 +830,12 @@ namespace Vydejna
                 cmd.Parameters.Add(p7);
                 cmd.Parameters.Add(p8);
                 cmd.Parameters.Add(p9);
-                cmd.Parameters.Add(p10);
-                cmd.Parameters.Add(p11);
-                cmd.Parameters.Add(p12);
-                cmd.Parameters.Add(p13);
+//                cmd.Parameters.Add(p10);
+//                cmd.Parameters.Add(p11);
+//                cmd.Parameters.Add(p12);
+//                cmd.Parameters.Add(p13);
                 cmd.Parameters.Add(p14);
-                cmd.Parameters.Add(p15);
+//                cmd.Parameters.Add(p15);
                 cmd.ExecuteNonQuery();
             }
         }
@@ -1614,15 +1610,15 @@ namespace Vydejna
 
 
         // pridani nove polozky do tabulky zmeny
-        public override Int32 addNewLineZmeny(Int32 DBporadi, DateTime DBdatum, Int32 DBstav, string DBpoznamka)
+        public override Int32 addNewLineZmeny(Int32 DBporadi, string DBJK, DateTime DBdatum, Int32 DBprijem, Int32 DBvydej, string DBpoznamka)
         {
             SQLiteTransaction transaction = null;
 
             if (DBIsOpened())
             {
                 string commandString1 = "UPDATE naradi set fyzstav = fyzstav + ?, set ucetstav = ucetstav+ ?  where poradi = ? ";
-                string commandString2 = "INSERT INTO zmeny (parporadi, pomozjk, datum, poznamka, prijem, vydej, zustatek, zapkarta, vevcislo, pocivc, contrcod, dosudnvrc, prijtyp, vydejtyp, poradi, stav )" + //, nazev, vyber, lastsoub, aktadr, cena, ucetkscen, jk )" +
-                      "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )"; //, ?, ?, ?, ?, ?, ?, ? )";
+                string commandString2 = "INSERT INTO zmeny (parporadi, pomozjk, datum, poznamka, prijem, vydej, zustatek, zapkarta, vevcislo, pocivc, poradi )" + //, nazev, vyber, lastsoub, aktadr, cena, ucetkscen, jk )" +
+                      "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )"; //, ?, ?, ?, ?, ?, ?, ? )";
 
                 try
                 {
@@ -1637,9 +1633,9 @@ namespace Vydejna
                     SQLiteCommand cmd = new SQLiteCommand(commandString1, myDBConn as SQLiteConnection);
  
                     SQLiteParameter pn1 = new SQLiteParameter("p1", DbType.String);
-                    pn1.Value = DBstav;
+                    pn1.Value = DBprijem - DBvydej;
                     SQLiteParameter pn2 = new SQLiteParameter("p2", DbType.String);
-                    pn2.Value = DBstav;
+                    pn2.Value = DBprijem - DBvydej;
                     SQLiteParameter pn3 = new SQLiteParameter("p3", DbType.String);
                     pn3.Value = DBporadi;
 
@@ -1656,23 +1652,23 @@ namespace Vydejna
                     SQLiteParameter p0 = new SQLiteParameter("p0", DbType.Int32);
                     p0.Value = DBporadi; // poradove cislo hlavicky
                     SQLiteParameter p1 = new SQLiteParameter("p1", DbType.String);
-                    p1.Value = DBpomocJK; // jk
+//                    p1.Value = DBpomocJK; // jk
                     SQLiteParameter p2 = new SQLiteParameter("p2", DbType.Date);
                     p2.Value = DBdatum;
                     SQLiteParameter p3 = new SQLiteParameter("p3", DbType.String);
                     p3.Value = DBpoznamka;
                     SQLiteParameter p4 = new SQLiteParameter("p4", DbType.Int64);
-                    p4.Value = DBstav; // prirustek
+                    p4.Value = DBprijem - DBvydej; // prirustek
                     SQLiteParameter p5 = new SQLiteParameter("p5", DbType.Int64);
                     p5.Value = 0;    // odber
                     SQLiteParameter p6 = new SQLiteParameter("p6", DbType.Int64);
-                    p6.Value = DBzustatek;  // zustatek
+//                    p6.Value = DBzustatek;  // zustatek
                     SQLiteParameter p7 = new SQLiteParameter("p7", DbType.String);
-                    p7.Value = DBzapKarta; // cislo karty
+//                    p7.Value = DBzapKarta; // cislo karty
                     SQLiteParameter p8 = new SQLiteParameter("p8", DbType.String);
-                    p8.Value = DBvevCislo; // ''
+//                    p8.Value = DBvevCislo; // ''
                     SQLiteParameter p9 = new SQLiteParameter("p9", DbType.Int64);
-                    p9.Value = DBpocIvc; //0
+//                    p9.Value = DBpocIvc; //0
                     SQLiteParameter p10 = new SQLiteParameter("p10", DbType.String);
                     p10.Value = 0;
                     SQLiteParameter p11 = new SQLiteParameter("p11", DbType.String);
@@ -1711,7 +1707,7 @@ namespace Vydejna
                     // doslo k chybe
                     if (transaction != null)
                     {
-                        (transaction as OdbcTransaction).Rollback();
+                        (transaction as SQLiteTransaction).Rollback();
                     }
                     return -1;
                 }

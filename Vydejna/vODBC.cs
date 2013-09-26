@@ -192,9 +192,7 @@ namespace Vydejna
 
             string commandStringZmeny = "create table zmeny ( parporadi integer, pomozjk char(15), datum date, poznamka char(22)," +
                       "prijem integer, vydej integer, zustatek integer, zapkarta char(5), vevcislo char(12)," +
-                      "pocivc integer, contrcod char(12), dosudnvrc char(1), prijtyp char(2), vydejtyp char(2)," +
-                      "poradi integer, stav char(1) );"; //, nazev char(60), vyber char(1), lastsoub char(8), aktadr char(9)," +
-//                      "cena float, ucetkscen float, jk char(15) );";
+                      "pocivc integer, poradi integer );";
 
 
             openDB();
@@ -752,13 +750,11 @@ namespace Vydejna
 
         public override void addLineZmeny(int DBparPoradi, string DBpomocJK, DateTime DBdatum, string DBpoznamka, int DBPrijem,
                                          int DBvydej, int DBzustatek, string DBzapKarta, string DBvevCislo,
-                                         int DBpocIvc, string DBcontrCod, string DBdosudNvrc, string DBprijTyp,
-                                         string DBvydejTyp, int DBporadi, string DBstav) //, string DBnazev, string DBvyber,
-//                                         string DBlastSoub, string DBaktAdr, double DBcena, double DBucetKsCen, string DBjk)
+                                         int DBpocIvc, int DBporadi)
         {
 
-            string commandString = "INSERT INTO zmeny (parporadi, pomozjk, datum, poznamka, prijem, vydej, zustatek, zapkarta, vevcislo, pocivc, contrcod, dosudnvrc, prijtyp, vydejtyp, poradi, stav )" + //, nazev, vyber, lastsoub, aktadr, cena, ucetkscen, jk )" +
-                  "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )"; //, ?, ?, ?, ?, ?, ?, ? )";
+            string commandString = "INSERT INTO zmeny (parporadi, pomozjk, datum, poznamka, prijem, vydej, zustatek, zapkarta, vevcislo, pocivc, poradi )" + //, nazev, vyber, lastsoub, aktadr, cena, ucetkscen, jk )" +
+                  "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )"; //, ?, ?, ?, ?, ?, ?, ? )";
 
 
             if (DBIsOpened())
@@ -786,19 +782,19 @@ namespace Vydejna
                 p8.Value = DBvevCislo;
                 OdbcParameter p9 = new OdbcParameter("p9", OdbcType.Int);
                 p9.Value = DBpocIvc;
-                OdbcParameter p10 = new OdbcParameter("p10", OdbcType.NChar);
-                p10.Value = DBcontrCod;
-                OdbcParameter p11 = new OdbcParameter("p11", OdbcType.NChar);
-                p11.Value = DBdosudNvrc;
-                OdbcParameter p12 = new OdbcParameter("p12", OdbcType.NChar);
-                p12.Value = DBprijTyp;
-                OdbcParameter p13 = new OdbcParameter("p13", OdbcType.NChar);
-                p13.Value = DBvydejTyp;
+//                OdbcParameter p10 = new OdbcParameter("p10", OdbcType.NChar);
+//                p10.Value = DBcontrCod;
+//                OdbcParameter p11 = new OdbcParameter("p11", OdbcType.NChar);
+//                p11.Value = DBdosudNvrc;
+//                OdbcParameter p12 = new OdbcParameter("p12", OdbcType.NChar);
+//                p12.Value = DBprijTyp;
+//                OdbcParameter p13 = new OdbcParameter("p13", OdbcType.NChar);
+//                p13.Value = DBvydejTyp;
                 OdbcParameter p14 = new OdbcParameter("p14", OdbcType.Int);
                 p14.Value = DBporadi;
-                OdbcParameter p15 = new OdbcParameter("p15", OdbcType.NChar);
-                p15.Value = DBstav;
-                OdbcParameter p16 = new OdbcParameter("p16", OdbcType.NChar);
+//                OdbcParameter p15 = new OdbcParameter("p15", OdbcType.NChar);
+//                p15.Value = DBstav;
+//                OdbcParameter p16 = new OdbcParameter("p16", OdbcType.NChar);
 
 
                 cmd.Parameters.Add(p0);
@@ -811,12 +807,12 @@ namespace Vydejna
                 cmd.Parameters.Add(p7);
                 cmd.Parameters.Add(p8);
                 cmd.Parameters.Add(p9);
-                cmd.Parameters.Add(p10);
-                cmd.Parameters.Add(p11);
-                cmd.Parameters.Add(p12);
-                cmd.Parameters.Add(p13);
+//                cmd.Parameters.Add(p10);
+//                cmd.Parameters.Add(p11);
+//                cmd.Parameters.Add(p12);
+//                cmd.Parameters.Add(p13);
                 cmd.Parameters.Add(p14);
-                cmd.Parameters.Add(p15);
+//                cmd.Parameters.Add(p15);
                 cmd.ExecuteNonQuery();
             }
         }
@@ -830,7 +826,7 @@ namespace Vydejna
         }
 
 
-        public override Int32 addNewLineZmeny(Int32 DBporadi, DateTime DBdatum, Int32 DBstav, string DBpoznamka)
+        public override Int32 addNewLineZmeny(Int32 DBporadi, string DBJK, DateTime DBdatum, Int32 DBprijem, Int32 DBvydej, string DBpoznamka)
         {
             return -1;
         }

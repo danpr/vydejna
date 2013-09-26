@@ -226,9 +226,7 @@ namespace Vydejna
 
         public virtual void addLineZmeny(int DBparPoradi, string DBpomocJK, DateTime DBdatum, string DBpoznamka, int DBPrijem,
                                          int DBvydej, int DBzustatek, string DBzapKarta, string DBvevCislo,
-                                         int DBpocIvc, string DBcontrCod, string DBdosudNvrc, string DBprijTyp,
-                                         string DBvydejTyp, int DBporadi, string DBstav) //, string DBnazev, string DBvyber,
-//                                         string DBlastSoub, string DBaktAdr, double DBcena, double DBucetKsCen, string DBjk)
+                                         int DBpocIvc, int DBporadi) 
         {
         }
 
@@ -285,7 +283,7 @@ namespace Vydejna
         }
 
 
-        public virtual Int32 addNewLineZmeny(Int32 DBporadi, DateTime DBdatum, Int32 DBstav, string DBpoznamka)
+        public virtual Int32 addNewLineZmeny(Int32 DBporadi, string DBJK, DateTime DBdatum, Int32 DBprijem, Int32 DBvydej, string DBpoznamka)
         {
             return -1;
         }

@@ -529,7 +529,7 @@ namespace Vydejna
                     poradi = -1; // chyba v puvodnich datech
                 }
                 myDB.addLineZmeny(poradi, DBpomocJK, DBdatum, DBpoznamka, DBprijem, DBvydej, DBzustatek, DBzapKarta, DBvevCislo,
-                    DBpocIvc, DBcontrCod, DBdosudNvrc, DBprijTyp, DBvydejTyp, DBporadi, DBstav );
+                    DBpocIvc, DBporadi );
 
                 Application.DoEvents();
 
