@@ -162,7 +162,14 @@ namespace Vydejna
             if ((myDataBase != null) && (myDataBase.DBIsOpened()))
             {
                 PrijemkaMaterialu prijemka = new PrijemkaMaterialu(DBRow, myDataBase);
-                prijemka.ShowDialog();
+                if (prijemka.ShowDialog() == DialogResult.OK)
+                {
+                    PrijemkaMaterialu.messager mesenger = prijemka.getMesseger();
+                    if (myDataBase.addNewLineZmeny(mesenger.poradi, mesenger.jk, mesenger.datum, mesenger.pocetKs, 0, mesenger.poznamka) < 0)
+                    {
+                        MessageBox.Show("Příjem materialu se nezdařil. Lituji.");
+                    }
+                }
             }
         }
 

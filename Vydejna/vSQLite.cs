@@ -1616,7 +1616,7 @@ namespace Vydejna
 
             if (DBIsOpened())
             {
-                string commandString1 = "UPDATE naradi set fyzstav = fyzstav + ?, set ucetstav = ucetstav+ ?  where poradi = ? ";
+                string commandString1 = "UPDATE naradi set fyzstav = fyzstav + ?, ucetstav = ucetstav+ ?  where poradi = ? ";
                 string commandString2 = "INSERT INTO zmeny (parporadi, pomozjk, datum, poznamka, prijem, vydej, zustatek, zapkarta, vevcislo, pocivc, poradi )" +
                       "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
                 string commandString3 = "SELECT poradi, zustatek from zmeny where parporadi = ? ORDER BY poradi DESC";
@@ -1690,7 +1690,7 @@ namespace Vydejna
                     SQLiteParameter p6 = new SQLiteParameter("p6", DbType.Int32);
                     p6.Value = DBvydej;
                     SQLiteParameter p7 = new SQLiteParameter("p7", DbType.Int32);
-                    p6.Value = zustatek +DBprijem - DBvydej;
+                    p7.Value = zustatek +DBprijem - DBvydej;
                     SQLiteParameter p8 = new SQLiteParameter("p8", DbType.String);
                     p8.Value = "";
                     SQLiteParameter p9 = new SQLiteParameter("p9", DbType.String);

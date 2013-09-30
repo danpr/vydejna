@@ -156,7 +156,7 @@ namespace Vydejna
         public messager getMesseger()
         {
             messager prepravka = new messager(poradi, textBoxJmeno.Text, textBoxPrijmeni.Text, textBoxOsCislo.Text, textBoxStredisko.Text,
-                                  textBoxProvoz.Text, textBoxNazev.Text, textBoxJK.Text, Convert.ToInt64(numericUpDownPocetKS.Value),
+                                  textBoxProvoz.Text, textBoxNazev.Text, textBoxJK.Text, Convert.ToInt32(numericUpDownPocetKS.Value),
                                   textBoxRozmer.Text, textBoxCSN.Text, numericUpDownCena.Value, dateTimePickerDatum.Value,
                                   textBoxZakázka.Text, textBoxKonto.Text);
                                   //Convert.ToInt64(numericUpDownMinStav.Value), Convert.ToInt64(numericUpDownUcetStav.Value), textBoxPoznamka.Text);

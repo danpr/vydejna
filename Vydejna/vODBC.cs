@@ -754,7 +754,7 @@ namespace Vydejna
         {
 
             string commandString = "INSERT INTO zmeny (parporadi, pomozjk, datum, poznamka, prijem, vydej, zustatek, zapkarta, vevcislo, pocivc, poradi )" + //, nazev, vyber, lastsoub, aktadr, cena, ucetkscen, jk )" +
-                  "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )"; //, ?, ?, ?, ?, ?, ?, ? )";
+                  "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
 
 
             if (DBIsOpened())
@@ -762,7 +762,7 @@ namespace Vydejna
 
                 OdbcCommand cmd = new OdbcCommand(commandString, myDBConn as OdbcConnection);
 
-                OdbcParameter p0 = new OdbcParameter("p1", OdbcType.Int);
+                OdbcParameter p0 = new OdbcParameter("p0", OdbcType.Int);
                 p0.Value = DBparPoradi;
                 OdbcParameter p1 = new OdbcParameter("p1", OdbcType.NChar);
                 p1.Value = DBpomocJK;
@@ -782,19 +782,8 @@ namespace Vydejna
                 p8.Value = DBvevCislo;
                 OdbcParameter p9 = new OdbcParameter("p9", OdbcType.Int);
                 p9.Value = DBpocIvc;
-//                OdbcParameter p10 = new OdbcParameter("p10", OdbcType.NChar);
-//                p10.Value = DBcontrCod;
-//                OdbcParameter p11 = new OdbcParameter("p11", OdbcType.NChar);
-//                p11.Value = DBdosudNvrc;
-//                OdbcParameter p12 = new OdbcParameter("p12", OdbcType.NChar);
-//                p12.Value = DBprijTyp;
-//                OdbcParameter p13 = new OdbcParameter("p13", OdbcType.NChar);
-//                p13.Value = DBvydejTyp;
                 OdbcParameter p14 = new OdbcParameter("p14", OdbcType.Int);
                 p14.Value = DBporadi;
-//                OdbcParameter p15 = new OdbcParameter("p15", OdbcType.NChar);
-//                p15.Value = DBstav;
-//                OdbcParameter p16 = new OdbcParameter("p16", OdbcType.NChar);
 
 
                 cmd.Parameters.Add(p0);
@@ -807,12 +796,7 @@ namespace Vydejna
                 cmd.Parameters.Add(p7);
                 cmd.Parameters.Add(p8);
                 cmd.Parameters.Add(p9);
-//                cmd.Parameters.Add(p10);
-//                cmd.Parameters.Add(p11);
-//                cmd.Parameters.Add(p12);
-//                cmd.Parameters.Add(p13);
                 cmd.Parameters.Add(p14);
-//                cmd.Parameters.Add(p15);
                 cmd.ExecuteNonQuery();
             }
         }

@@ -173,11 +173,11 @@
             // textBoxPoznamka
             // 
             this.textBoxPoznamka.Location = new System.Drawing.Point(159, 230);
-            this.textBoxPoznamka.MaxLength = 60;
+            this.textBoxPoznamka.MaxLength = 22;
             this.textBoxPoznamka.Name = "textBoxPoznamka";
             this.textBoxPoznamka.Size = new System.Drawing.Size(324, 20);
             this.textBoxPoznamka.TabIndex = 20;
-            this.textBoxPoznamka.Text = "Příjem";
+            this.textBoxPoznamka.Text = "Nákup";
             this.textBoxPoznamka.TextChanged += new System.EventHandler(this.textBoxPoznamka_TextChanged);
             // 
             // buttonCancel
