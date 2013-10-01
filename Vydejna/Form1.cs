@@ -49,6 +49,30 @@ namespace Vydejna
             }
         }
 
+
+        private Hashtable makeDBRowFromSelectedRow()
+        {
+
+            Hashtable newDBRow = new Hashtable();
+
+            if (dataGridView1.SelectedRows.Count > 0)
+            {
+
+                DataGridViewRow myRow = dataGridView1.SelectedRows[0];
+
+                for (int i = 0; i < dataGridView1.ColumnCount; i++)
+                {
+                    if (newDBRow.ContainsKey(dataGridView1.Columns[i].Name))
+                    {
+                        newDBRow.Remove(dataGridView1.Columns[i].Name);
+                    }
+                    newDBRow.Add(dataGridView1.Columns[i].Name, myRow.Cells[i].Value);
+                }
+            }
+            return newDBRow;
+        }
+
+
         private void loadNaradiItems()
         {
             // nahraje hlavni tabulku - naradi - skladove karty
@@ -919,17 +943,18 @@ namespace Vydejna
             if (dataGridView1.SelectedRows.Count > 0)
             {
                 //int index
-                DataGridViewRow myRow = dataGridView1.SelectedRows[0];
+//                DataGridViewRow myRow = dataGridView1.SelectedRows[0];
 
-                for (int i = 0; i < dataGridView1.ColumnCount; i++)
-                {
-                    if (DBRow.ContainsKey(dataGridView1.Columns[i].Name))
-                    {
-                        DBRow.Remove(dataGridView1.Columns[i].Name);
-                    }
-                    DBRow.Add(dataGridView1.Columns[i].Name, myRow.Cells[i].Value);
-                }
-                karta.Prijem(DBRow, myDB);
+//                for (int i = 0; i < dataGridView1.ColumnCount; i++)
+//                {
+//                    if (DBRow.ContainsKey(dataGridView1.Columns[i].Name))
+//                    {
+//                        DBRow.Remove(dataGridView1.Columns[i].Name);
+//                    }
+//                    DBRow.Add(dataGridView1.Columns[i].Name, myRow.Cells[i].Value);
+//                }
+                DBRow = makeDBRowFromSelectedRow();
+                karta.Prijem(DBRow, myDB, dataGridView1);
             }
         }
 

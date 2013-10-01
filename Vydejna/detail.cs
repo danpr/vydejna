@@ -32,7 +32,7 @@ namespace Vydejna
             MessageBox.Show("Není implementováno.");
         }
 
-        public virtual void Prijem(Hashtable DBRow, vDatabase myDataBase)
+        public virtual void Prijem(Hashtable DBRow, vDatabase myDataBase, DataGridView myDataGridView)
         {
             MessageBox.Show("Není implementováno.");
         }
@@ -129,7 +129,6 @@ namespace Vydejna
                                 dataRowIndex = x;
                                 break;
                             }
-
                         }
 
                         if (dataRowIndex != -1)
@@ -157,7 +156,7 @@ namespace Vydejna
         }
 
 
-        public override void Prijem(Hashtable DBRow, vDatabase myDataBase)
+        public override void Prijem(Hashtable DBRow, vDatabase myDataBase, DataGridView myDataGridView)
         {
             if ((myDataBase != null) && (myDataBase.DBIsOpened()))
             {
@@ -169,6 +168,25 @@ namespace Vydejna
                     {
                         MessageBox.Show("Příjem materialu se nezdařil. Lituji.");
                     }
+                    else
+                    {
+                        Int32 dataRowIndex = -1;
+                        for (int x = 0; x < (myDataGridView.DataSource as DataTable).Rows.Count - 1; x++)
+                        {
+                            if (Convert.ToInt32((myDataGridView.DataSource as DataTable).Rows[x][0]) == mesenger.poradi)
+                            {
+                                dataRowIndex = x;
+                                break;
+                            }
+                        }
+                        if (dataRowIndex != -1)
+                        {
+                            // opravime tabulku
+                        }
+
+                    }
+
+
                 }
             }
         }
