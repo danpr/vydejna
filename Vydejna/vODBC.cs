@@ -149,11 +149,6 @@ namespace Vydejna
             string commandStringSequenceInit2 = "INSERT INTO tabseq ( nazev, poradi) VALUES ('vraceno', 1)";
             string commandStringSequenceInit3 = "INSERT INTO tabseq ( nazev, poradi) VALUES ('poskozeno', 1)";
 
-//            string commandStringKarta = "create table karta ( poradi integer, nazev char(60), jk char(15), normacsn char (15)," +
-//                      "normadin char(15), vyrobce char(40), cena float, poznamka char(60), minimum integer,"+
-//                      "celkcena float, adrdir char(9), movsoub char(12), badrdir char(9), bmovsoub char(12),"+  
-//                      "cntrcode char(12), ucetstav integer, fyzstav integer, rozmer char(20), analucet char(5), tdate date,"+
-//                      "stredisko char(5), kodzmeny char(3), druh char(3), odpis char(3), zavod char(3));";
 
             string commandStringKarta = "create table karta ( poradi integer, nazev char(60), jk char(15), normacsn char (15)," +
                       "normadin char(15), vyrobce char(40), cena float, poznamka char(60), minimum integer," +

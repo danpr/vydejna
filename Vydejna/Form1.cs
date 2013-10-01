@@ -457,7 +457,6 @@ namespace Vydejna
 
 
                 progressBarMain.MarqueeAnimationSpeed = 100;
-//                PresunDB.presunZmeny(myDB, filepath);
                 PresunDB.presunVyrazeneMDat(myDB, filepath, DBJoin);
                 progressBarMain.MarqueeAnimationSpeed = 0;
 

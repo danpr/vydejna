@@ -269,6 +269,7 @@ namespace Vydejna
             string commandString2 = "INSERT INTO osoby ( prijmeni, jmeno, ulice, mesto, psc, telhome, oscislo, odeleni, telzam, stredisko, pujsoub, pracoviste, cisznamky, poznamka ) " +
                   "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
 
+
             OdbcTransaction transaction = null;
 
             if (DBIsOpened())
@@ -382,8 +383,11 @@ namespace Vydejna
             if (DBIsOpened())
             {
                 string commandString1 = "UPDATE naradi set fyzstav = fyzstav + ?, ucetstav = ucetstav + ?  where poradi = ? ";
+
                 string commandString2 = "INSERT INTO zmeny (parporadi, pomozjk, datum, poznamka, prijem, vydej, zustatek, zapkarta, vevcislo, pocivc, poradi )" +
                       "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
+                
+                
                 string commandString3 = "SELECT poradi, zustatek from zmeny where parporadi = ? ORDER BY poradi DESC";
 
                 try
@@ -410,14 +414,13 @@ namespace Vydejna
                     // true osCisloExist
                     if (myReader.Read() == true)
                     {
-                        poradi = myReader.GetInt32(0);
+                        poradi = myReader.GetInt32(0) + 1; // zjistime nove poradi
                         zustatek = myReader.GetInt32(1);
                     }
                     else
                     {
                         poradi = 1;
                         zustatek = 0;
-
                     }
 
                     myReader.Close();
@@ -464,6 +467,19 @@ namespace Vydejna
                     OdbcParameter p11 = new OdbcParameter("p11", OdbcType.Int);
                     p11.Value = poradi;
 
+                    cmd2.Parameters.Add(p1);
+                    cmd2.Parameters.Add(p2);
+                    cmd2.Parameters.Add(p3);
+                    cmd2.Parameters.Add(p4);
+                    cmd2.Parameters.Add(p5);
+                    cmd2.Parameters.Add(p6);
+                    cmd2.Parameters.Add(p7);
+                    cmd2.Parameters.Add(p8);
+                    cmd2.Parameters.Add(p9);
+                    cmd2.Parameters.Add(p10);
+                    cmd2.Parameters.Add(p11);
+
+                    
                     cmd2.Transaction = transaction;
                     cmd2.ExecuteNonQuery();
 
@@ -476,11 +492,11 @@ namespace Vydejna
                     {
                         (transaction as OdbcTransaction).Rollback();
                     }
-                    return -1;
+                    return -1;  // chyba
                 }
-                return -1;
+                return 0;  // ok
             }
-            return 0;
+            return -1;  // databaze neni otevrena
         }
 
 

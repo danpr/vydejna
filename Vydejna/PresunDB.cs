@@ -355,84 +355,6 @@ namespace Vydejna
 
 
 
-    public static void presunZmeny(vDatabase myDB, string filepath)
-    {
-        DbTransaction myTransaction = myDB.startTransaction();
-        OleDbConnection fbase = new OleDbConnection("Provider=VFPOLEDB.1;CodePage=437;Data Source=" + filepath + ";Exclusive=false;Nulls=false");
-        fbase.Open();
-        OleDbCommand fbaseCom = new OleDbCommand("SELECT * FROM " + filepath + "\\DATA\\POD_UCET.DBF", fbase);
-        OleDbDataReader dr = fbaseCom.ExecuteReader();
-        if (dr.HasRows)
-        {
-            string DBpomocJK;
-            DateTime DBdatum;
-            string DBpoznamka;
-            int DBprijem;
-            int DBvydej;
-            int DBzustatek;
-            string DBzapKarta;
-            string DBvevCislo;
-            int DBpocIvc;
-            string DBcontrCod;
-            string DBdosudNvrc;
-            string DBprijTyp;
-            string DBvydejTyp;
-            int DBporadi;
-            string DBstav;
-            string DBnazev;
-            string DBvyber;
-            string DBlastSoub;
-            string DBaktAdr;
-            double DBcena;
-            double DBucetKsCen;
-            string DBjk;
-
-
-            while (dr.Read())
-            {
-                // 0 nepouzivame  - cislo
-                if (dr.IsDBNull(0)) DBpomocJK = ""; else DBpomocJK = dr.GetString(0).Trim(); //P_OZJK
-                if (dr.IsDBNull(1)) DBdatum = new DateTime(0); else DBdatum = dr.GetDateTime(1);
-                if (dr.IsDBNull(2)) DBpoznamka = ""; else DBpoznamka = fbaseToUtf16(dr.GetString(2).Trim());
-                if (dr.IsDBNull(3)) DBprijem = 0; else DBprijem = Convert.ToInt32(dr.GetDecimal(3));
-                if (dr.IsDBNull(4)) DBvydej = 0; else DBvydej = Convert.ToInt32(dr.GetDecimal(4));
-                if (dr.IsDBNull(5)) DBzustatek = 0; else DBzustatek = Convert.ToInt32(dr.GetDecimal(5));
-                if (dr.IsDBNull(6)) DBzapKarta = ""; else DBzapKarta = fbaseToUtf16(dr.GetString(6).Trim());//mesto
-                if (dr.IsDBNull(7)) DBvevCislo = ""; else DBvevCislo = fbaseToUtf16(dr.GetString(7).Trim());//pcs
-                if (dr.IsDBNull(8)) DBpocIvc = 0; else DBpocIvc = Convert.ToInt32(dr.GetDecimal(8));
-                if (dr.IsDBNull(9)) DBcontrCod = ""; else DBcontrCod = dr.GetString(9).Trim();
-                if (dr.IsDBNull(10)) DBdosudNvrc = ""; else DBdosudNvrc = dr.GetString(10).Trim();
-                if (dr.IsDBNull(11)) DBprijTyp = ""; else DBprijTyp = dr.GetString(11).Trim();
-                if (dr.IsDBNull(12)) DBvydejTyp = ""; else DBvydejTyp = dr.GetString(12).Trim();//telzam
-                if (dr.IsDBNull(13)) DBporadi = 0; else DBporadi = Convert.ToInt32(dr.GetDecimal(13));
-                if (dr.IsDBNull(14)) DBstav = ""; else DBstav = dr.GetString(14).Trim();
-                if (dr.IsDBNull(15)) DBnazev = ""; else DBnazev = fbaseToUtf16(dr.GetString(15).Trim());
-                if (dr.IsDBNull(16)) DBvyber = ""; else DBvyber = fbaseToUtf16(dr.GetString(16).Trim());
-                if (dr.IsDBNull(17)) DBlastSoub = ""; else DBlastSoub = dr.GetString(17).Trim();
-                if (dr.IsDBNull(18)) DBaktAdr = ""; else DBaktAdr = dr.GetString(18).Trim();
-                if (dr.IsDBNull(19)) DBcena = 0; else DBcena = Convert.ToDouble(dr.GetDecimal(19));
-                if (dr.IsDBNull(20)) DBucetKsCen = 0; else DBucetKsCen = Convert.ToDouble(dr.GetDecimal(20));
-                if (dr.IsDBNull(21)) DBjk = ""; else DBjk = dr.GetString(21).Trim();
-
-                
-//                myDB.addLineZmeny(1, DBpomocJK, DBdatum, DBpoznamka, DBprijem, DBvydej, DBzustatek, DBzapKarta, DBvevCislo,
-//                                         DBpocIvc, DBcontrCod, DBdosudNvrc, DBprijTyp, DBvydejTyp, DBporadi, DBstav,  DBnazev, DBvyber,
-//                                         DBlastSoub, DBaktAdr, DBcena, DBucetKsCen, DBjk);
-
-                Application.DoEvents();
-
-            }
-
-        }
-        fbase.Close();
-        fbase.Dispose();
-
-        if (myTransaction != null)
-        {
-            myDB.stopTransaction(myTransaction);
-        }
-    }
-
 
     public static void presunVyrazeneMDat(vDatabase myDB, string filepath, Hashtable DBJoin)
     {
@@ -520,8 +442,6 @@ namespace Vydejna
                     {
                         poradi = 0; // neprirazeno
                     }
-
-
 
                 }
                 else

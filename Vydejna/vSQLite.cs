@@ -1645,7 +1645,7 @@ namespace Vydejna
                     // true osCisloExist
                     if (myReader.Read() == true)
                     {
-                        poradi = myReader.GetInt32(0);
+                        poradi = myReader.GetInt32(0) + 1;
                         zustatek = myReader.GetInt32(1);
                     }
                     else
@@ -1699,6 +1699,18 @@ namespace Vydejna
                     p10.Value = 0;
                     SQLiteParameter p11 = new SQLiteParameter("p11", DbType.Int32);
                     p11.Value = poradi;
+
+                    cmd2.Parameters.Add(p1);
+                    cmd2.Parameters.Add(p2);
+                    cmd2.Parameters.Add(p3);
+                    cmd2.Parameters.Add(p4);
+                    cmd2.Parameters.Add(p5);
+                    cmd2.Parameters.Add(p6);
+                    cmd2.Parameters.Add(p7);
+                    cmd2.Parameters.Add(p8);
+                    cmd2.Parameters.Add(p9);
+                    cmd2.Parameters.Add(p10);
+                    cmd2.Parameters.Add(p11);
 
                     cmd2.Transaction = transaction;
                     cmd2.ExecuteNonQuery();
