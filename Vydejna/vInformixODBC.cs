@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -87,6 +88,39 @@ namespace Vydejna
 
         }
 
+        public override Hashtable getDBLine(string DBSelect, Hashtable DBRow)
+        {
+            if (DBIsOpened())
+            {
+                OdbcCommand cmdr0 = new OdbcCommand(DBSelect, myDBConn as OdbcConnection);
+                OdbcDataReader myReader = cmdr0.ExecuteReader();
+
+                if (myReader.Read())
+                {
+                    Int32 countporadi = myReader.GetInt32(0);
+
+                    for (int i = 0; i < myReader.FieldCount; i++)
+                    {
+
+                        if (DBRow.ContainsKey(myReader.GetName(i)))
+                        {
+                            DBRow.Remove(myReader.GetName(i));
+                        }
+                        DBRow.Add(myReader.GetName(i), myReader.GetValue(i));
+                    }
+
+                    myReader.Close();
+                    return DBRow;
+                }
+                else
+                {
+
+                    myReader.Close();
+                    return null;
+                }
+            }
+            else return null;
+        }
 
 
 

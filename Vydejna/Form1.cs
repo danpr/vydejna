@@ -50,11 +50,31 @@ namespace Vydejna
         }
 
 
-        private Hashtable makeDBRowFromSelectedRow()
+        private Int32 getPoradi()
         {
+            if (dataGridView1.SelectedRows.Count > 0)
+            {
 
-            Hashtable newDBRow = new Hashtable();
+                DataGridViewRow myRow = dataGridView1.SelectedRows[0];
 
+                for (int i = 0; i < dataGridView1.ColumnCount; i++)
+                {
+                    if (dataGridView1.Columns[i].Name == "poradi")
+                    {
+                        return Convert.ToInt32( myRow.Cells[i].Value);
+                    }
+                }
+            }
+            return -1;
+        }
+
+
+        private Hashtable getDBRowFromSelectedRow(Hashtable newDBRow)
+        {
+            if (newDBRow == null)
+            {
+                newDBRow = new Hashtable();
+            }
             if (dataGridView1.SelectedRows.Count > 0)
             {
 
@@ -903,20 +923,22 @@ namespace Vydejna
 
         private void ConMenuEditItem(object sender, EventArgs e)
         {
+
             //oprava polozky
             if ( dataGridView1.SelectedRows.Count > 0)
             {
-               //int index
-               DataGridViewRow myRow = dataGridView1.SelectedRows[0];
+                DBRow = getDBRowFromSelectedRow(DBRow);
+                //int index
+//               DataGridViewRow myRow = dataGridView1.SelectedRows[0];
 
-               for (int i = 0; i < dataGridView1.ColumnCount; i++)
-                {
-                    if (DBRow.ContainsKey(dataGridView1.Columns[i].Name))
-                    {
-                        DBRow.Remove(dataGridView1.Columns[i].Name);
-                    }
-                    DBRow.Add(dataGridView1.Columns[i].Name,myRow.Cells[i].Value);
-                }
+//               for (int i = 0; i < dataGridView1.ColumnCount; i++)
+///                {
+//                    if (DBRow.ContainsKey(dataGridView1.Columns[i].Name))
+//                    {
+//                        DBRow.Remove(dataGridView1.Columns[i].Name);
+//                    }
+//                    DBRow.Add(dataGridView1.Columns[i].Name,myRow.Cells[i].Value);
+//                }
                 karta.opravKartu(DBRow, myDB, dataGridView1);
             }
 
@@ -942,18 +964,7 @@ namespace Vydejna
         {
             if (dataGridView1.SelectedRows.Count > 0)
             {
-                //int index
-//                DataGridViewRow myRow = dataGridView1.SelectedRows[0];
-
-//                for (int i = 0; i < dataGridView1.ColumnCount; i++)
-//                {
-//                    if (DBRow.ContainsKey(dataGridView1.Columns[i].Name))
-//                    {
-//                        DBRow.Remove(dataGridView1.Columns[i].Name);
-//                    }
-//                    DBRow.Add(dataGridView1.Columns[i].Name, myRow.Cells[i].Value);
-//                }
-                DBRow = makeDBRowFromSelectedRow();
+                DBRow = getDBRowFromSelectedRow(DBRow);
                 karta.Prijem(DBRow, myDB, dataGridView1);
             }
         }

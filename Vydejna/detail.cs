@@ -182,6 +182,15 @@ namespace Vydejna
                         if (dataRowIndex != -1)
                         {
                             // opravime tabulku
+                            Hashtable DBrow = myDataBase.getNaradiLine(mesenger.poradi, null);
+                            if (DBrow != null)
+                            {
+                                if (DBrow.ContainsKey("fyzstav"))
+                                {
+                                    Int32 fyzstav =  Convert.ToInt32(DBrow["fyzstav"]);
+                                }
+                            }
+
                         }
 
                     }

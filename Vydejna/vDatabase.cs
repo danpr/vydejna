@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -377,6 +378,22 @@ namespace Vydejna
         public virtual Boolean tablePoskozenoItemExist(Int32 oc)
         {
             return tableItemExist("select count(*) as countOC from poskozeno where poradi = ?", oc);
+        }
+
+
+
+        public virtual Hashtable getDBLine(string DBSelect, Hashtable DBRow)
+        {
+            return null;
+        }
+
+        public virtual Hashtable getNaradiLine(Int32 poradi, Hashtable DBRow)
+        {
+            if (DBRow == null) DBRow = new Hashtable();
+
+            string DBSelect = "SELECT * from naradi WHERE poradi = " + poradi.ToString();
+            return getDBLine(DBSelect, DBRow);
+
         }
 
 
