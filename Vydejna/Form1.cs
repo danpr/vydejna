@@ -113,7 +113,7 @@ namespace Vydejna
                     dataGridView1.Columns[1].HeaderText = "KD";
                     dataGridView1.Columns[2].HeaderText = "Název";
                     dataGridView1.Columns[3].HeaderText = "Označení JK";
-                    dataGridView1.Columns[4].HeaderText = "KS/výdejna";
+                    dataGridView1.Columns[4].HeaderText = "KS/výdejna Úč. stav";
                     dataGridView1.Columns[5].HeaderText = "Anal. účet";
                     dataGridView1.Columns[6].HeaderText = "Norma ČSN";
                     dataGridView1.Columns[7].HeaderText = "Norma DIN";

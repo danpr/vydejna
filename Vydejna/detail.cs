@@ -185,17 +185,22 @@ namespace Vydejna
                             Hashtable DBrow = myDataBase.getNaradiLine(mesenger.poradi, null);
                             if (DBrow != null)
                             {
+                                Int32 fyzStav = 0;
+                                Int32 ucetStav = 0;
                                 if (DBrow.ContainsKey("fyzstav"))
                                 {
-                                    Int32 fyzstav =  Convert.ToInt32(DBrow["fyzstav"]);
+                                    fyzStav =  Convert.ToInt32(DBrow["fyzstav"]);
+                                    (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(10, fyzStav);
                                 }
+                                if (DBrow.ContainsKey("ucetstav"))
+                                {
+                                    ucetStav = Convert.ToInt32(DBrow["ucetstav"]);
+                                    (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(4, ucetStav);
+                                }
+                                if (fyzStav != ucetStav) MessageBox.Show("Pozoe ! Účetni a fyzický stav nesouhlasí.");
                             }
-
                         }
-
                     }
-
-
                 }
             }
         }
