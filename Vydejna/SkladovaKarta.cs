@@ -22,19 +22,19 @@ namespace Vydejna
             public string csn;
             public string din;
             public string rozmer;
-            public Int64 fyzStav;
+            public Int32 fyzStav;
             public string vyrobce;
             public decimal cenaKs; //cena
             public decimal ucetCenaKs;
             public decimal ucetCena;
             public string ucet;
-            public Int64 minStav;
-            public Int64 ucetStav;
+            public Int32 minStav;
+            public Int32 ucetStav;
             public string poznamka;
             public Int32 poradi;
 
-            public messager(Int32 poradi, string nazev, string jk, string csn, string din, string rozmer, Int64 fyzStav, string vyrobce, decimal cenaKs,
-                            decimal ucetCenaKs, decimal ucetCena, string ucet, Int64 minStav, Int64 ucetStav, string poznamka)
+            public messager(Int32 poradi, string nazev, string jk, string csn, string din, string rozmer, Int32 fyzStav, string vyrobce, decimal cenaKs,
+                            decimal ucetCenaKs, decimal ucetCena, string ucet, Int32 minStav, Int32 ucetStav, string poznamka)
             {
                 this.nazev = nazev;
                 this.jk = jk;
@@ -58,7 +58,6 @@ namespace Vydejna
 
         private decimal cenaKs;
         private Int32 poradi;
-        private Int32 fyzStav;
         private vDatabase myDB;
         private sKartaState state;
         private tableItemExistDelgStr testExistItem;
@@ -114,7 +113,7 @@ namespace Vydejna
             textBoxDIN.Text = Convert.ToString(DBRow["normadin"]);
             textBoxVyrobce.Text = Convert.ToString(DBRow["vyrobce"]);
             textBoxRozmer.Text = Convert.ToString(DBRow["rozmer"]);
-            fyzStav = Convert.ToInt32(DBRow["fyzstav"]);
+            numericUpDownFyzStav.Value  = Convert.ToDecimal(DBRow["fyzstav"]);
             cenaKs = Convert.ToDecimal(DBRow["cena"]);
             numericUpDownCenaKs.Value = Convert.ToDecimal(DBRow["cena"]);
             numericUpDownUcetCenaKs.Value = Convert.ToDecimal(DBRow["ucetkscen"]); 
@@ -206,6 +205,8 @@ namespace Vydejna
             numericUpDownMinStav.Enabled = true;
             numericUpDownUcetStav.ReadOnly = false;
             numericUpDownUcetStav.Enabled = true;
+            numericUpDownFyzStav.ReadOnly = false;
+            numericUpDownFyzStav.Enabled = true;
 
         }
 
@@ -264,9 +265,9 @@ namespace Vydejna
         public messager getMesseger()
         {
             messager prepravka = new messager(poradi, textBoxNazev.Text, textBoxJK.Text, textBoxCSN.Text, textBoxDIN.Text,
-                                  textBoxRozmer.Text, fyzStav, textBoxVyrobce.Text, numericUpDownCenaKs.Value,
+                                  textBoxRozmer.Text, Convert.ToInt32(numericUpDownFyzStav.Value), textBoxVyrobce.Text, numericUpDownCenaKs.Value,
                                   numericUpDownUcetCenaKs.Value, numericUpDownUcetCena.Value, textBoxUcet.Text,
-                                  Convert.ToInt64( numericUpDownMinStav.Value), Convert.ToInt64(numericUpDownUcetStav.Value), textBoxPoznamka.Text);
+                                  Convert.ToInt32( numericUpDownMinStav.Value), Convert.ToInt32(numericUpDownUcetStav.Value), textBoxPoznamka.Text);
             return prepravka;
         }
 

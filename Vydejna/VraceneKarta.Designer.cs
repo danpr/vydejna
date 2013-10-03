@@ -376,6 +376,8 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.MaximumSize = new System.Drawing.Size(637, 453);
+            this.MinimumSize = new System.Drawing.Size(637, 453);
             this.Name = "VraceneKarta";
             this.Text = "Vracená karta";
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPocetKS)).EndInit();

@@ -143,6 +143,7 @@ namespace Vydejna
                             (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(7, mesenger.din);
                             (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(8, mesenger.vyrobce);
                             (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(9, mesenger.rozmer);
+                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(10, mesenger.fyzStav);
                             (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(11, mesenger.cenaKs);
                             (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(12, mesenger.ucetCena);
                             (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(13, mesenger.minStav);

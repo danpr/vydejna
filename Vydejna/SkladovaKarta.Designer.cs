@@ -57,12 +57,15 @@
             this.numericUpDownCenaKs = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownUcetCenaKs = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownUcetCena = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownFyzStav = new System.Windows.Forms.NumericUpDown();
+            this.label14 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMinStav)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownUcetStav)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewZmeny)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCenaKs)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownUcetCenaKs)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownUcetCena)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFyzStav)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -85,8 +88,9 @@
             // 
             // buttonCancel
             // 
+            this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(17, 403);
+            this.buttonCancel.Location = new System.Drawing.Point(17, 427);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 15;
@@ -114,6 +118,8 @@
             // 
             // textBoxNazev
             // 
+            this.textBoxNazev.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxNazev.Location = new System.Drawing.Point(103, 6);
             this.textBoxNazev.MaxLength = 60;
             this.textBoxNazev.Name = "textBoxNazev";
@@ -123,6 +129,8 @@
             // 
             // textBoxJK
             // 
+            this.textBoxJK.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxJK.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.textBoxJK.Location = new System.Drawing.Point(103, 32);
             this.textBoxJK.MaxLength = 15;
@@ -133,6 +141,8 @@
             // 
             // textBoxCSN
             // 
+            this.textBoxCSN.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxCSN.Location = new System.Drawing.Point(103, 58);
             this.textBoxCSN.MaxLength = 15;
             this.textBoxCSN.Name = "textBoxCSN";
@@ -187,6 +197,7 @@
             // 
             // label9
             // 
+            this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label9.AutoSize = true;
             this.label9.Location = new System.Drawing.Point(502, 140);
             this.label9.Name = "label9";
@@ -216,8 +227,9 @@
             // 
             // label12
             // 
+            this.label12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(489, 163);
+            this.label12.Location = new System.Drawing.Point(489, 166);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(86, 13);
             this.label12.TabIndex = 16;
@@ -234,6 +246,8 @@
             // 
             // textBoxRozmer
             // 
+            this.textBoxRozmer.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxRozmer.Location = new System.Drawing.Point(358, 85);
             this.textBoxRozmer.MaxLength = 20;
             this.textBoxRozmer.Name = "textBoxRozmer";
@@ -243,6 +257,8 @@
             // 
             // textBoxVyrobce
             // 
+            this.textBoxVyrobce.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxVyrobce.Location = new System.Drawing.Point(103, 111);
             this.textBoxVyrobce.MaxLength = 40;
             this.textBoxVyrobce.Name = "textBoxVyrobce";
@@ -276,6 +292,7 @@
             // 
             // numericUpDownUcetStav
             // 
+            this.numericUpDownUcetStav.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.numericUpDownUcetStav.Enabled = false;
             this.numericUpDownUcetStav.Location = new System.Drawing.Point(590, 164);
             this.numericUpDownUcetStav.Maximum = new decimal(new int[] {
@@ -291,7 +308,9 @@
             // 
             // textBoxPoznamka
             // 
-            this.textBoxPoznamka.Location = new System.Drawing.Point(103, 188);
+            this.textBoxPoznamka.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxPoznamka.Location = new System.Drawing.Point(103, 216);
             this.textBoxPoznamka.MaxLength = 60;
             this.textBoxPoznamka.Name = "textBoxPoznamka";
             this.textBoxPoznamka.ReadOnly = true;
@@ -301,8 +320,11 @@
             // dataGridViewZmeny
             // 
             this.dataGridViewZmeny.AllowUserToAddRows = false;
+            this.dataGridViewZmeny.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridViewZmeny.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewZmeny.Location = new System.Drawing.Point(103, 224);
+            this.dataGridViewZmeny.Location = new System.Drawing.Point(103, 242);
             this.dataGridViewZmeny.MultiSelect = false;
             this.dataGridViewZmeny.Name = "dataGridViewZmeny";
             this.dataGridViewZmeny.ReadOnly = true;
@@ -311,7 +333,8 @@
             // 
             // buttonOK
             // 
-            this.buttonOK.Location = new System.Drawing.Point(615, 403);
+            this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonOK.Location = new System.Drawing.Point(615, 427);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
             this.buttonOK.TabIndex = 14;
@@ -355,6 +378,7 @@
             // 
             // numericUpDownUcetCena
             // 
+            this.numericUpDownUcetCena.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.numericUpDownUcetCena.DecimalPlaces = 2;
             this.numericUpDownUcetCena.Enabled = false;
             this.numericUpDownUcetCena.Location = new System.Drawing.Point(590, 138);
@@ -369,11 +393,39 @@
             this.numericUpDownUcetCena.TabIndex = 9;
             this.numericUpDownUcetCena.Enter += new System.EventHandler(this.numericUpDownSK_Enter);
             // 
+            // numericUpDownFyzStav
+            // 
+            this.numericUpDownFyzStav.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.numericUpDownFyzStav.Enabled = false;
+            this.numericUpDownFyzStav.Location = new System.Drawing.Point(590, 190);
+            this.numericUpDownFyzStav.Maximum = new decimal(new int[] {
+            1000000,
+            0,
+            0,
+            0});
+            this.numericUpDownFyzStav.Name = "numericUpDownFyzStav";
+            this.numericUpDownFyzStav.ReadOnly = true;
+            this.numericUpDownFyzStav.Size = new System.Drawing.Size(100, 20);
+            this.numericUpDownFyzStav.TabIndex = 28;
+            // 
+            // label14
+            // 
+            this.label14.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(487, 192);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(88, 13);
+            this.label14.TabIndex = 29;
+            this.label14.Text = "Fyzický stav(ks) :";
+            // 
             // SkladovaKarta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(702, 438);
+            this.AutoScroll = true;
+            this.ClientSize = new System.Drawing.Size(702, 462);
+            this.Controls.Add(this.label14);
+            this.Controls.Add(this.numericUpDownFyzStav);
             this.Controls.Add(this.numericUpDownUcetCena);
             this.Controls.Add(this.numericUpDownUcetCenaKs);
             this.Controls.Add(this.numericUpDownCenaKs);
@@ -403,6 +455,7 @@
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.MinimumSize = new System.Drawing.Size(718, 500);
             this.Name = "SkladovaKarta";
             this.Text = "SkladovaKarta";
             this.Activated += new System.EventHandler(this.SkladovaKarta_Activated);
@@ -412,6 +465,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCenaKs)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownUcetCenaKs)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownUcetCena)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFyzStav)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -448,5 +502,7 @@
         private System.Windows.Forms.NumericUpDown numericUpDownCenaKs;
         private System.Windows.Forms.NumericUpDown numericUpDownUcetCenaKs;
         private System.Windows.Forms.NumericUpDown numericUpDownUcetCena;
+        private System.Windows.Forms.NumericUpDown numericUpDownFyzStav;
+        private System.Windows.Forms.Label label14;
     }
 }
