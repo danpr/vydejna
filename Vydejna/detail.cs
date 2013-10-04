@@ -188,6 +188,14 @@ namespace Vydejna
                             {
                                 Int32 fyzStav = 0;
                                 Int32 ucetStav = 0;
+
+                                if (DBrow.ContainsKey("ucetstav") && DBrow.ContainsKey("zmeny_zustatek"))
+                                {
+                                    ucetStav = Convert.ToInt32(DBrow["ucetstav"]);
+                                    int zustatek = Convert.ToInt32(DBrow["zmeny_zustatek"]);
+                                    if (zustatek  != ucetStav) MessageBox.Show("Pozor! Patrně nesouhlasí stav karet a učetní stav položky.");
+                                }
+
                                 if (DBrow.ContainsKey("fyzstav"))
                                 {
                                     fyzStav =  Convert.ToInt32(DBrow["fyzstav"]);
@@ -198,7 +206,7 @@ namespace Vydejna
                                     ucetStav = Convert.ToInt32(DBrow["ucetstav"]);
                                     (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(4, ucetStav);
                                 }
-                                if (fyzStav != ucetStav) MessageBox.Show("Pozoe ! Účetni a fyzický stav nesouhlasí.");
+                                if (fyzStav != ucetStav) MessageBox.Show("Pozor! Účetni a fyzický stav nesouhlasí.");
                             }
                         }
                     }

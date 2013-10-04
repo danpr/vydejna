@@ -533,6 +533,16 @@ namespace Vydejna
             return -1;  // databaze neni otevrena
         }
 
+        public virtual Hashtable getNaradiLine(Int32 poradi, Hashtable DBRow)
+        {
+            if (DBRow == null) DBRow = new Hashtable();
+
+            string DBSelect = "SELECT n.*, x.zustatek as zmeny_zustatek FROM naradi n," +
+                              "TABLE ( MULTISET (select * from zmeny z where z.poradi = (select MAX(s.poradi) from zmeny s" +
+                              "WHERE z.parporadi = s.parporadi group by s.parporadi) )) x WHERE n.poradi = x.parporadi and n.poradi = " + poradi.ToString();
+
+            return getDBLine(DBSelect, DBRow);
+        }
 
 
     }
