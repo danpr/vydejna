@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -483,7 +484,7 @@ namespace Vydejna
                 p26.Value = DBtest;
                 SQLiteParameter p27 = new SQLiteParameter(DbType.String);
                 p27.Value = DBpomroz;
-                SQLiteParameter p28 = new SQLiteParameter(DbType.String);
+                SQLiteParameter p28 = new SQLiteParameter(DbType.Date);
                 p28.Value = DBkdatum;
                 SQLiteParameter p29 = new SQLiteParameter(DbType.String);
                 p29.Value = DBkodd;
@@ -1726,9 +1727,44 @@ namespace Vydejna
                     }
                     return -1;
                 }
-                return -1;
+                return 0;
             }
             return 0;
+        }
+
+
+        public override Hashtable getDBLine(string DBSelect, Hashtable DBRow)
+        {
+            if (DBIsOpened())
+            {
+                SQLiteCommand cmdr0 = new SQLiteCommand(DBSelect, myDBConn as SQLiteConnection);
+                SQLiteDataReader myReader = cmdr0.ExecuteReader();
+
+                if (myReader.Read())
+                {
+                    Int32 countporadi = myReader.GetInt32(0);
+
+                    for (int i = 0; i < myReader.FieldCount; i++)
+                    {
+
+                        if (DBRow.ContainsKey(myReader.GetName(i)))
+                        {
+                            DBRow.Remove(myReader.GetName(i));
+                        }
+                        DBRow.Add(myReader.GetName(i), myReader.GetValue(i));
+                    }
+
+                    myReader.Close();
+                    return DBRow;
+                }
+                else
+                {
+
+                    myReader.Close();
+                    return null;
+                }
+            }
+            else return null;
         }
 
 
