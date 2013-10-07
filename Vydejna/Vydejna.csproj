@@ -59,6 +59,12 @@
       <DependentUpon>NastaveniDB.cs</DependentUpon>
     </Compile>
     <Compile Include="parametryDB.cs" />
+    <Compile Include="Poskozenka.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Poskozenka.Designer.cs">
+      <DependentUpon>Poskozenka.cs</DependentUpon>
+    </Compile>
     <Compile Include="PracovniciKarta.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -102,6 +108,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="NastaveniDB.resx">
       <DependentUpon>NastaveniDB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Poskozenka.resx">
+      <DependentUpon>Poskozenka.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PracovniciKarta.resx">
       <DependentUpon>PracovniciKarta.cs</DependentUpon>

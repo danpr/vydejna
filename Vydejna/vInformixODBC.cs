@@ -533,7 +533,7 @@ namespace Vydejna
             return -1;  // databaze neni otevrena
         }
 
-        public virtual Hashtable getNaradiLine(Int32 poradi, Hashtable DBRow)
+        public override Hashtable getNaradiLine(Int32 poradi, Hashtable DBRow)
         {
             if (DBRow == null) DBRow = new Hashtable();
 

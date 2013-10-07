@@ -876,7 +876,7 @@ namespace Vydejna
         }
 
 
-        private void contextMenuEnable(Boolean useAdd, Boolean useMatAdd = false)
+        private void contextMenuEnable(Boolean useAdd, Boolean useMatAdd = false, Boolean useMatDel = false)
         {
             if (useAdd)
             {
@@ -897,6 +897,16 @@ namespace Vydejna
             {
                 contextMenuStrip1.Items[3].Enabled = false;
                 contextMenuStrip1.Items[3].Visible = false;
+            }
+            if (useMatDel)
+            {
+                contextMenuStrip1.Items[4].Enabled = true;
+                contextMenuStrip1.Items[4].Visible = true;
+            }
+            else
+            {
+                contextMenuStrip1.Items[4].Enabled = false;
+                contextMenuStrip1.Items[4].Visible = false;
             }
 
 
@@ -967,6 +977,12 @@ namespace Vydejna
                 DBRow = getDBRowFromSelectedRow(DBRow);
                 karta.Prijem(DBRow, myDB, dataGridView1);
             }
+        }
+
+        private void conMenuDelMat_Click(object sender, EventArgs e)
+        {
+            DBRow = getDBRowFromSelectedRow(DBRow);
+            karta.Poskozeno(DBRow, myDB, dataGridView1);
         }
 
 
