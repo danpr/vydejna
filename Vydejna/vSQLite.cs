@@ -1742,11 +1742,8 @@ namespace Vydejna
 
                 if (myReader.Read())
                 {
-                    Int32 countporadi = myReader.GetInt32(0);
-
                     for (int i = 0; i < myReader.FieldCount; i++)
                     {
-
                         if (DBRow.ContainsKey(myReader.GetName(i)))
                         {
                             DBRow.Remove(myReader.GetName(i));
