@@ -29,9 +29,11 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.buttonChoosePerson = new System.Windows.Forms.Button();
+            this.textBoxOsCislo = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -47,39 +49,69 @@
             this.label16 = new System.Windows.Forms.Label();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonOK = new System.Windows.Forms.Button();
-            this.textBoxOsCislo = new System.Windows.Forms.TextBox();
-            this.textBoxStredisko = new System.Windows.Forms.TextBox();
-            this.textBoxProvoz = new System.Windows.Forms.TextBox();
             this.textBoxCisZak = new System.Windows.Forms.TextBox();
             this.textBoxKonto = new System.Windows.Forms.TextBox();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownMnozstvi = new System.Windows.Forms.NumericUpDown();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
-            this.buttonChoosePerson = new System.Windows.Forms.Button();
+            this.labelNazev = new System.Windows.Forms.Label();
+            this.labelJK = new System.Windows.Forms.Label();
+            this.labelRozmer = new System.Windows.Forms.Label();
+            this.labelStav = new System.Windows.Forms.Label();
+            this.labelPoznamka = new System.Windows.Forms.Label();
+            this.labelCena = new System.Windows.Forms.Label();
+            this.labelCelkCena = new System.Windows.Forms.Label();
+            this.labelJmeno = new System.Windows.Forms.Label();
+            this.labelPrijmeni = new System.Windows.Forms.Label();
+            this.labelStredisko = new System.Windows.Forms.Label();
+            this.labelProvoz = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMnozstvi)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.labelProvoz);
+            this.groupBox1.Controls.Add(this.labelStredisko);
+            this.groupBox1.Controls.Add(this.labelPrijmeni);
+            this.groupBox1.Controls.Add(this.labelJmeno);
             this.groupBox1.Controls.Add(this.buttonChoosePerson);
             this.groupBox1.Controls.Add(this.textBoxOsCislo);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(579, 87);
+            this.groupBox1.Size = new System.Drawing.Size(579, 136);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             // 
-            // label1
+            // buttonChoosePerson
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(61, 16);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(44, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Jméno :";
+            this.buttonChoosePerson.Location = new System.Drawing.Point(345, 47);
+            this.buttonChoosePerson.Name = "buttonChoosePerson";
+            this.buttonChoosePerson.Size = new System.Drawing.Size(75, 23);
+            this.buttonChoosePerson.TabIndex = 1;
+            this.buttonChoosePerson.Text = "button1";
+            this.buttonChoosePerson.UseVisualStyleBackColor = true;
+            // 
+            // textBoxOsCislo
+            // 
+            this.textBoxOsCislo.Location = new System.Drawing.Point(127, 49);
+            this.textBoxOsCislo.Name = "textBoxOsCislo";
+            this.textBoxOsCislo.Size = new System.Drawing.Size(120, 20);
+            this.textBoxOsCislo.TabIndex = 2;
+            this.textBoxOsCislo.Leave += new System.EventHandler(this.textBoxOsCislo_Leave);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(31, 56);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(74, 13);
+            this.label3.TabIndex = 2;
+            this.label3.Text = "Osobní číslo :";
             // 
             // label2
             // 
@@ -90,19 +122,19 @@
             this.label2.TabIndex = 1;
             this.label2.Text = "Přijmení :";
             // 
-            // label3
+            // label1
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(31, 61);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(74, 13);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "Osobní číslo :";
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(61, 25);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(44, 13);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Jméno :";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(59, 121);
+            this.label4.Location = new System.Drawing.Point(47, 84);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(58, 13);
             this.label4.TabIndex = 1;
@@ -111,7 +143,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(71, 146);
+            this.label5.Location = new System.Drawing.Point(59, 107);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(46, 13);
             this.label5.TabIndex = 2;
@@ -222,7 +254,7 @@
             this.buttonCancel.Location = new System.Drawing.Point(8, 368);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
-            this.buttonCancel.TabIndex = 22;
+            this.buttonCancel.TabIndex = 6;
             this.buttonCancel.Text = "Zrušit";
             this.buttonCancel.UseVisualStyleBackColor = true;
             // 
@@ -232,79 +264,166 @@
             this.buttonOK.Location = new System.Drawing.Point(516, 368);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
-            this.buttonOK.TabIndex = 23;
+            this.buttonOK.TabIndex = 5;
             this.buttonOK.Text = "Budiž";
             this.buttonOK.UseVisualStyleBackColor = true;
-            // 
-            // textBoxOsCislo
-            // 
-            this.textBoxOsCislo.Location = new System.Drawing.Point(127, 58);
-            this.textBoxOsCislo.Name = "textBoxOsCislo";
-            this.textBoxOsCislo.Size = new System.Drawing.Size(120, 20);
-            this.textBoxOsCislo.TabIndex = 3;
-            // 
-            // textBoxStredisko
-            // 
-            this.textBoxStredisko.Location = new System.Drawing.Point(139, 118);
-            this.textBoxStredisko.Name = "textBoxStredisko";
-            this.textBoxStredisko.Size = new System.Drawing.Size(120, 20);
-            this.textBoxStredisko.TabIndex = 24;
-            // 
-            // textBoxProvoz
-            // 
-            this.textBoxProvoz.Location = new System.Drawing.Point(139, 144);
-            this.textBoxProvoz.Name = "textBoxProvoz";
-            this.textBoxProvoz.Size = new System.Drawing.Size(120, 20);
-            this.textBoxProvoz.TabIndex = 25;
             // 
             // textBoxCisZak
             // 
             this.textBoxCisZak.Location = new System.Drawing.Point(139, 168);
             this.textBoxCisZak.Name = "textBoxCisZak";
             this.textBoxCisZak.Size = new System.Drawing.Size(120, 20);
-            this.textBoxCisZak.TabIndex = 26;
+            this.textBoxCisZak.TabIndex = 1;
+            this.textBoxCisZak.Leave += new System.EventHandler(this.textBoxCisZak_Leave);
             // 
             // textBoxKonto
             // 
             this.textBoxKonto.Location = new System.Drawing.Point(139, 194);
             this.textBoxKonto.Name = "textBoxKonto";
             this.textBoxKonto.Size = new System.Drawing.Size(120, 20);
-            this.textBoxKonto.TabIndex = 27;
+            this.textBoxKonto.TabIndex = 2;
             // 
-            // numericUpDown1
+            // numericUpDownMnozstvi
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(139, 290);
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(120, 20);
-            this.numericUpDown1.TabIndex = 28;
+            this.numericUpDownMnozstvi.Location = new System.Drawing.Point(139, 290);
+            this.numericUpDownMnozstvi.Name = "numericUpDownMnozstvi";
+            this.numericUpDownMnozstvi.Size = new System.Drawing.Size(120, 20);
+            this.numericUpDownMnozstvi.TabIndex = 3;
+            this.numericUpDownMnozstvi.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
             // 
             // dateTimePicker1
             // 
             this.dateTimePicker1.Location = new System.Drawing.Point(139, 316);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(120, 20);
-            this.dateTimePicker1.TabIndex = 29;
+            this.dateTimePicker1.TabIndex = 4;
             // 
-            // buttonChoosePerson
+            // labelNazev
             // 
-            this.buttonChoosePerson.Location = new System.Drawing.Point(345, 56);
-            this.buttonChoosePerson.Name = "buttonChoosePerson";
-            this.buttonChoosePerson.Size = new System.Drawing.Size(75, 23);
-            this.buttonChoosePerson.TabIndex = 30;
-            this.buttonChoosePerson.Text = "button1";
-            this.buttonChoosePerson.UseVisualStyleBackColor = true;
+            this.labelNazev.AutoSize = true;
+            this.labelNazev.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelNazev.Location = new System.Drawing.Point(136, 221);
+            this.labelNazev.Name = "labelNazev";
+            this.labelNazev.Size = new System.Drawing.Size(48, 13);
+            this.labelNazev.TabIndex = 30;
+            this.labelNazev.Text = "label17";
+            // 
+            // labelJK
+            // 
+            this.labelJK.AutoSize = true;
+            this.labelJK.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelJK.Location = new System.Drawing.Point(136, 245);
+            this.labelJK.Name = "labelJK";
+            this.labelJK.Size = new System.Drawing.Size(48, 13);
+            this.labelJK.TabIndex = 31;
+            this.labelJK.Text = "label18";
+            // 
+            // labelRozmer
+            // 
+            this.labelRozmer.AutoSize = true;
+            this.labelRozmer.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelRozmer.Location = new System.Drawing.Point(136, 270);
+            this.labelRozmer.Name = "labelRozmer";
+            this.labelRozmer.Size = new System.Drawing.Size(48, 13);
+            this.labelRozmer.TabIndex = 31;
+            this.labelRozmer.Text = "label19";
+            // 
+            // labelStav
+            // 
+            this.labelStav.AutoSize = true;
+            this.labelStav.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelStav.Location = new System.Drawing.Point(430, 292);
+            this.labelStav.Name = "labelStav";
+            this.labelStav.Size = new System.Drawing.Size(48, 13);
+            this.labelStav.TabIndex = 32;
+            this.labelStav.Text = "label17";
+            // 
+            // labelPoznamka
+            // 
+            this.labelPoznamka.AutoSize = true;
+            this.labelPoznamka.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelPoznamka.Location = new System.Drawing.Point(136, 341);
+            this.labelPoznamka.Name = "labelPoznamka";
+            this.labelPoznamka.Size = new System.Drawing.Size(48, 13);
+            this.labelPoznamka.TabIndex = 33;
+            this.labelPoznamka.Text = "label17";
+            // 
+            // labelCena
+            // 
+            this.labelCena.AutoSize = true;
+            this.labelCena.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelCena.Location = new System.Drawing.Point(430, 175);
+            this.labelCena.Name = "labelCena";
+            this.labelCena.Size = new System.Drawing.Size(48, 13);
+            this.labelCena.TabIndex = 34;
+            this.labelCena.Text = "label17";
+            // 
+            // labelCelkCena
+            // 
+            this.labelCelkCena.AutoSize = true;
+            this.labelCelkCena.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelCelkCena.Location = new System.Drawing.Point(430, 201);
+            this.labelCelkCena.Name = "labelCelkCena";
+            this.labelCelkCena.Size = new System.Drawing.Size(48, 13);
+            this.labelCelkCena.TabIndex = 35;
+            this.labelCelkCena.Text = "label18";
+            // 
+            // labelJmeno
+            // 
+            this.labelJmeno.AutoSize = true;
+            this.labelJmeno.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelJmeno.Location = new System.Drawing.Point(124, 25);
+            this.labelJmeno.Name = "labelJmeno";
+            this.labelJmeno.Size = new System.Drawing.Size(48, 13);
+            this.labelJmeno.TabIndex = 31;
+            this.labelJmeno.Text = "label17";
+            // 
+            // labelPrijmeni
+            // 
+            this.labelPrijmeni.AutoSize = true;
+            this.labelPrijmeni.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelPrijmeni.Location = new System.Drawing.Point(418, 25);
+            this.labelPrijmeni.Name = "labelPrijmeni";
+            this.labelPrijmeni.Size = new System.Drawing.Size(48, 13);
+            this.labelPrijmeni.TabIndex = 32;
+            this.labelPrijmeni.Text = "label18";
+            // 
+            // labelStredisko
+            // 
+            this.labelStredisko.AutoSize = true;
+            this.labelStredisko.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelStredisko.Location = new System.Drawing.Point(124, 84);
+            this.labelStredisko.Name = "labelStredisko";
+            this.labelStredisko.Size = new System.Drawing.Size(48, 13);
+            this.labelStredisko.TabIndex = 33;
+            this.labelStredisko.Text = "label17";
+            // 
+            // labelProvoz
+            // 
+            this.labelProvoz.AutoSize = true;
+            this.labelProvoz.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelProvoz.Location = new System.Drawing.Point(124, 107);
+            this.labelProvoz.Name = "labelProvoz";
+            this.labelProvoz.Size = new System.Drawing.Size(48, 13);
+            this.labelProvoz.TabIndex = 34;
+            this.labelProvoz.Text = "label18";
             // 
             // Poskozenka
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(603, 403);
+            this.Controls.Add(this.labelCelkCena);
+            this.Controls.Add(this.labelCena);
+            this.Controls.Add(this.labelPoznamka);
+            this.Controls.Add(this.labelStav);
+            this.Controls.Add(this.labelRozmer);
+            this.Controls.Add(this.labelJK);
+            this.Controls.Add(this.labelNazev);
             this.Controls.Add(this.dateTimePicker1);
-            this.Controls.Add(this.numericUpDown1);
+            this.Controls.Add(this.numericUpDownMnozstvi);
             this.Controls.Add(this.textBoxKonto);
             this.Controls.Add(this.textBoxCisZak);
-            this.Controls.Add(this.textBoxProvoz);
-            this.Controls.Add(this.textBoxStredisko);
             this.Controls.Add(this.buttonOK);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.label16);
@@ -318,14 +437,12 @@
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.label4);
             this.Controls.Add(this.groupBox1);
             this.Name = "Poskozenka";
             this.Text = "Poskozenka";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMnozstvi)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -353,12 +470,21 @@
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.Button buttonOK;
         private System.Windows.Forms.TextBox textBoxOsCislo;
-        private System.Windows.Forms.TextBox textBoxStredisko;
-        private System.Windows.Forms.TextBox textBoxProvoz;
         private System.Windows.Forms.TextBox textBoxCisZak;
         private System.Windows.Forms.TextBox textBoxKonto;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.NumericUpDown numericUpDownMnozstvi;
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
         private System.Windows.Forms.Button buttonChoosePerson;
+        private System.Windows.Forms.Label labelNazev;
+        private System.Windows.Forms.Label labelJK;
+        private System.Windows.Forms.Label labelRozmer;
+        private System.Windows.Forms.Label labelStav;
+        private System.Windows.Forms.Label labelPoznamka;
+        private System.Windows.Forms.Label labelCena;
+        private System.Windows.Forms.Label labelCelkCena;
+        private System.Windows.Forms.Label labelPrijmeni;
+        private System.Windows.Forms.Label labelJmeno;
+        private System.Windows.Forms.Label labelProvoz;
+        private System.Windows.Forms.Label labelStredisko;
     }
 }

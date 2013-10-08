@@ -396,6 +396,14 @@ namespace Vydejna
 
         }
 
+        public virtual Hashtable getOsobyLine(string oscislo, Hashtable DBRow)
+        {
+            if (DBRow == null) DBRow = new Hashtable();
+
+            string DBSelect = "SELECT * from osoby WHERE oscislo = " + oscislo;
+            return getDBLine(DBSelect, DBRow);
+
+        }
 
 
         public Boolean tableItemExist(string DBSelect, string item)

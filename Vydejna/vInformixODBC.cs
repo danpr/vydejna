@@ -97,7 +97,7 @@ namespace Vydejna
 
                 if (myReader.Read())
                 {
-                    Int32 countporadi = myReader.GetInt32(0);
+//                    Int32 countporadi = myReader.GetInt32(0);
 
                     for (int i = 0; i < myReader.FieldCount; i++)
                     {

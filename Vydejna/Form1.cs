@@ -594,7 +594,7 @@ namespace Vydejna
             loadNaradiItems();
             karta = new detailSklad();
             labelView.Text = "Výdejna nářadí přehled";
-            contextMenuEnable(true,true);
+            contextMenuEnable(true,true,true);
         }
 
 
