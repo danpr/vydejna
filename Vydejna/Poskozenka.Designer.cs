@@ -29,6 +29,10 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.labelProvoz = new System.Windows.Forms.Label();
+            this.labelStredisko = new System.Windows.Forms.Label();
+            this.labelPrijmeni = new System.Windows.Forms.Label();
+            this.labelJmeno = new System.Windows.Forms.Label();
             this.buttonChoosePerson = new System.Windows.Forms.Button();
             this.textBoxOsCislo = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -60,10 +64,6 @@
             this.labelPoznamka = new System.Windows.Forms.Label();
             this.labelCena = new System.Windows.Forms.Label();
             this.labelCelkCena = new System.Windows.Forms.Label();
-            this.labelJmeno = new System.Windows.Forms.Label();
-            this.labelPrijmeni = new System.Windows.Forms.Label();
-            this.labelStredisko = new System.Windows.Forms.Label();
-            this.labelProvoz = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMnozstvi)).BeginInit();
             this.SuspendLayout();
@@ -87,6 +87,46 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             // 
+            // labelProvoz
+            // 
+            this.labelProvoz.AutoSize = true;
+            this.labelProvoz.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelProvoz.Location = new System.Drawing.Point(124, 107);
+            this.labelProvoz.Name = "labelProvoz";
+            this.labelProvoz.Size = new System.Drawing.Size(48, 13);
+            this.labelProvoz.TabIndex = 34;
+            this.labelProvoz.Text = "label18";
+            // 
+            // labelStredisko
+            // 
+            this.labelStredisko.AutoSize = true;
+            this.labelStredisko.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelStredisko.Location = new System.Drawing.Point(124, 84);
+            this.labelStredisko.Name = "labelStredisko";
+            this.labelStredisko.Size = new System.Drawing.Size(48, 13);
+            this.labelStredisko.TabIndex = 33;
+            this.labelStredisko.Text = "label17";
+            // 
+            // labelPrijmeni
+            // 
+            this.labelPrijmeni.AutoSize = true;
+            this.labelPrijmeni.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelPrijmeni.Location = new System.Drawing.Point(418, 25);
+            this.labelPrijmeni.Name = "labelPrijmeni";
+            this.labelPrijmeni.Size = new System.Drawing.Size(48, 13);
+            this.labelPrijmeni.TabIndex = 32;
+            this.labelPrijmeni.Text = "label18";
+            // 
+            // labelJmeno
+            // 
+            this.labelJmeno.AutoSize = true;
+            this.labelJmeno.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelJmeno.Location = new System.Drawing.Point(124, 25);
+            this.labelJmeno.Name = "labelJmeno";
+            this.labelJmeno.Size = new System.Drawing.Size(48, 13);
+            this.labelJmeno.TabIndex = 31;
+            this.labelJmeno.Text = "label17";
+            // 
             // buttonChoosePerson
             // 
             this.buttonChoosePerson.Location = new System.Drawing.Point(345, 47);
@@ -95,6 +135,7 @@
             this.buttonChoosePerson.TabIndex = 1;
             this.buttonChoosePerson.Text = "button1";
             this.buttonChoosePerson.UseVisualStyleBackColor = true;
+            this.buttonChoosePerson.Click += new System.EventHandler(this.buttonChoosePerson_Click);
             // 
             // textBoxOsCislo
             // 
@@ -367,46 +408,6 @@
             this.labelCelkCena.Size = new System.Drawing.Size(48, 13);
             this.labelCelkCena.TabIndex = 35;
             this.labelCelkCena.Text = "label18";
-            // 
-            // labelJmeno
-            // 
-            this.labelJmeno.AutoSize = true;
-            this.labelJmeno.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelJmeno.Location = new System.Drawing.Point(124, 25);
-            this.labelJmeno.Name = "labelJmeno";
-            this.labelJmeno.Size = new System.Drawing.Size(48, 13);
-            this.labelJmeno.TabIndex = 31;
-            this.labelJmeno.Text = "label17";
-            // 
-            // labelPrijmeni
-            // 
-            this.labelPrijmeni.AutoSize = true;
-            this.labelPrijmeni.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelPrijmeni.Location = new System.Drawing.Point(418, 25);
-            this.labelPrijmeni.Name = "labelPrijmeni";
-            this.labelPrijmeni.Size = new System.Drawing.Size(48, 13);
-            this.labelPrijmeni.TabIndex = 32;
-            this.labelPrijmeni.Text = "label18";
-            // 
-            // labelStredisko
-            // 
-            this.labelStredisko.AutoSize = true;
-            this.labelStredisko.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelStredisko.Location = new System.Drawing.Point(124, 84);
-            this.labelStredisko.Name = "labelStredisko";
-            this.labelStredisko.Size = new System.Drawing.Size(48, 13);
-            this.labelStredisko.TabIndex = 33;
-            this.labelStredisko.Text = "label17";
-            // 
-            // labelProvoz
-            // 
-            this.labelProvoz.AutoSize = true;
-            this.labelProvoz.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelProvoz.Location = new System.Drawing.Point(124, 107);
-            this.labelProvoz.Name = "labelProvoz";
-            this.labelProvoz.Size = new System.Drawing.Size(48, 13);
-            this.labelProvoz.TabIndex = 34;
-            this.labelProvoz.Text = "label18";
             // 
             // Poskozenka
             // 

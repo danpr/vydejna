@@ -97,6 +97,15 @@ namespace Vydejna
             }
 
         }
+
+        private void buttonChoosePerson_Click(object sender, EventArgs e)
+        {
+            // vyber radku
+
+            VyberRadku vyberOsoby = new VyberRadku(myDataBase);
+            vyberOsoby.ShowDialog();
+
+        }
    
    
 
