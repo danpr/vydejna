@@ -131,9 +131,9 @@
             // 
             this.buttonChoosePerson.Location = new System.Drawing.Point(345, 47);
             this.buttonChoosePerson.Name = "buttonChoosePerson";
-            this.buttonChoosePerson.Size = new System.Drawing.Size(75, 23);
+            this.buttonChoosePerson.Size = new System.Drawing.Size(228, 23);
             this.buttonChoosePerson.TabIndex = 1;
-            this.buttonChoosePerson.Text = "button1";
+            this.buttonChoosePerson.Text = "Vyhledání pracovníka";
             this.buttonChoosePerson.UseVisualStyleBackColor = true;
             this.buttonChoosePerson.Click += new System.EventHandler(this.buttonChoosePerson_Click);
             // 

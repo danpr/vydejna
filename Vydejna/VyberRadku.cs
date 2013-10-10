@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -62,6 +63,31 @@ namespace Vydejna
 
 
         }
+
+
+        public Hashtable getDBRowFromSelectedRow(Hashtable newDBRow)
+        {
+            if (newDBRow == null)
+            {
+                newDBRow = new Hashtable();
+            }
+            if (dataGridView2.SelectedRows.Count > 0)
+            {
+
+                DataGridViewRow myRow = dataGridView2.SelectedRows[0];
+
+                for (int i = 0; i < dataGridView2.ColumnCount; i++)
+                {
+                    if (newDBRow.ContainsKey(dataGridView2.Columns[i].Name))
+                    {
+                        newDBRow.Remove(dataGridView2.Columns[i].Name);
+                    }
+                    newDBRow.Add(dataGridView2.Columns[i].Name, myRow.Cells[i].Value);
+                }
+            }
+            return newDBRow;
+        }
+
 
         private void buttonOK_Click(object sender, EventArgs e)
         {

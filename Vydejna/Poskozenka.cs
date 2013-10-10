@@ -38,6 +38,12 @@ namespace Vydejna
         public Poskozenka(Hashtable DBRow, vDatabase myDataBase)
         {
             InitializeComponent();
+
+            labelJmeno.Text = "";
+            labelPrijmeni.Text = "";
+            labelStredisko.Text = "";
+            labelProvoz.Text = "";
+
             this.myDataBase = myDataBase;
             if (DBRow.ContainsKey("nazev")) labelNazev.Text = Convert.ToString(DBRow["nazev"]);
             if (DBRow.ContainsKey("jk")) labelJK.Text = Convert.ToString(DBRow["jk"]);
@@ -64,7 +70,7 @@ namespace Vydejna
         {
             // opostime zadani do policka pro osobni cislo
            // kdyz nebyla nalezena zadna data vrati null pokud bula Hashtable jako null zadana
-           Hashtable osobyDBRow =  myDataBase.getOsobyLine(textBoxOsCislo.Text, null);
+            Hashtable osobyDBRow =  myDataBase.getOsobyLine(textBoxOsCislo.Text, null);
            if (osobyDBRow != null)
            {
                labelJmeno.Text = Convert.ToString(osobyDBRow["jmeno"]);
@@ -74,8 +80,12 @@ namespace Vydejna
            }
            else
            {
-               if (!(buttonCancel.Focused))
+               if ((!(buttonCancel.Focused)) && (!(buttonChoosePerson.Focused)))
                {
+                   labelJmeno.Text = "";
+                   labelPrijmeni.Text = "";
+                   labelStredisko.Text = "";
+                   labelProvoz.Text = "";
                    MessageBox.Show("Lituji. Osobni číslo neexistuje.");
                    textBoxOsCislo.Focus();
                }
@@ -103,7 +113,23 @@ namespace Vydejna
             // vyber radku
 
             VyberRadku vyberOsoby = new VyberRadku(myDataBase);
-            vyberOsoby.ShowDialog();
+            if (vyberOsoby.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                Hashtable osobaRow = vyberOsoby.getDBRowFromSelectedRow(null);
+                if (osobaRow != null)
+                {
+                    if (osobaRow.ContainsKey("oscislo"))
+                    {
+                        textBoxOsCislo.Text = Convert.ToString(osobaRow["oscislo"]);
+                        textBoxCisZak.Focus();
+                    }
+                    if (osobaRow.ContainsKey("jmeno")) labelJmeno.Text = Convert.ToString(osobaRow["jmeno"]);
+                    if (osobaRow.ContainsKey("prijmeni")) labelPrijmeni.Text = Convert.ToString(osobaRow["prijmeni"]);
+                    if (osobaRow.ContainsKey("stredisko")) labelStredisko.Text = Convert.ToString(osobaRow["stredisko"]);
+                    if (osobaRow.ContainsKey("pracoviste")) labelProvoz.Text = Convert.ToString(osobaRow["pracoviste"]);
+                }
+
+            }
 
         }
    
