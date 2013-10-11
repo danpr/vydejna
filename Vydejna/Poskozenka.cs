@@ -48,7 +48,7 @@ namespace Vydejna
             if (DBRow.ContainsKey("nazev")) labelNazev.Text = Convert.ToString(DBRow["nazev"]);
             if (DBRow.ContainsKey("jk")) labelJK.Text = Convert.ToString(DBRow["jk"]);
             if (DBRow.ContainsKey("rozmer")) labelRozmer.Text = Convert.ToString(DBRow["rozmer"]);
-            if (DBRow.ContainsKey("poznamka")) labelPoznamka.Text = Convert.ToString(DBRow["poznamka"]);
+            if (DBRow.ContainsKey("poznamka")) textBoxPoznamka.Text = Convert.ToString(DBRow["poznamka"]);
             labelStav.Text = Convert.ToString(DBRow["fyzstav"])+ " / "+Convert.ToString(DBRow["ucetstav"]);
             labelCena.Text = Convert.ToString(DBRow["cena"]);
             labelCelkCena.Text = Convert.ToString(DBRow["celkcena"]);
@@ -58,7 +58,9 @@ namespace Vydejna
 
         public messager getMesseger()
         {
-            return null;
+            messager prepravka = new messager(parentPoradi, labelJK.Text, Convert.ToInt32(numericUpDownMnozstvi.Value), dateTimePickerDatum.Value, textBoxPoznamka.Text);
+            return prepravka;
+
         }
 
         private void textBoxCisZak_Leave(object sender, EventArgs e)

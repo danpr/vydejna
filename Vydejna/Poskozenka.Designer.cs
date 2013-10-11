@@ -56,14 +56,14 @@
             this.textBoxCisZak = new System.Windows.Forms.TextBox();
             this.textBoxKonto = new System.Windows.Forms.TextBox();
             this.numericUpDownMnozstvi = new System.Windows.Forms.NumericUpDown();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.dateTimePickerDatum = new System.Windows.Forms.DateTimePicker();
             this.labelNazev = new System.Windows.Forms.Label();
             this.labelJK = new System.Windows.Forms.Label();
             this.labelRozmer = new System.Windows.Forms.Label();
             this.labelStav = new System.Windows.Forms.Label();
-            this.labelPoznamka = new System.Windows.Forms.Label();
             this.labelCena = new System.Windows.Forms.Label();
             this.labelCelkCena = new System.Windows.Forms.Label();
+            this.textBoxPoznamka = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMnozstvi)).BeginInit();
             this.SuspendLayout();
@@ -283,7 +283,7 @@
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(54, 341);
+            this.label16.Location = new System.Drawing.Point(54, 345);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(63, 13);
             this.label16.TabIndex = 13;
@@ -332,12 +332,12 @@
             this.numericUpDownMnozstvi.TabIndex = 3;
             this.numericUpDownMnozstvi.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
             // 
-            // dateTimePicker1
+            // dateTimePickerDatum
             // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(139, 316);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(120, 20);
-            this.dateTimePicker1.TabIndex = 4;
+            this.dateTimePickerDatum.Location = new System.Drawing.Point(139, 316);
+            this.dateTimePickerDatum.Name = "dateTimePickerDatum";
+            this.dateTimePickerDatum.Size = new System.Drawing.Size(120, 20);
+            this.dateTimePickerDatum.TabIndex = 4;
             // 
             // labelNazev
             // 
@@ -379,16 +379,6 @@
             this.labelStav.TabIndex = 32;
             this.labelStav.Text = "label17";
             // 
-            // labelPoznamka
-            // 
-            this.labelPoznamka.AutoSize = true;
-            this.labelPoznamka.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelPoznamka.Location = new System.Drawing.Point(136, 341);
-            this.labelPoznamka.Name = "labelPoznamka";
-            this.labelPoznamka.Size = new System.Drawing.Size(48, 13);
-            this.labelPoznamka.TabIndex = 33;
-            this.labelPoznamka.Text = "label17";
-            // 
             // labelCena
             // 
             this.labelCena.AutoSize = true;
@@ -409,19 +399,26 @@
             this.labelCelkCena.TabIndex = 35;
             this.labelCelkCena.Text = "label18";
             // 
+            // textBoxPoznamka
+            // 
+            this.textBoxPoznamka.Location = new System.Drawing.Point(139, 342);
+            this.textBoxPoznamka.Name = "textBoxPoznamka";
+            this.textBoxPoznamka.Size = new System.Drawing.Size(446, 20);
+            this.textBoxPoznamka.TabIndex = 36;
+            // 
             // Poskozenka
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(603, 403);
+            this.Controls.Add(this.textBoxPoznamka);
             this.Controls.Add(this.labelCelkCena);
             this.Controls.Add(this.labelCena);
-            this.Controls.Add(this.labelPoznamka);
             this.Controls.Add(this.labelStav);
             this.Controls.Add(this.labelRozmer);
             this.Controls.Add(this.labelJK);
             this.Controls.Add(this.labelNazev);
-            this.Controls.Add(this.dateTimePicker1);
+            this.Controls.Add(this.dateTimePickerDatum);
             this.Controls.Add(this.numericUpDownMnozstvi);
             this.Controls.Add(this.textBoxKonto);
             this.Controls.Add(this.textBoxCisZak);
@@ -474,18 +471,18 @@
         private System.Windows.Forms.TextBox textBoxCisZak;
         private System.Windows.Forms.TextBox textBoxKonto;
         private System.Windows.Forms.NumericUpDown numericUpDownMnozstvi;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.DateTimePicker dateTimePickerDatum;
         private System.Windows.Forms.Button buttonChoosePerson;
         private System.Windows.Forms.Label labelNazev;
         private System.Windows.Forms.Label labelJK;
         private System.Windows.Forms.Label labelRozmer;
         private System.Windows.Forms.Label labelStav;
-        private System.Windows.Forms.Label labelPoznamka;
         private System.Windows.Forms.Label labelCena;
         private System.Windows.Forms.Label labelCelkCena;
         private System.Windows.Forms.Label labelPrijmeni;
         private System.Windows.Forms.Label labelJmeno;
         private System.Windows.Forms.Label labelProvoz;
         private System.Windows.Forms.Label labelStredisko;
+        private System.Windows.Forms.TextBox textBoxPoznamka;
     }
 }
