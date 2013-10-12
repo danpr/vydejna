@@ -34,6 +34,7 @@ namespace Vydejna
         }
 
         private vDatabase myDataBase;
+        private Int32 parentPoradi;
 
         public Poskozenka(Hashtable DBRow, vDatabase myDataBase)
         {
@@ -45,6 +46,8 @@ namespace Vydejna
             labelProvoz.Text = "";
 
             this.myDataBase = myDataBase;
+            parentPoradi = Convert.ToInt32(DBRow["poradi"]);
+
             if (DBRow.ContainsKey("nazev")) labelNazev.Text = Convert.ToString(DBRow["nazev"]);
             if (DBRow.ContainsKey("jk")) labelJK.Text = Convert.ToString(DBRow["jk"]);
             if (DBRow.ContainsKey("rozmer")) labelRozmer.Text = Convert.ToString(DBRow["rozmer"]);
@@ -131,6 +134,21 @@ namespace Vydejna
                     if (osobaRow.ContainsKey("pracoviste")) labelProvoz.Text = Convert.ToString(osobaRow["pracoviste"]);
                 }
 
+            }
+
+        }
+
+        private void buttonOK_Click(object sender, EventArgs e)
+        {
+            if (numericUpDownMnozstvi.Value > 0)
+            {
+                buttonOK.DialogResult = DialogResult.OK;
+                this.DialogResult = DialogResult.OK;
+                Close();
+            }
+            else
+            {
+                MessageBox.Show("Je nutno zadat množství poškozeného materiálu.");
             }
 
         }

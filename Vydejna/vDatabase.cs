@@ -289,6 +289,11 @@ namespace Vydejna
             return -1;
         }
 
+        public virtual Int32 addNewLineZmenyAndPoskozeno(Int32 DBporadi, string DBJK, DateTime DBdatum, Int32 DBvydej, string DBpoznamka)
+        {
+            return -1;
+        }
+
 
 
         public virtual Boolean editNewLineOsoby(string DBprijmeni, string DBjmeno, string DBulice, string DBmesto,
