@@ -88,40 +88,6 @@ namespace Vydejna
 
         }
 
-        public override Hashtable getDBLine(string DBSelect, Hashtable DBRow)
-        {
-            if (DBIsOpened())
-            {
-                OdbcCommand cmdr0 = new OdbcCommand(DBSelect, myDBConn as OdbcConnection);
-                OdbcDataReader myReader = cmdr0.ExecuteReader();
-
-                if (myReader.Read())
-                {
-//                    Int32 countporadi = myReader.GetInt32(0);
-
-                    for (int i = 0; i < myReader.FieldCount; i++)
-                    {
-
-                        if (DBRow.ContainsKey(myReader.GetName(i)))
-                        {
-                            DBRow.Remove(myReader.GetName(i));
-                        }
-                        DBRow.Add(myReader.GetName(i), myReader.GetValue(i));
-                    }
-
-                    myReader.Close();
-                    return DBRow;
-                }
-                else
-                {
-
-                    myReader.Close();
-                    return null;
-                }
-            }
-            else return null;
-        }
-
 
 
         // pridani nove polozky do tabulky naradi
@@ -678,16 +644,16 @@ namespace Vydejna
 
 
 
-        public override Hashtable getNaradiLine(Int32 poradi, Hashtable DBRow)
-        {
-            if (DBRow == null) DBRow = new Hashtable();
+  //      public override Hashtable getNaradiLine(Int32 poradi, Hashtable DBRow)
+  //      {
+  //          if (DBRow == null) DBRow = new Hashtable();
 
-            string DBSelect = "SELECT n.*, x.zustatek as zmeny_zustatek FROM naradi n," +
-                              "TABLE ( MULTISET (select * from zmeny z where z.poradi = (select MAX(s.poradi) from zmeny s" +
-                              "WHERE z.parporadi = s.parporadi group by s.parporadi) )) x WHERE n.poradi = x.parporadi and n.poradi = " + poradi.ToString();
+        //          string DBSelect = "SELECT n.poradi AS poradi, n.fyzstav AS fyzstav, n.ucetstav AS ucetstav, x.zustatek AS zmeny_zustatek FROM naradi n, " +
+  //                            "TABLE ( MULTISET (SELECT * FROM zmeny z WHERE z.poradi = (SELECT MAX(s.poradi) FROM zmeny s " +
+  //                            "WHERE z.parporadi = s.parporadi GROUP BY s.parporadi) )) x WHERE n.poradi = x.parporadi AND n.poradi = " + poradi.ToString();
 
-            return getDBLine(DBSelect, DBRow);
-        }
+    //        return getDBLine(DBSelect, DBRow);
+      //  }
 
 
     }
