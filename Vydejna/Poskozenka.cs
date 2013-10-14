@@ -57,6 +57,7 @@ namespace Vydejna
             labelCena.Text = Convert.ToString(DBRow["cena"]);
             labelCelkCena.Text = Convert.ToString(DBRow["celkcena"]);
 
+            numericUpDownMnozstvi.Maximum = Convert.ToInt32(DBRow["fyzstav"]);
             textBoxOsCislo.Focus();
         }
 
@@ -114,6 +115,10 @@ namespace Vydejna
                 buttonOK.Enabled = true;
             }
 
+            else
+            {
+                buttonOK.Enabled = false;
+            }
         }
 
         private void buttonChoosePerson_Click(object sender, EventArgs e)
