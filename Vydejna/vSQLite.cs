@@ -1734,7 +1734,7 @@ namespace Vydejna
 
 
 
-        public override Int32 addNewLineZmenyAndPoskozeno(Int32 DBporadi, string DBJK, DateTime DBdatum, Int32 DBvydej, string DBpoznamka)
+        public override Int32 addNewLineZmenyAndPoskozeno(Int32 DBporadi, string DBJK, DateTime DBdatum, Int32 DBvydej, string DBpoznamka, string osCislo)
         {
             SQLiteTransaction transaction = null;
 

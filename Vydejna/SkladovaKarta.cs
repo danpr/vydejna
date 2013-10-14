@@ -161,6 +161,7 @@ namespace Vydejna
                     dataGridViewZmeny.Columns[2].HeaderText = "Příjem";
                     dataGridViewZmeny.Columns[3].HeaderText = "Výdej";
                     dataGridViewZmeny.Columns[4].HeaderText = "Stav";
+                    dataGridViewZmeny.Columns[5].HeaderText = "Zapůjčeno na kartu";
 
                     dataGridViewZmeny.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
 

@@ -289,7 +289,7 @@ namespace Vydejna
             return -1;
         }
 
-        public virtual Int32 addNewLineZmenyAndPoskozeno(Int32 DBporadi, string DBJK, DateTime DBdatum, Int32 DBvydej, string DBpoznamka)
+        public virtual Int32 addNewLineZmenyAndPoskozeno(Int32 DBporadi, string DBJK, DateTime DBdatum, Int32 DBvydej, string DBpoznamka, string osCislo)
         {
             return -1;
         }
@@ -313,7 +313,7 @@ namespace Vydejna
 
         public virtual DataTable loadDataTableZmeny (Int32 poradi) //(string kodID)
         {
-            return loadDataTable("SELECT datum, poznamka, prijem, vydej, zustatek FROM zmeny WHERE parporadi = " + poradi.ToString());
+            return loadDataTable("SELECT datum, poznamka, prijem, vydej, zustatek, zapkarta FROM zmeny WHERE parporadi = " + poradi.ToString());
         }
 
 

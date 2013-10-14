@@ -534,7 +534,7 @@ namespace Vydejna
         }
 
 
-        public override Int32 addNewLineZmenyAndPoskozeno(Int32 DBporadi, string DBJK, DateTime DBdatum, Int32 DBvydej, string DBpoznamka)
+        public override Int32 addNewLineZmenyAndPoskozeno(Int32 DBporadi, string DBJK, DateTime DBdatum, Int32 DBvydej, string DBpoznamka, string osCislo)
         {
             OdbcTransaction transaction = null;
 
@@ -630,7 +630,7 @@ namespace Vydejna
                        OdbcParameter p7 = new OdbcParameter("p7", OdbcType.Int);
                        p7.Value = zustatek  - DBvydej;
                        OdbcParameter p8 = new OdbcParameter("p8", OdbcType.NChar);
-                       p8.Value = "";
+                       p8.Value = osCislo;
                        OdbcParameter p9 = new OdbcParameter("p9", OdbcType.NChar);
                        p9.Value = "";
                        OdbcParameter p10 = new OdbcParameter("p10", OdbcType.Int);

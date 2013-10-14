@@ -21,15 +21,16 @@ namespace Vydejna
             public DateTime datum;
             public string poznamka;
             public Int32 poradi;
+            public string osCislo;
 
-
-            public messager(Int32 poradi, string jk, Int32 pocetKs, DateTime datum, string poznamka)
+            public messager(Int32 poradi, string jk, Int32 pocetKs, DateTime datum, string poznamka, string osCislo)
             {
                 this.jk = jk;
                 this.pocetKs = pocetKs;
                 this.datum = datum;
                 this.poznamka = poznamka;
                 this.poradi = poradi;
+                this.osCislo = osCislo;
             }
         }
 
@@ -61,7 +62,7 @@ namespace Vydejna
 
         public messager getMesseger()
         {
-            messager prepravka = new messager(parentPoradi, labelJK.Text, Convert.ToInt32(numericUpDownMnozstvi.Value), dateTimePickerDatum.Value, textBoxPoznamka.Text);
+            messager prepravka = new messager(parentPoradi, labelJK.Text, Convert.ToInt32(numericUpDownMnozstvi.Value), dateTimePickerDatum.Value, textBoxPoznamka.Text,textBoxOsCislo.Text);
             return prepravka;
 
         }
@@ -82,9 +83,11 @@ namespace Vydejna
                labelPrijmeni.Text = Convert.ToString(osobyDBRow["prijmeni"]);
                labelStredisko.Text = Convert.ToString(osobyDBRow["stredisko"]);
                labelProvoz.Text = Convert.ToString(osobyDBRow["pracoviste"]);
+               if (numericUpDownMnozstvi.Value > 0) buttonOK.Enabled = true;
            }
            else
            {
+               buttonOK.Enabled = false;
                if ((!(buttonCancel.Focused)) && (!(buttonChoosePerson.Focused)))
                {
                    labelJmeno.Text = "";
