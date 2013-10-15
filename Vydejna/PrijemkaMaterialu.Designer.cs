@@ -97,7 +97,7 @@
             // 
             this.labelDosudKs.AutoSize = true;
             this.labelDosudKs.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelDosudKs.Location = new System.Drawing.Point(144, 100);
+            this.labelDosudKs.Location = new System.Drawing.Point(150, 100);
             this.labelDosudKs.Name = "labelDosudKs";
             this.labelDosudKs.Size = new System.Drawing.Size(0, 13);
             this.labelDosudKs.TabIndex = 16;
@@ -106,7 +106,7 @@
             // 
             this.labelVyrobce.AutoSize = true;
             this.labelVyrobce.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelVyrobce.Location = new System.Drawing.Point(144, 71);
+            this.labelVyrobce.Location = new System.Drawing.Point(150, 71);
             this.labelVyrobce.Name = "labelVyrobce";
             this.labelVyrobce.Size = new System.Drawing.Size(0, 13);
             this.labelVyrobce.TabIndex = 15;
@@ -115,7 +115,7 @@
             // 
             this.labelJK.AutoSize = true;
             this.labelJK.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelJK.Location = new System.Drawing.Point(144, 43);
+            this.labelJK.Location = new System.Drawing.Point(150, 43);
             this.labelJK.Name = "labelJK";
             this.labelJK.Size = new System.Drawing.Size(0, 13);
             this.labelJK.TabIndex = 14;
@@ -124,7 +124,7 @@
             // 
             this.labelNazev.AutoSize = true;
             this.labelNazev.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelNazev.Location = new System.Drawing.Point(144, 16);
+            this.labelNazev.Location = new System.Drawing.Point(150, 16);
             this.labelNazev.Name = "labelNazev";
             this.labelNazev.Size = new System.Drawing.Size(0, 13);
             this.labelNazev.TabIndex = 13;
@@ -134,9 +134,9 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(4, 100);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(125, 13);
+            this.label3.Size = new System.Drawing.Size(147, 13);
             this.label3.TabIndex = 12;
-            this.label3.Text = "Dosud vedeno na kartě :";
+            this.label3.Text = "Dosud vedeno na kartě  F/Ú:";
             // 
             // label12
             // 

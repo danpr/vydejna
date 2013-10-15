@@ -188,7 +188,7 @@ namespace Vydejna
                         if (dataRowIndex != -1)
                         {
                             // opravime tabulku
-                            Hashtable DBrow = myDataBase.getNaradiLine(mesenger.poradi, null);
+                            Hashtable DBrow = myDataBase.getNaradiZmenyLine(mesenger.poradi, null);
                             if (DBrow != null)
                             {
                                 Int32 fyzStav = 0;
@@ -246,7 +246,7 @@ namespace Vydejna
                         if (dataRowIndex != -1)
                         {
                             // opravime tabulku
-                            Hashtable DBrow = myDataBase.getNaradiLine(mesenger.poradi, null);
+                            Hashtable DBrow = myDataBase.getNaradiZmenyLine(mesenger.poradi, null);
                             if (DBrow != null)
                             {
                                 Int32 fyzStav = 0;

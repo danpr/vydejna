@@ -1876,6 +1876,17 @@ namespace Vydejna
         }
 
 
+        public override Hashtable getNaradiZmenyLine(Int32 poradi, Hashtable DBRow)
+        {
+            if (DBRow == null) DBRow = new Hashtable();
+
+            string DBSelect = "SELECT n.poradi, n.fyzstav as fyzstav, n.ucetstav as ucetstav, z.zustatek as zmeny_zustatek FROM naradi  n, zmeny z " +
+                              "WHERE z.poradi = (SELECT MAX(s.poradi) FROM zmeny s WHERE z.parporadi = s.parporadi GROUP BY s.parporadi) " +
+                              "AND z.parporadi = n.poradi and z.parporadi = " + poradi.ToString();
+
+            return getDBLine(DBSelect, DBRow);
+        }
+
 
         public override Hashtable getDBLine(string DBSelect, Hashtable DBRow)
         {

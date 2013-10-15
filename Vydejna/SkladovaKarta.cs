@@ -182,6 +182,12 @@ namespace Vydejna
         private void setEditState()
         {
             setAddState();
+            numericUpDownUcetCena.ReadOnly = false;
+            numericUpDownUcetCena.Enabled = true;
+            numericUpDownUcetStav.ReadOnly = false;
+            numericUpDownUcetStav.Enabled = true;
+            numericUpDownFyzStav.ReadOnly = false;
+            numericUpDownFyzStav.Enabled = true;
             textBoxJK.ReadOnly = true;
         }
         
@@ -200,14 +206,14 @@ namespace Vydejna
             numericUpDownCenaKs.Enabled = true;
             numericUpDownUcetCenaKs.ReadOnly = false;
             numericUpDownUcetCenaKs.Enabled = true;
-            numericUpDownUcetCena.ReadOnly = false;
-            numericUpDownUcetCena.Enabled = true;
+            numericUpDownUcetCena.ReadOnly = true;
+            numericUpDownUcetCena.Enabled = false;
             numericUpDownMinStav.ReadOnly = false;
             numericUpDownMinStav.Enabled = true;
-            numericUpDownUcetStav.ReadOnly = false;
-            numericUpDownUcetStav.Enabled = true;
-            numericUpDownFyzStav.ReadOnly = false;
-            numericUpDownFyzStav.Enabled = true;
+            numericUpDownUcetStav.ReadOnly = true;
+            numericUpDownUcetStav.Enabled = false;
+            numericUpDownFyzStav.ReadOnly = true;
+            numericUpDownFyzStav.Enabled = false;
 
         }
 

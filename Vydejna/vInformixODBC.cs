@@ -644,7 +644,7 @@ namespace Vydejna
 
 
 
-  //      public override Hashtable getNaradiLine(Int32 poradi, Hashtable DBRow)
+  //      public override Hashtable getNaradiZmenyLine(Int32 poradi, Hashtable DBRow)
   //      {
   //          if (DBRow == null) DBRow = new Hashtable();
 

@@ -404,7 +404,7 @@
             // 
             this.textBoxPoznamka.Location = new System.Drawing.Point(139, 342);
             this.textBoxPoznamka.Name = "textBoxPoznamka";
-            this.textBoxPoznamka.Size = new System.Drawing.Size(446, 20);
+            this.textBoxPoznamka.Size = new System.Drawing.Size(452, 20);
             this.textBoxPoznamka.TabIndex = 36;
             // 
             // Poskozenka

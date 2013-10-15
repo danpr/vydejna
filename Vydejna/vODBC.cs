@@ -915,6 +915,95 @@ namespace Vydejna
         }
 
 
+        public virtual Boolean addNewLinePoskozene(string DBkrjmeno, string DBjmeno, string DBosCislo, string DBdilna,
+                                         string DBprovoz, string DBnazev, string DBJK, long DBpocetKS,
+                                         string DBrozmer, string DBCSN, decimal DBcena,
+                                         DateTime DBdatum, string DBvyrobek, string DBkonto)
+        {
+            string commandStringSeq1 = "SELECT poradi FROM tabseq WHERE nazev = 'poskozeno'";
+            string commandStringSeq2 = "UPDATE  tabseq set poradi = poradi +1 WHERE nazev = 'poskozeno'";
+
+            string commandString = "INSERT INTO poskozeno ( poradi, jmeno, cislo, dilna, pracoviste, vyrobek, nazev, jk, rozmer, pocetks, cena, datum, csn, krjmeno, celkcena, vevcislo, konto) " +
+                  "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
+
+
+
+            if (DBIsOpened())
+            {
+
+                OdbcCommand cmdSeq1 = new OdbcCommand(commandStringSeq1, myDBConn as OdbcConnection);
+                OdbcDataReader seqReader = cmdSeq1.ExecuteReader();
+                seqReader.Read();
+                Int32 poradi = seqReader.GetInt32(0);
+                seqReader.Close();
+
+                OdbcCommand cmd = new OdbcCommand(commandString, myDBConn as OdbcConnection);
+
+                OdbcParameter p0 = new OdbcParameter("p0", OdbcType.Int);
+                p0.Value = poradi;
+                OdbcParameter p1 = new OdbcParameter("p1", OdbcType.NChar); // prijmeni
+                p1.Value = DBjmeno;
+                OdbcParameter p2 = new OdbcParameter("p2", OdbcType.Int);
+                p2.Value = DBosCislo;
+                OdbcParameter p3 = new OdbcParameter("p3", OdbcType.NChar);
+                p3.Value = DBdilna;
+                OdbcParameter p4 = new OdbcParameter("p4", OdbcType.NChar);
+                p4.Value = DBprovoz;
+                OdbcParameter p5 = new OdbcParameter("p5", OdbcType.NChar);
+                p5.Value = DBvyrobek;
+                OdbcParameter p6 = new OdbcParameter("p6", OdbcType.NChar);
+                p6.Value = DBnazev;
+                OdbcParameter p7 = new OdbcParameter("p7", OdbcType.NChar);
+                p7.Value = DBJK;
+                OdbcParameter p8 = new OdbcParameter("p8", OdbcType.NChar);
+                p8.Value = DBrozmer;
+                OdbcParameter p9 = new OdbcParameter("p9", OdbcType.Int);
+                p9.Value = DBpocetKS;
+                OdbcParameter p10 = new OdbcParameter("p10", OdbcType.Double);
+                p10.Value = DBcena;
+                OdbcParameter p11 = new OdbcParameter("p11", OdbcType.Date);
+                p11.Value = DBdatum;
+                OdbcParameter p12 = new OdbcParameter("p12", OdbcType.NChar);
+                p12.Value = DBCSN;
+                OdbcParameter p13 = new OdbcParameter("p13", OdbcType.NChar);
+                p13.Value = DBkrjmeno;
+                OdbcParameter p14 = new OdbcParameter("p14", OdbcType.Double);
+                p14.Value = DBcena;
+                OdbcParameter p15 = new OdbcParameter("p15", OdbcType.NChar);
+                p15.Value = ""; // DBvevCislo;
+                OdbcParameter p16 = new OdbcParameter("p15", OdbcType.NChar);
+                p16.Value = DBkonto;
+
+                cmd.Parameters.Add(p0);
+                cmd.Parameters.Add(p1);
+                cmd.Parameters.Add(p2);
+                cmd.Parameters.Add(p3);
+                cmd.Parameters.Add(p4);
+                cmd.Parameters.Add(p5);
+                cmd.Parameters.Add(p6);
+                cmd.Parameters.Add(p7);
+                cmd.Parameters.Add(p8);
+                cmd.Parameters.Add(p9);
+                cmd.Parameters.Add(p10);
+                cmd.Parameters.Add(p11);
+                cmd.Parameters.Add(p12);
+                cmd.Parameters.Add(p13);
+                cmd.Parameters.Add(p14);
+                cmd.Parameters.Add(p15);
+                cmd.Parameters.Add(p16);
+                cmd.ExecuteNonQuery();
+
+                OdbcCommand cmdSeq2 = new OdbcCommand(commandStringSeq2, myDBConn as OdbcConnection);
+                cmdSeq2.ExecuteNonQuery();
+                return true;
+                //return poradi;
+            }
+            return false;
+
+        }
+
+
+
         public override Boolean editNewLinePoskozene(Int32 poradi, string DBkrjmeno, string DBjmeno, string DBosCislo, string DBdilna,
                                  string DBprovoz, string DBnazev, string DBJK, long DBpocetKS,
                                  string DBrozmer, string DBCSN, decimal DBcena,
@@ -1372,17 +1461,14 @@ namespace Vydejna
         }
 
 
-        public override Hashtable getNaradiLine(Int32 poradi, Hashtable DBRow)
+        public override Hashtable getNaradiZmenyLine(Int32 poradi, Hashtable DBRow)
         {
             if (DBRow == null) DBRow = new Hashtable();
-
 
 
             string DBSelect = "SELECT n.poradi, n.fyzstav as fyzstav, n.ucetstav as ucetstav, z.zustatek as zmeny_zustatek FROM naradi  n, zmeny z " +
                               "WHERE z.poradi = (SELECT MAX(s.poradi) FROM zmeny s WHERE z.parporadi = s.parporadi GROUP BY s.parporadi) " +
                               "AND z.parporadi = n.poradi and z.parporadi = " + poradi.ToString();
-
-
 
             return getDBLine(DBSelect, DBRow);
         }

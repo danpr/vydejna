@@ -42,7 +42,7 @@ namespace Vydejna
             labelJK.Text = Convert.ToString(DBRow["jk"]);
             labelVyrobce.Text = Convert.ToString(DBRow["vyrobce"]);
             labelNazev.Text = Convert.ToString(DBRow["nazev"]);
-            labelDosudKs.Text = Convert.ToString(DBRow["ucetstav"]);
+            labelDosudKs.Text = Convert.ToString(DBRow["fyzstav"]) + " / " + Convert.ToString(DBRow["ucetstav"]);
 
             parentPoradi = Convert.ToInt32(DBRow["poradi"]);
         }
