@@ -22,8 +22,12 @@ namespace Vydejna
             public string poznamka;
             public Int32 poradi;
             public string osCislo;
+            public string jmeno;
+            public string prijmeni;
+            public string stredisko;
+            public string provoz;
 
-            public messager(Int32 poradi, string jk, Int32 pocetKs, DateTime datum, string poznamka, string osCislo)
+            public messager(Int32 poradi, string jk, Int32 pocetKs, DateTime datum, string poznamka, string osCislo, string jmeno, string prijmeni, string stredisko, string provoz)
             {
                 this.jk = jk;
                 this.pocetKs = pocetKs;
@@ -31,6 +35,10 @@ namespace Vydejna
                 this.poznamka = poznamka;
                 this.poradi = poradi;
                 this.osCislo = osCislo;
+                this.jmeno = jmeno;
+                this.prijmeni = prijmeni;
+                this.stredisko = stredisko;
+                this.provoz = provoz;
             }
         }
 
@@ -63,7 +71,8 @@ namespace Vydejna
 
         public messager getMesseger()
         {
-            messager prepravka = new messager(parentPoradi, labelJK.Text, Convert.ToInt32(numericUpDownMnozstvi.Value), dateTimePickerDatum.Value, textBoxPoznamka.Text,textBoxOsCislo.Text);
+            messager prepravka = new messager(parentPoradi, labelJK.Text, Convert.ToInt32(numericUpDownMnozstvi.Value), dateTimePickerDatum.Value, textBoxPoznamka.Text,textBoxOsCislo.Text,
+                                              labelJmeno.Text, labelPrijmeni.Text, labelStredisko.Text, labelProvoz.Text);
             return prepravka;
 
         }

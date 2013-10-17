@@ -299,7 +299,7 @@ namespace Vydejna
             return -1;
         }
 
-        public virtual Int32 addNewLineZmenyAndPoskozeno(Int32 DBporadi, string DBJK, DateTime DBdatum, Int32 DBvydej, string DBpoznamka, string osCislo)
+        public virtual Int32 addNewLineZmenyAndPoskozeno(Int32 DBporadi, string DBJK, DateTime DBdatum, Int32 DBvydej, string DBpoznamka, string osCislo, string DBjmeno, string DBprijmeni, string DBstredisko, string DBprovoz)
         {
             return -1;
         }

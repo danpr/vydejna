@@ -500,7 +500,7 @@ namespace Vydejna
         }
 
 
-        public override Int32 addNewLineZmenyAndPoskozeno(Int32 DBporadi, string DBJK, DateTime DBdatum, Int32 DBvydej, string DBpoznamka, string osCislo)
+        public override Int32 addNewLineZmenyAndPoskozeno(Int32 DBporadi, string DBJK, DateTime DBdatum, Int32 DBvydej, string DBpoznamka, string osCislo, string DBjmeno, string DBprijmeni, string DBstredisko, string DBprovoz)
         {
             OdbcTransaction transaction = null;
 
@@ -538,6 +538,7 @@ namespace Vydejna
                     OdbcParameter px2 = new OdbcParameter("px2", DbType.Int32);
                     px2.Value = DBporadi;
                     cmdr2.Parameters.Add(px2);
+                    cmdr2.Transaction = transaction;
                     OdbcDataReader myReader2 = cmdr2.ExecuteReader();
                     // true fyzstav exist -- zaznam mohl bzt meyitom smazan
                     if (myReader2.Read() == true)
@@ -554,6 +555,7 @@ namespace Vydejna
                         Int32 poradi;
                         Int32 zustatek;
 
+                        cmdr.Transaction = transaction;
                         OdbcDataReader myReader = cmdr.ExecuteReader();
                         // true osCisloExist
                         if (myReader.Read() == true)
@@ -639,11 +641,11 @@ namespace Vydejna
                        OdbcParameter pz0 = new OdbcParameter("p0", OdbcType.Int);
                        pz0.Value = poradiPoskozeno ;
                        OdbcParameter pz1 = new OdbcParameter("p1", OdbcType.NChar); // prijmeni
-                       pz1.Value = DBjmeno;
+                       pz1.Value = DBprijmeni;
                        OdbcParameter pz2 = new OdbcParameter("p2", OdbcType.Int);
-                       pz2.Value = DBosCislo;
+                       pz2.Value = osCislo;
                        OdbcParameter pz3 = new OdbcParameter("p3", OdbcType.NChar);
-                       pz3.Value = DBdilna;
+                       pz3.Value = DBstredisko;
                        OdbcParameter pz4 = new OdbcParameter("p4", OdbcType.NChar);
                        pz4.Value = DBprovoz;
                        OdbcParameter pz5 = new OdbcParameter("p5", OdbcType.NChar);
@@ -663,7 +665,7 @@ namespace Vydejna
                        OdbcParameter pz12 = new OdbcParameter("p12", OdbcType.NChar);
                        pz12.Value = DBCSN;
                        OdbcParameter pz13 = new OdbcParameter("p13", OdbcType.NChar);
-                       pz13.Value = DBkrjmeno;
+                       pz13.Value = DBjmeno;
                        OdbcParameter pz14 = new OdbcParameter("p14", OdbcType.Double);
                        pz14.Value = DBcena;
                        OdbcParameter pz15 = new OdbcParameter("p15", OdbcType.NChar);
@@ -688,9 +690,11 @@ namespace Vydejna
                        cmd3.Parameters.Add(pz14);
                        cmd3.Parameters.Add(pz15);
                        cmd3.Parameters.Add(pz16);
+                       cmd3.Transaction = transaction;
                        cmd3.ExecuteNonQuery();
 
                        OdbcCommand cmd4 = new OdbcCommand(commandString7, myDBConn as OdbcConnection);
+                       cmd4.Transaction = transaction;
                        cmd4.ExecuteNonQuery();
 
 

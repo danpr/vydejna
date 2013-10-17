@@ -228,7 +228,8 @@ namespace Vydejna
                 {
                     Poskozenka.messager mesenger = poskozenka.getMesseger();
 
-                    if (myDataBase.addNewLineZmenyAndPoskozeno(mesenger.poradi, mesenger.jk, mesenger.datum, mesenger.pocetKs, mesenger.poznamka, mesenger.osCislo) < 0)
+                    if (myDataBase.addNewLineZmenyAndPoskozeno(mesenger.poradi, mesenger.jk, mesenger.datum, mesenger.pocetKs, mesenger.poznamka, mesenger.osCislo, mesenger.jmeno, mesenger.prijmeni,
+                                                               mesenger.stredisko, mesenger.provoz) < 0)
                     {
                         MessageBox.Show("Odepsání poškozeneho materialu se nezdařilo. Lituji.");
                     }
