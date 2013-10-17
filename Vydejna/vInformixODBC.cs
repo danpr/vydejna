@@ -500,7 +500,9 @@ namespace Vydejna
         }
 
 
-        public override Int32 addNewLineZmenyAndPoskozeno(Int32 DBporadi, string DBJK, DateTime DBdatum, Int32 DBvydej, string DBpoznamka, string osCislo, string DBjmeno, string DBprijmeni, string DBstredisko, string DBprovoz)
+        public override Int32 addNewLineZmenyAndPoskozeno(Int32 DBporadi, string DBJK, DateTime DBdatum, Int32 DBvydej, string DBpoznamka,
+                                                          string osCislo, string DBjmeno, string DBprijmeni, string DBstredisko, string DBprovoz,
+                                                          string DBnazev, string DBrozmer, string DBkonto, double DBcena, double DBcelkCena, string DBcsn, string DBcisZak)
         {
             OdbcTransaction transaction = null;
 
@@ -649,7 +651,7 @@ namespace Vydejna
                        OdbcParameter pz4 = new OdbcParameter("p4", OdbcType.NChar);
                        pz4.Value = DBprovoz;
                        OdbcParameter pz5 = new OdbcParameter("p5", OdbcType.NChar);
-                       pz5.Value = DBvyrobek;
+                       pz5.Value = DBcisZak;
                        OdbcParameter pz6 = new OdbcParameter("p6", OdbcType.NChar);
                        pz6.Value = DBnazev;
                        OdbcParameter pz7 = new OdbcParameter("p7", OdbcType.NChar);
@@ -657,17 +659,17 @@ namespace Vydejna
                        OdbcParameter pz8 = new OdbcParameter("p8", OdbcType.NChar);
                        pz8.Value = DBrozmer;
                        OdbcParameter pz9 = new OdbcParameter("p9", OdbcType.Int);
-                       pz9.Value = DBpocetKS;
+                       pz9.Value = DBvydej;
                        OdbcParameter pz10 = new OdbcParameter("p10", OdbcType.Double);
                        pz10.Value = DBcena;
                        OdbcParameter pz11 = new OdbcParameter("p11", OdbcType.Date);
                        pz11.Value = DBdatum;
                        OdbcParameter pz12 = new OdbcParameter("p12", OdbcType.NChar);
-                       pz12.Value = DBCSN;
+                       pz12.Value = DBcsn;
                        OdbcParameter pz13 = new OdbcParameter("p13", OdbcType.NChar);
                        pz13.Value = DBjmeno;
                        OdbcParameter pz14 = new OdbcParameter("p14", OdbcType.Double);
-                       pz14.Value = DBcena;
+                       pz14.Value = DBcelkCena;
                        OdbcParameter pz15 = new OdbcParameter("p15", OdbcType.NChar);
                        pz15.Value = ""; // DBvevCislo;
                        OdbcParameter pz16 = new OdbcParameter("p15", OdbcType.NChar);

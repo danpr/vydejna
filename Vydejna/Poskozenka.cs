@@ -26,8 +26,16 @@ namespace Vydejna
             public string prijmeni;
             public string stredisko;
             public string provoz;
+            public string nazev;
+            public string rozmer;
+            public string konto;
+            public double cena;
+            public double celkCena;
+            public string csn;
+            public string cisZak;
 
-            public messager(Int32 poradi, string jk, Int32 pocetKs, DateTime datum, string poznamka, string osCislo, string jmeno, string prijmeni, string stredisko, string provoz)
+            public messager(Int32 poradi, string jk, Int32 pocetKs, DateTime datum, string poznamka, string osCislo, string jmeno, string prijmeni,
+                            string stredisko, string provoz, string nazev, string rozmer, string konto, double cena, double celkCena, string csn, string cisZak)
             {
                 this.jk = jk;
                 this.pocetKs = pocetKs;
@@ -39,11 +47,21 @@ namespace Vydejna
                 this.prijmeni = prijmeni;
                 this.stredisko = stredisko;
                 this.provoz = provoz;
+                this.nazev = nazev;
+                this.rozmer = rozmer;
+                this.konto = konto;
+                this.cena = cena;
+                this.celkCena = celkCena;
+                this.csn = csn;
+                this.cisZak = cisZak;
             }
         }
 
         private vDatabase myDataBase;
         private Int32 parentPoradi;
+        private double cena;
+        private double celkCena;
+        private string csn;
 
         public Poskozenka(Hashtable DBRow, vDatabase myDataBase)
         {
@@ -56,6 +74,9 @@ namespace Vydejna
 
             this.myDataBase = myDataBase;
             parentPoradi = Convert.ToInt32(DBRow["poradi"]);
+            cena = Convert.ToDouble(DBRow["cena"]);
+            celkCena = Convert.ToDouble(DBRow["celkcena"]);
+            csn = Convert.ToString(DBRow["normacsn"]);
 
             if (DBRow.ContainsKey("nazev")) labelNazev.Text = Convert.ToString(DBRow["nazev"]);
             if (DBRow.ContainsKey("jk")) labelJK.Text = Convert.ToString(DBRow["jk"]);
@@ -72,7 +93,7 @@ namespace Vydejna
         public messager getMesseger()
         {
             messager prepravka = new messager(parentPoradi, labelJK.Text, Convert.ToInt32(numericUpDownMnozstvi.Value), dateTimePickerDatum.Value, textBoxPoznamka.Text,textBoxOsCislo.Text,
-                                              labelJmeno.Text, labelPrijmeni.Text, labelStredisko.Text, labelProvoz.Text);
+                                              labelJmeno.Text, labelPrijmeni.Text, labelStredisko.Text, labelProvoz.Text, labelNazev.Text, labelRozmer.Text, textBoxKonto.Text, cena, celkCena, csn, textBoxCisZak.Text);
             return prepravka;
 
         }

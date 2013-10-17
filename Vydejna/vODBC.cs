@@ -915,7 +915,7 @@ namespace Vydejna
         }
 
 
-        public virtual Boolean addNewLinePoskozene(string DBkrjmeno, string DBjmeno, string DBosCislo, string DBdilna,
+        public override Boolean addNewLinePoskozene(string DBkrjmeno, string DBjmeno, string DBosCislo, string DBdilna,
                                          string DBprovoz, string DBnazev, string DBJK, long DBpocetKS,
                                          string DBrozmer, string DBCSN, decimal DBcena,
                                          DateTime DBdatum, string DBvyrobek, string DBkonto)
