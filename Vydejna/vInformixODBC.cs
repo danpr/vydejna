@@ -682,11 +682,11 @@ namespace Vydejna
                        cmd3.Parameters.Add(pz4);
                        cmd3.Parameters.Add(pz5);
                        cmd3.Parameters.Add(pz6);
-                       cmd3.Parameters.Add(p7);
-                       cmd3.Parameters.Add(p8);
-                       cmd3.Parameters.Add(p9);
-                       cmd3.Parameters.Add(p10);
-                       cmd3.Parameters.Add(p11);
+                       cmd3.Parameters.Add(pz7);
+                       cmd3.Parameters.Add(pz8);
+                       cmd3.Parameters.Add(pz9);
+                       cmd3.Parameters.Add(pz10);
+                       cmd3.Parameters.Add(pz11);
                        cmd3.Parameters.Add(pz12);
                        cmd3.Parameters.Add(pz13);
                        cmd3.Parameters.Add(pz14);
@@ -722,19 +722,6 @@ namespace Vydejna
             }
             return -1;  // databaze neni otevrena
         }
-
-
-
-  //      public override Hashtable getNaradiZmenyLine(Int32 poradi, Hashtable DBRow)
-  //      {
-  //          if (DBRow == null) DBRow = new Hashtable();
-
-        //          string DBSelect = "SELECT n.poradi AS poradi, n.fyzstav AS fyzstav, n.ucetstav AS ucetstav, x.zustatek AS zmeny_zustatek FROM naradi n, " +
-  //                            "TABLE ( MULTISET (SELECT * FROM zmeny z WHERE z.poradi = (SELECT MAX(s.poradi) FROM zmeny s " +
-  //                            "WHERE z.parporadi = s.parporadi GROUP BY s.parporadi) )) x WHERE n.poradi = x.parporadi AND n.poradi = " + poradi.ToString();
-
-    //        return getDBLine(DBSelect, DBRow);
-      //  }
 
 
     }
