@@ -695,7 +695,7 @@ namespace Vydejna
                        cmd3.Transaction = transaction;
                        cmd3.ExecuteNonQuery();
 
-                       OdbcCommand cmd4 = new OdbcCommand(commandString7, myDBConn as OdbcConnection);
+                       OdbcCommand cmd4 = new OdbcCommand(commandString6, myDBConn as OdbcConnection);
                        cmd4.Transaction = transaction;
                        cmd4.ExecuteNonQuery();
 

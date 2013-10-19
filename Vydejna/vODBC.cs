@@ -166,14 +166,14 @@ namespace Vydejna
                       "test char(1), pomroz char(1), kdatum date, kodd char(2) );";
 
 
-            string commandStringPoskozeno = "create table poskozeno ( poradi integer, jmeno char(15), cislo integer, dilna char(15)," +
+            string commandStringPoskozeno = "create table poskozeno ( poradi integer, jmeno char(15), oscislo char(8), dilna char(15)," +
                       "pracoviste char(20), vyrobek char(15),nazev char(60), jk char(15), rozmer char(25)," +
                       "pocetks integer, cena float, datum date, csn char(15), krjmeno char(15)," +
                       "celkcena float, vevcislo char(12), konto char(15) );";
 
 
 
-            string commandStringVraceno = "create table vraceno ( poradi integer, jmeno char(15), cislo integer, dilna char(15)," +
+            string commandStringVraceno = "create table vraceno ( poradi integer, jmeno char(15), oscislo char(8), dilna char(15)," +
                       "pracoviste char(20), vyrobek char(15),nazev char(60), jk char(15), rozmer char(25)," +
                       "pocetks integer, cena float, datum date, csn char(15), krjmeno char(15)," +
                       "celkcena float, vevcislo char(12), konto char(15) );";
@@ -505,7 +505,7 @@ namespace Vydejna
         }
 
 
-        public override Int32 addLineVraceno(string DBjmeno, int DBcislo, string DBdilna, string DBpracoviste,
+        public override Int32 addLineVraceno(string DBjmeno, string DBcislo, string DBdilna, string DBpracoviste,
                                          string DBvyrobek, string DBnazev, string DBJK, string DBrozmer, int DBpocetks,
                                          double DBcena, DateTime DBdate, string DBnormacsn, string DBkrjmeno,
                                          double DBcelkCena, string DBvevCislo, string DBkonto)
@@ -513,7 +513,7 @@ namespace Vydejna
             string commandStringSeq1 = "SELECT poradi FROM tabseq WHERE nazev = 'vraceno'";
             string commandStringSeq2 = "UPDATE  tabseq set poradi = poradi +1 WHERE nazev = 'vraceno'";
 
-            string commandString = "INSERT INTO vraceno ( poradi, jmeno, cislo, dilna, pracoviste, vyrobek, nazev, jk, rozmer, pocetks, cena, datum, csn, krjmeno, celkcena, vevcislo, konto) " +
+            string commandString = "INSERT INTO vraceno ( poradi, jmeno, oscislo, dilna, pracoviste, vyrobek, nazev, jk, rozmer, pocetks, cena, datum, csn, krjmeno, celkcena, vevcislo, konto) " +
                   "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
 
             if (DBIsOpened())
@@ -530,7 +530,7 @@ namespace Vydejna
                 p0.Value = poradi;
                 OdbcParameter p1 = new OdbcParameter("p1", OdbcType.NChar);
                 p1.Value = DBjmeno;
-                OdbcParameter p2 = new OdbcParameter("p2", OdbcType.Int);
+                OdbcParameter p2 = new OdbcParameter("p2", OdbcType.NChar);
                 p2.Value = DBcislo;
                 OdbcParameter p3 = new OdbcParameter("p3", OdbcType.NChar);
                 p3.Value = DBdilna;
@@ -592,7 +592,7 @@ namespace Vydejna
 
 
 
-        public override Int32 addLinePoskozeno(string DBjmeno, int DBcislo, string DBdilna, string DBpracoviste,
+        public override Int32 addLinePoskozeno(string DBjmeno, string DBcislo, string DBdilna, string DBpracoviste,
                                          string DBvyrobek, string DBnazev, string DBJK, string DBrozmer, int DBpocetks,
                                          double DBcena, DateTime DBdate, string DBnormacsn, string DBkrjmeno,
                                          double DBcelkCena, string DBvevCislo, string DBkonto)
@@ -601,7 +601,7 @@ namespace Vydejna
             string commandStringSeq1 = "SELECT poradi FROM tabseq WHERE nazev = 'poskozeno'";
             string commandStringSeq2 = "UPDATE  tabseq set poradi = poradi +1 WHERE nazev = 'poskozeno'";
 
-            string commandString = "INSERT INTO poskozeno ( poradi, jmeno, cislo, dilna, pracoviste, vyrobek, nazev, jk, rozmer, pocetks, cena, datum, csn, krjmeno, celkcena, vevcislo, konto) " +
+            string commandString = "INSERT INTO poskozeno ( poradi, jmeno, oscislo, dilna, pracoviste, vyrobek, nazev, jk, rozmer, pocetks, cena, datum, csn, krjmeno, celkcena, vevcislo, konto) " +
                   "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
 
 
@@ -621,7 +621,7 @@ namespace Vydejna
                 p0.Value = poradi;
                 OdbcParameter p1 = new OdbcParameter("p1", OdbcType.NChar);
                 p1.Value = DBjmeno;
-                OdbcParameter p2 = new OdbcParameter("p2", OdbcType.Int);
+                OdbcParameter p2 = new OdbcParameter("p2", OdbcType.NChar);
                 p2.Value = DBcislo;
                 OdbcParameter p3 = new OdbcParameter("p3", OdbcType.NChar);
                 p3.Value = DBdilna;
@@ -923,7 +923,7 @@ namespace Vydejna
             string commandStringSeq1 = "SELECT poradi FROM tabseq WHERE nazev = 'poskozeno'";
             string commandStringSeq2 = "UPDATE  tabseq set poradi = poradi +1 WHERE nazev = 'poskozeno'";
 
-            string commandString = "INSERT INTO poskozeno ( poradi, jmeno, cislo, dilna, pracoviste, vyrobek, nazev, jk, rozmer, pocetks, cena, datum, csn, krjmeno, celkcena, vevcislo, konto) " +
+            string commandString = "INSERT INTO poskozeno ( poradi, jmeno, oscislo, dilna, pracoviste, vyrobek, nazev, jk, rozmer, pocetks, cena, datum, csn, krjmeno, celkcena, vevcislo, konto) " +
                   "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
 
 
@@ -943,7 +943,7 @@ namespace Vydejna
                 p0.Value = poradi;
                 OdbcParameter p1 = new OdbcParameter("p1", OdbcType.NChar); // prijmeni
                 p1.Value = DBjmeno;
-                OdbcParameter p2 = new OdbcParameter("p2", OdbcType.Int);
+                OdbcParameter p2 = new OdbcParameter("p2", OdbcType.NChar);
                 p2.Value = DBosCislo;
                 OdbcParameter p3 = new OdbcParameter("p3", OdbcType.NChar);
                 p3.Value = DBdilna;
@@ -1010,7 +1010,7 @@ namespace Vydejna
                                  DateTime DBdatum, string DBvyrobek, string DBkonto)
         {
 
-            string commandString1 = "UPDATE poskozeno set jmeno = ?, cislo =?, dilna = ?, pracoviste = ?, vyrobek = ?, nazev = ?, rozmer = ?, pocetks = ?, cena = ?, datum = ?, csn = ?, krjmeno = ?, konto = ?, jk = ? " +
+            string commandString1 = "UPDATE poskozeno set jmeno = ?, oscislo =?, dilna = ?, pracoviste = ?, vyrobek = ?, nazev = ?, rozmer = ?, pocetks = ?, cena = ?, datum = ?, csn = ?, krjmeno = ?, konto = ?, jk = ? " +
                   "where  poradi = ?";
 
             OdbcTransaction transaction = null;
@@ -1103,7 +1103,7 @@ namespace Vydejna
                                  DateTime DBdatum, string DBvyrobek, string DBkonto)
         {
 
-            string commandString1 = "UPDATE vraceno set jmeno = ?, cislo =?, dilna = ?, pracoviste = ?, vyrobek = ?, nazev = ?, rozmer = ?, pocetks = ?, cena = ?, datum = ?, csn = ?, krjmeno = ?, konto = ?, jk = ? " +
+            string commandString1 = "UPDATE vraceno set jmeno = ?, oscislo =?, dilna = ?, pracoviste = ?, vyrobek = ?, nazev = ?, rozmer = ?, pocetks = ?, cena = ?, datum = ?, csn = ?, krjmeno = ?, konto = ?, jk = ? " +
                   "where  poradi = ?";
 
             OdbcTransaction transaction = null;

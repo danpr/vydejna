@@ -67,7 +67,7 @@ using System.Windows.Forms;
 // Tabulka Poskozeno
 // tabulka    promenna      prehled      add/edit okno         messenger
 // jmeno       DBjmeno      Prijmeni     textBoxPrijmeni       prijmeni
-// cislo       DBcislo      Os. Cislo    textBoxOsCislo        oscislo
+// cislo -> oscislo      DBcislo      Os. Cislo    textBoxOsCislo        oscislo
 // dilna       DBdilna      Stredisko    textBoxStredisko      stredisko
 // pracoviste  DBpracoviste Provoz       textBoxProvoz         provoz
 // vyrobek     FDBvyrobek    Zakazka      textBoxZakázka        zakazka
@@ -201,7 +201,7 @@ namespace Vydejna
             return 0;
         }
 
-        public virtual Int32 addLineVraceno(string DBjmeno, int DBcislo, string DBdilna, string DBpracoviste,
+        public virtual Int32 addLineVraceno(string DBjmeno, string DBosCislo, string DBdilna, string DBpracoviste,
                                          string DBvyrobek, string DBnazev, string DBJK, string DBrozmer, int DBpocetks,                                         
                                          double DBcena, DateTime DBdate, string DBnormacsn, string DBkrjmeno,
                                          double DBcelkCena, string DBvevCislo, string DBkonto)
@@ -210,7 +210,7 @@ namespace Vydejna
         }
 
 
-        public virtual Int32 addLinePoskozeno(string DBjmeno, int DBcislo, string DBdilna, string DBpracoviste,
+        public virtual Int32 addLinePoskozeno(string DBjmeno, String DBosCislo, string DBdilna, string DBpracoviste,
                                          string DBvyrobek, string DBnazev, string DBJK, string DBrozmer, int DBpocetks,
                                          double DBcena, DateTime DBdate, string DBnormacsn, string DBkrjmeno,
                                          double DBcelkCena, string DBvevCislo, string DBkonto)
@@ -349,14 +349,14 @@ namespace Vydejna
         public virtual DataTable loadDataTableVraceno()
         {
             return loadDataTable("SELECT poradi, rtrim(nazev) as nazev, rtrim(jk) as jk,  pocetks, rtrim(rozmer) as rozmer, rtrim(csn) as csn,"
-                                     + " cena, datum, rtrim(vyrobek) as vyrobek, rtrim(konto) as konto, rtrim(jmeno) as jmeno, rtrim(krjmeno) as krjmmeno, cislo, rtrim(dilna) as dilna, rtrim(pracoviste) as pracoviste"
+                                     + " cena, datum, rtrim(vyrobek) as vyrobek, rtrim(konto) as konto, rtrim(jmeno) as jmeno, rtrim(krjmeno) as krjmmeno, rtrim(oscislo) as oscislo, rtrim(dilna) as dilna, rtrim(pracoviste) as pracoviste"
                                      + " from vraceno ORDER BY datum");
         }
 
         public virtual DataTable loadDataTablePoskozeno()
         {
             return loadDataTable("SELECT poradi, rtrim(nazev) as nazev, rtrim(jk) as jk,  pocetks, rtrim(rozmer) as rozmer, rtrim(csn) as csn,"
-                                     + " cena, datum, rtrim(vyrobek) as vyrobek, rtrim(konto) as konto, rtrim(jmeno) as jmeno, rtrim(krjmeno) as krjmeno, cislo, rtrim(dilna) as dilna, rtrim(pracoviste) as pracoviste"
+                                     + " cena, datum, rtrim(vyrobek) as vyrobek, rtrim(konto) as konto, rtrim(jmeno) as jmeno, rtrim(krjmeno) as krjmeno, rtrim(cislo) as cislo, rtrim(dilna) as dilna, rtrim(pracoviste) as pracoviste"
                                      + " from poskozeno ORDER BY datum");
         }
 

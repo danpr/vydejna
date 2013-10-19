@@ -242,7 +242,7 @@ namespace Vydejna
             string DBJK;
             string DBnormaCSN;
             string DBjmeno;
-            int DBcislo;
+            string DBcislo;
             string DBdilna;
             string DBpracoviste;
             string DBvyrobek;
@@ -258,7 +258,7 @@ namespace Vydejna
             while (dr.Read())
             {
                 if (dr.IsDBNull(0)) DBjmeno = ""; else DBjmeno = fbaseToUtf16(dr.GetString(0).Trim());
-                if (dr.IsDBNull(1)) DBcislo = 0; else DBcislo = Convert.ToInt32(dr.GetDecimal(1));
+                if (dr.IsDBNull(1)) DBcislo = ""; else DBcislo = Convert.ToString(dr.GetDecimal(1));
                 if (dr.IsDBNull(2)) DBdilna = ""; else DBdilna = Convert.ToString(dr.GetDecimal(2));
                 if (dr.IsDBNull(3)) DBpracoviste = ""; else DBpracoviste = fbaseToUtf16(dr.GetString(3).Trim());
                 if (dr.IsDBNull(4)) DBvyrobek = ""; else DBvyrobek = fbaseToUtf16(dr.GetString(4).Trim());
@@ -305,7 +305,7 @@ namespace Vydejna
             string DBJK;
             string DBnormaCSN;
             string DBjmeno;
-            int DBcislo;
+            string DBcislo;
             string DBdilna;
             string DBpracoviste;
             string DBvyrobek;
@@ -321,7 +321,7 @@ namespace Vydejna
             while (dr.Read())
             {
                 if (dr.IsDBNull(0)) DBjmeno = ""; else DBjmeno = fbaseToUtf16(dr.GetString(0).Trim());
-                if (dr.IsDBNull(1)) DBcislo = 0; else DBcislo = Convert.ToInt32(dr.GetDecimal(1));
+                if (dr.IsDBNull(1)) DBcislo = ""; else DBcislo = Convert.ToString(dr.GetDecimal(1));
                 if (dr.IsDBNull(2)) DBdilna = ""; else DBdilna = Convert.ToString(dr.GetDecimal(2));
                 if (dr.IsDBNull(3)) DBpracoviste = ""; else DBpracoviste = fbaseToUtf16(dr.GetString(3).Trim());
                 if (dr.IsDBNull(4)) DBvyrobek = ""; else DBvyrobek = fbaseToUtf16(dr.GetString(4).Trim());
