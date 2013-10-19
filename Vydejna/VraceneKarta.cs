@@ -102,7 +102,7 @@ namespace Vydejna
         {
             textBoxJmeno.Text = Convert.ToString(DBRow["krjmeno"]).Trim();
             textBoxPrijmeni.Text = Convert.ToString(DBRow["jmeno"]).Trim();
-            textBoxOsCislo.Text = Convert.ToString(DBRow["cislo"]);
+            textBoxOsCislo.Text = Convert.ToString(DBRow["oscislo"]);
             textBoxStredisko.Text = Convert.ToString(DBRow["dilna"]);
             textBoxProvoz.Text = Convert.ToString(DBRow["pracoviste"]);
             textBoxNazev.Text = Convert.ToString(DBRow["nazev"]);

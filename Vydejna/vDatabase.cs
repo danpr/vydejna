@@ -356,7 +356,7 @@ namespace Vydejna
         public virtual DataTable loadDataTablePoskozeno()
         {
             return loadDataTable("SELECT poradi, rtrim(nazev) as nazev, rtrim(jk) as jk,  pocetks, rtrim(rozmer) as rozmer, rtrim(csn) as csn,"
-                                     + " cena, datum, rtrim(vyrobek) as vyrobek, rtrim(konto) as konto, rtrim(jmeno) as jmeno, rtrim(krjmeno) as krjmeno, rtrim(cislo) as cislo, rtrim(dilna) as dilna, rtrim(pracoviste) as pracoviste"
+                                     + " cena, datum, rtrim(vyrobek) as vyrobek, rtrim(konto) as konto, rtrim(jmeno) as jmeno, rtrim(krjmeno) as krjmeno, rtrim(oscislo) as oscislo, rtrim(dilna) as dilna, rtrim(pracoviste) as pracoviste"
                                      + " from poskozeno ORDER BY datum");
         }
 
