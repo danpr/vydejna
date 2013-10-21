@@ -417,7 +417,7 @@ namespace Vydejna
         {
             if (DBRow == null) DBRow = new Hashtable();
 
-            string DBSelect = "SELECT * from osoby WHERE oscislo = " + oscislo;
+            string DBSelect = "SELECT * from osoby WHERE oscislo = \'" + oscislo + "\'";
             return getDBLine(DBSelect, DBRow);
 
         }

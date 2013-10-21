@@ -521,7 +521,7 @@ namespace Vydejna
                 string commandString5 = "SELECT poradi FROM tabseq WHERE nazev = 'poskozeno'";
                 string commandString6 = "UPDATE  tabseq set poradi = poradi +1 WHERE nazev = 'poskozeno'";
 
-                string commandString7 = "INSERT INTO poskozeno ( poradi, jmeno, cislo, dilna, pracoviste, vyrobek, nazev, jk, rozmer, pocetks, cena, datum, csn, krjmeno, celkcena, vevcislo, konto) " +
+                string commandString7 = "INSERT INTO poskozeno ( poradi, jmeno, oscislo, dilna, pracoviste, vyrobek, nazev, jk, rozmer, pocetks, cena, datum, csn, krjmeno, celkcena, vevcislo, konto) " +
                       "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
 
 
