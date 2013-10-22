@@ -593,12 +593,6 @@ namespace Vydejna
                     }
 
 
-
-
-
-
-
-
                 }
             }
         }
