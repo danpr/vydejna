@@ -1935,7 +1935,7 @@ namespace Vydejna
                         Int32 zustatek;
 
                         cmdr.Transaction = transaction;
-                        OdbcDataReader myReader = cmdr.ExecuteReader();
+                        SQLiteDataReader myReader = cmdr.ExecuteReader();
                         // true osCisloExist
                         if (myReader.Read() == true)
                         {
@@ -1974,29 +1974,29 @@ namespace Vydejna
                         cmd1.Transaction = transaction;
                         cmd1.ExecuteNonQuery();
 
-                        OdbcCommand cmd2 = new OdbcCommand(commandString2, myDBConn as OdbcConnection);
+                        SQLiteCommand cmd2 = new SQLiteCommand(commandString2, myDBConn as SQLiteConnection);
 
-                        OdbcParameter p1 = new OdbcParameter("p1", OdbcType.Int);
+                        SQLiteParameter p1 = new SQLiteParameter("p1", DbType.Int32);
                         p1.Value = DBporadi;
-                        OdbcParameter p2 = new OdbcParameter("p2", OdbcType.NChar);
+                        SQLiteParameter p2 = new SQLiteParameter("p2", DbType.String);
                         p2.Value = DBJK;
-                        OdbcParameter p3 = new OdbcParameter("p3", OdbcType.Date);
+                        SQLiteParameter p3 = new SQLiteParameter("p3", DbType.Date);
                         p3.Value = DBdatum;
-                        OdbcParameter p4 = new OdbcParameter("p4", OdbcType.NChar);
+                        SQLiteParameter p4 = new SQLiteParameter("p4", DbType.String);
                         p4.Value = DBpoznamka;
-                        OdbcParameter p5 = new OdbcParameter("p5", OdbcType.Int);
+                        SQLiteParameter p5 = new SQLiteParameter("p5", DbType.Int32);
                         p5.Value = 0;
-                        OdbcParameter p6 = new OdbcParameter("p6", OdbcType.Int);
+                        SQLiteParameter p6 = new SQLiteParameter("p6", DbType.Int32);
                         p6.Value = DBvydej;
-                        OdbcParameter p7 = new OdbcParameter("p7", OdbcType.Int);
+                        SQLiteParameter p7 = new SQLiteParameter("p7", DbType.Int32);
                         p7.Value = zustatek - DBvydej;
-                        OdbcParameter p8 = new OdbcParameter("p8", OdbcType.NChar);
+                        SQLiteParameter p8 = new SQLiteParameter("p8", DbType.String);
                         p8.Value = osCislo;
-                        OdbcParameter p9 = new OdbcParameter("p9", OdbcType.NChar);
+                        SQLiteParameter p9 = new SQLiteParameter("p9", DbType.String);
                         p9.Value = "";
-                        OdbcParameter p10 = new OdbcParameter("p10", OdbcType.Int);
+                        SQLiteParameter p10 = new SQLiteParameter("p10", DbType.Int32);
                         p10.Value = 0;
-                        OdbcParameter p11 = new OdbcParameter("p11", OdbcType.Int);
+                        SQLiteParameter p11 = new SQLiteParameter("p11", DbType.Int32);
                         p11.Value = poradi;
 
                         cmd2.Parameters.Add(p1);
@@ -2015,41 +2015,41 @@ namespace Vydejna
                         cmd2.ExecuteNonQuery();
 
                         // pridani radku do tabulky zruseneho materialu
-                        OdbcCommand cmd3 = new OdbcCommand(commandString7, myDBConn as OdbcConnection);
+                        SQLiteCommand cmd3 = new SQLiteCommand(commandString7, myDBConn as SQLiteConnection);
 
-                        OdbcParameter pz0 = new OdbcParameter("p0", OdbcType.Int);
+                        SQLiteParameter pz0 = new SQLiteParameter("p0", DbType.Int32);
                         pz0.Value = poradiPoskozeno;
-                        OdbcParameter pz1 = new OdbcParameter("p1", OdbcType.NChar); // prijmeni
+                        SQLiteParameter pz1 = new SQLiteParameter("p1", DbType.String); // prijmeni
                         pz1.Value = DBprijmeni;
-                        OdbcParameter pz2 = new OdbcParameter("p2", OdbcType.Int);
+                        SQLiteParameter pz2 = new SQLiteParameter("p2", DbType.Int32);
                         pz2.Value = osCislo;
-                        OdbcParameter pz3 = new OdbcParameter("p3", OdbcType.NChar);
+                        SQLiteParameter pz3 = new SQLiteParameter("p3", DbType.String);
                         pz3.Value = DBstredisko;
-                        OdbcParameter pz4 = new OdbcParameter("p4", OdbcType.NChar);
+                        SQLiteParameter pz4 = new SQLiteParameter("p4", DbType.String);
                         pz4.Value = DBprovoz;
-                        OdbcParameter pz5 = new OdbcParameter("p5", OdbcType.NChar);
+                        SQLiteParameter pz5 = new SQLiteParameter("p5", DbType.String);
                         pz5.Value = DBcisZak;
-                        OdbcParameter pz6 = new OdbcParameter("p6", OdbcType.NChar);
+                        SQLiteParameter pz6 = new SQLiteParameter("p6", DbType.String);
                         pz6.Value = DBnazev;
-                        OdbcParameter pz7 = new OdbcParameter("p7", OdbcType.NChar);
+                        SQLiteParameter pz7 = new SQLiteParameter("p7", DbType.String);
                         pz7.Value = DBJK;
-                        OdbcParameter pz8 = new OdbcParameter("p8", OdbcType.NChar);
+                        SQLiteParameter pz8 = new SQLiteParameter("p8", DbType.String);
                         pz8.Value = DBrozmer;
-                        OdbcParameter pz9 = new OdbcParameter("p9", OdbcType.Int);
+                        SQLiteParameter pz9 = new SQLiteParameter("p9", DbType.Int32);
                         pz9.Value = DBvydej;
-                        OdbcParameter pz10 = new OdbcParameter("p10", OdbcType.Double);
+                        SQLiteParameter pz10 = new SQLiteParameter("p10", DbType.Double);
                         pz10.Value = DBcena;
-                        OdbcParameter pz11 = new OdbcParameter("p11", OdbcType.Date);
+                        SQLiteParameter pz11 = new SQLiteParameter("p11", DbType.Date);
                         pz11.Value = DBdatum;
-                        OdbcParameter pz12 = new OdbcParameter("p12", OdbcType.NChar);
+                        SQLiteParameter pz12 = new SQLiteParameter("p12", DbType.String);
                         pz12.Value = DBcsn;
-                        OdbcParameter pz13 = new OdbcParameter("p13", OdbcType.NChar);
+                        SQLiteParameter pz13 = new SQLiteParameter("p13", DbType.String);
                         pz13.Value = DBjmeno;
-                        OdbcParameter pz14 = new OdbcParameter("p14", OdbcType.Double);
+                        SQLiteParameter pz14 = new SQLiteParameter("p14", DbType.Double);
                         pz14.Value = DBcelkCena;
-                        OdbcParameter pz15 = new OdbcParameter("p15", OdbcType.NChar);
+                        SQLiteParameter pz15 = new SQLiteParameter("p15", DbType.String);
                         pz15.Value = ""; // DBvevCislo;
-                        OdbcParameter pz16 = new OdbcParameter("p15", OdbcType.NChar);
+                        SQLiteParameter pz16 = new SQLiteParameter("p15", DbType.String);
                         pz16.Value = DBkonto;
 
                         cmd3.Parameters.Add(pz0);
@@ -2072,7 +2072,7 @@ namespace Vydejna
                         cmd3.Transaction = transaction;
                         cmd3.ExecuteNonQuery();
 
-                        OdbcCommand cmd4 = new OdbcCommand(commandString6, myDBConn as OdbcConnection);
+                        SQLiteCommand cmd4 = new SQLiteCommand(commandString6, myDBConn as SQLiteConnection);
                         cmd4.Transaction = transaction;
                         cmd4.ExecuteNonQuery();
 
@@ -2091,7 +2091,7 @@ namespace Vydejna
                     // doslo k chybe
                     if (transaction != null)
                     {
-                        (transaction as OdbcTransaction).Rollback();
+                        (transaction as SQLiteTransaction).Rollback();
                     }
                     return -1;  // chyba
                 }
