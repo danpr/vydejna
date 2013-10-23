@@ -1937,10 +1937,6 @@ namespace Vydejna
                         cmd4.Transaction = transaction;
                         cmd4.ExecuteNonQuery();
 
-                        if (transaction != null)
-                        {
-                            (transaction as SQLiteTransaction).Commit();
-                        }
 
                     }
                     else
@@ -1949,6 +1945,10 @@ namespace Vydejna
                         return -1;
                     }
 
+                   if (transaction != null)
+                   {
+                      (transaction as SQLiteTransaction).Commit();
+                   }
 
                 }
                 catch (Exception)

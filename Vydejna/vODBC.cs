@@ -825,9 +825,7 @@ namespace Vydejna
                     {
                         transaction = (myDBConn as OdbcConnection).BeginTransaction(System.Data.IsolationLevel.ReadCommitted);
                     }
-                    catch
-                    {
-                    }
+                    catch { }
 
                     Int32 maxporadi;
 
@@ -1074,6 +1072,11 @@ namespace Vydejna
                     cmd2.Transaction = transaction;
                     cmd2.ExecuteNonQuery();
 
+                    if (transaction != null)
+                    {
+                        (transaction as OdbcTransaction).Commit();
+                    }
+
 
                 }
                 catch (Exception)
@@ -1224,7 +1227,10 @@ namespace Vydejna
             {
                 try
                 {
-                    transaction = (myDBConn as OdbcConnection).BeginTransaction(System.Data.IsolationLevel.ReadCommitted);
+                    try
+                    {
+                        transaction = (myDBConn as OdbcConnection).BeginTransaction(System.Data.IsolationLevel.ReadCommitted);
+                    } catch { }
 
                     OdbcCommand cmd = new OdbcCommand(commandString2, myDBConn as OdbcConnection);
 
@@ -1277,8 +1283,8 @@ namespace Vydejna
                     cmd.Parameters.Add(p30);
 
                     cmd.Transaction = transaction;
-
                     cmd.ExecuteNonQuery();
+
                     if (transaction != null)
                     {
                         (transaction as OdbcTransaction).Commit();
@@ -1444,39 +1450,39 @@ namespace Vydejna
                         // pridani radku do tabulky zruseneho materialu
                         OdbcCommand cmd3 = new OdbcCommand(commandString7, myDBConn as OdbcConnection);
 
-                        OdbcParameter pz0 = new OdbcParameter("p0", OdbcType.Int);
+                        OdbcParameter pz0 = new OdbcParameter("pz0", OdbcType.Int);
                         pz0.Value = poradiPoskozeno;
-                        OdbcParameter pz1 = new OdbcParameter("p1", OdbcType.NChar); // prijmeni
+                        OdbcParameter pz1 = new OdbcParameter("pz1", OdbcType.NChar); // prijmeni
                         pz1.Value = DBprijmeni;
-                        OdbcParameter pz2 = new OdbcParameter("p2", OdbcType.Int);
+                        OdbcParameter pz2 = new OdbcParameter("pz2", OdbcType.Int);
                         pz2.Value = osCislo;
-                        OdbcParameter pz3 = new OdbcParameter("p3", OdbcType.NChar);
+                        OdbcParameter pz3 = new OdbcParameter("pz3", OdbcType.NChar);
                         pz3.Value = DBstredisko;
-                        OdbcParameter pz4 = new OdbcParameter("p4", OdbcType.NChar);
+                        OdbcParameter pz4 = new OdbcParameter("pz4", OdbcType.NChar);
                         pz4.Value = DBprovoz;
-                        OdbcParameter pz5 = new OdbcParameter("p5", OdbcType.NChar);
+                        OdbcParameter pz5 = new OdbcParameter("pz5", OdbcType.NChar);
                         pz5.Value = DBcisZak;
-                        OdbcParameter pz6 = new OdbcParameter("p6", OdbcType.NChar);
+                        OdbcParameter pz6 = new OdbcParameter("pz6", OdbcType.NChar);
                         pz6.Value = DBnazev;
-                        OdbcParameter pz7 = new OdbcParameter("p7", OdbcType.NChar);
+                        OdbcParameter pz7 = new OdbcParameter("pz7", OdbcType.NChar);
                         pz7.Value = DBJK;
-                        OdbcParameter pz8 = new OdbcParameter("p8", OdbcType.NChar);
+                        OdbcParameter pz8 = new OdbcParameter("pz8", OdbcType.NChar);
                         pz8.Value = DBrozmer;
-                        OdbcParameter pz9 = new OdbcParameter("p9", OdbcType.Int);
+                        OdbcParameter pz9 = new OdbcParameter("pz9", OdbcType.Int);
                         pz9.Value = DBvydej;
-                        OdbcParameter pz10 = new OdbcParameter("p10", OdbcType.Double);
+                        OdbcParameter pz10 = new OdbcParameter("pz10", OdbcType.Double);
                         pz10.Value = DBcena;
-                        OdbcParameter pz11 = new OdbcParameter("p11", OdbcType.Date);
+                        OdbcParameter pz11 = new OdbcParameter("pz11", OdbcType.Date);
                         pz11.Value = DBdatum;
-                        OdbcParameter pz12 = new OdbcParameter("p12", OdbcType.NChar);
+                        OdbcParameter pz12 = new OdbcParameter("pz12", OdbcType.NChar);
                         pz12.Value = DBcsn;
-                        OdbcParameter pz13 = new OdbcParameter("p13", OdbcType.NChar);
+                        OdbcParameter pz13 = new OdbcParameter("pz13", OdbcType.NChar);
                         pz13.Value = DBjmeno;
-                        OdbcParameter pz14 = new OdbcParameter("p14", OdbcType.Double);
+                        OdbcParameter pz14 = new OdbcParameter("pz14", OdbcType.Double);
                         pz14.Value = DBcelkCena;
-                        OdbcParameter pz15 = new OdbcParameter("p15", OdbcType.NChar);
+                        OdbcParameter pz15 = new OdbcParameter("pz15", OdbcType.NChar);
                         pz15.Value = ""; // DBvevCislo;
-                        OdbcParameter pz16 = new OdbcParameter("p15", OdbcType.NChar);
+                        OdbcParameter pz16 = new OdbcParameter("pz16", OdbcType.NChar);
                         pz16.Value = DBkonto;
 
                         cmd3.Parameters.Add(pz0);
@@ -1510,6 +1516,10 @@ namespace Vydejna
                         myReader2.Close();
                         return -1;
                     }
+                 if (transaction != null)
+                 {
+                     (transaction as OdbcTransaction).Commit();
+                 }
 
 
                 }
@@ -1545,8 +1555,11 @@ namespace Vydejna
             {
                 try
                 {
-                    transaction = (myDBConn as OdbcConnection).BeginTransaction(System.Data.IsolationLevel.ReadCommitted);
-
+                    try
+                    {
+                        transaction = (myDBConn as OdbcConnection).BeginTransaction(System.Data.IsolationLevel.ReadCommitted);
+                    }
+                    catch { }
                     OdbcCommand cmd = new OdbcCommand(commandString1, myDBConn as OdbcConnection);
 
                     OdbcParameter p1 = new OdbcParameter("p1", OdbcType.NChar);
@@ -1638,7 +1651,11 @@ namespace Vydejna
             {
                 try
                 {
-                    transaction = (myDBConn as OdbcConnection).BeginTransaction(System.Data.IsolationLevel.ReadCommitted);
+                    try
+                    {
+                        transaction = (myDBConn as OdbcConnection).BeginTransaction(System.Data.IsolationLevel.ReadCommitted);
+                    }
+                    catch { }
 
                     OdbcCommand cmd = new OdbcCommand(commandString1, myDBConn as OdbcConnection);
 
@@ -1730,8 +1747,11 @@ namespace Vydejna
             {
                 try
                 {
-                    transaction = (myDBConn as OdbcConnection).BeginTransaction(System.Data.IsolationLevel.ReadCommitted);
-
+                    try
+                    {
+                        transaction = (myDBConn as OdbcConnection).BeginTransaction(System.Data.IsolationLevel.ReadCommitted);
+                    }
+                    catch { }
                     OdbcCommand cmd = new OdbcCommand(commandString2, myDBConn as OdbcConnection);
 
                     OdbcParameter p1 = new OdbcParameter("p1", OdbcType.NChar);
@@ -1822,8 +1842,11 @@ namespace Vydejna
             {
                 try
                 {
-                    transaction = (myDBConn as OdbcConnection).BeginTransaction(System.Data.IsolationLevel.ReadCommitted);
-
+                    try
+                    {
+                        transaction = (myDBConn as OdbcConnection).BeginTransaction(System.Data.IsolationLevel.ReadCommitted);
+                    }
+                    catch { }
 
                     OdbcCommand cmd = new OdbcCommand(commandString2, myDBConn as OdbcConnection);
 
