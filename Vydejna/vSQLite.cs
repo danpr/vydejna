@@ -1972,7 +1972,7 @@ namespace Vydejna
             if (DBRow == null) DBRow = new Hashtable();
 
             string DBSelect = "SELECT n.poradi, n.fyzstav as fyzstav, n.ucetstav as ucetstav, z.zustatek as zmeny_zustatek FROM naradi  n, zmeny z " +
-                              "WHERE z.poradi = (SELECT MAX(s.poradi) FROM zmeny s WHERE z.parporadi = s.parporadi GROUP BY s.parporadi) " +
+                              "WHERE z.poradi = (SELECT MAX(s.poradi) FROM zmeny s WHERE s.parporadi = " + poradi.ToString() +" GROUP BY s.parporadi) " +
                               "AND z.parporadi = n.poradi and z.parporadi = " + poradi.ToString();
 
             return getDBLine(DBSelect, DBRow);

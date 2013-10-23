@@ -241,6 +241,8 @@ namespace Vydejna
         }
 
 
+
+
         public virtual Boolean editNewLineNaradi(Int32 poradi, string DBnazev, string DBJK, string DBnormacsn, string DBnormadin,
                                          string DBvyrobce, decimal DBcena, string DBpoznamka, long DBminstav,
                                          decimal DBcelkcena, long DBucetstav, long DBfyzstav,
@@ -248,6 +250,9 @@ namespace Vydejna
         {
             return false;
         }
+
+
+
 
         public virtual Boolean editNewLinePoskozene(Int32 poradi, string DBkrjmeno, string DBjmeno, string DBosCislo, string DBdilna,
                                          string DBprovoz, string DBnazev, string DBJK, long DBpocetKS,
@@ -274,6 +279,17 @@ namespace Vydejna
         {
             return false;
         }
+
+
+        public virtual Int32 moveNaraddiToNewKaret(string DBnazev, string DBJK, string DBnormacsn, string DBnormadin,
+                                         string DBvyrobce, double DBcena, string DBpoznamka, int DBminstav,
+                                         double DBcelkcena, int DBucetstav, int DBfyzstav,
+                                         string DBrozmer, string DBanalucet, DateTime DBdate, string DBstredisko,
+                                         string DBkodzmeny, string DBdruhp, string DBodpis, string DBzavod)
+        {
+            return 0;
+        }
+
 
 
         public virtual Boolean editNewLineKaret(Int32 poradi, string DBnazev, string DBJK, string DBnormacsn, string DBnormadin,
