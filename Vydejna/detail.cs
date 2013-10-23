@@ -162,6 +162,20 @@ namespace Vydejna
         }
 
 
+        public override void zrusKartu(Hashtable DBRow, vDatabase myDataBase)
+        {
+            if (MessageBox.Show("Opravdu chcete zrušit kartu ?", "Zrušení karty", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                // zrusime kartu
+
+
+            }
+
+         
+        }
+
+
+
         public override void Prijem(Hashtable DBRow, vDatabase myDataBase, DataGridView myDataGridView)
         {
             if ((myDataBase != null) && (myDataBase.DBIsOpened()))
