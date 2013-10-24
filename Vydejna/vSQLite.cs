@@ -1610,6 +1610,70 @@ namespace Vydejna
         }
 
 
+        public override Boolean moveNaraddiToNewKaret(Int32 DBporadi)
+        {
+            SQLiteTransaction transaction = null;
+
+            if (DBIsOpened())
+            {
+                string commandString2 = "DELETE FROM naradi  where poradi = ? ";
+
+
+                string commandString1 = "INSERT INTO karta ( poradi, nazev, jk, normacsn, normadin, vyrobce, cena, poznamka, minimum, celkcena, ucetstav, fyzstav, rozmer, analucet, tdate, stredisko, kodzmeny, druh, odpis, zavod ) " +
+                      "SELECT poradi, nazev, jk, normacsn, normadin, vyrobce, cena, poznamka, minimum, celkcena, ucetstav, fyzstav, rozmer, analucet, tdate, stredisko, kodzmeny, druh, odpis, zavod FROM naradi WHERE poradi = ?";
+
+
+                try
+                {
+                    try
+                    {
+                        transaction = (myDBConn as SQLiteConnection).BeginTransaction(System.Data.IsolationLevel.ReadCommitted);
+                    }
+                    catch
+                    {
+                    }
+
+                    SQLiteCommand cmd1 = new SQLiteCommand(commandString1, myDBConn as SQLiteConnection);
+                    SQLiteParameter p1 = new SQLiteParameter("p1", DbType.Int32);
+                    p1.Value = DBporadi;
+                    cmd1.Parameters.Add(p1);
+
+                    cmd1.Transaction = transaction;
+                    cmd1.ExecuteNonQuery();
+
+
+
+                    SQLiteCommand cmd2 = new SQLiteCommand(commandString2, myDBConn as SQLiteConnection);
+                    SQLiteParameter p2 = new SQLiteParameter("p2", DbType.Int32);
+                    p2.Value = DBporadi;
+                    cmd2.Parameters.Add(p2);
+
+                    cmd2.Transaction = transaction;
+                    cmd2.ExecuteNonQuery();
+
+                    if (transaction != null)
+                    {
+                        (transaction as SQLiteTransaction).Commit();
+                    }
+
+
+                }
+                catch (Exception)
+                {
+                    // doslo k chybe
+                    if (transaction != null)
+                    {
+                        (transaction as SQLiteTransaction).Rollback();
+                    }
+                    return false;  // chyba
+                }
+                return true;  // ok
+            }
+            return false;  // database neni otevrena
+        }
+
+
+
         // pridani nove polozky do tabulky zmeny
         public override Int32 addNewLineZmeny(Int32 DBporadi, string DBJK, DateTime DBdatum, Int32 DBprijem, Int32 DBvydej, string DBpoznamka)
         {
