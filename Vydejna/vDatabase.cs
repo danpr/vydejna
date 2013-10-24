@@ -281,13 +281,9 @@ namespace Vydejna
         }
 
 
-        public virtual Int32 moveNaraddiToNewKaret(string DBnazev, string DBJK, string DBnormacsn, string DBnormadin,
-                                         string DBvyrobce, double DBcena, string DBpoznamka, int DBminstav,
-                                         double DBcelkcena, int DBucetstav, int DBfyzstav,
-                                         string DBrozmer, string DBanalucet, DateTime DBdate, string DBstredisko,
-                                         string DBkodzmeny, string DBdruhp, string DBodpis, string DBzavod)
+        public virtual Boolean moveNaraddiToNewKaret(Int32 DBporadi)
         {
-            return 0;
+            return false;
         }
 
 

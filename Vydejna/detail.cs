@@ -168,6 +168,14 @@ namespace Vydejna
             {
                 // zrusime kartu
 
+                if (myDataBase.moveNaraddiToNewKaret(Convert.ToInt32(DBRow["poradi"])))
+                {
+                    // smazeme z obrazovky
+                }
+                else
+                {
+                    MessageBox.Show("Zrušení karty se nezdařilo.");
+                }
 
             }
 
