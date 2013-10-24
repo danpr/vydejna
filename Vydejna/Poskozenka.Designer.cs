@@ -140,6 +140,7 @@
             // textBoxOsCislo
             // 
             this.textBoxOsCislo.Location = new System.Drawing.Point(127, 49);
+            this.textBoxOsCislo.MaxLength = 8;
             this.textBoxOsCislo.Name = "textBoxOsCislo";
             this.textBoxOsCislo.Size = new System.Drawing.Size(120, 20);
             this.textBoxOsCislo.TabIndex = 2;
@@ -313,6 +314,7 @@
             // textBoxCisZak
             // 
             this.textBoxCisZak.Location = new System.Drawing.Point(139, 168);
+            this.textBoxCisZak.MaxLength = 15;
             this.textBoxCisZak.Name = "textBoxCisZak";
             this.textBoxCisZak.Size = new System.Drawing.Size(120, 20);
             this.textBoxCisZak.TabIndex = 1;
@@ -321,6 +323,7 @@
             // textBoxKonto
             // 
             this.textBoxKonto.Location = new System.Drawing.Point(139, 194);
+            this.textBoxKonto.MaxLength = 15;
             this.textBoxKonto.Name = "textBoxKonto";
             this.textBoxKonto.Size = new System.Drawing.Size(120, 20);
             this.textBoxKonto.TabIndex = 2;
@@ -403,6 +406,7 @@
             // textBoxPoznamka
             // 
             this.textBoxPoznamka.Location = new System.Drawing.Point(139, 342);
+            this.textBoxPoznamka.MaxLength = 22;
             this.textBoxPoznamka.Name = "textBoxPoznamka";
             this.textBoxPoznamka.Size = new System.Drawing.Size(452, 20);
             this.textBoxPoznamka.TabIndex = 36;

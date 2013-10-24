@@ -957,7 +957,7 @@ namespace Vydejna
         private void ConMenuDeleteItem(object sender, EventArgs e)
         {
             // smazani polozky
-            karta.zrusKartu(DBRow, myDB);
+            karta.zrusKartu(DBRow, myDB, dataGridView1);
         }
 
         private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)

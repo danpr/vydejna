@@ -27,7 +27,7 @@ namespace Vydejna
             MessageBox.Show("Není implementováno.");
         }
 
-        public virtual void zrusKartu(Hashtable DBRow, vDatabase myDataBase)
+        public virtual void zrusKartu(Hashtable DBRow, vDatabase myDataBase, DataGridView myDataGridView)
         {
             MessageBox.Show("Není implementováno.");
         }
@@ -162,15 +162,31 @@ namespace Vydejna
         }
 
 
-        public override void zrusKartu(Hashtable DBRow, vDatabase myDataBase)
+        public override void zrusKartu(Hashtable DBRow, vDatabase myDataBase, DataGridView myDataGridView)
         {
             if (MessageBox.Show("Opravdu chcete zrušit kartu ?", "Zrušení karty", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 // zrusime kartu
+                Int32 poradi = Convert.ToInt32(DBRow["poradi"]);
 
-                if (myDataBase.moveNaraddiToNewKaret(Convert.ToInt32(DBRow["poradi"])))
+                if (myDataBase.moveNaraddiToNewKaret(poradi))
                 {
                     // smazeme z obrazovky
+                    // je potreba najit index v datove tabulce - po trideni neni schodny s indexem ve view
+                    Int32 dataRowIndex = -1;
+                    for (int x = 0; x < (myDataGridView.DataSource as DataTable).Rows.Count - 1; x++)
+                    {
+                        if (Convert.ToInt32((myDataGridView.DataSource as DataTable).Rows[x][0]) == poradi)
+                        {
+                            dataRowIndex = x;
+                            break;
+                        }
+                    }
+                    if (dataRowIndex != -1)
+                    {
+                        // smazeme radku
+                        (myDataGridView.DataSource as DataTable).Rows.RemoveAt(dataRowIndex);
+                    }
                 }
                 else
                 {
