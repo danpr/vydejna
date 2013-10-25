@@ -10,15 +10,21 @@ using System.Windows.Forms;
 
 namespace Vydejna
 {
+
     public partial class VyberRadku : Form
     {
+        public vDatabase myDataBase;
+        
         public VyberRadku(vDatabase myDataBase)
         {
+            this.myDataBase = myDataBase;
+
             InitializeComponent();
 
             dataGridView2.MultiSelect = false;
             dataGridView2.ReadOnly = true;
 
+            dataGridView2.ContextMenuStrip = contextMenuStrip1;
 
             Application.DoEvents();
             dataGridView2.Columns.Clear();
@@ -107,6 +113,93 @@ namespace Vydejna
             buttonOK.DialogResult = DialogResult.OK;
             this.DialogResult = DialogResult.OK;
             Close();
+
+        }
+
+        private void přidatPoložkuToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if ((myDataBase != null) && (myDataBase.DBIsOpened()))
+            {
+                PracovniciKarta pracKarta = new PracovniciKarta(myDataBase);
+                if (pracKarta.ShowDialog() == DialogResult.OK)
+                {
+
+                    PracovniciKarta.messager mesenger = pracKarta.getMesseger();
+                    Int32 stav = myDataBase.addNewLineOsoby(mesenger.prijmeni, mesenger.jmeno, mesenger.ulice, mesenger.mesto, mesenger.psc, mesenger.telHome, mesenger.oscislo, mesenger.stredisko, mesenger.cisZnamky, mesenger.oddeleni, mesenger.pracoviste, mesenger.telZam, mesenger.poznamka);
+                    if (stav != -1)
+                    {
+                        (dataGridView2.DataSource as DataTable).Rows.Add(mesenger.prijmeni, mesenger.jmeno, mesenger.oscislo, mesenger.oddeleni, mesenger.stredisko, mesenger.pracoviste, mesenger.cisZnamky, mesenger.ulice, mesenger.psc, mesenger.mesto, mesenger.telHome, mesenger.telZam, mesenger.poznamka);
+                        int counter = dataGridView2.Rows.Count - 1;
+
+                        dataGridView2.FirstDisplayedScrollingRowIndex = dataGridView2.Rows[counter].Index;
+                        dataGridView2.Refresh();
+                        dataGridView2.CurrentCell = dataGridView2.Rows[counter].Cells[1];
+                        dataGridView2.Rows[counter].Selected = true;
+                    }
+
+                }
+            }
+
+
+
+        }
+
+        private void opravitPoložkuToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            Hashtable DBRow = getDBRowFromSelectedRow(null);
+
+            PracovniciKarta pracKarta = new PracovniciKarta(DBRow, myDataBase, uKartaState.edit);
+            if (pracKarta.ShowDialog() == DialogResult.OK)
+            {
+                PracovniciKarta.messager mesenger = pracKarta.getMesseger();
+
+
+                Boolean updateIsOk = myDataBase.editNewLineOsoby(mesenger.prijmeni, mesenger.jmeno, mesenger.ulice, mesenger.mesto,
+                                             mesenger.psc, mesenger.telHome, mesenger.oscislo, mesenger.stredisko,
+                                             mesenger.cisZnamky, mesenger.oddeleni, mesenger.pracoviste, mesenger.telZam, mesenger.poznamka);
+                if (updateIsOk)
+                {
+                    // je potreba najit index v datove tabulce - po trideni neni schodny s indexem ve view
+                    Int32 dataRowIndex = -1;
+                    for (int x = 0; x < (dataGridView2.DataSource as DataTable).Rows.Count - 1; x++)
+                    {
+                        if (Convert.ToString((dataGridView2.DataSource as DataTable).Rows[x][2]) == mesenger.oscislo)
+                        {
+                            dataRowIndex = x;
+                            break;
+                        }
+
+                    }
+
+                    if (dataRowIndex > -1)
+                    {
+                        (dataGridView2.DataSource as DataTable).Rows[dataRowIndex].SetField(0, mesenger.prijmeni);
+                        (dataGridView2.DataSource as DataTable).Rows[dataRowIndex].SetField(1, mesenger.jmeno);
+
+                        (dataGridView2.DataSource as DataTable).Rows[dataRowIndex].SetField(2, mesenger.oscislo);
+                        (dataGridView2.DataSource as DataTable).Rows[dataRowIndex].SetField(3, mesenger.oddeleni);
+
+                        (dataGridView2.DataSource as DataTable).Rows[dataRowIndex].SetField(4, mesenger.stredisko);
+                        (dataGridView2.DataSource as DataTable).Rows[dataRowIndex].SetField(5, mesenger.pracoviste);
+                        (dataGridView2.DataSource as DataTable).Rows[dataRowIndex].SetField(6, mesenger.cisZnamky);
+                        (dataGridView2.DataSource as DataTable).Rows[dataRowIndex].SetField(7, mesenger.ulice);
+                        (dataGridView2.DataSource as DataTable).Rows[dataRowIndex].SetField(8, mesenger.psc);
+                        (dataGridView2.DataSource as DataTable).Rows[dataRowIndex].SetField(9, mesenger.mesto);
+                        (dataGridView2.DataSource as DataTable).Rows[dataRowIndex].SetField(10, mesenger.telHome);
+                        (dataGridView2.DataSource as DataTable).Rows[dataRowIndex].SetField(11, mesenger.telZam);
+                        (dataGridView2.DataSource as DataTable).Rows[dataRowIndex].SetField(12, mesenger.poznamka);
+
+                        dataGridView2.Refresh();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Nepodařilo se opravit záznam. Lituji.");
+                    }
+                }
+
+
+            }
 
         }
     }

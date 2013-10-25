@@ -938,17 +938,6 @@ namespace Vydejna
             if ( dataGridView1.SelectedRows.Count > 0)
             {
                 DBRow = getDBRowFromSelectedRow(DBRow);
-                //int index
-//               DataGridViewRow myRow = dataGridView1.SelectedRows[0];
-
-//               for (int i = 0; i < dataGridView1.ColumnCount; i++)
-///                {
-//                    if (DBRow.ContainsKey(dataGridView1.Columns[i].Name))
-//                    {
-//                        DBRow.Remove(dataGridView1.Columns[i].Name);
-//                    }
-//                    DBRow.Add(dataGridView1.Columns[i].Name,myRow.Cells[i].Value);
-//                }
                 karta.opravKartu(DBRow, myDB, dataGridView1);
             }
 

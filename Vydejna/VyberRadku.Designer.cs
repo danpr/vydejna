@@ -28,10 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonOK = new System.Windows.Forms.Button();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.přidatPoložkuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.opravitPoložkuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.smazatPoložkuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
+            this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // dataGridView2
@@ -73,6 +79,35 @@
             this.buttonOK.UseVisualStyleBackColor = true;
             this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
             // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.přidatPoložkuToolStripMenuItem,
+            this.opravitPoložkuToolStripMenuItem,
+            this.smazatPoložkuToolStripMenuItem});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(159, 92);
+            // 
+            // přidatPoložkuToolStripMenuItem
+            // 
+            this.přidatPoložkuToolStripMenuItem.Name = "přidatPoložkuToolStripMenuItem";
+            this.přidatPoložkuToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
+            this.přidatPoložkuToolStripMenuItem.Text = "Přidat položku";
+            this.přidatPoložkuToolStripMenuItem.Click += new System.EventHandler(this.přidatPoložkuToolStripMenuItem_Click);
+            // 
+            // opravitPoložkuToolStripMenuItem
+            // 
+            this.opravitPoložkuToolStripMenuItem.Name = "opravitPoložkuToolStripMenuItem";
+            this.opravitPoložkuToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
+            this.opravitPoložkuToolStripMenuItem.Text = "Opravit položku";
+            this.opravitPoložkuToolStripMenuItem.Click += new System.EventHandler(this.opravitPoložkuToolStripMenuItem_Click);
+            // 
+            // smazatPoložkuToolStripMenuItem
+            // 
+            this.smazatPoložkuToolStripMenuItem.Name = "smazatPoložkuToolStripMenuItem";
+            this.smazatPoložkuToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
+            this.smazatPoložkuToolStripMenuItem.Text = "Smazat položku";
+            // 
             // VyberRadku
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -84,6 +119,7 @@
             this.Name = "VyberRadku";
             this.Text = "VyberRadku";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
+            this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -93,5 +129,9 @@
         private System.Windows.Forms.DataGridView dataGridView2;
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.Button buttonOK;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem přidatPoložkuToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem opravitPoložkuToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem smazatPoložkuToolStripMenuItem;
     }
 }
