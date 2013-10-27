@@ -35,7 +35,6 @@ namespace Vydejna
             {
                 try
                 {
-                    //myDB.loadDataTableOsoby(myDataTable);
                     dataGridView2.DataSource = myDataBase.loadDataTableOsoby();
                     dataGridView2.RowHeadersVisible = false;
 

@@ -300,7 +300,6 @@ namespace Vydejna
             {
                 try
                 {
-                    //myDB.loadDataTableOsoby(myDataTable);
                     dataGridView1.DataSource = myDB.loadDataTableOsoby();
                     dataGridView1.RowHeadersVisible = false;
 
