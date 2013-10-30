@@ -1439,7 +1439,7 @@ namespace Vydejna
                                          decimal DBcelkcena, long DBucetstav, long DBfyzstav,
                                          string DBrozmer, string DBanalucet)
         {
-            string commandString2 = "UPDATE naradi set nazev = ?, jk = ?, normacsn = ?, normadin = ?, vyrobce = ?, cena = ?, poznamka = ?, minimum = ?, celkcena = ?,  ucetstav = ?, fyzstav = ?, rozmer = ?, analucet = ?" +
+            string commandString2 = "UPDATE karta set nazev = ?, jk = ?, normacsn = ?, normadin = ?, vyrobce = ?, cena = ?, poznamka = ?, minimum = ?, celkcena = ?,  ucetstav = ?, fyzstav = ?, rozmer = ?, analucet = ?" +
                                      "where  poradi = ?";
 
             SQLiteTransaction transaction = null;
@@ -1519,6 +1519,57 @@ namespace Vydejna
 
             return true;
         }
+
+
+
+        public override Boolean deleteLineKaret(Int32 poradi)
+        {
+            SQLiteTransaction transaction = null;
+
+            if (DBIsOpened())
+            {
+                string commandString1 = "DELETE FROM karta WHERE poradi = ? ";
+
+                try
+                {
+                    try
+                    {
+                        transaction = (myDBConn as SQLiteConnection).BeginTransaction(System.Data.IsolationLevel.ReadCommitted);
+                    }
+                    catch
+                    {
+                    }
+
+                    //zrusime
+                    SQLiteCommand cmd1 = new SQLiteCommand(commandString1, myDBConn as SQLiteConnection);
+                    SQLiteParameter p1 = new SQLiteParameter("p1", DbType.Int32);
+                    p1.Value = poradi;
+                    cmd1.Parameters.Add(p1);
+
+                    cmd1.Transaction = transaction;
+                    cmd1.ExecuteNonQuery();
+
+                    if (transaction != null)
+                    {
+                        (transaction as SQLiteTransaction).Commit();
+                    }
+
+                }
+                catch (Exception)
+                {
+                    // doslo k chybe
+                    if (transaction != null)
+                    {
+                        (transaction as SQLiteTransaction).Rollback();
+                    }
+                    return false;  // chyba
+                }
+                return true;  // ok
+            }
+            return false;  // database neni otevrena
+
+        }
+
 
 
 

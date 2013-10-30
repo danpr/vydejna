@@ -297,6 +297,13 @@ namespace Vydejna
         }
 
 
+        public virtual Boolean deleteLineKaret(Int32 poradi)
+        {
+            return false;
+        }
+
+
+
         public virtual Int32 addNewLineOsoby(string DBprijmeni, string DBjmeno, string DBulice, string DBmesto,
                                          string DBpsc, string DBtelHome, string DBosCislo, string DBstredisko,
                                          string DBcisZnamky, string DBoddeleni, string DBpracoviste, string DBtelZam,

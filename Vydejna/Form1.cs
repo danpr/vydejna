@@ -945,7 +945,11 @@ namespace Vydejna
         private void ConMenuDeleteItem(object sender, EventArgs e)
         {
             // smazani polozky
-            karta.zrusKartu(DBRow, myDB, dataGridView1);
+            if (dataGridView1.SelectedRows.Count > 0)
+            {
+                DBRow = getDBRowFromSelectedRow(DBRow);
+                karta.zrusKartu(DBRow, myDB, dataGridView1);
+            }
         }
 
         private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
@@ -969,8 +973,11 @@ namespace Vydejna
 
         private void conMenuDelMat_Click(object sender, EventArgs e)
         {
-            DBRow = getDBRowFromSelectedRow(DBRow);
-            karta.Poskozeno(DBRow, myDB, dataGridView1);
+            if (dataGridView1.SelectedRows.Count > 0)
+            {
+                DBRow = getDBRowFromSelectedRow(DBRow);
+                karta.Poskozeno(DBRow, myDB, dataGridView1);
+            }
         }
 
 

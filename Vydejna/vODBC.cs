@@ -1315,11 +1315,10 @@ namespace Vydejna
 
             if (DBIsOpened())
             {
-                string commandString2 = "DELETE FROM naradi  where poradi = ? ";
-
-
                 string commandString1 = "INSERT INTO karta ( poradi, nazev, jk, normacsn, normadin, vyrobce, cena, poznamka, minimum, celkcena, ucetstav, fyzstav, rozmer, analucet, tdate, stredisko, kodzmeny, druh, odpis, zavod ) " +
                       "SELECT poradi, nazev, jk, normacsn, normadin, vyrobce, cena, poznamka, minimum, celkcena, ucetstav, fyzstav, rozmer, analucet, tdate, stredisko, kodzmeny, druh, odpis, zavod FROM naradi WHERE poradi = ?";
+
+                string commandString2 = "DELETE FROM naradi  where poradi = ? ";
 
 
                 try
@@ -1332,6 +1331,7 @@ namespace Vydejna
                     {
                     }
 
+                    // prekopirujeme
                     OdbcCommand cmd1 = new OdbcCommand(commandString1, myDBConn as OdbcConnection);
                     OdbcParameter p1 = new OdbcParameter("p1", OdbcType.Int);
                     p1.Value = DBporadi;
@@ -1340,8 +1340,7 @@ namespace Vydejna
                     cmd1.Transaction = transaction;
                     cmd1.ExecuteNonQuery();
 
-
-
+                    //zrusime
                     OdbcCommand cmd2 = new OdbcCommand(commandString2, myDBConn as OdbcConnection);
                     OdbcParameter p2 = new OdbcParameter("p2", OdbcType.Int);
                     p2.Value = DBporadi;
@@ -1349,6 +1348,7 @@ namespace Vydejna
 
                     cmd2.Transaction = transaction;
                     cmd2.ExecuteNonQuery();
+
 
                     if (transaction != null)
                     {
@@ -1802,7 +1802,7 @@ namespace Vydejna
                                          decimal DBcelkcena, long DBucetstav, long DBfyzstav,
                                          string DBrozmer, string DBanalucet)
         {
-            string commandString2 = "UPDATE naradi set nazev = ?, jk = ?, normacsn = ?, normadin = ?, vyrobce = ?, cena = ?, poznamka = ?, minimum = ?, celkcena = ?,  ucetstav = ?, fyzstav = ?, rozmer = ?, analucet = ?" +
+            string commandString2 = "UPDATE karta set nazev = ?, jk = ?, normacsn = ?, normadin = ?, vyrobce = ?, cena = ?, poznamka = ?, minimum = ?, celkcena = ?,  ucetstav = ?, fyzstav = ?, rozmer = ?, analucet = ?" +
                             "where  poradi = ?";
 
             OdbcTransaction transaction = null;
@@ -1888,6 +1888,55 @@ namespace Vydejna
             return true;
 
         }
+
+        public override Boolean deleteLineKaret(Int32 poradi)
+        {
+            OdbcTransaction transaction = null;
+
+            if (DBIsOpened())
+            {
+                string commandString1 = "DELETE FROM karta WHERE poradi = ? ";
+
+                try
+                {
+                    try
+                    {
+                        transaction = (myDBConn as OdbcConnection).BeginTransaction(System.Data.IsolationLevel.ReadCommitted);
+                    }
+                    catch
+                    {
+                    }
+
+                    //zrusime
+                    OdbcCommand cmd1 = new OdbcCommand(commandString1, myDBConn as OdbcConnection);
+                    OdbcParameter p1 = new OdbcParameter("p1", OdbcType.Int);
+                    p1.Value = poradi;
+                    cmd1.Parameters.Add(p1);
+
+                    cmd1.Transaction = transaction;
+                    cmd1.ExecuteNonQuery();
+
+                    if (transaction != null)
+                    {
+                        (transaction as OdbcTransaction).Commit();
+                    }
+
+                }
+                catch (Exception)
+                {
+                    // doslo k chybe
+                    if (transaction != null)
+                    {
+                        (transaction as OdbcTransaction).Rollback();
+                    }
+                    return false;  // chyba
+                }
+                return true;  // ok
+            }
+            return false;  // database neni otevrena
+
+        }
+
 
 
         public override Boolean editNewLineOsoby(string DBprijmeni, string DBjmeno, string DBulice, string DBmesto,
