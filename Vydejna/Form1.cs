@@ -661,7 +661,7 @@ namespace Vydejna
             Application.DoEvents();
             loadOsobyItems();
             karta = new detailOsoby();
-            contextMenuEnable(true);
+            contextMenuEnable(true,false,false,true);
             labelView.Text = "Pracovníci provozu";
         }
 
@@ -875,7 +875,7 @@ namespace Vydejna
         }
 
 
-        private void contextMenuEnable(Boolean useAdd, Boolean useMatAdd = false, Boolean useMatDel = false)
+        private void contextMenuEnable(Boolean useAdd, Boolean useMatAdd = false, Boolean useMatDel = false, Boolean useNaradiPujc =false)
         {
             if (useAdd)
             {
@@ -897,6 +897,7 @@ namespace Vydejna
                 contextMenuStrip1.Items[3].Enabled = false;
                 contextMenuStrip1.Items[3].Visible = false;
             }
+
             if (useMatDel)
             {
                 contextMenuStrip1.Items[4].Enabled = true;
@@ -908,8 +909,16 @@ namespace Vydejna
                 contextMenuStrip1.Items[4].Visible = false;
             }
 
-
-
+            if (useNaradiPujc)
+            {
+                contextMenuStrip1.Items[5].Enabled = true;
+                contextMenuStrip1.Items[5].Visible = true;
+            }
+            else
+            {
+                contextMenuStrip1.Items[5].Enabled = false;
+                contextMenuStrip1.Items[5].Visible = false;
+            }
 
             contextMenuStrip1.Enabled = true;
             dataGridView1.ContextMenuStrip = contextMenuStrip1;
@@ -977,6 +986,15 @@ namespace Vydejna
             {
                 DBRow = getDBRowFromSelectedRow(DBRow);
                 karta.Poskozeno(DBRow, myDB, dataGridView1);
+            }
+        }
+
+        private void ConMenuPujcNaradi_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.SelectedRows.Count > 0)
+            {
+                DBRow = getDBRowFromSelectedRow(DBRow);
+                karta.Zapujceno(DBRow, myDB);
             }
         }
 

@@ -42,6 +42,12 @@ namespace Vydejna
             MessageBox.Show("Není implementováno.");
         }
 
+
+        public virtual void Zapujceno(Hashtable DBRow, vDatabase myDataBase)
+        {
+            MessageBox.Show("Není implementováno.");
+        }
+
     
     }
 
@@ -675,6 +681,17 @@ namespace Vydejna
             }
         }
 
+        public override void Zapujceno(Hashtable DBRow, vDatabase myDataBase)
+        {
+            if ((myDataBase != null) && (myDataBase.DBIsOpened()))
+            {
+                ZapujceneNaradiKarta zapujcKarta = new ZapujceneNaradiKarta();// (DBRow, myDataBase, uKartaState.edit);
+                if (zapujcKarta.ShowDialog() == DialogResult.OK)
+                {
+                    MessageBox.Show("Není dopracovano.");
+                }
+            }
+        }
 
 
     }
