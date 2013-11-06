@@ -769,11 +769,11 @@ namespace Vydejna
 
         public override void addLineZmeny(int DBparPoradi, string DBpomocJK, DateTime DBdatum, string DBpoznamka, int DBPrijem,
                                          int DBvydej, int DBzustatek, string DBzapKarta, string DBvevCislo,
-                                         int DBpocIvc, int DBporadi)
+                                         int DBpocIvc, string DBstav, int DBporadi)
         {
 
-            string commandString = "INSERT INTO zmeny ( parporadi, pomozjk, datum, poznamka, prijem, vydej, zustatek, zapkarta, vevcislo, pocivc, poradi )" +
-                  "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
+            string commandString = "INSERT INTO zmeny ( parporadi, pomozjk, datum, poznamka, prijem, vydej, zustatek, zapkarta, vevcislo, pocivc, stav, poradi )" +
+                  "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
 
 
             //    string commandStringZmeny = "create table zmeny ( pomozjk char(15), datum date, poznamka char(22)," +
@@ -808,18 +808,10 @@ namespace Vydejna
                 p8.Value = DBvevCislo;
                 SQLiteParameter p9 = new SQLiteParameter("p9", DbType.Int64);
                 p9.Value = DBpocIvc;
-//                SQLiteParameter p10 = new SQLiteParameter("p10", DbType.String);
-//                p10.Value = DBcontrCod;
-//                SQLiteParameter p11 = new SQLiteParameter("p11", DbType.String);
-//                p11.Value = DBdosudNvrc;
-//                SQLiteParameter p12 = new SQLiteParameter("p12", DbType.String);
-//                p12.Value = DBprijTyp;
-//                SQLiteParameter p13 = new SQLiteParameter("p13", DbType.String);
-//                p13.Value = DBvydejTyp;
+                SQLiteParameter p10 = new SQLiteParameter("p10", DbType.String);
+                p10.Value = DBstav;
                 SQLiteParameter p14 = new SQLiteParameter("p14", DbType.Int64);
                 p14.Value = DBporadi;
-//                SQLiteParameter p15 = new SQLiteParameter("p15", DbType.String);
-//                p15.Value = DBstav;
 
                 cmd.Parameters.Add(p0);
                 cmd.Parameters.Add(p1);
@@ -831,12 +823,8 @@ namespace Vydejna
                 cmd.Parameters.Add(p7);
                 cmd.Parameters.Add(p8);
                 cmd.Parameters.Add(p9);
-//                cmd.Parameters.Add(p10);
-//                cmd.Parameters.Add(p11);
-//                cmd.Parameters.Add(p12);
-//                cmd.Parameters.Add(p13);
+                cmd.Parameters.Add(p10);
                 cmd.Parameters.Add(p14);
-//                cmd.Parameters.Add(p15);
                 cmd.ExecuteNonQuery();
             }
         }

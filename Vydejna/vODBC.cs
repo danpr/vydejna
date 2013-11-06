@@ -746,11 +746,11 @@ namespace Vydejna
 
         public override void addLineZmeny(int DBparPoradi, string DBpomocJK, DateTime DBdatum, string DBpoznamka, int DBPrijem,
                                          int DBvydej, int DBzustatek, string DBzapKarta, string DBvevCislo,
-                                         int DBpocIvc, int DBporadi)
+                                         int DBpocIvc, string DBstav, int DBporadi)
         {
 
-            string commandString = "INSERT INTO zmeny (parporadi, pomozjk, datum, poznamka, prijem, vydej, zustatek, zapkarta, vevcislo, pocivc, poradi )" + //, nazev, vyber, lastsoub, aktadr, cena, ucetkscen, jk )" +
-                  "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
+            string commandString = "INSERT INTO zmeny (parporadi, pomozjk, datum, poznamka, prijem, vydej, zustatek, zapkarta, vevcislo, pocivc, stav, poradi )" + 
+                  "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
 
 
             if (DBIsOpened())
@@ -778,6 +778,8 @@ namespace Vydejna
                 p8.Value = DBvevCislo;
                 OdbcParameter p9 = new OdbcParameter("p9", OdbcType.Int);
                 p9.Value = DBpocIvc;
+                OdbcParameter p10 = new OdbcParameter("p10", OdbcType.NChar);
+                p10.Value = DBstav;
                 OdbcParameter p14 = new OdbcParameter("p14", OdbcType.Int);
                 p14.Value = DBporadi;
 
@@ -792,6 +794,7 @@ namespace Vydejna
                 cmd.Parameters.Add(p7);
                 cmd.Parameters.Add(p8);
                 cmd.Parameters.Add(p9);
+                cmd.Parameters.Add(p10);
                 cmd.Parameters.Add(p14);
                 cmd.ExecuteNonQuery();
             }

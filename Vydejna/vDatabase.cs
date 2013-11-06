@@ -227,7 +227,7 @@ namespace Vydejna
 
         public virtual void addLineZmeny(int DBparPoradi, string DBpomocJK, DateTime DBdatum, string DBpoznamka, int DBPrijem,
                                          int DBvydej, int DBzustatek, string DBzapKarta, string DBvevCislo,
-                                         int DBpocIvc, int DBporadi) 
+                                         int DBpocIvc, string DBstav, int DBporadi) 
         {
         }
 

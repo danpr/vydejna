@@ -448,8 +448,25 @@ namespace Vydejna
                 {
                     poradi = -1; // chyba v puvodnich datech
                 }
+                // vygenerujeme novy stav
+
+                if (DBpoznamka == "Poškozeno") DBstav = "O";
+                else
+                {
+                    if (DBpoznamka == "Půjčeno") DBstav = "U";
+                    else
+                    {
+                        if (DBpoznamka == "Vyřazeno") DBstav = "V";
+                        else
+                        {
+                            DBstav = "P"; // Prijem
+                        }
+                    }
+                }
+
+
                 myDB.addLineZmeny(poradi, DBpomocJK, DBdatum, DBpoznamka, DBprijem, DBvydej, DBzustatek, DBzapKarta, DBvevCislo,
-                    DBpocIvc, DBporadi );
+                    DBpocIvc, DBstav, DBporadi );
 
                 Application.DoEvents();
 
