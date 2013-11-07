@@ -693,7 +693,24 @@ namespace Vydejna
             }
         }
 
-
     }
+
+    class detailOsobyZapujcNaradi : detail
+        {
+
+
+            public override void zobrazKartu(Hashtable DBRow, vDatabase myDataBase)
+            {
+                if ((myDataBase != null) && (myDataBase.DBIsOpened()))
+                {
+                    ZapujceneNaradiKarta zapujcKarta = new ZapujceneNaradiKarta(DBRow, myDataBase);// (DBRow, myDataBase, uKartaState.edit);
+                    if (zapujcKarta.ShowDialog() == DialogResult.OK)
+                    {
+                        MessageBox.Show("Není dopracovano.");
+                    }
+                }
+            }
+        }
+
 
 }

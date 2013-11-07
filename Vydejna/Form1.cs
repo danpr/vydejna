@@ -998,6 +998,18 @@ namespace Vydejna
             }
         }
 
+        private void zapujceniNaradi_Click(object sender, EventArgs e)
+        {
+            //osoby
+            labelView.Text = "Pracovníci provozu - Načítání";
+            Application.DoEvents();
+            loadOsobyItems();
+            karta = new detailOsobyZapujcNaradi();
+            contextMenuEnable(true, false, false, true);
+            labelView.Text = "Pracovníci provozu - Zapůjčení nářadí";
+
+        }
+
 
     }
 }
