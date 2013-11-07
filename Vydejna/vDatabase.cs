@@ -347,6 +347,18 @@ namespace Vydejna
             return loadDataTable("SELECT datum, poznamka, prijem, vydej, zustatek, zapkarta FROM zmeny WHERE parporadi = " + poradi.ToString());
         }
 
+        public virtual DataTable loadDataTableVypujceno(Int32 poradi) //(string kodID)
+        {
+            return loadDataTable("SELECT datum, poznamka, prijem, vydej, zustatek, zapkarta FROM zmeny WHERE stav = \'U\' AND parporadi = " + poradi.ToString());
+        }
+
+        public virtual DataTable loadDataTableVypujcenoNaOsobu(string osCislo) //(string kodID)
+        {
+            return loadDataTable( "SELECT z.datum, n.nazev, n.rozmer, n.jk, z.vydej, z.poznamka from zmeny z, naradi n " +
+                                   "WHERE stav = \'U\' AND z.parporadi = n.poradi AND zapkarta =  \'" + osCislo.ToString() + "\'");  
+                
+                //"SELECT datum, poznamka, prijem, vydej, zustatek, zapkarta FROM zmeny WHERE stav = \'U\' AND zapkarta = \'" + osCislo.ToString() + "\'");
+        }
 
 
         public virtual DataTable loadDataTableNaradi()
