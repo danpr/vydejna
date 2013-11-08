@@ -1714,15 +1714,15 @@ namespace Vydejna
 
 
         // pridani nove polozky do tabulky zmeny
-        public override Int32 addNewLineZmeny(Int32 DBporadi, string DBJK, DateTime DBdatum, Int32 DBprijem, Int32 DBvydej, string DBpoznamka)
+        public override Int32 addNewLineZmeny(Int32 DBporadi, string DBJK, DateTime DBdatum, Int32 DBprijem, Int32 DBvydej, string DBpoznamka, string DBstav)
         {
             SQLiteTransaction transaction = null;
 
             if (DBIsOpened())
             {
                 string commandString1 = "UPDATE naradi set fyzstav = fyzstav + ?, ucetstav = ucetstav+ ?  where poradi = ? ";
-                string commandString2 = "INSERT INTO zmeny (parporadi, pomozjk, datum, poznamka, prijem, vydej, zustatek, zapkarta, vevcislo, pocivc, poradi )" +
-                      "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
+                string commandString2 = "INSERT INTO zmeny (parporadi, pomozjk, datum, poznamka, prijem, vydej, zustatek, zapkarta, vevcislo, pocivc, stav, poradi )" +
+                      "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
                 string commandString3 = "SELECT poradi, zustatek from zmeny where parporadi = ? ORDER BY poradi DESC";
 
                 try
@@ -1801,8 +1801,10 @@ namespace Vydejna
                     p9.Value = "";
                     SQLiteParameter p10 = new SQLiteParameter("p10", DbType.Int32);
                     p10.Value = 0;
-                    SQLiteParameter p11 = new SQLiteParameter("p11", DbType.Int32);
-                    p11.Value = poradi;
+                    SQLiteParameter p11 = new SQLiteParameter("p11", DbType.String);
+                    p11.Value = DBstav;
+                    SQLiteParameter p12 = new SQLiteParameter("p12", DbType.Int32);
+                    p12.Value = poradi;
 
                     cmd2.Parameters.Add(p1);
                     cmd2.Parameters.Add(p2);
@@ -1815,6 +1817,7 @@ namespace Vydejna
                     cmd2.Parameters.Add(p9);
                     cmd2.Parameters.Add(p10);
                     cmd2.Parameters.Add(p11);
+                    cmd2.Parameters.Add(p12);
 
                     cmd2.Transaction = transaction;
                     cmd2.ExecuteNonQuery();
@@ -1851,8 +1854,8 @@ namespace Vydejna
             {
                 string commandString1 = "UPDATE naradi set fyzstav = fyzstav - ?, ucetstav = ucetstav - ?  where poradi = ? ";
 
-                string commandString2 = "INSERT INTO zmeny (parporadi, pomozjk, datum, poznamka, prijem, vydej, zustatek, zapkarta, vevcislo, pocivc, poradi )" +
-                      "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
+                string commandString2 = "INSERT INTO zmeny (parporadi, pomozjk, datum, poznamka, prijem, vydej, zustatek, zapkarta, vevcislo, pocivc, stav, poradi )" +
+                      "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
 
 
                 string commandString3 = "SELECT poradi, zustatek from zmeny where parporadi = ? ORDER BY poradi DESC";
@@ -1960,8 +1963,10 @@ namespace Vydejna
                         p9.Value = "";
                         SQLiteParameter p10 = new SQLiteParameter("p10", DbType.Int32);
                         p10.Value = 0;
-                        SQLiteParameter p11 = new SQLiteParameter("p11", DbType.Int32);
-                        p11.Value = poradi;
+                        SQLiteParameter p11 = new SQLiteParameter("p11", DbType.String);
+                        p11.Value = "O";
+                        SQLiteParameter p12 = new SQLiteParameter("p12", DbType.Int32);
+                        p12.Value = poradi;
 
                         cmd2.Parameters.Add(p1);
                         cmd2.Parameters.Add(p2);
@@ -1974,6 +1979,7 @@ namespace Vydejna
                         cmd2.Parameters.Add(p9);
                         cmd2.Parameters.Add(p10);
                         cmd2.Parameters.Add(p11);
+                        cmd2.Parameters.Add(p12);
 
                         cmd2.Transaction = transaction;
                         cmd2.ExecuteNonQuery();

@@ -157,11 +157,12 @@ namespace Vydejna
                     dataGridViewZmeny.RowHeadersVisible = false;
 
                     dataGridViewZmeny.Columns[0].HeaderText = "Datum";
-                    dataGridViewZmeny.Columns[1].HeaderText = "Poznamka";
-                    dataGridViewZmeny.Columns[2].HeaderText = "Příjem";
-                    dataGridViewZmeny.Columns[3].HeaderText = "Výdej";
-                    dataGridViewZmeny.Columns[4].HeaderText = "Stav";
-                    dataGridViewZmeny.Columns[5].HeaderText = "Zapůjčeno na kartu";
+                    dataGridViewZmeny.Columns[1].HeaderText = "Operace";
+                    dataGridViewZmeny.Columns[2].HeaderText = "Poznamka";
+                    dataGridViewZmeny.Columns[3].HeaderText = "Příjem";
+                    dataGridViewZmeny.Columns[4].HeaderText = "Výdej";
+                    dataGridViewZmeny.Columns[5].HeaderText = "Stav";
+                    dataGridViewZmeny.Columns[6].HeaderText = "Zapůjčeno na kartu";
 
                     dataGridViewZmeny.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
 
