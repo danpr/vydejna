@@ -78,6 +78,14 @@ namespace Vydejna
             //            myDB.myDBConn.Dispose();
         }
 
+        private void zapůjčeníNářadíToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // zobrazime seznam polozek naradi
+            SeznamNaradiJednoduchy seznamNar = new SeznamNaradiJednoduchy(myDB);
+            seznamNar.ShowDialog();
+            
+        }
+
 
     }
 }

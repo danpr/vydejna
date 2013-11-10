@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
@@ -44,7 +45,11 @@
             this.labelOddeleni = new System.Windows.Forms.Label();
             this.labelPracoviste = new System.Windows.Forms.Label();
             this.labelCisZnamky = new System.Windows.Forms.Label();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.zapůjčeníNářadíToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.vraceníNářadíToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewZmeny)).BeginInit();
+            this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -117,6 +122,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridViewZmeny.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewZmeny.ContextMenuStrip = this.contextMenuStrip1;
             this.dataGridViewZmeny.Location = new System.Drawing.Point(15, 125);
             this.dataGridViewZmeny.MultiSelect = false;
             this.dataGridViewZmeny.Name = "dataGridViewZmeny";
@@ -205,6 +211,27 @@
             this.labelCisZnamky.TabIndex = 37;
             this.labelCisZnamky.Text = "Cis znamky";
             // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.zapůjčeníNářadíToolStripMenuItem,
+            this.vraceníNářadíToolStripMenuItem});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(165, 70);
+            // 
+            // zapůjčeníNářadíToolStripMenuItem
+            // 
+            this.zapůjčeníNářadíToolStripMenuItem.Name = "zapůjčeníNářadíToolStripMenuItem";
+            this.zapůjčeníNářadíToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.zapůjčeníNářadíToolStripMenuItem.Text = "Zapůjčení nářadí";
+            this.zapůjčeníNářadíToolStripMenuItem.Click += new System.EventHandler(this.zapůjčeníNářadíToolStripMenuItem_Click);
+            // 
+            // vraceníNářadíToolStripMenuItem
+            // 
+            this.vraceníNářadíToolStripMenuItem.Name = "vraceníNářadíToolStripMenuItem";
+            this.vraceníNářadíToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.vraceníNářadíToolStripMenuItem.Text = "Vracení nářadí";
+            // 
             // ZapujceneNaradiKarta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -230,6 +257,7 @@
             this.Text = "ZapujceneNaradiKarta";
             this.Load += new System.EventHandler(this.ZapujceneNaradiKarta_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewZmeny)).EndInit();
+            this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -253,5 +281,8 @@
         private System.Windows.Forms.Label labelOddeleni;
         private System.Windows.Forms.Label labelPracoviste;
         private System.Windows.Forms.Label labelCisZnamky;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem zapůjčeníNářadíToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem vraceníNářadíToolStripMenuItem;
     }
 }

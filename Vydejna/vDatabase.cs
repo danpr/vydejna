@@ -369,6 +369,12 @@ namespace Vydejna
         }
 
 
+        public virtual DataTable loadDataTableNaradiJednoduchy()
+        {
+            return loadDataTable("SELECT poradi, rtrim(nazev) as nazev, rtrim(jk) as jk,"
+                                     + " fyzstav, rtrim(poznamka) as poznamka from naradi WHERE fyzstav > 0 ORDER BY nazev");
+        }
+
 
         public virtual DataTable loadDataTableZruseno()
         {
