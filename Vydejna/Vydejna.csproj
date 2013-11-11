@@ -121,6 +121,12 @@
     <Compile Include="ZapujceneNaradiKarta.Designer.cs">
       <DependentUpon>ZapujceneNaradiKarta.cs</DependentUpon>
     </Compile>
+    <Compile Include="ZapujceniNaradi.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ZapujceniNaradi.Designer.cs">
+      <DependentUpon>ZapujceniNaradi.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -159,6 +165,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ZapujceneNaradiKarta.resx">
       <DependentUpon>ZapujceneNaradiKarta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ZapujceniNaradi.resx">
+      <DependentUpon>ZapujceniNaradi.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

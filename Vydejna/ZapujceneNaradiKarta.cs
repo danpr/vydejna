@@ -82,7 +82,13 @@ namespace Vydejna
         {
             // zobrazime seznam polozek naradi
             SeznamNaradiJednoduchy seznamNar = new SeznamNaradiJednoduchy(myDB);
-            seznamNar.ShowDialog();
+            seznamNar.Visible = false;   // formular se automaticky presune do show musime tedy ho vypnout
+            if (seznamNar.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+
+                ZapujceniNaradi zapujcNaradi = new ZapujceniNaradi();
+                zapujcNaradi.ShowDialog();
+            }
             
         }
 

@@ -31,6 +31,7 @@ namespace Vydejna
                 try
                 {
                     labelView.Text = "Pracovníci provozu - Načítání";
+                    this.Show();
                     Application.DoEvents();
 
                     dataGridView1.DataSource = myDataBase.loadDataTableNaradiJednoduchy();
