@@ -14,10 +14,12 @@ namespace Vydejna
     {
 
         private vDatabase myDB;
+        Hashtable DBRow;
 
         public ZapujceneNaradiKarta(Hashtable DBRow, vDatabase myDataBase)
         {
             myDB = myDataBase;
+            this.DBRow = DBRow;
             InitializeComponent();
             setData(DBRow);
             dataGridViewZmeny.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
@@ -39,7 +41,6 @@ namespace Vydejna
             labelOddeleni.Text = Convert.ToString(DBRow["odeleni"]);
             labelPracoviste.Text = Convert.ToString(DBRow["pracoviste"]);
             labelCisZnamky.Text = Convert.ToString(DBRow["cisznamky"]);
-
         }
 
         private void loadVypujceneItems()
@@ -75,7 +76,6 @@ namespace Vydejna
                     //                    myDB.closeDB();
                 }
             }
-            //            myDB.myDBConn.Dispose();
         }
 
         private void zapůjčeníNářadíToolStripMenuItem_Click(object sender, EventArgs e)
@@ -85,8 +85,8 @@ namespace Vydejna
             seznamNar.Visible = false;   // formular se automaticky presune do show musime tedy ho vypnout
             if (seznamNar.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-
-                ZapujceniNaradi zapujcNaradi = new ZapujceniNaradi();
+                SeznamNaradiJednoduchy.messager myMesenger = seznamNar.getMesseger();
+                ZapujceniNaradi zapujcNaradi = new ZapujceniNaradi(DBRow,myMesenger.nazev, myMesenger.jk, myMesenger.fyzStav);
                 zapujcNaradi.ShowDialog();
             }
             

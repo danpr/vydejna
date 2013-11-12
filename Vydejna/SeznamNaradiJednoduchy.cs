@@ -11,6 +11,26 @@ namespace Vydejna
 {
     public partial class SeznamNaradiJednoduchy : Form
     {
+
+
+
+        public class messager
+        {
+            public string nazev;
+            public string jk;
+            public Int32 fyzStav; //cena
+
+
+            public messager(string nazev, string jk, Int32 fyzStav)
+            {
+                this.nazev = nazev;
+                this.jk = jk;
+                this.fyzStav = fyzStav;
+            }
+        }
+
+
+
         public SeznamNaradiJednoduchy(vDatabase myDataBase)
         {
             InitializeComponent();
@@ -81,5 +101,25 @@ namespace Vydejna
             Close();
 
         }
+
+
+        public messager getMesseger()
+        {
+            messager prepravka;
+            if (dataGridView1.SelectedRows.Count > 0)
+            {
+                DataGridViewRow myRow = dataGridView1.SelectedRows[0];
+
+                prepravka = new messager(Convert.ToString( myRow.Cells[1].Value),Convert.ToString( myRow.Cells[2].Value), Convert.ToInt32(myRow.Cells[3].Value));
+                //Convert.ToInt64(numericUpDownMinStav.Value), Convert.ToInt64(numericUpDownUcetStav.Value), textBoxPoznamka.Text);
+            }
+            else
+            {
+                prepravka = new messager("", "", 0);
+            }
+            return prepravka;
+        }
+
+
     }
 }
