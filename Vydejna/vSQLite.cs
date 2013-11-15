@@ -1714,7 +1714,7 @@ namespace Vydejna
 
 
         // pridani nove polozky do tabulky zmeny
-        public override Int32 addNewLineZmeny(Int32 DBporadi, string DBJK, DateTime DBdatum, Int32 DBprijem, Int32 DBvydej, string DBpoznamka, string DBstav)
+        public override Int32 addNewLineZmeny(Int32 DBporadi, string DBJK, DateTime DBdatum, Int32 DBprijem, Int32 DBvydej, string DBpoznamka, string DBstav, Int32 DBfyzStavZmena, Int32 DBucetStavZmena, string DBosCislo)
         {
             SQLiteTransaction transaction = null;
 
@@ -1766,9 +1766,9 @@ namespace Vydejna
                     SQLiteCommand cmd1 = new SQLiteCommand(commandString1, myDBConn as SQLiteConnection);
 
                     SQLiteParameter pn1 = new SQLiteParameter("p1", DbType.Int32);
-                    pn1.Value = DBprijem - DBvydej;
+                    pn1.Value = DBfyzStavZmena; // DBprijem - DBvydej;
                     SQLiteParameter pn2 = new SQLiteParameter("p2", DbType.Int32);
-                    pn2.Value = DBprijem - DBvydej;
+                    pn2.Value = DBucetStavZmena; // DBprijem - DBvydej;
                     SQLiteParameter pn3 = new SQLiteParameter("p3", DbType.Int32);
                     pn3.Value = DBporadi;
 
@@ -1796,7 +1796,7 @@ namespace Vydejna
                     SQLiteParameter p7 = new SQLiteParameter("p7", DbType.Int32);
                     p7.Value = zustatek +DBprijem - DBvydej;
                     SQLiteParameter p8 = new SQLiteParameter("p8", DbType.String);
-                    p8.Value = "";
+                    p8.Value = DBosCislo;
                     SQLiteParameter p9 = new SQLiteParameter("p9", DbType.String);
                     p9.Value = "";
                     SQLiteParameter p10 = new SQLiteParameter("p10", DbType.Int32);

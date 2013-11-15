@@ -186,7 +186,7 @@ namespace Vydejna
             }
             else
             {
-                MessageBox.Show("Je nutno zadat množství poškozeného materiálu.");
+                MessageBox.Show("Je nutno zadat množství poškozeného nářadí.");
             }
 
         }

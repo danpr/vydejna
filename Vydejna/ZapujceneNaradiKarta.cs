@@ -15,6 +15,7 @@ namespace Vydejna
 
         private vDatabase myDB;
         Hashtable DBRow;
+        private string osCislo;
 
         public ZapujceneNaradiKarta(Hashtable DBRow, vDatabase myDataBase)
         {
@@ -34,6 +35,7 @@ namespace Vydejna
 
         public void setData(Hashtable DBRow)
         {
+            osCislo = Convert.ToString(DBRow["oscislo"]).Trim();
             labelPrijmeni.Text = Convert.ToString(DBRow["prijmeni"]);
             labelJmeno.Text = Convert.ToString(DBRow["jmeno"]);
             labelOsCislo.Text = Convert.ToString(DBRow["oscislo"]);
@@ -87,9 +89,29 @@ namespace Vydejna
             {
                 SeznamNaradiJednoduchy.messager myMesenger = seznamNar.getMesseger();
                 ZapujceniNaradi zapujcNaradi = new ZapujceniNaradi(DBRow,myMesenger.nazev, myMesenger.jk, myMesenger.fyzStav);
-                zapujcNaradi.ShowDialog();
+
+
+                if (zapujcNaradi.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+
+                    // pridame zapujcene naradi
+
+                    if (myDB.addNewLineZmeny(myMesenger.poradi, myMesenger.jk, zapujcNaradi.getDatum(), zapujcNaradi.getKs(), 0, zapujcNaradi.getPoznamka(), "U", 0, ((-1) * zapujcNaradi.getKs()), osCislo  ) < 0)
+                    {
+                        MessageBox.Show("Vypůjčeni nářadi se nezdařilo. Lituji.");
+                    }
+
+                }
+
+
+
             }
             
+        }
+
+        private void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
+        {
+
         }
 
 

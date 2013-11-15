@@ -313,7 +313,7 @@ namespace Vydejna
         }
 
 
-        public virtual Int32 addNewLineZmeny(Int32 DBporadi, string DBJK, DateTime DBdatum, Int32 DBprijem, Int32 DBvydej, string DBpoznamka, string DBstav)
+        public virtual Int32 addNewLineZmeny(Int32 DBporadi, string DBJK, DateTime DBdatum, Int32 DBprijem, Int32 DBvydej, string DBpoznamka, string DBstav, Int32 DBfyzStavZmena, Int32 DBucetStavZmena, string DBosCislo)
         {
             return -1;
         }
@@ -344,18 +344,18 @@ namespace Vydejna
 
         public virtual DataTable loadDataTableZmeny (Int32 poradi) //(string kodID)
         {
-            return loadDataTable("SELECT datum, CASE WHEN stav = \'O\' THEN \'Poskozeno\'  WHEN stav = \'U\' THEN \'Půjčeno\' WHEN stav = \'V\' THEN \'Vyřazeno\' WHEN stav = \'P\' THEN \'Přijmuto\' END AS stav, poznamka, prijem, vydej, zustatek, zapkarta FROM zmeny WHERE parporadi = " + poradi.ToString());
+            return loadDataTable("SELECT datum, CASE WHEN stav = \'O\' THEN \'Poskozeno\'  WHEN stav = \'U\' THEN \'Půjčeno\' WHEN stav = \'V\' THEN \'Vyřazeno\' WHEN stav = \'P\' THEN \'Přijmuto\' END AS stav, poznamka, prijem, vydej, zustatek, zapkarta FROM zmeny WHERE parporadi = " + poradi.ToString() + " order by datum");
         }
 
         public virtual DataTable loadDataTableVypujceno(Int32 poradi) //(string kodID)
         {
-            return loadDataTable("SELECT datum, poznamka, prijem, vydej, zustatek, zapkarta FROM zmeny WHERE stav = \'U\' AND parporadi = " + poradi.ToString());
+            return loadDataTable("SELECT datum, poznamka, prijem, vydej, zustatek, zapkarta FROM zmeny WHERE stav = \'U\' AND parporadi = " + poradi.ToString() + " order by datum");
         }
 
         public virtual DataTable loadDataTableVypujcenoNaOsobu(string osCislo) //(string kodID)
         {
             return loadDataTable( "SELECT z.datum, n.nazev, n.rozmer, n.jk, z.vydej, z.poznamka from zmeny z, naradi n " +
-                                   "WHERE stav = \'U\' AND z.parporadi = n.poradi AND zapkarta =  \'" + osCislo.ToString() + "\'");  
+                                   "WHERE stav = \'U\' AND z.parporadi = n.poradi AND zapkarta =  \'" + osCislo.ToString() + "\' order by z.datum");  
                 
                 //"SELECT datum, poznamka, prijem, vydej, zustatek, zapkarta FROM zmeny WHERE stav = \'U\' AND zapkarta = \'" + osCislo.ToString() + "\'");
         }

@@ -16,6 +16,8 @@ namespace Vydejna
         {
             InitializeComponent();
 
+            buttonOK.Enabled = false;
+
             labelPrijmeni.Text = Convert.ToString(DBRow["prijmeni"]);
             labelJmeno.Text = Convert.ToString(DBRow["jmeno"]);
             labelOsCislo.Text = Convert.ToString(DBRow["oscislo"]);
@@ -29,6 +31,52 @@ namespace Vydejna
             numericUpDownKs.Maximum = fyzStav;
             textBoxPoznamka.Text = "Zapůjčeno";
 
+        }
+
+        private void numericUpDownKs_ValueChanged(object sender, EventArgs e)
+        {
+            if ((numericUpDownKs.Value > 0))
+            {
+                buttonOK.Enabled = true;
+            }
+
+            else
+            {
+                buttonOK.Enabled = false;
+            }
+
+        }
+
+        private void buttonOK_Click(object sender, EventArgs e)
+        {
+            if (numericUpDownKs.Value > 0)
+            {
+                buttonOK.DialogResult = DialogResult.OK;
+                this.DialogResult = DialogResult.OK;
+                Close();
+            }
+            else
+            {
+                MessageBox.Show("Je nutno zadat množství vypujčeného nářadí.");
+            }
+
+        }
+
+        public Int32 getKs()
+        {
+            return Convert.ToInt32( numericUpDownKs.Value);
+        }
+
+
+        public string getPoznamka()
+        {
+            return textBoxPoznamka.Text;
+        }
+
+
+        public DateTime getDatum()
+        {
+            return Convert.ToDateTime( dateTimePickerDatum.Value);
         }
     }
 }

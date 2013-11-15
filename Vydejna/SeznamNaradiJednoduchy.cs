@@ -16,13 +16,15 @@ namespace Vydejna
 
         public class messager
         {
+            public Int32 poradi;
             public string nazev;
             public string jk;
             public Int32 fyzStav; //cena
 
 
-            public messager(string nazev, string jk, Int32 fyzStav)
+            public messager(Int32 poradi, string nazev, string jk, Int32 fyzStav)
             {
+                this.poradi = poradi;
                 this.nazev = nazev;
                 this.jk = jk;
                 this.fyzStav = fyzStav;
@@ -110,12 +112,11 @@ namespace Vydejna
             {
                 DataGridViewRow myRow = dataGridView1.SelectedRows[0];
 
-                prepravka = new messager(Convert.ToString( myRow.Cells[1].Value),Convert.ToString( myRow.Cells[2].Value), Convert.ToInt32(myRow.Cells[3].Value));
-                //Convert.ToInt64(numericUpDownMinStav.Value), Convert.ToInt64(numericUpDownUcetStav.Value), textBoxPoznamka.Text);
+                prepravka = new messager( Convert.ToInt32( myRow.Cells[0].Value), Convert.ToString( myRow.Cells[1].Value),Convert.ToString( myRow.Cells[2].Value), Convert.ToInt32(myRow.Cells[3].Value));
             }
             else
             {
-                prepravka = new messager("", "", 0);
+                prepravka = new messager(-1,"", "", 0);
             }
             return prepravka;
         }

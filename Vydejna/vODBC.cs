@@ -962,12 +962,12 @@ namespace Vydejna
             else return -1;
 
         }
-       
-        
-       
 
 
-        public override Int32 addNewLineZmeny(Int32 DBporadi, string DBJK, DateTime DBdatum, Int32 DBprijem, Int32 DBvydej, string DBpoznamka, string DBstav)
+
+
+
+        public override Int32 addNewLineZmeny(Int32 DBporadi, string DBJK, DateTime DBdatum, Int32 DBprijem, Int32 DBvydej, string DBpoznamka, string DBstav, Int32 DBfyzStavZmena, Int32 DBucetStavZmena, string DBosCislo)
         {
             OdbcTransaction transaction = null;
 
@@ -1021,9 +1021,9 @@ namespace Vydejna
                     OdbcCommand cmd1 = new OdbcCommand(commandString1, myDBConn as OdbcConnection);
 
                     OdbcParameter pn1 = new OdbcParameter("p1", OdbcType.Int);
-                    pn1.Value = DBprijem - DBvydej;
+                    pn1.Value = DBfyzStavZmena; // DBprijem - DBvydej;
                     OdbcParameter pn2 = new OdbcParameter("p2", OdbcType.Int);
-                    pn2.Value = DBprijem - DBvydej;
+                    pn2.Value = DBucetStavZmena; // DBprijem - DBvydej;
                     OdbcParameter pn3 = new OdbcParameter("p3", OdbcType.Int);
                     pn3.Value = DBporadi;
 
@@ -1051,7 +1051,7 @@ namespace Vydejna
                     OdbcParameter p7 = new OdbcParameter("p7", OdbcType.Int);
                     p7.Value = zustatek + DBprijem - DBvydej;
                     OdbcParameter p8 = new OdbcParameter("p8", OdbcType.NChar);
-                    p8.Value = "";
+                    p8.Value = DBosCislo;
                     OdbcParameter p9 = new OdbcParameter("p9", OdbcType.NChar);
                     p9.Value = "";
                     OdbcParameter p10 = new OdbcParameter("p10", OdbcType.Int);

@@ -214,7 +214,7 @@ namespace Vydejna
                 if (prijemka.ShowDialog() == DialogResult.OK)
                 {
                     PrijemkaMaterialu.messager mesenger = prijemka.getMesseger();
-                    if (myDataBase.addNewLineZmeny(mesenger.poradi, mesenger.jk, mesenger.datum, mesenger.pocetKs, 0, mesenger.poznamka, "P") < 0)
+                    if (myDataBase.addNewLineZmeny(mesenger.poradi, mesenger.jk, mesenger.datum, mesenger.pocetKs, 0, mesenger.poznamka, "P", mesenger.pocetKs, mesenger.pocetKs, "") < 0)
                     {
                         MessageBox.Show("Příjem materialu se nezdařil. Lituji.");
                     }

@@ -176,6 +176,7 @@
             this.buttonOK.TabIndex = 32;
             this.buttonOK.Text = "Budiž";
             this.buttonOK.UseVisualStyleBackColor = true;
+            this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
             // 
             // labelJmeno
             // 
@@ -278,6 +279,7 @@
             this.numericUpDownKs.Name = "numericUpDownKs";
             this.numericUpDownKs.Size = new System.Drawing.Size(73, 20);
             this.numericUpDownKs.TabIndex = 43;
+            this.numericUpDownKs.ValueChanged += new System.EventHandler(this.numericUpDownKs_ValueChanged);
             // 
             // groupBox1
             // 
