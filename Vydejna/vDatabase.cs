@@ -354,10 +354,8 @@ namespace Vydejna
 
         public virtual DataTable loadDataTableVypujcenoNaOsobu(string osCislo) //(string kodID)
         {
-            return loadDataTable( "SELECT z.datum, n.nazev, n.rozmer, n.jk, z.vydej, z.poznamka from zmeny z, naradi n " +
+            return loadDataTable( "SELECT z.datum, n.nazev, n.rozmer, n.jk, z.vydej, z.poznamka FROM zmeny z, naradi n " +
                                    "WHERE stav = \'U\' AND z.parporadi = n.poradi AND zapkarta =  \'" + osCislo.ToString() + "\' order by z.datum");  
-                
-                //"SELECT datum, poznamka, prijem, vydej, zustatek, zapkarta FROM zmeny WHERE stav = \'U\' AND zapkarta = \'" + osCislo.ToString() + "\'");
         }
 
 
@@ -371,7 +369,7 @@ namespace Vydejna
 
         public virtual DataTable loadDataTableNaradiJednoduchy()
         {
-            return loadDataTable("SELECT poradi, rtrim(nazev) as nazev, rtrim(jk) as jk,"
+            return loadDataTable("SELECT poradi, rtrim(nazev) as nazev, rtrim(jk) as jk, rtrim(rozmer) as rozmer,"
                                      + " fyzstav, rtrim(poznamka) as poznamka from naradi WHERE fyzstav > 0 ORDER BY nazev");
         }
 

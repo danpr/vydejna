@@ -23,7 +23,15 @@ namespace Vydejna
             this.DBRow = DBRow;
             InitializeComponent();
             setData(DBRow);
+
+            dataGridViewZmeny.MultiSelect = false;
+            dataGridViewZmeny.ReadOnly = true;
+            dataGridViewZmeny.RowHeadersVisible = false;
+            dataGridViewZmeny.AllowUserToAddRows = false;
+            dataGridViewZmeny.AllowUserToResizeRows = false;
+
             dataGridViewZmeny.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
             loadVypujceneItems();
         }
 
@@ -93,13 +101,24 @@ namespace Vydejna
 
                 if (zapujcNaradi.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
-
                     // pridame zapujcene naradi
-
-                    if (myDB.addNewLineZmeny(myMesenger.poradi, myMesenger.jk, zapujcNaradi.getDatum(), zapujcNaradi.getKs(), 0, zapujcNaradi.getPoznamka(), "U", 0, ((-1) * zapujcNaradi.getKs()), osCislo  ) < 0)
+                    if (myDB.addNewLineZmeny(myMesenger.poradi, myMesenger.jk, zapujcNaradi.getDatum(), 0, zapujcNaradi.getKs(), zapujcNaradi.getPoznamka(), "U", 0, zapujcNaradi.getKs(), osCislo) < 0)
                     {
                         MessageBox.Show("Vypůjčeni nářadi se nezdařilo. Lituji.");
                     }
+                    else 
+                    {
+                        // prodame do  formulare // 
+                        (dataGridViewZmeny.DataSource as DataTable).Rows.Add(zapujcNaradi.getDatum(),myMesenger.nazev, myMesenger.rozmer, myMesenger.jk, zapujcNaradi.getKs(),zapujcNaradi.getPoznamka());
+                        int counter = dataGridViewZmeny.Rows.Count - 1;
+
+                        dataGridViewZmeny.FirstDisplayedScrollingRowIndex = dataGridViewZmeny.Rows[counter].Index;
+                        dataGridViewZmeny.Refresh();
+
+                        dataGridViewZmeny.CurrentCell = dataGridViewZmeny.Rows[counter].Cells[1];
+                        dataGridViewZmeny.Rows[counter].Selected = true;
+                    }
+
 
                 }
 

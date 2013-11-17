@@ -70,7 +70,16 @@ namespace Vydejna
             this.testExistItem = testExistItem;
             if (state == sKartaState.edit) setEditState();
             myDB = myDataBase;
+
+
+            dataGridViewZmeny.MultiSelect = false;
+            dataGridViewZmeny.ReadOnly = true;
+            dataGridViewZmeny.RowHeadersVisible = false;
+            dataGridViewZmeny.AllowUserToAddRows = false;
+            dataGridViewZmeny.AllowUserToResizeRows = false;
             dataGridViewZmeny.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+            
             if (state == sKartaState.show)
             {
                 buttonOK.Visible = false;

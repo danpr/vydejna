@@ -20,14 +20,16 @@ namespace Vydejna
             public string nazev;
             public string jk;
             public Int32 fyzStav; //cena
+            public string rozmer;
 
 
-            public messager(Int32 poradi, string nazev, string jk, Int32 fyzStav)
+            public messager(Int32 poradi, string nazev, string jk, string rozmer, Int32 fyzStav)
             {
                 this.poradi = poradi;
                 this.nazev = nazev;
                 this.jk = jk;
                 this.fyzStav = fyzStav;
+                this.rozmer = rozmer;
             }
         }
 
@@ -44,6 +46,7 @@ namespace Vydejna
             dataGridView1.ReadOnly = true;
             dataGridView1.RowHeadersVisible = false;
             dataGridView1.AllowUserToAddRows = false;
+            dataGridView1.AllowUserToResizeRows = false;
             dataGridView1.Columns.Clear();
             dataGridView1.DataSource = null;
             Application.DoEvents();
@@ -61,8 +64,9 @@ namespace Vydejna
                     dataGridView1.Columns[0].HeaderText = "Pořadí";
                     dataGridView1.Columns[1].HeaderText = "Název";
                     dataGridView1.Columns[2].HeaderText = "Označení JK";
-                    dataGridView1.Columns[3].HeaderText = "KS/Fyzický stav";
-                    dataGridView1.Columns[4].HeaderText = "Poznámka";
+                    dataGridView1.Columns[3].HeaderText = "Rozměr";
+                    dataGridView1.Columns[4].HeaderText = "KS/Fyzický stav";
+                    dataGridView1.Columns[5].HeaderText = "Poznámka";
                     dataGridView1.Columns["poradi"].Visible = false;   // poradi nezobrazujeme
                     dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
                     labelView.Text = "Pracovníci provozu - Zapůjčení nářadí";
@@ -112,11 +116,11 @@ namespace Vydejna
             {
                 DataGridViewRow myRow = dataGridView1.SelectedRows[0];
 
-                prepravka = new messager( Convert.ToInt32( myRow.Cells[0].Value), Convert.ToString( myRow.Cells[1].Value),Convert.ToString( myRow.Cells[2].Value), Convert.ToInt32(myRow.Cells[3].Value));
+                prepravka = new messager( Convert.ToInt32( myRow.Cells[0].Value), Convert.ToString( myRow.Cells[1].Value),Convert.ToString( myRow.Cells[2].Value), Convert.ToString( myRow.Cells[2].Value),  Convert.ToInt32(myRow.Cells[4].Value));
             }
             else
             {
-                prepravka = new messager(-1,"", "", 0);
+                prepravka = new messager(-1,"", "", "", 0);
             }
             return prepravka;
         }
