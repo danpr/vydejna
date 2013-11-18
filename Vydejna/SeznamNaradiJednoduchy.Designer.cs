@@ -93,6 +93,7 @@
             this.Controls.Add(this.dataGridView1);
             this.Name = "SeznamNaradiJednoduchy";
             this.Text = "Seznam nářadí";
+            this.Shown += new System.EventHandler(this.SeznamNaradiJednoduchy_Shown);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -710,6 +710,21 @@ namespace Vydejna
                     }
                 }
             }
+
+
+            public override void Zapujceno(Hashtable DBRow, vDatabase myDataBase)
+            {
+                if ((myDataBase != null) && (myDataBase.DBIsOpened()))
+                {
+                    ZapujceneNaradiKarta zapujcKarta = new ZapujceneNaradiKarta(DBRow, myDataBase);// (DBRow, myDataBase, uKartaState.edit);
+                    if (zapujcKarta.ShowDialog() == DialogResult.OK)
+                    {
+                        MessageBox.Show("Není dopracovano.");
+                    }
+                }
+            }
+
+
         }
 
 

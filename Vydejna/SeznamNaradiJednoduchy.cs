@@ -11,7 +11,7 @@ namespace Vydejna
 {
     public partial class SeznamNaradiJednoduchy : Form
     {
-
+        private vDatabase myDataBase;
 
 
         public class messager
@@ -37,6 +37,7 @@ namespace Vydejna
 
         public SeznamNaradiJednoduchy(vDatabase myDataBase)
         {
+            this.myDataBase = myDataBase;
             InitializeComponent();
             labelView.Text = "";
 
@@ -51,12 +52,15 @@ namespace Vydejna
             dataGridView1.DataSource = null;
             Application.DoEvents();
 
+        }
+
+        private void loadData(vDatabase myDataBase)
+        {
             if (myDataBase.DBIsOpened())
             {
                 try
                 {
                     labelView.Text = "Pracovníci provozu - Načítání";
-                    this.Show();
                     Application.DoEvents();
 
                     dataGridView1.DataSource = myDataBase.loadDataTableNaradiJednoduchy();
@@ -82,9 +86,8 @@ namespace Vydejna
                     //   myDB.closeDB();
                 }
             }
-
-
         }
+
 
         private void buttonOK_Click(object sender, EventArgs e)
         {
@@ -123,6 +126,12 @@ namespace Vydejna
                 prepravka = new messager(-1,"", "", "", 0);
             }
             return prepravka;
+        }
+
+        private void SeznamNaradiJednoduchy_Shown(object sender, EventArgs e)
+        {
+            // pozobrazeni
+            loadData(myDataBase);
         }
 
 

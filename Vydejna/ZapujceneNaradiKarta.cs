@@ -92,40 +92,42 @@ namespace Vydejna
         {
             // zobrazime seznam polozek naradi
             SeznamNaradiJednoduchy seznamNar = new SeznamNaradiJednoduchy(myDB);
-            seznamNar.Visible = false;   // formular se automaticky presune do show musime tedy ho vypnout
-            if (seznamNar.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            if (seznamNar != null)
             {
-                SeznamNaradiJednoduchy.messager myMesenger = seznamNar.getMesseger();
-                ZapujceniNaradi zapujcNaradi = new ZapujceniNaradi(DBRow,myMesenger.nazev, myMesenger.jk, myMesenger.fyzStav);
-
-
-                if (zapujcNaradi.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                seznamNar.Visible = false;   // formular se automaticky presune do show musime tedy ho vypnout
+                if (seznamNar != null)
                 {
-                    // pridame zapujcene naradi
-                    if (myDB.addNewLineZmeny(myMesenger.poradi, myMesenger.jk, zapujcNaradi.getDatum(), 0, zapujcNaradi.getKs(), zapujcNaradi.getPoznamka(), "U", 0, zapujcNaradi.getKs(), osCislo) < 0)
+                    try  // protoze konstruktor saznam naradi jednoduchy -  pracuje dlouho s natahovabim polozek - uzivatel jem muze prerusit a tim dojde k odstraneni objektu musime tedy testovat existenci objektu
                     {
-                        MessageBox.Show("Vypůjčeni nářadi se nezdařilo. Lituji.");
-                    }
-                    else 
-                    {
-                        // prodame do  formulare // 
-                        (dataGridViewZmeny.DataSource as DataTable).Rows.Add(zapujcNaradi.getDatum(),myMesenger.nazev, myMesenger.rozmer, myMesenger.jk, zapujcNaradi.getKs(),zapujcNaradi.getPoznamka());
-                        int counter = dataGridViewZmeny.Rows.Count - 1;
+                        if (seznamNar.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                        {
+                            SeznamNaradiJednoduchy.messager myMesenger = seznamNar.getMesseger();
+                            ZapujceniNaradi zapujcNaradi = new ZapujceniNaradi(DBRow, myMesenger.nazev, myMesenger.jk, myMesenger.fyzStav);
 
-                        dataGridViewZmeny.FirstDisplayedScrollingRowIndex = dataGridViewZmeny.Rows[counter].Index;
-                        dataGridViewZmeny.Refresh();
+                                if (zapujcNaradi.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                                {
+                                    // pridame zapujcene naradi
+                                    if (myDB.addNewLineZmeny(myMesenger.poradi, myMesenger.jk, zapujcNaradi.getDatum(), 0, zapujcNaradi.getKs(), zapujcNaradi.getPoznamka(), "U", 0, zapujcNaradi.getKs(), osCislo) < 0)
+                                    {
+                                        MessageBox.Show("Vypůjčeni nářadi se nezdařilo. Lituji.");
+                                    }
+                                    else
+                                    {
+                                        // prodame do  formulare // 
+                                        (dataGridViewZmeny.DataSource as DataTable).Rows.Add(zapujcNaradi.getDatum(), myMesenger.nazev, myMesenger.rozmer, myMesenger.jk, zapujcNaradi.getKs(), zapujcNaradi.getPoznamka());
+                                        int counter = dataGridViewZmeny.Rows.Count - 1;
 
-                        dataGridViewZmeny.CurrentCell = dataGridViewZmeny.Rows[counter].Cells[1];
-                        dataGridViewZmeny.Rows[counter].Selected = true;
-                    }
+                                        dataGridViewZmeny.FirstDisplayedScrollingRowIndex = dataGridViewZmeny.Rows[counter].Index;
+                                        dataGridViewZmeny.Refresh();
 
-
+                                        dataGridViewZmeny.CurrentCell = dataGridViewZmeny.Rows[counter].Cells[1];
+                                        dataGridViewZmeny.Rows[counter].Selected = true;
+                                    }
+                                }
+                            }
+                    } catch {};
                 }
-
-
-
-            }
-            
+            }            
         }
 
         private void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
