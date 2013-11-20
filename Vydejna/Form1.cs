@@ -1015,6 +1015,18 @@ namespace Vydejna
 
         }
 
+        private void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
+        {
+
+        }
+
+        private void ConMenuProhledávani_Click(object sender, EventArgs e)
+        {
+            Prohledavani searchWindow = new Prohledavani(dataGridView1);
+
+            searchWindow.ShowDialog();
+        }
+
 
     }
 }

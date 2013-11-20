@@ -59,6 +59,7 @@
             this.poškozeníNářadíToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.zapůjčeníNářadíToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.labelView = new System.Windows.Forms.Label();
+            this.prohledáváníToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
@@ -261,9 +262,11 @@
             this.smazatPoložkuToolStripMenuItem,
             this.příjemMaterialuToolStripMenuItem,
             this.poškozeníNářadíToolStripMenuItem,
-            this.zapůjčeníNářadíToolStripMenuItem});
+            this.zapůjčeníNářadíToolStripMenuItem,
+            this.prohledáváníToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(166, 136);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(166, 180);
+            this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             // 
             // přidatPoložkuToolStripMenuItem
             // 
@@ -314,6 +317,13 @@
             this.labelView.Name = "labelView";
             this.labelView.Size = new System.Drawing.Size(0, 13);
             this.labelView.TabIndex = 4;
+            // 
+            // prohledáváníToolStripMenuItem
+            // 
+            this.prohledáváníToolStripMenuItem.Name = "prohledáváníToolStripMenuItem";
+            this.prohledáváníToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
+            this.prohledáváníToolStripMenuItem.Text = "Prohledávání";
+            this.prohledáváníToolStripMenuItem.Click += new System.EventHandler(this.ConMenuProhledávani_Click);
             // 
             // Vydejna
             // 
@@ -368,6 +378,7 @@
         private System.Windows.Forms.ToolStripMenuItem poškozeníNářadíToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem zapůjčeníNářadíToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem zapujceniNářadíToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem prohledáváníToolStripMenuItem;
     }
 }
 
