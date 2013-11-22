@@ -28,27 +28,27 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.comboBoxColumns = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonOK = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.textBoxString = new System.Windows.Forms.TextBox();
-            this.numericUpDownNumeric = new System.Windows.Forms.NumericUpDown();
-            this.dateTimePickerDate = new System.Windows.Forms.DateTimePicker();
-            this.comboBoxNumeric = new System.Windows.Forms.ComboBox();
             this.comboBoxDate = new System.Windows.Forms.ComboBox();
+            this.comboBoxNumeric = new System.Windows.Forms.ComboBox();
+            this.dateTimePickerDate = new System.Windows.Forms.DateTimePicker();
+            this.numericUpDownNumeric = new System.Windows.Forms.NumericUpDown();
+            this.textBoxString = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNumeric)).BeginInit();
             this.SuspendLayout();
             // 
-            // comboBox1
+            // comboBoxColumns
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(146, 12);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(135, 21);
-            this.comboBox1.TabIndex = 0;
+            this.comboBoxColumns.FormattingEnabled = true;
+            this.comboBoxColumns.Location = new System.Drawing.Point(146, 12);
+            this.comboBoxColumns.Name = "comboBoxColumns";
+            this.comboBoxColumns.Size = new System.Drawing.Size(135, 21);
+            this.comboBoxColumns.TabIndex = 0;
             // 
             // label1
             // 
@@ -94,26 +94,18 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Hledat";
             // 
-            // textBoxString
+            // comboBoxDate
             // 
-            this.textBoxString.Location = new System.Drawing.Point(21, 19);
-            this.textBoxString.Name = "textBoxString";
-            this.textBoxString.Size = new System.Drawing.Size(245, 20);
-            this.textBoxString.TabIndex = 0;
-            // 
-            // numericUpDownNumeric
-            // 
-            this.numericUpDownNumeric.Location = new System.Drawing.Point(119, 46);
-            this.numericUpDownNumeric.Name = "numericUpDownNumeric";
-            this.numericUpDownNumeric.Size = new System.Drawing.Size(147, 20);
-            this.numericUpDownNumeric.TabIndex = 1;
-            // 
-            // dateTimePickerDate
-            // 
-            this.dateTimePickerDate.Location = new System.Drawing.Point(119, 71);
-            this.dateTimePickerDate.Name = "dateTimePickerDate";
-            this.dateTimePickerDate.Size = new System.Drawing.Size(147, 20);
-            this.dateTimePickerDate.TabIndex = 2;
+            this.comboBoxDate.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxDate.FormattingEnabled = true;
+            this.comboBoxDate.Items.AddRange(new object[] {
+            "=",
+            ">",
+            "<"});
+            this.comboBoxDate.Location = new System.Drawing.Point(21, 72);
+            this.comboBoxDate.Name = "comboBoxDate";
+            this.comboBoxDate.Size = new System.Drawing.Size(63, 21);
+            this.comboBoxDate.TabIndex = 4;
             // 
             // comboBoxNumeric
             // 
@@ -128,18 +120,26 @@
             this.comboBoxNumeric.Size = new System.Drawing.Size(63, 21);
             this.comboBoxNumeric.TabIndex = 3;
             // 
-            // comboBoxDate
+            // dateTimePickerDate
             // 
-            this.comboBoxDate.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxDate.FormattingEnabled = true;
-            this.comboBoxDate.Items.AddRange(new object[] {
-            "=",
-            ">",
-            "<"});
-            this.comboBoxDate.Location = new System.Drawing.Point(21, 72);
-            this.comboBoxDate.Name = "comboBoxDate";
-            this.comboBoxDate.Size = new System.Drawing.Size(63, 21);
-            this.comboBoxDate.TabIndex = 4;
+            this.dateTimePickerDate.Location = new System.Drawing.Point(119, 71);
+            this.dateTimePickerDate.Name = "dateTimePickerDate";
+            this.dateTimePickerDate.Size = new System.Drawing.Size(147, 20);
+            this.dateTimePickerDate.TabIndex = 2;
+            // 
+            // numericUpDownNumeric
+            // 
+            this.numericUpDownNumeric.Location = new System.Drawing.Point(119, 46);
+            this.numericUpDownNumeric.Name = "numericUpDownNumeric";
+            this.numericUpDownNumeric.Size = new System.Drawing.Size(147, 20);
+            this.numericUpDownNumeric.TabIndex = 1;
+            // 
+            // textBoxString
+            // 
+            this.textBoxString.Location = new System.Drawing.Point(21, 19);
+            this.textBoxString.Name = "textBoxString";
+            this.textBoxString.Size = new System.Drawing.Size(245, 20);
+            this.textBoxString.TabIndex = 0;
             // 
             // Prohledavani
             // 
@@ -150,7 +150,7 @@
             this.Controls.Add(this.buttonOK);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.comboBoxColumns);
             this.Name = "Prohledavani";
             this.Text = "Prohledavani";
             this.groupBox1.ResumeLayout(false);
@@ -163,7 +163,7 @@
 
         #endregion
 
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox comboBoxColumns;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.Button buttonOK;
