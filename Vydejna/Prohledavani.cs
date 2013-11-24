@@ -41,34 +41,32 @@ namespace Vydejna
             comboBoxDate.Enabled = false;
             dateTimePickerDate.Enabled = false;
             loadComboBox();
+//            if (comboBoxColumns.Items.Count > 0) comboBoxColumns.SelectedIndex = 0;
+            if (comboBoxNumeric.Items.Count > 0) comboBoxNumeric.SelectedIndex = 0;
+            if (comboBoxDate.Items.Count > 0) comboBoxDate.SelectedIndex = 0;
+
         }
 
         private void loadComboBox()
-    {
-
-        DataTable mdt = (DataTable)myDataGridView.DataSource;
-
-
-        comboBoxColumns.Items.Clear();
-        for (int i = 0; i < myDataGridView.ColumnCount; i++ )
         {
-            if ((myDataGridView.Columns[i].Visible))
+            DataTable mdt = (DataTable)myDataGridView.DataSource;
+
+            comboBoxColumns.Items.Clear();
+            for (int i = 0; i < myDataGridView.ColumnCount; i++ )
             {
-
- //               string hs = mdt.Columns[i].DataType.ToString();
-                string ns = mdt.Columns[i].DataType.ToString().Substring(mdt.Columns[i].DataType.ToString().IndexOf(".") + 1);
-                if ((ns == "Int64") && (ns == "Int32") && (ns == "Int16") && (ns == "Double"))
-                {
-                    ns = "Numeric";
-                }
-                ColumnInfo myColumnInfo = new ColumnInfo(ns, myDataGridView.Columns[i].Name);
-                comboBoxColumns.Items.Add(myDataGridView.Columns[i].HeaderText.ToString());
-                comboBoxColumnInfo.Add(myColumnInfo);
-
+               if ((myDataGridView.Columns[i].Visible))
+               {
+                   string ns = mdt.Columns[i].DataType.ToString().Substring(mdt.Columns[i].DataType.ToString().IndexOf(".") + 1);
+                   if ((ns == "Int64") || (ns == "Int32") || (ns == "Int16") || (ns == "Double"))
+                   {
+                       ns = "Numeric";
+                   }
+                   ColumnInfo myColumnInfo = new ColumnInfo(ns, myDataGridView.Columns[i].Name);
+                   comboBoxColumns.Items.Add(myDataGridView.Columns[i].HeaderText.ToString());
+                   comboBoxColumnInfo.Add(myColumnInfo);
+               }
             }
-
         }
-    }
 
         private void comboBoxColumns_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -78,14 +76,30 @@ namespace Vydejna
                 textBoxString.Enabled = false;
                 ColumnInfo myColumnInfo = (ColumnInfo)comboBoxColumnInfo[comboBoxColumns.SelectedIndex];
                 string myType = Convert.ToString(myColumnInfo.varColumnType);
-                if (myType == "System.String")
+
+                textBoxString.Enabled = false;
+                comboBoxNumeric.Enabled = false;
+                numericUpDownNumeric.Enabled = false;
+                comboBoxDate.Enabled = false;
+                dateTimePickerDate.Enabled = false;
+
+                switch (myType)
                 {
+                    case "String" :
                     textBoxString.Enabled = true;
+                    break;
+                    case "Numeric":
+                    comboBoxNumeric.Enabled = true;
+                    numericUpDownNumeric.Enabled = true;
+                    break;
+                    case "DateTime":
+                    comboBoxDate.Enabled = true;
+                    dateTimePickerDate.Enabled = true;
+                    break;
                 }
- 
-            }
+                groupBox1.Focus();
+
+             }
         }
-
-
     }
 }
