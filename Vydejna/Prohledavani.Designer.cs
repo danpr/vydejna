@@ -49,6 +49,7 @@
             this.comboBoxColumns.Name = "comboBoxColumns";
             this.comboBoxColumns.Size = new System.Drawing.Size(135, 21);
             this.comboBoxColumns.TabIndex = 0;
+            this.comboBoxColumns.SelectedIndexChanged += new System.EventHandler(this.comboBoxColumns_SelectedIndexChanged);
             // 
             // label1
             // 
