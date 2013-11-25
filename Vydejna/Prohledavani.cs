@@ -107,10 +107,43 @@ namespace Vydejna
 
         if (comboBoxColumns.SelectedIndex > -1)
             {
-            string columnName = ((ColumnInfo)comboBoxColumnInfo[comboBoxColumns.SelectedIndex]).name;
+                ColumnInfo myColumnInfo = (ColumnInfo)comboBoxColumnInfo[comboBoxColumns.SelectedIndex];
+                string myType = Convert.ToString(myColumnInfo.varColumnType);
 
-            string columnNameValue = myDataGridView.Rows[0].Cells[columnName].ToString();
+                Boolean lineIsFound = false;
 
+            
+                string columnName = ((ColumnInfo)comboBoxColumnInfo[comboBoxColumns.SelectedIndex]).name;
+
+                Int32 testingRow = 0;
+
+                while (testingRow < myDataGridView.Rows.Count)
+                {
+                    //DataGridViewRowCollection myDGVCol = myDataGridView.Rows[testingRow];
+                    string columnNameValue = (myDataGridView.Rows[testingRow].Cells[columnName]).ToString();
+
+                    switch (myType)
+                    {
+                        case "String" :
+
+                            if (columnNameValue.IndexOf(comboBoxColumns.Text) != -1)
+                            {
+                                lineIsFound = true;
+
+                            }
+
+                        break;
+
+
+                    }
+
+
+                    testingRow++;
+                }
+                if (lineIsFound)
+                {
+                    // presuneme se na nalezenou radku
+                }
 
             }
 
