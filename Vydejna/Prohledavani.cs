@@ -101,5 +101,28 @@ namespace Vydejna
 
              }
         }
+
+        private void najdiRadku()
+        {
+
+        if (comboBoxColumns.SelectedIndex > -1)
+            {
+            string columnName = ((ColumnInfo)comboBoxColumnInfo[comboBoxColumns.SelectedIndex]).name;
+
+            string columnNameValue = myDataGridView.Rows[0].Cells[columnName].ToString();
+
+
+            }
+
+
+        }
+
+
+        private void buttonOK_Click(object sender, EventArgs e)
+        {
+            // prohledavani
+            najdiRadku();
+
+        }
     }
 }
