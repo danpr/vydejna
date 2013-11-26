@@ -41,7 +41,6 @@ namespace Vydejna
             comboBoxDate.Enabled = false;
             dateTimePickerDate.Enabled = false;
             loadComboBox();
-//            if (comboBoxColumns.Items.Count > 0) comboBoxColumns.SelectedIndex = 0;
             if (comboBoxNumeric.Items.Count > 0) comboBoxNumeric.SelectedIndex = 0;
             if (comboBoxDate.Items.Count > 0) comboBoxDate.SelectedIndex = 0;
 
@@ -82,11 +81,13 @@ namespace Vydejna
                 numericUpDownNumeric.Enabled = false;
                 comboBoxDate.Enabled = false;
                 dateTimePickerDate.Enabled = false;
+                checkBoxUpcase.Enabled = false;
 
                 switch (myType)
                 {
                     case "String" :
                     textBoxString.Enabled = true;
+                    checkBoxUpcase.Enabled = true;
                     break;
                     case "Numeric":
                     comboBoxNumeric.Enabled = true;
@@ -112,37 +113,111 @@ namespace Vydejna
 
                 Boolean lineIsFound = false;
 
-            
                 string columnName = ((ColumnInfo)comboBoxColumnInfo[comboBoxColumns.SelectedIndex]).name;
-
+                
                 Int32 testingRow = 0;
 
-                while (testingRow < myDataGridView.Rows.Count)
+                if (checkBoxFromStart.Checked)
                 {
-                    //DataGridViewRowCollection myDGVCol = myDataGridView.Rows[testingRow];
-                    string columnNameValue = (myDataGridView.Rows[testingRow].Cells[columnName]).ToString();
+                    testingRow = 0;
+                }
+                else 
+                {
+                    testingRow = myDataGridView.SelectedRows[0].Index+1;
+                }
+
+                while ((testingRow < myDataGridView.Rows.Count) && (!(lineIsFound)))
+                {
+
+                    string columnNameValue = (myDataGridView.Rows[testingRow].Cells[columnName]).Value.ToString();
 
                     switch (myType)
                     {
                         case "String" :
+                            string substring = textBoxString.Text;
 
-                            if (columnNameValue.IndexOf(comboBoxColumns.Text) != -1)
+                            if (checkBoxUpcase.Checked)
                             {
-                                lineIsFound = true;
-
+                                columnNameValue = columnNameValue.ToUpper();
+                                substring = substring.ToUpper();
                             }
+
+                            if (columnNameValue.IndexOf(substring) != -1)
+                                {
+                                    lineIsFound = true;
+                                }
+                        break;
+                        case "Numeric" :
+                        
+                        decimal columnNameValueDec = Convert.ToDecimal(columnNameValue);
+                        switch (comboBoxNumeric.SelectedIndex)
+                        {
+                            case 0:
+                                if (columnNameValueDec == numericUpDownNumeric.Value)
+                                {
+                                    lineIsFound = true;
+                                }
+                                break;
+                            case 1:
+                                if (columnNameValueDec > numericUpDownNumeric.Value)
+                                {
+                                    lineIsFound = true;
+                                }
+                                break;
+                            case 2:
+                                if (columnNameValueDec < numericUpDownNumeric.Value)
+                                {
+                                    lineIsFound = true;
+                                }
+                                break;
+                        }
+                        break;
+                        case "DateTime":
+
+                        DateTime columnNameValueDate = Convert.ToDateTime(columnNameValue);
+                        switch ( comboBoxDate.SelectedIndex)
+                        {
+                            case 0:
+                                if (columnNameValueDate == dateTimePickerDate.Value )
+                                {
+                                    lineIsFound = true;
+                                }
+                                break;
+                            case 1:
+                                if (columnNameValueDate > dateTimePickerDate.Value)
+                                {
+                                    lineIsFound = true;
+                                }
+                                break;
+                            case 2:
+                                if (columnNameValueDate < dateTimePickerDate.Value)
+                                {
+                                    lineIsFound = true;
+                                }
+                                break;
+                        }
+
 
                         break;
 
-
+                        
                     }
-
 
                     testingRow++;
                 }
                 if (lineIsFound)
                 {
+                    testingRow--;
                     // presuneme se na nalezenou radku
+                    myDataGridView.FirstDisplayedScrollingRowIndex = myDataGridView.Rows[testingRow].Index;
+                    myDataGridView.Refresh();
+
+                    myDataGridView.CurrentCell = myDataGridView.Rows[testingRow].Cells[1];
+                    myDataGridView.Rows[testingRow].Selected = true;
+                }
+                else
+                {
+                    MessageBox.Show("Hledaná hodnota nabyla do konce tabulku nalezena.");
                 }
 
             }
@@ -155,6 +230,11 @@ namespace Vydejna
         {
             // prohledavani
             najdiRadku();
+
+        }
+
+        private void comboBoxNumeric_SelectedIndexChanged(object sender, EventArgs e)
+        {
 
         }
     }

@@ -38,6 +38,8 @@
             this.dateTimePickerDate = new System.Windows.Forms.DateTimePicker();
             this.numericUpDownNumeric = new System.Windows.Forms.NumericUpDown();
             this.textBoxString = new System.Windows.Forms.TextBox();
+            this.checkBoxUpcase = new System.Windows.Forms.CheckBox();
+            this.checkBoxFromStart = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNumeric)).BeginInit();
             this.SuspendLayout();
@@ -64,7 +66,7 @@
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(15, 165);
+            this.buttonCancel.Location = new System.Drawing.Point(15, 225);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 16;
@@ -74,7 +76,7 @@
             // buttonOK
             // 
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonOK.Location = new System.Drawing.Point(234, 165);
+            this.buttonOK.Location = new System.Drawing.Point(234, 225);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
             this.buttonOK.TabIndex = 17;
@@ -121,6 +123,7 @@
             this.comboBoxNumeric.Name = "comboBoxNumeric";
             this.comboBoxNumeric.Size = new System.Drawing.Size(63, 21);
             this.comboBoxNumeric.TabIndex = 3;
+            this.comboBoxNumeric.SelectedIndexChanged += new System.EventHandler(this.comboBoxNumeric_SelectedIndexChanged);
             // 
             // dateTimePickerDate
             // 
@@ -143,18 +146,41 @@
             this.textBoxString.Size = new System.Drawing.Size(245, 20);
             this.textBoxString.TabIndex = 0;
             // 
+            // checkBoxUpcase
+            // 
+            this.checkBoxUpcase.AutoSize = true;
+            this.checkBoxUpcase.Location = new System.Drawing.Point(36, 153);
+            this.checkBoxUpcase.Name = "checkBoxUpcase";
+            this.checkBoxUpcase.Size = new System.Drawing.Size(148, 17);
+            this.checkBoxUpcase.TabIndex = 20;
+            this.checkBoxUpcase.Text = "Ignorovat velikost písmen";
+            this.checkBoxUpcase.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxFromStart
+            // 
+            this.checkBoxFromStart.AutoSize = true;
+            this.checkBoxFromStart.Location = new System.Drawing.Point(36, 185);
+            this.checkBoxFromStart.Name = "checkBoxFromStart";
+            this.checkBoxFromStart.Size = new System.Drawing.Size(113, 17);
+            this.checkBoxFromStart.TabIndex = 21;
+            this.checkBoxFromStart.Text = "Hledat od začátku";
+            this.checkBoxFromStart.UseVisualStyleBackColor = true;
+            // 
             // Prohledavani
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(321, 200);
+            this.ClientSize = new System.Drawing.Size(321, 260);
+            this.Controls.Add(this.checkBoxFromStart);
+            this.Controls.Add(this.checkBoxUpcase);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.buttonOK);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.comboBoxColumns);
+            this.MinimumSize = new System.Drawing.Size(337, 298);
             this.Name = "Prohledavani";
-            this.Text = "Prohledavani";
+            this.Text = "Prohledávání tabulky";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNumeric)).EndInit();
@@ -175,5 +201,7 @@
         private System.Windows.Forms.DateTimePicker dateTimePickerDate;
         private System.Windows.Forms.NumericUpDown numericUpDownNumeric;
         private System.Windows.Forms.TextBox textBoxString;
+        private System.Windows.Forms.CheckBox checkBoxUpcase;
+        private System.Windows.Forms.CheckBox checkBoxFromStart;
     }
 }
