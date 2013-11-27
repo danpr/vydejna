@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -7,12 +8,13 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Vydejna
 {
-    public partial class Prohledavani : Form
+    [Serializable] public partial class Prohledavani : Form
     {
-        public class ColumnInfo
+        [Serializable] public class ColumnInfo
         {
             public string varColumnType;
             public string name;
@@ -41,6 +43,7 @@ namespace Vydejna
             comboBoxDate.Enabled = false;
             dateTimePickerDate.Enabled = false;
             loadComboBox();
+            buttonOK.Enabled = false;
             if (comboBoxNumeric.Items.Count > 0) comboBoxNumeric.SelectedIndex = 0;
             if (comboBoxDate.Items.Count > 0) comboBoxDate.SelectedIndex = 0;
 
@@ -72,6 +75,7 @@ namespace Vydejna
             // vybrani
             if (comboBoxColumns.SelectedIndex != -1)
             {
+                buttonOK.Enabled = true;
                 textBoxString.Enabled = false;
                 ColumnInfo myColumnInfo = (ColumnInfo)comboBoxColumnInfo[comboBoxColumns.SelectedIndex];
                 string myType = Convert.ToString(myColumnInfo.varColumnType);
@@ -85,22 +89,30 @@ namespace Vydejna
 
                 switch (myType)
                 {
-                    case "String" :
-                    textBoxString.Enabled = true;
-                    checkBoxUpcase.Enabled = true;
-                    break;
+                    case "String":
+                        textBoxString.Enabled = true;
+                        checkBoxUpcase.Enabled = true;
+                        if (textBoxString.Text.Trim() == "")
+                        {
+                            buttonOK.Enabled = false;
+                        }
+                        break;
                     case "Numeric":
-                    comboBoxNumeric.Enabled = true;
-                    numericUpDownNumeric.Enabled = true;
-                    break;
+                        comboBoxNumeric.Enabled = true;
+                        numericUpDownNumeric.Enabled = true;
+                        break;
                     case "DateTime":
-                    comboBoxDate.Enabled = true;
-                    dateTimePickerDate.Enabled = true;
-                    break;
+                        comboBoxDate.Enabled = true;
+                        dateTimePickerDate.Enabled = true;
+                        break;
                 }
                 groupBox1.Focus();
 
-             }
+            }
+            else
+            {
+                buttonOK.Enabled = false;
+            }
         }
 
         private void najdiRadku()
@@ -237,5 +249,19 @@ namespace Vydejna
         {
 
         }
+
+        private void textBoxString_TextChanged(object sender, EventArgs e)
+        {
+            if ((comboBoxColumns.SelectedIndex != -1) && (textBoxString.Text.Trim() != ""))
+            {
+                buttonOK.Enabled = true;
+            }
+            else
+            {
+                buttonOK.Enabled = false;
+            }
+        }
+
+
     }
 }

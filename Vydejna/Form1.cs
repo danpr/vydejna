@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -22,6 +23,7 @@ namespace Vydejna
         private detail karta;
         private Hashtable DBRow;
         private parametryDB nastaveniDB;
+        private Prohledavani searchWindow;
 
         public Vydejna()
         {
@@ -40,6 +42,7 @@ namespace Vydejna
 
             dataGridView1.MultiSelect = false;
             dataGridView1.ReadOnly = true;
+            dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.DisplayedCellsExceptHeaders;
             DBRow = new Hashtable();
 
             if (nastaveniDB.codeDB != (int)kodDB.dbNone)
@@ -590,6 +593,7 @@ namespace Vydejna
             // naradi - skladove karty - hlavni tabulka
             labelView.Text = "Výdejna nářadí přehled - Stahuji";
             Application.DoEvents();
+            searchWindow = null;
             loadNaradiItems();
             karta = new detailSklad();
             labelView.Text = "Výdejna nářadí přehled";
@@ -633,6 +637,7 @@ namespace Vydejna
         {
             labelView.Text = "Archív zrušených karet - Stahuji";
             Application.DoEvents();
+            searchWindow = null;
             loadZrusenychItems();
             karta = new detailZruseno();
             contextMenuEnable(false);
@@ -648,6 +653,7 @@ namespace Vydejna
         {
             labelView.Text = "Vrácené nářadí do skladu - Stahuji";
             Application.DoEvents();
+            searchWindow = null;
             loadVracenoItems();
             karta = new detailVraceno();
             contextMenuEnable(false);
@@ -659,6 +665,7 @@ namespace Vydejna
             //osoby
             labelView.Text = "Pracovníci provozu - Načítání";
             Application.DoEvents();
+            searchWindow = null;
             loadOsobyItems();
             karta = new detailOsoby();
             contextMenuEnable(true,false,false,true);
@@ -695,6 +702,7 @@ namespace Vydejna
         {
             labelView.Text = "Poškozené nářadí - Stahuji";
             Application.DoEvents();
+            searchWindow = null;
             loadPoskozenoItems();
             karta = new detailPoskozeno();
             contextMenuEnable(false);
@@ -1003,6 +1011,7 @@ namespace Vydejna
             //osoby
             labelView.Text = "Pracovníci provozu - Načítání";
             Application.DoEvents();
+            searchWindow = null;
             loadOsobyItems();
             karta = new detailOsobyZapujcNaradi();
             contextMenuEnable(true, false, false, true);
@@ -1022,9 +1031,20 @@ namespace Vydejna
 
         private void ConMenuProhledávani_Click(object sender, EventArgs e)
         {
-            Prohledavani searchWindow = new Prohledavani(dataGridView1);
+            if (searchWindow == null)
+            {
+                searchWindow = new Prohledavani(dataGridView1);
+            }
 
             searchWindow.ShowDialog();
+        }
+
+        private void toolStripMenuItemFont_Click(object sender, EventArgs e)
+        {
+            // nastaveni pisma
+            fontDialog1.ShowDialog();
+            dataGridView1.Font = fontDialog1.Font;
+
         }
 
 

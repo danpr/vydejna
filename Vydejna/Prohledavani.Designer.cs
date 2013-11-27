@@ -145,6 +145,7 @@
             this.textBoxString.Name = "textBoxString";
             this.textBoxString.Size = new System.Drawing.Size(245, 20);
             this.textBoxString.TabIndex = 0;
+            this.textBoxString.TextChanged += new System.EventHandler(this.textBoxString_TextChanged);
             // 
             // checkBoxUpcase
             // 
@@ -170,7 +171,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(321, 260);
+            this.ClientSize = new System.Drawing.Size(329, 264);
             this.Controls.Add(this.checkBoxFromStart);
             this.Controls.Add(this.checkBoxUpcase);
             this.Controls.Add(this.groupBox1);

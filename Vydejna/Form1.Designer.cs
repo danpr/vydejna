@@ -58,8 +58,10 @@
             this.příjemMaterialuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.poškozeníNářadíToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.zapůjčeníNářadíToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.labelView = new System.Windows.Forms.Label();
             this.prohledáváníToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.labelView = new System.Windows.Forms.Label();
+            this.fontDialog1 = new System.Windows.Forms.FontDialog();
+            this.toolStripMenuItem9 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
@@ -168,6 +170,7 @@
             // údržbaToolStripMenuItem
             // 
             this.údržbaToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem9,
             this.toolStripMenuItem7,
             this.nahráníDatZDBaseToolStripMenuItem,
             this.vytvoreniTabulekToolStripMenuItem,
@@ -310,6 +313,13 @@
             this.zapůjčeníNářadíToolStripMenuItem.Text = "Zapůjčení nářadí";
             this.zapůjčeníNářadíToolStripMenuItem.Click += new System.EventHandler(this.ConMenuPujcNaradi_Click);
             // 
+            // prohledáváníToolStripMenuItem
+            // 
+            this.prohledáváníToolStripMenuItem.Name = "prohledáváníToolStripMenuItem";
+            this.prohledáváníToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
+            this.prohledáváníToolStripMenuItem.Text = "Prohledávání";
+            this.prohledáváníToolStripMenuItem.Click += new System.EventHandler(this.ConMenuProhledávani_Click);
+            // 
             // labelView
             // 
             this.labelView.AutoSize = true;
@@ -318,12 +328,12 @@
             this.labelView.Size = new System.Drawing.Size(0, 13);
             this.labelView.TabIndex = 4;
             // 
-            // prohledáváníToolStripMenuItem
+            // toolStripMenuItem9
             // 
-            this.prohledáváníToolStripMenuItem.Name = "prohledáváníToolStripMenuItem";
-            this.prohledáváníToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
-            this.prohledáváníToolStripMenuItem.Text = "Prohledávání";
-            this.prohledáváníToolStripMenuItem.Click += new System.EventHandler(this.ConMenuProhledávani_Click);
+            this.toolStripMenuItem9.Name = "toolStripMenuItem9";
+            this.toolStripMenuItem9.Size = new System.Drawing.Size(181, 22);
+            this.toolStripMenuItem9.Text = "Písmo";
+            this.toolStripMenuItem9.Click += new System.EventHandler(this.toolStripMenuItemFont_Click);
             // 
             // Vydejna
             // 
@@ -379,6 +389,8 @@
         private System.Windows.Forms.ToolStripMenuItem zapůjčeníNářadíToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem zapujceniNářadíToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem prohledáváníToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem9;
+        private System.Windows.Forms.FontDialog fontDialog1;
     }
 }
 
