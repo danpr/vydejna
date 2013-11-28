@@ -132,6 +132,19 @@ namespace Vydejna
                     cmdZmeny.Dispose();
                 }
 
+                OdbcCommand cmdPujceno = new OdbcCommand("DROP TABLE pujceno", myDBConn as OdbcConnection);
+                try
+                {
+                    cmdPujceno.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                finally
+                {
+                    cmdPujceno.Dispose();
+                }
 
 
              myDBConn.Close();
@@ -149,6 +162,7 @@ namespace Vydejna
             string commandStringSequenceInit1 = "INSERT INTO tabseq ( nazev, poradi) VALUES ('naradi', 1)";
             string commandStringSequenceInit2 = "INSERT INTO tabseq ( nazev, poradi) VALUES ('vraceno', 1)";
             string commandStringSequenceInit3 = "INSERT INTO tabseq ( nazev, poradi) VALUES ('poskozeno', 1)";
+            string commandStringSequenceInit4 = "INSERT INTO tabseq ( nazev, poradi) VALUES ('pujceno', 1)";
 
 
             string commandStringKarta = "create table karta ( poradi integer, nazev char(60), jk char(15), normacsn char (15)," +
@@ -191,6 +205,10 @@ namespace Vydejna
                       "pocivc integer, stav char(1), poradi integer );";
 
 
+            string commandStringPujceno = "create table pujceno (poradi integer, oscislo varchar(8), nporadi integer, zporadi integer, pjmeno varchar(15)," +
+                      "pprijmeni varchar(15), pnazev varchar(60), pjk varchar(15));";
+
+
             openDB();
             if (DBIsOpened())
             {
@@ -200,10 +218,12 @@ namespace Vydejna
             OdbcCommand cmdSequenceInit1 = new OdbcCommand(commandStringSequenceInit1, myDBConn as OdbcConnection);
             OdbcCommand cmdSequenceInit2 = new OdbcCommand(commandStringSequenceInit2, myDBConn as OdbcConnection);
             OdbcCommand cmdSequenceInit3 = new OdbcCommand(commandStringSequenceInit3, myDBConn as OdbcConnection);
+            OdbcCommand cmdSequenceInit4 = new OdbcCommand(commandStringSequenceInit4, myDBConn as OdbcConnection);
             OdbcCommand cmdVraceno = new OdbcCommand(commandStringVraceno, myDBConn as OdbcConnection);
             OdbcCommand cmdPoskozeno = new OdbcCommand(commandStringPoskozeno, myDBConn as OdbcConnection);
             OdbcCommand cmdOsoby = new OdbcCommand(commandStringOsoby, myDBConn as OdbcConnection);
             OdbcCommand cmdZmeny = new OdbcCommand(commandStringZmeny, myDBConn as OdbcConnection);
+            OdbcCommand cmdPujceno = new OdbcCommand(commandStringPujceno, myDBConn as OdbcConnection);
 
             try
                 {
@@ -213,10 +233,12 @@ namespace Vydejna
                     cmdSequenceInit1.ExecuteNonQuery();
                     cmdSequenceInit2.ExecuteNonQuery();
                     cmdSequenceInit3.ExecuteNonQuery();
+                    cmdSequenceInit4.ExecuteNonQuery();
                     cmdVraceno.ExecuteNonQuery();
                     cmdPoskozeno.ExecuteNonQuery();
                     cmdOsoby.ExecuteNonQuery();
                     cmdZmeny.ExecuteNonQuery();
+                    cmdPujceno.ExecuteNonQuery();
                     MessageBox.Show("Tabulky byly vytvořeny.");
                 }
                 catch (Exception ex)
@@ -226,6 +248,7 @@ namespace Vydejna
                 finally
                 {
                     myDBConn.Close();
+                    cmdPujceno.Dispose();
                     cmdZmeny.Dispose();
                     cmdOsoby.Dispose();
                     cmdPoskozeno.Dispose();
@@ -249,20 +272,28 @@ namespace Vydejna
             {
                 OdbcCommand cmdNaradi = new OdbcCommand("DELETE from naradi", myDBConn as OdbcConnection);
                 OdbcCommand cmdKarta = new OdbcCommand("DELETE from karta", myDBConn as OdbcConnection);
-                OdbcCommand cmdSequence = new OdbcCommand("UPDATE tabseq SET poradi=1 WHERE nazev = 'naradi'", myDBConn as OdbcConnection);
+                OdbcCommand cmd1Sequence = new OdbcCommand("UPDATE tabseq SET poradi=1 WHERE nazev = 'naradi'", myDBConn as OdbcConnection);
+                OdbcCommand cmd2Sequence = new OdbcCommand("UPDATE tabseq SET poradi=1 WHERE nazev = 'vraceno'", myDBConn as OdbcConnection);
+                OdbcCommand cmd3Sequence = new OdbcCommand("UPDATE tabseq SET poradi=1 WHERE nazev = 'poskozeno'", myDBConn as OdbcConnection);
+                OdbcCommand cmd4Sequence = new OdbcCommand("UPDATE tabseq SET poradi=1 WHERE nazev = 'pujceno'", myDBConn as OdbcConnection);
                 OdbcCommand cmdVraceno = new OdbcCommand("DELETE from vraceno", myDBConn as OdbcConnection);
                 OdbcCommand cmdPoskozeno = new OdbcCommand("DELETE from poskozeno", myDBConn as OdbcConnection);
                 OdbcCommand cmdOsoby = new OdbcCommand("DELETE from osoby", myDBConn as OdbcConnection);
                 OdbcCommand cmdZmeny = new OdbcCommand("DELETE from zmeny", myDBConn as OdbcConnection);
+                OdbcCommand cmdPujceno = new OdbcCommand("DELETE from pujceno", myDBConn as OdbcConnection);
                 try
                 {
                     cmdNaradi.ExecuteNonQuery();
                     cmdKarta.ExecuteNonQuery();
-                    cmdSequence.ExecuteNonQuery();
+                    cmd1Sequence.ExecuteNonQuery();
+                    cmd2Sequence.ExecuteNonQuery();
+                    cmd3Sequence.ExecuteNonQuery();
+                    cmd4Sequence.ExecuteNonQuery();
                     cmdVraceno.ExecuteNonQuery();
                     cmdPoskozeno.ExecuteNonQuery();
                     cmdOsoby.ExecuteNonQuery();
                     cmdZmeny.ExecuteNonQuery();
+                    cmdPujceno.ExecuteNonQuery();
                     MessageBox.Show("Tabulky byly smazány");
                 }
                 catch (Exception ex)
@@ -271,11 +302,15 @@ namespace Vydejna
                 }
                 finally
                 {
+                    cmdPujceno.Dispose();
                     cmdZmeny.Dispose();
                     cmdOsoby.Dispose();
                     cmdPoskozeno.Dispose();
                     cmdVraceno.Dispose();
-                    cmdSequence.Dispose();
+                    cmd1Sequence.Dispose();
+                    cmd2Sequence.Dispose();
+                    cmd3Sequence.Dispose();
+                    cmd4Sequence.Dispose();
                     cmdKarta.Dispose();
                     cmdNaradi.Dispose();
 //                    myDBConn.Close();
