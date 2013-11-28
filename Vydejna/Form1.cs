@@ -497,13 +497,23 @@ namespace Vydejna
                 progressBarMain.MarqueeAnimationSpeed = 0;
 
 
-                // sestz soubor zmeny
+                // sesty soubor zmeny
                 labelView.Text = "Přesouvám tabulku změn stavu nářadí";
                 Application.DoEvents();
 
 
                 progressBarMain.MarqueeAnimationSpeed = 100;
                 PresunDB.presunVyrazeneMDat(myDB, filepath, DBJoin);
+                progressBarMain.MarqueeAnimationSpeed = 0;
+
+
+                // sedmy soubor zapujcene
+                labelView.Text = "Přesouvám tabulku zapůjčeného nářadí";
+                Application.DoEvents();
+
+
+                progressBarMain.MarqueeAnimationSpeed = 100;
+                PresunDB.presunPerson(myDB, filepath, DBJoin);
                 progressBarMain.MarqueeAnimationSpeed = 0;
 
 

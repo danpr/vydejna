@@ -147,6 +147,19 @@ namespace Vydejna
                     cmdZmeny.Dispose();
                 }
 
+                SQLiteCommand cmdPujceno = new SQLiteCommand("DROP TABLE pujceno", myDBConn as SQLiteConnection);
+                try
+                {
+                    cmdPujceno.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                finally
+                {
+                    cmdPujceno.Dispose();
+                }
 
                 myDBConn.Close();
                 myDBConn.Dispose();
@@ -167,10 +180,12 @@ namespace Vydejna
                 SQLiteCommand cmdSequence1 = new SQLiteCommand("UPDATE tabseq SET poradi=1 WHERE nazev = 'naradi'", myDBConn as SQLiteConnection);
                 SQLiteCommand cmdSequence2 = new SQLiteCommand("UPDATE tabseq SET poradi=1 WHERE nazev = 'vraceno'", myDBConn as SQLiteConnection);
                 SQLiteCommand cmdSequence3 = new SQLiteCommand("UPDATE tabseq SET poradi=1 WHERE nazev = 'poskozeno'", myDBConn as SQLiteConnection);
+                SQLiteCommand cmdSequence4 = new SQLiteCommand("UPDATE tabseq SET poradi=1 WHERE nazev = 'pujceno'", myDBConn as SQLiteConnection);
                 SQLiteCommand cmdVraceno = new SQLiteCommand("DELETE from vraceno", myDBConn as SQLiteConnection);
                 SQLiteCommand cmdPoskozeno = new SQLiteCommand("DELETE from poskozeno", myDBConn as SQLiteConnection);
                 SQLiteCommand cmdOsoby = new SQLiteCommand("DELETE from osoby", myDBConn as SQLiteConnection);
                 SQLiteCommand cmdZmeny = new SQLiteCommand("DELETE from zmeny", myDBConn as SQLiteConnection);
+                SQLiteCommand cmdPujceno = new SQLiteCommand("DELETE from pujceno", myDBConn as SQLiteConnection);
                 //                SQLiteCommand cmdVacuum = new OdbcCommand("VACUUM", myDBConn as SQLiteConnection);
                 try
                 {
@@ -179,10 +194,12 @@ namespace Vydejna
                     cmdSequence1.ExecuteNonQuery();
                     cmdSequence2.ExecuteNonQuery();
                     cmdSequence3.ExecuteNonQuery();
+                    cmdSequence4.ExecuteNonQuery();
                     cmdVraceno.ExecuteNonQuery();
                     cmdPoskozeno.ExecuteNonQuery();
                     cmdOsoby.ExecuteNonQuery();
                     cmdZmeny.ExecuteNonQuery();
+                    cmdPujceno.ExecuteNonQuery();
                     //    cmdVacuum.ExecuteNonQuery();
                     MessageBox.Show("Tabulky byly smazány");
                 }
@@ -193,6 +210,7 @@ namespace Vydejna
                 finally
                 {
                     //  cmdVacuum.Dispose();
+                    cmdPujceno.Dispose();
                     cmdZmeny.Dispose();
                     cmdOsoby.Dispose();
                     cmdPoskozeno.Dispose();
@@ -200,6 +218,7 @@ namespace Vydejna
                     cmdSequence1.Dispose();
                     cmdSequence2.Dispose();
                     cmdSequence3.Dispose();
+                    cmdSequence4.Dispose();
                     cmdKarta.Dispose();
                     cmdNaradi.Dispose();
                 }
@@ -216,7 +235,8 @@ namespace Vydejna
             string commandStringSequence = "create table tabseq ( nazev char (15), poradi integer);";
             string commandStringSequenceInit1 = "INSERT INTO tabseq ( nazev, poradi) VALUES ('naradi', 1)";
             string commandStringSequenceInit2 = "INSERT INTO tabseq ( nazev, poradi) VALUES ('vraceno', 1)";
-            string commandStringSequenceInit3 = "INSERT INTO tabseq ( nazev, poradi) VALUES ('poskozeno', 1)"; 
+            string commandStringSequenceInit3 = "INSERT INTO tabseq ( nazev, poradi) VALUES ('poskozeno', 1)";
+            string commandStringSequenceInit4 = "INSERT INTO tabseq ( nazev, poradi) VALUES ('pujceno', 1)"; 
 
 
             string commandStringKarta = "create table karta ( poradi integer, nazev char(60), jk char(15), normacsn char (15)," +
@@ -255,6 +275,9 @@ namespace Vydejna
                       "prijem integer, vydej integer, zustatek integer, zapkarta char(5), vevcislo char(12)," +
                       "pocivc integer, stav char(1), poradi integer );";
 
+            string commandStringPujceno = "create table pujceno (poradi integer, oscislo varchar(8), nporadi integer, zporadi integer, pjmeno varchar(15)," +
+                      "pprijmeni varchar(15), pnazev varchar(60), pjk varchar(15));";
+
 
             openDB();
             if (DBIsOpened())
@@ -265,10 +288,12 @@ namespace Vydejna
                 SQLiteCommand cmdSequenceInit1 = new SQLiteCommand(commandStringSequenceInit1, myDBConn as SQLiteConnection);
                 SQLiteCommand cmdSequenceInit2 = new SQLiteCommand(commandStringSequenceInit2, myDBConn as SQLiteConnection);
                 SQLiteCommand cmdSequenceInit3 = new SQLiteCommand(commandStringSequenceInit3, myDBConn as SQLiteConnection);
+                SQLiteCommand cmdSequenceInit4 = new SQLiteCommand(commandStringSequenceInit4, myDBConn as SQLiteConnection);
                 SQLiteCommand cmdVraceno = new SQLiteCommand(commandStringVraceno, myDBConn as SQLiteConnection);
                 SQLiteCommand cmdPoskozeno = new SQLiteCommand(commandStringPoskozeno, myDBConn as SQLiteConnection);
                 SQLiteCommand cmdOsoby = new SQLiteCommand(commandStringOsoby, myDBConn as SQLiteConnection);
                 SQLiteCommand cmdZmeny = new SQLiteCommand(commandStringZmeny, myDBConn as SQLiteConnection);
+                SQLiteCommand cmdPujceno = new SQLiteCommand(commandStringPujceno, myDBConn as SQLiteConnection);
                 try
                 {
                     cmdKarta.ExecuteNonQuery();
@@ -281,6 +306,7 @@ namespace Vydejna
                     cmdPoskozeno.ExecuteNonQuery();
                     cmdOsoby.ExecuteNonQuery();
                     cmdZmeny.ExecuteNonQuery();
+                    cmdPujceno.ExecuteNonQuery();
                     MessageBox.Show("Tabulky byly vytvořeny.");
                 }
                 catch (Exception ex)
@@ -290,6 +316,7 @@ namespace Vydejna
                 finally
                 {
                     myDBConn.Close();
+                    cmdPujceno.Dispose();
                     cmdZmeny.Dispose();
                     cmdOsoby.Dispose();
                     cmdPoskozeno.Dispose();

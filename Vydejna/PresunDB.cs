@@ -480,6 +480,109 @@ namespace Vydejna
 
 
 
+    public static void presunPerson(vDatabase myDB, string filepath, Hashtable DBJoin)
+    {
+        string personPath = filepath + "\\PERSON";
+        // seznam souboru
+        if (Directory.Exists(personPath))
+        {
+            DbTransaction myTransaction = myDB.startTransaction();
+
+            DirectoryInfo addr = new DirectoryInfo(personPath);
+            foreach (FileInfo dbfFile in addr.GetFiles("*.dbf"))
+            {
+                string fileName = dbfFile.Name;
+                string nameFileWithExt = Path.GetFileNameWithoutExtension(dbfFile.Name);
+                string index ="PERSON:" + nameFileWithExt;
+                presunPersonFile(myDB, personPath, fileName, index, DBJoin);
+            }
+            if (myTransaction != null)
+            {
+                myDB.stopTransaction(myTransaction);
+            }
+
+        }
+    }
+
+
+    private static void presunPersonFile(vDatabase myDB, string filepath, string fileName, string index, Hashtable DBJoin)
+    {
+        OleDbConnection fbase = new OleDbConnection("Provider=VFPOLEDB.1;CodePage=437;Data Source=" + filepath + ";Exclusive=false;Nulls=false");
+        fbase.Open();
+        OleDbCommand fbaseCom = new OleDbCommand("SELECT * FROM " + filepath + "\\" + fileName, fbase);
+        OleDbDataReader dr = fbaseCom.ExecuteReader();
+        if (dr.HasRows)
+        {
+            string DBjmeno;
+            string DBprijmeni;
+            string DBosCislo;
+            DateTime DBdatum;
+            string DBpoznamka;
+            int DBks;
+            string DBnazev;
+            string DBivCislo;
+            string DBvevCislo;
+            string DBcontrCod;
+            string DBmov;
+            string DBrozmer;
+            string DBcsn;
+            double DBcena;
+            int DBporadi;
+
+
+            while (dr.Read())
+            {
+                if (dr.IsDBNull(0)) DBjmeno = ""; else DBjmeno = fbaseToUtf16(dr.GetString(0).Trim());
+                if (dr.IsDBNull(1)) DBprijmeni = ""; else DBprijmeni = fbaseToUtf16(dr.GetString(1).Trim());
+                if (dr.IsDBNull(2)) DBosCislo = ""; else DBosCislo = dr.GetString(2).Trim();
+                if (dr.IsDBNull(3)) DBdatum = new DateTime(0); else DBdatum = dr.GetDateTime(3);
+                if (dr.IsDBNull(4)) DBnazev = ""; else DBnazev = fbaseToUtf16(dr.GetString(4).Trim());
+                if (dr.IsDBNull(5)) DBrozmer = ""; else DBrozmer = fbaseToUtf16(dr.GetString(5).Trim());
+                if (dr.IsDBNull(6)) DBpoznamka = ""; else DBpoznamka = fbaseToUtf16(dr.GetString(6).Trim());
+                if (dr.IsDBNull(7)) DBivCislo = ""; else DBivCislo = dr.GetString(7).Trim();
+                if (dr.IsDBNull(8)) DBks = 0; else DBks = Convert.ToInt32(dr.GetDecimal(8));
+                if (dr.IsDBNull(9)) DBcontrCod = ""; else DBcontrCod = dr.GetString(9).Trim();
+                if (dr.IsDBNull(10)) DBmov = ""; else DBmov = dr.GetString(10).Trim();
+                if (dr.IsDBNull(11)) DBcsn = ""; else DBcsn = dr.GetString(11).Trim();
+                if (dr.IsDBNull(12)) DBcena = 0; else DBcena = Convert.ToDouble(dr.GetDecimal(12));
+                if (dr.IsDBNull(13)) DBvevCislo = ""; else DBvevCislo = fbaseToUtf16(dr.GetString(13).Trim());//pcs
+
+                Int32 poradi;
+                if (DBcontrCod != "")
+                {
+                    string joinIndex = index + ":" + DBcontrCod;
+                    if (DBJoin.ContainsKey(joinIndex))
+                    {
+                        poradi = (Int32)DBJoin[joinIndex];
+                    }
+                    else
+                    {
+                        poradi = 0; // neprirazeno
+                    }
+
+                }
+                else
+                {
+                    poradi = -1; // chyba v puvodnich datech
+                }
+                // vygenerujeme novy stav
+
+
+
+//                myDB.addLineZmeny(poradi, DBpomocJK, DBdatum, DBpoznamka, DBprijem, DBvydej, DBzustatek, DBzapKarta, DBvevCislo,
+//                    DBpocIvc, DBstav, DBporadi);
+
+                Application.DoEvents();
+
+            }
+
+        }
+        fbase.Close();
+        fbase.Dispose();
+    }
+
+
+
     public static void presunOsoby(vDatabase myDB, string filepath)
     {
         DbTransaction myTransaction = myDB.startTransaction();
