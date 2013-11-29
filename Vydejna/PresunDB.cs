@@ -492,9 +492,8 @@ namespace Vydejna
             foreach (FileInfo dbfFile in addr.GetFiles("*.dbf"))
             {
                 string fileName = dbfFile.Name;
-                string nameFileWithExt = Path.GetFileNameWithoutExtension(dbfFile.Name);
-                string index ="PERSON:" + nameFileWithExt;
-                presunPersonFile(myDB, personPath, fileName, index, DBJoin);
+//                string nameFileWithExt = Path.GetFileNameWithoutExtension(dbfFile.Name);
+                presunPersonFile(myDB, personPath, fileName, DBJoin);
             }
             if (myTransaction != null)
             {
@@ -505,7 +504,7 @@ namespace Vydejna
     }
 
 
-    private static void presunPersonFile(vDatabase myDB, string filepath, string fileName, string index, Hashtable DBJoin)
+    private static void presunPersonFile(vDatabase myDB, string filepath, string fileName, Hashtable DBJoin)
     {
         OleDbConnection fbase = new OleDbConnection("Provider=VFPOLEDB.1;CodePage=437;Data Source=" + filepath + ";Exclusive=false;Nulls=false");
         fbase.Open();
@@ -550,14 +549,23 @@ namespace Vydejna
                 Int32 poradi;
                 if (DBcontrCod != "")
                 {
-                    string joinIndex = index + ":" + DBcontrCod;
+                    string joinIndex = "MDAT:" + DBmov + ":" + DBcontrCod;
                     if (DBJoin.ContainsKey(joinIndex))
                     {
                         poradi = (Int32)DBJoin[joinIndex];
                     }
                     else
                     {
-                        poradi = 0; // neprirazeno
+                        joinIndex = "MDAT1" + DBmov + ":" + DBcontrCod;
+                        if (DBJoin.ContainsKey(joinIndex))
+                        {
+                            poradi = (Int32)DBJoin[joinIndex];
+                        }
+                        else
+                        {
+                            poradi = 0; // neprirazeno
+                        }
+
                     }
 
                 }
