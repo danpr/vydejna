@@ -527,12 +527,13 @@ namespace Vydejna
                 progressBarMain.MarqueeAnimationSpeed = 100;
                 PresunDB.presunOsoby(myDB, filepath);
                 progressBarMain.MarqueeAnimationSpeed = 0;
-//                myDB.closeDB();
 
 
                 progressBarMain.Style = ProgressBarStyle.Blocks;
                 progressBarMain.Value=0;
                 labelView.Text = "";
+
+                MessageBox.Show("Přesun dat ukončen.");
             }
         }
 

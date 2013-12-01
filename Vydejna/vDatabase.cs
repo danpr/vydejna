@@ -231,6 +231,13 @@ namespace Vydejna
         {
         }
 
+        public virtual void addLinePujceno(int DBparPoradi, string DBosCislo, DateTime DBdatum, int DBks,
+                                         string DBjmeno, string DBPrijmeni, string DBnazev, string DBjk,
+                                         double DBcena, int DBzmPoradi)
+        {
+        }
+
+
 
         public virtual Int32 addNewLineNaradi(string DBnazev, string DBJK, string DBnormacsn, string DBnormadin,
                                          string DBvyrobce, decimal DBcena, string DBpoznamka, long DBminstav,

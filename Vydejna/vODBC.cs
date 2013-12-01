@@ -201,7 +201,7 @@ namespace Vydejna
 
 
             string commandStringZmeny = "create table zmeny ( parporadi integer, pomozjk char(15), datum date, poznamka char(22)," +
-                      "prijem integer, vydej integer, zustatek integer, zapkarta char(5), vevcislo char(12)," +
+                      "prijem integer, vydej integer, zustatek integer, zapkarta char(8), vevcislo char(12)," +
                       "pocivc integer, stav char(1), poradi integer );";
 
 

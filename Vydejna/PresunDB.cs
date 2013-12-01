@@ -450,13 +450,22 @@ namespace Vydejna
                 }
                 // vygenerujeme novy stav
 
-                if (DBpoznamka == "Poškozeno") DBstav = "O";
+                string testString;
+
+                if (DBpoznamka.Length > 9) testString = DBpoznamka.Substring(0, 9);
+                else testString = DBpoznamka;
+
+                if (testString == "Poškozeno") DBstav = "O";
                 else
                 {
-                    if (DBpoznamka == "Půjčeno") DBstav = "U";
+                    if (DBpoznamka.Length > 7) testString = DBpoznamka.Substring(0, 7);
+                    else testString = DBpoznamka;
+                    if (testString == "Půjčeno") DBstav = "U";
                     else
                     {
-                        if (DBpoznamka == "Vyřazeno") DBstav = "V";
+                        if (DBpoznamka.Length > 8) testString = DBpoznamka.Substring(0, 8);
+                        else testString = DBpoznamka;
+                        if (testString == "Vyřazeno") DBstav = "V";
                         else
                         {
                             DBstav = "P"; // Prijem
@@ -526,7 +535,6 @@ namespace Vydejna
             string DBrozmer;
             string DBcsn;
             double DBcena;
-            int DBporadi;
 
 
             while (dr.Read())
@@ -556,7 +564,7 @@ namespace Vydejna
                     }
                     else
                     {
-                        joinIndex = "MDAT1" + DBmov + ":" + DBcontrCod;
+                        joinIndex = "MDAT1:" + DBmov + ":" + DBcontrCod;
                         if (DBJoin.ContainsKey(joinIndex))
                         {
                             poradi = (Int32)DBJoin[joinIndex];
@@ -564,6 +572,7 @@ namespace Vydejna
                         else
                         {
                             poradi = 0; // neprirazeno
+                            MessageBox.Show("Vypujčení - Položka " + DBnazev + " JK : " + DBivCislo + " pro uživatele " + DBosCislo + " neexisuje. ");
                         }
 
                     }
@@ -575,10 +584,11 @@ namespace Vydejna
                 }
                 // vygenerujeme novy stav
 
+                Int32 DBzmPoradi = 0;
 
 
-//                myDB.addLineZmeny(poradi, DBpomocJK, DBdatum, DBpoznamka, DBprijem, DBvydej, DBzustatek, DBzapKarta, DBvevCislo,
-//                    DBpocIvc, DBstav, DBporadi);
+                myDB.addLinePujceno(poradi, DBosCislo, DBdatum, DBks, DBjmeno, DBprijmeni, DBnazev, DBivCislo,
+                    DBcena, DBzmPoradi);
 
                 Application.DoEvents();
 
