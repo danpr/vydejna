@@ -452,27 +452,71 @@ namespace Vydejna
                 }
                 // vygenerujeme novy stav
 
+                string DBpoznamkaUpper = DBpoznamka.ToUpper();
                 string testString;
 
-                if (DBpoznamka.Length > 9) testString = DBpoznamka.Substring(0, 9);
-                else testString = DBpoznamka;
-
-                if (testString == "Poškozeno") DBstav = "O";
+                if (DBpoznamkaUpper.Length > 9) testString = DBpoznamkaUpper.Substring(0, 9);
+                else testString = DBpoznamkaUpper;
+                if (testString == "POŠKOZENO") DBstav = "O";
                 else
                 {
-                    if (DBpoznamka.Length > 7) testString = DBpoznamka.Substring(0, 7);
-                    else testString = DBpoznamka;
-                    if (testString == "Půjčeno") DBstav = "U";
+                    if (DBpoznamkaUpper.Length > 5) testString = DBpoznamkaUpper.Substring(0, 5);
+                    else testString = DBpoznamkaUpper;
+                    if (testString == "POŠK.") DBstav = "O";
                     else
                     {
-                        if (DBpoznamka.Length > 8) testString = DBpoznamka.Substring(0, 8);
-                        else testString = DBpoznamka;
-                        if (testString == "Vyřazeno") DBstav = "V";
+                        if (DBpoznamkaUpper.Length > 7) testString = DBpoznamkaUpper.Substring(0, 7);
+                        else testString = DBpoznamkaUpper;
+                        if ((testString  == "POŠKOZ.")) DBstav = "O";
                         else
                         {
-                            DBstav = "P"; // Prijem
+                            if (DBpoznamkaUpper.Length > 7) testString = DBpoznamkaUpper.Substring(0, 7);
+                            else testString = DBpoznamkaUpper;
+                            if (testString == "PŮJČENO" ) DBstav = "U";
+                            else
+                            {
+                                if (DBpoznamkaUpper.Length > 4) testString = DBpoznamkaUpper.Substring(0, 4);
+                                else testString = DBpoznamkaUpper;
+                                if (testString == "PŮJ.") DBstav = "U";
+                                else
+                                {
+                                    if (DBpoznamkaUpper.Length > 5) testString = DBpoznamkaUpper.Substring(0, 5);
+                                    else testString = DBpoznamkaUpper;
+                                    if ((testString == "PŮJČ.") || (DBpoznamka == "oprava - půjčeno")) DBstav = "U";
+                                    else
+                                    {
+                                        if (DBpoznamkaUpper.Length > 7) testString = DBpoznamkaUpper.Substring(0, 7);
+                                        else testString = DBpoznamkaUpper;
+                                        if (testString == "VRÁCENO") DBstav = "R";
+                                        else
+                                        {
+                                            if (DBpoznamkaUpper.Length > 8) testString = DBpoznamkaUpper.Substring(0, 8);
+                                            else testString = DBpoznamkaUpper;
+                                            if (testString == "VYŘAZENO") DBstav = "V";
+                                            else
+                                            {
+                                                if (DBpoznamkaUpper.Length > 5) testString = DBpoznamkaUpper.Substring(0, 5);
+                                                else testString = DBpoznamkaUpper;
+                                                if ((testString == "NÁKUP") || (DBpoznamkaUpper == "ZE STARÉ KARTY")) DBstav = "P";
+                                                else
+                                                {
+                                                    if ((DBvydej > 0) && (DBprijem == 0))
+                                                    {
+                                                        DBstav = "V"; //Vyrazeno
+                                                    }
+                                                    else
+                                                    {
+                                                        DBstav = "P"; // Přijem "Nákup"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
+
                 }
 
 
