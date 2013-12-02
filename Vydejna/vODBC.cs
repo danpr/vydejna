@@ -2076,6 +2076,86 @@ namespace Vydejna
         }
 
 
+        public override void addLinePujceno(int DBparPoradi, string DBosCislo, DateTime DBdatum, int DBks,
+                                         string DBjmeno, string DBPrijmeni, string DBnazev, string DBjk,
+                                         double DBcena, int DBzmPoradi)
+        {
+            string commandString = "INSERT INTO pujceno ( poradi, oscislo, nporadi, zporadi, pjmeno, pprijmeni, pnazev, pjk )" +
+                  "VALUES ( ?, ?, ?, ?, ?, ?, ?, ? )";
+
+            string commandStringSeq1 = "SELECT poradi FROM tabseq WHERE nazev = 'pujceno'";
+            string commandStringSeq2 = "UPDATE  tabseq set poradi = poradi +1 WHERE nazev = 'pujceno'";
+            //            string commandStringSeq3 = "SELECT poradi FROM zmeny WHERE parporadi = ? AND zapkarta = ? AND stav = 'U' AND datum = ? ";
+            string commandStringSeq3 = "SELECT poradi FROM zmeny WHERE parporadi = ? AND stav = 'U'";
+
+
+            if (DBIsOpened())
+            {
+
+                OdbcCommand cmdSeq1 = new OdbcCommand(commandStringSeq1, myDBConn as OdbcConnection);
+                OdbcDataReader seqReader1 = cmdSeq1.ExecuteReader();
+                seqReader1.Read();
+                Int32 pujcPoradi = seqReader1.GetInt32(0);
+                seqReader1.Close();
+
+
+                OdbcCommand cmdSeq3 = new OdbcCommand(commandStringSeq3, myDBConn as OdbcConnection);
+                OdbcParameter pz0 = new OdbcParameter("pz0", OdbcType.Int);
+                pz0.Value = DBparPoradi;
+                OdbcParameter pz1 = new OdbcParameter("pz1", OdbcType.NChar);
+                pz1.Value = DBosCislo;
+                OdbcParameter pz2 = new OdbcParameter("pz2", OdbcType.NChar);
+                pz2.Value = DBdatum;
+                cmdSeq3.Parameters.Add(pz0);
+                //    cmdSeq3.Parameters.Add(pz1);
+                //    cmdSeq3.Parameters.Add(pz2);
+                OdbcDataReader seqReader2 = cmdSeq3.ExecuteReader();
+
+                Int32 zmenyPoradi;
+                if (seqReader2.Read() == true)
+                {
+                    zmenyPoradi = seqReader2.GetInt32(0);
+                    seqReader2.Close();
+                }
+                else
+                {
+                    zmenyPoradi = 0;
+                }
+
+                OdbcCommand cmd = new OdbcCommand(commandString, myDBConn as OdbcConnection);
+
+                OdbcParameter p0 = new OdbcParameter("p0", OdbcType.Int);
+                p0.Value = pujcPoradi;
+                OdbcParameter p1 = new OdbcParameter("p1", OdbcType.NChar);
+                p1.Value = DBosCislo;
+                OdbcParameter p2 = new OdbcParameter("p2", OdbcType.Int);
+                p2.Value = DBparPoradi;
+                OdbcParameter p3 = new OdbcParameter("p3", OdbcType.Int);
+                p3.Value = zmenyPoradi; // DBzmPoradi;
+                OdbcParameter p4 = new OdbcParameter("p4", OdbcType.NChar);
+                p4.Value = DBjmeno;
+                OdbcParameter p5 = new OdbcParameter("p5", OdbcType.NChar);
+                p5.Value = DBPrijmeni;
+                OdbcParameter p6 = new OdbcParameter("p6", OdbcType.NChar);
+                p6.Value = DBnazev;
+                OdbcParameter p7 = new OdbcParameter("p7", OdbcType.NChar);
+                p7.Value = DBjk;
+
+                cmd.Parameters.Add(p0);
+                cmd.Parameters.Add(p1);
+                cmd.Parameters.Add(p2);
+                cmd.Parameters.Add(p3);
+                cmd.Parameters.Add(p4);
+                cmd.Parameters.Add(p5);
+                cmd.Parameters.Add(p6);
+                cmd.Parameters.Add(p7);
+                cmd.ExecuteNonQuery();
+
+                OdbcCommand cmdSeq2 = new OdbcCommand(commandStringSeq2, myDBConn as OdbcConnection);
+                cmdSeq2.ExecuteNonQuery();
+            }
+        }
+
 
 
         public override DataTable loadDataTable(string DBSelect)

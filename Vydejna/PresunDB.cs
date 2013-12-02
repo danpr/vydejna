@@ -299,6 +299,8 @@ namespace Vydejna
         fbase.Open();
         OleDbCommand fbaseCom = new OleDbCommand("SELECT * FROM " + filepath + "\\DATA\\POSKNAR.DBF", fbase);
         OleDbDataReader dr = fbaseCom.ExecuteReader();
+        
+        
         if (dr.HasRows)
         {
             string DBnazev;
