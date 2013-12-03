@@ -563,86 +563,102 @@ namespace Vydejna
     {
         OleDbConnection fbase = new OleDbConnection("Provider=VFPOLEDB.1;CodePage=437;Data Source=" + filepath + ";Exclusive=false;Nulls=false");
         fbase.Open();
-        OleDbCommand fbaseCom = new OleDbCommand("SELECT * FROM " + filepath + "\\" + fileName, fbase);
-        OleDbDataReader dr = fbaseCom.ExecuteReader();
-        if (dr.HasRows)
-        {
-            string DBjmeno;
-            string DBprijmeni;
-            string DBosCislo;
-            DateTime DBdatum;
-            string DBpoznamka;
-            int DBks;
-            string DBnazev;
-            string DBivCislo;
-            string DBvevCislo;
-            string DBcontrCod;
-            string DBmov;
-            string DBrozmer;
-            string DBcsn;
-            double DBcena;
-
-
-            while (dr.Read())
+            OleDbCommand fbaseCom = new OleDbCommand("SELECT * FROM " + filepath + "\\" + fileName, fbase);
+           OleDbDataReader dr;
+            try
             {
-                if (dr.IsDBNull(0)) DBjmeno = ""; else DBjmeno = fbaseToUtf16(dr.GetString(0).Trim());
-                if (dr.IsDBNull(1)) DBprijmeni = ""; else DBprijmeni = fbaseToUtf16(dr.GetString(1).Trim());
-                if (dr.IsDBNull(2)) DBosCislo = ""; else DBosCislo = dr.GetString(2).Trim();
-                if (dr.IsDBNull(3)) DBdatum = new DateTime(0); else DBdatum = dr.GetDateTime(3);
-                if (dr.IsDBNull(4)) DBnazev = ""; else DBnazev = fbaseToUtf16(dr.GetString(4).Trim());
-                if (dr.IsDBNull(5)) DBrozmer = ""; else DBrozmer = fbaseToUtf16(dr.GetString(5).Trim());
-                if (dr.IsDBNull(6)) DBpoznamka = ""; else DBpoznamka = fbaseToUtf16(dr.GetString(6).Trim());
-                if (dr.IsDBNull(7)) DBivCislo = ""; else DBivCislo = dr.GetString(7).Trim();
-                if (dr.IsDBNull(8)) DBks = 0; else DBks = Convert.ToInt32(dr.GetDecimal(8));
-                if (dr.IsDBNull(9)) DBcontrCod = ""; else DBcontrCod = dr.GetString(9).Trim();
-                if (dr.IsDBNull(10)) DBmov = ""; else DBmov = dr.GetString(10).Trim();
-                if (dr.IsDBNull(11)) DBcsn = ""; else DBcsn = dr.GetString(11).Trim();
-                if (dr.IsDBNull(12)) DBcena = 0; else DBcena = Convert.ToDouble(dr.GetDecimal(12));
-                if (dr.IsDBNull(13)) DBvevCislo = ""; else DBvevCislo = fbaseToUtf16(dr.GetString(13).Trim());//pcs
+                dr = fbaseCom.ExecuteReader();
 
-                Int32 poradi;
-                if (DBcontrCod != "")
+            if (dr.HasRows)
+            {
+                string DBjmeno;
+                string DBprijmeni;
+                string DBosCislo;
+                DateTime DBdatum;
+                string DBpoznamka;
+                int DBks;
+                string DBnazev;
+                string DBivCislo;
+                string DBvevCislo;
+                string DBcontrCod;
+                string DBmov;
+                string DBrozmer;
+                string DBcsn;
+                double DBcena;
+
+
+                while (dr.Read())
                 {
-                    string joinIndex = "MDAT:" + DBmov + ":" + DBcontrCod;
-                    if (DBJoin.ContainsKey(joinIndex))
+                    if (dr.IsDBNull(0)) DBjmeno = ""; else DBjmeno = fbaseToUtf16(dr.GetString(0).Trim());
+                    if (dr.IsDBNull(1)) DBprijmeni = ""; else DBprijmeni = fbaseToUtf16(dr.GetString(1).Trim());
+                    if (dr.IsDBNull(2)) DBosCislo = ""; else DBosCislo = dr.GetString(2).Trim();
+                    if (dr.IsDBNull(3)) DBdatum = new DateTime(0); else DBdatum = dr.GetDateTime(3);
+                    if (dr.IsDBNull(4)) DBnazev = ""; else DBnazev = fbaseToUtf16(dr.GetString(4).Trim());
+                    if (dr.IsDBNull(5)) DBrozmer = ""; else DBrozmer = fbaseToUtf16(dr.GetString(5).Trim());
+                    if (dr.IsDBNull(6)) DBpoznamka = ""; else DBpoznamka = fbaseToUtf16(dr.GetString(6).Trim());
+                    if (dr.IsDBNull(7)) DBivCislo = ""; else DBivCislo = dr.GetString(7).Trim();
+                    if (dr.IsDBNull(8)) DBks = 0; else DBks = Convert.ToInt32(dr.GetDecimal(8));
+                    if (dr.IsDBNull(9)) DBcontrCod = ""; else DBcontrCod = dr.GetString(9).Trim();
+                    if (dr.IsDBNull(10)) DBmov = ""; else DBmov = dr.GetString(10).Trim();
+                    if (dr.IsDBNull(11)) DBcsn = ""; else DBcsn = dr.GetString(11).Trim();
+                    if (dr.IsDBNull(12)) DBcena = 0; else DBcena = Convert.ToDouble(dr.GetDecimal(12));
+                    if (dr.IsDBNull(13)) DBvevCislo = ""; else DBvevCislo = fbaseToUtf16(dr.GetString(13).Trim());//pcs
+
+                    Int32 poradi;
+                    if (DBcontrCod != "")
                     {
-                        poradi = (Int32)DBJoin[joinIndex];
-                    }
-                    else
-                    {
-                        joinIndex = "MDAT1:" + DBmov + ":" + DBcontrCod;
+                        string joinIndex = "MDAT:" + DBmov + ":" + DBcontrCod;
                         if (DBJoin.ContainsKey(joinIndex))
                         {
                             poradi = (Int32)DBJoin[joinIndex];
                         }
                         else
                         {
-                            poradi = 0; // neprirazeno
-                            MessageBox.Show("Vypujčení - Položka " + DBnazev + " JK : " + DBivCislo + " pro uživatele " + DBosCislo + " neexisuje. ");
+                            joinIndex = "MDAT1:" + DBmov + ":" + DBcontrCod;
+                            if (DBJoin.ContainsKey(joinIndex))
+                            {
+                                poradi = (Int32)DBJoin[joinIndex];
+                            }
+                            else
+                            {
+                                poradi = 0; // neprirazeno
+                                MessageBox.Show("Vypujčení - Položka " + DBnazev + " JK : " + DBivCislo + " pro uživatele " + DBosCislo + " neexisuje. ");
+                            }
+
                         }
 
                     }
+                    else
+                    {
+                        poradi = -1; // chyba v puvodnich datech
+                    }
+                    // vygenerujeme novy stav
+
+                    Int32 DBzmPoradi = 0;
+
+
+                    myDB.addLinePujceno(poradi, DBosCislo, DBdatum, DBks, DBjmeno, DBprijmeni, DBnazev, DBivCislo,
+                        DBcena, DBzmPoradi);
+
+                    Application.DoEvents();
 
                 }
-                else
-                {
-                    poradi = -1; // chyba v puvodnich datech
-                }
-                // vygenerujeme novy stav
-
-                Int32 DBzmPoradi = 0;
-
-
-                myDB.addLinePujceno(poradi, DBosCislo, DBdatum, DBks, DBjmeno, DBprijmeni, DBnazev, DBivCislo,
-                    DBcena, DBzmPoradi);
-
-                Application.DoEvents();
 
             }
 
-        }
-        fbase.Close();
-        fbase.Dispose();
+            fbase.Close();
+            fbase.Dispose();
+                    }
+            catch
+            {
+                MessageBox.Show("Nemohu nacist soubor " + fileName);
+            }
+            finally
+            {
+                fbase.Close();
+                fbase.Dispose();
+            }
+
     }
 
 
