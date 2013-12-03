@@ -561,10 +561,11 @@ namespace Vydejna
 
     private static void presunPersonFile(vDatabase myDB, string filepath, string fileName, Hashtable DBJoin)
     {
+        DbTransaction myTransaction = myDB.startTransaction();
         OleDbConnection fbase = new OleDbConnection("Provider=VFPOLEDB.1;CodePage=437;Data Source=" + filepath + ";Exclusive=false;Nulls=false");
         fbase.Open();
-            OleDbCommand fbaseCom = new OleDbCommand("SELECT * FROM " + filepath + "\\" + fileName, fbase);
-           OleDbDataReader dr;
+        OleDbCommand fbaseCom = new OleDbCommand("SELECT * FROM " + filepath + "\\" + fileName, fbase);
+        OleDbDataReader dr;
             try
             {
                 dr = fbaseCom.ExecuteReader();
@@ -651,12 +652,17 @@ namespace Vydejna
                     }
             catch
             {
-                MessageBox.Show("Nemohu nacist soubor " + fileName);
+                MessageBox.Show("Nemohu načíst soubor DATA\\" + fileName);
             }
             finally
             {
                 fbase.Close();
                 fbase.Dispose();
+                if (myTransaction != null)
+                {
+                    myDB.stopTransaction(myTransaction);
+                }
+
             }
 
     }
@@ -669,56 +675,74 @@ namespace Vydejna
         OleDbConnection fbase = new OleDbConnection("Provider=VFPOLEDB.1;CodePage=437;Data Source=" + filepath + "\\DATA;Exclusive=false;Nulls=false");
         fbase.Open();
         OleDbCommand fbaseCom = new OleDbCommand("SELECT * FROM " + filepath + "\\DATA\\PERSON.DBF", fbase);
-        OleDbDataReader dr = fbaseCom.ExecuteReader();
-        if (dr.HasRows)
+
+        try
         {
-            string DBprijmeni;
-            string DBjmeno;
-            string DBulice;
-            string DBmesto;
-            string DBpsc;
-            string DBtelHome;
-            string DBosCislo;
-            string DBodeleni;
-            string DBtelZam;
-            string DBstredisko;
-            string DBpujSoub;
-            string DBpracoviste;
-            string DBcisZnamky;
-            string DBPoznamka;
-
-
-            while (dr.Read())
+            OleDbDataReader dr = fbaseCom.ExecuteReader();
+            if (dr.HasRows)
             {
-                // 0 nepouzivame  - cislo
-                if (dr.IsDBNull(1)) DBprijmeni = ""; else DBprijmeni = fbaseToUtf16(dr.GetString(1).Trim()); //prijmeni
-                if (dr.IsDBNull(2)) DBjmeno = ""; else DBjmeno = fbaseToUtf16(dr.GetString(2).Trim());//jmeno
-                if (dr.IsDBNull(3)) DBulice = ""; else DBulice = fbaseToUtf16(dr.GetString(3).Trim());//ulice
-                if (dr.IsDBNull(4)) DBmesto = ""; else DBmesto = fbaseToUtf16(dr.GetString(4).Trim());//mesto
-                if (dr.IsDBNull(5)) DBpsc = ""; else DBpsc = fbaseToUtf16(dr.GetString(5).Trim());//pcs
-                if (dr.IsDBNull(6)) DBtelHome = ""; else DBtelHome= dr.GetString(6).Trim();//telhome
-                if (dr.IsDBNull(7)) DBosCislo = ""; else DBosCislo = dr.GetString(7).Trim();//oscislo
-                if (dr.IsDBNull(8)) DBodeleni = ""; else DBodeleni = fbaseToUtf16(dr.GetString(8).Trim());//oddeleni
-                if (dr.IsDBNull(9)) DBtelZam = ""; else DBtelZam = dr.GetString(9).Trim();//telzam
-                if (dr.IsDBNull(10)) DBPoznamka = ""; else DBPoznamka = dr.GetString(10).Trim();//pracpzn
-                //11 nepouzivame lock
-                if (dr.IsDBNull(12)) DBstredisko = ""; else DBstredisko = Convert.ToString((dr.GetDecimal(12)));  // .GetDeci(12).;//strediski
-                if (dr.IsDBNull(13)) DBpujSoub = ""; else DBpujSoub = dr.GetString(13).Trim();//pusjsoub
-                if (dr.IsDBNull(14)) DBpracoviste = ""; else DBpracoviste = fbaseToUtf16(dr.GetString(14).Trim()); //pracoviste
-                if (dr.IsDBNull(15)) DBcisZnamky = ""; else DBcisZnamky = dr.GetString(15).Trim();//cis_znamky
+                string DBprijmeni;
+                string DBjmeno;
+                string DBulice;
+                string DBmesto;
+                string DBpsc;
+                string DBtelHome;
+                string DBosCislo;
+                string DBodeleni;
+                string DBtelZam;
+                string DBstredisko;
+                string DBpujSoub;
+                string DBpracoviste;
+                string DBcisZnamky;
+                string DBPoznamka;
 
-                myDB.addLineOsoby(DBprijmeni, DBjmeno, DBulice, DBmesto, DBpsc, DBtelHome, DBosCislo,
-                     DBodeleni, DBtelZam, DBstredisko, DBpujSoub, DBpracoviste, DBcisZnamky, DBPoznamka);
-                Application.DoEvents();
+
+                while (dr.Read())
+                {
+                    // 0 nepouzivame  - cislo
+                    if (dr.IsDBNull(1)) DBprijmeni = ""; else DBprijmeni = fbaseToUtf16(dr.GetString(1).Trim()); //prijmeni
+                    if (dr.IsDBNull(2)) DBjmeno = ""; else DBjmeno = fbaseToUtf16(dr.GetString(2).Trim());//jmeno
+                    if (dr.IsDBNull(3)) DBulice = ""; else DBulice = fbaseToUtf16(dr.GetString(3).Trim());//ulice
+                    if (dr.IsDBNull(4)) DBmesto = ""; else DBmesto = fbaseToUtf16(dr.GetString(4).Trim());//mesto
+                    if (dr.IsDBNull(5)) DBpsc = ""; else DBpsc = fbaseToUtf16(dr.GetString(5).Trim());//pcs
+                    if (dr.IsDBNull(6)) DBtelHome = ""; else DBtelHome = dr.GetString(6).Trim();//telhome
+                    if (dr.IsDBNull(7)) DBosCislo = ""; else DBosCislo = dr.GetString(7).Trim();//oscislo
+                    if (dr.IsDBNull(8)) DBodeleni = ""; else DBodeleni = fbaseToUtf16(dr.GetString(8).Trim());//oddeleni
+                    if (dr.IsDBNull(9)) DBtelZam = ""; else DBtelZam = dr.GetString(9).Trim();//telzam
+                    if (dr.IsDBNull(10)) DBPoznamka = ""; else DBPoznamka = dr.GetString(10).Trim();//pracpzn
+                    //11 nepouzivame lock
+                    if (dr.IsDBNull(12)) DBstredisko = ""; else DBstredisko = Convert.ToString((dr.GetDecimal(12)));  // .GetDeci(12).;//strediski
+                    if (dr.IsDBNull(13)) DBpujSoub = ""; else DBpujSoub = dr.GetString(13).Trim();//pusjsoub
+                    if (dr.IsDBNull(14)) DBpracoviste = ""; else DBpracoviste = fbaseToUtf16(dr.GetString(14).Trim()); //pracoviste
+                    if (dr.IsDBNull(15)) DBcisZnamky = ""; else DBcisZnamky = dr.GetString(15).Trim();//cis_znamky
+
+                    myDB.addLineOsoby(DBprijmeni, DBjmeno, DBulice, DBmesto, DBpsc, DBtelHome, DBosCislo,
+                         DBodeleni, DBtelZam, DBstredisko, DBpujSoub, DBpracoviste, DBcisZnamky, DBPoznamka);
+                    Application.DoEvents();
+
+                }
 
             }
+//            fbase.Close();
+//            fbase.Dispose();
+//            if (myTransaction != null)
+//            {
+//                myDB.stopTransaction(myTransaction);
+//            }
 
         }
-        fbase.Close();
-        fbase.Dispose();
-        if (myTransaction != null)
+        catch
         {
-            myDB.stopTransaction(myTransaction);
+            MessageBox.Show("Nemohu načíst soubor DATA\\PERSON.DBF");
+        }
+        finally
+        {
+            fbase.Close();
+            fbase.Dispose();
+            if (myTransaction != null)
+            {
+                myDB.stopTransaction(myTransaction);
+            }
         }
 
     }
