@@ -868,7 +868,7 @@ namespace Vydejna
             string commandStringSeq1 = "SELECT poradi FROM tabseq WHERE nazev = 'pujceno'";
             string commandStringSeq2 = "UPDATE  tabseq set poradi = poradi +1 WHERE nazev = 'pujceno'";
 //            string commandStringSeq3 = "SELECT poradi FROM zmeny WHERE parporadi = ? AND zapkarta = ? AND stav = 'U' AND datum = ? ";
-            string commandStringSeq3 = "SELECT poradi FROM zmeny WHERE parporadi = ? AND stav = 'U'";
+            string commandStringSeq3 = "SELECT poradi FROM zmeny WHERE parporadi = ? AND stav = 'U' AND zapkarta = ?  AND datum = ? ";
             
 
             if (DBIsOpened())
@@ -889,8 +889,8 @@ namespace Vydejna
                 SQLiteParameter pz2 = new SQLiteParameter("pz2", DbType.Date);
                 pz2.Value = DBdatum;
                 cmdSeq3.Parameters.Add(pz0);
-            //    cmdSeq3.Parameters.Add(pz1);
-            //    cmdSeq3.Parameters.Add(pz2);
+                cmdSeq3.Parameters.Add(pz1);
+                cmdSeq3.Parameters.Add(pz2);
                 SQLiteDataReader seqReader2 = cmdSeq3.ExecuteReader();
 
                 Int32 zmenyPoradi;
@@ -902,6 +902,7 @@ namespace Vydejna
                 else
                 {
                     zmenyPoradi = 0;
+                    MessageBox.Show("Neexistuje zmena stavu pro vypujcení " + DBparPoradi.ToString() + " : " + DBosCislo);
                 }
 
                 SQLiteCommand cmd = new SQLiteCommand(commandString, myDBConn as SQLiteConnection);

@@ -562,7 +562,7 @@ namespace Vydejna
         OleDbConnection fbase = new OleDbConnection("Provider=VFPOLEDB.1;CodePage=437;Data Source=" + filepath + ";Exclusive=false;Nulls=false");
         fbase.Open();
         OleDbCommand fbaseCom = new OleDbCommand("SELECT * FROM " + filepath + "\\" + fileName, fbase);
-        OleDbDataReader dr;
+        OleDbDataReader dr = null;
         try
         {
 
@@ -645,9 +645,9 @@ namespace Vydejna
                 }
 
             }
-
-            fbase.Close();
-            fbase.Dispose();
+//            if (!dr.IsClosed) dr.Close();
+//            fbase.Close();
+//            fbase.Dispose();
         }
         catch
         {
@@ -655,6 +655,10 @@ namespace Vydejna
         }
         finally
         {
+            if (dr != null)
+            {
+                if (!dr.IsClosed) dr.Close();
+            }
             fbase.Close();
             fbase.Dispose();
         }
@@ -669,10 +673,10 @@ namespace Vydejna
         OleDbConnection fbase = new OleDbConnection("Provider=VFPOLEDB.1;CodePage=437;Data Source=" + filepath + "\\DATA;Exclusive=false;Nulls=false");
         fbase.Open();
         OleDbCommand fbaseCom = new OleDbCommand("SELECT * FROM " + filepath + "\\DATA\\PERSON.DBF", fbase);
-
+        OleDbDataReader dr = null;
         try
         {
-            OleDbDataReader dr = fbaseCom.ExecuteReader();
+            dr = fbaseCom.ExecuteReader();
             if (dr.HasRows)
             {
                 string DBprijmeni;
@@ -731,6 +735,10 @@ namespace Vydejna
         }
         finally
         {
+            if (dr != null)
+            {
+                if (!dr.IsClosed) dr.Close();
+            }
             fbase.Close();
             fbase.Dispose();
             if (myTransaction != null)
