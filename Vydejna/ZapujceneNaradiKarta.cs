@@ -64,15 +64,26 @@ namespace Vydejna
             {
                 try
                 {
-                    dataGridViewZmeny.DataSource = myDB.loadDataTableVypujcenoNaOsobu(labelOsCislo.Text);  // zde zavolame tabulku                   
+                    dataGridViewZmeny.DataSource = myDB.loadDataTableVypujcenoNaOsobuNext(labelOsCislo.Text);  // zde zavolame tabulku                   
                     dataGridViewZmeny.RowHeadersVisible = false;
 
-                    dataGridViewZmeny.Columns[0].HeaderText = "Datum";
-                    dataGridViewZmeny.Columns[1].HeaderText = "Název";
-                    dataGridViewZmeny.Columns[2].HeaderText = "Rozměr";
-                    dataGridViewZmeny.Columns[3].HeaderText = "JK";
-                    dataGridViewZmeny.Columns[4].HeaderText = "KS";
-                    dataGridViewZmeny.Columns[5].HeaderText = "Poznámka";
+                    dataGridViewZmeny.Columns[0].HeaderText = "Poradi";
+                    dataGridViewZmeny.Columns[1].HeaderText = "Datum";
+                    dataGridViewZmeny.Columns[2].HeaderText = "Název";
+                    dataGridViewZmeny.Columns[3].HeaderText = "Rozměr";
+                    dataGridViewZmeny.Columns[4].HeaderText = "JK";
+                    dataGridViewZmeny.Columns[5].HeaderText = "KS";
+                    dataGridViewZmeny.Columns[6].HeaderText = "Cena";
+                    dataGridViewZmeny.Columns[7].HeaderText = "Poznámka";
+                    dataGridViewZmeny.Columns["poradi"].Visible = false;
+                    dataGridViewZmeny.Columns["oscislo"].Visible = false;  
+                    dataGridViewZmeny.Columns["pjmeno"].Visible = false;  
+                    dataGridViewZmeny.Columns["pprijmeni"].Visible = false;
+                    dataGridViewZmeny.Columns["pnazev"].Visible = false;
+                    dataGridViewZmeny.Columns["pjk"].Visible = false;
+                    dataGridViewZmeny.Columns["nporadi"].Visible = false;
+                    dataGridViewZmeny.Columns["zporadi"].Visible = false;
+
 
                     dataGridViewZmeny.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
 

@@ -206,7 +206,7 @@ namespace Vydejna
 
 
             string commandStringPujceno = "create table pujceno (poradi integer, oscislo varchar(8), nporadi integer, zporadi integer, pjmeno varchar(15)," +
-                      "pprijmeni varchar(15), pnazev varchar(60), pjk varchar(15));";
+                      "pprijmeni varchar(15), pnazev varchar(60), pjk varchar(15), pdatum date, pks integer, pcena float);";
 
 
             openDB();
@@ -2080,8 +2080,8 @@ namespace Vydejna
                                          string DBjmeno, string DBPrijmeni, string DBnazev, string DBjk,
                                          double DBcena, int DBzmPoradi)
         {
-            string commandString = "INSERT INTO pujceno ( poradi, oscislo, nporadi, zporadi, pjmeno, pprijmeni, pnazev, pjk )" +
-                  "VALUES ( ?, ?, ?, ?, ?, ?, ?, ? )";
+            string commandString = "INSERT INTO pujceno ( poradi, oscislo, nporadi, zporadi, pjmeno, pprijmeni, pnazev, pjk, pdatum, pks, pcena )" +
+                  "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
 
             string commandStringSeq1 = "SELECT poradi FROM tabseq WHERE nazev = 'pujceno'";
             string commandStringSeq2 = "UPDATE  tabseq set poradi = poradi +1 WHERE nazev = 'pujceno'";
@@ -2140,6 +2140,12 @@ namespace Vydejna
                 p6.Value = DBnazev;
                 OdbcParameter p7 = new OdbcParameter("p7", OdbcType.NChar);
                 p7.Value = DBjk;
+                OdbcParameter p8 = new OdbcParameter("p8", OdbcType.Date);
+                p8.Value = DBdatum ;
+                OdbcParameter p9 = new OdbcParameter("p9", OdbcType.Int);
+                p9.Value = DBks;
+                OdbcParameter p10 = new OdbcParameter("p10", OdbcType.Double);
+                p10.Value = DBks;
 
                 cmd.Parameters.Add(p0);
                 cmd.Parameters.Add(p1);
@@ -2149,6 +2155,9 @@ namespace Vydejna
                 cmd.Parameters.Add(p5);
                 cmd.Parameters.Add(p6);
                 cmd.Parameters.Add(p7);
+                cmd.Parameters.Add(p8);
+                cmd.Parameters.Add(p9);
+                cmd.Parameters.Add(p10);
                 cmd.ExecuteNonQuery();
 
                 OdbcCommand cmdSeq2 = new OdbcCommand(commandStringSeq2, myDBConn as OdbcConnection);
