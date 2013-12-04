@@ -522,9 +522,7 @@ namespace Vydejna
 
                 myDB.addLineZmeny(poradi, DBpomocJK, DBdatum, DBpoznamka, DBprijem, DBvydej, DBzustatek, DBzapKarta, DBvevCislo,
                     DBpocIvc, DBstav, DBporadi );
-
                 Application.DoEvents();
-
             }
 
         }
@@ -561,17 +559,18 @@ namespace Vydejna
 
     private static void presunPersonFile(vDatabase myDB, string filepath, string fileName, Hashtable DBJoin)
     {
-        DbTransaction myTransaction = myDB.startTransaction();
         OleDbConnection fbase = new OleDbConnection("Provider=VFPOLEDB.1;CodePage=437;Data Source=" + filepath + ";Exclusive=false;Nulls=false");
         fbase.Open();
         OleDbCommand fbaseCom = new OleDbCommand("SELECT * FROM " + filepath + "\\" + fileName, fbase);
         OleDbDataReader dr;
-            try
-            {
-                dr = fbaseCom.ExecuteReader();
+        try
+        {
+
+            dr = fbaseCom.ExecuteReader();
 
             if (dr.HasRows)
             {
+
                 string DBjmeno;
                 string DBprijmeni;
                 string DBosCislo;
@@ -649,21 +648,16 @@ namespace Vydejna
 
             fbase.Close();
             fbase.Dispose();
-                    }
-            catch
-            {
-                MessageBox.Show("Nemohu načíst soubor DATA\\" + fileName);
-            }
-            finally
-            {
-                fbase.Close();
-                fbase.Dispose();
-                if (myTransaction != null)
-                {
-                    myDB.stopTransaction(myTransaction);
-                }
-
-            }
+        }
+        catch
+        {
+            MessageBox.Show("Nemohu načíst soubor DATA\\" + fileName);
+        }
+        finally
+        {
+            fbase.Close();
+            fbase.Dispose();
+        }
 
     }
 
