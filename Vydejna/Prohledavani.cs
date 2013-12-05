@@ -12,9 +12,9 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Vydejna
 {
-    [Serializable] public partial class Prohledavani : Form
+    public partial class Prohledavani : Form
     {
-        [Serializable] public class ColumnInfo
+        public class ColumnInfo
         {
             public string varColumnType;
             public string name;
@@ -33,6 +33,7 @@ namespace Vydejna
         public Prohledavani(DataGridView myDataGridView)
         {
             InitializeComponent();
+            this.TopMost = true;
 
             comboBoxColumnInfo = new ArrayList();
 

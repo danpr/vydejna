@@ -867,7 +867,6 @@ namespace Vydejna
 
             string commandStringSeq1 = "SELECT poradi FROM tabseq WHERE nazev = 'pujceno'";
             string commandStringSeq2 = "UPDATE  tabseq set poradi = poradi +1 WHERE nazev = 'pujceno'";
-//            string commandStringSeq3 = "SELECT poradi FROM zmeny WHERE parporadi = ? AND zapkarta = ? AND stav = 'U' AND datum = ? ";
             string commandStringSeq3 = "SELECT poradi FROM zmeny WHERE parporadi = ? AND stav = 'U' AND zapkarta = ?  AND datum = ? ";
             
 
@@ -1945,6 +1944,185 @@ namespace Vydejna
                         (transaction as SQLiteTransaction).Commit();
                     }
 
+
+                }
+                catch (Exception)
+                {
+                    // doslo k chybe
+                    if (transaction != null)
+                    {
+                        (transaction as SQLiteTransaction).Rollback();
+                    }
+                    return -1;
+                }
+                return 0;
+            }
+            return 0;
+        }
+
+
+
+
+        public override Int32 addNewLineZmenyAndPujceno(Int32 DBparPoradi, string DBJK, DateTime DBdatum,  Int32 DBks, string DBpoznamka,
+                                                        string DBosCislo, string DBjmeno, string DBprijmeni, string DBnazev, double DBcena)
+        {
+            SQLiteTransaction transaction = null;
+
+            if (DBIsOpened())
+            {
+                string commandString1 = "UPDATE naradi set fyzstav = fyzstav + ?  where poradi = ? ";
+                string commandString2 = "INSERT INTO zmeny (parporadi, pomozjk, datum, poznamka, prijem, vydej, zustatek, zapkarta, vevcislo, pocivc, stav, poradi )" +
+                      "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
+                string commandString3 = "SELECT poradi, zustatek from zmeny where parporadi = ? ORDER BY poradi DESC";
+
+                string commandString4 = "INSERT INTO pujceno ( poradi, oscislo, nporadi, zporadi, pjmeno, pprijmeni, pnazev, pjk, pdatum, pks, pcena )" +
+                      "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
+
+                string commandStringSeq5 = "SELECT poradi FROM tabseq WHERE nazev = 'pujceno'";
+                string commandStringSeq6 = "UPDATE  tabseq set poradi = poradi +1 WHERE nazev = 'pujceno'";
+
+
+                try
+                {
+                    try
+                    {
+                        transaction = (myDBConn as SQLiteConnection).BeginTransaction(System.Data.IsolationLevel.ReadCommitted);
+                    }
+                    catch
+                    {
+                    }
+
+
+                    SQLiteCommand cmdr = new SQLiteCommand(commandString3, myDBConn as SQLiteConnection);
+
+                    SQLiteParameter px = new SQLiteParameter("px", DbType.Int32);
+                    px.Value = DBparPoradi;
+                    cmdr.Parameters.Add(px);
+
+                    Int32 poradi;
+                    Int32 zustatek;
+
+                    SQLiteDataReader seqReader1 = cmdr.ExecuteReader();
+                    // true osCisloExist
+                    if (seqReader1.Read() == true)
+                    {
+                        poradi = seqReader1.GetInt32(0) + 1;
+                        zustatek = seqReader1.GetInt32(1);
+                    }
+                    else
+                    {
+                        poradi = 1;
+                        zustatek = 0;
+
+                    }
+                    seqReader1.Close();
+
+
+                    SQLiteCommand cmdSeq1 = new SQLiteCommand(commandStringSeq5, myDBConn as SQLiteConnection);
+                    SQLiteDataReader seqReader2 = cmdSeq1.ExecuteReader();
+                    seqReader2.Read();
+                    Int32 pujcPoradi = seqReader2.GetInt32(0);
+                    seqReader2.Close();
+
+                    // tab naradi
+
+                    SQLiteCommand cmd1 = new SQLiteCommand(commandString1, myDBConn as SQLiteConnection);
+                    SQLiteParameter pn1 = new SQLiteParameter("pn1", DbType.Int32);
+                    pn1.Value = (-1) * DBks; // DBprijem - DBvydej;
+                    SQLiteParameter pn2 = new SQLiteParameter("pn2", DbType.Int32);
+                    pn2.Value = DBparPoradi;
+                    cmd1.Parameters.Add(pn1);
+                    cmd1.Parameters.Add(pn2);
+                    cmd1.Transaction = transaction;
+                    cmd1.ExecuteNonQuery();
+
+                    //  tab zmeny
+                    SQLiteCommand cmd2 = new SQLiteCommand(commandString2, myDBConn as SQLiteConnection);
+                    SQLiteParameter p1 = new SQLiteParameter("p1", DbType.Int32);
+                    p1.Value = DBparPoradi;
+                    SQLiteParameter p2 = new SQLiteParameter("p2", DbType.String);
+                    p2.Value = DBJK;
+                    SQLiteParameter p3 = new SQLiteParameter("p3", DbType.Date);
+                    p3.Value = DBdatum;
+                    SQLiteParameter p4 = new SQLiteParameter("p4", DbType.String);
+                    p4.Value = DBpoznamka;
+                    SQLiteParameter p5 = new SQLiteParameter("p5", DbType.Int32);
+                    p5.Value = 0;
+                    SQLiteParameter p6 = new SQLiteParameter("p6", DbType.Int32);
+                    p6.Value = DBks;
+                    SQLiteParameter p7 = new SQLiteParameter("p7", DbType.Int32);
+                    p7.Value = zustatek  - DBks;
+                    SQLiteParameter p8 = new SQLiteParameter("p8", DbType.String);
+                    p8.Value = DBosCislo;
+                    SQLiteParameter p9 = new SQLiteParameter("p9", DbType.String);
+                    p9.Value = "";
+                    SQLiteParameter p10 = new SQLiteParameter("p10", DbType.Int32);
+                    p10.Value = 0;
+                    SQLiteParameter p11 = new SQLiteParameter("p11", DbType.String);
+                    p11.Value = "U";
+                    SQLiteParameter p12 = new SQLiteParameter("p12", DbType.Int32);
+                    p12.Value = poradi;
+                    cmd2.Parameters.Add(p1);
+                    cmd2.Parameters.Add(p2);
+                    cmd2.Parameters.Add(p3);
+                    cmd2.Parameters.Add(p4);
+                    cmd2.Parameters.Add(p5);
+                    cmd2.Parameters.Add(p6);
+                    cmd2.Parameters.Add(p7);
+                    cmd2.Parameters.Add(p8);
+                    cmd2.Parameters.Add(p9);
+                    cmd2.Parameters.Add(p10);
+                    cmd2.Parameters.Add(p11);
+                    cmd2.Parameters.Add(p12);
+                    cmd2.Transaction = transaction;
+                    cmd2.ExecuteNonQuery();
+
+
+                    SQLiteCommand cmd = new SQLiteCommand(commandString4, myDBConn as SQLiteConnection);
+
+                    SQLiteParameter pp0 = new SQLiteParameter("pp0", DbType.Int32);
+                    pp0.Value = pujcPoradi;
+                    SQLiteParameter pp1 = new SQLiteParameter("pp1", DbType.String);
+                    pp1.Value = DBosCislo;
+                    SQLiteParameter pp2 = new SQLiteParameter("pp2", DbType.Int32);
+                    pp2.Value = DBparPoradi;
+                    SQLiteParameter pp3 = new SQLiteParameter("pp3", DbType.Int32);
+                    pp3.Value = poradi; // DBzmPoradi;
+                    SQLiteParameter pp4 = new SQLiteParameter("pp4", DbType.String);
+                    pp4.Value = DBjmeno;
+                    SQLiteParameter pp5 = new SQLiteParameter("pp5", DbType.String);
+                    pp5.Value = DBprijmeni;
+                    SQLiteParameter pp6 = new SQLiteParameter("pp6", DbType.String);
+                    pp6.Value = DBnazev;
+                    SQLiteParameter pp7 = new SQLiteParameter("pp7", DbType.String);
+                    pp7.Value = DBJK;
+                    SQLiteParameter pp8 = new SQLiteParameter("pp8", DbType.Date);
+                    pp8.Value = DBdatum;
+                    SQLiteParameter pp9 = new SQLiteParameter("pp9", DbType.Int32);
+                    pp9.Value = DBks;
+                    SQLiteParameter pp10 = new SQLiteParameter("pp10", DbType.Double);
+                    pp10.Value = DBcena;
+
+                    cmd.Parameters.Add(pp0);
+                    cmd.Parameters.Add(pp1);
+                    cmd.Parameters.Add(pp2);
+                    cmd.Parameters.Add(pp3);
+                    cmd.Parameters.Add(pp4);
+                    cmd.Parameters.Add(pp5);
+                    cmd.Parameters.Add(pp6);
+                    cmd.Parameters.Add(pp7);
+                    cmd.Parameters.Add(pp8);
+                    cmd.Parameters.Add(pp9);
+                    cmd.Parameters.Add(pp10);
+                    cmd.ExecuteNonQuery();
+
+                    SQLiteCommand cmdSeq2 = new SQLiteCommand(commandStringSeq6, myDBConn as SQLiteConnection);
+                    cmdSeq2.ExecuteNonQuery();
+
+                    if (transaction != null)
+                    {
+                        (transaction as SQLiteTransaction).Commit();
+                    }
 
                 }
                 catch (Exception)

@@ -21,15 +21,17 @@ namespace Vydejna
             public string jk;
             public Int32 fyzStav; //cena
             public string rozmer;
+            public double cena;
 
 
-            public messager(Int32 poradi, string nazev, string jk, string rozmer, Int32 fyzStav)
+            public messager(Int32 poradi, string nazev, string jk, string rozmer, Int32 fyzStav, double cena)
             {
                 this.poradi = poradi;
                 this.nazev = nazev;
                 this.jk = jk;
                 this.fyzStav = fyzStav;
                 this.rozmer = rozmer;
+                this.cena = cena;
             }
         }
 
@@ -72,6 +74,7 @@ namespace Vydejna
                     dataGridView1.Columns[4].HeaderText = "KS/Fyzický stav";
                     dataGridView1.Columns[5].HeaderText = "Poznámka";
                     dataGridView1.Columns["poradi"].Visible = false;   // poradi nezobrazujeme
+                    dataGridView1.Columns["cena"].Visible = false;   // cenu nezobrazujeme
                     dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
                     labelView.Text = "Pracovníci provozu - Zapůjčení nářadí";
                     Application.DoEvents();
@@ -119,11 +122,11 @@ namespace Vydejna
             {
                 DataGridViewRow myRow = dataGridView1.SelectedRows[0];
 
-                prepravka = new messager( Convert.ToInt32( myRow.Cells[0].Value), Convert.ToString( myRow.Cells[1].Value),Convert.ToString( myRow.Cells[2].Value), Convert.ToString( myRow.Cells[2].Value),  Convert.ToInt32(myRow.Cells[4].Value));
+                prepravka = new messager( Convert.ToInt32( myRow.Cells[0].Value), Convert.ToString( myRow.Cells[1].Value),Convert.ToString( myRow.Cells[2].Value), Convert.ToString( myRow.Cells[2].Value),  Convert.ToInt32(myRow.Cells[4].Value), Convert.ToDouble(myRow.Cells[6].Value));
             }
             else
             {
-                prepravka = new messager(-1,"", "", "", 0);
+                prepravka = new messager(-1,"", "", "", 0, 0);
             }
             return prepravka;
         }

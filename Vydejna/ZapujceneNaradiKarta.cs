@@ -118,8 +118,10 @@ namespace Vydejna
                                 if (zapujcNaradi.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                                 {
                                     // pridame zapujcene naradi
-                                    if (myDB.addNewLineZmeny(myMesenger.poradi, myMesenger.jk, zapujcNaradi.getDatum(), 0, zapujcNaradi.getKs(), zapujcNaradi.getPoznamka(), "U", 0, zapujcNaradi.getKs(), osCislo) < 0)
-                                    {
+//                                    if (myDB.addNewLineZmeny(myMesenger.poradi, myMesenger.jk, zapujcNaradi.getDatum(), 0, zapujcNaradi.getKs(), zapujcNaradi.getPoznamka(), "U", 0, zapujcNaradi.getKs(), osCislo) < 0)
+                                    if (myDB.addNewLineZmenyAndPujceno(myMesenger.poradi, myMesenger.jk, zapujcNaradi.getDatum(), zapujcNaradi.getKs(), zapujcNaradi.getPoznamka(), 
+                                                                       osCislo, labelJmeno.Text,labelPrijmeni.Text, myMesenger.nazev,myMesenger.cena) < 0)
+                                        {
                                         MessageBox.Show("Vypůjčeni nářadi se nezdařilo. Lituji.");
                                     }
                                     else

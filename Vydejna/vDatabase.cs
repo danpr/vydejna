@@ -325,6 +325,13 @@ namespace Vydejna
             return -1;
         }
 
+
+        public virtual Int32 addNewLineZmenyAndPujceno(Int32 DBparPoradi, string DBJK, DateTime DBdatum, Int32 DBks, string DBpoznamka,
+                                                       string DBosCislo, string DBjmeno, string DBprijmeni, string DBnazev, double DBcena)
+        {
+            return -1;
+        }
+
         public virtual Int32 addNewLineZmenyAndPoskozeno(Int32 DBporadi, string DBJK, DateTime DBdatum, Int32 DBvydej, string DBpoznamka,
                                                          string osCislo, string DBjmeno, string DBprijmeni, string DBstredisko, string DBprovoz,
                                                          string DBnazev, string DBrozmer, string DBkonto, double DBcena, double DBcelkCena, string DBcsn, string DBcisZak)
@@ -392,7 +399,7 @@ namespace Vydejna
         public virtual DataTable loadDataTableNaradiJednoduchy()
         {
             return loadDataTable("SELECT poradi, rtrim(nazev) as nazev, rtrim(jk) as jk, rtrim(rozmer) as rozmer,"
-                                     + " fyzstav, rtrim(poznamka) as poznamka from naradi WHERE fyzstav > 0 ORDER BY nazev");
+                                     + " fyzstav, rtrim(poznamka) as poznamka, cena from naradi WHERE fyzstav > 0 ORDER BY nazev");
         }
 
 
