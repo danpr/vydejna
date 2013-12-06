@@ -313,8 +313,6 @@ namespace Vydejna
                     cmd4Sequence.Dispose();
                     cmdKarta.Dispose();
                     cmdNaradi.Dispose();
-//                    myDBConn.Close();
-//                    myDBConn.Dispose();
                 }
             }
 

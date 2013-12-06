@@ -79,18 +79,8 @@ namespace Vydejna
                     cmdVraceno.Dispose();
                     cmdKarta.Dispose();
                     cmdNaradi.Dispose();
-                    //                   myDBConn.Close();
-                    //                   myDBConn.Dispose();
                 }
             }
-
-            // vymaze tabulky
-
         }
-
-
-
-
-
     }
 }
