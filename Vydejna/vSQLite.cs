@@ -1970,16 +1970,19 @@ namespace Vydejna
 
             if (DBIsOpened())
             {
-                string commandString1 = "UPDATE naradi set fyzstav = fyzstav + ?  where poradi = ? ";
+                string commandReadString1 = "SELECT poradi, zustatek from zmeny where parporadi = ? ORDER BY poradi DESC";
+                string commandReadString2 = "SELECT fyzstav from naradi where poradi = ? ";
+                string commandReadString3 = "SELECT poradi FROM tabseq WHERE nazev = 'pujceno'";
+
+
+                string commandString1 = "UPDATE naradi set fyzstav = fyzstav - ?  where poradi = ? ";
                 string commandString2 = "INSERT INTO zmeny (parporadi, pomozjk, datum, poznamka, prijem, vydej, zustatek, zapkarta, vevcislo, pocivc, stav, poradi )" +
                       "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
-                string commandString3 = "SELECT poradi, zustatek from zmeny where parporadi = ? ORDER BY poradi DESC";
 
-                string commandString4 = "INSERT INTO pujceno ( poradi, oscislo, nporadi, zporadi, pjmeno, pprijmeni, pnazev, pjk, pdatum, pks, pcena )" +
+                string commandString5 = "INSERT INTO pujceno ( poradi, oscislo, nporadi, zporadi, pjmeno, pprijmeni, pnazev, pjk, pdatum, pks, pcena )" +
                       "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
 
-                string commandStringSeq5 = "SELECT poradi FROM tabseq WHERE nazev = 'pujceno'";
-                string commandStringSeq6 = "UPDATE  tabseq set poradi = poradi +1 WHERE nazev = 'pujceno'";
+                string commandString6 = "UPDATE  tabseq set poradi = poradi +1 WHERE nazev = 'pujceno'";
 
 
                 try
@@ -1992,12 +1995,42 @@ namespace Vydejna
                     {
                     }
 
-
-                    SQLiteCommand cmdr = new SQLiteCommand(commandString3, myDBConn as SQLiteConnection);
-
+                    SQLiteCommand cmdr = new SQLiteCommand(commandReadString1, myDBConn as SQLiteConnection);
                     SQLiteParameter px = new SQLiteParameter("px", DbType.Int32);
                     px.Value = DBparPoradi;
                     cmdr.Parameters.Add(px);
+
+                    SQLiteCommand cmdr2 = new SQLiteCommand(commandReadString2, myDBConn as SQLiteConnection);
+                    SQLiteParameter prm = new SQLiteParameter("prm", DbType.Int32);
+                    prm.Value = DBparPoradi;
+                    cmdr2.Parameters.Add(prm);
+                    SQLiteDataReader seqReader2 = cmdr2.ExecuteReader();
+                    int fyzstav = 0;
+
+                    if (seqReader2.Read() == true)
+                    {
+                        fyzstav = seqReader2.GetInt32(0); // naradi.fyzstav
+                    }
+                    else
+                    {
+                        // material neexistuje zrusime transakci a navratime chybu
+                        if (transaction != null)
+                        {
+                            (transaction as SQLiteTransaction).Rollback();
+                        }
+                        return -1;
+                    }
+
+                    if (fyzstav < DBks)
+                    // pozadavek na odpis vice ks nez je existujici stav na vydejne
+                    {
+                        if (transaction != null)
+                        {
+                            (transaction as SQLiteTransaction).Rollback();
+                        }
+                        return -2;
+                    }
+
 
                     Int32 poradi;
                     Int32 zustatek;
@@ -2007,28 +2040,27 @@ namespace Vydejna
                     if (seqReader1.Read() == true)
                     {
                         poradi = seqReader1.GetInt32(0) + 1;
-                        zustatek = seqReader1.GetInt32(1);
+                        zustatek = seqReader1.GetInt32(1); //zmeny.stav - posledni
                     }
                     else
                     {
                         poradi = 1;
-                        zustatek = 0;
-
+                        zustatek = fyzstav;
                     }
                     seqReader1.Close();
 
 
-                    SQLiteCommand cmdSeq1 = new SQLiteCommand(commandStringSeq5, myDBConn as SQLiteConnection);
-                    SQLiteDataReader seqReader2 = cmdSeq1.ExecuteReader();
-                    seqReader2.Read();
-                    Int32 pujcPoradi = seqReader2.GetInt32(0);
-                    seqReader2.Close();
+                    SQLiteCommand cmdSeq2 = new SQLiteCommand(commandReadString3, myDBConn as SQLiteConnection);
+                    SQLiteDataReader seqReader3 = cmdSeq2.ExecuteReader();
+                    seqReader3.Read();
+                    Int32 pujcPoradi = seqReader3.GetInt32(0);
+                    seqReader3.Close();
 
                     // tab naradi
 
                     SQLiteCommand cmd1 = new SQLiteCommand(commandString1, myDBConn as SQLiteConnection);
                     SQLiteParameter pn1 = new SQLiteParameter("pn1", DbType.Int32);
-                    pn1.Value = (-1) * DBks; // DBprijem - DBvydej;
+                    pn1.Value = DBks; // DBprijem - DBvydej;
                     SQLiteParameter pn2 = new SQLiteParameter("pn2", DbType.Int32);
                     pn2.Value = DBparPoradi;
                     cmd1.Parameters.Add(pn1);
@@ -2051,7 +2083,7 @@ namespace Vydejna
                     SQLiteParameter p6 = new SQLiteParameter("p6", DbType.Int32);
                     p6.Value = DBks;
                     SQLiteParameter p7 = new SQLiteParameter("p7", DbType.Int32);
-                    p7.Value = zustatek  - DBks;
+                    p7.Value = zustatek - DBks;
                     SQLiteParameter p8 = new SQLiteParameter("p8", DbType.String);
                     p8.Value = DBosCislo;
                     SQLiteParameter p9 = new SQLiteParameter("p9", DbType.String);
@@ -2078,7 +2110,7 @@ namespace Vydejna
                     cmd2.ExecuteNonQuery();
 
 
-                    SQLiteCommand cmd = new SQLiteCommand(commandString4, myDBConn as SQLiteConnection);
+                    SQLiteCommand cmd = new SQLiteCommand(commandString5, myDBConn as SQLiteConnection);
 
                     SQLiteParameter pp0 = new SQLiteParameter("pp0", DbType.Int32);
                     pp0.Value = pujcPoradi;
@@ -2116,8 +2148,8 @@ namespace Vydejna
                     cmd.Parameters.Add(pp10);
                     cmd.ExecuteNonQuery();
 
-                    SQLiteCommand cmdSeq2 = new SQLiteCommand(commandStringSeq6, myDBConn as SQLiteConnection);
-                    cmdSeq2.ExecuteNonQuery();
+                    SQLiteCommand cmdSeq3 = new SQLiteCommand(commandString6, myDBConn as SQLiteConnection);
+                    cmdSeq3.ExecuteNonQuery();
 
                     if (transaction != null)
                     {
@@ -2136,7 +2168,7 @@ namespace Vydejna
                 }
                 return 0;
             }
-            return 0;
+                return -1;
         }
 
 
@@ -2149,20 +2181,16 @@ namespace Vydejna
 
             if (DBIsOpened())
             {
-                string commandString1 = "UPDATE naradi set fyzstav = fyzstav - ?, ucetstav = ucetstav - ?  where poradi = ? ";
+                string commandStringRead1 = "SELECT poradi, zustatek from zmeny where parporadi = ? ORDER BY poradi DESC";
+                string commandStringRead2 = "SELECT fyzstav, ucetstav FROM naradi where poradi = ? ";
+                string commandStringRead3 = "SELECT poradi FROM tabseq WHERE nazev = 'poskozeno'";
 
+                
+                string commandString1 = "UPDATE naradi set fyzstav = fyzstav - ?, ucetstav = ucetstav - ?  where poradi = ? ";
                 string commandString2 = "INSERT INTO zmeny (parporadi, pomozjk, datum, poznamka, prijem, vydej, zustatek, zapkarta, vevcislo, pocivc, stav, poradi )" +
                       "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
-
-
-                string commandString3 = "SELECT poradi, zustatek from zmeny where parporadi = ? ORDER BY poradi DESC";
-                string commandString4 = "SELECT fyzstav FROM naradi where poradi = ? ";
-
-
-                string commandString5 = "SELECT poradi FROM tabseq WHERE nazev = 'poskozeno'";
-                string commandString6 = "UPDATE  tabseq set poradi = poradi +1 WHERE nazev = 'poskozeno'";
-
-                string commandString7 = "INSERT INTO poskozeno ( poradi, jmeno, oscislo, dilna, pracoviste, vyrobek, nazev, jk, rozmer, pocetks, cena, datum, csn, krjmeno, celkcena, vevcislo, konto) " +
+                string commandString4 = "UPDATE  tabseq set poradi = poradi +1 WHERE nazev = 'poskozeno'";
+                string commandString5 = "INSERT INTO poskozeno ( poradi, jmeno, oscislo, dilna, pracoviste, vyrobek, nazev, jk, rozmer, pocetks, cena, datum, csn, krjmeno, celkcena, vevcislo, konto) " +
                       "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
 
 
@@ -2176,7 +2204,7 @@ namespace Vydejna
                     {
                     }
 
-                    SQLiteCommand cmdr2 = new SQLiteCommand(commandString4, myDBConn as SQLiteConnection);
+                    SQLiteCommand cmdr2 = new SQLiteCommand(commandStringRead2, myDBConn as SQLiteConnection);
 
                     SQLiteParameter px2 = new SQLiteParameter("px2", DbType.Int32);
                     px2.Value = DBporadi;
@@ -2187,19 +2215,28 @@ namespace Vydejna
                     if (myReader2.Read() == true)
                     {
                         Int32 fyzstav = myReader2.GetInt32(myReader2.GetOrdinal("fyzstav"));
+                        Int32 ucetstav = myReader2.GetInt32(myReader2.GetOrdinal("ucetstav"));
                         myReader2.Close();
+                        if ((fyzstav < DBvydej) || (ucetstav < DBvydej))
+                        {
+                            if (transaction != null)
+                            {
+                                (transaction as SQLiteTransaction).Rollback();
+                            }
+                            return -2;
+                        }
 
                         // poradi pro zmeny
-                        SQLiteCommand cmdr = new SQLiteCommand(commandString3, myDBConn as SQLiteConnection);
+                        SQLiteCommand cmdr1 = new SQLiteCommand(commandStringRead1, myDBConn as SQLiteConnection);
                         SQLiteParameter px = new SQLiteParameter("px", DbType.Int32);
                         px.Value = DBporadi;
-                        cmdr.Parameters.Add(px);
+                        cmdr1.Parameters.Add(px);
 
                         Int32 poradi;
                         Int32 zustatek;
 
-                        cmdr.Transaction = transaction;
-                        SQLiteDataReader myReader = cmdr.ExecuteReader();
+                        cmdr1.Transaction = transaction;
+                        SQLiteDataReader myReader = cmdr1.ExecuteReader();
                         // true osCisloExist
                         if (myReader.Read() == true)
                         {
@@ -2214,13 +2251,11 @@ namespace Vydejna
                         myReader.Close();
 
                         // zjisteni   poradi pro tabulku poskoyeneho naradi
-                        SQLiteCommand cmdSeq1 = new SQLiteCommand(commandString5, myDBConn as SQLiteConnection);
+                        SQLiteCommand cmdSeq1 = new SQLiteCommand(commandStringRead3, myDBConn as SQLiteConnection);
                         SQLiteDataReader seqReader = cmdSeq1.ExecuteReader();
                         seqReader.Read();
                         Int32 poradiPoskozeno = seqReader.GetInt32(0);
                         seqReader.Close();
-
-
 
                         SQLiteCommand cmd1 = new SQLiteCommand(commandString1, myDBConn as SQLiteConnection);
 
@@ -2282,7 +2317,7 @@ namespace Vydejna
                         cmd2.ExecuteNonQuery();
 
                         // pridani radku do tabulky zruseneho materialu
-                        SQLiteCommand cmd3 = new SQLiteCommand(commandString7, myDBConn as SQLiteConnection);
+                        SQLiteCommand cmd3 = new SQLiteCommand(commandString5, myDBConn as SQLiteConnection);
 
                         SQLiteParameter pz0 = new SQLiteParameter("pz0", DbType.Int32);
                         pz0.Value = poradiPoskozeno;
@@ -2339,7 +2374,7 @@ namespace Vydejna
                         cmd3.Transaction = transaction;
                         cmd3.ExecuteNonQuery();
 
-                        SQLiteCommand cmd4 = new SQLiteCommand(commandString6, myDBConn as SQLiteConnection);
+                        SQLiteCommand cmd4 = new SQLiteCommand(commandString4, myDBConn as SQLiteConnection);
                         cmd4.Transaction = transaction;
                         cmd4.ExecuteNonQuery();
 
@@ -2348,6 +2383,10 @@ namespace Vydejna
                     else
                     {
                         myReader2.Close();
+                        if (transaction != null)
+                        {
+                             (transaction as SQLiteTransaction).Rollback();
+                        }
                         return -1;
                     }
 

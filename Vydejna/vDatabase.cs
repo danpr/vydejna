@@ -325,7 +325,10 @@ namespace Vydejna
             return -1;
         }
 
-
+        //  vraci
+        // 0 OK
+        // -1 zapis se nepodaril
+        // -2 stav skladu je mensi nez pozadovana vypujcka
         public virtual Int32 addNewLineZmenyAndPujceno(Int32 DBparPoradi, string DBJK, DateTime DBdatum, Int32 DBks, string DBpoznamka,
                                                        string DBosCislo, string DBjmeno, string DBprijmeni, string DBnazev, double DBcena)
         {

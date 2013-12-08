@@ -118,11 +118,13 @@ namespace Vydejna
                                 if (zapujcNaradi.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                                 {
                                     // pridame zapujcene naradi
+                                    int errCode;
 //                                    if (myDB.addNewLineZmeny(myMesenger.poradi, myMesenger.jk, zapujcNaradi.getDatum(), 0, zapujcNaradi.getKs(), zapujcNaradi.getPoznamka(), "U", 0, zapujcNaradi.getKs(), osCislo) < 0)
-                                    if (myDB.addNewLineZmenyAndPujceno(myMesenger.poradi, myMesenger.jk, zapujcNaradi.getDatum(), zapujcNaradi.getKs(), zapujcNaradi.getPoznamka(), 
-                                                                       osCislo, labelJmeno.Text,labelPrijmeni.Text, myMesenger.nazev,myMesenger.cena) < 0)
+                                    if ((errCode = myDB.addNewLineZmenyAndPujceno(myMesenger.poradi, myMesenger.jk, zapujcNaradi.getDatum(), zapujcNaradi.getKs(), zapujcNaradi.getPoznamka(), 
+                                                                       osCislo, labelJmeno.Text,labelPrijmeni.Text, myMesenger.nazev,myMesenger.cena)) < 0)
                                         {
-                                        MessageBox.Show("Vypůjčeni nářadi se nezdařilo. Lituji.");
+                                        if (errCode == -2) MessageBox.Show("Není možno vypůjčit více kusů než je stav na výdejně. Lituji.");
+                                        else MessageBox.Show("Vypůjčeni nářadi se nezdařilo. Lituji.");
                                     }
                                     else
                                     {
