@@ -78,5 +78,24 @@ namespace Vydejna
         {
             return Convert.ToDateTime( dateTimePickerDatum.Value);
         }
+
+
+        public string getOsCiclo()
+        {
+            return labelOsCislo.Text;
+        }
+
+        public string getJmeno()
+        {
+            return labelJmeno.Text;
+        }
+
+        public string getPrijmeni()
+        {
+            return labelPrijmeni.Text;
+        }
+
+
+
     }
 }

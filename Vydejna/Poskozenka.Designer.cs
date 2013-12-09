@@ -410,6 +410,7 @@
             this.textBoxPoznamka.Name = "textBoxPoznamka";
             this.textBoxPoznamka.Size = new System.Drawing.Size(452, 20);
             this.textBoxPoznamka.TabIndex = 36;
+            this.textBoxPoznamka.Text = "Poškozeno";
             // 
             // Poskozenka
             // 
@@ -442,7 +443,7 @@
             this.Controls.Add(this.label6);
             this.Controls.Add(this.groupBox1);
             this.Name = "Poskozenka";
-            this.Text = "Poskozenka";
+            this.Text = "Poškozenka nářadí";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMnozstvi)).EndInit();

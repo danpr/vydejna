@@ -138,7 +138,7 @@ namespace Vydejna
         {
             messager prepravka = new messager(textBoxPrijmeni.Text, textBoxJmeno.Text, textBoxUlice.Text, textBoxMesto.Text,
                                               textBoxPSC.Text,textBoxTelDomu.Text,textBoxOsCislo.Text,textBoxStredisko.Text,
-                                              textBoxCisZnamky.Text, textBoxStredisko.Text,textBoxPracoviste.Text,textBoxTelZamest.Text,
+                                              textBoxCisZnamky.Text, textBoxOddeleni.Text,textBoxPracoviste.Text,textBoxTelZamest.Text,
                                               textBoxPoznamka.Text);
             return prepravka;
         }

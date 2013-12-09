@@ -129,7 +129,8 @@ namespace Vydejna
                                     else
                                     {
                                         // prodame do  formulare // 
-                                        (dataGridViewZmeny.DataSource as DataTable).Rows.Add(zapujcNaradi.getDatum(), myMesenger.nazev, myMesenger.rozmer, myMesenger.jk, zapujcNaradi.getKs(), zapujcNaradi.getPoznamka());
+                                        (dataGridViewZmeny.DataSource as DataTable).Rows.Add(errCode,zapujcNaradi.getDatum(), myMesenger.nazev, myMesenger.rozmer, myMesenger.jk, zapujcNaradi.getKs(),myMesenger.cena,
+                                                                                             zapujcNaradi.getPoznamka(), zapujcNaradi.getOsCiclo(), zapujcNaradi.getJmeno(), myMesenger.nazev, myMesenger.jk,myMesenger.poradi,0);
                                         int counter = dataGridViewZmeny.Rows.Count - 1;
 
                                         dataGridViewZmeny.FirstDisplayedScrollingRowIndex = dataGridViewZmeny.Rows[counter].Index;

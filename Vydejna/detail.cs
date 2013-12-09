@@ -271,11 +271,15 @@ namespace Vydejna
                 if (poskozenka.ShowDialog() == DialogResult.OK)
                 {
                     Poskozenka.messager mesenger = poskozenka.getMesseger();
-
-                    if (myDataBase.addNewLineZmenyAndPoskozeno(mesenger.poradi, mesenger.jk, mesenger.datum, mesenger.pocetKs, mesenger.poznamka, mesenger.osCislo, mesenger.jmeno, mesenger.prijmeni,
-                                                               mesenger.stredisko, mesenger.provoz, mesenger.nazev, mesenger.rozmer, mesenger.konto, mesenger.cena, mesenger.celkCena, mesenger.csn, mesenger.cisZak ) < 0)
+                    int errCode;
+                    if ((errCode = myDataBase.addNewLineZmenyAndPoskozeno(mesenger.poradi, mesenger.jk, mesenger.datum, mesenger.pocetKs, mesenger.poznamka, mesenger.osCislo, mesenger.jmeno, mesenger.prijmeni,
+                                                               mesenger.stredisko, mesenger.provoz, mesenger.nazev, mesenger.rozmer, mesenger.konto, mesenger.cena, mesenger.celkCena, mesenger.csn, mesenger.cisZak )) < 0)
                     {
-                        MessageBox.Show("Odepsání poškozeneho materialu se nezdařilo. Lituji.");
+                        if (errCode == -2)
+                        MessageBox.Show("Nemohu odepsat poškozené položky. Učetní stav nebo stav výdejny je menší než požadované množství. Lituji.");
+                        else
+                        MessageBox.Show("Odepsání poškozených položek se nezdařilo. Lituji.");
+
                     }
                     else
                     {
@@ -297,24 +301,19 @@ namespace Vydejna
                                 Int32 fyzStav = 0;
                                 Int32 ucetStav = 0;
 
-                                if (DBrow.ContainsKey("ucetstav") && DBrow.ContainsKey("zmeny_zustatek"))
-                                {
-                                    ucetStav = Convert.ToInt32(DBrow["ucetstav"]);
-                                    int zustatek = Convert.ToInt32(DBrow["zmeny_zustatek"]);
-                                    if (zustatek != ucetStav) MessageBox.Show("Pozor! Patrně nesouhlasí stav karet a učetní stav položky.");
-                                }
-
-                                if (DBrow.ContainsKey("fyzstav"))
+                                if (DBrow.ContainsKey("fyzstav") && DBrow.ContainsKey("zmeny_zustatek"))
                                 {
                                     fyzStav = Convert.ToInt32(DBrow["fyzstav"]);
-                                    (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(10, fyzStav);
+                                    int zustatek = Convert.ToInt32(DBrow["zmeny_zustatek"]);
+                                    if (zustatek != fyzStav) MessageBox.Show("Pozor! Patrně nesouhlasí stav karet a stav vydejny položky.");
                                 }
-                                if (DBrow.ContainsKey("ucetstav"))
+                                if (DBrow.ContainsKey("fyzstav") && DBrow.ContainsKey("ucetstav"))
                                 {
+                                    fyzStav = Convert.ToInt32(DBrow["fyzstav"]);
                                     ucetStav = Convert.ToInt32(DBrow["ucetstav"]);
-                                    (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(4, ucetStav);
+                                    if (ucetStav < fyzStav) MessageBox.Show("Pozor! Účetní stav je menší než stav výdejny.");
                                 }
-                                if (fyzStav != ucetStav) MessageBox.Show("Pozor! Účetni a fyzický stav nesouhlasí.");
+
                             }
                         }
                     }
