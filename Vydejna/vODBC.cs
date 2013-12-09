@@ -1153,7 +1153,7 @@ namespace Vydejna
 
                 string commandString6 = "UPDATE  tabseq set poradi = poradi +1 WHERE nazev = 'pujceno'";
 
-
+                Int32 pujcPoradi = 0;
                 try
                 {
                     try
@@ -1222,7 +1222,7 @@ namespace Vydejna
                     OdbcCommand cmdSeq2 = new OdbcCommand(commandReadString3, myDBConn as OdbcConnection);
                     OdbcDataReader seqReader3 = cmdSeq2.ExecuteReader();
                     seqReader3.Read();
-                    Int32 pujcPoradi = seqReader3.GetInt32(0);
+                    pujcPoradi = seqReader3.GetInt32(0);
                     seqReader3.Close();
 
                     // tab naradi

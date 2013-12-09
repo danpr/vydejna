@@ -1983,7 +1983,7 @@ namespace Vydejna
                       "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
 
                 string commandString6 = "UPDATE  tabseq set poradi = poradi +1 WHERE nazev = 'pujceno'";
-
+                Int32 pujcPoradi = 0;
 
                 try
                 {
@@ -2053,7 +2053,7 @@ namespace Vydejna
                     SQLiteCommand cmdSeq2 = new SQLiteCommand(commandReadString3, myDBConn as SQLiteConnection);
                     SQLiteDataReader seqReader3 = cmdSeq2.ExecuteReader();
                     seqReader3.Read();
-                    Int32 pujcPoradi = seqReader3.GetInt32(0);
+                    pujcPoradi = seqReader3.GetInt32(0);
                     seqReader3.Close();
 
                     // tab naradi
@@ -2166,7 +2166,7 @@ namespace Vydejna
                     }
                     return -1;
                 }
-                return 0;
+                return pujcPoradi;
             }
                 return -1;
         }

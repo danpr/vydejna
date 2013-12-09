@@ -245,7 +245,7 @@ namespace Vydejna
                 if (state == sKartaState.add)
                 {
                     if (testExistItem(textBoxJK.Text.Trim()))
-                        {
+                    {
                         MessageBox.Show("Položka již existuje.");
                     }
                     else
@@ -259,9 +259,8 @@ namespace Vydejna
                 {
                     if (state == sKartaState.edit)
                     {
-//                        if (myDB.tableNaradiItemExist(textBoxJK.Text.Trim()))
-                            if (testExistItem(textBoxJK.Text.Trim()))
-                            {
+                        if (testExistItem(textBoxJK.Text.Trim()))
+                        {
                             buttonOK.DialogResult = DialogResult.OK;
                             this.DialogResult = DialogResult.OK;
                             Close();

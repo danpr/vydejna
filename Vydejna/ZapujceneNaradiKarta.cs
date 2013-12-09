@@ -118,19 +118,30 @@ namespace Vydejna
                                 if (zapujcNaradi.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                                 {
                                     // pridame zapujcene naradi
-                                    int errCode;
+                                    int pujcPradi;
 //                                    if (myDB.addNewLineZmeny(myMesenger.poradi, myMesenger.jk, zapujcNaradi.getDatum(), 0, zapujcNaradi.getKs(), zapujcNaradi.getPoznamka(), "U", 0, zapujcNaradi.getKs(), osCislo) < 0)
-                                    if ((errCode = myDB.addNewLineZmenyAndPujceno(myMesenger.poradi, myMesenger.jk, zapujcNaradi.getDatum(), zapujcNaradi.getKs(), zapujcNaradi.getPoznamka(), 
+                                    if ((pujcPradi = myDB.addNewLineZmenyAndPujceno(myMesenger.poradi, myMesenger.jk, zapujcNaradi.getDatum(), zapujcNaradi.getKs(), zapujcNaradi.getPoznamka(), 
                                                                        osCislo, labelJmeno.Text,labelPrijmeni.Text, myMesenger.nazev,myMesenger.cena)) < 0)
                                         {
-                                        if (errCode == -2) MessageBox.Show("Není možno vypůjčit více kusů než je stav na výdejně. Lituji.");
+                                            if (pujcPradi == -2) MessageBox.Show("Není možno vypůjčit více kusů než je stav na výdejně. Lituji.");
                                         else MessageBox.Show("Vypůjčeni nářadi se nezdařilo. Lituji.");
                                     }
                                     else
                                     {
                                         // prodame do  formulare // 
-                                        (dataGridViewZmeny.DataSource as DataTable).Rows.Add(errCode,zapujcNaradi.getDatum(), myMesenger.nazev, myMesenger.rozmer, myMesenger.jk, zapujcNaradi.getKs(),myMesenger.cena,
-                                                                                             zapujcNaradi.getPoznamka(), zapujcNaradi.getOsCiclo(), zapujcNaradi.getJmeno(), myMesenger.nazev, myMesenger.jk,myMesenger.poradi,0);
+                                        Hashtable DBPujcRow = new Hashtable();
+                                        Int32 zporadi = 0;
+                                        if (myDB.getPujcenoLine(pujcPradi, DBPujcRow) != null)
+                                        {
+                                            if (DBPujcRow.Contains("zporadi"))
+                                            {
+                                                zporadi = Convert.ToInt32(DBPujcRow["zporadi"]);
+                                            }
+                                        }
+
+
+                                        (dataGridViewZmeny.DataSource as DataTable).Rows.Add(pujcPradi, zapujcNaradi.getDatum(), myMesenger.nazev, myMesenger.rozmer, myMesenger.jk, zapujcNaradi.getKs(), myMesenger.cena,
+                                                                                             zapujcNaradi.getPoznamka(), zapujcNaradi.getOsCiclo(), zapujcNaradi.getJmeno(), myMesenger.nazev, myMesenger.jk,myMesenger.poradi,zporadi);
                                         int counter = dataGridViewZmeny.Rows.Count - 1;
 
                                         dataGridViewZmeny.FirstDisplayedScrollingRowIndex = dataGridViewZmeny.Rows[counter].Index;

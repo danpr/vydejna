@@ -480,6 +480,17 @@ namespace Vydejna
 
         }
 
+
+        public virtual Hashtable getPujcenoLine(Int32 poradi, Hashtable DBRow)
+        {
+            if (DBRow == null) DBRow = new Hashtable();
+
+            string DBSelect = "SELECT * from pujceno WHERE poradi = " + poradi.ToString();
+            return getDBLine(DBSelect, DBRow);
+
+        }
+
+
         public virtual Hashtable getOsobyLine(string oscislo, Hashtable DBRow)
         {
             if (DBRow == null) DBRow = new Hashtable();
@@ -488,6 +499,7 @@ namespace Vydejna
             return getDBLine(DBSelect, DBRow);
 
         }
+
 
 
         public Boolean tableItemExist(string DBSelect, string item)
