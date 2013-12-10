@@ -132,7 +132,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(253, 188);
+            this.label6.Location = new System.Drawing.Point(253, 190);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(109, 13);
             this.label6.TabIndex = 27;
@@ -298,7 +298,7 @@
             this.groupBox1.Size = new System.Drawing.Size(501, 110);
             this.groupBox1.TabIndex = 44;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Žadatel";
+            this.groupBox1.Text = "Vlastník";
             // 
             // ZapujceniNaradi
             // 
