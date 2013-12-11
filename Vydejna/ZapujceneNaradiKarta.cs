@@ -72,9 +72,10 @@ namespace Vydejna
                     dataGridViewZmeny.Columns[2].HeaderText = "Název";
                     dataGridViewZmeny.Columns[3].HeaderText = "Rozměr";
                     dataGridViewZmeny.Columns[4].HeaderText = "JK";
-                    dataGridViewZmeny.Columns[5].HeaderText = "KS";
-                    dataGridViewZmeny.Columns[6].HeaderText = "Cena";
-                    dataGridViewZmeny.Columns[7].HeaderText = "Poznámka";
+                    dataGridViewZmeny.Columns[5].HeaderText = "I. ev. číslo";
+                    dataGridViewZmeny.Columns[6].HeaderText = "KS";
+                    dataGridViewZmeny.Columns[7].HeaderText = "Cena";
+                    dataGridViewZmeny.Columns[8].HeaderText = "Poznámka";
                     dataGridViewZmeny.Columns["poradi"].Visible = false;
                     dataGridViewZmeny.Columns["oscislo"].Visible = false;  
                     dataGridViewZmeny.Columns["pjmeno"].Visible = false;  
@@ -119,7 +120,6 @@ namespace Vydejna
                                 {
                                     // pridame zapujcene naradi
                                     int pujcPradi;
-//                                    if (myDB.addNewLineZmeny(myMesenger.poradi, myMesenger.jk, zapujcNaradi.getDatum(), 0, zapujcNaradi.getKs(), zapujcNaradi.getPoznamka(), "U", 0, zapujcNaradi.getKs(), osCislo) < 0)
                                     if ((pujcPradi = myDB.addNewLineZmenyAndPujceno(myMesenger.poradi, myMesenger.jk, zapujcNaradi.getDatum(), zapujcNaradi.getKs(), zapujcNaradi.getPoznamka(), 
                                                                        osCislo, labelJmeno.Text,labelPrijmeni.Text, myMesenger.nazev,myMesenger.cena)) < 0)
                                         {
@@ -185,7 +185,13 @@ namespace Vydejna
             //vratime naradi
             Hashtable DBVypujcRow = makeVypujDBRow(DBRow);
             VraceniNaradi vraceniNaradi = new VraceniNaradi(DBVypujcRow);
-            vraceniNaradi.ShowDialog();
+            if (vraceniNaradi.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+
+
+            }
+            
+
 
         }
 

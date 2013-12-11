@@ -31,7 +31,7 @@
             this.numericUpDownKs = new System.Windows.Forms.NumericUpDown();
             this.dateTimePickerDatum = new System.Windows.Forms.DateTimePicker();
             this.textBoxPoznamka = new System.Windows.Forms.TextBox();
-            this.labelFyzStav = new System.Windows.Forms.Label();
+            this.labelVypujceno = new System.Windows.Forms.Label();
             this.labelJK = new System.Windows.Forms.Label();
             this.labelNazev = new System.Windows.Forms.Label();
             this.buttonOK = new System.Windows.Forms.Button();
@@ -65,6 +65,7 @@
             this.numericUpDownKs.Name = "numericUpDownKs";
             this.numericUpDownKs.Size = new System.Drawing.Size(73, 20);
             this.numericUpDownKs.TabIndex = 57;
+            this.numericUpDownKs.ValueChanged += new System.EventHandler(this.numericUpDownKs_ValueChanged);
             // 
             // dateTimePickerDatum
             // 
@@ -80,17 +81,16 @@
             this.textBoxPoznamka.Name = "textBoxPoznamka";
             this.textBoxPoznamka.Size = new System.Drawing.Size(286, 20);
             this.textBoxPoznamka.TabIndex = 55;
-            this.textBoxPoznamka.Text = "Vráceno";
             // 
-            // labelFyzStav
+            // labelVypujceno
             // 
-            this.labelFyzStav.AutoSize = true;
-            this.labelFyzStav.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelFyzStav.Location = new System.Drawing.Point(386, 232);
-            this.labelFyzStav.Name = "labelFyzStav";
-            this.labelFyzStav.Size = new System.Drawing.Size(48, 13);
-            this.labelFyzStav.TabIndex = 54;
-            this.labelFyzStav.Text = "label12";
+            this.labelVypujceno.AutoSize = true;
+            this.labelVypujceno.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelVypujceno.Location = new System.Drawing.Point(386, 232);
+            this.labelVypujceno.Name = "labelVypujceno";
+            this.labelVypujceno.Size = new System.Drawing.Size(48, 13);
+            this.labelVypujceno.TabIndex = 54;
+            this.labelVypujceno.Text = "label12";
             // 
             // labelJK
             // 
@@ -121,6 +121,7 @@
             this.buttonOK.TabIndex = 51;
             this.buttonOK.Text = "Budiž";
             this.buttonOK.UseVisualStyleBackColor = true;
+            this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
             // 
             // buttonCancel
             // 
@@ -331,7 +332,7 @@
             this.Controls.Add(this.numericUpDownKs);
             this.Controls.Add(this.dateTimePickerDatum);
             this.Controls.Add(this.textBoxPoznamka);
-            this.Controls.Add(this.labelFyzStav);
+            this.Controls.Add(this.labelVypujceno);
             this.Controls.Add(this.labelJK);
             this.Controls.Add(this.labelNazev);
             this.Controls.Add(this.buttonOK);
@@ -357,7 +358,7 @@
         private System.Windows.Forms.NumericUpDown numericUpDownKs;
         private System.Windows.Forms.DateTimePicker dateTimePickerDatum;
         private System.Windows.Forms.TextBox textBoxPoznamka;
-        private System.Windows.Forms.Label labelFyzStav;
+        private System.Windows.Forms.Label labelVypujceno;
         private System.Windows.Forms.Label labelJK;
         private System.Windows.Forms.Label labelNazev;
         private System.Windows.Forms.Button buttonOK;

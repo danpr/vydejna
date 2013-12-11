@@ -380,7 +380,7 @@ namespace Vydejna
             
             return loadDataTable("SELECT p.poradi as poradi, CASE WHEN p.zporadi > 0 THEN z.datum ELSE p.pdatum END as datum, "+
                                  "CASE WHEN p.nporadi < 1 THEN n.nazev ELSE p.pnazev END as nazev, CASE WHEN p.nporadi > 0 THEN n.rozmer ELSE \'\' END as rozmer, " +
-                                  "CASE WHEN p.nporadi > 0 THEN n.jk ELSE p.pjk END as jk, CASE WHEN p.zporadi > 0 THEN z.vydej ELSE p.pks END as ks, " +
+                                  "CASE WHEN p.nporadi > 0 THEN n.jk ELSE p.pjk END as jk, z.vevcislo, CASE WHEN p.zporadi > 0 THEN z.vydej ELSE p.pks END as ks, " +
                                   "CASE WHEN p.nporadi > 0 THEN n.cena ELSE p.pcena END as cena, CASE WHEN p.zporadi > 0 THEN z.poznamka ELSE '' END as poznamka," +
                                   "p.oscislo, p.pjmeno, p.pprijmeni as pprijmeni, p.pnazev as pnazev, p.pjk as pjk, p.nporadi, p.zporadi " +
                                   "FROM pujceno p, naradi n, zmeny z where p.nporadi = n.poradi and p.zporadi = z.poradi and p.nporadi = z.parporadi " +
