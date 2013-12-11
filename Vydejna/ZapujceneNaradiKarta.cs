@@ -157,8 +157,35 @@ namespace Vydejna
             }            
         }
 
+        private Hashtable makeVypujDBRow(Hashtable DBRow)
+        {
+            Hashtable DBVypujcRow = (Hashtable)DBRow.Clone();
+
+            DataGridViewRow myRow = dataGridViewZmeny.SelectedRows[0];
+
+            for (int i = 0; i < dataGridViewZmeny.ColumnCount; i++)
+            {
+                if (DBVypujcRow.ContainsKey(dataGridViewZmeny.Columns[i].Name))
+                {
+                    DBVypujcRow.Remove(dataGridViewZmeny.Columns[i].Name);
+                }
+                DBVypujcRow.Add(dataGridViewZmeny.Columns[i].Name, myRow.Cells[i].Value);
+            }
+            return DBVypujcRow;
+
+        }
+
         private void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
         {
+
+        }
+
+        private void vraceníNářadíToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //vratime naradi
+            Hashtable DBVypujcRow = makeVypujDBRow(DBRow);
+            VraceniNaradi vraceniNaradi = new VraceniNaradi(DBVypujcRow);
+            vraceniNaradi.ShowDialog();
 
         }
 

@@ -142,15 +142,16 @@
             // zapůjčeníNářadíToolStripMenuItem
             // 
             this.zapůjčeníNářadíToolStripMenuItem.Name = "zapůjčeníNářadíToolStripMenuItem";
-            this.zapůjčeníNářadíToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.zapůjčeníNářadíToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
             this.zapůjčeníNářadíToolStripMenuItem.Text = "Zapůjčení nářadí";
             this.zapůjčeníNářadíToolStripMenuItem.Click += new System.EventHandler(this.zapůjčeníNářadíToolStripMenuItem_Click);
             // 
             // vraceníNářadíToolStripMenuItem
             // 
             this.vraceníNářadíToolStripMenuItem.Name = "vraceníNářadíToolStripMenuItem";
-            this.vraceníNářadíToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.vraceníNářadíToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
             this.vraceníNářadíToolStripMenuItem.Text = "Vracení nářadí";
+            this.vraceníNářadíToolStripMenuItem.Click += new System.EventHandler(this.vraceníNářadíToolStripMenuItem_Click);
             // 
             // buttonCancel
             // 
