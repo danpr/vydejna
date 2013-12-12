@@ -187,7 +187,8 @@ namespace Vydejna
             VraceniNaradi vraceniNaradi = new VraceniNaradi(DBVypujcRow);
             if (vraceniNaradi.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-
+                DataGridViewRow myRow = dataGridViewZmeny.SelectedRows[0];
+                myDB.addNewLineZmenyAndVraceno(myRow.Cells["poradi"].Value,myRow.Cells["nporadi"].Value, myRow.Cells["zporadi"]);
 
             }
             

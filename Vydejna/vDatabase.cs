@@ -335,6 +335,13 @@ namespace Vydejna
             return -1;
         }
 
+
+        public virtual Int32 addNewLineZmenyAndVraceno(Int32 DBporadi, Int32 DBparPoradi, Int32 DBzmenPoradi, DateTime DBdatum, Int32 DBks, string DBpoznamka, string DBosCislo, string DBJK, string DBievCislo)
+        {
+            return -1;
+        }
+
+
         public virtual Int32 addNewLineZmenyAndPoskozeno(Int32 DBporadi, string DBJK, DateTime DBdatum, Int32 DBvydej, string DBpoznamka,
                                                          string osCislo, string DBjmeno, string DBprijmeni, string DBstredisko, string DBprovoz,
                                                          string DBnazev, string DBrozmer, string DBkonto, double DBcena, double DBcelkCena, string DBcsn, string DBcisZak)
