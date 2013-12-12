@@ -84,6 +84,7 @@ namespace Vydejna
                     dataGridViewZmeny.Columns["pjk"].Visible = false;
                     dataGridViewZmeny.Columns["nporadi"].Visible = false;
                     dataGridViewZmeny.Columns["zporadi"].Visible = false;
+                    dataGridViewZmeny.Columns["pujcks"].Visible = false;
 
 
                     dataGridViewZmeny.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
@@ -188,7 +189,7 @@ namespace Vydejna
             if (vraceniNaradi.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 DataGridViewRow myRow = dataGridViewZmeny.SelectedRows[0];
-                myDB.addNewLineZmenyAndVraceno(myRow.Cells["poradi"].Value,myRow.Cells["nporadi"].Value, myRow.Cells["zporadi"]);
+//                myDB.addNewLineZmenyAndVraceno(myRow.Cells["poradi"].Value,myRow.Cells["nporadi"].Value, myRow.Cells["zporadi"]);
 
             }
             

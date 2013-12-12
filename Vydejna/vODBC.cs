@@ -205,7 +205,7 @@ namespace Vydejna
                       "pocivc integer, stav char(1), poradi integer );";
 
 
-            string commandStringPujceno = "create table pujceno (poradi integer, oscislo varchar(8), nporadi integer, zporadi integer, pjmeno varchar(15)," +
+            string commandStringPujceno = "create table pujceno (poradi integer, oscislo varchar(8), nporadi integer, zporadi integer, stavks integer, pjmeno varchar(15)," +
                       "pprijmeni varchar(15), pnazev varchar(60), pjk varchar(15), pdatum date, pks integer, pcena float);";
 
 
@@ -2495,8 +2495,8 @@ namespace Vydejna
                                          string DBjmeno, string DBPrijmeni, string DBnazev, string DBjk,
                                          double DBcena, int DBzmPoradi)
         {
-            string commandString = "INSERT INTO pujceno ( poradi, oscislo, nporadi, zporadi, pjmeno, pprijmeni, pnazev, pjk, pdatum, pks, pcena )" +
-                  "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
+            string commandString = "INSERT INTO pujceno ( poradi, oscislo, nporadi, zporadi, stavks, pjmeno, pprijmeni, pnazev, pjk, pdatum, pks, pcena )" +
+                  "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
 
             string commandStringSeq1 = "SELECT poradi FROM tabseq WHERE nazev = 'pujceno'";
             string commandStringSeq2 = "UPDATE  tabseq set poradi = poradi +1 WHERE nazev = 'pujceno'";
@@ -2548,20 +2548,22 @@ namespace Vydejna
                 p2.Value = DBparPoradi;
                 OdbcParameter p3 = new OdbcParameter("p3", OdbcType.Int);
                 p3.Value = zmenyPoradi; // DBzmPoradi;
-                OdbcParameter p4 = new OdbcParameter("p4", OdbcType.NChar);
-                p4.Value = DBjmeno;
+                OdbcParameter p4 = new OdbcParameter("p4", OdbcType.Int);
+                p4.Value = DBks;
                 OdbcParameter p5 = new OdbcParameter("p5", OdbcType.NChar);
-                p5.Value = DBPrijmeni;
+                p5.Value = DBjmeno;
                 OdbcParameter p6 = new OdbcParameter("p6", OdbcType.NChar);
-                p6.Value = DBnazev;
+                p6.Value = DBPrijmeni;
                 OdbcParameter p7 = new OdbcParameter("p7", OdbcType.NChar);
-                p7.Value = DBjk;
-                OdbcParameter p8 = new OdbcParameter("p8", OdbcType.Date);
-                p8.Value = DBdatum ;
-                OdbcParameter p9 = new OdbcParameter("p9", OdbcType.Int);
-                p9.Value = DBks;
-                OdbcParameter p10 = new OdbcParameter("p10", OdbcType.Double);
+                p7.Value = DBnazev;
+                OdbcParameter p8 = new OdbcParameter("p8", OdbcType.NChar);
+                p8.Value = DBjk;
+                OdbcParameter p9 = new OdbcParameter("p9", OdbcType.Date);
+                p9.Value = DBdatum ;
+                OdbcParameter p10 = new OdbcParameter("p10", OdbcType.Int);
                 p10.Value = DBks;
+                OdbcParameter p11 = new OdbcParameter("p11", OdbcType.Double);
+                p11.Value = DBks;
 
                 cmd.Parameters.Add(p0);
                 cmd.Parameters.Add(p1);
@@ -2574,6 +2576,7 @@ namespace Vydejna
                 cmd.Parameters.Add(p8);
                 cmd.Parameters.Add(p9);
                 cmd.Parameters.Add(p10);
+                cmd.Parameters.Add(p11);
                 cmd.ExecuteNonQuery();
 
                 OdbcCommand cmdSeq2 = new OdbcCommand(commandStringSeq2, myDBConn as OdbcConnection);

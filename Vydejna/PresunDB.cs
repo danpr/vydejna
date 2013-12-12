@@ -673,9 +673,6 @@ namespace Vydejna
                 }
 
             }
-//            if (!dr.IsClosed) dr.Close();
-//            fbase.Close();
-//            fbase.Dispose();
         }
         catch
         {

@@ -26,8 +26,8 @@ namespace Vydejna
             labelNazev.Text = Convert.ToString(DBRow["nazev"]);
             labelIEvCislo.Text = Convert.ToString(DBRow["vevcislo"]);
             labelJK.Text = Convert.ToString(DBRow["jk"]);
-            labelVypujceno.Text = Convert.ToString(DBRow["ks"]);
-            numericUpDownKs.Maximum = Convert.ToInt32(DBRow["ks"]);
+            labelVypujceno.Text = Convert.ToString(DBRow["stavks"]);
+            numericUpDownKs.Maximum = Convert.ToInt32(DBRow["stavks"]);
             textBoxPoznamka.Text = "Vráceno";
 
         }
