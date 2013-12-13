@@ -901,7 +901,7 @@ namespace Vydejna
                 else
                 {
                     zmenyPoradi = 0;
-                    MessageBox.Show("Neexistuje zmena stavu pro vypujcení " + DBparPoradi.ToString() + " : " + DBosCislo);
+                    MessageBox.Show("Neexistuje zmena stavu pro vypujcení. Poradi/Nazev:" + DBparPoradi.ToString() + " - " + DBnazev + " OSCislo: " + DBosCislo + " - " + DBPrijmeni);
                 }
 
                 SQLiteCommand cmd = new SQLiteCommand(commandString, myDBConn as SQLiteConnection);
