@@ -53,6 +53,8 @@
             this.dateTimePickerDatum = new System.Windows.Forms.DateTimePicker();
             this.numericUpDownKs = new System.Windows.Forms.NumericUpDown();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.textBoxVevCislo = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownKs)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -69,7 +71,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(63, 24);
+            this.label2.Location = new System.Drawing.Point(72, 24);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(44, 13);
             this.label2.TabIndex = 9;
@@ -78,7 +80,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(54, 53);
+            this.label7.Location = new System.Drawing.Point(63, 53);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(53, 13);
             this.label7.TabIndex = 14;
@@ -105,7 +107,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(16, 136);
+            this.label3.Location = new System.Drawing.Point(25, 136);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(111, 13);
             this.label3.TabIndex = 24;
@@ -114,7 +116,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(101, 160);
+            this.label4.Location = new System.Drawing.Point(111, 160);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(25, 13);
             this.label4.TabIndex = 25;
@@ -123,7 +125,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(16, 190);
+            this.label5.Location = new System.Drawing.Point(26, 190);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(110, 13);
             this.label5.TabIndex = 26;
@@ -141,7 +143,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(63, 223);
+            this.label9.Location = new System.Drawing.Point(72, 255);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(63, 13);
             this.label9.TabIndex = 28;
@@ -150,7 +152,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(33, 256);
+            this.label11.Location = new System.Drawing.Point(42, 288);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(94, 13);
             this.label11.TabIndex = 29;
@@ -160,7 +162,7 @@
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(18, 291);
+            this.buttonCancel.Location = new System.Drawing.Point(18, 325);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 31;
@@ -170,7 +172,7 @@
             // buttonOK
             // 
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonOK.Location = new System.Drawing.Point(444, 291);
+            this.buttonOK.Location = new System.Drawing.Point(444, 325);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
             this.buttonOK.TabIndex = 32;
@@ -260,7 +262,7 @@
             // 
             // textBoxPoznamka
             // 
-            this.textBoxPoznamka.Location = new System.Drawing.Point(145, 220);
+            this.textBoxPoznamka.Location = new System.Drawing.Point(145, 252);
             this.textBoxPoznamka.MaxLength = 22;
             this.textBoxPoznamka.Name = "textBoxPoznamka";
             this.textBoxPoznamka.Size = new System.Drawing.Size(286, 20);
@@ -268,7 +270,7 @@
             // 
             // dateTimePickerDatum
             // 
-            this.dateTimePickerDatum.Location = new System.Drawing.Point(145, 252);
+            this.dateTimePickerDatum.Location = new System.Drawing.Point(145, 284);
             this.dateTimePickerDatum.Name = "dateTimePickerDatum";
             this.dateTimePickerDatum.Size = new System.Drawing.Size(146, 20);
             this.dateTimePickerDatum.TabIndex = 42;
@@ -300,11 +302,30 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Vlastník";
             // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(15, 223);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(121, 13);
+            this.label12.TabIndex = 59;
+            this.label12.Text = "Interní evidenční číslo :";
+            // 
+            // textBoxVevCislo
+            // 
+            this.textBoxVevCislo.Location = new System.Drawing.Point(145, 220);
+            this.textBoxVevCislo.MaxLength = 12;
+            this.textBoxVevCislo.Name = "textBoxVevCislo";
+            this.textBoxVevCislo.Size = new System.Drawing.Size(146, 20);
+            this.textBoxVevCislo.TabIndex = 60;
+            // 
             // ZapujceniNaradi
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(545, 326);
+            this.ClientSize = new System.Drawing.Size(545, 360);
+            this.Controls.Add(this.textBoxVevCislo);
+            this.Controls.Add(this.label12);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.numericUpDownKs);
             this.Controls.Add(this.dateTimePickerDatum);
@@ -357,5 +378,7 @@
         private System.Windows.Forms.DateTimePicker dateTimePickerDatum;
         private System.Windows.Forms.NumericUpDown numericUpDownKs;
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.TextBox textBoxVevCislo;
     }
 }

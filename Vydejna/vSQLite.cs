@@ -1967,7 +1967,7 @@ namespace Vydejna
 
 
 
-        public override Int32 addNewLineZmenyAndPujceno(Int32 DBparPoradi, string DBJK, DateTime DBdatum,  Int32 DBks, string DBpoznamka,
+        public override Int32 addNewLineZmenyAndPujceno(Int32 DBparPoradi, string DBJK, DateTime DBdatum, Int32 DBks, string DBpoznamka, string DBvevCislo,
                                                         string DBosCislo, string DBjmeno, string DBprijmeni, string DBnazev, double DBcena)
         {
             SQLiteTransaction transaction = null;
@@ -1983,8 +1983,8 @@ namespace Vydejna
                 string commandString2 = "INSERT INTO zmeny (parporadi, pomozjk, datum, poznamka, prijem, vydej, zustatek, zapkarta, vevcislo, pocivc, stav, poradi )" +
                       "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
 
-                string commandString5 = "INSERT INTO pujceno ( poradi, oscislo, nporadi, zporadi, pjmeno, pprijmeni, pnazev, pjk, pdatum, pks, pcena )" +
-                      "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
+                string commandString5 = "INSERT INTO pujceno ( poradi, oscislo, nporadi, zporadi, pjmeno, pprijmeni, pnazev, pjk, pdatum, pks, pcena, stavks )" +
+                      "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
 
                 string commandString6 = "UPDATE  tabseq set poradi = poradi +1 WHERE nazev = 'pujceno'";
                 Int32 pujcPoradi = 0;
@@ -2091,7 +2091,7 @@ namespace Vydejna
                     SQLiteParameter p8 = new SQLiteParameter("p8", DbType.String);
                     p8.Value = DBosCislo;
                     SQLiteParameter p9 = new SQLiteParameter("p9", DbType.String);
-                    p9.Value = "";
+                    p9.Value = DBvevCislo;
                     SQLiteParameter p10 = new SQLiteParameter("p10", DbType.Int32);
                     p10.Value = 0;
                     SQLiteParameter p11 = new SQLiteParameter("p11", DbType.String);
@@ -2138,6 +2138,8 @@ namespace Vydejna
                     pp9.Value = DBks;
                     SQLiteParameter pp10 = new SQLiteParameter("pp10", DbType.Double);
                     pp10.Value = DBcena;
+                    SQLiteParameter pp11 = new SQLiteParameter("pp11", DbType.Int32);
+                    pp11.Value = DBks;
 
                     cmd.Parameters.Add(pp0);
                     cmd.Parameters.Add(pp1);
@@ -2150,6 +2152,7 @@ namespace Vydejna
                     cmd.Parameters.Add(pp8);
                     cmd.Parameters.Add(pp9);
                     cmd.Parameters.Add(pp10);
+                    cmd.Parameters.Add(pp11);
                     cmd.ExecuteNonQuery();
 
                     SQLiteCommand cmdSeq3 = new SQLiteCommand(commandString6, myDBConn as SQLiteConnection);

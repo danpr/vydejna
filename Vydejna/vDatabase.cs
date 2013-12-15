@@ -329,14 +329,14 @@ namespace Vydejna
         // 0 OK
         // -1 zapis se nepodaril
         // -2 stav skladu je mensi nez pozadovana vypujcka
-        public virtual Int32 addNewLineZmenyAndPujceno(Int32 DBparPoradi, string DBJK, DateTime DBdatum, Int32 DBks, string DBpoznamka,
+        public virtual Int32 addNewLineZmenyAndPujceno(Int32 DBparPoradi, string DBJK, DateTime DBdatum, Int32 DBks, string DBpoznamka, string DBvevCislo,
                                                        string DBosCislo, string DBjmeno, string DBprijmeni, string DBnazev, double DBcena)
         {
             return -1;
         }
 
 
-        public virtual Int32 addNewLineZmenyAndVraceno(Int32 DBporadi, Int32 DBparPoradi, Int32 DBzmenPoradi, DateTime DBdatum, Int32 DBks, string DBpoznamka, string DBosCislo, string DBJK, string DBievCislo)
+        public virtual Int32 addNewLineZmenyAndVraceno(Int32 DBporadi, DateTime DBdatum, Int32 DBks, string DBpoznamka, string DBosCislo, string DBJK, string DBievCislo)
         {
             return -1;
         }
@@ -387,7 +387,8 @@ namespace Vydejna
             
             return loadDataTable("SELECT p.poradi as poradi, CASE WHEN p.zporadi > 0 THEN z.datum ELSE p.pdatum END as datum, "+
                                  "CASE WHEN p.nporadi < 1 THEN n.nazev ELSE p.pnazev END as nazev, CASE WHEN p.nporadi > 0 THEN n.rozmer ELSE \'\' END as rozmer, " +
-                                  "CASE WHEN p.nporadi > 0 THEN n.jk ELSE p.pjk END as jk, z.vevcislo, stavks, " +
+                                  "CASE WHEN p.nporadi > 0 THEN n.jk ELSE p.pjk END as jk," +
+                                  "CASE WHEN p.zporadi > 0 THEN rtrim(z.vevcislo) ELSE \'\' END as vevcislo, stavks, " +
                                   "CASE WHEN p.nporadi > 0 THEN n.cena ELSE p.pcena END as cena, CASE WHEN p.zporadi > 0 THEN z.poznamka ELSE '' END as poznamka," +
                                   "p.oscislo, p.pjmeno, p.pprijmeni as pprijmeni, p.pnazev as pnazev, p.pjk as pjk, CASE WHEN p.zporadi > 0 THEN z.vydej ELSE p.pks END as pujcks, p.nporadi, p.zporadi " +
                                   "FROM pujceno p, naradi n, zmeny z where p.nporadi = n.poradi and p.zporadi = z.poradi and p.nporadi = z.parporadi " +

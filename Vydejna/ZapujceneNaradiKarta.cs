@@ -121,7 +121,7 @@ namespace Vydejna
                                 {
                                     // pridame zapujcene naradi
                                     int pujcPradi;
-                                    if ((pujcPradi = myDB.addNewLineZmenyAndPujceno(myMesenger.poradi, myMesenger.jk, zapujcNaradi.getDatum(), zapujcNaradi.getKs(), zapujcNaradi.getPoznamka(), 
+                                    if ((pujcPradi = myDB.addNewLineZmenyAndPujceno(myMesenger.poradi, myMesenger.jk, zapujcNaradi.getDatum(), zapujcNaradi.getKs(), zapujcNaradi.getPoznamka(), zapujcNaradi.getVevCislo(), 
                                                                        osCislo, labelJmeno.Text,labelPrijmeni.Text, myMesenger.nazev,myMesenger.cena)) < 0)
                                         {
                                             if (pujcPradi == -2) MessageBox.Show("Není možno vypůjčit více kusů než je stav na výdejně. Lituji.");
@@ -141,7 +141,7 @@ namespace Vydejna
                                         }
 
 
-                                        (dataGridViewZmeny.DataSource as DataTable).Rows.Add(pujcPradi, zapujcNaradi.getDatum(), myMesenger.nazev, myMesenger.rozmer, myMesenger.jk, zapujcNaradi.getKs(), myMesenger.cena,
+                                        (dataGridViewZmeny.DataSource as DataTable).Rows.Add(pujcPradi, zapujcNaradi.getDatum(), myMesenger.nazev, myMesenger.rozmer, myMesenger.jk, zapujcNaradi.getVevCislo(), zapujcNaradi.getKs(), myMesenger.cena,
                                                                                              zapujcNaradi.getPoznamka(), zapujcNaradi.getOsCiclo(), zapujcNaradi.getJmeno(), myMesenger.nazev, myMesenger.jk,myMesenger.poradi,zporadi);
                                         int counter = dataGridViewZmeny.Rows.Count - 1;
 
@@ -158,11 +158,12 @@ namespace Vydejna
             }            
         }
 
-        private Hashtable makeVypujDBRow(Hashtable DBRow)
+        private Hashtable makeVypujcDBRow(Hashtable DBRow)
         {
             Hashtable DBVypujcRow = (Hashtable)DBRow.Clone();
 
             DataGridViewRow myRow = dataGridViewZmeny.SelectedRows[0];
+            
 
             for (int i = 0; i < dataGridViewZmeny.ColumnCount; i++)
             {
@@ -184,12 +185,14 @@ namespace Vydejna
         private void vraceníNářadíToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //vratime naradi
-            Hashtable DBVypujcRow = makeVypujDBRow(DBRow);
+            Hashtable DBVypujcRow = makeVypujcDBRow(DBRow);
             VraceniNaradi vraceniNaradi = new VraceniNaradi(DBVypujcRow);
             if (vraceniNaradi.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                DataGridViewRow myRow = dataGridViewZmeny.SelectedRows[0];
-//                myDB.addNewLineZmenyAndVraceno(myRow.Cells["poradi"].Value,myRow.Cells["nporadi"].Value, myRow.Cells["zporadi"]);
+                string DBJK = DBVypujcRow["jk"].ToString();
+                string DBvevCislo = DBVypujcRow["vevcislo"].ToString();
+                myDB.addNewLineZmenyAndVraceno(Convert.ToInt32(DBVypujcRow["poradi"]), vraceniNaradi.getDatum(), vraceniNaradi.getKs(),
+                    vraceniNaradi.getPoznamka(), Convert.ToString(DBVypujcRow["oscislo"]), DBJK, DBvevCislo);
 
             }
             

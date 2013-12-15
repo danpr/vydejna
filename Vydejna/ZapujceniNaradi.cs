@@ -28,6 +28,8 @@ namespace Vydejna
             labelJK.Text = JK;
             labelFyzStav.Text = Convert.ToString(fyzStav);
 
+            textBoxVevCislo.Text = "";
+
             numericUpDownKs.Maximum = fyzStav;
             textBoxPoznamka.Text = "Zapůjčeno";
 
@@ -96,6 +98,9 @@ namespace Vydejna
         }
 
 
-
+        public string getVevCislo()
+        {
+            return textBoxVevCislo.Text;
+        }
     }
 }
