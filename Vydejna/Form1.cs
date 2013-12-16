@@ -488,7 +488,7 @@ namespace Vydejna
                 progressBarMain.MarqueeAnimationSpeed = 0;
 
                 // ctrvrty soubor vyrazeno
-                labelView.Text = "Přesouvám tabulku poskozenzeného nářadí";
+                labelView.Text = "Přesouvám tabulku poškozeného nářadí";
                 Application.DoEvents();
 
 

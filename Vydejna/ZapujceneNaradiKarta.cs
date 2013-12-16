@@ -191,8 +191,23 @@ namespace Vydejna
             {
                 string DBJK = DBVypujcRow["jk"].ToString();
                 string DBvevCislo = DBVypujcRow["vevcislo"].ToString();
-                myDB.addNewLineZmenyAndVraceno(Convert.ToInt32(DBVypujcRow["poradi"]), vraceniNaradi.getDatum(), vraceniNaradi.getKs(),
+                Int32 errCode = myDB.addNewLineZmenyAndVraceno(Convert.ToInt32(DBVypujcRow["poradi"]), vraceniNaradi.getDatum(), vraceniNaradi.getKs(),
                     vraceniNaradi.getPoznamka(), Convert.ToString(DBVypujcRow["oscislo"]), DBJK, DBvevCislo);
+                if (errCode == -4)
+                {
+                    MessageBox.Show("Stav změn je záporné číslo. Nejprve opravte data o pohybu nářadí.");
+
+                }
+                if (errCode == -3)
+                {
+                    MessageBox.Show("Neexistují žádné záznamy o pohybu nářadi. Nejprve opravte data o pohybu nářadí.");
+
+                }
+                if (errCode == -2)
+                {
+                    MessageBox.Show("Požadujete vrátit vetší možství než je vypůjčeno. Data byla patrně změněna z jiného pracoviště.");
+
+                }
 
             }
             

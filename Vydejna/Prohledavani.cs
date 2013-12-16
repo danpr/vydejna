@@ -155,10 +155,15 @@ namespace Vydejna
                                 substring = substring.ToUpper();
                             }
 
+                            if (columnNameValue == substring)
+                            {
+                                lineIsFound = true;
+                            }
+
                             if (columnNameValue.IndexOf(substring) != -1)
-                                {
-                                    lineIsFound = true;
-                                }
+                            {
+                                lineIsFound = true;
+                            }
                         break;
                         case "Numeric" :
                         
