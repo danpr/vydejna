@@ -1151,7 +1151,7 @@ namespace Vydejna
                       "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
 
                 string commandString3 = "UPDATE pujceno SET pks = pks - ? WHERE poradi = ? ";
-                string commandString4 = "DELETE FROM pujceno  WHERE poradi = ? ";
+                string commandString4 = "DELETE FROM pujceno WHERE poradi = ? ";
                 
                 try
                 {
@@ -1265,7 +1265,7 @@ namespace Vydejna
                     cmd1.Parameters.Add(pn1);
                     cmd1.Parameters.Add(pn2);
                     cmd1.Transaction = transaction;
-                    cmd1.ExecuteNonQuery();
+                    Int32 errCode = cmd1.ExecuteNonQuery();
 
                     //  tab zmeny novy zaznam
                     OdbcCommand cmd2 = new OdbcCommand(commandString2, myDBConn as OdbcConnection);
@@ -1306,7 +1306,7 @@ namespace Vydejna
                     cmd2.Parameters.Add(p11);
                     cmd2.Parameters.Add(p12);
                     cmd2.Transaction = transaction;
-                    cmd2.ExecuteNonQuery();
+                    errCode = cmd2.ExecuteNonQuery();
 
                     if (pujcKs != DBks)
                     {
@@ -1316,11 +1316,11 @@ namespace Vydejna
                         OdbcParameter pna1 = new OdbcParameter("pna1", OdbcType.Int);
                         pn1.Value = DBks;
                         OdbcParameter pna2 = new OdbcParameter("pna2", OdbcType.Int);
-                        pn2.Value = parPoradi;
+                        pn2.Value = DBporadi;
                         cmd1.Parameters.Add(pna1);
                         cmd1.Parameters.Add(pna2);
                         cmd1.Transaction = transaction;
-                        cmd1.ExecuteNonQuery();
+                        errCode = cmd1.ExecuteNonQuery();
                     }
                     else
                     {
@@ -1331,7 +1331,7 @@ namespace Vydejna
                         pnd1.Value = DBporadi;
                         cmd1.Parameters.Add(pnd1);
                         cmd1.Transaction = transaction;
-                        cmd1.ExecuteNonQuery();
+                        errCode = cmd1.ExecuteNonQuery();
                     }
                     if (transaction != null)
                     {
@@ -1460,7 +1460,7 @@ namespace Vydejna
 
                     OdbcCommand cmd1 = new OdbcCommand(commandString1, myDBConn as OdbcConnection);
                     OdbcParameter pn1 = new OdbcParameter("pn1", OdbcType.Int);
-                    pn1.Value = DBks; // DBprijem - DBvydej;
+                    pn1.Value = DBks;
                     OdbcParameter pn2 = new OdbcParameter("pn2", OdbcType.Int);
                     pn2.Value = DBparPoradi;
                     cmd1.Parameters.Add(pn1);

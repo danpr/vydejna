@@ -268,6 +268,14 @@ namespace Vydejna
             }
         }
 
+        private void Prohledavani_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == '1')
+            {
+                Close();
+            }
+        }
+
 
     }
 }

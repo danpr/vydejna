@@ -76,8 +76,9 @@ namespace Vydejna
                     dataGridViewZmeny.Columns[6].HeaderText = "KS";
                     dataGridViewZmeny.Columns[7].HeaderText = "Cena";
                     dataGridViewZmeny.Columns[8].HeaderText = "Poznámka";
-                    dataGridViewZmeny.Columns["poradi"].Visible = false;
+                //    dataGridViewZmeny.Columns["poradi"].Visible = false;
                     dataGridViewZmeny.Columns["oscislo"].Visible = false;  
+
                     dataGridViewZmeny.Columns["pjmeno"].Visible = false;  
                     dataGridViewZmeny.Columns["pprijmeni"].Visible = false;
                     dataGridViewZmeny.Columns["pnazev"].Visible = false;
