@@ -1142,15 +1142,15 @@ namespace Vydejna
             if (DBIsOpened())
             {
                 string commandReadString1 = "SELECT vydej FROM zmeny WHERE poradi = ? AND parporadi = ? ";
-                string commandReadString2 = "SELECT nporadi, zporadi, pks FROM pujceno WHERE poradi = ? ";
+                string commandReadString2 = "SELECT nporadi, zporadi, stavks FROM pujceno WHERE poradi = ? ";
                 string commandReadString3 = "SELECT poradi, zustatek from zmeny where parporadi = ? ORDER BY poradi DESC";
 
                 string commandString1 = "UPDATE naradi SET fyzstav = fyzstav + ? WHERE poradi = ? ";
+                
+                string commandString2 = "INSERT INTO zmeny (parporadi, pomozjk, datum, poznamka, prijem, vydej, zustatek, zapkarta, vevcislo, pocivc, stav, poradi )" +                    
+                    "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
 
-                string commandString2 = "INSERT INTO zmeny (parporadi, pomozjk, datum, poznamka, prijem, vydej, zustatek, zapkarta, vevcislo, pocivc, stav, poradi )" +
-                      "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
-
-                string commandString3 = "UPDATE pujceno SET pks = pks - ? WHERE poradi = ? ";
+                string commandString3 = "UPDATE pujceno SET stavks = stavks - ? WHERE poradi = ? ";
                 string commandString4 = "DELETE FROM pujceno WHERE poradi = ? ";
                 
                 try
@@ -1179,7 +1179,7 @@ namespace Vydejna
                     {
                         parPoradi = pujcReader.GetInt32(pujcReader.GetOrdinal("nporadi"));
                         zmenPoradi = pujcReader.GetInt32(pujcReader.GetOrdinal("zporadi"));
-                        pujcKs = pujcReader.GetInt32(pujcReader.GetOrdinal("pks"));
+                        pujcKs = pujcReader.GetInt32(pujcReader.GetOrdinal("stavks"));
                     }
                     else
                     {
@@ -1192,31 +1192,40 @@ namespace Vydejna
                     }
                     pujcReader.Close();
 
-
-                    // zjistime stav vypujcene
-                    OdbcCommand cmdr1 = new OdbcCommand(commandReadString1, myDBConn as OdbcConnection);
-                    OdbcParameter px1 = new OdbcParameter("px1", DbType.Int32);
-                    px1.Value = zmenPoradi;
-                    OdbcParameter px2 = new OdbcParameter("px2", DbType.Int32);
-                    px2.Value = parPoradi;
-                    cmdr1.Parameters.Add(px1);
-                    cmdr1.Parameters.Add(px2);
-                    cmdr1.Transaction = transaction;
-                    OdbcDataReader zmenReader = cmdr1.ExecuteReader();
-                    if (zmenReader.Read())
-                    {
-                        pujcKs = zmenReader.GetInt32(0); 
-                    }
                     if (pujcKs < DBks)
                     {
-                        zmenReader.Close();
                         if (transaction != null)
                         {
                             (transaction as OdbcTransaction).Rollback();
                         }
                         return -2;  // pozadavek na odepsani vice kusu nez je mozno
                     }
-                    zmenReader.Close();
+
+
+                    // zjistime stav vypujcene
+//                    OdbcCommand cmdr1 = new OdbcCommand(commandReadString1, myDBConn as OdbcConnection);
+//                    OdbcParameter px1 = new OdbcParameter("px1", DbType.Int32);
+//                    px1.Value = zmenPoradi;
+//                    OdbcParameter px2 = new OdbcParameter("px2", DbType.Int32);
+//                    px2.Value = parPoradi;
+//                    cmdr1.Parameters.Add(px1);
+//                    cmdr1.Parameters.Add(px2);
+//                    cmdr1.Transaction = transaction;
+//                    OdbcDataReader zmenReader = cmdr1.ExecuteReader();
+//                    if (zmenReader.Read())
+//                    {
+//                        pujcKs = zmenReader.GetInt32(0); 
+//                    }
+//                    if (pujcKs < DBks)
+//                    {
+//                        zmenReader.Close();
+//                        if (transaction != null)
+//                        {
+//                          (transaction as OdbcTransaction).Rollback();
+//                        }
+//                        return -2;  // pozadavek na odepsani vice kusu nez je mozno
+//                    }
+//                    zmenReader.Close();
 
 
                     Int32 newZmenyPoradi;
@@ -1310,22 +1319,20 @@ namespace Vydejna
 
                     if (pujcKs != DBks)
                     {
-
                         // tab pujceno zmena stavu
                         OdbcCommand cmd3 = new OdbcCommand(commandString3, myDBConn as OdbcConnection);
-                        OdbcParameter pna1 = new OdbcParameter("pna1", OdbcType.Int);
-                        pn1.Value = DBks;
-                        OdbcParameter pna2 = new OdbcParameter("pna2", OdbcType.Int);
-                        pn2.Value = DBporadi;
-                        cmd3.Parameters.Add(pna1);
-                        cmd3.Parameters.Add(pna2);
+                        OdbcParameter pnd11 = new OdbcParameter("pnd11", OdbcType.Int);
+                        pnd11.Value = DBks;
+                        OdbcParameter pnd12 = new OdbcParameter("pnd12", OdbcType.Int);
+                        pnd12.Value = DBporadi;
+                        cmd3.Parameters.Add(pnd11);
+                        cmd3.Parameters.Add(pnd12);
                         cmd3.Transaction = transaction;
                         errCode = cmd3.ExecuteNonQuery();
                     }
                     else
                     {
-
-                        // tab pujceno smazani
+                       // tab pujceno smazani
                         OdbcCommand cmd4 = new OdbcCommand(commandString4, myDBConn as OdbcConnection);
                         OdbcParameter pnd1 = new OdbcParameter("pnd1", OdbcType.Int);
                         pnd1.Value = DBporadi;
