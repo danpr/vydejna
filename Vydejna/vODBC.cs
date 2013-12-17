@@ -200,9 +200,9 @@ namespace Vydejna
 
 
 
-            string commandStringZmeny = "create table zmeny ( parporadi integer, pomozjk char(15), datum date, poznamka char(22)," +
-                      "prijem integer, vydej integer, zustatek integer, zapkarta char(8), vevcislo char(12)," +
-                      "pocivc integer, stav char(1), poradi integer );";
+            string commandStringZmeny = "create table zmeny ( parporadi integer, pomozjk varchar(15), datum date, poznamka varchar(22)," +
+                      "prijem integer, vydej integer, zustatek integer, zapkarta varchar(8), vevcislo varchar(12)," +
+                      "pocivc integer, stav varchar(1), poradi integer );";
 
 
             string commandStringPujceno = "create table pujceno (poradi integer, oscislo varchar(8), nporadi integer, zporadi integer, stavks integer, pjmeno varchar(15)," +
@@ -1317,10 +1317,10 @@ namespace Vydejna
                         pn1.Value = DBks;
                         OdbcParameter pna2 = new OdbcParameter("pna2", OdbcType.Int);
                         pn2.Value = DBporadi;
-                        cmd1.Parameters.Add(pna1);
-                        cmd1.Parameters.Add(pna2);
-                        cmd1.Transaction = transaction;
-                        errCode = cmd1.ExecuteNonQuery();
+                        cmd3.Parameters.Add(pna1);
+                        cmd3.Parameters.Add(pna2);
+                        cmd3.Transaction = transaction;
+                        errCode = cmd3.ExecuteNonQuery();
                     }
                     else
                     {
@@ -1329,9 +1329,9 @@ namespace Vydejna
                         OdbcCommand cmd4 = new OdbcCommand(commandString4, myDBConn as OdbcConnection);
                         OdbcParameter pnd1 = new OdbcParameter("pnd1", OdbcType.Int);
                         pnd1.Value = DBporadi;
-                        cmd1.Parameters.Add(pnd1);
-                        cmd1.Transaction = transaction;
-                        errCode = cmd1.ExecuteNonQuery();
+                        cmd4.Parameters.Add(pnd1);
+                        cmd4.Transaction = transaction;
+                        errCode = cmd4.ExecuteNonQuery();
                     }
                     if (transaction != null)
                     {

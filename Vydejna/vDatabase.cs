@@ -485,9 +485,15 @@ namespace Vydejna
 
             string DBSelect = "SELECT * from naradi WHERE poradi = " + poradi.ToString();
             return getDBLine(DBSelect, DBRow);
-
         }
 
+        public virtual Hashtable getNaradiLine(Int32 poradi, Hashtable DBRow)
+        {
+            if (DBRow == null) DBRow = new Hashtable();
+
+            string DBSelect = "SELECT * from naradi WHERE poradi = " + poradi.ToString();
+            return getDBLine(DBSelect, DBRow);
+        }
 
         public virtual Hashtable getPujcenoLine(Int32 poradi, Hashtable DBRow)
         {

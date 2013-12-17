@@ -271,9 +271,9 @@ namespace Vydejna
                       "telzam char(15), stredisko char(10), pujsoub char(12), pracoviste char(10), cisznamky char(5), poznamka char(120) );";
 
 
-            string commandStringZmeny = "create table zmeny ( parporadi integer, pomozjk char(15), datum date, poznamka char(22)," +
-                      "prijem integer, vydej integer, zustatek integer, zapkarta char(8), vevcislo char(12)," +
-                      "pocivc integer, stav char(1), poradi integer );";
+            string commandStringZmeny = "create table zmeny ( parporadi integer, pomozjk varchar(15), datum date, poznamka varchar(22)," +
+                      "prijem integer, vydej integer, zustatek integer, zapkarta varchar(8), vevcislo varchar(12)," +
+                      "pocivc integer, stav varchar(1), poradi integer );";
 
             string commandStringPujceno = "create table pujceno (poradi integer, oscislo varchar(8), nporadi integer, zporadi integer, stavks integer, pjmeno varchar(15)," +
                       "pprijmeni varchar(15), pnazev varchar(60), pjk varchar(15), pdatum date, pks integer, pcena float);";
