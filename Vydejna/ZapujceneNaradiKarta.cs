@@ -210,20 +210,11 @@ namespace Vydejna
                 }
                 if (errCode == -1)
                 {
-                    MessageBox.Show("Vypůjčeni nářadi se nezdařilo. Lituji.");
+                    MessageBox.Show("Vrácení nářadi se nezdařilo. Lituji.");
                 }
                 if (errCode == 0)
                 {
                     // opravime tabulku
-//                    (dataGridViewZmeny.DataSource as DataTable).Rows.Add(pujcPradi, zapujcNaradi.getDatum(), myMesenger.nazev, myMesenger.rozmer, myMesenger.jk, zapujcNaradi.getVevCislo(), zapujcNaradi.getKs(), myMesenger.cena,
-//                                                                         zapujcNaradi.getPoznamka(), zapujcNaradi.getOsCiclo(), zapujcNaradi.getJmeno(), myMesenger.nazev, myMesenger.jk, myMesenger.poradi, zporadi);
-//                    int counter = dataGridViewZmeny.Rows.Count - 1;
-
-//                    dataGridViewZmeny.FirstDisplayedScrollingRowIndex = dataGridViewZmeny.Rows[counter].Index;
-//                    dataGridViewZmeny.Refresh();
-
-//                    dataGridViewZmeny.CurrentCell = dataGridViewZmeny.Rows[counter].Cells[1];
-//                    dataGridViewZmeny.Rows[counter].Selected = true;
                     Hashtable DBPujcenoRow = null; 
                     DBPujcenoRow = myDB.getPujcenoLine(Convert.ToInt32(DBVypujcRow["poradi"]), DBPujcenoRow);
                     if (DBPujcenoRow != null)
@@ -245,9 +236,6 @@ namespace Vydejna
                             (dataGridViewZmeny.DataSource as DataTable).Rows[dataRowIndex].SetField(6, Convert.ToString (DBPujcenoRow["stavks"]));
                             dataGridViewZmeny.Refresh();
                         }
-                        
-
-
                     }
                     else
                     {
@@ -266,8 +254,6 @@ namespace Vydejna
                 }
 
             }
-            
-
         }
 
         private void informaceONářadíToolStripMenuItem_Click(object sender, EventArgs e)

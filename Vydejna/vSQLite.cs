@@ -246,7 +246,7 @@ namespace Vydejna
                       "stredisko char(5), kodzmeny char(3), druh char(3), odpis char(3), zavod char(3));";
 
 
-            string commandStringNaradi = "create table naradi ( poradi integer, nazev char(60), jk char(15), normacsn char (15)," +
+            string commandStringNaradi = "create table naradi ( poradi integer, nazev char(60), jk char(15), normacsn char(15)," +
                       "normadin char(15), vyrobce char(40), cena float, poznamka char(60), minimum integer," +
                       "celkcena float," +
                       "ucetstav integer, fyzstav integer, rozmer char(20), analucet char(5), tdate date," +
@@ -262,12 +262,12 @@ namespace Vydejna
 
 
             string commandStringVraceno = "create table vraceno ( poradi integer, jmeno char(15), oscislo char(8), dilna char(15)," +
-                      "pracoviste char(20), vyrobek char(15),nazev char(60), jk char(15), rozmer char(25)," +
+                      "pracoviste char(20), vyrobek char(15), nazev char(60), jk char(15), rozmer char(25)," +
                       "pocetks integer, cena float, datum date, csn char(15), krjmeno char(15)," +
                       "celkcena float, vevcislo char(12), konto char(15) );";
 
             string commandStringOsoby = "create table osoby ( jmeno char(15), prijmeni char(15), ulice char(20)," +
-                      "mesto char(25), psc char(7),telhome char(15), oscislo char(8), odeleni char(20)," +
+                      "mesto char(25), psc char(7), telhome char(15), oscislo char(8), odeleni char(20)," +
                       "telzam char(15), stredisko char(10), pujsoub char(12), pracoviste char(10), cisznamky char(5), poznamka char(120) );";
 
 
@@ -388,7 +388,6 @@ namespace Vydejna
                 seqReader.Close();
 
                 SQLiteCommand cmd = new SQLiteCommand(commandString, myDBConn as SQLiteConnection);
-
                 cmd.Parameters.Add("@p0", DbType.Int32);
                 cmd.Parameters["@p0"].Value = poradi;
                 cmd.Parameters.Add("@p1", DbType.String);
