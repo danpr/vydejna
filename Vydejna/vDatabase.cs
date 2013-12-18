@@ -336,7 +336,7 @@ namespace Vydejna
         }
 
 
-        public virtual Int32 addNewLineZmenyAndVraceno(Int32 DBporadi, DateTime DBdatum, Int32 DBks, string DBpoznamka, string DBosCislo, string DBJK, string DBievCislo)
+        public virtual Int32 addNewLineZmenyAndVraceno(Int32 DBporadi, DateTime DBdatum, Int32 DBks, string DBpoznamka, string DBosCislo, string DBievCislo)
         {
             return -1;
         }

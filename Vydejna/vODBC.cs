@@ -1135,7 +1135,7 @@ namespace Vydejna
 
 
 
-        public override Int32 addNewLineZmenyAndVraceno(Int32 DBporadi, DateTime DBdatum, Int32 DBks, string DBpoznamka, string DBosCislo, string DBJK, string DBievCislo)
+        public override Int32 addNewLineZmenyAndVraceno(Int32 DBporadi, DateTime DBdatum, Int32 DBks, string DBpoznamka, string DBosCislo, string DBievCislo)
         {
             OdbcTransaction transaction = null;
 
@@ -1146,7 +1146,7 @@ namespace Vydejna
                 string commandReadString2 = "SELECT nporadi, zporadi, stavks FROM pujceno WHERE poradi = ? ";
                 string commandReadString3 = "SELECT poradi, zustatek from zmeny where parporadi = ? ORDER BY poradi DESC";
                 string commandReadString4 = "SELECT poradi FROM tabseq WHERE nazev = 'vraceno'";
-                string commandReadString5 = "SELECT nazev, jk, rozmer, normacsn, cena, celkcena  FROM naradi WHERE poradi = ? ";
+                string commandReadString5 = "SELECT rtrim(nazev) as nazev, rtrim(jk) as jk, rtrim(rozmer) as rozmer, rtrim(normacsn) as normacsn, cena, celkcena  FROM naradi WHERE poradi = ? ";
                 string commandReadString6 = "SELECT jmeno, prijmeni, odeleni, stredisko, pracoviste FROM osoby WHERE oscislo = ? ";
 
                 string commandString1 = "UPDATE naradi SET fyzstav = fyzstav + ? WHERE poradi = ? ";
@@ -1177,7 +1177,7 @@ namespace Vydejna
                     // soucasny stav pujceno
                     OdbcCommand cmdr2 = new OdbcCommand(commandReadString2, myDBConn as OdbcConnection);
                     cmdr2.Transaction = transaction;
-                    cmdr2.Parameters.AddWithValue("pz",DBporadi);
+                    cmdr2.Parameters.AddWithValue("@poradi",DBporadi);
                     cmdr2.Transaction = transaction;
                     OdbcDataReader pujcReader = cmdr2.ExecuteReader();
                     if (pujcReader.Read())
@@ -1215,7 +1215,7 @@ namespace Vydejna
 
 
                     OdbcCommand cmdr5 = new OdbcCommand(commandReadString5, myDBConn as OdbcConnection);
-                    cmdr5.Parameters.AddWithValue("p1", parPoradi);
+                    cmdr5.Parameters.AddWithValue("@poradi", parPoradi);
                     cmdr5.Transaction = transaction;
                     OdbcDataReader naradiReader = cmdr5.ExecuteReader();
                     if (naradiReader.Read())
@@ -1245,9 +1245,11 @@ namespace Vydejna
 
 
                     OdbcCommand cmdr6 = new OdbcCommand(commandReadString6, myDBConn as OdbcConnection);
-                    OdbcParameter pny1 = new OdbcParameter("pny1", DbType.Int32);
-                    pny1.Value = DBosCislo;
-                    cmdr6.Parameters.Add(pny1);
+                    cmdr6.Parameters.AddWithValue("@oscislo", DBosCislo);
+                    
+//                    OdbcParameter pny1 = new OdbcParameter("pny1", DbType.Int32);
+//                    pny1.Value = DBosCislo;
+//                    cmdr6.Parameters.Add(pny1);
                     cmdr6.Transaction = transaction;
                     OdbcDataReader osobyReader = cmdr6.ExecuteReader();
                     if (osobyReader.Read())
@@ -1273,9 +1275,7 @@ namespace Vydejna
                     // cislo poradi pro novy zaznam a stav podle zmen
 
                     OdbcCommand cmdr3 = new OdbcCommand(commandReadString3, myDBConn as OdbcConnection);
-                    OdbcParameter pm = new OdbcParameter("pm", DbType.Int32);
-                    pm.Value = parPoradi;
-                    cmdr3.Parameters.Add(pm);
+                    cmdr3.Parameters.AddWithValue("poradi", parPoradi);
                     cmdr3.Transaction = transaction;
                     OdbcDataReader zmenTailReader = cmdr3.ExecuteReader();
                     if (zmenTailReader.Read() == true)
@@ -1307,12 +1307,9 @@ namespace Vydejna
                     // tab naradi zvetsi fyz. stav
 
                     OdbcCommand cmd1 = new OdbcCommand(commandString1, myDBConn as OdbcConnection);
-                    OdbcParameter pn1 = new OdbcParameter("pn1", OdbcType.Int);
-                    pn1.Value = DBks; 
-                    OdbcParameter pn2 = new OdbcParameter("pn2", OdbcType.Int);
-                    pn2.Value = parPoradi;
-                    cmd1.Parameters.Add(pn1);
-                    cmd1.Parameters.Add(pn2);
+                    cmd1.Parameters.AddWithValue("@fyzstav", DBks);
+                    cmd1.Parameters.AddWithValue("@poradi", parPoradi);
+
                     cmd1.Transaction = transaction;
                     Int32 errCode = cmd1.ExecuteNonQuery();
 
@@ -1321,7 +1318,7 @@ namespace Vydejna
                     OdbcParameter p1 = new OdbcParameter("p1", OdbcType.Int);
                     p1.Value = parPoradi;
                     OdbcParameter p2 = new OdbcParameter("p2", OdbcType.NChar);
-                    p2.Value = DBJK;
+                    p2.Value = naradiJK;
                     OdbcParameter p3 = new OdbcParameter("p3", OdbcType.Date);
                     p3.Value = DBdatum;
                     OdbcParameter p4 = new OdbcParameter("p4", OdbcType.NChar);
@@ -1382,38 +1379,39 @@ namespace Vydejna
                     }
 
 
-                    Int32 newPujcenoPoradi;
+                    Int32 newVracenoPoradi;
                     // cislo poradi pro novy zaznam
 
                     OdbcCommand cmdr4 = new OdbcCommand(commandReadString4, myDBConn as OdbcConnection);
-                    OdbcDataReader pujcNewPoradiReader = cmdr4.ExecuteReader();
-                    if (pujcNewPoradiReader.Read() == true)
+                    cmdr4.Transaction = transaction;
+                    OdbcDataReader vracNewPoradiReader = cmdr4.ExecuteReader();
+                    if (vracNewPoradiReader.Read() == true)
                     {
-                        newPujcenoPoradi = pujcNewPoradiReader.GetInt32(pujcNewPoradiReader.GetOrdinal("poradi")) + 1;
+                        newVracenoPoradi = vracNewPoradiReader.GetInt32(vracNewPoradiReader.GetOrdinal("poradi")) + 1;
                     }
                     else
                     {
-                        pujcNewPoradiReader.Close();
+                        vracNewPoradiReader.Close();
                         if (transaction != null)
                         {
                             (transaction as OdbcTransaction).Rollback();
                         }
                         return -1;
                     }
-                    pujcNewPoradiReader.Close();
+                    vracNewPoradiReader.Close();
 
                     OdbcCommand cmd5 = new OdbcCommand(commandString5, myDBConn as OdbcConnection);
 
                     OdbcParameter pu0 = new OdbcParameter("pu0", OdbcType.Int);
-                    pu0.Value = newPujcenoPoradi;
+                    pu0.Value = newVracenoPoradi;
                     OdbcParameter pu1 = new OdbcParameter("pu1", OdbcType.NChar);
                     pu1.Value = osobyPrijmeni;
                     OdbcParameter pu2 = new OdbcParameter("pu2", OdbcType.NChar);
                     pu2.Value = DBosCislo;
                     OdbcParameter pu3 = new OdbcParameter("pu3", OdbcType.NChar);
-                    pu3.Value = osobyOddeleni;
+                    pu3.Value = osobyPracoviste
                     OdbcParameter pu4 = new OdbcParameter("pu4", OdbcType.NChar);
-                    pu4.Value = osobyPracoviste;
+                    pu4.Value = osobyOddeleni;
                     OdbcParameter pu5 = new OdbcParameter("pu5", OdbcType.NChar);
                     pu5.Value = ""; // DBvyrobek;
                     OdbcParameter pu6 = new OdbcParameter("pu6", OdbcType.NChar);
@@ -1456,9 +1454,11 @@ namespace Vydejna
                     cmd5.Parameters.Add(pu14);
                     cmd5.Parameters.Add(pu15);
                     cmd5.Parameters.Add(pu16);
+                    cmd5.Transaction = transaction;
                     cmd5.ExecuteNonQuery();
 
                     OdbcCommand cmd6 = new OdbcCommand(commandString6, myDBConn as OdbcConnection);
+                    cmd6.Transaction = transaction;
                     cmd6.ExecuteNonQuery();
 
                     if (transaction != null)
