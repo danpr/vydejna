@@ -336,7 +336,7 @@ namespace Vydejna
         }
 
 
-        public virtual Int32 addNewLineZmenyAndVraceno(Int32 DBporadi, DateTime DBdatum, Int32 DBks, string DBpoznamka, string DBosCislo, string DBievCislo)
+        public virtual Int32 addNewLineZmenyAndVraceno(Int32 DBporadi, DateTime DBdatum, Int32 DBks, string DBpoznamka, string DBosCislo)
         {
             return -1;
         }
@@ -403,14 +403,14 @@ namespace Vydejna
         {
             return loadDataTable("SELECT poradi, rtrim(kodd) as kodd, rtrim(nazev) as nazev, rtrim(jk) as jk, ucetstav, rtrim(analucet) as analucet, rtrim(normacsn) as normacsn,"
                                      + " rtrim(normadin) as normadin, rtrim(vyrobce) as vyrobce, rtrim(rozmer) as rozmer, fyzstav, cena, celkcena, minimum,"
-                                     + " rtrim(poznamka) as poznamka, ucetkscen from naradi ORDER BY nazev"); 
+                                     + " rtrim(poznamka) as poznamka, ucetkscen from naradi ORDER BY nazev, jk"); 
         }
 
 
         public virtual DataTable loadDataTableNaradiJednoduchy()
         {
             return loadDataTable("SELECT poradi, rtrim(nazev) as nazev, rtrim(jk) as jk, rtrim(rozmer) as rozmer,"
-                                     + " fyzstav, rtrim(poznamka) as poznamka, cena from naradi WHERE fyzstav > 0 ORDER BY nazev");
+                                     + " fyzstav, rtrim(poznamka) as poznamka, cena from naradi WHERE fyzstav > 0 ORDER BY nazev, jk");
         }
 
 
@@ -418,21 +418,21 @@ namespace Vydejna
         {
             return loadDataTable("SELECT poradi, rtrim(nazev) as nazev, rtrim(jk) as jk, ucetstav, rtrim(analucet) as analucet, rtrim(normacsn) as normacsn,"
                                      + " rtrim(normadin) as normadin, rtrim(vyrobce) as vyrobce, rtrim(rozmer) as rozmer, fyzstav, cena, celkcena, minimum,"
-                                     + " rtrim(poznamka) as poznamka from karta ORDER BY nazev");
+                                     + " rtrim(poznamka) as poznamka from karta ORDER BY nazev, jk");
         }
 
         public virtual DataTable loadDataTableVraceno()
         {
             return loadDataTable("SELECT poradi, rtrim(nazev) as nazev, rtrim(jk) as jk,  pocetks, rtrim(rozmer) as rozmer, rtrim(csn) as csn,"
                                      + " cena, datum, rtrim(vyrobek) as vyrobek, rtrim(konto) as konto, rtrim(jmeno) as jmeno, rtrim(krjmeno) as krjmmeno, rtrim(oscislo) as oscislo, rtrim(dilna) as dilna, rtrim(pracoviste) as pracoviste"
-                                     + " from vraceno ORDER BY datum");
+                                     + " from vraceno ORDER BY datum, poradi");
         }
 
         public virtual DataTable loadDataTablePoskozeno()
         {
             return loadDataTable("SELECT poradi, rtrim(nazev) as nazev, rtrim(jk) as jk,  pocetks, rtrim(rozmer) as rozmer, rtrim(csn) as csn,"
                                      + " cena, datum, rtrim(vyrobek) as vyrobek, rtrim(konto) as konto, rtrim(jmeno) as jmeno, rtrim(krjmeno) as krjmeno, rtrim(oscislo) as oscislo, rtrim(dilna) as dilna, rtrim(pracoviste) as pracoviste"
-                                     + " from poskozeno ORDER BY datum");
+                                     + " from poskozeno ORDER BY datum, poradi");
         }
 
 

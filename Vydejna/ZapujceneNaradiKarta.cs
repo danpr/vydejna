@@ -192,9 +192,8 @@ namespace Vydejna
 
             if (vraceniNaradi.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                string DBvevCislo = DBVypujcRow["vevcislo"].ToString();
                 Int32 errCode = myDB.addNewLineZmenyAndVraceno(pujcPoradi, vraceniNaradi.getDatum(), vraceniNaradi.getKs(),
-                    vraceniNaradi.getPoznamka(), Convert.ToString(DBVypujcRow["oscislo"]), DBvevCislo);
+                    vraceniNaradi.getPoznamka(), Convert.ToString(DBVypujcRow["oscislo"]));
                 if (errCode == -4)
                 {
                     MessageBox.Show("Stav změn je záporné číslo. Nejprve opravte data o pohybu nářadí.");
