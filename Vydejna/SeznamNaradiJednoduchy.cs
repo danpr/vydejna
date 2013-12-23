@@ -49,6 +49,7 @@ namespace Vydejna
             dataGridView1.ReadOnly = true;
             dataGridView1.RowHeadersVisible = false;
             dataGridView1.AllowUserToAddRows = false;
+            dataGridView1.AllowUserToDeleteRows = false;
             dataGridView1.AllowUserToResizeRows = false;
             dataGridView1.Columns.Clear();
             dataGridView1.DataSource = null;

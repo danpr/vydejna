@@ -76,7 +76,7 @@ namespace Vydejna
                     dataGridViewZmeny.Columns[6].HeaderText = "KS";
                     dataGridViewZmeny.Columns[7].HeaderText = "Cena";
                     dataGridViewZmeny.Columns[8].HeaderText = "Poznámka";
-                //    dataGridViewZmeny.Columns["poradi"].Visible = false;
+                    dataGridViewZmeny.Columns["poradi"].Visible = false;
                     dataGridViewZmeny.Columns["oscislo"].Visible = false;  
 
                     dataGridViewZmeny.Columns["pjmeno"].Visible = false;  
@@ -121,11 +121,10 @@ namespace Vydejna
                                 if (zapujcNaradi.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                                 {
                                     // pridame zapujcene naradi
-                                    int pujcPradi;
-                                    if ((pujcPradi = myDB.addNewLineZmenyAndPujceno(myMesenger.poradi, myMesenger.jk, zapujcNaradi.getDatum(), zapujcNaradi.getKs(), zapujcNaradi.getPoznamka(), zapujcNaradi.getVevCislo(), 
-                                                                       osCislo, labelJmeno.Text,labelPrijmeni.Text, myMesenger.nazev,myMesenger.cena)) < 0)
+                                    int pujcPoradi;
+                                    if ((pujcPoradi = myDB.addNewLineZmenyAndPujceno(myMesenger.poradi, zapujcNaradi.getDatum(), zapujcNaradi.getKs(), zapujcNaradi.getPoznamka(), zapujcNaradi.getVevCislo(), osCislo)) < 0)
                                         {
-                                            if (pujcPradi == -2) MessageBox.Show("Není možno vypůjčit více kusů než je stav na výdejně. Lituji.");
+                                            if (pujcPoradi == -2) MessageBox.Show("Není možno vypůjčit více kusů než je stav na výdejně. Lituji.");
                                         else MessageBox.Show("Vypůjčeni nářadi se nezdařilo. Lituji.");
                                     }
                                     else
@@ -133,7 +132,7 @@ namespace Vydejna
                                         // prodame do  formulare // 
                                         Hashtable DBPujcRow = new Hashtable();
                                         Int32 zporadi = 0;
-                                        if (myDB.getPujcenoLine(pujcPradi, DBPujcRow) != null)
+                                        if (myDB.getPujcenoLine(pujcPoradi, DBPujcRow) != null)
                                         {
                                             if (DBPujcRow.Contains("zporadi"))
                                             {
@@ -141,9 +140,11 @@ namespace Vydejna
                                             }
                                         }
 
-
-                                        (dataGridViewZmeny.DataSource as DataTable).Rows.Add(pujcPradi, zapujcNaradi.getDatum(), myMesenger.nazev, myMesenger.rozmer, myMesenger.jk, zapujcNaradi.getVevCislo(), zapujcNaradi.getKs(), myMesenger.cena,
-                                                                                             zapujcNaradi.getPoznamka(), zapujcNaradi.getOsCiclo(), zapujcNaradi.getJmeno(), myMesenger.nazev, myMesenger.jk,myMesenger.poradi,zporadi);
+                                        // poradi, datum. nazev, rozmer, jk, vevcislo, stavks. cena, poznamka, oscislo, pjmeno, prijmeni, pnazev, pjk, pujcks, nporadi, zporadi
+                                        // stavks je soucanz stav ks je pouze v tabulce pujceno
+                                        // pujcks je brano jako vydej z tabulky zmeny pripadne jako pks (pomocne ks) z tabulky pujceno
+                                        (dataGridViewZmeny.DataSource as DataTable).Rows.Add(pujcPoradi, zapujcNaradi.getDatum(), myMesenger.nazev, myMesenger.rozmer, myMesenger.jk, zapujcNaradi.getVevCislo(), zapujcNaradi.getKs(), myMesenger.cena,
+                                                                                             zapujcNaradi.getPoznamka(), zapujcNaradi.getOsCiclo(), zapujcNaradi.getJmeno(),zapujcNaradi.getPrijmeni(), myMesenger.nazev, myMesenger.jk, zapujcNaradi.getKs(), myMesenger.poradi, zporadi);
                                         int counter = dataGridViewZmeny.Rows.Count - 1;
 
                                         dataGridViewZmeny.FirstDisplayedScrollingRowIndex = dataGridViewZmeny.Rows[counter].Index;
@@ -221,7 +222,7 @@ namespace Vydejna
 
                         // je potreba najit index v datove tabulce - po trideni neni schodny s indexem ve view
                         Int32 dataRowIndex = -1;
-                        for (int x = 0; x < (dataGridViewZmeny.DataSource as DataTable).Rows.Count - 1; x++)
+                        for (int x = 0; x < (dataGridViewZmeny.DataSource as DataTable).Rows.Count; x++)
                         {
                             if (Convert.ToInt32((dataGridViewZmeny.DataSource as DataTable).Rows[x]["poradi"]) == pujcPoradi)
                             {

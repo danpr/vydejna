@@ -139,6 +139,12 @@
     <Compile Include="ZapujceniNaradi.Designer.cs">
       <DependentUpon>ZapujceniNaradi.cs</DependentUpon>
     </Compile>
+    <Compile Include="ZmenyOprava.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ZmenyOprava.Designer.cs">
+      <DependentUpon>ZmenyOprava.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -186,6 +192,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ZapujceniNaradi.resx">
       <DependentUpon>ZapujceniNaradi.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ZmenyOprava.resx">
+      <DependentUpon>ZmenyOprava.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

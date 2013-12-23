@@ -133,7 +133,7 @@ namespace Vydejna
                     {
                         // je potreba najit index v datove tabulce - po trideni neni schodny s indexem ve view
                         Int32 dataRowIndex = -1;
-                        for (int x = 0; x < (myDataGridView.DataSource as DataTable).Rows.Count - 1; x++)
+                        for (int x = 0; x < (myDataGridView.DataSource as DataTable).Rows.Count; x++)
                         {
                             if (Convert.ToInt32((myDataGridView.DataSource as DataTable).Rows[x][0]) == mesenger.poradi)
                             {
@@ -180,7 +180,7 @@ namespace Vydejna
                     // smazeme z obrazovky
                     // je potreba najit index v datove tabulce - po trideni neni schodny s indexem ve view
                     Int32 dataRowIndex = -1;
-                    for (int x = 0; x < (myDataGridView.DataSource as DataTable).Rows.Count - 1; x++)
+                    for (int x = 0; x < (myDataGridView.DataSource as DataTable).Rows.Count; x++)
                     {
                         if (Convert.ToInt32((myDataGridView.DataSource as DataTable).Rows[x][0]) == poradi)
                         {
@@ -221,7 +221,7 @@ namespace Vydejna
                     else
                     {
                         Int32 dataRowIndex = -1;
-                        for (int x = 0; x < (myDataGridView.DataSource as DataTable).Rows.Count - 1; x++)
+                        for (int x = 0; x < (myDataGridView.DataSource as DataTable).Rows.Count; x++)
                         {
                             if (Convert.ToInt32((myDataGridView.DataSource as DataTable).Rows[x][0]) == mesenger.poradi)
                             {
@@ -284,7 +284,7 @@ namespace Vydejna
                     else
                     {
                         Int32 dataRowIndex = -1;
-                        for (int x = 0; x < (myDataGridView.DataSource as DataTable).Rows.Count - 1; x++)
+                        for (int x = 0; x < (myDataGridView.DataSource as DataTable).Rows.Count; x++)
                         {
                             if (Convert.ToInt32((myDataGridView.DataSource as DataTable).Rows[x][0]) == mesenger.poradi)
                             {
@@ -351,7 +351,7 @@ namespace Vydejna
                     {
                         // je potreba najit index v datove tabulce - po trideni neni schodny s indexem ve view
                         Int32 dataRowIndex = -1;
-                        for (int x = 0; x < (myDataGridView.DataSource as DataTable).Rows.Count - 1; x++)
+                        for (int x = 0; x < (myDataGridView.DataSource as DataTable).Rows.Count; x++)
                         {
                             if (Convert.ToInt32((myDataGridView.DataSource as DataTable).Rows[x][0]) == mesenger.poradi)
                             {
@@ -400,7 +400,7 @@ namespace Vydejna
                     // smazeme z obrazovky
                     // je potreba najit index v datove tabulce - po trideni neni schodny s indexem ve view
                     Int32 dataRowIndex = -1;
-                    for (int x = 0; x < (myDataGridView.DataSource as DataTable).Rows.Count - 1; x++)
+                    for (int x = 0; x < (myDataGridView.DataSource as DataTable).Rows.Count; x++)
                     {
                         if (Convert.ToInt32((myDataGridView.DataSource as DataTable).Rows[x][0]) == poradi)
                         {
@@ -470,7 +470,7 @@ namespace Vydejna
                     {
                         // je potreba najit index v datove tabulce - po trideni neni schodny s indexem ve view
                         Int32 dataRowIndex = -1;
-                        for (int x = 0; x < (myDataGridView.DataSource as DataTable).Rows.Count - 1; x++)
+                        for (int x = 0; x < (myDataGridView.DataSource as DataTable).Rows.Count; x++)
                         {
                             if (Convert.ToInt32((myDataGridView.DataSource as DataTable).Rows[x][0]) == mesenger.poradi)
                             {
@@ -533,7 +533,7 @@ namespace Vydejna
                 {
                     // je potreba najit index v datove tabulce - po trideni neni schodny s indexem ve view
                     Int32 dataRowIndex = -1;
-                    for (int x = 0; x < (myDataGridView.DataSource as DataTable).Rows.Count - 1; x++)
+                    for (int x = 0; x < (myDataGridView.DataSource as DataTable).Rows.Count; x++)
                     {
                         if (Convert.ToInt32((myDataGridView.DataSource as DataTable).Rows[x][0]) == mesenger.poradi)
                         {
@@ -614,7 +614,7 @@ namespace Vydejna
                     if (stav != -1)
                     {
                         (myDataGridView.DataSource as DataTable).Rows.Add(mesenger.prijmeni, mesenger.jmeno, mesenger.oscislo, mesenger.oddeleni, mesenger.stredisko, mesenger.pracoviste, mesenger.cisZnamky, mesenger.ulice,mesenger.psc, mesenger.mesto, mesenger.telHome, mesenger.telZam, mesenger.poznamka);
-                        int counter = myDataGridView.Rows.Count - 1;
+                        int counter = myDataGridView.Rows.Count -1;
 
                         myDataGridView.FirstDisplayedScrollingRowIndex = myDataGridView.Rows[counter].Index;
                         myDataGridView.Refresh();
@@ -645,7 +645,7 @@ namespace Vydejna
                     {
                         // je potreba najit index v datove tabulce - po trideni neni schodny s indexem ve view
                         Int32 dataRowIndex = -1;
-                        for (int x = 0; x < (myDataGridView.DataSource as DataTable).Rows.Count - 1; x++)
+                        for (int x = 0; x < (myDataGridView.DataSource as DataTable).Rows.Count; x++)
                         {
                             if (Convert.ToString((myDataGridView.DataSource as DataTable).Rows[x][2]) == mesenger.oscislo)
                             {

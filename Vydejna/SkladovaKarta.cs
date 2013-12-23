@@ -61,6 +61,7 @@ namespace Vydejna
         private vDatabase myDB;
         private sKartaState state;
         private tableItemExistDelgStr testExistItem;
+        private string oldJK;
 
 
         public SkladovaKarta(Hashtable DBRow, vDatabase myDataBase, tableItemExistDelgStr testExistItem, sKartaState state = sKartaState.show)
@@ -70,15 +71,15 @@ namespace Vydejna
             this.testExistItem = testExistItem;
             if (state == sKartaState.edit) setEditState();
             myDB = myDataBase;
-
-
             dataGridViewZmeny.MultiSelect = false;
             dataGridViewZmeny.ReadOnly = true;
             dataGridViewZmeny.RowHeadersVisible = false;
             dataGridViewZmeny.AllowUserToAddRows = false;
+            dataGridViewZmeny.AllowUserToDeleteRows = false;
             dataGridViewZmeny.AllowUserToResizeRows = false;
             dataGridViewZmeny.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
+            listBoxNazev.Hide();
             
             if (state == sKartaState.show)
             {
@@ -89,6 +90,7 @@ namespace Vydejna
             {
                 buttonOK.Visible = true;
                 buttonOK.Enabled = true;
+                setEditState();
             }
 
             setData(DBRow);
@@ -116,6 +118,7 @@ namespace Vydejna
         {
             textBoxNazev.Text = Convert.ToString(DBRow["nazev"]);
             textBoxJK.Text = Convert.ToString(DBRow["jk"]);
+            oldJK = textBoxJK.Text;
             numericUpDownUcetStav.Value = Convert.ToInt32(DBRow["ucetstav"]);
             textBoxUcet.Text = Convert.ToString(DBRow["analucet"]);
             textBoxCSN.Text = Convert.ToString(DBRow["normacsn"]);
@@ -198,7 +201,9 @@ namespace Vydejna
             numericUpDownUcetStav.Enabled = true;
             numericUpDownFyzStav.ReadOnly = false;
             numericUpDownFyzStav.Enabled = true;
-            textBoxJK.ReadOnly = true;
+        //    textBoxJK.ReadOnly = true;
+
+            
         }
         
         private void setAddState()
@@ -225,6 +230,9 @@ namespace Vydejna
             numericUpDownFyzStav.ReadOnly = true;
             numericUpDownFyzStav.Enabled = false;
 
+            listBoxNazev.Enabled = true;
+            listBoxNazev.Show();
+
         }
 
         private void SkladovaKarta_Activated(object sender, EventArgs e)
@@ -246,7 +254,17 @@ namespace Vydejna
                 {
                     if (testExistItem(textBoxJK.Text.Trim()))
                     {
-                        MessageBox.Show("Položka již existuje.");
+                        if (MessageBox.Show("Položka s tímto číslem položky již existuje. Opravdu chcete pokračovat dál ?","", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+                        {
+                            if (MessageBox.Show("Opravdu chcete opakovaně použít toto číslo položky ?","", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+                            {
+                                buttonOK.DialogResult = DialogResult.OK;
+                                this.DialogResult = DialogResult.OK;
+                                Close();
+                            }                            
+
+                        }
+
                     }
                     else
                     {
@@ -259,18 +277,24 @@ namespace Vydejna
                 {
                     if (state == sKartaState.edit)
                     {
-                        if (testExistItem(textBoxJK.Text.Trim()))
+                        if ((testExistItem(textBoxJK.Text.Trim())) && ((oldJK.Trim() != textBoxJK.Text.Trim())))
+                        {
+                            if (MessageBox.Show("Položka s tímto ČÍSLEM POLOŽKY již existuje. Opravdu chcete pokračovat dál ?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+                            {
+                                if (MessageBox.Show("Položka s tímto ČÍSLEM POLOŽKY již existuje. Jste si opravdu chcete pokračovat dál ?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+                                {
+                                    buttonOK.DialogResult = DialogResult.OK;
+                                    this.DialogResult = DialogResult.OK;
+                                    Close();
+                                }
+                            }
+                        }
+                        else
                         {
                             buttonOK.DialogResult = DialogResult.OK;
                             this.DialogResult = DialogResult.OK;
                             Close();
                         }
-                        else
-                        {
-                            MessageBox.Show("Položka již neexistuje.");
-                        }
-
-
                     }
                 }
             }
@@ -295,6 +319,41 @@ namespace Vydejna
         private void numericUpDownSK_Enter(object sender, EventArgs e)
         {
             (sender as NumericUpDown).Select(0, (sender as NumericUpDown).Text.Length);
+        }
+
+
+        private void textBoxNazev_TextChanged(object sender, EventArgs e)
+        {
+            if (textBoxNazev.Text.Length > 2)
+            {
+                // natahneme data
+                DataTable dtNaradi = myDB.loadDataPartTableNaradiNazev(textBoxNazev.Text);
+                listBoxNazev.DataSource = dtNaradi;
+                listBoxNazev.DisplayMember = "nazev";
+            }
+            else
+            {
+                DataTable dtNaradi = myDB.loadDataPartTableNaradiNazev("xxxxxxxxxxxxxxxx");
+                listBoxNazev.DataSource = dtNaradi;
+                listBoxNazev.DisplayMember = "nazev";
+            }
+
+        }
+
+
+
+        private void listBoxNazev_Click(object sender, EventArgs e)
+        {
+            textBoxNazev.Text = listBoxNazev.Text;
+        }
+
+
+        private void ContextMenu_opravaUdaju(object sender, EventArgs e)
+        {
+            //
+            ZmenyOprava opravaZmen = new ZmenyOprava();
+            opravaZmen.ShowDialog();
+
         }
 
 
