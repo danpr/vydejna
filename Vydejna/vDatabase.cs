@@ -290,7 +290,7 @@ namespace Vydejna
         }
 
 
-        public virtual Boolean moveNaraddiToNewKaret(Int32 DBporadi)
+        public virtual Boolean moveNaradiToNewKaret(Int32 DBporadi)
         {
             return false;
         }
@@ -485,6 +485,11 @@ namespace Vydejna
             return tableItemExist("select count(*) as countOC from poskozeno where poradi = ?", oc);
         }
 
+        public virtual Boolean tablePujcenoExistOnNPoradi (Int32 oc)
+        {
+            return tableItemExist("select count(*) as countOC from pujceno where nporadi = ?", oc);
+
+        }
 
 
         public virtual Hashtable getDBLine(string DBSelect, Hashtable DBRow)

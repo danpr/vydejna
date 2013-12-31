@@ -281,21 +281,29 @@ namespace Vydejna
                 // zrusime kartu
                 Int32 poradi = Convert.ToInt32(DBRow["poradi"]);
 
-                if (myDB.moveNaraddiToNewKaret(poradi))
+                if (!(myDB.tablePujcenoExistOnNPoradi(poradi)))
                 {
-                    // smazeme z obrazovky
-                    // je potreba najit index v datove tabulce - po trideni neni schodny s indexem ve view
-                    Int32 dataRowIndex = findIndex((myDataGridView.DataSource as DataTable), "poradi", poradi);
-                    if (dataRowIndex != -1)
+
+                    if (myDB.moveNaradiToNewKaret(poradi))
                     {
-                        // smazeme radku
-                        (myDataGridView.DataSource as DataTable).Rows.RemoveAt(dataRowIndex);
+                        // smazeme z obrazovky
+                        // je potreba najit index v datove tabulce - po trideni neni schodny s indexem ve view
+                        Int32 dataRowIndex = findIndex((myDataGridView.DataSource as DataTable), "poradi", poradi);
+                        if (dataRowIndex != -1)
+                        {
+                            // smazeme radku
+                            (myDataGridView.DataSource as DataTable).Rows.RemoveAt(dataRowIndex);
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Zrušení karty se nezdařilo.");
                     }
                 }
-                else
-                {
-                    MessageBox.Show("Zrušení karty se nezdařilo.");
-                }
+            }
+            else
+            {
+                MessageBox.Show("Na kartě jsou zapůjčené položky, nelze protp zrušit. Lituji");
             }
         }
 
