@@ -94,6 +94,7 @@ namespace Vydejna
     enum defaultPortDBValue { SQLitePortDef = 0, postgresPortDef = 5432, informixPortDef = 9996};
 
 
+    public delegate Hashtable getDBLineDlg(Int32 poradi, Hashtable DBRow);
 
     public delegate Boolean tableItemExistDelgInt(Int32 oc);
 
@@ -231,6 +232,7 @@ namespace Vydejna
         {
         }
 
+
         public virtual void addLinePujceno(int DBparPoradi, string DBosCislo, DateTime DBdatum, int DBks,
                                          string DBjmeno, string DBPrijmeni, string DBnazev, string DBjk,
                                          double DBcena, int DBzmPoradi)
@@ -335,6 +337,13 @@ namespace Vydejna
         }
 
 
+        public virtual Boolean editNewLineZmeny(Int32 DBParPoradi, Int32 DBPoradi, string DBPoznamka, string DBVevcislo)
+        {
+            return false;
+        }
+
+
+
         public virtual Int32 addNewLineZmenyAndVraceno(Int32 DBporadi, DateTime DBdatum, Int32 DBks, string DBpoznamka, string DBosCislo)
         {
             return -1;
@@ -367,7 +376,7 @@ namespace Vydejna
 
         public virtual DataTable loadDataTableZmeny (Int32 poradi) //(string kodID)
         {
-            return loadDataTable("SELECT datum, CASE WHEN stav = \'O\' THEN \'Poskozeno\'  WHEN stav = \'U\' THEN \'Půjčeno\' WHEN stav = \'V\' THEN \'Vyřazeno\' WHEN stav = \'P\' THEN \'Přijmuto\' WHEN stav = \'R\' THEN \'Vráceno\' END AS stav, poznamka, prijem, vydej, zustatek, zapkarta FROM zmeny WHERE parporadi = " + poradi.ToString() + " order by datum");
+            return loadDataTable("SELECT poradi, datum, CASE WHEN stav = \'O\' THEN \'Poskozeno\'  WHEN stav = \'U\' THEN \'Půjčeno\' WHEN stav = \'V\' THEN \'Vyřazeno\' WHEN stav = \'P\' THEN \'Přijmuto\' WHEN stav = \'R\' THEN \'Vráceno\' END AS stav, poznamka, prijem, vydej, zustatek, zapkarta FROM zmeny WHERE parporadi = " + poradi.ToString() + " order by datum");
         }
 
         public virtual DataTable loadDataTableVypujceno(Int32 poradi) //(string kodID)
@@ -483,13 +492,20 @@ namespace Vydejna
             return null;
         }
 
+        // predefinovano povinne
         public virtual Hashtable getNaradiZmenyLine(Int32 poradi, Hashtable DBRow)
         {
-            if (DBRow == null) DBRow = new Hashtable();
+            return null;
+        }
 
-            string DBSelect = "SELECT * from naradi WHERE poradi = " + poradi.ToString();
+        public virtual Hashtable getZmenyLine(Int32 parPoradi, Int32 poradi, Hashtable DBRow)
+        {
+            if (DBRow == null) DBRow = new Hashtable();
+            string DBSelect = "SELECT poradi, datum, CASE WHEN stav = \'O\' THEN \'Poskozeno\'  WHEN stav = \'U\' THEN \'Půjčeno\' WHEN stav = \'V\' THEN \'Vyřazeno\' WHEN stav = \'P\' THEN \'Přijmuto\' WHEN stav = \'R\' THEN \'Vráceno\' END AS stav, poznamka, prijem, vydej, zustatek, zapkarta FROM zmeny WHERE parporadi = " + parPoradi.ToString() + " AND poradi = "+ poradi.ToString() + " order by datum";
             return getDBLine(DBSelect, DBRow);
         }
+
+
 
         public virtual Hashtable getNaradiLine(Int32 poradi, Hashtable DBRow)
         {
@@ -498,6 +514,16 @@ namespace Vydejna
             string DBSelect = "SELECT * from naradi WHERE poradi = " + poradi.ToString();
             return getDBLine(DBSelect, DBRow);
         }
+
+        public virtual Hashtable getZrusenoLine(Int32 poradi, Hashtable DBRow)
+        {
+            if (DBRow == null) DBRow = new Hashtable();
+
+            string DBSelect = "SELECT * from karta WHERE poradi = " + poradi.ToString();
+            return getDBLine(DBSelect, DBRow);
+        }
+
+
 
         public virtual Hashtable getPujcenoLine(Int32 poradi, Hashtable DBRow)
         {

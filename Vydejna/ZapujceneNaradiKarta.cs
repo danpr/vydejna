@@ -17,13 +17,17 @@ namespace Vydejna
         Hashtable DBRow;
         private string osCislo;
 
-        public ZapujceneNaradiKarta(Hashtable DBRow, vDatabase myDataBase)
+        public ZapujceneNaradiKarta(string osCislo, vDatabase myDataBase)
         {
             myDB = myDataBase;
-            this.DBRow = DBRow;
             InitializeComponent();
-            setData(DBRow);
 
+            DBRow = myDB.getOsobyLine(osCislo, null);
+            if (DBRow != null)
+            {
+                setData(DBRow);
+                loadVypujceneItems();
+            }
             dataGridViewZmeny.MultiSelect = false;
             dataGridViewZmeny.ReadOnly = true;
             dataGridViewZmeny.RowHeadersVisible = false;
@@ -32,7 +36,7 @@ namespace Vydejna
 
             dataGridViewZmeny.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
-            loadVypujceneItems();
+
         }
 
         private void ZapujceneNaradiKarta_Load(object sender, EventArgs e)
@@ -87,8 +91,12 @@ namespace Vydejna
                     dataGridViewZmeny.Columns["zporadi"].Visible = false;
                     dataGridViewZmeny.Columns["pujcks"].Visible = false;
 
-
                     dataGridViewZmeny.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+                    for (int i = 0; i < dataGridViewZmeny.Columns.Count; i++)
+                    {
+                        dataGridViewZmeny.Columns[i].SortMode = DataGridViewColumnSortMode.NotSortable;
+                    }
+
 
                 }
                 catch (Exception)
@@ -276,10 +284,7 @@ namespace Vydejna
                     }
                 }
 
-                Hashtable DBNaradiRow = null;
-                DBNaradiRow = myDB.getNaradiLine(nporadi, DBNaradiRow);
-
-                SkladovaKarta sklKarta = new SkladovaKarta(DBNaradiRow, myDB, new tableItemExistDelgStr(myDB.tableNaradiItemExist));
+                SkladovaKarta sklKarta = new SkladovaKarta(myDB, new getDBLineDlg(myDB.getNaradiLine), nporadi, new tableItemExistDelgStr(myDB.tableNaradiItemExist));
                 sklKarta.setWinName("Skladová karta");
                 sklKarta.ShowDialog();
             }

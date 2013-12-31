@@ -1160,6 +1160,46 @@ namespace Vydejna
         }
 
 
+        public override Boolean editNewLineZmeny(Int32 DBParPoradi, Int32 DBPoradi, string DBPoznamka, string DBVevcislo)
+        {
+            OdbcTransaction transaction = null;
+
+            if (DBIsOpened())
+            {
+                string commandString1 = "UPDATE zmeny SET poznamka =  ?, vevcislo = ? WHERE parporadi = ? AND poradi = ? ";
+                try
+                {
+                    try
+                    {
+                        transaction = (myDBConn as OdbcConnection).BeginTransaction(System.Data.IsolationLevel.ReadCommitted);
+                    }
+                    catch
+                    {
+                    }
+
+                    OdbcCommand cmd1 = new OdbcCommand(commandString1, myDBConn as OdbcConnection);
+                    cmd1.Parameters.AddWithValue("@poznamka", DBPoznamka);
+                    cmd1.Parameters.AddWithValue("@vevcislo", DBVevcislo);
+                    cmd1.Parameters.AddWithValue("@parporadi", DBParPoradi);
+                    cmd1.Parameters.AddWithValue("@poradi", DBPoradi);
+                    cmd1.Transaction = transaction;
+                    Int32 errCode = cmd1.ExecuteNonQuery();
+                }
+                catch (Exception)
+                {
+                    // doslo k chybe
+                    if (transaction != null)
+                    {
+                        (transaction as OdbcTransaction).Rollback();
+                    }
+                    return false;  // chyba
+                }
+                return true;
+            }
+            return false;
+        }
+
+
 
 
         public override Int32 addNewLineZmenyAndVraceno(Int32 DBporadi, DateTime DBdatum, Int32 DBks, string DBpoznamka, string DBosCislo)
@@ -2802,13 +2842,11 @@ namespace Vydejna
                         }
                         DBRow.Add(myReader.GetName(i), myReader.GetValue(i));
                     }
-
                     myReader.Close();
                     return DBRow;
                 }
                 else
                 {
-
                     myReader.Close();
                     return null;
                 }

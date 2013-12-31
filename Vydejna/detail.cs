@@ -12,38 +12,127 @@ namespace Vydejna
 {
     abstract class detail
     {
+        public vDatabase myDB;
+        public DataGridView myDataGridView;
 
-        public virtual void zobrazKartu(Hashtable DBRow, vDatabase myDataBase)
+        public detail(vDatabase myDB, DataGridView myDataGridView)
+        {
+            this.myDB = myDB;
+            this.myDataGridView = myDataGridView;
+        }
+
+                
+        /// <summary>
+        /// Najde v DB radku hodnotu sloupce poradi;
+        /// </summary>
+        /// <param name="DBRow"> Radka DB tabulky</param>
+        /// <returns>Hodnotu sloupce poradi</returns>
+        public Int32 findPoradiInRow(Hashtable DBRow)
+        {
+            if (DBRow != null)
+            {
+                Int32 poradi = 0;
+                if (DBRow.Contains("poradi"))
+                {
+                    poradi = Convert.ToInt32(DBRow["poradi"]);
+                    return poradi;
+                }
+            }
+            return 0;
+        }
+
+/// <summary>
+/// Najde v datove tabulce cislo radku jejiz sloupec name ma hodnotu value
+/// </summary>
+/// <param name="myDT">Datova tabulka</param>
+/// <param name="name">Jmeno prohledavaneho sloupce</param>
+/// <param name="value">Hledana hodnota</param>
+/// <returns></returns>
+        public Int32 findIndex(DataTable myDT, string name, Int32 value)
+        {
+            if (myDT == null) return -1;
+            if (name.Trim() == "") return -1;
+            if (myDT.Columns.Contains(name))
+            {
+
+                for (int x = 0; x < myDT.Rows.Count; x++)
+                {
+                    if (Convert.ToInt32(myDT.Rows[x][name]) == value)
+                    {
+                        return x;
+                    }
+                }
+            }
+            return -1;
+        }
+
+
+        public Int32 findIndex(DataTable myDT, string name, string value)
+        {
+            if (myDT == null) return -1;
+            if (name.Trim() == "") return -1;
+            if (myDT.Columns.Contains(name))
+            {
+
+                for (int x = 0; x < myDT.Rows.Count; x++)
+                {
+                    if (Convert.ToString(myDT.Rows[x][name]) == value)
+                    {
+                        return x;
+                    }
+                }
+            }
+            return -1;
+        }
+
+
+        public void reloadRow (DataTable myDT, Int32 index, Hashtable DBRow)
+        {
+            if ((myDT != null) && (index != -1) && (DBRow != null))
+            {
+                foreach (string name in DBRow.Keys)
+                {
+                    if (myDT.Columns.Contains(name))
+                    {
+                         myDT.Rows[index].SetField(name, DBRow[name]);
+                    }
+                }
+
+            }
+        }
+        //-------------------------------------- virtualni metody -------------------//
+
+        public virtual void zobrazKartu(Hashtable DBRow)
         {
         }
 
-        public virtual void pridejKartu(vDatabase myDataBase, DataGridView myDataGridView)
+        public virtual void pridejKartu()
         {
             MessageBox.Show("Není implementováno.");
         }
 
-        public virtual void opravKartu(Hashtable DBRow, vDatabase myDataBase, DataGridView myDataGridView)
+        public virtual void opravKartu(Hashtable DBRow)
         {
             MessageBox.Show("Není implementováno.");
         }
 
-        public virtual void zrusKartu(Hashtable DBRow, vDatabase myDataBase, DataGridView myDataGridView)
+        public virtual void zrusKartu(Hashtable DBRow)
         {
             MessageBox.Show("Není implementováno.");
         }
 
-        public virtual void Prijem(Hashtable DBRow, vDatabase myDataBase, DataGridView myDataGridView)
+        public virtual void Prijem(Hashtable DBRow)
         {
             MessageBox.Show("Není implementováno.");
         }
 
-        public virtual void Poskozeno(Hashtable DBRow, vDatabase myDataBase, DataGridView myDataGridView)
+        public virtual void Poskozeno(Hashtable DBRow)
         {
             MessageBox.Show("Není implementováno.");
         }
 
 
-        public virtual void Zapujceno(Hashtable DBRow, vDatabase myDataBase)
+        public virtual void Zapujceno(Hashtable DBRow)
         {
             MessageBox.Show("Není implementováno.");
         }
@@ -53,6 +142,10 @@ namespace Vydejna
 
     class detailNone : detail
     {
+        public detailNone(vDatabase myDB, DataGridView myDataGridView)
+            : base(myDB, myDataGridView)
+        {
+        }
     }
     
     
@@ -76,32 +169,44 @@ namespace Vydejna
         // minimum      numericUpDownMinStav    minStav
         // poznamka     textBoxPoznamka         poznamka
         // ucetkscen    numericUpDownUcetCenaKs ucetCenaKs
-         
-        
-        public override void zobrazKartu(Hashtable DBRow, vDatabase myDataBase) 
+
+        public detailSklad(vDatabase myDB, DataGridView myDataGridView)
+            : base(myDB, myDataGridView)
+        {
+        }
+
+        public override void zobrazKartu(Hashtable DBRow) 
             
         {
-            if ((myDataBase != null) && (myDataBase.DBIsOpened()))
+            if ((myDB != null) && (myDB.DBIsOpened()))
             {
-                SkladovaKarta sklKarta = new SkladovaKarta(DBRow, myDataBase, new tableItemExistDelgStr(myDataBase.tableNaradiItemExist));
+                SkladovaKarta sklKarta = new SkladovaKarta(myDB, new getDBLineDlg(myDB.getNaradiLine), findPoradiInRow (DBRow), new tableItemExistDelgStr(myDB.tableNaradiItemExist));
                 sklKarta.setWinName("Skladová karta");
                 sklKarta.ShowDialog();
+
+                Int32 poradi = findPoradiInRow(DBRow);
+                Hashtable newDBRow = null;
+                newDBRow = myDB.getNaradiLine(poradi, newDBRow);
+                reloadRow((myDataGridView.DataSource as DataTable), findIndex((myDataGridView.DataSource as DataTable), "poradi", poradi), newDBRow);
+
+
+
             }
         }
 
-        public override void pridejKartu(vDatabase myDataBase, DataGridView myDataGridView)
+        public override void pridejKartu()
         {
             // zalozeni nove skladove karty
-            if ((myDataBase != null) && (myDataBase.DBIsOpened()))
+            if ((myDB != null) && (myDB.DBIsOpened()))
             {
-                SkladovaKarta sklKarta = new SkladovaKarta(myDataBase, new tableItemExistDelgStr(myDataBase.tableNaradiItemExist));
+                SkladovaKarta sklKarta = new SkladovaKarta(myDB, new tableItemExistDelgStr(myDB.tableNaradiItemExist));
                 sklKarta.setWinName("Skladová karta");
                 if (sklKarta.ShowDialog() == DialogResult.OK)
                 {
 
                     SkladovaKarta.messager mesenger = sklKarta.getMesseger();
 
-                    Int32 poradi = myDataBase.addNewLineNaradi(mesenger.nazev, mesenger.jk, mesenger.csn, mesenger.din, mesenger.vyrobce, mesenger.cenaKs, mesenger.poznamka, mesenger.minStav, mesenger.ucetCena, mesenger.ucetStav, mesenger.ucetStav, mesenger.rozmer, mesenger.ucet, mesenger.ucetCenaKs, new DateTime(0));
+                    Int32 poradi = myDB.addNewLineNaradi(mesenger.nazev, mesenger.jk, mesenger.csn, mesenger.din, mesenger.vyrobce, mesenger.cenaKs, mesenger.poznamka, mesenger.minStav, mesenger.ucetCena, mesenger.ucetStav, mesenger.ucetStav, mesenger.rozmer, mesenger.ucet, mesenger.ucetCenaKs, new DateTime(0));
                     if (poradi != -1)
                     {
                        (myDataGridView.DataSource as DataTable).Rows.Add(poradi, "", mesenger.nazev, mesenger.jk, mesenger.ucetStav, mesenger.ucet, mesenger.csn, mesenger.din, mesenger.vyrobce, mesenger.rozmer, 0, mesenger.cenaKs, mesenger.ucetCena, mesenger.minStav, mesenger.poznamka, mesenger.ucetCenaKs);
@@ -120,27 +225,20 @@ namespace Vydejna
         }
 
 
-        public override void opravKartu(Hashtable DBRow, vDatabase myDataBase, DataGridView myDataGridView)
+        public override void opravKartu(Hashtable DBRow)
         {
-            if ((myDataBase != null) && (myDataBase.DBIsOpened()))
+            if ((myDB != null) && (myDB.DBIsOpened()))
             {
-                SkladovaKarta sklKarta = new SkladovaKarta(DBRow, myDataBase, new tableItemExistDelgStr(myDataBase.tableNaradiItemExist), sKartaState.edit);
+                Int32 poradi = findPoradiInRow(DBRow);
+                SkladovaKarta sklKarta = new SkladovaKarta(myDB, new getDBLineDlg(myDB.getNaradiLine), poradi, new tableItemExistDelgStr(myDB.tableNaradiItemExist), sKartaState.edit);
                 if (sklKarta.ShowDialog() == DialogResult.OK)
                 {
                     SkladovaKarta.messager mesenger = sklKarta.getMesseger();
-                    Boolean updateIsOk = myDataBase.editNewLineNaradi(mesenger.poradi ,mesenger.nazev, mesenger.jk, mesenger.csn, mesenger.din, mesenger.vyrobce, mesenger.cenaKs, mesenger.poznamka, mesenger.minStav, mesenger.ucetCena, mesenger.ucetStav, mesenger.fyzStav, mesenger.rozmer, mesenger.ucet, mesenger.ucetCenaKs);
+                    Boolean updateIsOk = myDB.editNewLineNaradi(poradi, mesenger.nazev, mesenger.jk, mesenger.csn, mesenger.din, mesenger.vyrobce, mesenger.cenaKs, mesenger.poznamka, mesenger.minStav, mesenger.ucetCena, mesenger.ucetStav, mesenger.fyzStav, mesenger.rozmer, mesenger.ucet, mesenger.ucetCenaKs);
                     if (updateIsOk)
                     {
                         // je potreba najit index v datove tabulce - po trideni neni schodny s indexem ve view
-                        Int32 dataRowIndex = -1;
-                        for (int x = 0; x < (myDataGridView.DataSource as DataTable).Rows.Count; x++)
-                        {
-                            if (Convert.ToInt32((myDataGridView.DataSource as DataTable).Rows[x][0]) == mesenger.poradi)
-                            {
-                                dataRowIndex = x;
-                                break;
-                            }
-                        }
+                        Int32 dataRowIndex = findIndex((myDataGridView.DataSource as DataTable), "poradi", poradi);
 
                         if (dataRowIndex != -1)
                         {
@@ -163,31 +261,34 @@ namespace Vydejna
                             myDataGridView.Refresh();
                         }
                     }
+                    else
+                    {
+                        MessageBox.Show("Opravení karty se nezdařilo.");
+                    }
+
+                }
+                else
+                {
+                    Hashtable newDBRow = null;
+                    newDBRow = myDB.getNaradiLine(poradi, newDBRow);
+                    reloadRow((myDataGridView.DataSource as DataTable), findIndex((myDataGridView.DataSource as DataTable), "poradi", poradi), newDBRow);
                 }
             }
         }
 
 
-        public override void zrusKartu(Hashtable DBRow, vDatabase myDataBase, DataGridView myDataGridView)
+        public override void zrusKartu(Hashtable DBRow)
         {
             if (MessageBox.Show("Opravdu chcete zrušit kartu ?", "Zrušení karty", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 // zrusime kartu
                 Int32 poradi = Convert.ToInt32(DBRow["poradi"]);
 
-                if (myDataBase.moveNaraddiToNewKaret(poradi))
+                if (myDB.moveNaraddiToNewKaret(poradi))
                 {
                     // smazeme z obrazovky
                     // je potreba najit index v datove tabulce - po trideni neni schodny s indexem ve view
-                    Int32 dataRowIndex = -1;
-                    for (int x = 0; x < (myDataGridView.DataSource as DataTable).Rows.Count; x++)
-                    {
-                        if (Convert.ToInt32((myDataGridView.DataSource as DataTable).Rows[x][0]) == poradi)
-                        {
-                            dataRowIndex = x;
-                            break;
-                        }
-                    }
+                    Int32 dataRowIndex = findIndex((myDataGridView.DataSource as DataTable), "poradi", poradi);
                     if (dataRowIndex != -1)
                     {
                         // smazeme radku
@@ -198,41 +299,30 @@ namespace Vydejna
                 {
                     MessageBox.Show("Zrušení karty se nezdařilo.");
                 }
-
             }
-
-         
         }
 
 
 
-        public override void Prijem(Hashtable DBRow, vDatabase myDataBase, DataGridView myDataGridView)
+        public override void Prijem(Hashtable DBRow)
         {
-            if ((myDataBase != null) && (myDataBase.DBIsOpened()))
+            if ((myDB != null) && (myDB.DBIsOpened()))
             {
-                PrijemkaMaterialu prijemka = new PrijemkaMaterialu(DBRow, myDataBase);
+                PrijemkaMaterialu prijemka = new PrijemkaMaterialu(DBRow, myDB);
                 if (prijemka.ShowDialog() == DialogResult.OK)
                 {
                     PrijemkaMaterialu.messager mesenger = prijemka.getMesseger();
-                    if (myDataBase.addNewLineZmeny(mesenger.poradi, mesenger.jk, mesenger.datum, mesenger.pocetKs, 0, mesenger.poznamka, "P", mesenger.pocetKs, mesenger.pocetKs, "") < 0)
+                    if (myDB.addNewLineZmeny(mesenger.poradi, mesenger.jk, mesenger.datum, mesenger.pocetKs, 0, mesenger.poznamka, "P", mesenger.pocetKs, mesenger.pocetKs, "") < 0)
                     {
                         MessageBox.Show("Příjem materialu se nezdařil. Lituji.");
                     }
                     else
                     {
-                        Int32 dataRowIndex = -1;
-                        for (int x = 0; x < (myDataGridView.DataSource as DataTable).Rows.Count; x++)
-                        {
-                            if (Convert.ToInt32((myDataGridView.DataSource as DataTable).Rows[x][0]) == mesenger.poradi)
-                            {
-                                dataRowIndex = x;
-                                break;
-                            }
-                        }
+                        Int32 dataRowIndex = findIndex((myDataGridView.DataSource as DataTable), "poradi", mesenger.poradi);
                         if (dataRowIndex != -1)
                         {
                             // opravime tabulku
-                            Hashtable DBrow = myDataBase.getNaradiZmenyLine(mesenger.poradi, null);
+                            Hashtable DBrow = myDB.getNaradiZmenyLine(mesenger.poradi, null);
                             if (DBrow != null)
                             {
                                 Int32 fyzStav = 0;
@@ -263,16 +353,16 @@ namespace Vydejna
             }
         }
 
-        public override void Poskozeno(Hashtable DBRow, vDatabase myDataBase, DataGridView myDataGridView)
+        public override void Poskozeno(Hashtable DBRow)
         {
-            if ((myDataBase != null) && (myDataBase.DBIsOpened()))
+            if ((myDB != null) && (myDB.DBIsOpened()))
             {
-                Poskozenka poskozenka = new Poskozenka(DBRow, myDataBase);
+                Poskozenka poskozenka = new Poskozenka(DBRow, myDB);
                 if (poskozenka.ShowDialog() == DialogResult.OK)
                 {
                     Poskozenka.messager mesenger = poskozenka.getMesseger();
                     int errCode;
-                    if ((errCode = myDataBase.addNewLineZmenyAndPoskozeno(mesenger.poradi, mesenger.jk, mesenger.datum, mesenger.pocetKs, mesenger.poznamka, mesenger.osCislo, mesenger.jmeno, mesenger.prijmeni,
+                    if ((errCode = myDB.addNewLineZmenyAndPoskozeno(mesenger.poradi, mesenger.jk, mesenger.datum, mesenger.pocetKs, mesenger.poznamka, mesenger.osCislo, mesenger.jmeno, mesenger.prijmeni,
                                                                mesenger.stredisko, mesenger.provoz, mesenger.nazev, mesenger.rozmer, mesenger.konto, mesenger.cena, mesenger.celkCena, mesenger.csn, mesenger.cisZak )) < 0)
                     {
                         if (errCode == -2)
@@ -283,19 +373,11 @@ namespace Vydejna
                     }
                     else
                     {
-                        Int32 dataRowIndex = -1;
-                        for (int x = 0; x < (myDataGridView.DataSource as DataTable).Rows.Count; x++)
-                        {
-                            if (Convert.ToInt32((myDataGridView.DataSource as DataTable).Rows[x][0]) == mesenger.poradi)
-                            {
-                                dataRowIndex = x;
-                                break;
-                            }
-                        }
+                        Int32 dataRowIndex = findIndex((myDataGridView.DataSource as DataTable), "poradi", mesenger.poradi);
                         if (dataRowIndex != -1)
                         {
                             // opravime tabulku
-                            Hashtable DBrow = myDataBase.getNaradiZmenyLine(mesenger.poradi, null);
+                            Hashtable DBrow = myDB.getNaradiZmenyLine(mesenger.poradi, null);
                             if (DBrow != null)
                             {
                                 Int32 fyzStav = 0;
@@ -327,39 +409,35 @@ namespace Vydejna
 
     class detailZruseno : detail
     {
-        public override void zobrazKartu(Hashtable DBRow, vDatabase myDataBase)
+        public detailZruseno(vDatabase myDB, DataGridView myDataGridView)
+            : base(myDB, myDataGridView)
         {
-            if ((myDataBase != null) && (myDataBase.DBIsOpened()))
+        }
+
+        public override void zobrazKartu(Hashtable DBRow)
+        {
+            if ((myDB != null) && (myDB.DBIsOpened()))
             {
-                SkladovaKarta sklKarta = new SkladovaKarta(DBRow, myDataBase, new tableItemExistDelgStr(myDataBase.tableZrusenoItemExist));
+                SkladovaKarta sklKarta = new SkladovaKarta(myDB, new getDBLineDlg(myDB.getZrusenoLine), findPoradiInRow(DBRow), new tableItemExistDelgStr(myDB.tableZrusenoItemExist));
                 sklKarta.setWinName("Zrušená karta");
                 sklKarta.ShowDialog();
             }
         }
 
-        public override void opravKartu(Hashtable DBRow, vDatabase myDataBase, DataGridView myDataGridView)
+        public override void opravKartu(Hashtable DBRow)
         {
-            if ((myDataBase != null) && (myDataBase.DBIsOpened()))
+            if ((myDB != null) && (myDB.DBIsOpened()))
             {
-                SkladovaKarta sklKarta = new SkladovaKarta(DBRow, myDataBase,new tableItemExistDelgStr(myDataBase.tableZrusenoItemExist), sKartaState.edit);
+                SkladovaKarta sklKarta = new SkladovaKarta(myDB, new getDBLineDlg(myDB.getZrusenoLine), findPoradiInRow(DBRow), new tableItemExistDelgStr(myDB.tableZrusenoItemExist), sKartaState.edit);
                 sklKarta.setWinName("Zrušená karta");
                 if (sklKarta.ShowDialog() == DialogResult.OK)
                 {
                     SkladovaKarta.messager mesenger = sklKarta.getMesseger();
-                    Boolean updateIsOk = myDataBase.editNewLineKaret(mesenger.poradi, mesenger.nazev, mesenger.jk, mesenger.csn, mesenger.din, mesenger.vyrobce, mesenger.cenaKs, mesenger.poznamka, mesenger.minStav, mesenger.ucetCena, mesenger.ucetStav, mesenger.fyzStav, mesenger.rozmer, mesenger.ucet);
+                    Boolean updateIsOk = myDB.editNewLineKaret(mesenger.poradi, mesenger.nazev, mesenger.jk, mesenger.csn, mesenger.din, mesenger.vyrobce, mesenger.cenaKs, mesenger.poznamka, mesenger.minStav, mesenger.ucetCena, mesenger.ucetStav, mesenger.fyzStav, mesenger.rozmer, mesenger.ucet);
                     if (updateIsOk)
                     {
                         // je potreba najit index v datove tabulce - po trideni neni schodny s indexem ve view
-                        Int32 dataRowIndex = -1;
-                        for (int x = 0; x < (myDataGridView.DataSource as DataTable).Rows.Count; x++)
-                        {
-                            if (Convert.ToInt32((myDataGridView.DataSource as DataTable).Rows[x][0]) == mesenger.poradi)
-                            {
-                                dataRowIndex = x;
-                                break;
-                            }
-
-                        }
+                        Int32 dataRowIndex = findIndex((myDataGridView.DataSource as DataTable), "poradi", mesenger.poradi);
 
                         if (dataRowIndex != -1)
                         {
@@ -381,6 +459,10 @@ namespace Vydejna
                             myDataGridView.Refresh();
                         }
                     }
+                    else
+                    {
+                        MessageBox.Show("Opravení karty se nezdařilo.");
+                    }
 
                 }
             }
@@ -388,26 +470,18 @@ namespace Vydejna
         }
 
 
-        public override void zrusKartu(Hashtable DBRow, vDatabase myDataBase, DataGridView myDataGridView)
+        public override void zrusKartu(Hashtable DBRow)
         {
             if (MessageBox.Show("Opravdu chcete zrušit kartu ?", "Zrušení karty", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 // zrusime kartu
                 Int32 poradi = Convert.ToInt32(DBRow["poradi"]);
 
-                if (myDataBase.deleteLineKaret(poradi))
+                if (myDB.deleteLineKaret(poradi))
                 {
                     // smazeme z obrazovky
                     // je potreba najit index v datove tabulce - po trideni neni schodny s indexem ve view
-                    Int32 dataRowIndex = -1;
-                    for (int x = 0; x < (myDataGridView.DataSource as DataTable).Rows.Count; x++)
-                    {
-                        if (Convert.ToInt32((myDataGridView.DataSource as DataTable).Rows[x][0]) == poradi)
-                        {
-                            dataRowIndex = x;
-                            break;
-                        }
-                    }
+                    Int32 dataRowIndex = findIndex((myDataGridView.DataSource as DataTable),"poradi",poradi);
                     if (dataRowIndex != -1)
                     {
                         // smazeme radku
@@ -418,14 +492,8 @@ namespace Vydejna
                 {
                     MessageBox.Show("Zrušení karty se nezdařilo.");
                 }
-
             }
-
-
         }
-
-
-
     }
 
     class detailPoskozeno : detail
@@ -447,39 +515,33 @@ namespace Vydejna
         // dilna        textBoxStredisko        stredisko
         // pracoviste   textBoxProvoz           provoz
 
+        public detailPoskozeno(vDatabase myDB, DataGridView myDataGridView)
+            : base(myDB,myDataGridView)
+        {
+        }
 
 
-        public override void zobrazKartu(Hashtable DBRow, vDatabase myDataBase)
+        public override void zobrazKartu(Hashtable DBRow)
         {
             VraceneKarta poskozKarta = new VraceneKarta(DBRow);
             poskozKarta.setWinName("Poškozeno");
             poskozKarta.ShowDialog();
         }
 
-        public override void opravKartu(Hashtable DBRow, vDatabase myDataBase, DataGridView myDataGridView)
+        public override void opravKartu(Hashtable DBRow)
         {
-            if ((myDataBase != null) && (myDataBase.DBIsOpened()))
+            if ((myDB != null) && (myDB.DBIsOpened()))
             {
-                VraceneKarta poskozKarta = new VraceneKarta(DBRow, myDataBase, new tableItemExistDelgInt(myDataBase.tablePoskozenoItemExist), vKartaState.edit);
+                VraceneKarta poskozKarta = new VraceneKarta(DBRow, myDB, new tableItemExistDelgInt(myDB.tablePoskozenoItemExist), vKartaState.edit);
                 poskozKarta.setWinName("Poškozeno");
                 if (poskozKarta.ShowDialog() == DialogResult.OK)
                 {
                     VraceneKarta.messager mesenger = poskozKarta.getMesseger();
-                    Boolean updateIsOk = myDataBase.editNewLinePoskozene(mesenger.poradi, mesenger.jmeno, mesenger.prijmeni, mesenger.oscislo, mesenger.stredisko, mesenger.provoz, mesenger.nazev, mesenger.jk, mesenger.pocetKs, mesenger.rozmer, mesenger.csn, mesenger.cena, mesenger.datum, mesenger.zakazka, mesenger.konto);
+                    Boolean updateIsOk = myDB.editNewLinePoskozene(mesenger.poradi, mesenger.jmeno, mesenger.prijmeni, mesenger.oscislo, mesenger.stredisko, mesenger.provoz, mesenger.nazev, mesenger.jk, mesenger.pocetKs, mesenger.rozmer, mesenger.csn, mesenger.cena, mesenger.datum, mesenger.zakazka, mesenger.konto);
                     if (updateIsOk)
                     {
                         // je potreba najit index v datove tabulce - po trideni neni schodny s indexem ve view
-                        Int32 dataRowIndex = -1;
-                        for (int x = 0; x < (myDataGridView.DataSource as DataTable).Rows.Count; x++)
-                        {
-                            if (Convert.ToInt32((myDataGridView.DataSource as DataTable).Rows[x][0]) == mesenger.poradi)
-                            {
-                                dataRowIndex = x;
-                                break;
-                            }
-
-                        }
-
+                        Int32 dataRowIndex = findIndex((myDataGridView.DataSource as DataTable), "poradi", mesenger.poradi);
                         if (dataRowIndex != -1)
                         {
                             (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(1, mesenger.nazev);
@@ -502,6 +564,10 @@ namespace Vydejna
                             myDataGridView.Refresh();
                         }
                     }
+                    else
+                    {
+                        MessageBox.Show("Opravení karty se nezdařilo.");
+                    }
                 }
             }
         }
@@ -513,7 +579,13 @@ namespace Vydejna
     class detailVraceno : detail
     {
 
-        public override void zobrazKartu(Hashtable DBRow, vDatabase myDataBase)
+        public detailVraceno(vDatabase myDB, DataGridView myDataGridView)
+            : base(myDB, myDataGridView)
+        {
+        }
+
+
+        public override void zobrazKartu(Hashtable DBRow)
         {
             VraceneKarta vracKarta = new VraceneKarta(DBRow);
             vracKarta.setWinName("Vraceno");
@@ -521,27 +593,18 @@ namespace Vydejna
         }
        
         
-        public override void opravKartu(Hashtable DBRow, vDatabase myDataBase, DataGridView myDataGridView)
+        public override void opravKartu(Hashtable DBRow)
         {
-            VraceneKarta vracKarta = new VraceneKarta(DBRow, myDataBase, new tableItemExistDelgInt(myDataBase.tablePoskozenoItemExist), vKartaState.edit);
+            VraceneKarta vracKarta = new VraceneKarta(DBRow, myDB, new tableItemExistDelgInt(myDB.tablePoskozenoItemExist), vKartaState.edit);
             vracKarta.setWinName("Vraceno");
             if (vracKarta.ShowDialog() == DialogResult.OK)
             {
                 VraceneKarta.messager mesenger = vracKarta.getMesseger();
-                Boolean updateIsOk = myDataBase.editNewLineVracene(mesenger.poradi, mesenger.jmeno, mesenger.prijmeni, mesenger.oscislo, mesenger.stredisko, mesenger.provoz, mesenger.nazev, mesenger.jk, mesenger.pocetKs, mesenger.rozmer, mesenger.csn, mesenger.cena, mesenger.datum, mesenger.zakazka, mesenger.konto);
+                Boolean updateIsOk = myDB.editNewLineVracene(mesenger.poradi, mesenger.jmeno, mesenger.prijmeni, mesenger.oscislo, mesenger.stredisko, mesenger.provoz, mesenger.nazev, mesenger.jk, mesenger.pocetKs, mesenger.rozmer, mesenger.csn, mesenger.cena, mesenger.datum, mesenger.zakazka, mesenger.konto);
                 if (updateIsOk)
                 {
                     // je potreba najit index v datove tabulce - po trideni neni schodny s indexem ve view
-                    Int32 dataRowIndex = -1;
-                    for (int x = 0; x < (myDataGridView.DataSource as DataTable).Rows.Count; x++)
-                    {
-                        if (Convert.ToInt32((myDataGridView.DataSource as DataTable).Rows[x][0]) == mesenger.poradi)
-                        {
-                            dataRowIndex = x;
-                            break;
-                        }
-
-                    }
+                    Int32 dataRowIndex = findIndex((myDataGridView.DataSource as DataTable), "poradi", mesenger.poradi);
 
                     if (dataRowIndex != -1)
                     {
@@ -565,6 +628,11 @@ namespace Vydejna
                         myDataGridView.Refresh();
                     }
                 }
+                else
+                {
+                    MessageBox.Show("Opravení karty se nezdařilo.");
+                }
+
             }
         }
 
@@ -593,24 +661,30 @@ namespace Vydejna
         // poznamka   Poznamky     TextBoxPoznamka
 
         // pujsoub    
-        
-        public override void zobrazKartu(Hashtable DBRow, vDatabase myDataBase)
+
+        public detailOsoby(vDatabase myDB, DataGridView myDataGridView)
+            : base(myDB, myDataGridView)
         {
-            PracovniciKarta pracKarta = new PracovniciKarta(DBRow, myDataBase);
+        }
+
+
+        public override void zobrazKartu(Hashtable DBRow)
+        {
+            PracovniciKarta pracKarta = new PracovniciKarta(DBRow, myDB);
             pracKarta.ShowDialog();
         }
 
-        public override void pridejKartu(vDatabase myDataBase, DataGridView myDataGridView)
+        public override void pridejKartu()
         {
             // zalozeni nove skladove karty
-            if ((myDataBase != null) && (myDataBase.DBIsOpened()))
+            if ((myDB != null) && (myDB.DBIsOpened()))
             {
-                PracovniciKarta pracKarta = new PracovniciKarta(myDataBase);
+                PracovniciKarta pracKarta = new PracovniciKarta(myDB);
                 if (pracKarta.ShowDialog() == DialogResult.OK)
                 {
 
                     PracovniciKarta.messager mesenger = pracKarta.getMesseger();
-                    Int32 stav = myDataBase.addNewLineOsoby(mesenger.prijmeni, mesenger.jmeno, mesenger.ulice, mesenger.mesto, mesenger.psc, mesenger.telHome, mesenger.oscislo, mesenger.stredisko, mesenger.cisZnamky, mesenger.oddeleni, mesenger.pracoviste, mesenger.telZam, mesenger.poznamka);
+                    Int32 stav = myDB.addNewLineOsoby(mesenger.prijmeni, mesenger.jmeno, mesenger.ulice, mesenger.mesto, mesenger.psc, mesenger.telHome, mesenger.oscislo, mesenger.stredisko, mesenger.cisZnamky, mesenger.oddeleni, mesenger.pracoviste, mesenger.telZam, mesenger.poznamka);
                     if (stav != -1)
                     {
                         (myDataGridView.DataSource as DataTable).Rows.Add(mesenger.prijmeni, mesenger.jmeno, mesenger.oscislo, mesenger.oddeleni, mesenger.stredisko, mesenger.pracoviste, mesenger.cisZnamky, mesenger.ulice,mesenger.psc, mesenger.mesto, mesenger.telHome, mesenger.telZam, mesenger.poznamka);
@@ -628,51 +702,49 @@ namespace Vydejna
         }
 
 
-        public override void opravKartu(Hashtable DBRow, vDatabase myDataBase, DataGridView myDataGridView)
+        public override void opravKartu(Hashtable DBRow)
         {
-            if ((myDataBase != null) && (myDataBase.DBIsOpened()))
+            if ((myDB != null) && (myDB.DBIsOpened()))
             {
-                PracovniciKarta pracKarta = new PracovniciKarta(DBRow, myDataBase, uKartaState.edit);
+                PracovniciKarta pracKarta = new PracovniciKarta(DBRow, myDB, uKartaState.edit);
                 if (pracKarta.ShowDialog() == DialogResult.OK)
                 {
                     PracovniciKarta.messager mesenger = pracKarta.getMesseger();
 
 
-                    Boolean updateIsOk = myDataBase.editNewLineOsoby(mesenger.prijmeni, mesenger.jmeno, mesenger.ulice, mesenger.mesto,
+                    Boolean updateIsOk = myDB.editNewLineOsoby(mesenger.prijmeni, mesenger.jmeno, mesenger.ulice, mesenger.mesto,
                                                  mesenger.psc, mesenger.telHome, mesenger.oscislo, mesenger.stredisko,
                                                  mesenger.cisZnamky, mesenger.oddeleni, mesenger.pracoviste, mesenger.telZam, mesenger.poznamka);
                     if (updateIsOk)
                     {
                         // je potreba najit index v datove tabulce - po trideni neni schodny s indexem ve view
-                        Int32 dataRowIndex = -1;
-                        for (int x = 0; x < (myDataGridView.DataSource as DataTable).Rows.Count; x++)
+
+                        Int32 dataRowIndex = findIndex((myDataGridView.DataSource as DataTable), "oscislo", mesenger.oscislo);
+
+                        if (dataRowIndex != -1)
                         {
-                            if (Convert.ToString((myDataGridView.DataSource as DataTable).Rows[x][2]) == mesenger.oscislo)
-                            {
-                                dataRowIndex = x;
-                                break;
-                            }
+                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(0, mesenger.prijmeni);
+                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(1, mesenger.jmeno);
 
+                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(2, mesenger.oscislo);
+                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(3, mesenger.oddeleni);
+
+                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(4, mesenger.stredisko);
+                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(5, mesenger.pracoviste);
+                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(6, mesenger.cisZnamky);
+                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(7, mesenger.ulice);
+                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(8, mesenger.psc);
+                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(9, mesenger.mesto);
+                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(10, mesenger.telHome);
+                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(11, mesenger.telZam);
+                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(12, mesenger.poznamka);
+
+                            myDataGridView.Refresh();
                         }
-
-                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(0, mesenger.prijmeni);
-                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(1, mesenger.jmeno);
-
-                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(2, mesenger.oscislo);
-                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(3, mesenger.oddeleni);
-
-                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(4, mesenger.stredisko);
-                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(5, mesenger.pracoviste);
-                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(6, mesenger.cisZnamky);
-                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(7, mesenger.ulice);
-                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(8, mesenger.psc);
-                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(9, mesenger.mesto);
-                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(10, mesenger.telHome);
-                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(11, mesenger.telZam);
-                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(12, mesenger.poznamka);
-
-                        myDataGridView.Refresh();
-
+                    }
+                    else
+                    {
+                        MessageBox.Show("Opravení karty se nezdařilo.");
                     }
 
 
@@ -680,15 +752,14 @@ namespace Vydejna
             }
         }
 
-        public override void Zapujceno(Hashtable DBRow, vDatabase myDataBase)
+        public override void Zapujceno(Hashtable DBRow)
         {
-            if ((myDataBase != null) && (myDataBase.DBIsOpened()))
+            if ((myDB != null) && (myDB.DBIsOpened()))
             {
-                ZapujceneNaradiKarta zapujcKarta = new ZapujceneNaradiKarta(DBRow, myDataBase);// (DBRow, myDataBase, uKartaState.edit);
-                if (zapujcKarta.ShowDialog() == DialogResult.OK)
-                {
-                    MessageBox.Show("Není dopracovano.");
-                }
+                string osCislo = Convert.ToString(DBRow["oscislo"]);
+
+                ZapujceneNaradiKarta zapujcKarta = new ZapujceneNaradiKarta(osCislo, myDB);// (DBRow, myDataBase, uKartaState.edit);
+                zapujcKarta.ShowDialog();
             }
         }
 
@@ -697,29 +768,32 @@ namespace Vydejna
     class detailOsobyZapujcNaradi : detail
         {
 
+        public detailOsobyZapujcNaradi(vDatabase myDB, DataGridView myDataGridView)
+            : base(myDB, myDataGridView)
+        {
+        }
 
-            public override void zobrazKartu(Hashtable DBRow, vDatabase myDataBase)
+
+
+        public override void zobrazKartu(Hashtable DBRow)
             {
-                if ((myDataBase != null) && (myDataBase.DBIsOpened()))
+                if ((myDB != null) && (myDB.DBIsOpened()))
                 {
-                    ZapujceneNaradiKarta zapujcKarta = new ZapujceneNaradiKarta(DBRow, myDataBase);// (DBRow, myDataBase, uKartaState.edit);
-                    if (zapujcKarta.ShowDialog() == DialogResult.OK)
-                    {
-                        MessageBox.Show("Není dopracovano.");
-                    }
+
+                    string osCislo = Convert.ToString(DBRow["oscislo"]);
+                    ZapujceneNaradiKarta zapujcKarta = new ZapujceneNaradiKarta(osCislo, myDB);// (DBRow, myDataBase, uKartaState.edit);
+                    zapujcKarta.ShowDialog();
                 }
             }
 
 
-            public override void Zapujceno(Hashtable DBRow, vDatabase myDataBase)
+            public override void Zapujceno(Hashtable DBRow)
             {
-                if ((myDataBase != null) && (myDataBase.DBIsOpened()))
+                if ((myDB != null) && (myDB.DBIsOpened()))
                 {
-                    ZapujceneNaradiKarta zapujcKarta = new ZapujceneNaradiKarta(DBRow, myDataBase);// (DBRow, myDataBase, uKartaState.edit);
-                    if (zapujcKarta.ShowDialog() == DialogResult.OK)
-                    {
-                        MessageBox.Show("Není dopracovano.");
-                    }
+                    string osCislo = Convert.ToString(DBRow["oscislo"]);
+                    ZapujceneNaradiKarta zapujcKarta = new ZapujceneNaradiKarta(osCislo, myDB);// (DBRow, myDataBase, uKartaState.edit);
+                    zapujcKarta.ShowDialog();
                 }
             }
 

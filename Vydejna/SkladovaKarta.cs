@@ -62,15 +62,22 @@ namespace Vydejna
         private sKartaState state;
         private tableItemExistDelgStr testExistItem;
         private string oldJK;
+        private Hashtable DBRow;
 
 
-        public SkladovaKarta(Hashtable DBRow, vDatabase myDataBase, tableItemExistDelgStr testExistItem, sKartaState state = sKartaState.show)
+        public SkladovaKarta(vDatabase myDataBase, getDBLineDlg getLine, Int32 poradi, tableItemExistDelgStr testExistItem, sKartaState state = sKartaState.show)
         {
             InitializeComponent();
             this.state = state;
             this.testExistItem = testExistItem;
-            if (state == sKartaState.edit) setEditState();
+            this.poradi = poradi;
             myDB = myDataBase;
+            DBRow = null;
+            DBRow = getLine(poradi, DBRow);
+//            DBRow = myDB.getNaradiLine(poradi,DBRow);
+
+            if (state == sKartaState.edit) setEditState();
+
             dataGridViewZmeny.MultiSelect = false;
             dataGridViewZmeny.ReadOnly = true;
             dataGridViewZmeny.RowHeadersVisible = false;
@@ -101,6 +108,7 @@ namespace Vydejna
         public SkladovaKarta(vDatabase myDataBase, tableItemExistDelgStr testExistItem)
         {
             InitializeComponent();
+
             myDB = myDataBase;
             this.state = sKartaState.add;
             this.testExistItem = testExistItem;
@@ -133,7 +141,7 @@ namespace Vydejna
             numericUpDownUcetCena.Value = Convert.ToDecimal(DBRow["celkcena"]); //celkova cena
             numericUpDownMinStav.Value = Convert.ToInt32(DBRow["minimum"]);
             textBoxPoznamka.Text = Convert.ToString(DBRow["poznamka"]);
-            poradi = Convert.ToInt32(DBRow["poradi"]);
+//            poradi = Convert.ToInt32(DBRow["poradi"]);
         }
 
         private void label10_Click(object sender, EventArgs e)
@@ -158,9 +166,6 @@ namespace Vydejna
             dataGridViewZmeny.Columns.Clear();
             dataGridViewZmeny.DataSource = null;
             Application.DoEvents();
-
- //           myDB.openDB();
-
             if (myDB.DBIsOpened())
             {
                 try
@@ -168,16 +173,22 @@ namespace Vydejna
                     dataGridViewZmeny.DataSource = myDB.loadDataTableZmeny(poradi);  // zde zavolame tabulku                   
                     dataGridViewZmeny.RowHeadersVisible = false;
 
-                    dataGridViewZmeny.Columns[0].HeaderText = "Datum";
-                    dataGridViewZmeny.Columns[1].HeaderText = "Operace";
-                    dataGridViewZmeny.Columns[2].HeaderText = "Poznamka";
-                    dataGridViewZmeny.Columns[3].HeaderText = "Příjem";
-                    dataGridViewZmeny.Columns[4].HeaderText = "Výdej";
-                    dataGridViewZmeny.Columns[5].HeaderText = "Stav";
-                    dataGridViewZmeny.Columns[6].HeaderText = "Zapůjčeno na kartu";
+                    dataGridViewZmeny.Columns["datum"].HeaderText = "Datum";
+                    dataGridViewZmeny.Columns["stav"].HeaderText = "Operace";
+                    dataGridViewZmeny.Columns["poznamka"].HeaderText = "Poznamka";
+                    dataGridViewZmeny.Columns["prijem"].HeaderText = "Příjem";
+                    dataGridViewZmeny.Columns["vydej"].HeaderText = "Výdej";
+                    dataGridViewZmeny.Columns["zustatek"].HeaderText = "Stav";
+                    dataGridViewZmeny.Columns["zapkarta"].HeaderText = "Zapůjčeno na kartu";
+
+                    dataGridViewZmeny.Columns["poradi"].Visible = false;  
 
                     dataGridViewZmeny.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
 
+                    for (int i = 0; i < dataGridViewZmeny.Columns.Count; i++)
+                    {
+                        dataGridViewZmeny.Columns[i].SortMode = DataGridViewColumnSortMode.NotSortable;
+                    }
                 }
                 catch (Exception)
                 {
@@ -350,12 +361,76 @@ namespace Vydejna
 
         private void ContextMenu_opravaUdaju(object sender, EventArgs e)
         {
-            //
-            ZmenyOprava opravaZmen = new ZmenyOprava();
-            opravaZmen.ShowDialog();
+            if (dataGridViewZmeny.SelectedRows.Count > 0)
+            {
+                DataGridViewRow selectedRow = dataGridViewZmeny.SelectedRows[0];
+                Int32 zmenPoradi = Convert.ToInt32(selectedRow.Cells["poradi"].Value);
+                Point point1 = dataGridViewZmeny.CurrentCellAddress;
+                int x = this.Location.X + dataGridViewZmeny.Location.X;
+                int y = this.Location.Y + dataGridViewZmeny.Location.Y;
+
+                ZmenyOprava opravaZmen = new ZmenyOprava(myDB, poradi, zmenPoradi);
+
+                opravaZmen.StartPosition = FormStartPosition.Manual;
+                Point opravZmenyPoint = new Point(x, y);
+                opravaZmen.Location = opravZmenyPoint;
+
+                if (opravaZmen.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    //opravit radku
+                    if (myDB.editNewLineZmeny(poradi, zmenPoradi, opravaZmen.getPoznamka(), opravaZmen.getVevcislo()) == false)
+                    {
+                        MessageBox.Show("Záznam se nepodařilo opravit.");
+                    }
+                    //dataGridViewZmeny nema povoleno trideni nemusime tedy hledat spravny index
+                    Int32 dataRowIndex = dataGridViewZmeny.SelectedRows[0].Index;
+                    if (dataRowIndex > -1)
+                    {
+                        Hashtable DBZRow = myDB.getZmenyLine(poradi, zmenPoradi, null);
+                        (dataGridViewZmeny.DataSource as DataTable).Rows[dataRowIndex].SetField("datum", Convert.ToDateTime(DBZRow["datum"]));
+                        (dataGridViewZmeny.DataSource as DataTable).Rows[dataRowIndex].SetField("stav", Convert.ToString(DBZRow["stav"]));
+                        (dataGridViewZmeny.DataSource as DataTable).Rows[dataRowIndex].SetField("poznamka", Convert.ToString(DBZRow["poznamka"]));
+                        (dataGridViewZmeny.DataSource as DataTable).Rows[dataRowIndex].SetField("prijem", Convert.ToInt32(DBZRow["prijem"]));
+                        (dataGridViewZmeny.DataSource as DataTable).Rows[dataRowIndex].SetField("vydej", Convert.ToInt32(DBZRow["vydej"]));
+                        (dataGridViewZmeny.DataSource as DataTable).Rows[dataRowIndex].SetField("zustatek", Convert.ToInt32(DBZRow["zustatek"]));
+                        (dataGridViewZmeny.DataSource as DataTable).Rows[dataRowIndex].SetField("zapkarta", Convert.ToString(DBZRow["zapkarta"]));
+                    }
+
+                }
+            }
+        }
+
+        private void textBoxUcet_TextChanged(object sender, EventArgs e)
+        {
 
         }
 
+        private void zapujcenoNaKartuToolStripMenuItem_Click(object sender, EventArgs e)
+        {
 
+        }
+
+        private void contextMenu_ZapujcenoNaKartu(object sender, EventArgs e)
+        {
+            if (dataGridViewZmeny.SelectedRows.Count > 0)
+            {
+                DataGridViewRow selectedRow = dataGridViewZmeny.SelectedRows[0];
+                string osCislo = Convert.ToString(selectedRow.Cells["zapkarta"].Value);
+                if (osCislo.Trim() != "")
+                {
+                    if (myDB.tableOsobyItemExist(osCislo))
+                    {
+
+                        ZapujceneNaradiKarta zapujcKarta = new ZapujceneNaradiKarta(osCislo, myDB);// (DBRow, myDataBase, uKartaState.edit);
+                        zapujcKarta.ShowDialog();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Pracovník " + osCislo + "neexistuje v seznamu pracovníků");
+                    }
+                }
+            }
+
+        }
     }
 }

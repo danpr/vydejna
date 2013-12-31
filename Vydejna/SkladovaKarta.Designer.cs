@@ -54,6 +54,8 @@
             this.numericUpDownUcetStav = new System.Windows.Forms.NumericUpDown();
             this.textBoxPoznamka = new System.Windows.Forms.TextBox();
             this.dataGridViewZmeny = new System.Windows.Forms.DataGridView();
+            this.contextMenuStripZmeny = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.opravaÚdajuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonOK = new System.Windows.Forms.Button();
             this.numericUpDownCenaKs = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownUcetCenaKs = new System.Windows.Forms.NumericUpDown();
@@ -61,16 +63,15 @@
             this.numericUpDownFyzStav = new System.Windows.Forms.NumericUpDown();
             this.label14 = new System.Windows.Forms.Label();
             this.listBoxNazev = new System.Windows.Forms.ListBox();
-            this.contextMenuStripZmeny = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.opravaÚdajuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.zapujcenoNaKartuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMinStav)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownUcetStav)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewZmeny)).BeginInit();
+            this.contextMenuStripZmeny.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCenaKs)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownUcetCenaKs)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownUcetCena)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFyzStav)).BeginInit();
-            this.contextMenuStripZmeny.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -98,7 +99,7 @@
             this.buttonCancel.Location = new System.Drawing.Point(17, 461);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
-            this.buttonCancel.TabIndex = 15;
+            this.buttonCancel.TabIndex = 18;
             this.buttonCancel.Text = "Zrušit";
             this.buttonCancel.UseVisualStyleBackColor = true;
             this.buttonCancel.Click += new System.EventHandler(this.button1_Click);
@@ -139,7 +140,7 @@
             this.textBoxJK.Name = "textBoxJK";
             this.textBoxJK.ReadOnly = true;
             this.textBoxJK.Size = new System.Drawing.Size(318, 20);
-            this.textBoxJK.TabIndex = 2;
+            this.textBoxJK.TabIndex = 3;
             // 
             // textBoxCSN
             // 
@@ -148,7 +149,7 @@
             this.textBoxCSN.Name = "textBoxCSN";
             this.textBoxCSN.ReadOnly = true;
             this.textBoxCSN.Size = new System.Drawing.Size(161, 20);
-            this.textBoxCSN.TabIndex = 3;
+            this.textBoxCSN.TabIndex = 4;
             // 
             // textBoxDIN
             // 
@@ -157,7 +158,7 @@
             this.textBoxDIN.Name = "textBoxDIN";
             this.textBoxDIN.ReadOnly = true;
             this.textBoxDIN.Size = new System.Drawing.Size(161, 20);
-            this.textBoxDIN.TabIndex = 4;
+            this.textBoxDIN.TabIndex = 5;
             // 
             // label5
             // 
@@ -251,7 +252,7 @@
             this.textBoxRozmer.Name = "textBoxRozmer";
             this.textBoxRozmer.ReadOnly = true;
             this.textBoxRozmer.Size = new System.Drawing.Size(318, 20);
-            this.textBoxRozmer.TabIndex = 5;
+            this.textBoxRozmer.TabIndex = 6;
             // 
             // textBoxVyrobce
             // 
@@ -260,7 +261,7 @@
             this.textBoxVyrobce.Name = "textBoxVyrobce";
             this.textBoxVyrobce.ReadOnly = true;
             this.textBoxVyrobce.Size = new System.Drawing.Size(318, 20);
-            this.textBoxVyrobce.TabIndex = 6;
+            this.textBoxVyrobce.TabIndex = 7;
             // 
             // textBoxUcet
             // 
@@ -269,7 +270,8 @@
             this.textBoxUcet.Name = "textBoxUcet";
             this.textBoxUcet.ReadOnly = true;
             this.textBoxUcet.Size = new System.Drawing.Size(100, 20);
-            this.textBoxUcet.TabIndex = 10;
+            this.textBoxUcet.TabIndex = 11;
+            this.textBoxUcet.TextChanged += new System.EventHandler(this.textBoxUcet_TextChanged);
             // 
             // numericUpDownMinStav
             // 
@@ -283,7 +285,7 @@
             this.numericUpDownMinStav.Name = "numericUpDownMinStav";
             this.numericUpDownMinStav.ReadOnly = true;
             this.numericUpDownMinStav.Size = new System.Drawing.Size(100, 20);
-            this.numericUpDownMinStav.TabIndex = 11;
+            this.numericUpDownMinStav.TabIndex = 12;
             this.numericUpDownMinStav.Enter += new System.EventHandler(this.numericUpDownSK_Enter);
             // 
             // numericUpDownUcetStav
@@ -299,7 +301,7 @@
             this.numericUpDownUcetStav.Name = "numericUpDownUcetStav";
             this.numericUpDownUcetStav.ReadOnly = true;
             this.numericUpDownUcetStav.Size = new System.Drawing.Size(100, 20);
-            this.numericUpDownUcetStav.TabIndex = 12;
+            this.numericUpDownUcetStav.TabIndex = 13;
             this.numericUpDownUcetStav.Enter += new System.EventHandler(this.numericUpDownSK_Enter);
             // 
             // textBoxPoznamka
@@ -311,7 +313,7 @@
             this.textBoxPoznamka.Name = "textBoxPoznamka";
             this.textBoxPoznamka.ReadOnly = true;
             this.textBoxPoznamka.Size = new System.Drawing.Size(710, 20);
-            this.textBoxPoznamka.TabIndex = 13;
+            this.textBoxPoznamka.TabIndex = 15;
             // 
             // dataGridViewZmeny
             // 
@@ -326,7 +328,22 @@
             this.dataGridViewZmeny.Name = "dataGridViewZmeny";
             this.dataGridViewZmeny.ReadOnly = true;
             this.dataGridViewZmeny.Size = new System.Drawing.Size(710, 185);
-            this.dataGridViewZmeny.TabIndex = 27;
+            this.dataGridViewZmeny.TabIndex = 16;
+            // 
+            // contextMenuStripZmeny
+            // 
+            this.contextMenuStripZmeny.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.opravaÚdajuToolStripMenuItem,
+            this.zapujcenoNaKartuToolStripMenuItem});
+            this.contextMenuStripZmeny.Name = "contextMenuStripZmeny";
+            this.contextMenuStripZmeny.Size = new System.Drawing.Size(179, 70);
+            // 
+            // opravaÚdajuToolStripMenuItem
+            // 
+            this.opravaÚdajuToolStripMenuItem.Name = "opravaÚdajuToolStripMenuItem";
+            this.opravaÚdajuToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
+            this.opravaÚdajuToolStripMenuItem.Text = "Oprava údaju";
+            this.opravaÚdajuToolStripMenuItem.Click += new System.EventHandler(this.ContextMenu_opravaUdaju);
             // 
             // buttonOK
             // 
@@ -334,7 +351,7 @@
             this.buttonOK.Location = new System.Drawing.Point(730, 461);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(78, 23);
-            this.buttonOK.TabIndex = 14;
+            this.buttonOK.TabIndex = 17;
             this.buttonOK.Text = "Budiž";
             this.buttonOK.UseVisualStyleBackColor = true;
             this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
@@ -353,7 +370,7 @@
             this.numericUpDownCenaKs.Name = "numericUpDownCenaKs";
             this.numericUpDownCenaKs.ReadOnly = true;
             this.numericUpDownCenaKs.Size = new System.Drawing.Size(100, 20);
-            this.numericUpDownCenaKs.TabIndex = 7;
+            this.numericUpDownCenaKs.TabIndex = 8;
             this.numericUpDownCenaKs.Enter += new System.EventHandler(this.numericUpDownSK_Enter);
             // 
             // numericUpDownUcetCenaKs
@@ -369,7 +386,7 @@
             this.numericUpDownUcetCenaKs.Name = "numericUpDownUcetCenaKs";
             this.numericUpDownUcetCenaKs.ReadOnly = true;
             this.numericUpDownUcetCenaKs.Size = new System.Drawing.Size(100, 20);
-            this.numericUpDownUcetCenaKs.TabIndex = 8;
+            this.numericUpDownUcetCenaKs.TabIndex = 9;
             this.numericUpDownUcetCenaKs.ValueChanged += new System.EventHandler(this.numericUpDownUcetCenaKs_ValueChanged);
             this.numericUpDownUcetCenaKs.Enter += new System.EventHandler(this.numericUpDownSK_Enter);
             // 
@@ -387,7 +404,7 @@
             this.numericUpDownUcetCena.Name = "numericUpDownUcetCena";
             this.numericUpDownUcetCena.ReadOnly = true;
             this.numericUpDownUcetCena.Size = new System.Drawing.Size(100, 20);
-            this.numericUpDownUcetCena.TabIndex = 9;
+            this.numericUpDownUcetCena.TabIndex = 10;
             this.numericUpDownUcetCena.Enter += new System.EventHandler(this.numericUpDownSK_Enter);
             // 
             // numericUpDownFyzStav
@@ -403,7 +420,7 @@
             this.numericUpDownFyzStav.Name = "numericUpDownFyzStav";
             this.numericUpDownFyzStav.ReadOnly = true;
             this.numericUpDownFyzStav.Size = new System.Drawing.Size(100, 20);
-            this.numericUpDownFyzStav.TabIndex = 28;
+            this.numericUpDownFyzStav.TabIndex = 14;
             // 
             // label14
             // 
@@ -424,22 +441,15 @@
             this.listBoxNazev.Location = new System.Drawing.Point(436, 6);
             this.listBoxNazev.Name = "listBoxNazev";
             this.listBoxNazev.Size = new System.Drawing.Size(372, 147);
-            this.listBoxNazev.TabIndex = 31;
+            this.listBoxNazev.TabIndex = 2;
             this.listBoxNazev.Click += new System.EventHandler(this.listBoxNazev_Click);
             // 
-            // contextMenuStripZmeny
+            // zapujcenoNaKartuToolStripMenuItem
             // 
-            this.contextMenuStripZmeny.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.opravaÚdajuToolStripMenuItem});
-            this.contextMenuStripZmeny.Name = "contextMenuStripZmeny";
-            this.contextMenuStripZmeny.Size = new System.Drawing.Size(153, 48);            
-            // 
-            // opravaÚdajuToolStripMenuItem
-            // 
-            this.opravaÚdajuToolStripMenuItem.Name = "opravaÚdajuToolStripMenuItem";
-            this.opravaÚdajuToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.opravaÚdajuToolStripMenuItem.Text = "Oprava údaju";
-            this.opravaÚdajuToolStripMenuItem.Click += new System.EventHandler(this.ContextMenu_opravaUdaju);
+            this.zapujcenoNaKartuToolStripMenuItem.Name = "zapujcenoNaKartuToolStripMenuItem";
+            this.zapujcenoNaKartuToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
+            this.zapujcenoNaKartuToolStripMenuItem.Text = "Zapujceno na kartu";
+            this.zapujcenoNaKartuToolStripMenuItem.Click += new System.EventHandler(this.contextMenu_ZapujcenoNaKartu);
             // 
             // SkladovaKarta
             // 
@@ -486,11 +496,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMinStav)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownUcetStav)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewZmeny)).EndInit();
+            this.contextMenuStripZmeny.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCenaKs)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownUcetCenaKs)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownUcetCena)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFyzStav)).EndInit();
-            this.contextMenuStripZmeny.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -532,5 +542,6 @@
         private System.Windows.Forms.ListBox listBoxNazev;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripZmeny;
         private System.Windows.Forms.ToolStripMenuItem opravaÚdajuToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem zapujcenoNaKartuToolStripMenuItem;
     }
 }

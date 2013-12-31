@@ -36,7 +36,7 @@ namespace Vydejna
 
             loadSettingDB(nastaveniDB);
 
-            karta = new detailNone (); // karta - stavovy objekt - volame vzdy funkci karta.zobrazKartu 
+            karta = new detailNone (myDB, dataGridView1); // karta - stavovy objekt - volame vzdy funkci karta.zobrazKartu 
                                        //  a podle toho jakeho je karta typu se objevi prislusne okno
 
 
@@ -563,7 +563,7 @@ namespace Vydejna
                 labelView.Text = "Vytvářím tabulky";
                 contextMenuDisable();
                 dataGridView1.DataSource = null;
-                karta = new detailNone();
+                karta = new detailNone(null,null);
                 Application.DoEvents();
                 CreateDBTables();
                 labelView.Text = "";
@@ -578,7 +578,7 @@ namespace Vydejna
                 labelView.Text = "Ruším tabulky";
                 contextMenuDisable();
                 dataGridView1.DataSource = null;
-                karta = new detailNone();
+                karta = new detailNone(null, null);
                 Application.DoEvents();
                 DropDBTables();
                 labelView.Text = "";
@@ -595,7 +595,7 @@ namespace Vydejna
                 labelView.Text = "Mažu tabulky";
                 contextMenuDisable();
                 dataGridView1.DataSource = null;
-                karta = new detailNone();
+                karta = new detailNone(null,null);
                 Application.DoEvents();
                 DeleteDBTables();
                 labelView.Text = "";
@@ -614,7 +614,7 @@ namespace Vydejna
             Application.DoEvents();
             searchWindow = null;
             loadNaradiItems();
-            karta = new detailSklad();
+            karta = new detailSklad(myDB,dataGridView1);
             labelView.Text = "Výdejna nářadí přehled";
             contextMenuEnable(true,true,true);
         }
@@ -645,7 +645,7 @@ namespace Vydejna
 
                 }
 
-                karta.zobrazKartu(DBRow, myDB);
+                karta.zobrazKartu(DBRow);
             }
 
         }
@@ -658,7 +658,7 @@ namespace Vydejna
             Application.DoEvents();
             searchWindow = null;
             loadZrusenychItems();
-            karta = new detailZruseno();
+            karta = new detailZruseno(myDB,dataGridView1);
             contextMenuEnable(false);
             labelView.Text = "Archív zrušených karet";
         }
@@ -674,7 +674,7 @@ namespace Vydejna
             Application.DoEvents();
             searchWindow = null;
             loadVracenoItems();
-            karta = new detailVraceno();
+            karta = new detailVraceno(myDB,dataGridView1);
             contextMenuEnable(false);
             labelView.Text = "Vrácené nářadí do skladu";
         }
@@ -686,7 +686,7 @@ namespace Vydejna
             Application.DoEvents();
             searchWindow = null;
             loadOsobyItems();
-            karta = new detailOsoby();
+            karta = new detailOsoby(myDB,dataGridView1);
             contextMenuEnable(true,false,false,true);
             labelView.Text = "Pracovníci provozu";
         }
@@ -709,10 +709,8 @@ namespace Vydejna
                         DBRow.Remove(dataGridView1.Columns[i].Name);
                     }
                     DBRow.Add(dataGridView1.Columns[i].Name, dataGridView1[i, index].Value);
-
                 }
-
-                karta.zobrazKartu(DBRow,myDB);
+                karta.zobrazKartu(DBRow);
             }
 
         }
@@ -723,7 +721,7 @@ namespace Vydejna
             Application.DoEvents();
             searchWindow = null;
             loadPoskozenoItems();
-            karta = new detailPoskozeno();
+            karta = new detailPoskozeno(myDB,dataGridView1);
             contextMenuEnable(false);
             labelView.Text = "Poškozené nářadí";
           
@@ -963,7 +961,7 @@ namespace Vydejna
         {
             // pridani polozky
 
-            karta.pridejKartu(myDB,dataGridView1);
+            karta.pridejKartu();
         }
 
         private void ConMenuEditItem(object sender, EventArgs e)
@@ -973,7 +971,7 @@ namespace Vydejna
             if ( dataGridView1.SelectedRows.Count > 0)
             {
                 DBRow = getDBRowFromSelectedRow(DBRow);
-                karta.opravKartu(DBRow, myDB, dataGridView1);
+                karta.opravKartu(DBRow);
             }
 
         }
@@ -984,7 +982,7 @@ namespace Vydejna
             if (dataGridView1.SelectedRows.Count > 0)
             {
                 DBRow = getDBRowFromSelectedRow(DBRow);
-                karta.zrusKartu(DBRow, myDB, dataGridView1);
+                karta.zrusKartu(DBRow);
             }
         }
 
@@ -1003,7 +1001,7 @@ namespace Vydejna
             if (dataGridView1.SelectedRows.Count > 0)
             {
                 DBRow = getDBRowFromSelectedRow(DBRow);
-                karta.Prijem(DBRow, myDB, dataGridView1);
+                karta.Prijem(DBRow);
             }
         }
 
@@ -1012,7 +1010,7 @@ namespace Vydejna
             if (dataGridView1.SelectedRows.Count > 0)
             {
                 DBRow = getDBRowFromSelectedRow(DBRow);
-                karta.Poskozeno(DBRow, myDB, dataGridView1);
+                karta.Poskozeno(DBRow);
             }
         }
 
@@ -1021,7 +1019,7 @@ namespace Vydejna
             if (dataGridView1.SelectedRows.Count > 0)
             {
                 DBRow = getDBRowFromSelectedRow(DBRow);
-                karta.Zapujceno(DBRow, myDB);
+                karta.Zapujceno(DBRow);
             }
         }
 
@@ -1032,7 +1030,7 @@ namespace Vydejna
             Application.DoEvents();
             searchWindow = null;
             loadOsobyItems();
-            karta = new detailOsobyZapujcNaradi();
+            karta = new detailOsobyZapujcNaradi(myDB,dataGridView1);
             contextMenuEnable(true, false, false, true);
             labelView.Text = "Pracovníci provozu - Zapůjčení nářadí";
 

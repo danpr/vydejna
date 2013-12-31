@@ -28,32 +28,42 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBoxPoznamka = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.labelDatum = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.labelOperace = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textBoxVevcislo = new System.Windows.Forms.TextBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.labelPrijem = new System.Windows.Forms.Label();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.labelVydej = new System.Windows.Forms.Label();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.labelZustatek = new System.Windows.Forms.Label();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
-            this.labelDatum = new System.Windows.Forms.Label();
-            this.labelOperace = new System.Windows.Forms.Label();
+            this.labelOsCislo = new System.Windows.Forms.Label();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonOK = new System.Windows.Forms.Button();
+            this.buttonRetry = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
+            this.groupBox5.SuspendLayout();
+            this.groupBox6.SuspendLayout();
+            this.groupBox7.SuspendLayout();
+            this.groupBox8.SuspendLayout();
             this.SuspendLayout();
             // 
-            // textBox1
+            // textBoxPoznamka
             // 
-            this.textBox1.Location = new System.Drawing.Point(6, 18);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(203, 20);
-            this.textBox1.TabIndex = 0;
+            this.textBoxPoznamka.Location = new System.Drawing.Point(6, 18);
+            this.textBoxPoznamka.Name = "textBoxPoznamka";
+            this.textBoxPoznamka.Size = new System.Drawing.Size(203, 20);
+            this.textBoxPoznamka.TabIndex = 0;
+            this.textBoxPoznamka.TextChanged += new System.EventHandler(this.textBoxPoznamka_TextChanged);
             // 
             // groupBox1
             // 
@@ -65,6 +75,15 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Datum";
             // 
+            // labelDatum
+            // 
+            this.labelDatum.AutoSize = true;
+            this.labelDatum.Location = new System.Drawing.Point(6, 21);
+            this.labelDatum.Name = "labelDatum";
+            this.labelDatum.Size = new System.Drawing.Size(35, 13);
+            this.labelDatum.TabIndex = 0;
+            this.labelDatum.Text = "label1";
+            // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.labelOperace);
@@ -75,9 +94,20 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Operace";
             // 
+            // labelOperace
+            // 
+            this.labelOperace.AutoSize = true;
+            this.labelOperace.Location = new System.Drawing.Point(6, 21);
+            this.labelOperace.Name = "labelOperace";
+            this.labelOperace.Size = new System.Drawing.Size(35, 13);
+            this.labelOperace.TabIndex = 0;
+            this.labelOperace.Text = "label1";
+            // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.textBox1);
+            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox3.Controls.Add(this.textBoxPoznamka);
             this.groupBox3.Location = new System.Drawing.Point(221, 8);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(220, 48);
@@ -88,7 +118,8 @@
             // 
             // groupBox4
             // 
-            this.groupBox4.Controls.Add(this.textBox2);
+            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox4.Controls.Add(this.textBoxVevcislo);
             this.groupBox4.Location = new System.Drawing.Point(447, 8);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(127, 50);
@@ -96,15 +127,18 @@
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Pomocné inv. číslo";
             // 
-            // textBox2
+            // textBoxVevcislo
             // 
-            this.textBox2.Location = new System.Drawing.Point(6, 18);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(113, 20);
-            this.textBox2.TabIndex = 0;
+            this.textBoxVevcislo.Location = new System.Drawing.Point(6, 18);
+            this.textBoxVevcislo.Name = "textBoxVevcislo";
+            this.textBoxVevcislo.Size = new System.Drawing.Size(113, 20);
+            this.textBoxVevcislo.TabIndex = 0;
+            this.textBoxVevcislo.TextChanged += new System.EventHandler(this.textBoxVevcislo_TextChanged);
             // 
             // groupBox5
             // 
+            this.groupBox5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox5.Controls.Add(this.labelPrijem);
             this.groupBox5.Location = new System.Drawing.Point(580, 8);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(75, 50);
@@ -112,8 +146,19 @@
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Příjem";
             // 
+            // labelPrijem
+            // 
+            this.labelPrijem.AutoSize = true;
+            this.labelPrijem.Location = new System.Drawing.Point(15, 21);
+            this.labelPrijem.Name = "labelPrijem";
+            this.labelPrijem.Size = new System.Drawing.Size(35, 13);
+            this.labelPrijem.TabIndex = 0;
+            this.labelPrijem.Text = "label1";
+            // 
             // groupBox6
             // 
+            this.groupBox6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox6.Controls.Add(this.labelVydej);
             this.groupBox6.Location = new System.Drawing.Point(661, 8);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(75, 50);
@@ -121,8 +166,19 @@
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Výdej";
             // 
+            // labelVydej
+            // 
+            this.labelVydej.AutoSize = true;
+            this.labelVydej.Location = new System.Drawing.Point(16, 21);
+            this.labelVydej.Name = "labelVydej";
+            this.labelVydej.Size = new System.Drawing.Size(35, 13);
+            this.labelVydej.TabIndex = 0;
+            this.labelVydej.Text = "label1";
+            // 
             // groupBox7
             // 
+            this.groupBox7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox7.Controls.Add(this.labelZustatek);
             this.groupBox7.Location = new System.Drawing.Point(742, 8);
             this.groupBox7.Name = "groupBox7";
             this.groupBox7.Size = new System.Drawing.Size(75, 50);
@@ -130,8 +186,19 @@
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Zůstatek";
             // 
+            // labelZustatek
+            // 
+            this.labelZustatek.AutoSize = true;
+            this.labelZustatek.Location = new System.Drawing.Point(15, 21);
+            this.labelZustatek.Name = "labelZustatek";
+            this.labelZustatek.Size = new System.Drawing.Size(35, 13);
+            this.labelZustatek.TabIndex = 0;
+            this.labelZustatek.Text = "label1";
+            // 
             // groupBox8
             // 
+            this.groupBox8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox8.Controls.Add(this.labelOsCislo);
             this.groupBox8.Location = new System.Drawing.Point(823, 8);
             this.groupBox8.Name = "groupBox8";
             this.groupBox8.Size = new System.Drawing.Size(84, 50);
@@ -139,29 +206,20 @@
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "Zapůjčeno";
             // 
-            // labelDatum
+            // labelOsCislo
             // 
-            this.labelDatum.AutoSize = true;
-            this.labelDatum.Location = new System.Drawing.Point(6, 21);
-            this.labelDatum.Name = "labelDatum";
-            this.labelDatum.Size = new System.Drawing.Size(35, 13);
-            this.labelDatum.TabIndex = 0;
-            this.labelDatum.Text = "label1";
-            // 
-            // labelOperace
-            // 
-            this.labelOperace.AutoSize = true;
-            this.labelOperace.Location = new System.Drawing.Point(6, 21);
-            this.labelOperace.Name = "labelOperace";
-            this.labelOperace.Size = new System.Drawing.Size(35, 13);
-            this.labelOperace.TabIndex = 0;
-            this.labelOperace.Text = "label1";
+            this.labelOsCislo.AutoSize = true;
+            this.labelOsCislo.Location = new System.Drawing.Point(15, 21);
+            this.labelOsCislo.Name = "labelOsCislo";
+            this.labelOsCislo.Size = new System.Drawing.Size(35, 13);
+            this.labelOsCislo.TabIndex = 0;
+            this.labelOsCislo.Text = "label1";
             // 
             // buttonCancel
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(12, 73);
+            this.buttonCancel.Location = new System.Drawing.Point(12, 68);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 16;
@@ -171,18 +229,31 @@
             // buttonOK
             // 
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonOK.Location = new System.Drawing.Point(829, 73);
+            this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.buttonOK.Location = new System.Drawing.Point(829, 68);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(78, 23);
             this.buttonOK.TabIndex = 17;
             this.buttonOK.Text = "Budiž";
             this.buttonOK.UseVisualStyleBackColor = true;
             // 
+            // buttonRetry
+            // 
+            this.buttonRetry.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonRetry.Location = new System.Drawing.Point(93, 68);
+            this.buttonRetry.Name = "buttonRetry";
+            this.buttonRetry.Size = new System.Drawing.Size(78, 23);
+            this.buttonRetry.TabIndex = 18;
+            this.buttonRetry.Text = "Obnovit";
+            this.buttonRetry.UseVisualStyleBackColor = true;
+            this.buttonRetry.Click += new System.EventHandler(this.buttonRetry_Click);
+            // 
             // ZmenyOprava
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(919, 108);
+            this.ClientSize = new System.Drawing.Size(919, 103);
+            this.Controls.Add(this.buttonRetry);
             this.Controls.Add(this.buttonOK);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.groupBox8);
@@ -193,6 +264,7 @@
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
+            this.MinimumSize = new System.Drawing.Size(927, 137);
             this.Name = "ZmenyOprava";
             this.Text = "Změna údajů";
             this.groupBox1.ResumeLayout(false);
@@ -203,18 +275,26 @@
             this.groupBox3.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
+            this.groupBox6.ResumeLayout(false);
+            this.groupBox6.PerformLayout();
+            this.groupBox7.ResumeLayout(false);
+            this.groupBox7.PerformLayout();
+            this.groupBox8.ResumeLayout(false);
+            this.groupBox8.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBoxPoznamka;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox textBoxVevcislo;
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.GroupBox groupBox7;
@@ -223,5 +303,10 @@
         private System.Windows.Forms.Label labelOperace;
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.Button buttonOK;
+        private System.Windows.Forms.Button buttonRetry;
+        private System.Windows.Forms.Label labelPrijem;
+        private System.Windows.Forms.Label labelVydej;
+        private System.Windows.Forms.Label labelZustatek;
+        private System.Windows.Forms.Label labelOsCislo;
     }
 }

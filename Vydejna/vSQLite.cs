@@ -1365,7 +1365,7 @@ namespace Vydejna
                                  DateTime DBdatum, string DBvyrobek, string DBkonto)
         {
 
-            string commandString1 = "UPDATE poskozeno set jmeno = ?, cislo =?, dilna = ?, pracoviste = ?, vyrobek = ?, nazev = ?, rozmer = ?, pocetks = ?, cena = ?, datum = ?, csn = ?, krjmeno = ?, konto = ?, jk = ? " +
+            string commandString1 = "UPDATE poskozeno set jmeno = ?, oscislo =?, dilna = ?, pracoviste = ?, vyrobek = ?, nazev = ?, rozmer = ?, pocetks = ?, cena = ?, datum = ?, csn = ?, krjmeno = ?, konto = ?, jk = ? " +
                   "where  poradi = ?";
 
             SQLiteTransaction transaction = null;
@@ -1456,7 +1456,7 @@ namespace Vydejna
                                  DateTime DBdatum, string DBvyrobek, string DBkonto)
         {
 
-            string commandString1 = "UPDATE vraceno set jmeno = ?, cislo =?, dilna = ?, pracoviste = ?, vyrobek = ?, nazev = ?, rozmer = ?, pocetks = ?, cena = ?, datum = ?, csn = ?, krjmeno = ?, konto = ?, jk = ? " +
+            string commandString1 = "UPDATE vraceno set jmeno = ?, oscislo =?, dilna = ?, pracoviste = ?, vyrobek = ?, nazev = ?, rozmer = ?, pocetks = ?, cena = ?, datum = ?, csn = ?, krjmeno = ?, konto = ?, jk = ? " +
                   "where  poradi = ?";
 
             SQLiteTransaction transaction = null;
@@ -1962,6 +1962,47 @@ namespace Vydejna
             }
             return 0;
         }
+
+
+        public override Boolean editNewLineZmeny(Int32 DBParPoradi, Int32 DBPoradi, string DBPoznamka, string DBVevcislo)
+        {
+            SQLiteTransaction transaction = null;
+
+            if (DBIsOpened())
+            {
+                string commandString1 = "UPDATE zmeny SET poznamka =  ?, vevcislo = ? WHERE parporadi = ? AND poradi = ? ";
+                try
+                {
+                    try
+                    {
+                        transaction = (myDBConn as SQLiteConnection).BeginTransaction(System.Data.IsolationLevel.ReadCommitted);
+                    }
+                    catch
+                    {
+                    }
+
+                    SQLiteCommand cmd1 = new SQLiteCommand(commandString1, myDBConn as SQLiteConnection);
+                    cmd1.Parameters.AddWithValue("@poznamka", DBPoznamka);
+                    cmd1.Parameters.AddWithValue("@vevcislo", DBVevcislo);
+                    cmd1.Parameters.AddWithValue("@parporadi", DBParPoradi);
+                    cmd1.Parameters.AddWithValue("@poradi", DBPoradi);
+                    cmd1.Transaction = transaction;
+                    Int32 errCode = cmd1.ExecuteNonQuery();
+                }
+                catch (Exception)
+                {
+                    // doslo k chybe
+                    if (transaction != null)
+                    {
+                        (transaction as SQLiteTransaction).Rollback();
+                    }
+                    return false;  // chyba
+                }
+                return true;
+            }
+            return false;
+        }
+
 
 
         public override Int32 addNewLineZmenyAndVraceno(Int32 DBporadi, DateTime DBdatum, Int32 DBks, string DBpoznamka, string DBosCislo)
