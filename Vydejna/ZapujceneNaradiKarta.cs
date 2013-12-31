@@ -187,10 +187,6 @@ namespace Vydejna
 
         }
 
-        private void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
-        {
-
-        }
 
         private void vraceníNářadíToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -263,10 +259,6 @@ namespace Vydejna
             }
         }
 
-        private void informaceONářadíToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void informaceONaradiToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -274,7 +266,7 @@ namespace Vydejna
             {
                 DataGridViewRow myRow = dataGridViewZmeny.SelectedRows[0];
 
-                Int32 nporadi = 0;
+                Int32 nporadi = -1;
 
                 for (int i = 0; i < dataGridViewZmeny.ColumnCount; i++)
                 {
@@ -284,9 +276,14 @@ namespace Vydejna
                     }
                 }
 
-                SkladovaKarta sklKarta = new SkladovaKarta(myDB, new getDBLineDlg(myDB.getNaradiLine), nporadi, new tableItemExistDelgStr(myDB.tableNaradiItemExist));
+                if (nporadi != -1)
+                {
+                    Hashtable infoDBRow = myDB.getNaradiLine(nporadi,null);
+
+                SkladovaKarta sklKarta = new SkladovaKarta(myDB, infoDBRow, nporadi, new tableItemExistDelgStr(myDB.tableNaradiItemExist));
                 sklKarta.setWinName("Skladová karta");
                 sklKarta.ShowDialog();
+                }
             }
 
         }

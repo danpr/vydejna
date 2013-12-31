@@ -61,23 +61,23 @@ namespace Vydejna
         }
 
 
-        private Int32 getPoradi()
-        {
-            if (dataGridView1.SelectedRows.Count > 0)
-            {
+//        private Int32 getPoradi()
+//        {
+//            if (dataGridView1.SelectedRows.Count > 0)
+//            {
 
-                DataGridViewRow myRow = dataGridView1.SelectedRows[0];
+//                DataGridViewRow myRow = dataGridView1.SelectedRows[0];
 
-                for (int i = 0; i < dataGridView1.ColumnCount; i++)
-                {
-                    if (dataGridView1.Columns[i].Name == "poradi")
-                    {
-                        return Convert.ToInt32( myRow.Cells[i].Value);
-                    }
-                }
-            }
-            return -1;
-        }
+//                for (int i = 0; i < dataGridView1.ColumnCount; i++)
+//                {
+//                    if (dataGridView1.Columns[i].Name == "poradi")
+//                    {
+//                        return Convert.ToInt32( myRow.Cells[i].Value);
+//                    }
+//                }
+//            }
+//            return -1;
+//        }
 
 
         private Hashtable getDBRowFromSelectedRow(Hashtable newDBRow)
@@ -88,9 +88,7 @@ namespace Vydejna
             }
             if (dataGridView1.SelectedRows.Count > 0)
             {
-
                 DataGridViewRow myRow = dataGridView1.SelectedRows[0];
-
                 for (int i = 0; i < dataGridView1.ColumnCount; i++)
                 {
                     if (newDBRow.ContainsKey(dataGridView1.Columns[i].Name))

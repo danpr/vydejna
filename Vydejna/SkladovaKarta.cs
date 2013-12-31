@@ -62,19 +62,15 @@ namespace Vydejna
         private sKartaState state;
         private tableItemExistDelgStr testExistItem;
         private string oldJK;
-        private Hashtable DBRow;
 
 
-        public SkladovaKarta(vDatabase myDataBase, getDBLineDlg getLine, Int32 poradi, tableItemExistDelgStr testExistItem, sKartaState state = sKartaState.show)
+        public SkladovaKarta(vDatabase myDataBase, Hashtable DBRow, Int32 poradi, tableItemExistDelgStr testExistItem, sKartaState state = sKartaState.show)
         {
             InitializeComponent();
             this.state = state;
             this.testExistItem = testExistItem;
             this.poradi = poradi;
             myDB = myDataBase;
-            DBRow = null;
-            DBRow = getLine(poradi, DBRow);
-//            DBRow = myDB.getNaradiLine(poradi,DBRow);
 
             if (state == sKartaState.edit) setEditState();
 
@@ -199,7 +195,6 @@ namespace Vydejna
 //                    myDB.closeDB();
                 }
             }
-//            myDB.myDBConn.Dispose();
         }
 
 
@@ -212,9 +207,6 @@ namespace Vydejna
             numericUpDownUcetStav.Enabled = true;
             numericUpDownFyzStav.ReadOnly = false;
             numericUpDownFyzStav.Enabled = true;
-        //    textBoxJK.ReadOnly = true;
-
-            
         }
         
         private void setAddState()
@@ -400,10 +392,6 @@ namespace Vydejna
             }
         }
 
-        private void textBoxUcet_TextChanged(object sender, EventArgs e)
-        {
-
-        }
 
         private void zapujcenoNaKartuToolStripMenuItem_Click(object sender, EventArgs e)
         {

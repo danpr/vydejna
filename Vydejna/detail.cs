@@ -27,7 +27,7 @@ namespace Vydejna
         /// </summary>
         /// <param name="DBRow"> Radka DB tabulky</param>
         /// <returns>Hodnotu sloupce poradi</returns>
-        public Int32 findPoradiInRow(Hashtable DBRow)
+        public static Int32 findPoradiInRow(Hashtable DBRow)
         {
             if (DBRow != null)
             {
@@ -48,7 +48,7 @@ namespace Vydejna
 /// <param name="name">Jmeno prohledavaneho sloupce</param>
 /// <param name="value">Hledana hodnota</param>
 /// <returns></returns>
-        public Int32 findIndex(DataTable myDT, string name, Int32 value)
+        public static Int32 findIndex(DataTable myDT, string name, Int32 value)
         {
             if (myDT == null) return -1;
             if (name.Trim() == "") return -1;
@@ -67,7 +67,7 @@ namespace Vydejna
         }
 
 
-        public Int32 findIndex(DataTable myDT, string name, string value)
+        public static Int32 findIndex(DataTable myDT, string name, string value)
         {
             if (myDT == null) return -1;
             if (name.Trim() == "") return -1;
@@ -180,7 +180,7 @@ namespace Vydejna
         {
             if ((myDB != null) && (myDB.DBIsOpened()))
             {
-                SkladovaKarta sklKarta = new SkladovaKarta(myDB, new getDBLineDlg(myDB.getNaradiLine), findPoradiInRow (DBRow), new tableItemExistDelgStr(myDB.tableNaradiItemExist));
+                SkladovaKarta sklKarta = new SkladovaKarta(myDB, DBRow, findPoradiInRow (DBRow), new tableItemExistDelgStr(myDB.tableNaradiItemExist));
                 sklKarta.setWinName("Skladová karta");
                 sklKarta.ShowDialog();
 
@@ -188,9 +188,6 @@ namespace Vydejna
                 Hashtable newDBRow = null;
                 newDBRow = myDB.getNaradiLine(poradi, newDBRow);
                 reloadRow((myDataGridView.DataSource as DataTable), findIndex((myDataGridView.DataSource as DataTable), "poradi", poradi), newDBRow);
-
-
-
             }
         }
 
@@ -230,7 +227,7 @@ namespace Vydejna
             if ((myDB != null) && (myDB.DBIsOpened()))
             {
                 Int32 poradi = findPoradiInRow(DBRow);
-                SkladovaKarta sklKarta = new SkladovaKarta(myDB, new getDBLineDlg(myDB.getNaradiLine), poradi, new tableItemExistDelgStr(myDB.tableNaradiItemExist), sKartaState.edit);
+                SkladovaKarta sklKarta = new SkladovaKarta(myDB, DBRow, poradi, new tableItemExistDelgStr(myDB.tableNaradiItemExist), sKartaState.edit);
                 if (sklKarta.ShowDialog() == DialogResult.OK)
                 {
                     SkladovaKarta.messager mesenger = sklKarta.getMesseger();
@@ -402,8 +399,6 @@ namespace Vydejna
                 }
             }
         }
-
-
     }
 
 
@@ -418,7 +413,7 @@ namespace Vydejna
         {
             if ((myDB != null) && (myDB.DBIsOpened()))
             {
-                SkladovaKarta sklKarta = new SkladovaKarta(myDB, new getDBLineDlg(myDB.getZrusenoLine), findPoradiInRow(DBRow), new tableItemExistDelgStr(myDB.tableZrusenoItemExist));
+                SkladovaKarta sklKarta = new SkladovaKarta(myDB, DBRow, findPoradiInRow(DBRow), new tableItemExistDelgStr(myDB.tableZrusenoItemExist));
                 sklKarta.setWinName("Zrušená karta");
                 sklKarta.ShowDialog();
             }
@@ -428,7 +423,7 @@ namespace Vydejna
         {
             if ((myDB != null) && (myDB.DBIsOpened()))
             {
-                SkladovaKarta sklKarta = new SkladovaKarta(myDB, new getDBLineDlg(myDB.getZrusenoLine), findPoradiInRow(DBRow), new tableItemExistDelgStr(myDB.tableZrusenoItemExist), sKartaState.edit);
+                SkladovaKarta sklKarta = new SkladovaKarta(myDB, DBRow, findPoradiInRow(DBRow), new tableItemExistDelgStr(myDB.tableZrusenoItemExist), sKartaState.edit);
                 sklKarta.setWinName("Zrušená karta");
                 if (sklKarta.ShowDialog() == DialogResult.OK)
                 {

@@ -271,7 +271,6 @@
             this.textBoxUcet.ReadOnly = true;
             this.textBoxUcet.Size = new System.Drawing.Size(100, 20);
             this.textBoxUcet.TabIndex = 11;
-            this.textBoxUcet.TextChanged += new System.EventHandler(this.textBoxUcet_TextChanged);
             // 
             // numericUpDownMinStav
             // 
