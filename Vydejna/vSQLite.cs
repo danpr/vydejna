@@ -1745,13 +1745,13 @@ namespace Vydejna
                     cmdr1.Parameters.AddWithValue("@poradi", DBporadi);
                     cmdr1.Transaction = transaction;
                     SQLiteDataReader pujcReader = cmdr1.ExecuteReader();
-                    if (pujcReader.Read())
+                    if (pujcReader.Read()) // nalezeno v seznamu pujcenych
                     {
-                    if (transaction != null)
-                    {
-                        (transaction as SQLiteTransaction).Rollback();
-                    }
-                    return false;  // chyba
+                        if (transaction != null)
+                        {
+                            (transaction as SQLiteTransaction).Rollback();
+                        }
+                        return false;  // chyba
                     }
 
 

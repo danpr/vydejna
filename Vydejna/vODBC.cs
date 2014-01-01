@@ -1845,16 +1845,17 @@ namespace Vydejna
         }
 
 
+
         public override Boolean moveNaradiToNewKaret(Int32 DBporadi)
         {
             OdbcTransaction transaction = null;
 
             if (DBIsOpened())
             {
+                string commandReadString1 = "select oscislo from pujceno where nporadi = ?";
+                string commandString2 = "DELETE FROM naradi  where poradi = ? ";
                 string commandString1 = "INSERT INTO karta ( poradi, nazev, jk, normacsn, normadin, vyrobce, cena, poznamka, minimum, celkcena, ucetstav, fyzstav, rozmer, analucet, tdate, stredisko, kodzmeny, druh, odpis, zavod ) " +
                       "SELECT poradi, nazev, jk, normacsn, normadin, vyrobce, cena, poznamka, minimum, celkcena, ucetstav, fyzstav, rozmer, analucet, tdate, stredisko, kodzmeny, druh, odpis, zavod FROM naradi WHERE poradi = ?";
-
-                string commandString2 = "DELETE FROM naradi  where poradi = ? ";
 
 
                 try
@@ -1867,31 +1868,44 @@ namespace Vydejna
                     {
                     }
 
-                    // prekopirujeme
+
+                    OdbcCommand cmdr1 = new OdbcCommand(commandReadString1, myDBConn as OdbcConnection);
+                    cmdr1.Parameters.AddWithValue("@poradi", DBporadi);
+                    cmdr1.Transaction = transaction;
+                    OdbcDataReader pujcReader = cmdr1.ExecuteReader();
+                    if (pujcReader.Read()) // nalezeno v seznamu pujcenych
+                    {
+                        if (transaction != null)
+                        {
+                            (transaction as OdbcTransaction).Rollback();
+                        }
+                        return false;  // chyba
+                    }
+
+
+
                     OdbcCommand cmd1 = new OdbcCommand(commandString1, myDBConn as OdbcConnection);
-                    OdbcParameter p1 = new OdbcParameter("p1", OdbcType.Int);
+                    OdbcParameter p1 = new OdbcParameter("p1", DbType.Int32);
                     p1.Value = DBporadi;
                     cmd1.Parameters.Add(p1);
 
                     cmd1.Transaction = transaction;
                     cmd1.ExecuteNonQuery();
 
-                    //zrusime
+
+
                     OdbcCommand cmd2 = new OdbcCommand(commandString2, myDBConn as OdbcConnection);
-                    OdbcParameter p2 = new OdbcParameter("p2", OdbcType.Int);
+                    OdbcParameter p2 = new OdbcParameter("p2", DbType.Int32);
                     p2.Value = DBporadi;
                     cmd2.Parameters.Add(p2);
 
                     cmd2.Transaction = transaction;
                     cmd2.ExecuteNonQuery();
 
-
                     if (transaction != null)
                     {
                         (transaction as OdbcTransaction).Commit();
                     }
-
-
                 }
                 catch (Exception)
                 {
@@ -1906,7 +1920,6 @@ namespace Vydejna
             }
             return false;  // database neni otevrena
         }
-
 
 
 

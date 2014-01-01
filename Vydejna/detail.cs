@@ -180,14 +180,15 @@ namespace Vydejna
         {
             if ((myDB != null) && (myDB.DBIsOpened()))
             {
+                Int32 poradi = findPoradiInRow(DBRow);
+                DBRow = myDB.getNaradiLine(poradi,DBRow);
+
                 SkladovaKarta sklKarta = new SkladovaKarta(myDB, DBRow, findPoradiInRow (DBRow), new tableItemExistDelgStr(myDB.tableNaradiItemExist));
                 sklKarta.setWinName("Skladová karta");
                 sklKarta.ShowDialog();
 
-                Int32 poradi = findPoradiInRow(DBRow);
-                Hashtable newDBRow = null;
-                newDBRow = myDB.getNaradiLine(poradi, newDBRow);
-                reloadRow((myDataGridView.DataSource as DataTable), findIndex((myDataGridView.DataSource as DataTable), "poradi", poradi), newDBRow);
+                DBRow = myDB.getNaradiLine(poradi, DBRow);
+                reloadRow((myDataGridView.DataSource as DataTable), findIndex((myDataGridView.DataSource as DataTable), "poradi", poradi), DBRow);
             }
         }
 
@@ -227,6 +228,7 @@ namespace Vydejna
             if ((myDB != null) && (myDB.DBIsOpened()))
             {
                 Int32 poradi = findPoradiInRow(DBRow);
+                DBRow = myDB.getNaradiLine(poradi,DBRow);
                 SkladovaKarta sklKarta = new SkladovaKarta(myDB, DBRow, poradi, new tableItemExistDelgStr(myDB.tableNaradiItemExist), sKartaState.edit);
                 if (sklKarta.ShowDialog() == DialogResult.OK)
                 {
@@ -300,10 +302,10 @@ namespace Vydejna
                         MessageBox.Show("Zrušení karty se nezdařilo.");
                     }
                 }
-            }
-            else
-            {
-                MessageBox.Show("Na kartě jsou zapůjčené položky, nelze protp zrušit. Lituji");
+                else
+                {
+                    MessageBox.Show("Na kartě jsou zapůjčené položky, nelze proto zrušit. Lituji");
+                }
             }
         }
 
