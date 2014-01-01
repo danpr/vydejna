@@ -341,7 +341,6 @@ namespace Vydejna
                                     int zustatek = Convert.ToInt32(DBrow["zmeny_zustatek"]);
                                     if (zustatek  != ucetStav) MessageBox.Show("Pozor! Patrně nesouhlasí stav karet a učetní stav položky.");
                                 }
-
                                 if (DBrow.ContainsKey("fyzstav"))
                                 {
                                     fyzStav =  Convert.ToInt32(DBrow["fyzstav"]);
