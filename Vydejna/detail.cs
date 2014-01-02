@@ -41,6 +41,22 @@ namespace Vydejna
             return 0;
         }
 
+
+        public static string findOsCisloInRow(Hashtable DBRow)
+        {
+            if (DBRow != null)
+            {
+                string osCislo = "";
+                if (DBRow.Contains("oscislo"))
+                {
+                    osCislo = Convert.ToString(DBRow["oscislo"]);
+                    return osCislo;
+                }
+            }
+            return "";
+        }
+
+
 /// <summary>
 /// Najde v datove tabulce cislo radku jejiz sloupec name ma hodnotu value
 /// </summary>
@@ -422,9 +438,14 @@ namespace Vydejna
         {
             if ((myDB != null) && (myDB.DBIsOpened()))
             {
+
+                Int32 poradi = findPoradiInRow(DBRow);
+                DBRow = myDB.getZrusenoLine(poradi, DBRow);
                 SkladovaKarta sklKarta = new SkladovaKarta(myDB, DBRow, findPoradiInRow(DBRow), new tableItemExistDelgStr(myDB.tableZrusenoItemExist));
                 sklKarta.setWinName("Zrušená karta");
                 sklKarta.ShowDialog();
+                DBRow = myDB.getZrusenoLine(poradi, DBRow);
+                reloadRow((myDataGridView.DataSource as DataTable), findIndex((myDataGridView.DataSource as DataTable), "poradi", poradi), DBRow);
             }
         }
 
@@ -432,6 +453,8 @@ namespace Vydejna
         {
             if ((myDB != null) && (myDB.DBIsOpened()))
             {
+                Int32 poradi = findPoradiInRow(DBRow);
+                DBRow = myDB.getZrusenoLine(poradi, DBRow);
                 SkladovaKarta sklKarta = new SkladovaKarta(myDB, DBRow, findPoradiInRow(DBRow), new tableItemExistDelgStr(myDB.tableZrusenoItemExist), sKartaState.edit);
                 sklKarta.setWinName("Zrušená karta");
                 if (sklKarta.ShowDialog() == DialogResult.OK)
@@ -469,6 +492,13 @@ namespace Vydejna
                     }
 
                 }
+                else
+                {
+                    Hashtable newDBRow = null;
+                    newDBRow = myDB.getZrusenoLine(poradi, newDBRow);
+                    reloadRow((myDataGridView.DataSource as DataTable), findIndex((myDataGridView.DataSource as DataTable), "poradi", poradi), newDBRow);
+                }
+
             }
 
         }
@@ -527,15 +557,23 @@ namespace Vydejna
 
         public override void zobrazKartu(Hashtable DBRow)
         {
+            Int32 poradi = findPoradiInRow(DBRow);
+            DBRow = myDB.getPoskozenoLine(poradi, DBRow);
+
             VraceneKarta poskozKarta = new VraceneKarta(DBRow);
             poskozKarta.setWinName("Poškozeno");
             poskozKarta.ShowDialog();
+            DBRow = myDB.getPoskozenoLine(poradi, DBRow);
+            reloadRow((myDataGridView.DataSource as DataTable), findIndex((myDataGridView.DataSource as DataTable), "poradi", poradi), DBRow);
+
         }
 
         public override void opravKartu(Hashtable DBRow)
         {
             if ((myDB != null) && (myDB.DBIsOpened()))
             {
+                Int32 poradi = findPoradiInRow(DBRow);
+                DBRow = myDB.getPoskozenoLine(poradi, DBRow);
                 VraceneKarta poskozKarta = new VraceneKarta(DBRow, myDB, new tableItemExistDelgInt(myDB.tablePoskozenoItemExist), vKartaState.edit);
                 poskozKarta.setWinName("Poškozeno");
                 if (poskozKarta.ShowDialog() == DialogResult.OK)
@@ -573,9 +611,14 @@ namespace Vydejna
                         MessageBox.Show("Opravení karty se nezdařilo.");
                     }
                 }
+                else
+                {
+                    Hashtable newDBRow = null;
+                    newDBRow = myDB.getPoskozenoLine(poradi, newDBRow);
+                    reloadRow((myDataGridView.DataSource as DataTable), findIndex((myDataGridView.DataSource as DataTable), "poradi", poradi), newDBRow);
+                }
             }
         }
-
     }
 
 
@@ -591,14 +634,20 @@ namespace Vydejna
 
         public override void zobrazKartu(Hashtable DBRow)
         {
+            Int32 poradi = findPoradiInRow(DBRow);
+            DBRow = myDB.getVracenoLine(poradi, DBRow);
             VraceneKarta vracKarta = new VraceneKarta(DBRow);
             vracKarta.setWinName("Vraceno");
             vracKarta.ShowDialog();
+            DBRow = myDB.getVracenoLine(poradi, DBRow);
+            reloadRow((myDataGridView.DataSource as DataTable), findIndex((myDataGridView.DataSource as DataTable), "poradi", poradi), DBRow);
         }
        
         
         public override void opravKartu(Hashtable DBRow)
         {
+            Int32 poradi = findPoradiInRow(DBRow);
+            DBRow = myDB.getVracenoLine(poradi, DBRow);
             VraceneKarta vracKarta = new VraceneKarta(DBRow, myDB, new tableItemExistDelgInt(myDB.tablePoskozenoItemExist), vKartaState.edit);
             vracKarta.setWinName("Vraceno");
             if (vracKarta.ShowDialog() == DialogResult.OK)
@@ -638,8 +687,13 @@ namespace Vydejna
                 }
 
             }
+            else
+            {
+                Hashtable newDBRow = null;
+                newDBRow = myDB.getVracenoLine(poradi, newDBRow);
+                reloadRow((myDataGridView.DataSource as DataTable), findIndex((myDataGridView.DataSource as DataTable), "poradi", poradi), newDBRow);
+            }
         }
-
     }
 
 
@@ -674,8 +728,15 @@ namespace Vydejna
 
         public override void zobrazKartu(Hashtable DBRow)
         {
+            string osCislo = findOsCisloInRow(DBRow);
+            DBRow = myDB.getOsobyLine(osCislo, DBRow);
             PracovniciKarta pracKarta = new PracovniciKarta(DBRow, myDB);
             pracKarta.ShowDialog();
+
+            DBRow = myDB.getOsobyLine(osCislo, DBRow);
+            reloadRow((myDataGridView.DataSource as DataTable), findIndex((myDataGridView.DataSource as DataTable), "oscislo", osCislo), DBRow);
+
+
         }
 
         public override void pridejKartu()
@@ -710,12 +771,12 @@ namespace Vydejna
         {
             if ((myDB != null) && (myDB.DBIsOpened()))
             {
+                string osCislo = findOsCisloInRow(DBRow);
+                DBRow = myDB.getOsobyLine(osCislo, DBRow);
                 PracovniciKarta pracKarta = new PracovniciKarta(DBRow, myDB, uKartaState.edit);
                 if (pracKarta.ShowDialog() == DialogResult.OK)
                 {
                     PracovniciKarta.messager mesenger = pracKarta.getMesseger();
-
-
                     Boolean updateIsOk = myDB.editNewLineOsoby(mesenger.prijmeni, mesenger.jmeno, mesenger.ulice, mesenger.mesto,
                                                  mesenger.psc, mesenger.telHome, mesenger.oscislo, mesenger.stredisko,
                                                  mesenger.cisZnamky, mesenger.oddeleni, mesenger.pracoviste, mesenger.telZam, mesenger.poznamka);
@@ -750,9 +811,14 @@ namespace Vydejna
                     {
                         MessageBox.Show("Opravení karty se nezdařilo.");
                     }
-
-
                 }
+                else
+                {
+                    Hashtable newDBRow = null;
+                    newDBRow = myDB.getOsobyLine(osCislo, newDBRow);
+                    reloadRow((myDataGridView.DataSource as DataTable), findIndex((myDataGridView.DataSource as DataTable), "oscislo", osCislo), newDBRow);
+                }
+
             }
         }
 
@@ -783,10 +849,12 @@ namespace Vydejna
             {
                 if ((myDB != null) && (myDB.DBIsOpened()))
                 {
-
-                    string osCislo = Convert.ToString(DBRow["oscislo"]);
+                    string osCislo = findOsCisloInRow(DBRow);
+                    DBRow = myDB.getOsobyLine(osCislo, DBRow);
                     ZapujceneNaradiKarta zapujcKarta = new ZapujceneNaradiKarta(osCislo, myDB);// (DBRow, myDataBase, uKartaState.edit);
                     zapujcKarta.ShowDialog();
+                    DBRow = myDB.getOsobyLine(osCislo, DBRow);
+                    reloadRow((myDataGridView.DataSource as DataTable), findIndex((myDataGridView.DataSource as DataTable), "oscislo", osCislo), DBRow);
                 }
             }
 

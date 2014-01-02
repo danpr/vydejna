@@ -11,3 +11,13 @@ C:\Documents and Settings\dan\dokumenty\visual studio 2010\Projects\Vydejna\Vyde
 C:\Documents and Settings\dan\dokumenty\visual studio 2010\Projects\Vydejna\Vydejna\obj\x86\Debug\Vydejna.PracovniciKarta.resources
 C:\Documents and Settings\dan\dokumenty\visual studio 2010\Projects\Vydejna\Vydejna\obj\x86\Debug\Vydejna.VraceneKarta.resources
 C:\Documents and Settings\dan\dokumenty\visual studio 2010\Projects\Vydejna\Vydejna\obj\x86\Debug\Vydejna.NastaveniDB.resources
+C:\Documents and Settings\dan\dokumenty\visual studio 2010\Projects\Vydejna\Vydejna\obj\x86\Debug\Vydejna.PrijemkaMaterialu.resources
+C:\Documents and Settings\dan\dokumenty\visual studio 2010\Projects\Vydejna\Vydejna\obj\x86\Debug\Vydejna.Poskozenka.resources
+C:\Documents and Settings\dan\dokumenty\visual studio 2010\Projects\Vydejna\Vydejna\obj\x86\Debug\Vydejna.VyberRadku.resources
+C:\Documents and Settings\dan\dokumenty\visual studio 2010\Projects\Vydejna\Vydejna\obj\x86\Debug\Vydejna.ZapujceneNaradiKarta.resources
+C:\Documents and Settings\dan\dokumenty\visual studio 2010\Projects\Vydejna\Vydejna\obj\x86\Debug\Vydejna.SeznamNaradiJednoduchy.resources
+C:\Documents and Settings\dan\dokumenty\visual studio 2010\Projects\Vydejna\Vydejna\obj\x86\Debug\Vydejna.ZapujceniNaradi.resources
+C:\Documents and Settings\dan\dokumenty\visual studio 2010\Projects\Vydejna\Vydejna\obj\x86\Debug\Vydejna.Prohledavani.resources
+C:\Documents and Settings\dan\dokumenty\visual studio 2010\Projects\Vydejna\Vydejna\obj\x86\Debug\Vydejna.VraceniNaradi.resources
+C:\Documents and Settings\dan\dokumenty\visual studio 2010\Projects\Vydejna\Vydejna\obj\x86\Debug\Vydejna.ZmenyOprava.resources
+C:\Documents and Settings\dan\dokumenty\visual studio 2010\Projects\Vydejna\Vydejna\obj\x86\Debug\Vydejna.ZapujceneNaradiInfo.resources

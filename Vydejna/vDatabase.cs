@@ -520,6 +520,23 @@ namespace Vydejna
             return getDBLine(DBSelect, DBRow);
         }
 
+        public virtual Hashtable getPoskozenoLine(Int32 poradi, Hashtable DBRow)
+        {
+            if (DBRow == null) DBRow = new Hashtable();
+
+            string DBSelect = "SELECT * from poskozeno WHERE poradi = " + poradi.ToString();
+            return getDBLine(DBSelect, DBRow);
+        }
+
+        public virtual Hashtable getVracenoLine(Int32 poradi, Hashtable DBRow)
+        {
+            if (DBRow == null) DBRow = new Hashtable();
+
+            string DBSelect = "SELECT * from vraceno WHERE poradi = " + poradi.ToString();
+            return getDBLine(DBSelect, DBRow);
+        }
+
+
         public virtual Hashtable getZrusenoLine(Int32 poradi, Hashtable DBRow)
         {
             if (DBRow == null) DBRow = new Hashtable();

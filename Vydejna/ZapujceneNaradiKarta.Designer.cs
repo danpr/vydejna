@@ -40,6 +40,7 @@
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.zapůjčeníNářadíToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.vraceníNářadíToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.informaceONářadíToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.labelPrijmeni = new System.Windows.Forms.Label();
             this.labelJmeno = new System.Windows.Forms.Label();
@@ -48,7 +49,7 @@
             this.labelOddeleni = new System.Windows.Forms.Label();
             this.labelPracoviste = new System.Windows.Forms.Label();
             this.labelCisZnamky = new System.Windows.Forms.Label();
-            this.informaceONářadíToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.informaceOZapůjčeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewZmeny)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -136,23 +137,31 @@
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.zapůjčeníNářadíToolStripMenuItem,
             this.vraceníNářadíToolStripMenuItem,
-            this.informaceONářadíToolStripMenuItem});
+            this.informaceONářadíToolStripMenuItem,
+            this.informaceOZapůjčeToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(175, 92);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(185, 114);
             // 
             // zapůjčeníNářadíToolStripMenuItem
             // 
             this.zapůjčeníNářadíToolStripMenuItem.Name = "zapůjčeníNářadíToolStripMenuItem";
-            this.zapůjčeníNářadíToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.zapůjčeníNářadíToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
             this.zapůjčeníNářadíToolStripMenuItem.Text = "Zapůjčení nářadí";
             this.zapůjčeníNářadíToolStripMenuItem.Click += new System.EventHandler(this.zapůjčeníNářadíToolStripMenuItem_Click);
             // 
             // vraceníNářadíToolStripMenuItem
             // 
             this.vraceníNářadíToolStripMenuItem.Name = "vraceníNářadíToolStripMenuItem";
-            this.vraceníNářadíToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.vraceníNářadíToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
             this.vraceníNářadíToolStripMenuItem.Text = "Vracení nářadí";
             this.vraceníNářadíToolStripMenuItem.Click += new System.EventHandler(this.vraceníNářadíToolStripMenuItem_Click);
+            // 
+            // informaceONářadíToolStripMenuItem
+            // 
+            this.informaceONářadíToolStripMenuItem.Name = "informaceONářadíToolStripMenuItem";
+            this.informaceONářadíToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.informaceONářadíToolStripMenuItem.Text = "Informace o nářadí";
+            this.informaceONářadíToolStripMenuItem.Click += new System.EventHandler(this.informaceONaradiToolStripMenuItem_Click);
             // 
             // buttonCancel
             // 
@@ -235,12 +244,12 @@
             this.labelCisZnamky.TabIndex = 37;
             this.labelCisZnamky.Text = "Cis znamky";
             // 
-            // informaceONářadíToolStripMenuItem
+            // informaceOZapůjčeToolStripMenuItem
             // 
-            this.informaceONářadíToolStripMenuItem.Name = "informaceONářadíToolStripMenuItem";
-            this.informaceONářadíToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
-            this.informaceONářadíToolStripMenuItem.Text = "Informace o nářadí";
-            this.informaceONářadíToolStripMenuItem.Click += new System.EventHandler(this.informaceONaradiToolStripMenuItem_Click);
+            this.informaceOZapůjčeToolStripMenuItem.Name = "informaceOZapůjčeToolStripMenuItem";
+            this.informaceOZapůjčeToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.informaceOZapůjčeToolStripMenuItem.Text = "Informace o výpůjce";
+            this.informaceOZapůjčeToolStripMenuItem.Click += new System.EventHandler(this.informaceOZapůjčeToolStripMenuItem_Click);
             // 
             // ZapujceneNaradiKarta
             // 
@@ -295,5 +304,6 @@
         private System.Windows.Forms.ToolStripMenuItem zapůjčeníNářadíToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem vraceníNářadíToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem informaceONářadíToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem informaceOZapůjčeToolStripMenuItem;
     }
 }
