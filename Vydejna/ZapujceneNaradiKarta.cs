@@ -313,10 +313,29 @@ namespace Vydejna
                                 vypujcDBRow.Add("cena", infoDBRow["cena"]);
 
                             }
-                            ZapujceneNaradiInfo zapNarInfo = new ZapujceneNaradiInfo(vypujcDBRow);
-                            zapNarInfo.ShowDialog();
 
                         }
+
+                        Int32 zporadi = -1;
+                        if (vypujcDBRow.Contains("zporadi"))
+                        {
+                            zporadi = Convert.ToInt32(vypujcDBRow["zporadi"]);
+                            if (zporadi != -1)
+                            {
+                                Hashtable zmenyDBRow = myDB.getZmenyLine(nporadi, zporadi, null);
+                                vypujcDBRow.Add("poznamka", zmenyDBRow["poznamka"]);
+                                vypujcDBRow.Add("vevcislo", zmenyDBRow["vevcislo"]);
+                                vypujcDBRow.Add("datum", zmenyDBRow["datum"]);
+                                vypujcDBRow.Add("vydej", zmenyDBRow["vydej"]);
+                            }
+                        }
+
+
+
+                        ZapujceneNaradiInfo zapNarInfo = new ZapujceneNaradiInfo(vypujcDBRow);
+                        zapNarInfo.ShowDialog();
+
+
                     }
                 }
             }
