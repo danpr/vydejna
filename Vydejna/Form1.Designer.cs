@@ -102,7 +102,7 @@
             // pracovníciProvozuToolStripMenuItem
             // 
             this.pracovníciProvozuToolStripMenuItem.Name = "pracovníciProvozuToolStripMenuItem";
-            this.pracovníciProvozuToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
+            this.pracovníciProvozuToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
             this.pracovníciProvozuToolStripMenuItem.Text = "Pracovníci provozu";
             this.pracovníciProvozuToolStripMenuItem.Click += new System.EventHandler(this.pracovníciProvozuToolStripMenuItem_Click);
             // 
@@ -263,6 +263,7 @@
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             this.dataGridView1.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellDoubleClick);
             this.dataGridView1.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellDoubleClick);
+            this.dataGridView1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dataGridView1_KeyDown);
             // 
             // contextMenuStrip1
             // 

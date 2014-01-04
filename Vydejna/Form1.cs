@@ -1062,6 +1062,34 @@ namespace Vydejna
 
         }
 
+        private void dataGridView1_KeyDown(object sender, KeyEventArgs e)
+        {
+
+            if (e.KeyData == (Keys.F | Keys.Control))
+            {
+                if (searchWindow == null)
+                {
+                    searchWindow = new Prohledavani(dataGridView1);
+                }
+
+                searchWindow.ShowDialog();
+            }
+
+            if (e.KeyData == Keys.F3)
+            {
+                if (searchWindow == null)
+                {
+                    searchWindow = new Prohledavani(dataGridView1);
+                    searchWindow.ShowDialog();
+                }
+                else
+                {
+                }
+
+            }
+        }
+
+
 
     }
 }
