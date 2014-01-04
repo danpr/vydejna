@@ -328,6 +328,7 @@
             // 
             // numericUpDownCena
             // 
+            this.numericUpDownCena.DecimalPlaces = 2;
             this.numericUpDownCena.Enabled = false;
             this.numericUpDownCena.Location = new System.Drawing.Point(104, 268);
             this.numericUpDownCena.Maximum = new decimal(new int[] {
@@ -345,7 +346,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(621, 415);
+            this.ClientSize = new System.Drawing.Size(629, 419);
             this.Controls.Add(this.numericUpDownCena);
             this.Controls.Add(this.buttonOK);
             this.Controls.Add(this.buttonCancel);

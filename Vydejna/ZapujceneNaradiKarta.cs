@@ -190,100 +190,107 @@ namespace Vydejna
         private void vraceníNářadíToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //vratime naradi
-            Hashtable DBVypujcRow = makeVypujcDBRow(osobyDBRow);
-            VraceniNaradi vraceniNaradi = new VraceniNaradi(DBVypujcRow);
-            Int32 pujcPoradi = Convert.ToInt32(DBVypujcRow["poradi"]);
-
-            if (vraceniNaradi.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            if (dataGridViewZmeny.SelectedRows.Count > 0)
             {
-                Int32 errCode = myDB.addNewLineZmenyAndVraceno(pujcPoradi, vraceniNaradi.getDatum(), vraceniNaradi.getKs(),
-                    vraceniNaradi.getPoznamka(), Convert.ToString(DBVypujcRow["oscislo"]));
-                if (errCode == -4)
+                if ((myDB != null) && (myDB.DBIsOpened()))
                 {
-                    MessageBox.Show("Stav změn je záporné číslo. Nejprve opravte data o pohybu nářadí.");
-                }
-                if (errCode == -3)
-                {
-                    MessageBox.Show("Neexistují žádné záznamy o pohybu nářadi. Nejprve opravte data o pohybu nářadí.");
-                }
-                if (errCode == -2)
-                {
-                    MessageBox.Show("Požadujete vrátit vetší možství než je vypůjčeno. Data byla patrně změněna z jiného pracoviště.");
-                }
-                if (errCode == -1)
-                {
-                    MessageBox.Show("Vrácení nářadi se nezdařilo. Lituji.");
-                }
-                if (errCode == 0)
-                {
-                    // opravime tabulku
-                    Hashtable DBPujcenoRow = null;
-                    DBPujcenoRow = myDB.getPujcenoLine(Convert.ToInt32(DBVypujcRow["poradi"]), DBPujcenoRow);
-                    if (DBPujcenoRow != null)
-                    {
-                        // opravime radku
+                    Hashtable DBVypujcRow = makeVypujcDBRow(osobyDBRow);
+                    VraceniNaradi vraceniNaradi = new VraceniNaradi(DBVypujcRow);
+                    Int32 pujcPoradi = Convert.ToInt32(DBVypujcRow["poradi"]);
 
-                        // je potreba najit index v datove tabulce - po trideni neni schodny s indexem ve view
-                        Int32 dataRowIndex = -1;
-                        for (int x = 0; x < (dataGridViewZmeny.DataSource as DataTable).Rows.Count; x++)
+                    if (vraceniNaradi.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                    {
+                        Int32 errCode = myDB.addNewLineZmenyAndVraceno(pujcPoradi, vraceniNaradi.getDatum(), vraceniNaradi.getKs(),
+                            vraceniNaradi.getPoznamka(), Convert.ToString(DBVypujcRow["oscislo"]));
+                        if (errCode == -4)
                         {
-                            if (Convert.ToInt32((dataGridViewZmeny.DataSource as DataTable).Rows[x]["poradi"]) == pujcPoradi)
+                            MessageBox.Show("Stav změn je záporné číslo. Nejprve opravte data o pohybu nářadí.");
+                        }
+                        if (errCode == -3)
+                        {
+                            MessageBox.Show("Neexistují žádné záznamy o pohybu nářadi. Nejprve opravte data o pohybu nářadí.");
+                        }
+                        if (errCode == -2)
+                        {
+                            MessageBox.Show("Požadujete vrátit vetší možství než je vypůjčeno. Data byla patrně změněna z jiného pracoviště.");
+                        }
+                        if (errCode == -1)
+                        {
+                            MessageBox.Show("Vrácení nářadi se nezdařilo. Lituji.");
+                        }
+                        if (errCode == 0)
+                        {
+                            // opravime tabulku
+                            Hashtable DBPujcenoRow = null;
+                            DBPujcenoRow = myDB.getPujcenoLine(Convert.ToInt32(DBVypujcRow["poradi"]), DBPujcenoRow);
+                            if (DBPujcenoRow != null)
                             {
-                                dataRowIndex = x;
-                                break;
+                                // opravime radku
+
+                                // je potreba najit index v datove tabulce - po trideni neni schodny s indexem ve view
+                                Int32 dataRowIndex = -1;
+                                for (int x = 0; x < (dataGridViewZmeny.DataSource as DataTable).Rows.Count; x++)
+                                {
+                                    if (Convert.ToInt32((dataGridViewZmeny.DataSource as DataTable).Rows[x]["poradi"]) == pujcPoradi)
+                                    {
+                                        dataRowIndex = x;
+                                        break;
+                                    }
+                                }
+                                if (dataRowIndex != -1)
+                                {
+                                    (dataGridViewZmeny.DataSource as DataTable).Rows[dataRowIndex].SetField(6, Convert.ToString(DBPujcenoRow["stavks"]));
+                                    dataGridViewZmeny.Refresh();
+                                }
                             }
-                        }
-                        if (dataRowIndex != -1)
-                        {
-                            (dataGridViewZmeny.DataSource as DataTable).Rows[dataRowIndex].SetField(6, Convert.ToString(DBPujcenoRow["stavks"]));
-                            dataGridViewZmeny.Refresh();
-                        }
-                    }
-                    else
-                    {
-                        // smazeme radku
-                        dataGridViewZmeny.Rows.Remove(dataGridViewZmeny.SelectedRows[0]);
-                        Int32 counter = dataGridViewZmeny.Rows.Count - 1;
-                        if (counter > 0)
-                        {
-                            dataGridViewZmeny.FirstDisplayedScrollingRowIndex = dataGridViewZmeny.Rows[counter].Index;
-                            dataGridViewZmeny.Refresh();
-                            dataGridViewZmeny.CurrentCell = dataGridViewZmeny.Rows[counter].Cells[1];
-                            dataGridViewZmeny.Rows[counter].Selected = true;
-                        }
-                    }
+                            else
+                            {
+                                // smazeme radku
+                                dataGridViewZmeny.Rows.Remove(dataGridViewZmeny.SelectedRows[0]);
+                                Int32 counter = dataGridViewZmeny.Rows.Count - 1;
+                                if (counter > 0)
+                                {
+                                    dataGridViewZmeny.FirstDisplayedScrollingRowIndex = dataGridViewZmeny.Rows[counter].Index;
+                                    dataGridViewZmeny.Refresh();
+                                    dataGridViewZmeny.CurrentCell = dataGridViewZmeny.Rows[counter].Cells[1];
+                                    dataGridViewZmeny.Rows[counter].Selected = true;
+                                }
+                            }
 
+                        }
+                    }
                 }
-
             }
         }
 
 
         private void informaceONaradiToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if ((myDB != null) && (myDB.DBIsOpened()))
+            if (dataGridViewZmeny.SelectedRows.Count > 0)
             {
-                DataGridViewRow myRow = dataGridViewZmeny.SelectedRows[0];
-                Int32 nporadi = -1;
-
-                for (int i = 0; i < dataGridViewZmeny.ColumnCount; i++)
+                if ((myDB != null) && (myDB.DBIsOpened()))
                 {
-                    if (dataGridViewZmeny.Columns[i].Name == "nporadi")
+                    DataGridViewRow myRow = dataGridViewZmeny.SelectedRows[0];
+                    Int32 nporadi = -1;
+
+                    for (int i = 0; i < dataGridViewZmeny.ColumnCount; i++)
                     {
-                        nporadi = Convert.ToInt32(myRow.Cells[i].Value);
+                        if (dataGridViewZmeny.Columns[i].Name == "nporadi")
+                        {
+                            nporadi = Convert.ToInt32(myRow.Cells[i].Value);
+                        }
+                    }
+
+                    if (nporadi != -1)
+                    {
+                        Hashtable infoDBRow = myDB.getNaradiLine(nporadi, null);
+
+                        SkladovaKarta sklKarta = new SkladovaKarta(myDB, infoDBRow, nporadi, new tableItemExistDelgStr(myDB.tableNaradiItemExist));
+                        sklKarta.setWinName("Skladová karta");
+                        sklKarta.ShowDialog();
                     }
                 }
-
-                if (nporadi != -1)
-                {
-                    Hashtable infoDBRow = myDB.getNaradiLine(nporadi, null);
-
-                    SkladovaKarta sklKarta = new SkladovaKarta(myDB, infoDBRow, nporadi, new tableItemExistDelgStr(myDB.tableNaradiItemExist));
-                    sklKarta.setWinName("Skladová karta");
-                    sklKarta.ShowDialog();
-                }
             }
-
         }
 
         private void informaceOZapůjčeToolStripMenuItem_Click(object sender, EventArgs e)
