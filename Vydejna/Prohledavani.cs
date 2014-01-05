@@ -30,7 +30,7 @@ namespace Vydejna
         private DataGridView myDataGridView;
         private ArrayList comboBoxColumnInfo;
 
-        public Prohledavani(DataGridView myDataGridView)
+        public Prohledavani(DataGridView myDataGridView, string preferedColumn)
         {
             InitializeComponent();
             this.TopMost = true;
@@ -43,14 +43,16 @@ namespace Vydejna
             numericUpDownNumeric.Enabled = false;
             comboBoxDate.Enabled = false;
             dateTimePickerDate.Enabled = false;
-            loadComboBox();
+            loadComboBox(preferedColumn);
+
             buttonOK.Enabled = false;
             if (comboBoxNumeric.Items.Count > 0) comboBoxNumeric.SelectedIndex = 0;
             if (comboBoxDate.Items.Count > 0) comboBoxDate.SelectedIndex = 0;
-
+            AcceptButton = buttonOK;
+            CancelButton = buttonCancel;
         }
 
-        private void loadComboBox()
+        private void loadComboBox(string preferedColumn)
         {
             DataTable mdt = (DataTable)myDataGridView.DataSource;
 
@@ -68,6 +70,19 @@ namespace Vydejna
                    comboBoxColumns.Items.Add(myDataGridView.Columns[i].HeaderText.ToString());
                    comboBoxColumnInfo.Add(myColumnInfo);
                }
+            }
+            if (comboBoxColumns.Items.Count > 0)
+            {
+                Int32 cisloSloupce = najdiCisloSloupce(preferedColumn);
+                if (cisloSloupce == -1)
+                {
+                comboBoxColumns.SelectedIndex = 0;
+                }
+                else
+                {
+                    comboBoxColumns.SelectedIndex = cisloSloupce;
+                }
+
             }
         }
 
@@ -274,6 +289,19 @@ namespace Vydejna
             {
                 Close();
             }
+        }
+
+        private int najdiCisloSloupce(string jmeno)
+        {
+            for (Int32 i = 0; i < comboBoxColumnInfo.Count; i++ )
+            {
+                ColumnInfo ci = (ColumnInfo)comboBoxColumnInfo[i];
+                if (ci.name == jmeno)
+                {
+                    return i;
+                }
+            }
+            return -1;
         }
 
 

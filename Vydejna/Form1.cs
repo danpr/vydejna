@@ -23,7 +23,7 @@ namespace Vydejna
         private detail karta;
         private Hashtable DBRow;
         private parametryDB nastaveniDB;
-        private Prohledavani searchWindow;
+//        private Prohledavani searchWindow;
 
         public Vydejna()
         {
@@ -610,7 +610,7 @@ namespace Vydejna
             // naradi - skladove karty - hlavni tabulka
             labelView.Text = "Výdejna nářadí přehled - Stahuji";
             Application.DoEvents();
-            searchWindow = null;
+//            searchWindow = null;
             loadNaradiItems();
             karta = new detailSklad(myDB,dataGridView1);
             labelView.Text = "Výdejna nářadí přehled";
@@ -654,7 +654,7 @@ namespace Vydejna
         {
             labelView.Text = "Archív zrušených karet - Stahuji";
             Application.DoEvents();
-            searchWindow = null;
+//            searchWindow = null;
             loadZrusenychItems();
             karta = new detailZruseno(myDB,dataGridView1);
             contextMenuEnable(false);
@@ -670,7 +670,7 @@ namespace Vydejna
         {
             labelView.Text = "Vrácené nářadí do skladu - Stahuji";
             Application.DoEvents();
-            searchWindow = null;
+//            searchWindow = null;
             loadVracenoItems();
             karta = new detailVraceno(myDB,dataGridView1);
             contextMenuEnable(false);
@@ -682,7 +682,7 @@ namespace Vydejna
             //osoby
             labelView.Text = "Pracovníci provozu - Načítání";
             Application.DoEvents();
-            searchWindow = null;
+//            searchWindow = null;
             loadOsobyItems();
             karta = new detailOsoby(myDB,dataGridView1);
             contextMenuEnable(true,false,false,true);
@@ -717,7 +717,7 @@ namespace Vydejna
         {
             labelView.Text = "Poškozené nářadí - Stahuji";
             Application.DoEvents();
-            searchWindow = null;
+//            searchWindow = null;
             loadPoskozenoItems();
             karta = new detailPoskozeno(myDB,dataGridView1);
             contextMenuEnable(false);
@@ -1026,7 +1026,7 @@ namespace Vydejna
             //osoby
             labelView.Text = "Pracovníci provozu - Načítání";
             Application.DoEvents();
-            searchWindow = null;
+//            searchWindow = null;
             loadOsobyItems();
             karta = new detailOsobyZapujcNaradi(myDB,dataGridView1);
             contextMenuEnable(true, false, false, true);
@@ -1046,12 +1046,13 @@ namespace Vydejna
 
         private void ConMenuProhledávani_Click(object sender, EventArgs e)
         {
-            if (searchWindow == null)
-            {
-                searchWindow = new Prohledavani(dataGridView1);
-            }
-
-            searchWindow.ShowDialog();
+//            if (searchWindow == null)
+//            {
+//                searchWindow = new Prohledavani(dataGridView1,karta.preferovanySloupec());
+//            }
+//
+//            searchWindow.ShowDialog();
+            karta.NastaveniHledani();
         }
 
         private void toolStripMenuItemFont_Click(object sender, EventArgs e)
@@ -1067,25 +1068,26 @@ namespace Vydejna
 
             if (e.KeyData == (Keys.F | Keys.Control))
             {
-                if (searchWindow == null)
-                {
-                    searchWindow = new Prohledavani(dataGridView1);
-                }
-
-                searchWindow.ShowDialog();
+//                if (searchWindow == null)
+//                {
+//                    searchWindow = new Prohledavani(dataGridView1, karta.preferovanySloupec());
+//                }
+//
+//                searchWindow.ShowDialog();
+                karta.NastaveniHledani();
             }
 
             if (e.KeyData == Keys.F3)
             {
-                if (searchWindow == null)
-                {
-                    searchWindow = new Prohledavani(dataGridView1);
-                    searchWindow.ShowDialog();
-                }
-                else
-                {
-                }
-
+//                if (searchWindow == null)
+//                {
+//                    searchWindow = new Prohledavani(dataGridView1, karta.preferovanySloupec());
+//                    searchWindow.ShowDialog();
+//                }
+//                else
+//                {
+//                }
+                karta.HledejDalsi();
             }
         }
 

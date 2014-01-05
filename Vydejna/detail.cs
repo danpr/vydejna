@@ -14,11 +14,14 @@ namespace Vydejna
     {
         public vDatabase myDB;
         public DataGridView myDataGridView;
+        private Prohledavani searchWindow;
+
 
         public detail(vDatabase myDB, DataGridView myDataGridView)
         {
             this.myDB = myDB;
             this.myDataGridView = myDataGridView;
+            searchWindow = null;
         }
 
                 
@@ -153,7 +156,34 @@ namespace Vydejna
             MessageBox.Show("Není implementováno.");
         }
 
+        public virtual string preferovanySloupec()
+        {
+            return "";
+        }
+
+        public virtual void NastaveniHledani()
+        {
+            if (searchWindow == null)
+            {
+                searchWindow = new Prohledavani(myDataGridView, preferovanySloupec());
+            }
+            searchWindow.ShowDialog();
+        }
+
+        public virtual void HledejDalsi()
+        {
+            if (searchWindow == null)
+            {
+                searchWindow = new Prohledavani(myDataGridView, preferovanySloupec());
+                searchWindow.ShowDialog();
+            }
+            else
+            {
+            }
+        }
     
+
+
     }
 
     class detailNone : detail
@@ -424,6 +454,11 @@ namespace Vydejna
                 }
             }
         }
+
+        public override string preferovanySloupec()
+        {
+            return "nazev";
+        }
     }
 
 
@@ -528,6 +563,11 @@ namespace Vydejna
                 }
             }
         }
+
+        public override string preferovanySloupec()
+        {
+            return "nazev";
+        }
     }
 
     class detailPoskozeno : detail
@@ -619,6 +659,11 @@ namespace Vydejna
                 }
             }
         }
+
+        public override string preferovanySloupec()
+        {
+            return "nazev";
+        }
     }
 
 
@@ -693,6 +738,11 @@ namespace Vydejna
                 newDBRow = myDB.getVracenoLine(poradi, newDBRow);
                 reloadRow((myDataGridView.DataSource as DataTable), findIndex((myDataGridView.DataSource as DataTable), "poradi", poradi), newDBRow);
             }
+        }
+
+        public override string preferovanySloupec()
+        {
+            return "nazev";
         }
     }
 
@@ -820,7 +870,7 @@ namespace Vydejna
                 }
 
             }
-        }
+    }
 
         public override void Zapujceno(Hashtable DBRow)
         {
@@ -831,6 +881,10 @@ namespace Vydejna
                 ZapujceneNaradiKarta zapujcKarta = new ZapujceneNaradiKarta(osCislo, myDB);// (DBRow, myDataBase, uKartaState.edit);
                 zapujcKarta.ShowDialog();
             }
+        }
+        public override string preferovanySloupec()
+        {
+            return "prijmeni";
         }
 
     }
@@ -869,6 +923,10 @@ namespace Vydejna
                 }
             }
 
+            public override string preferovanySloupec()
+            {
+                return "prijmeni";
+            }
 
         }
 
