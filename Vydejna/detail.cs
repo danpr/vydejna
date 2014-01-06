@@ -179,6 +179,7 @@ namespace Vydejna
             }
             else
             {
+                searchWindow.najdiRadku();
             }
         }
     

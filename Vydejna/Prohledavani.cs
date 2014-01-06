@@ -131,7 +131,7 @@ namespace Vydejna
             }
         }
 
-        private void najdiRadku()
+        public void najdiRadku()
         {
 
         if (comboBoxColumns.SelectedIndex > -1)
