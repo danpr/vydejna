@@ -24,6 +24,9 @@ namespace Vydejna
             this.poradi = poradi;
             loadData();
             buttonOK.Enabled = false;
+
+            AcceptButton = buttonOK;
+            CancelButton = buttonCancel;
         }
 
         private void groupBox3_Enter(object sender, EventArgs e)

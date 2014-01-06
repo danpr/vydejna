@@ -78,6 +78,9 @@ namespace Vydejna
             }
 
             setData(DBRow);
+
+            AcceptButton = buttonOK;
+            CancelButton = buttonCancel;
         }
 
         public PracovniciKarta(vDatabase myDataBase)

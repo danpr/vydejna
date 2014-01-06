@@ -45,6 +45,9 @@ namespace Vydejna
             labelDosudKs.Text = Convert.ToString(DBRow["fyzstav"]) + " / " + Convert.ToString(DBRow["ucetstav"]);
 
             parentPoradi = Convert.ToInt32(DBRow["poradi"]);
+
+            AcceptButton = buttonOK;
+            CancelButton = buttonCancel;
         }
 
 

@@ -36,7 +36,7 @@ namespace Vydejna
 
             dataGridViewZmeny.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
-
+            CancelButton = buttonCancel;
         }
 
         private void ZapujceneNaradiKarta_Load(object sender, EventArgs e)

@@ -33,6 +33,8 @@ namespace Vydejna
             numericUpDownKs.Maximum = fyzStav;
             textBoxPoznamka.Text = "Zapůjčeno";
 
+            AcceptButton = buttonOK;
+            CancelButton = buttonCancel;
         }
 
         private void numericUpDownKs_ValueChanged(object sender, EventArgs e)

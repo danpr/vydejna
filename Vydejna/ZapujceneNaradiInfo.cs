@@ -19,6 +19,7 @@ namespace Vydejna
             InitializeComponent();
             this.DBRow = DBRow;
             setData();
+            CancelButton = buttonCancel;
         }
 
 

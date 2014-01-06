@@ -30,6 +30,8 @@ namespace Vydejna
             numericUpDownKs.Maximum = Convert.ToInt32(DBRow["stavks"]);
             textBoxPoznamka.Text = "Vráceno";
 
+            AcceptButton = buttonOK;
+            CancelButton = buttonCancel;
         }
 
         private void buttonOK_Click(object sender, EventArgs e)

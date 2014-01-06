@@ -83,6 +83,9 @@ namespace Vydejna
             }
 
             setData(DBRow);
+
+            AcceptButton = buttonOK;
+            CancelButton = buttonCancel;
         }
 
         public void setWinName (string winName)

@@ -55,3 +55,4 @@ _ReSharper*/
 # Office Temp Files
 ~$*
 
+*.tlog

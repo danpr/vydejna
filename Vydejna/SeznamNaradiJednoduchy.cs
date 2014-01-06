@@ -45,6 +45,9 @@ namespace Vydejna
 
             // nastaveni gridView
 
+            AcceptButton = buttonOK;
+            CancelButton = buttonCancel;
+
             dataGridView1.MultiSelect = false;
             dataGridView1.ReadOnly = true;
             dataGridView1.RowHeadersVisible = false;
