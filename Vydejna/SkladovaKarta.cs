@@ -357,15 +357,22 @@ namespace Vydejna
             {
                 DataGridViewRow selectedRow = dataGridViewZmeny.SelectedRows[0];
                 Int32 zmenPoradi = Convert.ToInt32(selectedRow.Cells["poradi"].Value);
-                Point point1 = dataGridViewZmeny.CurrentCellAddress;
+//                Point point1 = dataGridViewZmeny.CurrentCellAddress;
+
+                Int32 endRowIndex = selectedRow.Index +1; // ukazuje za vybranou radku
+                Int32 rowsHeight = 0;
+                for (Int32 i = dataGridViewZmeny.FirstDisplayedCell.RowIndex; i < (endRowIndex); i++)
+                {
+                    rowsHeight += dataGridViewZmeny.Rows[i].Height;
+                }
+
                 int x = this.Location.X + dataGridViewZmeny.Location.X;
-                int y = this.Location.Y + dataGridViewZmeny.Location.Y;
+                int y = this.Location.Y + dataGridViewZmeny.Location.Y + dataGridViewZmeny.ColumnHeadersHeight + rowsHeight;
 
                 ZmenyOprava opravaZmen = new ZmenyOprava(myDB, poradi, zmenPoradi);
 
                 opravaZmen.StartPosition = FormStartPosition.Manual;
-                Point opravZmenyPoint = new Point(x, y);
-                opravaZmen.Location = opravZmenyPoint;
+                opravaZmen.SetDesktopLocation(x, y);
 
                 if (opravaZmen.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
