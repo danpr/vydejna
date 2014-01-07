@@ -365,9 +365,11 @@ namespace Vydejna
                 {
                     rowsHeight += dataGridViewZmeny.Rows[i].Height;
                 }
+                int titulekHeight = this.Height - this.ClientSize.Height  - (this.Width - this.ClientSize.Width)/2;
 
                 int x = this.Location.X + dataGridViewZmeny.Location.X;
-                int y = this.Location.Y + dataGridViewZmeny.Location.Y + dataGridViewZmeny.ColumnHeadersHeight + rowsHeight;
+                int y = this.Location.Y + dataGridViewZmeny.Location.Y + dataGridViewZmeny.ColumnHeadersHeight + rowsHeight + titulekHeight;
+
 
                 ZmenyOprava opravaZmen = new ZmenyOprava(myDB, poradi, zmenPoradi);
 

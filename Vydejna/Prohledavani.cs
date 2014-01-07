@@ -134,13 +134,12 @@ namespace Vydejna
         public void najdiRadku()
         {
 
-        if (comboBoxColumns.SelectedIndex > -1)
+        if ((comboBoxColumns.SelectedIndex > -1) && (buttonOK.Enabled))
             {
                 ColumnInfo myColumnInfo = (ColumnInfo)comboBoxColumnInfo[comboBoxColumns.SelectedIndex];
                 string myType = Convert.ToString(myColumnInfo.varColumnType);
 
                 Boolean lineIsFound = false;
-
                 string columnName = ((ColumnInfo)comboBoxColumnInfo[comboBoxColumns.SelectedIndex]).name;
                 
                 Int32 testingRow = 0;

@@ -161,21 +161,36 @@ namespace Vydejna
             return "";
         }
 
-        public virtual void NastaveniHledani()
+        public virtual void NastaveniHledani(Int32 x, Int32 y)
         {
             if (searchWindow == null)
             {
                 searchWindow = new Prohledavani(myDataGridView, preferovanySloupec());
+                searchWindow.StartPosition = FormStartPosition.Manual;
             }
+
+            if (x > (Screen.PrimaryScreen.Bounds.Width - 50))
+            {
+                x = Screen.PrimaryScreen.Bounds.Width - searchWindow.Width;
+            }
+            if (x < 0) {x = 0;}
+
+            if (y > (Screen.PrimaryScreen.Bounds.Height - 50))
+            {
+                y = Screen.PrimaryScreen.Bounds.Height - searchWindow.Height;
+            }
+            if (y < 0) { y = 0; }
+
+
+            searchWindow.SetDesktopLocation(x, y);
             searchWindow.ShowDialog();
         }
 
-        public virtual void HledejDalsi()
+        public virtual void HledejDalsi(Int32 x, Int32 y)
         {
             if (searchWindow == null)
             {
-                searchWindow = new Prohledavani(myDataGridView, preferovanySloupec());
-                searchWindow.ShowDialog();
+                NastaveniHledani(x, y);
             }
             else
             {
@@ -193,6 +208,11 @@ namespace Vydejna
             : base(myDB, myDataGridView)
         {
         }
+
+        public override void HledejDalsi(Int32 x, Int32 y)
+        {
+        }
+
     }
     
     

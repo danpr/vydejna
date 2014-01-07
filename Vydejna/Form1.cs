@@ -1039,7 +1039,7 @@ namespace Vydejna
 
         private void ConMenuProhledávani_Click(object sender, EventArgs e)
         {
-            karta.NastaveniHledani();
+            karta.NastaveniHledani(this.Location.X + this.Size.Width, this.Top);
         }
 
         private void toolStripMenuItemFont_Click(object sender, EventArgs e)
@@ -1053,7 +1053,7 @@ namespace Vydejna
         {
             if (e.KeyData == Keys.F3)
             {
-                karta.HledejDalsi();
+                karta.HledejDalsi(this.Location.Y + this.Size.Width,this.Top);
             }
         }
 
