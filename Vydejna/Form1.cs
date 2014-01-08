@@ -398,7 +398,7 @@ namespace Vydejna
             myDB.closeDB();
             myDB = null;
 
-            // vztvorisi nove pripojeni na mayani tabulek
+            // vztvorisi nove pripojeni na mazani tabulek
             vDatabase localDB = OpenDataBaseHandle(false);
             localDB.openDB();
             if (localDB.DBIsOpened())
@@ -586,7 +586,6 @@ namespace Vydejna
 
         private void vymazáníToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
               if (MessageBox.Show("Opravdu chcete smazat tabulky v databázi?", "Vymazání tabulek", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                 labelView.Text = "Mažu tabulky";
@@ -1057,5 +1056,27 @@ namespace Vydejna
             }
         }
 
+        private void IndexesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            myDB.closeDB();
+            myDB = null;
+
+            // vztvorisi nove pripojeni na mazani tabulek
+            vDatabase localDB = OpenDataBaseHandle(false);
+            localDB.openDB();
+            if (localDB.DBIsOpened())
+            {   // smaze tabulky
+                //                localDB.DropTables(); // take provede .closeDB()                localDB.closeDB();
+                labelView.Text = "Mažu indexi";
+                contextMenuDisable();
+                dataGridView1.DataSource = null;
+                karta = new detailNone(null, null);
+                Application.DoEvents();
+                localDB.DropIndexes();
+                labelView.Text = "Vytvořím indexi";
+                localDB.CreateIndexes();
+                labelView.Text = "";
+            }
+        }
     }
 }

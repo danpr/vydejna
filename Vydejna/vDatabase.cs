@@ -168,6 +168,15 @@ namespace Vydejna
         {
         }
 
+
+        public virtual void CreateIndexes()
+        {
+        }
+
+        public virtual void DropIndexes()
+        {
+        }
+
         public virtual DbTransaction startTransaction()
         {
             return null;   

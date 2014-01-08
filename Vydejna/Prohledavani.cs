@@ -35,6 +35,8 @@ namespace Vydejna
             InitializeComponent();
             this.TopMost = true;
 
+            FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+
             comboBoxColumnInfo = new ArrayList();
 
             this.myDataGridView = myDataGridView;

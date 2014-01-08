@@ -169,13 +169,13 @@ namespace Vydejna
                 searchWindow.StartPosition = FormStartPosition.Manual;
             }
 
-            if (x > (Screen.PrimaryScreen.Bounds.Width - 50))
+            if (x > (Screen.PrimaryScreen.Bounds.Width - searchWindow.Width))
             {
                 x = Screen.PrimaryScreen.Bounds.Width - searchWindow.Width;
             }
             if (x < 0) {x = 0;}
 
-            if (y > (Screen.PrimaryScreen.Bounds.Height - 50))
+            if (y > (Screen.PrimaryScreen.Bounds.Height - searchWindow.Height))
             {
                 y = Screen.PrimaryScreen.Bounds.Height - searchWindow.Height;
             }
