@@ -332,7 +332,7 @@ namespace Vydejna
 //                string commandStringIn5 = "CREATE UNIQUE INDEX  osobyPorIN ON osoby (oscislo)";
 //                string commandStringIn6 = "CREATE UNIQUE INDEX  zmenyPorIN ON zmeny(poradi)";
 //                string commandStringIn7 = "CREATE UNIQUE INDEX  pujcenoPorIN ON (parporadi,poradi)";
-                OdbcCommand cmdIndex = new OdbcCommand(commandStringIn1);
+                OdbcCommand cmdIndex = new OdbcCommand(commandStringIn1, myDBConn as OdbcConnection);
                 try
                 {
                     cmdIndex.ExecuteNonQuery();
@@ -361,7 +361,7 @@ namespace Vydejna
 //                string commandStringIn5 = "CREATE UNIQUE INDEX  osobyPorIN ON osoby (oscislo)";
 //                string commandStringIn6 = "CREATE UNIQUE INDEX  zmenyPorIN ON zmeny(poradi)";
 //                string commandStringIn7 = "CREATE UNIQUE INDEX  pujcenoPorIN ON (parporadi,poradi)";
-                OdbcCommand cmdIndex = new OdbcCommand(commandStringIn1);
+                OdbcCommand cmdIndex = new OdbcCommand(commandStringIn1, myDBConn as OdbcConnection);
                 try
                 {
                     cmdIndex.ExecuteNonQuery();

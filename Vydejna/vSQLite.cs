@@ -223,9 +223,6 @@ namespace Vydejna
                     cmdNaradi.Dispose();
                 }
             }
-
-            // vymaze tabulky
-
         }
 
 
@@ -334,6 +331,64 @@ namespace Vydejna
 
         }
 
+
+        public override void CreateIndexes()
+        {
+            openDB();
+            if (DBIsOpened())
+            {
+                string commandStringIn1 = "CREATE UNIQUE INDEX naradiPorIN ON naradi (poradi)";
+                //                string commandStringIn2 = "CREATE UNIQUE INDEX  kartaPorIN ON karta (poradi)";
+                //                string commandStringIn3 = "CREATE UNIQUE INDEX  vracenoPorIN ON vraceno (poradi)";
+                //                string commandStringIn4 = "CREATE UNIQUE INDEX  poskozenoPorIN ON poskozeno (poradi)";
+                //                string commandStringIn5 = "CREATE UNIQUE INDEX  osobyPorIN ON osoby (oscislo)";
+                //                string commandStringIn6 = "CREATE UNIQUE INDEX  zmenyPorIN ON zmeny(poradi)";
+                //                string commandStringIn7 = "CREATE UNIQUE INDEX  pujcenoPorIN ON (parporadi,poradi)";
+                SQLiteCommand cmdIndex = new SQLiteCommand(commandStringIn1, myDBConn as SQLiteConnection);
+                try
+                {
+                    cmdIndex.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                finally
+                {
+                    cmdIndex.Dispose();
+                }
+            }
+        }
+
+
+        public override void DropIndexes()
+        {
+            openDB();
+            if (DBIsOpened())
+            {
+                string commandStringIn1 = "DROP INDEX naradiPorIn";
+                //                string commandStringIn2 = "CREATE UNIQUE INDEX  kartaPorIN ON karta (poradi)";
+                //                string commandStringIn3 = "CREATE UNIQUE INDEX  vracenoPorIN ON vraceno (poradi)";
+                //                string commandStringIn4 = "CREATE UNIQUE INDEX  poskozenoPorIN ON poskozeno (poradi)";
+                //                string commandStringIn5 = "CREATE UNIQUE INDEX  osobyPorIN ON osoby (oscislo)";
+                //                string commandStringIn6 = "CREATE UNIQUE INDEX  zmenyPorIN ON zmeny(poradi)";
+                //                string commandStringIn7 = "CREATE UNIQUE INDEX  pujcenoPorIN ON (parporadi,poradi)";
+                SQLiteCommand cmdIndex = new SQLiteCommand(commandStringIn1, myDBConn as SQLiteConnection);
+                try
+                {
+                    cmdIndex.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                finally
+                {
+                    cmdIndex.Dispose();
+                }
+
+            }
+        }
 
 
         public override DbTransaction startTransaction()
@@ -633,7 +688,6 @@ namespace Vydejna
                 SQLiteCommand cmdSeq2 = new SQLiteCommand(commandStringSeq2, myDBConn as SQLiteConnection);
                 cmdSeq2.ExecuteNonQuery();
                 return poradi;
-
             }
             return 0;
         }
@@ -2775,7 +2829,5 @@ namespace Vydejna
             }
             else return null;
         }
-
-
     }
 }

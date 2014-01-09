@@ -735,10 +735,7 @@ namespace Vydejna
 
               myDB = OpenDataBaseHandle();
               myDB.openDB();
-
-
             }
-
         }
 
 
@@ -1058,10 +1055,10 @@ namespace Vydejna
 
         private void IndexesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            myDB.closeDB();
-            myDB = null;
+//            myDB.closeDB();
+//            myDB = null;
 
-            // vztvorisi nove pripojeni na mazani tabulek
+            // vytvori nove pripojeni na mazani tabulek
             vDatabase localDB = OpenDataBaseHandle(false);
             localDB.openDB();
             if (localDB.DBIsOpened())
@@ -1077,6 +1074,9 @@ namespace Vydejna
                 localDB.CreateIndexes();
                 labelView.Text = "";
             }
+            localDB.closeDB();
+            MessageBox.Show("Indexy jsou vytvořeny.");
+
         }
     }
 }
