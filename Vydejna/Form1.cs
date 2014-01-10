@@ -403,7 +403,9 @@ namespace Vydejna
             localDB.openDB();
             if (localDB.DBIsOpened())
             {   // smaze tabulky
+                localDB.DropIndexes();
                 localDB.DropTables(); // take provede .closeDB()                localDB.closeDB();
+                MessageBox.Show("Rušení tabulek dokončeno.");
             }
         }
 
@@ -429,6 +431,10 @@ namespace Vydejna
             if (localDB.DBIsOpened())
             {
                 localDB.CreateTables(); // take provede .closeDB()
+                localDB.CreateIndexes();
+
+                MessageBox.Show("Tabulky byly vytvořeny.");
+
                 myDB = OpenDataBaseHandle();
                 myDB.openDB();
             }
@@ -1062,8 +1068,7 @@ namespace Vydejna
             vDatabase localDB = OpenDataBaseHandle(false);
             localDB.openDB();
             if (localDB.DBIsOpened())
-            {   // smaze tabulky
-                //                localDB.DropTables(); // take provede .closeDB()                localDB.closeDB();
+            {   
                 labelView.Text = "Mažu indexi";
                 contextMenuDisable();
                 dataGridView1.DataSource = null;

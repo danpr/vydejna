@@ -163,7 +163,7 @@ namespace Vydejna
 
                 myDBConn.Close();
                 myDBConn.Dispose();
-                MessageBox.Show("Rušení tabulek dokončeno.");
+//                MessageBox.Show("Rušení tabulek dokončeno.");
 
             }
         }
@@ -305,7 +305,7 @@ namespace Vydejna
                     cmdOsoby.ExecuteNonQuery();
                     cmdZmeny.ExecuteNonQuery();
                     cmdPujceno.ExecuteNonQuery();
-                    MessageBox.Show("Tabulky byly vytvořeny.");
+//                    MessageBox.Show("Tabulky byly vytvořeny.");
                 }
                 catch (Exception ex)
                 {
@@ -338,24 +338,30 @@ namespace Vydejna
             if (DBIsOpened())
             {
                 string commandStringIn1 = "CREATE UNIQUE INDEX naradiPorIN ON naradi (poradi)";
-                //                string commandStringIn2 = "CREATE UNIQUE INDEX  kartaPorIN ON karta (poradi)";
-                //                string commandStringIn3 = "CREATE UNIQUE INDEX  vracenoPorIN ON vraceno (poradi)";
-                //                string commandStringIn4 = "CREATE UNIQUE INDEX  poskozenoPorIN ON poskozeno (poradi)";
-                //                string commandStringIn5 = "CREATE UNIQUE INDEX  osobyPorIN ON osoby (oscislo)";
-                //                string commandStringIn6 = "CREATE UNIQUE INDEX  zmenyPorIN ON zmeny(poradi)";
-                //                string commandStringIn7 = "CREATE UNIQUE INDEX  pujcenoPorIN ON (parporadi,poradi)";
-                SQLiteCommand cmdIndex = new SQLiteCommand(commandStringIn1, myDBConn as SQLiteConnection);
-                try
+                string commandStringIn2 = "CREATE UNIQUE INDEX  kartaPorIN ON karta (poradi)";
+                string commandStringIn3 = "CREATE UNIQUE INDEX  vracenoPorIN ON vraceno (poradi)";
+                string commandStringIn4 = "CREATE UNIQUE INDEX  poskozenoPorIN ON poskozeno (poradi)";
+                string commandStringIn5 = "CREATE UNIQUE INDEX  osobyPorIN ON osoby (oscislo)";
+                string commandStringIn6 = "CREATE UNIQUE INDEX  zmenyPorIN ON zmeny(poradi)";
+                string commandStringIn7 = "CREATE UNIQUE INDEX  pujcenoPorIN ON (parporadi,poradi)";
+                string[] commandStrings = new String [7] {commandStringIn1, commandStringIn2, commandStringIn3,
+                         commandStringIn4, commandStringIn5, commandStringIn6, commandStringIn7};
+                Int32 indexErrCount = 0;
+                foreach (string commandStringIn in commandStrings)
                 {
-                    cmdIndex.ExecuteNonQuery();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
-                finally
-                {
-                    cmdIndex.Dispose();
+                    SQLiteCommand cmdIndex = new SQLiteCommand(commandStringIn, myDBConn as SQLiteConnection);
+                    try
+                    {
+                        cmdIndex.ExecuteNonQuery();
+                    }
+                    catch (Exception )
+                    {
+                        indexErrCount++;
+                    }
+                    finally
+                    {
+                        cmdIndex.Dispose();
+                    }
                 }
             }
         }
@@ -366,27 +372,34 @@ namespace Vydejna
             openDB();
             if (DBIsOpened())
             {
-                string commandStringIn1 = "DROP INDEX naradiPorIn";
-                //                string commandStringIn2 = "CREATE UNIQUE INDEX  kartaPorIN ON karta (poradi)";
-                //                string commandStringIn3 = "CREATE UNIQUE INDEX  vracenoPorIN ON vraceno (poradi)";
-                //                string commandStringIn4 = "CREATE UNIQUE INDEX  poskozenoPorIN ON poskozeno (poradi)";
-                //                string commandStringIn5 = "CREATE UNIQUE INDEX  osobyPorIN ON osoby (oscislo)";
-                //                string commandStringIn6 = "CREATE UNIQUE INDEX  zmenyPorIN ON zmeny(poradi)";
-                //                string commandStringIn7 = "CREATE UNIQUE INDEX  pujcenoPorIN ON (parporadi,poradi)";
-                SQLiteCommand cmdIndex = new SQLiteCommand(commandStringIn1, myDBConn as SQLiteConnection);
-                try
-                {
-                    cmdIndex.ExecuteNonQuery();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
-                finally
-                {
-                    cmdIndex.Dispose();
-                }
+                string commandStringIn1 = "DROP INDEX naradiPorIN";
+                string commandStringIn2 = "DROP INDEX kartaPorIN";
+                string commandStringIn3 = "DROP INDEX vracenoPorIN";
+                string commandStringIn4 = "DROP INDEX poskozenoPorIN";
+                string commandStringIn5 = "DROP INDEX osobyPorIN";
+                string commandStringIn6 = "DROP INDEX zmenyPorIN";
+                string commandStringIn7 = "DROP INDEX pujcenoPorIN";
 
+                string[] commandStrings = new String [7] {commandStringIn1, commandStringIn2, commandStringIn3,
+                         commandStringIn4, commandStringIn5, commandStringIn6, commandStringIn7};
+                Int32 indexErrCount = 0;
+                foreach (string commandStringIn in commandStrings)
+                {
+
+                    SQLiteCommand cmdIndex = new SQLiteCommand(commandStringIn, myDBConn as SQLiteConnection);
+                    try
+                    {
+                        cmdIndex.ExecuteNonQuery();
+                    }
+                    catch (Exception)
+                    {
+                        indexErrCount++;
+                    }
+                    finally
+                    {
+                        cmdIndex.Dispose();
+                    }
+                }
             }
         }
 
@@ -855,13 +868,6 @@ namespace Vydejna
 
             string commandString = "INSERT INTO zmeny ( parporadi, pomozjk, datum, poznamka, prijem, vydej, zustatek, zapkarta, vevcislo, pocivc, stav, poradi )" +
                   "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
-
-
-            //    string commandStringZmeny = "create table zmeny ( pomozjk char(15), datum date, poznamka char(22)," +
-            //              "prijem integer, vydej integer, zustatek integer, zapkarta char(5), vevcislo char(12)," +
-            //              "pocivc integer, contrcod char(12), dosudnvrc char(1), prijtyp char(2), vydejtyp char(2)," +
-            //              "poradi integer, stav char(1), nazev char(60), vyber char(1), lastsoub char(8), aktadr char(9)," +
-            //              "cena float, ucetkscen float, jk char(15) );";
 
 
             if (DBIsOpened())

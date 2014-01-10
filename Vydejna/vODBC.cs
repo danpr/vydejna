@@ -148,7 +148,7 @@ namespace Vydejna
 
              myDBConn.Close();
              myDBConn.Dispose();
-             MessageBox.Show("Rušení tabulek dokončeno.");
+//             MessageBox.Show("Rušení tabulek dokončeno.");
 
             }
         }
@@ -238,7 +238,7 @@ namespace Vydejna
                     cmdOsoby.ExecuteNonQuery();
                     cmdZmeny.ExecuteNonQuery();
                     cmdPujceno.ExecuteNonQuery();
-                    MessageBox.Show("Tabulky byly vytvořeny.");
+//                    MessageBox.Show("Tabulky byly vytvořeny.");
                 }
                 catch (Exception ex)
                 {
@@ -320,30 +320,37 @@ namespace Vydejna
         }
 
 
+
         public override void CreateIndexes()
         {
             openDB();
             if (DBIsOpened())
             {
-                string commandStringIn1 = "CREATE UNIQUE INDEX  naradiPorIN ON  naradi (poradi)";
-//                string commandStringIn2 = "CREATE UNIQUE INDEX  kartaPorIN ON karta (poradi)";
-//                string commandStringIn3 = "CREATE UNIQUE INDEX  vracenoPorIN ON vraceno (poradi)";
-//                string commandStringIn4 = "CREATE UNIQUE INDEX  poskozenoPorIN ON poskozeno (poradi)";
-//                string commandStringIn5 = "CREATE UNIQUE INDEX  osobyPorIN ON osoby (oscislo)";
-//                string commandStringIn6 = "CREATE UNIQUE INDEX  zmenyPorIN ON zmeny(poradi)";
-//                string commandStringIn7 = "CREATE UNIQUE INDEX  pujcenoPorIN ON (parporadi,poradi)";
-                OdbcCommand cmdIndex = new OdbcCommand(commandStringIn1, myDBConn as OdbcConnection);
-                try
+                string commandStringIn1 = "CREATE UNIQUE INDEX naradiPorIN ON naradi (poradi)";
+                string commandStringIn2 = "CREATE UNIQUE INDEX  kartaPorIN ON karta (poradi)";
+                string commandStringIn3 = "CREATE UNIQUE INDEX  vracenoPorIN ON vraceno (poradi)";
+                string commandStringIn4 = "CREATE UNIQUE INDEX  poskozenoPorIN ON poskozeno (poradi)";
+                string commandStringIn5 = "CREATE UNIQUE INDEX  osobyPorIN ON osoby (oscislo)";
+                string commandStringIn6 = "CREATE UNIQUE INDEX  zmenyPorIN ON zmeny(poradi)";
+                string commandStringIn7 = "CREATE UNIQUE INDEX  pujcenoPorIN ON (parporadi,poradi)";
+                string[] commandStrings = new String[7] {commandStringIn1, commandStringIn2, commandStringIn3,
+                         commandStringIn4, commandStringIn5, commandStringIn6, commandStringIn7};
+                Int32 indexErrCount = 0;
+                foreach (string commandStringIn in commandStrings)
                 {
-                    cmdIndex.ExecuteNonQuery();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
-                finally
-                {
-                    cmdIndex.Dispose();
+                    OdbcCommand cmdIndex = new OdbcCommand(commandStringIn, myDBConn as OdbcConnection);
+                    try
+                    {
+                        cmdIndex.ExecuteNonQuery();
+                    }
+                    catch (Exception)
+                    {
+                        indexErrCount++;
+                    }
+                    finally
+                    {
+                        cmdIndex.Dispose();
+                    }
                 }
             }
         }
@@ -354,29 +361,37 @@ namespace Vydejna
             openDB();
             if (DBIsOpened())
             {
-                string commandStringIn1 = "CREATE UNIQUE INDEX  naradiPorIN ON  naradi (poradi)";
-//                string commandStringIn2 = "CREATE UNIQUE INDEX  kartaPorIN ON karta (poradi)";
-//                string commandStringIn3 = "CREATE UNIQUE INDEX  vracenoPorIN ON vraceno (poradi)";
-//                string commandStringIn4 = "CREATE UNIQUE INDEX  poskozenoPorIN ON poskozeno (poradi)";
-//                string commandStringIn5 = "CREATE UNIQUE INDEX  osobyPorIN ON osoby (oscislo)";
-//                string commandStringIn6 = "CREATE UNIQUE INDEX  zmenyPorIN ON zmeny(poradi)";
-//                string commandStringIn7 = "CREATE UNIQUE INDEX  pujcenoPorIN ON (parporadi,poradi)";
-                OdbcCommand cmdIndex = new OdbcCommand(commandStringIn1, myDBConn as OdbcConnection);
-                try
-                {
-                    cmdIndex.ExecuteNonQuery();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
-                finally
-                {
-                    cmdIndex.Dispose();
-                }
+                string commandStringIn1 = "DROP INDEX naradiPorIN";
+                string commandStringIn2 = "DROP INDEX kartaPorIN";
+                string commandStringIn3 = "DROP INDEX vracenoPorIN";
+                string commandStringIn4 = "DROP INDEX poskozenoPorIN";
+                string commandStringIn5 = "DROP INDEX osobyPorIN";
+                string commandStringIn6 = "DROP INDEX zmenyPorIN";
+                string commandStringIn7 = "DROP INDEX pujcenoPorIN";
 
+                string[] commandStrings = new String[7] {commandStringIn1, commandStringIn2, commandStringIn3,
+                         commandStringIn4, commandStringIn5, commandStringIn6, commandStringIn7};
+                Int32 indexErrCount = 0;
+                foreach (string commandStringIn in commandStrings)
+                {
+
+                    OdbcCommand cmdIndex = new OdbcCommand(commandStringIn, myDBConn as OdbcConnection);
+                    try
+                    {
+                        cmdIndex.ExecuteNonQuery();
+                    }
+                    catch (Exception)
+                    {
+                        indexErrCount++;
+                    }
+                    finally
+                    {
+                        cmdIndex.Dispose();
+                    }
+                }
             }
         }
+
 
 
 

@@ -543,12 +543,14 @@ namespace Vydejna
 
                 }
 
-
-                myDB.addLineZmeny(poradi, DBpomocJK, DBdatum, DBpoznamka, DBprijem, DBvydej, DBzustatek, DBzapKarta, DBvevCislo,
-                    DBpocIvc, DBstav, DBporadi );
+                if (poradi > 0)
+                {
+                    myDB.addLineZmeny(poradi, DBpomocJK, DBdatum, DBpoznamka, DBprijem, DBvydej, DBzustatek, DBzapKarta, DBvevCislo,
+                        DBpocIvc, DBstav, DBporadi);
+                }
                 Application.DoEvents();
             }
-
+                                                                    
         }
         if (dr != null)
         {
