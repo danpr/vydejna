@@ -208,6 +208,7 @@ namespace Vydejna
                          DBfyzStav, DBrozmer, DBanalUcet, DBtDate, DBstredisko, DBkodZmeny,
                          DBdruhP, DBodpis, DBzavod, DBucetkscen, DBtest, DBpomRoz, DBkDatum, DBkodD);
 
+
                     if (DBcontr.Trim() != "")
                     {
                         if (DBJoin.ContainsKey(DBadresa + ":" + DBmov + ":" + DBcontr))
@@ -457,7 +458,7 @@ namespace Vydejna
                 if (dr.IsDBNull(14)) DBstav = ""; else DBstav = dr.GetString(14).Trim();
 
                 Int32 poradi;
-                if (DBcontrCod != "" )
+                if (DBcontrCod != "")
                 {
                     string joinIndex = index + ":" + DBcontrCod;
                     if (DBJoin.ContainsKey(joinIndex))
@@ -491,12 +492,12 @@ namespace Vydejna
                     {
                         if (DBpoznamkaUpper.Length > 7) testString = DBpoznamkaUpper.Substring(0, 7);
                         else testString = DBpoznamkaUpper;
-                        if ((testString  == "POŠKOZ.")) DBstav = "O";
+                        if ((testString == "POŠKOZ.")) DBstav = "O";
                         else
                         {
                             if (DBpoznamkaUpper.Length > 7) testString = DBpoznamkaUpper.Substring(0, 7);
                             else testString = DBpoznamkaUpper;
-                            if (testString == "PŮJČENO" ) DBstav = "U";
+                            if (testString == "PŮJČENO") DBstav = "U";
                             else
                             {
                                 if (DBpoznamkaUpper.Length > 4) testString = DBpoznamkaUpper.Substring(0, 4);
@@ -545,8 +546,31 @@ namespace Vydejna
 
                 if (poradi > 0)
                 {
-                    myDB.addLineZmeny(poradi, DBpomocJK, DBdatum, DBpoznamka, DBprijem, DBvydej, DBzustatek, DBzapKarta, DBvevCislo,
-                        DBpocIvc, DBstav, DBporadi);
+                    Boolean dbAppend = true;
+                    Int32 countOfLoop = 0;
+                    while (dbAppend) // dokud plati
+                    {
+                        try
+                        {
+                            dbAppend = false;
+                            myDB.addLineZmeny(poradi, DBpomocJK, DBdatum, DBpoznamka, DBprijem, DBvydej, DBzustatek, DBzapKarta, DBvevCislo,
+                                DBpocIvc, DBstav, DBporadi);
+                        }
+                        catch
+                        {
+//                            Console.WriteLine(e1);
+                            if (countOfLoop < 20)
+                            {
+                                dbAppend = true;
+                                DBporadi++;
+                            }
+                            countOfLoop++;
+                        }
+                    }
+                    if (countOfLoop == 20)
+                    {
+                        MessageBox.Show("Nemohu pridat zaznam o zmenach pro poradi = "+Convert.ToString(DBporadi));
+                    }
                 }
                 Application.DoEvents();
             }
