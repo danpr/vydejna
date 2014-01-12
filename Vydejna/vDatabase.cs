@@ -18,7 +18,7 @@ using System.Windows.Forms;
 // normacsn   DBnormacsn  Norma ČSN      textBoxCsn
 // normadin   DBnormadin  Norma DIN      textBoxDin 
 // vyrobce    DBvyrobce   Vyrobce        textBoxVyrobce
-// cena       DBcena      Cena           numericUpDownCenaKs
+// cena       DBcena      Cena           numericUpDownCenaKs     ---  
 // poznamka   DBpoznamka  Poznamka       textBoxPoznamka
 // minimum    DBminstav   Minimální stav numericUpDownMinStav
 // celkcena   DBcelkcena  Celková cena   numericUpDownUcetCena
@@ -33,10 +33,10 @@ using System.Windows.Forms;
 // analucet   DBanalucet  Anal. účet     textBoxUcet.Text
 // date       DBdate
 // stredisko  DBstredisko
-// kodzmeny   DBkodzmeny
+// kodzmeny   DBkodzmeny             // zruseno v SQL
 // druh       DBdruhp
-// odpis      DBodpis
-// zavod      DBzavod
+// odpis      DBodpis    
+// zavod      DBzavod                // zruseno v SQL
 // ---- Nasledujici polozku neobsahuje tabulka karta
 // ucetkscen  DBucetkscen Ucet. cena/KS  numericUpDownUcetCenaKs
 // test       DBtest      // zruseno v SQL

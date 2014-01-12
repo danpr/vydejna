@@ -271,7 +271,11 @@ namespace Vydejna
 
                     SkladovaKarta.messager mesenger = sklKarta.getMesseger();
 
-                    Int32 poradi = myDB.addNewLineNaradi(mesenger.nazev, mesenger.jk, mesenger.csn, mesenger.din, mesenger.vyrobce, mesenger.cenaKs, mesenger.poznamka, mesenger.minStav, mesenger.ucetCena, mesenger.ucetStav, mesenger.ucetStav, mesenger.rozmer, mesenger.ucet, mesenger.ucetCenaKs, new DateTime(0));
+
+                    Int32 poradi = myDB.addNewLineNaradi(mesenger.nazev, mesenger.jk, mesenger.csn, mesenger.din,
+                                   mesenger.vyrobce, mesenger.cenaKs, mesenger.poznamka, mesenger.minStav,
+                                   mesenger.ucetCena, mesenger.ucetStav, mesenger.ucetStav, mesenger.rozmer,
+                                   mesenger.ucet, mesenger.ucetCenaKs, new DateTime(0));
                     if (poradi != -1)
                     {
                        (myDataGridView.DataSource as DataTable).Rows.Add(poradi, "", mesenger.nazev, mesenger.jk, mesenger.ucetStav, mesenger.ucet, mesenger.csn, mesenger.din, mesenger.vyrobce, mesenger.rozmer, 0, mesenger.cenaKs, mesenger.ucetCena, mesenger.minStav, mesenger.poznamka, mesenger.ucetCenaKs);

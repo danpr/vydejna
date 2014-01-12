@@ -238,15 +238,13 @@ namespace Vydejna
 
             string commandStringKarta = "create table karta ( poradi integer, nazev char(60), jk char(15), normacsn char (15)," +
                       "normadin char(15), vyrobce char(40), cena float, poznamka char(60), minimum integer," +
-                      "celkcena float," +
-                      "ucetstav integer, fyzstav integer, rozmer char(20), analucet char(5), tdate date," +
+                      "celkcena float, ucetstav integer, fyzstav integer, rozmer char(20), analucet char(5), tdate date," +
                       "stredisko char(5), druh char(3), odpis char(3));";
 
 
             string commandStringNaradi = "create table naradi ( poradi integer, nazev char(60), jk char(15), normacsn char(15)," +
                       "normadin char(15), vyrobce char(40), cena float, poznamka char(60), minimum integer," +
-                      "celkcena float," +
-                      "ucetstav integer, fyzstav integer, rozmer char(20), analucet char(5), tdate date," +
+                      "celkcena float, ucetstav integer, fyzstav integer, rozmer char(20), analucet char(5), tdate date," +
                       "stredisko char(5), druh char(3), odpis char(3), ucetkscen float, kdatum date, kodd char(2));";
 
 
@@ -456,7 +454,9 @@ namespace Vydejna
             string commandStringSeq1 = "SELECT poradi FROM tabseq WHERE nazev = 'naradi'";
             string commandStringSeq2 = "UPDATE  tabseq set poradi = poradi +1 WHERE nazev = 'naradi'";
             
-            string commandString = "INSERT INTO karta ( poradi, nazev, jk, normacsn, normadin, vyrobce, cena, poznamka, minimum, celkcena, ucetstav, fyzstav, rozmer, analucet, tdate, stredisko, druh, odpis) " +
+            string commandString = "INSERT INTO karta ( poradi, nazev, jk, normacsn, normadin, vyrobce, cena," +
+                  " poznamka, minimum, celkcena, ucetstav, fyzstav, rozmer, analucet, tdate, stredisko," +
+                  " druh, odpis) " +
                   "VALUES ( ? ,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 
@@ -530,7 +530,9 @@ namespace Vydejna
             string commandStringSeq1 = "SELECT poradi FROM tabseq WHERE nazev = 'naradi'";
             string commandStringSeq2 = "UPDATE  tabseq set poradi = poradi +1 WHERE nazev = 'naradi'";
 
-            string commandString = "INSERT INTO naradi ( poradi, nazev, jk, normacsn, normadin, vyrobce, cena, poznamka, minimum, celkcena, ucetstav, fyzstav, rozmer, analucet, tdate, stredisko, druh, odpis, ucetkscen, kdatum, kodd ) " +
+            string commandString = "INSERT INTO naradi ( poradi, nazev, jk, normacsn, normadin, vyrobce, cena," +
+                  " poznamka, minimum, celkcena, ucetstav, fyzstav, rozmer, analucet, tdate, stredisko, druh," +
+                  " odpis, ucetkscen, kdatum, kodd ) " +
                   "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
 
             if (DBIsOpened())
@@ -583,10 +585,8 @@ namespace Vydejna
                 
                 SQLiteParameter p25 = new SQLiteParameter(DbType.String);
                 p25.Value = DBucetkscen;
-                
                 SQLiteParameter p28 = new SQLiteParameter(DbType.Date);
                 p28.Value = DBkdatum;
-                
                 SQLiteParameter p29 = new SQLiteParameter(DbType.String);
                 p29.Value = DBkodd;
 
@@ -1078,7 +1078,9 @@ namespace Vydejna
             string commandReadString1 = "SELECT MAX(poradi) as maxporadi from naradi";
             string commandString1 = "UPDATE  tabseq set poradi = poradi +1 WHERE nazev = 'naradi'";
 
-            string commandString2 = "INSERT INTO naradi ( poradi, nazev, jk, normacsn, normadin, vyrobce, cena, poznamka, minimum, celkcena,  ucetstav, fyzstav, rozmer, analucet, tdate, stredisko, druh, odpis, ucetkscen, test, kdatum, kodd ) " +
+            string commandString2 = "INSERT INTO naradi ( poradi, nazev, jk, normacsn, normadin, vyrobce, cena," +
+                  " poznamka, minimum, celkcena,  ucetstav, fyzstav, rozmer, analucet, tdate, stredisko, druh," +
+                  " odpis, ucetkscen, kdatum, kodd ) " +
                   "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
 
             SQLiteTransaction transaction = null;
@@ -1121,7 +1123,7 @@ namespace Vydejna
                     cmd.Parameters.AddWithValue("@poznamka",DBpoznamka);
                     cmd.Parameters.AddWithValue("@minimum",DBminstav);
                     cmd.Parameters.AddWithValue("@celkcena",DBcelkcena);
-                    cmd.Parameters.AddWithValue("@ucetstav",DBucetkscen);
+                    cmd.Parameters.AddWithValue("@ucetstav",DBucetstav);
                     cmd.Parameters.AddWithValue("@fyzstav",DBfyzstav);
                     cmd.Parameters.AddWithValue("@rozmer",DBrozmer);
                     cmd.Parameters.AddWithValue("@analucet",DBanalucet);
@@ -1783,8 +1785,8 @@ namespace Vydejna
             {
                 string commandReadString1 = "select oscislo from pujceno where nporadi = ?";
                 string commandString2 = "DELETE FROM naradi  where poradi = ? ";
-                string commandString1 = "INSERT INTO karta ( poradi, nazev, jk, normacsn, normadin, vyrobce, cena, poznamka, minimum, celkcena, ucetstav, fyzstav, rozmer, analucet, tdate, stredisko, kodzmeny, druh, odpis, zavod ) " +
-                      "SELECT poradi, nazev, jk, normacsn, normadin, vyrobce, cena, poznamka, minimum, celkcena, ucetstav, fyzstav, rozmer, analucet, tdate, stredisko, kodzmeny, druh, odpis, zavod FROM naradi WHERE poradi = ?";
+                string commandString1 = "INSERT INTO karta ( poradi, nazev, jk, normacsn, normadin, vyrobce, cena, poznamka, minimum, celkcena, ucetstav, fyzstav, rozmer, analucet, tdate, stredisko, druh, odpis ) " +
+                      "SELECT poradi, nazev, jk, normacsn, normadin, vyrobce, cena, poznamka, minimum, celkcena, ucetstav, fyzstav, rozmer, analucet, tdate, stredisko, druh, odpis FROM naradi WHERE poradi = ?";
 
 
                 try
