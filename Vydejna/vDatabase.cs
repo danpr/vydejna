@@ -196,7 +196,7 @@ namespace Vydejna
                                          string DBvyrobce, double DBcena, string DBpoznamka, int DBminstav, 
                                          double DBcelkcena, int DBucetstav, int DBfyzstav, 
                                          string DBrozmer, string DBanalucet, DateTime DBdate, string DBstredisko,
-                                         string DBkodzmeny, string DBdruhp, string DBodpis, string DBzavod)
+                                         string DBdruhp, string DBodpis)
         {
             return 0;
         }
@@ -205,8 +205,7 @@ namespace Vydejna
                                          string DBvyrobce, double DBcena, string DBpoznamka, int DBminstav,
                                          double DBcelkcena, int DBucetstav, int DBfyzstav,
                                          string DBrozmer, string DBanalucet, DateTime DBdate, string DBstredisko,
-                                         string DBkodzmeny, string DBdruhp, string DBodpis, string DBzavod,
-                                         double DBucetkscen, DateTime DBkdatum, string DBkodd)
+                                         string DBdruhp, string DBodpis, double DBucetkscen, DateTime DBkdatum, string DBkodd)
         {
             return 0;
         }

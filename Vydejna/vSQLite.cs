@@ -240,15 +240,14 @@ namespace Vydejna
                       "normadin char(15), vyrobce char(40), cena float, poznamka char(60), minimum integer," +
                       "celkcena float," +
                       "ucetstav integer, fyzstav integer, rozmer char(20), analucet char(5), tdate date," +
-                      "stredisko char(5), kodzmeny char(3), druh char(3), odpis char(3), zavod char(3));";
+                      "stredisko char(5), druh char(3), odpis char(3));";
 
 
             string commandStringNaradi = "create table naradi ( poradi integer, nazev char(60), jk char(15), normacsn char(15)," +
                       "normadin char(15), vyrobce char(40), cena float, poznamka char(60), minimum integer," +
                       "celkcena float," +
                       "ucetstav integer, fyzstav integer, rozmer char(20), analucet char(5), tdate date," +
-                      "stredisko char(5), kodzmeny char(3), druh char(3), odpis char(3), zavod char(3), ucetkscen float," +
-                      "kdatum date, kodd char(2) );";
+                      "stredisko char(5), druh char(3), odpis char(3), ucetkscen float, kdatum date, kodd char(2));";
 
 
             string commandStringPoskozeno = "create table poskozeno ( poradi integer, jmeno char(15), oscislo char(8), dilna char(15)," +
@@ -451,14 +450,14 @@ namespace Vydejna
                                          string DBvyrobce, double DBcena, string DBpoznamka, int DBminstav,
                                          double DBcelkcena, int DBucetstav, int DBfyzstav,
                                          string DBrozmer, string DBanalucet, DateTime DBdate, string DBstredisko,
-                                         string DBkodzmeny, string DBdruhp, string DBodpis, string DBzavod)
+                                         string DBdruhp, string DBodpis)
         {
 
             string commandStringSeq1 = "SELECT poradi FROM tabseq WHERE nazev = 'naradi'";
             string commandStringSeq2 = "UPDATE  tabseq set poradi = poradi +1 WHERE nazev = 'naradi'";
             
-            string commandString = "INSERT INTO karta ( poradi, nazev, jk, normacsn, normadin, vyrobce, cena, poznamka, minimum, celkcena, ucetstav, fyzstav, rozmer, analucet, tdate, stredisko, kodzmeny, druh, odpis, zavod) " +
-                  "VALUES ( ? ,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            string commandString = "INSERT INTO karta ( poradi, nazev, jk, normacsn, normadin, vyrobce, cena, poznamka, minimum, celkcena, ucetstav, fyzstav, rozmer, analucet, tdate, stredisko, druh, odpis) " +
+                  "VALUES ( ? ,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 
             if (DBIsOpened())
@@ -504,14 +503,12 @@ namespace Vydejna
                 cmd.Parameters["@p19"].Value = DBdate;
                 cmd.Parameters.Add("@p20", DbType.String);
                 cmd.Parameters["@p20"].Value = DBstredisko;
-                cmd.Parameters.Add("@p21", DbType.String);
-                cmd.Parameters["@p21"].Value = DBkodzmeny;
+
                 cmd.Parameters.Add("@p22", DbType.String);
                 cmd.Parameters["@p22"].Value = DBdruhp;
                 cmd.Parameters.Add("@p23", DbType.String);
                 cmd.Parameters["@p23"].Value = DBodpis;
-                cmd.Parameters.Add("@p24", DbType.String);
-                cmd.Parameters["@p24"].Value = DBzavod;
+                
 
                 cmd.ExecuteNonQuery();
 
@@ -527,15 +524,14 @@ namespace Vydejna
                                          string DBvyrobce, double DBcena, string DBpoznamka, int DBminstav,
                                          double DBcelkcena, int DBucetstav, int DBfyzstav,
                                          string DBrozmer, string DBanalucet, DateTime DBdate, string DBstredisko,
-                                         string DBkodzmeny, string DBdruhp, string DBodpis, string DBzavod,
-                                         double DBucetkscen, DateTime DBkdatum, string DBkodd)
+                                         string DBdruhp, string DBodpis, double DBucetkscen, DateTime DBkdatum, string DBkodd)
         {
 
             string commandStringSeq1 = "SELECT poradi FROM tabseq WHERE nazev = 'naradi'";
             string commandStringSeq2 = "UPDATE  tabseq set poradi = poradi +1 WHERE nazev = 'naradi'";
 
-            string commandString = "INSERT INTO naradi ( poradi, nazev, jk, normacsn, normadin, vyrobce, cena, poznamka, minimum, celkcena, ucetstav, fyzstav, rozmer, analucet, tdate, stredisko, kodzmeny, druh, odpis, zavod, ucetkscen, kdatum, kodd ) " +
-                  "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
+            string commandString = "INSERT INTO naradi ( poradi, nazev, jk, normacsn, normadin, vyrobce, cena, poznamka, minimum, celkcena, ucetstav, fyzstav, rozmer, analucet, tdate, stredisko, druh, odpis, ucetkscen, kdatum, kodd ) " +
+                  "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
 
             if (DBIsOpened())
             {
@@ -580,14 +576,10 @@ namespace Vydejna
                 p19.Value = DBdate;
                 SQLiteParameter p20 = new SQLiteParameter(DbType.String);
                 p20.Value = DBstredisko;
-                SQLiteParameter p21 = new SQLiteParameter(DbType.String);
-                p21.Value = DBkodzmeny;
                 SQLiteParameter p22 = new SQLiteParameter(DbType.String);
                 p22.Value = DBdruhp;
                 SQLiteParameter p23 = new SQLiteParameter(DbType.String);
                 p23.Value = DBodpis;
-                SQLiteParameter p24 = new SQLiteParameter(DbType.String);
-                p24.Value = DBzavod;
                 
                 SQLiteParameter p25 = new SQLiteParameter(DbType.String);
                 p25.Value = DBucetkscen;
@@ -615,10 +607,8 @@ namespace Vydejna
                 cmd.Parameters.Add(p18);
                 cmd.Parameters.Add(p19);
                 cmd.Parameters.Add(p20);
-                cmd.Parameters.Add(p21);
                 cmd.Parameters.Add(p22);
                 cmd.Parameters.Add(p23);
-                cmd.Parameters.Add(p24);
                 cmd.Parameters.Add(p25);
                 cmd.Parameters.Add(p28);
                 cmd.Parameters.Add(p29);
@@ -1088,8 +1078,8 @@ namespace Vydejna
             string commandReadString1 = "SELECT MAX(poradi) as maxporadi from naradi";
             string commandString1 = "UPDATE  tabseq set poradi = poradi +1 WHERE nazev = 'naradi'";
 
-            string commandString2 = "INSERT INTO naradi ( poradi, nazev, jk, normacsn, normadin, vyrobce, cena, poznamka, minimum, celkcena,  ucetstav, fyzstav, rozmer, analucet, tdate, stredisko, kodzmeny, druh, odpis, zavod, ucetkscen, test, pomroz, kdatum, kodd ) " +
-                  "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, '' )";
+            string commandString2 = "INSERT INTO naradi ( poradi, nazev, jk, normacsn, normadin, vyrobce, cena, poznamka, minimum, celkcena,  ucetstav, fyzstav, rozmer, analucet, tdate, stredisko, druh, odpis, ucetkscen, test, kdatum, kodd ) " +
+                  "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
 
             SQLiteTransaction transaction = null;
 
@@ -1137,13 +1127,11 @@ namespace Vydejna
                     cmd.Parameters.AddWithValue("@analucet",DBanalucet);
                     cmd.Parameters.AddWithValue("@tdate",new DateTime(0));
                     cmd.Parameters.AddWithValue("@stredisko","");
-                    cmd.Parameters.AddWithValue("@kodzmeny", "");
                     cmd.Parameters.AddWithValue("@druh", "");
                     cmd.Parameters.AddWithValue("@odpis", "");
-                    cmd.Parameters.AddWithValue("@zavod", "");
                     cmd.Parameters.AddWithValue("@ucetkscen", DBucetkscen);
-                    cmd.Parameters.AddWithValue("kdatum", DBkdatum);
-                    cmd.Parameters.AddWithValue("kodd", "");
+                    cmd.Parameters.AddWithValue("@kdatum", DBkdatum);
+                    cmd.Parameters.AddWithValue("@kodd", "");
                     cmd.Transaction = transaction; 
                     cmd.ExecuteNonQuery();
 

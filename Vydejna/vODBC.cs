@@ -168,15 +168,14 @@ namespace Vydejna
                       "normadin char(15), vyrobce char(40), cena float, poznamka char(60), minimum integer," +
                       "celkcena float," +
                       "ucetstav integer, fyzstav integer, rozmer char(20), analucet char(5), tdate date," +
-                      "stredisko char(5), kodzmeny char(3), druh char(3), odpis char(3), zavod char(3));";
+                      "stredisko char(5), druh char(3), odpis char(3));";
 
 
             string commandStringNaradi = "create table naradi ( poradi integer, nazev char(60), jk char(15), normacsn char (15)," +
                       "normadin char(15), vyrobce char(40), cena float, poznamka char(60), minimum integer," +
                       "celkcena float," +
                       "ucetstav integer, fyzstav integer, rozmer char(20), analucet char(5), tdate date," +
-                      "stredisko char(5), kodzmeny char(3), druh char(3), odpis char(3), zavod char(3), ucetkscen float," +
-                      "kdatum date, kodd char(2) );";
+                      "stredisko char(5), druh char(3), odpis char(3), ucetkscen float, kdatum date, kodd char(2));";
 
 
             string commandStringPoskozeno = "create table poskozeno ( poradi integer, jmeno char(15), oscislo char(8), dilna char(15)," +
@@ -399,7 +398,7 @@ namespace Vydejna
                                          string DBvyrobce, double DBcena, string DBpoznamka, int DBminstav,
                                          double DBcelkcena, int DBucetstav, int DBfyzstav,
                                          string DBrozmer, string DBanalucet, DateTime DBdate, string DBstredisko,
-                                         string DBkodzmeny, string DBdruhp, string DBodpis, string DBzavod)
+                                         string DBdruhp, string DBodpis)
         {
             string commandStringSeq1 = "SELECT poradi FROM tabseq WHERE nazev = 'naradi'";
             string commandStringSeq2 = "UPDATE  tabseq set poradi = poradi +1 WHERE nazev = 'naradi'";
@@ -454,14 +453,10 @@ namespace Vydejna
                 p19.Value = DBdate;
                 OdbcParameter p20 = new OdbcParameter("p20", OdbcType.NChar);
                 p20.Value = DBstredisko;
-                OdbcParameter p21 = new OdbcParameter("p21", OdbcType.NChar);
-                p21.Value = DBkodzmeny;
                 OdbcParameter p22 = new OdbcParameter("p22", OdbcType.NChar);
                 p22.Value = DBdruhp;
                 OdbcParameter p23 = new OdbcParameter("p23", OdbcType.NChar);
                 p23.Value = DBodpis;
-                OdbcParameter p24 = new OdbcParameter("p24", OdbcType.NChar);
-                p24.Value = DBzavod;
 
 
                 cmd.Parameters.Add(p0);
@@ -480,10 +475,8 @@ namespace Vydejna
                 cmd.Parameters.Add(p18);
                 cmd.Parameters.Add(p19);
                 cmd.Parameters.Add(p20);
-                cmd.Parameters.Add(p21);
                 cmd.Parameters.Add(p22);
                 cmd.Parameters.Add(p23);
-                cmd.Parameters.Add(p24);
                 cmd.ExecuteNonQuery();
 
                 OdbcCommand cmdSeq2 = new OdbcCommand(commandStringSeq2, myDBConn as OdbcConnection);
@@ -502,15 +495,14 @@ namespace Vydejna
                                          string DBvyrobce, double DBcena, string DBpoznamka, int DBminstav,
                                          double DBcelkcena, int DBucetstav, int DBfyzstav,
                                          string DBrozmer, string DBanalucet, DateTime DBdate, string DBstredisko,
-                                         string DBkodzmeny, string DBdruhp, string DBodpis, string DBzavod,
-                                         double DBucetkscen, DateTime DBkdatum, string DBkodd)
+                                         string DBdruhp, string DBodpis, double DBucetkscen, DateTime DBkdatum, string DBkodd)
         {
 
             string commandStringSeq1 = "SELECT poradi FROM tabseq WHERE nazev = 'naradi'";
             string commandStringSeq2 = "UPDATE  tabseq set poradi = poradi +1 WHERE nazev = 'naradi'";
 
-            string commandString = "INSERT INTO naradi ( poradi, nazev, jk, normacsn, normadin, vyrobce, cena, poznamka, minimum, celkcena, ucetstav, fyzstav, rozmer, analucet, tdate, stredisko, kodzmeny, druh, odpis, zavod, ucetkscen, kdatum, kodd ) " +
-                  "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
+            string commandString = "INSERT INTO naradi ( poradi, nazev, jk, normacsn, normadin, vyrobce, cena, poznamka, minimum, celkcena, ucetstav, fyzstav, rozmer, analucet, tdate, stredisko, druh, odpis, ucetkscen, kdatum, kodd ) " +
+                  "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
 
             if (DBIsOpened())
             {
@@ -556,14 +548,10 @@ namespace Vydejna
                 p19.Value = DBdate;
                 OdbcParameter p20 = new OdbcParameter("p20", OdbcType.NChar);
                 p20.Value = DBstredisko;
-                OdbcParameter p21 = new OdbcParameter("p21", OdbcType.NChar);
-                p21.Value = DBkodzmeny;
                 OdbcParameter p22 = new OdbcParameter("p22", OdbcType.NChar);
                 p22.Value = DBdruhp;
                 OdbcParameter p23 = new OdbcParameter("p23", OdbcType.NChar);
                 p23.Value = DBodpis;
-                OdbcParameter p24 = new OdbcParameter("p24", OdbcType.NChar);
-                p24.Value = DBzavod;
                 OdbcParameter p25 = new OdbcParameter("p25", OdbcType.Double);
                 p25.Value = DBucetkscen;
                 OdbcParameter p28 = new OdbcParameter("p26", OdbcType.Date);
@@ -588,10 +576,8 @@ namespace Vydejna
                 cmd.Parameters.Add(p18);
                 cmd.Parameters.Add(p19);
                 cmd.Parameters.Add(p20);
-                cmd.Parameters.Add(p21);
                 cmd.Parameters.Add(p22);
                 cmd.Parameters.Add(p23);
-                cmd.Parameters.Add(p24);
                 cmd.Parameters.Add(p25);
                 cmd.Parameters.Add(p28);
                 cmd.Parameters.Add(p29);
@@ -913,8 +899,8 @@ namespace Vydejna
             string commandReadString1 = "SELECT MAX(poradi) as maxporadi from naradi";
             string commandString1 = "UPDATE  tabseq set poradi = poradi +1 WHERE nazev = 'naradi'";
 
-            string commandString2 = "INSERT INTO naradi ( poradi, nazev, jk, normacsn, normadin, vyrobce, cena, poznamka, minimum, celkcena,  ucetstav, fyzstav, rozmer, analucet, tdate, stredisko, kodzmeny, druh, odpis, zavod, ucetkscen, test, pomroz, kdatum, kodd ) " +
-                  "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, '' )";
+            string commandString2 = "INSERT INTO naradi ( poradi, nazev, jk, normacsn, normadin, vyrobce, cena, poznamka, minimum, celkcena,  ucetstav, fyzstav, rozmer, analucet, tdate, stredisko, druh, odpis, ucetkscen, kdatum, kodd ) " +
+                  "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
 
             OdbcTransaction transaction = null;
 
@@ -962,13 +948,11 @@ namespace Vydejna
                     cmd.Parameters.AddWithValue("@analucet", DBanalucet);
                     cmd.Parameters.AddWithValue("@tdate", new DateTime(0));
                     cmd.Parameters.AddWithValue("@stredisko", "");
-                    cmd.Parameters.AddWithValue("@kodzmeny", "");
                     cmd.Parameters.AddWithValue("@druh", "");
                     cmd.Parameters.AddWithValue("@odpis", "");
-                    cmd.Parameters.AddWithValue("@zavod", "");
                     cmd.Parameters.AddWithValue("@ucetkscen", DBucetkscen);
-                    cmd.Parameters.AddWithValue("kdatum", DBkdatum);
-                    cmd.Parameters.AddWithValue("kodd", "");
+                    cmd.Parameters.AddWithValue("@kdatum", DBkdatum);
+                    cmd.Parameters.AddWithValue("@kodd", "");
 
                     cmd.Transaction = transaction;
                     cmd.ExecuteNonQuery();
@@ -1376,8 +1360,6 @@ namespace Vydejna
                     //  tab zmeny novy zaznam
                     OdbcCommand cmd2 = new OdbcCommand(commandString2, myDBConn as OdbcConnection);
 
-//                  parporadi, pomozjk, datum, poznamka, prijem, vydej, zustatek, zapkarta, vevcislo, pocivc, stav, poradi
-                    
                     cmd2.Parameters.AddWithValue("@parporadi",parPoradi);
                     cmd2.Parameters.AddWithValue("@pomozjk",naradiJK);
                     cmd2.Parameters.AddWithValue("@datum",DBdatum);
@@ -2857,3 +2839,4 @@ namespace Vydejna
 
     }
 }
+

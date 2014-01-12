@@ -87,8 +87,8 @@ namespace Vydejna
 
                         Int32 poradi = myDB.addLineKaret(DBnazev, DBJK, DBnormaCSN, DBnormaDIN, DBvyrobce, DBcena, DBpoznamka,
                              DBminStav, DBcelkCena, DBucetStav,
-                             DBfyzStav, DBrozmer, DBanalUcet, DBtDate, DBstredisko, DBkodZmeny,
-                             DBdruhP, DBodpis, DBzavod);
+                             DBfyzStav, DBrozmer, DBanalUcet, DBtDate, DBstredisko,
+                             DBdruhP, DBodpis);
 
                         if (DBcontr.Trim() != "")
                         {
@@ -205,8 +205,8 @@ namespace Vydejna
 
                     Int32 poradi = myDB.addLineNaradi(DBnazev, DBJK, DBnormaCSN, DBnormaDIN, DBvyrobce, DBcena, DBpoznamka,
                          DBminStav, DBcelkCena, DBucetStav,
-                         DBfyzStav, DBrozmer, DBanalUcet, DBtDate, DBstredisko, DBkodZmeny,
-                         DBdruhP, DBodpis, DBzavod, DBucetkscen, DBkDatum, DBkodD);
+                         DBfyzStav, DBrozmer, DBanalUcet, DBtDate, DBstredisko,
+                         DBdruhP, DBodpis, DBucetkscen, DBkDatum, DBkodD);
 
 
                     if (DBcontr.Trim() != "")
