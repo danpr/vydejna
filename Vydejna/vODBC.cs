@@ -942,7 +942,7 @@ namespace Vydejna
                     cmd.Parameters.AddWithValue("@poznamka", DBpoznamka);
                     cmd.Parameters.AddWithValue("@minimum", DBminstav);
                     cmd.Parameters.AddWithValue("@celkcena", DBcelkcena);
-                    cmd.Parameters.AddWithValue("@ucetstav", DBucetkscen);
+                    cmd.Parameters.AddWithValue("@ucetstav", DBucetstav);
                     cmd.Parameters.AddWithValue("@fyzstav", DBfyzstav);
                     cmd.Parameters.AddWithValue("@rozmer", DBrozmer);
                     cmd.Parameters.AddWithValue("@analucet", DBanalucet);
