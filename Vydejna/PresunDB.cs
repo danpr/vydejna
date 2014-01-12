@@ -206,7 +206,7 @@ namespace Vydejna
                     Int32 poradi = myDB.addLineNaradi(DBnazev, DBJK, DBnormaCSN, DBnormaDIN, DBvyrobce, DBcena, DBpoznamka,
                          DBminStav, DBcelkCena, DBucetStav,
                          DBfyzStav, DBrozmer, DBanalUcet, DBtDate, DBstredisko, DBkodZmeny,
-                         DBdruhP, DBodpis, DBzavod, DBucetkscen, DBtest, DBpomRoz, DBkDatum, DBkodD);
+                         DBdruhP, DBodpis, DBzavod, DBucetkscen, DBkDatum, DBkodD);
 
 
                     if (DBcontr.Trim() != "")

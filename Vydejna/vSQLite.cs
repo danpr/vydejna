@@ -248,7 +248,7 @@ namespace Vydejna
                       "celkcena float," +
                       "ucetstav integer, fyzstav integer, rozmer char(20), analucet char(5), tdate date," +
                       "stredisko char(5), kodzmeny char(3), druh char(3), odpis char(3), zavod char(3), ucetkscen float," +
-                      "test char(1), pomroz char(1), kdatum date, kodd char(2) );";
+                      "kdatum date, kodd char(2) );";
 
 
             string commandStringPoskozeno = "create table poskozeno ( poradi integer, jmeno char(15), oscislo char(8), dilna char(15)," +
@@ -344,8 +344,16 @@ namespace Vydejna
                 string commandStringIn5 = "CREATE UNIQUE INDEX  osobyPorIN ON osoby (oscislo)";
                 string commandStringIn6 = "CREATE UNIQUE INDEX  zmenyPorIN ON zmeny(parporadi,poradi)";
                 string commandStringIn7 = "CREATE UNIQUE INDEX  pujcenoPorIN ON (poradi)";
-                string[] commandStrings = new String[7] {commandStringIn1, commandStringIn2, commandStringIn3,
-                         commandStringIn4, commandStringIn5, commandStringIn6, commandStringIn7};
+                string commandStringIn8 = "CREATE INDEX naradiNaJKIN ON naradi (nazev, jk)";
+                string commandStringIn9 = "CREATE INDEX osobyPrijIN ON osoby (prijmeni)";
+                string commandStringIn10 = "CREATE INDEX  vracenoDatPorIN ON vraceno (datum, poradi)";
+                string commandStringIn11 = "CREATE INDEX  poskozenoDatPorIN ON poskozeno (datum, poradi)";
+                string commandStringIn12 = "CREATE INDEX kartaNaJKIN ON karta (nazev, jk)";
+
+
+                string[] commandStrings = new String[12] {commandStringIn1, commandStringIn2, commandStringIn3,
+                         commandStringIn4, commandStringIn5, commandStringIn6, commandStringIn7, commandStringIn8,
+                         commandStringIn9, commandStringIn10, commandStringIn11, commandStringIn12};
                 Int32 indexErrCount = 0;
                 foreach (string commandStringIn in commandStrings)
                 {
@@ -379,9 +387,16 @@ namespace Vydejna
                 string commandStringIn5 = "DROP INDEX osobyPorIN";
                 string commandStringIn6 = "DROP INDEX zmenyPorIN";
                 string commandStringIn7 = "DROP INDEX pujcenoPorIN";
+                string commandStringIn8 = "DROP INDEX naradiNaJKIN";
+                string commandStringIn9 = "DROP INDEX osobyPrijIN";
+                string commandStringIn10 = "DROP INDEX  vracenoDatPorIN";
+                string commandStringIn11 = "DROP INDEX  poskozenoDatPorIN";
+                string commandStringIn12 = "DROP INDEX kartaNarJKIN";
 
-                string[] commandStrings = new String [7] {commandStringIn1, commandStringIn2, commandStringIn3,
-                         commandStringIn4, commandStringIn5, commandStringIn6, commandStringIn7};
+
+                string[] commandStrings = new String [12] {commandStringIn1, commandStringIn2, commandStringIn3,
+                         commandStringIn4, commandStringIn5, commandStringIn6, commandStringIn7, commandStringIn8,
+                         commandStringIn9, commandStringIn10, commandStringIn11, commandStringIn12};
                 Int32 indexErrCount = 0;
                 foreach (string commandStringIn in commandStrings)
                 {
@@ -513,14 +528,14 @@ namespace Vydejna
                                          double DBcelkcena, int DBucetstav, int DBfyzstav,
                                          string DBrozmer, string DBanalucet, DateTime DBdate, string DBstredisko,
                                          string DBkodzmeny, string DBdruhp, string DBodpis, string DBzavod,
-                                         double DBucetkscen, string DBtest, string DBpomroz, DateTime DBkdatum, string DBkodd)
+                                         double DBucetkscen, DateTime DBkdatum, string DBkodd)
         {
 
             string commandStringSeq1 = "SELECT poradi FROM tabseq WHERE nazev = 'naradi'";
             string commandStringSeq2 = "UPDATE  tabseq set poradi = poradi +1 WHERE nazev = 'naradi'";
 
-            string commandString = "INSERT INTO naradi ( poradi, nazev, jk, normacsn, normadin, vyrobce, cena, poznamka, minimum, celkcena, ucetstav, fyzstav, rozmer, analucet, tdate, stredisko, kodzmeny, druh, odpis, zavod, ucetkscen, test, pomroz, kdatum, kodd ) " +
-                  "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
+            string commandString = "INSERT INTO naradi ( poradi, nazev, jk, normacsn, normadin, vyrobce, cena, poznamka, minimum, celkcena, ucetstav, fyzstav, rozmer, analucet, tdate, stredisko, kodzmeny, druh, odpis, zavod, ucetkscen, kdatum, kodd ) " +
+                  "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
 
             if (DBIsOpened())
             {
@@ -573,14 +588,13 @@ namespace Vydejna
                 p23.Value = DBodpis;
                 SQLiteParameter p24 = new SQLiteParameter(DbType.String);
                 p24.Value = DBzavod;
+                
                 SQLiteParameter p25 = new SQLiteParameter(DbType.String);
                 p25.Value = DBucetkscen;
-                SQLiteParameter p26 = new SQLiteParameter(DbType.String);
-                p26.Value = DBtest;
-                SQLiteParameter p27 = new SQLiteParameter(DbType.String);
-                p27.Value = DBpomroz;
+                
                 SQLiteParameter p28 = new SQLiteParameter(DbType.Date);
                 p28.Value = DBkdatum;
+                
                 SQLiteParameter p29 = new SQLiteParameter(DbType.String);
                 p29.Value = DBkodd;
 
@@ -606,8 +620,6 @@ namespace Vydejna
                 cmd.Parameters.Add(p23);
                 cmd.Parameters.Add(p24);
                 cmd.Parameters.Add(p25);
-                cmd.Parameters.Add(p26);
-                cmd.Parameters.Add(p27);
                 cmd.Parameters.Add(p28);
                 cmd.Parameters.Add(p29);
                 cmd.ExecuteNonQuery();
@@ -1077,7 +1089,7 @@ namespace Vydejna
             string commandString1 = "UPDATE  tabseq set poradi = poradi +1 WHERE nazev = 'naradi'";
 
             string commandString2 = "INSERT INTO naradi ( poradi, nazev, jk, normacsn, normadin, vyrobce, cena, poznamka, minimum, celkcena,  ucetstav, fyzstav, rozmer, analucet, tdate, stredisko, kodzmeny, druh, odpis, zavod, ucetkscen, test, pomroz, kdatum, kodd ) " +
-                  "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, '' )";
+                  "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, '' )";
 
             SQLiteTransaction transaction = null;
 
@@ -1125,16 +1137,13 @@ namespace Vydejna
                     cmd.Parameters.AddWithValue("@analucet",DBanalucet);
                     cmd.Parameters.AddWithValue("@tdate",new DateTime(0));
                     cmd.Parameters.AddWithValue("@stredisko","");
-                    cmd.Parameters.AddWithValue("@kodzmeny","");
-                    cmd.Parameters.AddWithValue("@druh","");
-                    cmd.Parameters.AddWithValue("@odpis","");
-                    cmd.Parameters.AddWithValue("@zavod","");
-                    cmd.Parameters.AddWithValue("@ucetkscen",DBucetkscen);
-                    cmd.Parameters.AddWithValue("@test","");
-                    cmd.Parameters.AddWithValue("@pomroz","");
-                    cmd.Parameters.AddWithValue("kdatum",DBkdatum);
-                    cmd.Parameters.AddWithValue("kodd","");
-
+                    cmd.Parameters.AddWithValue("@kodzmeny", "");
+                    cmd.Parameters.AddWithValue("@druh", "");
+                    cmd.Parameters.AddWithValue("@odpis", "");
+                    cmd.Parameters.AddWithValue("@zavod", "");
+                    cmd.Parameters.AddWithValue("@ucetkscen", DBucetkscen);
+                    cmd.Parameters.AddWithValue("kdatum", DBkdatum);
+                    cmd.Parameters.AddWithValue("kodd", "");
                     cmd.Transaction = transaction; 
                     cmd.ExecuteNonQuery();
 

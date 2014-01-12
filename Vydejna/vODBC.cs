@@ -176,7 +176,7 @@ namespace Vydejna
                       "celkcena float," +
                       "ucetstav integer, fyzstav integer, rozmer char(20), analucet char(5), tdate date," +
                       "stredisko char(5), kodzmeny char(3), druh char(3), odpis char(3), zavod char(3), ucetkscen float," +
-                      "test char(1), pomroz char(1), kdatum date, kodd char(2) );";
+                      "kdatum date, kodd char(2) );";
 
 
             string commandStringPoskozeno = "create table poskozeno ( poradi integer, jmeno char(15), oscislo char(8), dilna char(15)," +
@@ -503,14 +503,14 @@ namespace Vydejna
                                          double DBcelkcena, int DBucetstav, int DBfyzstav,
                                          string DBrozmer, string DBanalucet, DateTime DBdate, string DBstredisko,
                                          string DBkodzmeny, string DBdruhp, string DBodpis, string DBzavod,
-                                         double DBucetkscen, string DBtest, string DBpomroz, DateTime DBkdatum, string DBkodd)
+                                         double DBucetkscen, DateTime DBkdatum, string DBkodd)
         {
 
             string commandStringSeq1 = "SELECT poradi FROM tabseq WHERE nazev = 'naradi'";
             string commandStringSeq2 = "UPDATE  tabseq set poradi = poradi +1 WHERE nazev = 'naradi'";
 
-            string commandString = "INSERT INTO naradi ( poradi, nazev, jk, normacsn, normadin, vyrobce, cena, poznamka, minimum, celkcena, ucetstav, fyzstav, rozmer, analucet, tdate, stredisko, kodzmeny, druh, odpis, zavod, ucetkscen, test, pomroz, kdatum, kodd ) " +
-                  "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
+            string commandString = "INSERT INTO naradi ( poradi, nazev, jk, normacsn, normadin, vyrobce, cena, poznamka, minimum, celkcena, ucetstav, fyzstav, rozmer, analucet, tdate, stredisko, kodzmeny, druh, odpis, zavod, ucetkscen, kdatum, kodd ) " +
+                  "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
 
             if (DBIsOpened())
             {
@@ -566,11 +566,7 @@ namespace Vydejna
                 p24.Value = DBzavod;
                 OdbcParameter p25 = new OdbcParameter("p25", OdbcType.Double);
                 p25.Value = DBucetkscen;
-                OdbcParameter p26 = new OdbcParameter("p26", OdbcType.NChar);
-                p26.Value = DBtest;
-                OdbcParameter p27 = new OdbcParameter("p27", OdbcType.NChar);
-                p27.Value = DBpomroz;
-                OdbcParameter p28 = new OdbcParameter("p28", OdbcType.Date);
+                OdbcParameter p28 = new OdbcParameter("p26", OdbcType.Date);
                 p28.Value = DBkdatum;
                 OdbcParameter p29 = new OdbcParameter("p29", OdbcType.NChar);
                 p29.Value = DBkodd;
@@ -597,8 +593,6 @@ namespace Vydejna
                 cmd.Parameters.Add(p23);
                 cmd.Parameters.Add(p24);
                 cmd.Parameters.Add(p25);
-                cmd.Parameters.Add(p26);
-                cmd.Parameters.Add(p27);
                 cmd.Parameters.Add(p28);
                 cmd.Parameters.Add(p29);
                 cmd.ExecuteNonQuery();
@@ -920,7 +914,7 @@ namespace Vydejna
             string commandString1 = "UPDATE  tabseq set poradi = poradi +1 WHERE nazev = 'naradi'";
 
             string commandString2 = "INSERT INTO naradi ( poradi, nazev, jk, normacsn, normadin, vyrobce, cena, poznamka, minimum, celkcena,  ucetstav, fyzstav, rozmer, analucet, tdate, stredisko, kodzmeny, druh, odpis, zavod, ucetkscen, test, pomroz, kdatum, kodd ) " +
-                  "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, '' )";
+                  "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, '' )";
 
             OdbcTransaction transaction = null;
 
@@ -973,8 +967,6 @@ namespace Vydejna
                     cmd.Parameters.AddWithValue("@odpis", "");
                     cmd.Parameters.AddWithValue("@zavod", "");
                     cmd.Parameters.AddWithValue("@ucetkscen", DBucetkscen);
-                    cmd.Parameters.AddWithValue("@test", "");
-                    cmd.Parameters.AddWithValue("@pomroz", "");
                     cmd.Parameters.AddWithValue("kdatum", DBkdatum);
                     cmd.Parameters.AddWithValue("kodd", "");
 

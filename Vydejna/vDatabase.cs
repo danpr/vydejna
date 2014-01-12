@@ -39,8 +39,8 @@ using System.Windows.Forms;
 // zavod      DBzavod
 // ---- Nasledujici polozku neobsahuje tabulka karta
 // ucetkscen  DBucetkscen Ucet. cena/KS  numericUpDownUcetCenaKs
-// test       DBtest
-// pomroz     DBpomroz                                  // pomocny rozmer
+// test       DBtest      // zruseno v SQL
+// pomroz     DBpomroz    // zruseno v SQL                              // pomocny rozmer
 // kdatum     DBkdatum
 // kodd       DBkodd    KD
 
@@ -206,7 +206,7 @@ namespace Vydejna
                                          double DBcelkcena, int DBucetstav, int DBfyzstav,
                                          string DBrozmer, string DBanalucet, DateTime DBdate, string DBstredisko,
                                          string DBkodzmeny, string DBdruhp, string DBodpis, string DBzavod,
-                                         double DBucetkscen, string DBtest, string DBpomroz, DateTime DBkdatum, string DBkodd)
+                                         double DBucetkscen, DateTime DBkdatum, string DBkodd)
         {
             return 0;
         }
@@ -385,7 +385,7 @@ namespace Vydejna
 
         public virtual DataTable loadDataTableZmeny (Int32 poradi) //(string kodID)
         {
-            return loadDataTable("SELECT poradi, datum, CASE WHEN stav = \'O\' THEN \'Poskozeno\'  WHEN stav = \'U\' THEN \'Půjčeno\' WHEN stav = \'V\' THEN \'Vyřazeno\' WHEN stav = \'P\' THEN \'Přijmuto\' WHEN stav = \'R\' THEN \'Vráceno\' END AS stav, poznamka, prijem, vydej, zustatek, zapkarta FROM zmeny WHERE parporadi = " + poradi.ToString() + " order by datum");
+            return loadDataTable("SELECT poradi, datum, CASE WHEN stav = \'O\' THEN \'Poskozeno\'  WHEN stav = \'U\' THEN \'Půjčeno\' WHEN stav = \'V\' THEN \'Vyřazeno\' WHEN stav = \'P\' THEN \'Přijmuto\' WHEN stav = \'R\' THEN \'Vráceno\' END AS stav, poznamka, prijem, vydej, zustatek, zapkarta FROM zmeny WHERE parporadi = " + poradi.ToString() + " order by poradi"); // datum
         }
 
         public virtual DataTable loadDataTableVypujceno(Int32 poradi) //(string kodID)
@@ -396,7 +396,7 @@ namespace Vydejna
         public virtual DataTable loadDataTableVypujcenoNaOsobu(string osCislo) //(string kodID)
         {
             return loadDataTable( "SELECT z.datum, n.nazev, n.rozmer, n.jk, z.vydej, z.poznamka FROM zmeny z, naradi n " +
-                                   "WHERE stav = \'U\' AND z.parporadi = n.poradi AND zapkarta =  \'" + osCislo.ToString() + "\' order by z.datum");  
+                                   "WHERE stav = \'U\' AND z.parporadi = n.poradi AND zapkarta =  \'" + osCislo.ToString() + "\' order by z.poradi");  // datum
         }
 
         public virtual DataTable loadDataTableVypujcenoNaOsobuNext(string osCislo) //(string kodID)
@@ -409,7 +409,7 @@ namespace Vydejna
                                   "CASE WHEN p.nporadi > 0 THEN n.cena ELSE p.pcena END as cena, CASE WHEN p.zporadi > 0 THEN z.poznamka ELSE '' END as poznamka," +
                                   "p.oscislo, p.pjmeno, p.pprijmeni as pprijmeni, p.pnazev as pnazev, p.pjk as pjk, CASE WHEN p.zporadi > 0 THEN z.vydej ELSE p.pks END as pujcks, p.nporadi, p.zporadi " +
                                   "FROM pujceno p, naradi n, zmeny z where p.nporadi = n.poradi and p.zporadi = z.poradi and p.nporadi = z.parporadi " +
-                                   "AND p.oscislo =  \'" + osCislo.ToString() + "\' order by datum");
+                                   "AND p.oscislo =  \'" + osCislo.ToString() + "\' order by p.poradi"); // datum
 
 
 
