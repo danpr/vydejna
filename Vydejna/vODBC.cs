@@ -164,30 +164,48 @@ namespace Vydejna
             string commandStringSequenceInit4 = "INSERT INTO tabseq ( nazev, poradi) VALUES ('pujceno', 1)";
 
 
-            string commandStringKarta = "create table karta ( poradi integer, nazev char(60), jk char(15), normacsn char (15)," +
-                      "normadin char(15), vyrobce char(40), cena float, poznamka char(60), minimum integer," +
-                      "celkcena float, ucetstav integer, fyzstav integer, rozmer char(20), analucet char(5), tdate date," +
-                      "stredisko char(5), druh char(3), odpis char(3));";
+//            string commandStringKarta = "create table karta ( poradi integer, nazev char(60), jk char(15), normacsn char (15)," +
+//                      "normadin char(15), vyrobce char(40), cena float, poznamka char(60), minimum integer," +
+//                      "celkcena float, ucetstav integer, fyzstav integer, rozmer char(20), analucet char(5), tdate date," +
+//                      "stredisko char(5), druh char(3), odpis char(3));";
+
+            string commandStringKarta = "create table karta ( poradi integer, nazev varchar(60), jk varchar(15), normacsn varchar (15)," +
+                      "normadin varchar(15), vyrobce varchar(40), cena float, poznamka varchar(60), minimum integer," +
+                      "celkcena float, ucetstav integer, fyzstav integer, rozmer varchar(20), analucet varchar(5), tdate date," +
+                      "stredisko varchar(5), druh varchar(3), odpis varchar(3));";
 
 
-            string commandStringNaradi = "create table naradi ( poradi integer, nazev char(60), jk char(15), normacsn char (15)," +
-                      "normadin char(15), vyrobce char(40), cena float, poznamka char(60), minimum integer," +
-                      "celkcena float, ucetstav integer, fyzstav integer, rozmer char(20), analucet char(5), tdate date," +
-                      "stredisko char(5), druh char(3), odpis char(3), ucetkscen float, kdatum date, kodd char(2));";
+//            string commandStringNaradi = "create table naradi ( poradi integer, nazev char(60), jk char(15), normacsn char (15)," +
+//                      "normadin char(15), vyrobce char(40), cena float, poznamka char(60), minimum integer," +
+//                      "celkcena float, ucetstav integer, fyzstav integer, rozmer char(20), analucet char(5), tdate date," +
+//                      "stredisko char(5), druh char(3), odpis char(3), ucetkscen float, kdatum date, kodd char(2));";
+
+            string commandStringNaradi = "create table naradi ( poradi integer, nazev varchar(60), jk varchar(15), normacsn varchar (15)," +
+                      "normadin varchar(15), vyrobce varchar(40), cena float, poznamka varchar(60), minimum integer," +
+                      "celkcena float, ucetstav integer, fyzstav integer, rozmer varchar(20), analucet varchar(5), tdate date," +
+                      "stredisko varchar(5), druh varchar(3), odpis varchar(3), ucetkscen float, kdatum date, kodd varchar(2));";
 
 
-            string commandStringPoskozeno = "create table poskozeno ( poradi integer, jmeno char(15), oscislo char(8), dilna char(15)," +
-                      "pracoviste char(20), vyrobek char(15),nazev char(60), jk char(15), rozmer char(25)," +
-                      "pocetks integer, cena float, datum date, csn char(15), krjmeno char(15)," +
-                      "celkcena float, vevcislo char(12), konto char(15) );";
+//            string commandStringPoskozeno = "create table poskozeno ( poradi integer, jmeno char(15), oscislo char(8), dilna char(15)," +
+//                      "pracoviste char(20), vyrobek char(15),nazev char(60), jk char(15), rozmer char(25)," +
+//                      "pocetks integer, cena float, datum date, csn char(15), krjmeno char(15)," +
+//                      "celkcena float, vevcislo char(12), konto char(15) );";
+
+            string commandStringPoskozeno = "create table poskozeno ( poradi integer, jmeno varchar(15), oscislo varchar(8), dilna varchar(15)," +
+                      "pracoviste varchar(20), vyrobek varchar(15),nazev varchar(60), jk varchar(15), rozmer varchar(25)," +
+                      "pocetks integer, cena float, datum date, csn varchar(15), krjmeno varchar(15)," +
+                      "celkcena float, vevcislo varchar(12), konto varchar(15) );";
 
 
+//            string commandStringVraceno = "create table vraceno ( poradi integer, jmeno char(15), oscislo char(8), dilna char(15)," +
+//                      "pracoviste char(20), vyrobek char(15),nazev char(60), jk char(15), rozmer char(25)," +
+//                      "pocetks integer, cena float, datum date, csn char(15), krjmeno char(15)," +
+//                      "celkcena float, vevcislo char(12), konto char(15) );";
 
-            string commandStringVraceno = "create table vraceno ( poradi integer, jmeno char(15), oscislo char(8), dilna char(15)," +
-                      "pracoviste char(20), vyrobek char(15),nazev char(60), jk char(15), rozmer char(25)," +
-                      "pocetks integer, cena float, datum date, csn char(15), krjmeno char(15)," +
-                      "celkcena float, vevcislo char(12), konto char(15) );";
-
+            string commandStringVraceno = "create table vraceno ( poradi integer, jmeno varchar(15), oscislo varchar(8), dilna varchar(15)," +
+                      "pracoviste varchar(20), vyrobek varchar(15),nazev varchar(60), jk varchar(15), rozmer varchar(25)," +
+                      "pocetks integer, cena float, datum date, csn varchar(15), krjmeno varchar(15)," +
+                      "celkcena float, vevcislo varchar(12), konto varchar(15) );";
 
 
             string commandStringOsoby = "create table osoby ( jmeno varchar(15), prijmeni varchar(15), ulice varchar(20)," +
