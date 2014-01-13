@@ -21,7 +21,6 @@ namespace Vydejna
         {
             DbTransaction myTransaction = myDB.startTransaction();
 
-
             using (OleDbConnection fbase = new OleDbConnection("Provider=VFPOLEDB.1;CodePage=437;Data Source=" + filepath + ";Exclusive=false;Nulls=false;Collating Sequence=general"))
             {
                 fbase.Open();

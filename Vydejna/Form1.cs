@@ -56,6 +56,7 @@ namespace Vydejna
             {
                 myDB = OpenDataBaseHandle();
                 myDB.openDB();
+                setStateChangeEvent(myDB);
             }
         }
 
@@ -351,8 +352,7 @@ namespace Vydejna
 
                  return new vSQLite (pathDbName,"","","","","","","");
 //                 break;
-               
-               case (int)kodDB.dbPostgresODBC:
+                              case (int)kodDB.dbPostgresODBC:
                  if (useUserPriv)
                  {
                      return new vPostgress(nastaveniDB.nameDB, nastaveniDB.adresaServerDB, nastaveniDB.nameDBServeru, nastaveniDB.portServerDB.ToString(),
@@ -366,8 +366,6 @@ namespace Vydejna
                  }
 
 //                 break;
-
-
                case (int)kodDB.dbInformixODBC:
                  if (useUserPriv)
                  {
@@ -382,12 +380,9 @@ namespace Vydejna
                  }
 
                //                 break;
-
                 default:
                    return null;
 //                 break; 
-
-
             }
         }
 
@@ -433,10 +428,10 @@ namespace Vydejna
                 localDB.CreateTables(); // take provede .closeDB()
                 localDB.CreateIndexes();
 
-                MessageBox.Show("Tabulky byly vytvořeny.");
-
                 myDB = OpenDataBaseHandle();
                 myDB.openDB();
+                setStateChangeEvent(myDB);
+                MessageBox.Show("Tabulky byly vytvořeny.");
             }
         }
 
@@ -468,9 +463,12 @@ namespace Vydejna
                 DBJoin.Clear();
 
                 DBJoin.Add("test", 1);
-
-                myDB = OpenDataBaseHandle();
-                myDB.openDB();
+                if (myDB == null)
+                {
+                    myDB = OpenDataBaseHandle();
+                    myDB.openDB();
+                    setStateChangeEvent(myDB);
+                }
 
                 labelView.Text = "Přesouvám tabulku vyřazených karet";
                 Application.DoEvents();
@@ -736,10 +734,12 @@ namespace Vydejna
               if ((myDB != null) && myDB.DBIsOpened())
               {
                   myDB.closeDB();
+//                  closeDBConnection();
                   myDB = null;
               }
 
               myDB = OpenDataBaseHandle();
+              setStateChangeEvent(myDB);
               myDB.openDB();
             }
         }
@@ -1061,8 +1061,6 @@ namespace Vydejna
 
         private void IndexesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-//            myDB.closeDB();
-//            myDB = null;
 
             // vytvori nove pripojeni na mazani tabulek
             vDatabase localDB = OpenDataBaseHandle(false);
@@ -1082,6 +1080,51 @@ namespace Vydejna
             localDB.closeDB();
             MessageBox.Show("Indexy jsou vytvořeny.");
 
+        }
+
+        private void setStateChangeEvent(vDatabase myDB)
+        {
+            myDB.myDBConn.StateChange += new StateChangeEventHandler(changesStateConnection);
+            setConnectionLabel(myDB.myDBConn.State);
+        }
+
+
+        void changesStateConnection(object sender, StateChangeEventArgs e)
+        {
+            setConnectionLabel(e.CurrentState);
+        }
+
+
+        private void setConnectionLabel(ConnectionState state)
+        {
+            switch (state)
+            {
+                case ConnectionState.Closed:
+                    {
+                        labelStateConnection.Text = "Spojeni je uzavřeno";
+                        break;
+                    }
+                case ConnectionState.Broken:
+                    {
+                        labelStateConnection.Text = "Spojení je přerušeno";
+                        break;
+                    }
+                case ConnectionState.Connecting:
+                    {
+                        labelStateConnection.Text = "Spojení se vytváří";
+                        break;
+                    }
+                case ConnectionState.Open:
+                    {
+                        labelStateConnection.Text = "Spojení je navázáno";
+                        break;
+                    }
+                default:
+                    {
+                        labelStateConnection.Text = "";
+                        break;
+                    }
+            }
         }
     }
 }

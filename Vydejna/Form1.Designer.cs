@@ -49,6 +49,7 @@
             this.vytvoreniToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.smazániToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.vymazáníToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem10 = new System.Windows.Forms.ToolStripMenuItem();
             this.konecProgramuToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
@@ -62,7 +63,7 @@
             this.prohledáváníToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.labelView = new System.Windows.Forms.Label();
             this.fontDialog1 = new System.Windows.Forms.FontDialog();
-            this.toolStripMenuItem10 = new System.Windows.Forms.ToolStripMenuItem();
+            this.labelStateConnection = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
@@ -72,9 +73,9 @@
             // 
             this.progressBarMain.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.progressBarMain.Location = new System.Drawing.Point(0, 428);
+            this.progressBarMain.Location = new System.Drawing.Point(0, 426);
             this.progressBarMain.Name = "progressBarMain";
-            this.progressBarMain.Size = new System.Drawing.Size(919, 17);
+            this.progressBarMain.Size = new System.Drawing.Size(787, 17);
             this.progressBarMain.TabIndex = 0;
             // 
             // menuStrip1
@@ -96,21 +97,21 @@
             this.pracovníciProvozuToolStripMenuItem,
             this.zapujceniNářadíToolStripMenuItem});
             this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(89, 20);
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(82, 20);
             this.toolStripMenuItem4.Text = "Pohyb nářadí";
             this.toolStripMenuItem4.Click += new System.EventHandler(this.toolStripMenuItem4_Click);
             // 
             // pracovníciProvozuToolStripMenuItem
             // 
             this.pracovníciProvozuToolStripMenuItem.Name = "pracovníciProvozuToolStripMenuItem";
-            this.pracovníciProvozuToolStripMenuItem.Size = new System.Drawing.Size(212, 22);
+            this.pracovníciProvozuToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
             this.pracovníciProvozuToolStripMenuItem.Text = "Pracovníci provozu";
             this.pracovníciProvozuToolStripMenuItem.Click += new System.EventHandler(this.pracovníciProvozuToolStripMenuItem_Click);
             // 
             // zapujceniNářadíToolStripMenuItem
             // 
             this.zapujceniNářadíToolStripMenuItem.Name = "zapujceniNářadíToolStripMenuItem";
-            this.zapujceniNářadíToolStripMenuItem.Size = new System.Drawing.Size(212, 22);
+            this.zapujceniNářadíToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
             this.zapujceniNářadíToolStripMenuItem.Text = "Zapůjčení / Vrácení nářadí";
             this.zapujceniNářadíToolStripMenuItem.Click += new System.EventHandler(this.zapujceniNaradi_Click);
             // 
@@ -124,47 +125,47 @@
             this.toolStripMenuItem5,
             this.toolStripMenuItem3});
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(97, 20);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(91, 20);
             this.toolStripMenuItem1.Text = "Výdejna nářadí";
             this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(225, 22);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(224, 22);
             this.toolStripMenuItem2.Text = "Výdejna nářadi - přehled";
             this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
             // 
             // toolStripMenuItem8
             // 
             this.toolStripMenuItem8.Name = "toolStripMenuItem8";
-            this.toolStripMenuItem8.Size = new System.Drawing.Size(225, 22);
+            this.toolStripMenuItem8.Size = new System.Drawing.Size(224, 22);
             this.toolStripMenuItem8.Text = "Založení nové skladové karty";
             this.toolStripMenuItem8.Click += new System.EventHandler(this.NovaSklKarta);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(222, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(221, 6);
             // 
             // toolStripMenuItem6
             // 
             this.toolStripMenuItem6.Name = "toolStripMenuItem6";
-            this.toolStripMenuItem6.Size = new System.Drawing.Size(225, 22);
+            this.toolStripMenuItem6.Size = new System.Drawing.Size(224, 22);
             this.toolStripMenuItem6.Text = "Poškozené nářadí - přehled";
             this.toolStripMenuItem6.Click += new System.EventHandler(this.toolStripMenuItem6_Click);
             // 
             // toolStripMenuItem5
             // 
             this.toolStripMenuItem5.Name = "toolStripMenuItem5";
-            this.toolStripMenuItem5.Size = new System.Drawing.Size(225, 22);
+            this.toolStripMenuItem5.Size = new System.Drawing.Size(224, 22);
             this.toolStripMenuItem5.Text = "Vrácené nářadí přehled";
             this.toolStripMenuItem5.Click += new System.EventHandler(this.toolStripMenuItem5_Click);
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(225, 22);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(224, 22);
             this.toolStripMenuItem3.Text = "Archív zrušených karet";
             this.toolStripMenuItem3.Click += new System.EventHandler(this.toolStripMenuItem3_Click);
             // 
@@ -178,27 +179,27 @@
             this.toolStripMenuItem10,
             this.konecProgramuToolStripMenuItem1});
             this.údržbaToolStripMenuItem.Name = "údržbaToolStripMenuItem";
-            this.údržbaToolStripMenuItem.Size = new System.Drawing.Size(56, 20);
+            this.údržbaToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
             this.údržbaToolStripMenuItem.Text = "Údržba";
             // 
             // toolStripMenuItem9
             // 
             this.toolStripMenuItem9.Name = "toolStripMenuItem9";
-            this.toolStripMenuItem9.Size = new System.Drawing.Size(223, 22);
+            this.toolStripMenuItem9.Size = new System.Drawing.Size(220, 22);
             this.toolStripMenuItem9.Text = "Písmo";
             this.toolStripMenuItem9.Click += new System.EventHandler(this.toolStripMenuItemFont_Click);
             // 
             // toolStripMenuItem7
             // 
             this.toolStripMenuItem7.Name = "toolStripMenuItem7";
-            this.toolStripMenuItem7.Size = new System.Drawing.Size(223, 22);
+            this.toolStripMenuItem7.Size = new System.Drawing.Size(220, 22);
             this.toolStripMenuItem7.Text = "Nastavení DB";
             this.toolStripMenuItem7.Click += new System.EventHandler(this.toolStripMenuItem7_Click);
             // 
             // nahráníDatZDBaseToolStripMenuItem
             // 
             this.nahráníDatZDBaseToolStripMenuItem.Name = "nahráníDatZDBaseToolStripMenuItem";
-            this.nahráníDatZDBaseToolStripMenuItem.Size = new System.Drawing.Size(223, 22);
+            this.nahráníDatZDBaseToolStripMenuItem.Size = new System.Drawing.Size(220, 22);
             this.nahráníDatZDBaseToolStripMenuItem.Text = "Nahrání dat z dBase";
             this.nahráníDatZDBaseToolStripMenuItem.Click += new System.EventHandler(this.nahráníDatZDBaseToolStripMenuItem_Click);
             // 
@@ -209,35 +210,42 @@
             this.smazániToolStripMenuItem,
             this.vymazáníToolStripMenuItem});
             this.vytvoreniTabulekToolStripMenuItem.Name = "vytvoreniTabulekToolStripMenuItem";
-            this.vytvoreniTabulekToolStripMenuItem.Size = new System.Drawing.Size(223, 22);
+            this.vytvoreniTabulekToolStripMenuItem.Size = new System.Drawing.Size(220, 22);
             this.vytvoreniTabulekToolStripMenuItem.Text = "Tabulky";
             this.vytvoreniTabulekToolStripMenuItem.Click += new System.EventHandler(this.vytvoreniTabulekToolStripMenuItem_Click);
             // 
             // vytvoreniToolStripMenuItem
             // 
             this.vytvoreniToolStripMenuItem.Name = "vytvoreniToolStripMenuItem";
-            this.vytvoreniToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.vytvoreniToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
             this.vytvoreniToolStripMenuItem.Text = "Vytvoření";
             this.vytvoreniToolStripMenuItem.Click += new System.EventHandler(this.vytvoreniToolStripMenuItem_Click);
             // 
             // smazániToolStripMenuItem
             // 
             this.smazániToolStripMenuItem.Name = "smazániToolStripMenuItem";
-            this.smazániToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.smazániToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
             this.smazániToolStripMenuItem.Text = "Zrušení";
             this.smazániToolStripMenuItem.Click += new System.EventHandler(this.smazániToolStripMenuItem_Click);
             // 
             // vymazáníToolStripMenuItem
             // 
             this.vymazáníToolStripMenuItem.Name = "vymazáníToolStripMenuItem";
-            this.vymazáníToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.vymazáníToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
             this.vymazáníToolStripMenuItem.Text = "Vymazání";
             this.vymazáníToolStripMenuItem.Click += new System.EventHandler(this.vymazáníToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem10
+            // 
+            this.toolStripMenuItem10.Name = "toolStripMenuItem10";
+            this.toolStripMenuItem10.Size = new System.Drawing.Size(220, 22);
+            this.toolStripMenuItem10.Text = "Vytvoření / obnovení indexů";
+            this.toolStripMenuItem10.Click += new System.EventHandler(this.IndexesToolStripMenuItem_Click);
             // 
             // konecProgramuToolStripMenuItem1
             // 
             this.konecProgramuToolStripMenuItem1.Name = "konecProgramuToolStripMenuItem1";
-            this.konecProgramuToolStripMenuItem1.Size = new System.Drawing.Size(223, 22);
+            this.konecProgramuToolStripMenuItem1.Size = new System.Drawing.Size(220, 22);
             this.konecProgramuToolStripMenuItem1.Text = "Konec programu";
             this.konecProgramuToolStripMenuItem1.Click += new System.EventHandler(this.konecProgramuToolStripMenuItem_Click);
             // 
@@ -339,18 +347,22 @@
             this.labelView.Size = new System.Drawing.Size(0, 13);
             this.labelView.TabIndex = 4;
             // 
-            // toolStripMenuItem10
+            // labelStateConnection
             // 
-            this.toolStripMenuItem10.Name = "toolStripMenuItem10";
-            this.toolStripMenuItem10.Size = new System.Drawing.Size(223, 22);
-            this.toolStripMenuItem10.Text = "Vytvoření / obnovení indexů";
-            this.toolStripMenuItem10.Click += new System.EventHandler(this.IndexesToolStripMenuItem_Click);
+            this.labelStateConnection.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelStateConnection.AutoSize = true;
+            this.labelStateConnection.Location = new System.Drawing.Point(793, 428);
+            this.labelStateConnection.Name = "labelStateConnection";
+            this.labelStateConnection.Size = new System.Drawing.Size(35, 13);
+            this.labelStateConnection.TabIndex = 5;
+            this.labelStateConnection.Text = "label1";
             // 
             // Vydejna
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(919, 446);
+            this.Controls.Add(this.labelStateConnection);
             this.Controls.Add(this.labelView);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.progressBarMain);
@@ -403,6 +415,7 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem9;
         private System.Windows.Forms.FontDialog fontDialog1;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem10;
+        private System.Windows.Forms.Label labelStateConnection;
     }
 }
 
