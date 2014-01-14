@@ -52,6 +52,10 @@ namespace Vydejna
             if (comboBoxDate.Items.Count > 0) comboBoxDate.SelectedIndex = 0;
             AcceptButton = buttonOK;
             CancelButton = buttonCancel;
+            if ((preferedColumn != null) && (preferedColumn.Trim() != ""))
+            {
+                groupBox1.Focus();
+            }
         }
 
         private void loadComboBox(string preferedColumn)

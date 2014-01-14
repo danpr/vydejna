@@ -423,8 +423,8 @@ namespace Vydejna
 
         public virtual DataTable loadDataTableNaradi()
         {
-            return loadDataTable("SELECT poradi, kodd, nazev, jk, ucetstav, analucet, normacsn,"
-                                     + " normadin, vyrobce, rozmer, fyzstav, cena, celkcena, minimum,"
+            return loadDataTable("SELECT poradi, kodd, nazev, jk, fyzstav, analucet, normacsn,"
+                                     + " normadin, vyrobce, rozmer, ucetstav, cena, celkcena, minimum,"
                                      + " poznamka, ucetkscen from naradi ORDER BY nazev, jk");
 //            return loadDataTable("SELECT poradi, rtrim(kodd) as kodd, rtrim(nazev) as nazev, rtrim(jk) as jk, ucetstav, rtrim(analucet) as analucet, rtrim(normacsn) as normacsn,"
 //                                     + " rtrim(normadin) as normadin, rtrim(vyrobce) as vyrobce, rtrim(rozmer) as rozmer, fyzstav, cena, celkcena, minimum,"

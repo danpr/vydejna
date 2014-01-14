@@ -27,6 +27,9 @@ namespace Vydejna
         public Vydejna()
         {
             InitializeComponent();
+
+            labelView.Font = new Font( labelView.Font, FontStyle.Bold);
+
             myDB = null;
 
             contextMenuDisable();
@@ -60,24 +63,6 @@ namespace Vydejna
             }
         }
 
-
-//        private Int32 getPoradi()
-//        {
-//            if (dataGridView1.SelectedRows.Count > 0)
-//            {
-
-//                DataGridViewRow myRow = dataGridView1.SelectedRows[0];
-
-//                for (int i = 0; i < dataGridView1.ColumnCount; i++)
-//                {
-//                    if (dataGridView1.Columns[i].Name == "poradi")
-//                    {
-//                        return Convert.ToInt32( myRow.Cells[i].Value);
-//                    }
-//                }
-//            }
-//            return -1;
-//        }
 
 
         private Hashtable getDBRowFromSelectedRow(Hashtable newDBRow)
@@ -118,21 +103,21 @@ namespace Vydejna
                     dataGridView1.DataSource = myDB.loadDataTableNaradi();
                     dataGridView1.RowHeadersVisible = false;
 
-                    dataGridView1.Columns[0].HeaderText = "Pořadí";
-                    dataGridView1.Columns[1].HeaderText = "KD";
-                    dataGridView1.Columns[2].HeaderText = "Název";
-                    dataGridView1.Columns[3].HeaderText = "Označení JK";
-                    dataGridView1.Columns[4].HeaderText = "KS/výdejna Úč. stav";
-                    dataGridView1.Columns[5].HeaderText = "Anal. účet";
-                    dataGridView1.Columns[6].HeaderText = "Norma ČSN";
-                    dataGridView1.Columns[7].HeaderText = "Norma DIN";
-                    dataGridView1.Columns[8].HeaderText = "Výrobce";
-                    dataGridView1.Columns[9].HeaderText = "Rozměr";
-                    dataGridView1.Columns[10].HeaderText = "Fyzický stav";
-                    dataGridView1.Columns[11].HeaderText = "Cena";
-                    dataGridView1.Columns[12].HeaderText = "Celková cena";
-                    dataGridView1.Columns[13].HeaderText = "Minimální stav";
-                    dataGridView1.Columns[14].HeaderText = "Poznámka";
+                    dataGridView1.Columns["poradi"].HeaderText = "Pořadí";
+                    dataGridView1.Columns["kodd"].HeaderText = "KD";
+                    dataGridView1.Columns["nazev"].HeaderText = "Název";
+                    dataGridView1.Columns["jk"].HeaderText = "Označení JK";
+                    dataGridView1.Columns["fyzstav"].HeaderText = "Fyzický stav";
+                    dataGridView1.Columns["analucet"].HeaderText = "Anal. účet";
+                    dataGridView1.Columns["normacsn"].HeaderText = "Norma ČSN";
+                    dataGridView1.Columns["normadin"].HeaderText = "Norma DIN";
+                    dataGridView1.Columns["vyrobce"].HeaderText = "Výrobce";
+                    dataGridView1.Columns["rozmer"].HeaderText = "Rozměr";
+                    dataGridView1.Columns["ucetstav"].HeaderText = "KS/výdejna Úč. stav";
+                    dataGridView1.Columns["cena"].HeaderText = "Cena";
+                    dataGridView1.Columns["celkcena"].HeaderText = "Celková cena";
+                    dataGridView1.Columns["minimum"].HeaderText = "Minimální stav";
+                    dataGridView1.Columns["poznamka"].HeaderText = "Poznámka";
 //                    dataGridView1.Columns["cntrcode"].Visible = false;   // cntrcode nezobrazujeme
                     dataGridView1.Columns["ucetkscen"].Visible = false;   // ucetkscen nezobrazujeme
                     dataGridView1.Columns["poradi"].Visible = false;   // poradi nezobrazujeme
@@ -166,20 +151,20 @@ namespace Vydejna
                     dataGridView1.DataSource = myDB.loadDataTableZruseno();
                     dataGridView1.RowHeadersVisible = false;
 
-                    dataGridView1.Columns[0].HeaderText = "Pořadí";
-                    dataGridView1.Columns[1].HeaderText = "Název";
-                    dataGridView1.Columns[2].HeaderText = "Označení JK";
-                    dataGridView1.Columns[3].HeaderText = "KS/výdejna";
-                    dataGridView1.Columns[4].HeaderText = "Anal. účet";
-                    dataGridView1.Columns[5].HeaderText = "Norma ČSN";
-                    dataGridView1.Columns[6].HeaderText = "Norma DIN";
-                    dataGridView1.Columns[7].HeaderText = "Výrobce";
-                    dataGridView1.Columns[8].HeaderText = "Rozměr";
-                    dataGridView1.Columns[9].HeaderText = "Fyzický stav";
-                    dataGridView1.Columns[10].HeaderText = "Cena";
-                    dataGridView1.Columns[11].HeaderText = "Celková cena";
-                    dataGridView1.Columns[12].HeaderText = "Minimální stav";
-                    dataGridView1.Columns[13].HeaderText = "Poznámka";
+                    dataGridView1.Columns["poradi"].HeaderText = "Pořadí";
+                    dataGridView1.Columns["nazev"].HeaderText = "Název";
+                    dataGridView1.Columns["jk"].HeaderText = "Označení JK";
+                    dataGridView1.Columns["ucetstav"].HeaderText = "KS/výdejna";
+                    dataGridView1.Columns["analucet"].HeaderText = "Anal. účet";
+                    dataGridView1.Columns["normacsn"].HeaderText = "Norma ČSN";
+                    dataGridView1.Columns["normadin"].HeaderText = "Norma DIN";
+                    dataGridView1.Columns["vyrobce"].HeaderText = "Výrobce";
+                    dataGridView1.Columns["rozmer"].HeaderText = "Rozměr";
+                    dataGridView1.Columns["fyzstav"].HeaderText = "Fyzický stav";
+                    dataGridView1.Columns["cena"].HeaderText = "Cena";
+                    dataGridView1.Columns["celkcena"].HeaderText = "Celková cena";
+                    dataGridView1.Columns["minimum"].HeaderText = "Minimální stav";
+                    dataGridView1.Columns["poznamka"].HeaderText = "Poznámka";
 //                    dataGridView1.Columns["cntrcode"].Visible = false;   // cntrcode nezobrazujeme
 //                    dataGridView1.Columns["ucetkscen"].Visible = false;   // ucetkscen nezobrazujeme
                     dataGridView1.Columns["poradi"].Visible = false;   // poradi nezobrazujeme
@@ -215,21 +200,21 @@ namespace Vydejna
                     dataGridView1.DataSource = myDB.loadDataTablePoskozeno();
                     dataGridView1.RowHeadersVisible = false;
 
-                    dataGridView1.Columns[0].HeaderText = "Pořadí";
-                    dataGridView1.Columns[1].HeaderText = "Název";
-                    dataGridView1.Columns[2].HeaderText = "Označení JK";
-                    dataGridView1.Columns[3].HeaderText = "Vráceno ks";
-                    dataGridView1.Columns[4].HeaderText = "Rozměr";
-                    dataGridView1.Columns[5].HeaderText = "Norma ČSN";
-                    dataGridView1.Columns[6].HeaderText = "Cena";
-                    dataGridView1.Columns[7].HeaderText = "Datum";
-                    dataGridView1.Columns[8].HeaderText = "Zakázka";
-                    dataGridView1.Columns[9].HeaderText = "Konto";
-                    dataGridView1.Columns[10].HeaderText = "Přijmení";
-                    dataGridView1.Columns[11].HeaderText = "Jméno";
-                    dataGridView1.Columns[12].HeaderText = "Os. číslo";
-                    dataGridView1.Columns[13].HeaderText = "Středisko";
-                    dataGridView1.Columns[14].HeaderText = "Provoz";
+                    dataGridView1.Columns["poradi"].HeaderText = "Pořadí";
+                    dataGridView1.Columns["nazev"].HeaderText = "Název";
+                    dataGridView1.Columns["jk"].HeaderText = "Označení JK";
+                    dataGridView1.Columns["pocetks"].HeaderText = "Vráceno ks";
+                    dataGridView1.Columns["rozmer"].HeaderText = "Rozměr";
+                    dataGridView1.Columns["csn"].HeaderText = "Norma ČSN";
+                    dataGridView1.Columns["cena"].HeaderText = "Cena";
+                    dataGridView1.Columns["datum"].HeaderText = "Datum";
+                    dataGridView1.Columns["vyrobek"].HeaderText = "Zakázka";
+                    dataGridView1.Columns["konto"].HeaderText = "Konto";
+                    dataGridView1.Columns["jmeno"].HeaderText = "Přijmení";
+                    dataGridView1.Columns["krjmeno"].HeaderText = "Jméno";
+                    dataGridView1.Columns["oscislo"].HeaderText = "Os. číslo";
+                    dataGridView1.Columns["dilna"].HeaderText = "Středisko";
+                    dataGridView1.Columns["pracoviste"].HeaderText = "Provoz";
                     dataGridView1.Columns["poradi"].Visible = false;   // poradi nezobrazujeme
                     dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
@@ -264,21 +249,21 @@ namespace Vydejna
                     dataGridView1.DataSource = myDB.loadDataTableVraceno();
                     dataGridView1.RowHeadersVisible = false;
 
-                    dataGridView1.Columns[0].HeaderText = "Pořadí";
-                    dataGridView1.Columns[1].HeaderText = "Název";
-                    dataGridView1.Columns[2].HeaderText = "Označení JK";
-                    dataGridView1.Columns[3].HeaderText = "Vráceno ks";
-                    dataGridView1.Columns[4].HeaderText = "Rozměr";
-                    dataGridView1.Columns[5].HeaderText = "Norma ČSN";
-                    dataGridView1.Columns[6].HeaderText = "Cena";
-                    dataGridView1.Columns[7].HeaderText = "Datum";
-                    dataGridView1.Columns[8].HeaderText = "Zakázka";
-                    dataGridView1.Columns[9].HeaderText = "Konto";
-                    dataGridView1.Columns[10].HeaderText = "Přijmení";
-                    dataGridView1.Columns[11].HeaderText = "Jméno";
-                    dataGridView1.Columns[12].HeaderText = "Os. číslo";
-                    dataGridView1.Columns[13].HeaderText = "Středisko";
-                    dataGridView1.Columns[14].HeaderText = "Provoz";
+                    dataGridView1.Columns["poradi"].HeaderText = "Pořadí";
+                    dataGridView1.Columns["nazev"].HeaderText = "Název";
+                    dataGridView1.Columns["jk"].HeaderText = "Označení JK";
+                    dataGridView1.Columns["pocetks"].HeaderText = "Vráceno ks";
+                    dataGridView1.Columns["rozmer"].HeaderText = "Rozměr";
+                    dataGridView1.Columns["csn"].HeaderText = "Norma ČSN";
+                    dataGridView1.Columns["cena"].HeaderText = "Cena";
+                    dataGridView1.Columns["datum"].HeaderText = "Datum";
+                    dataGridView1.Columns["vyrobek"].HeaderText = "Zakázka";
+                    dataGridView1.Columns["konto"].HeaderText = "Konto";
+                    dataGridView1.Columns["jmeno"].HeaderText = "Přijmení";
+                    dataGridView1.Columns["krjmeno"].HeaderText = "Jméno";
+                    dataGridView1.Columns["oscislo"].HeaderText = "Os. číslo";
+                    dataGridView1.Columns["dilna"].HeaderText = "Středisko";
+                    dataGridView1.Columns["pracoviste"].HeaderText = "Provoz";
                     dataGridView1.Columns["poradi"].Visible = false;   // poradi nezobrazujeme
                     dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
@@ -313,19 +298,19 @@ namespace Vydejna
                     dataGridView1.RowHeadersVisible = false;
 
 
-                    dataGridView1.Columns[0].HeaderText = "Přijmení";
-                    dataGridView1.Columns[1].HeaderText = "Jméno";
-                    dataGridView1.Columns[2].HeaderText = "Osobní číslo";
-                    dataGridView1.Columns[3].HeaderText = "Provoz";
-                    dataGridView1.Columns[4].HeaderText = "Středisko";
-                    dataGridView1.Columns[5].HeaderText = "Pracovište";
-                    dataGridView1.Columns[6].HeaderText = "Číslo znamky";
-                    dataGridView1.Columns[7].HeaderText = "Ulice";
-                    dataGridView1.Columns[8].HeaderText = "PSČ";
-                    dataGridView1.Columns[9].HeaderText = "Město";
-                    dataGridView1.Columns[10].HeaderText = "Tel. domů";
-                    dataGridView1.Columns[11].HeaderText = "Tel. zaměst.";
-                    dataGridView1.Columns[12].HeaderText = "Poznamka";
+                    dataGridView1.Columns["prijmeni"].HeaderText = "Přijmení";
+                    dataGridView1.Columns["jmeno"].HeaderText = "Jméno";
+                    dataGridView1.Columns["oscislo"].HeaderText = "Osobní číslo";
+                    dataGridView1.Columns["odeleni"].HeaderText = "Provoz";
+                    dataGridView1.Columns["stredisko"].HeaderText = "Středisko";
+                    dataGridView1.Columns["pracoviste"].HeaderText = "Pracovište";
+                    dataGridView1.Columns["cisznamky"].HeaderText = "Číslo znamky";
+                    dataGridView1.Columns["ulice"].HeaderText = "Ulice";
+                    dataGridView1.Columns["psc"].HeaderText = "PSČ";
+                    dataGridView1.Columns["mesto"].HeaderText = "Město";
+                    dataGridView1.Columns["telhome"].HeaderText = "Tel. domů";
+                    dataGridView1.Columns["telzam"].HeaderText = "Tel. zaměst.";
+                    dataGridView1.Columns["poznamka"].HeaderText = "Poznamka";
                     dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
 
