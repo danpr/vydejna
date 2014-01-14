@@ -312,21 +312,20 @@ namespace Vydejna
 
                         if (dataRowIndex != -1)
                         {
-                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(2, mesenger.nazev);
-                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(3, mesenger.jk);
-
-                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(4, mesenger.ucetStav);
-                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(5, mesenger.ucet);
-
-                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(6, mesenger.csn);
-                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(7, mesenger.din);
-                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(8, mesenger.vyrobce);
-                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(9, mesenger.rozmer);
-                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(10, mesenger.fyzStav);
-                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(11, mesenger.cenaKs);
-                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(12, mesenger.ucetCena);
-                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(13, mesenger.minStav);
-                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(14, mesenger.poznamka);
+                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("nazev", mesenger.nazev);
+                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("jk", mesenger.jk);
+                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("fyzstav", mesenger.fyzStav);
+                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("analucet", mesenger.ucet);
+                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("normacsn", mesenger.csn);
+                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("normadin", mesenger.din);
+                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("vyrobce", mesenger.vyrobce);
+                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("rozmer", mesenger.rozmer);
+                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("ucetstav", mesenger.ucetStav);
+                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("cena", mesenger.cenaKs);
+                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("celkcena", mesenger.ucetCena);
+                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("minimum", mesenger.minStav);
+                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("poznamka", mesenger.poznamka);
+                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("ucetkscen", mesenger.ucetCenaKs);
 
                             myDataGridView.Refresh();
                         }
@@ -406,23 +405,24 @@ namespace Vydejna
                                 Int32 fyzStav = 0;
                                 Int32 ucetStav = 0;
 
-                                if (DBrow.ContainsKey("ucetstav") && DBrow.ContainsKey("zmeny_zustatek"))
+                                if (DBrow.ContainsKey("fyzstav") && DBrow.ContainsKey("zmeny_zustatek"))
                                 {
-                                    ucetStav = Convert.ToInt32(DBrow["ucetstav"]);
-                                    int zustatek = Convert.ToInt32(DBrow["zmeny_zustatek"]);
-                                    if (zustatek  != ucetStav) MessageBox.Show("Pozor! Patrně nesouhlasí stav karet a učetní stav položky.");
+                                    fyzStav = Convert.ToInt32(DBrow["fyzstav"]);
+                                    int zustatek = Convert.ToInt32(DBrow["zmeny_zustatek"]); // tabulka zmeny sloupec zustatek
+                                    if (zustatek  != fyzStav) MessageBox.Show("Pozor! Patrně nesouhlasí stav karet a fyzicky stav položky.");
                                 }
                                 if (DBrow.ContainsKey("fyzstav"))
                                 {
                                     fyzStav =  Convert.ToInt32(DBrow["fyzstav"]);
-                                    (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(10, fyzStav);
+                                    (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("fyzstav", fyzStav);
                                 }
                                 if (DBrow.ContainsKey("ucetstav"))
                                 {
                                     ucetStav = Convert.ToInt32(DBrow["ucetstav"]);
-                                    (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(4, ucetStav);
+                                    (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("ucetstav", ucetStav);
                                 }
-                                if (fyzStav != ucetStav) MessageBox.Show("Pozor! Účetni a fyzický stav nesouhlasí.");
+//  ucetni stav je pocet ks na stavu /pujcenych a na vydejn/ a fyzicky je pocet ks na vydejne
+//                                if (fyzStav != ucetStav) MessageBox.Show("Pozor! Účetni a fyzický stav nesouhlasí.");
                             }
                         }
                     }
@@ -466,10 +466,18 @@ namespace Vydejna
                                     int zustatek = Convert.ToInt32(DBrow["zmeny_zustatek"]);
                                     if (zustatek != fyzStav) MessageBox.Show("Pozor! Patrně nesouhlasí stav karet a stav vydejny položky.");
                                 }
-                                if (DBrow.ContainsKey("fyzstav") && DBrow.ContainsKey("ucetstav"))
+                                if (DBrow.ContainsKey("fyzstav"))
                                 {
                                     fyzStav = Convert.ToInt32(DBrow["fyzstav"]);
+                                    (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("fyzstav", fyzStav);
+                                }
+                                if (DBrow.ContainsKey("ucetstav"))
+                                {
                                     ucetStav = Convert.ToInt32(DBrow["ucetstav"]);
+                                    (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("ucetstav", ucetStav);
+                                }
+                                if (DBrow.ContainsKey("fyzstav") && DBrow.ContainsKey("ucetstav"))
+                                {
                                     if (ucetStav < fyzStav) MessageBox.Show("Pozor! Účetní stav je menší než stav výdejny.");
                                 }
 
@@ -528,20 +536,21 @@ namespace Vydejna
 
                         if (dataRowIndex != -1)
                         {
-                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(1, mesenger.nazev);
-                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(2, mesenger.jk);
+                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("nazev", mesenger.nazev);
+                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("jk", mesenger.jk);
 
-                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(3, mesenger.ucetStav);
-                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(4, mesenger.ucet);
+                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("ucetstav", mesenger.ucetStav);
+                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("analucet", mesenger.ucet);
 
-                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(5, mesenger.csn);
-                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(6, mesenger.din);
-                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(7, mesenger.vyrobce);
-                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(8, mesenger.rozmer);
-                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(10, mesenger.cenaKs);
-                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(11, mesenger.ucetCena);
-                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(12, mesenger.minStav);
-                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(13, mesenger.poznamka);
+                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("normacsn", mesenger.csn);
+                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("normadin", mesenger.din);
+                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("vyrobce", mesenger.vyrobce);
+                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("rozmer", mesenger.rozmer);
+                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("fyzstav", mesenger.fyzStav);
+                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("cena", mesenger.cenaKs);
+                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("celkcena", mesenger.ucetCena);
+                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("minimum", mesenger.minStav);
+                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("poznamka", mesenger.poznamka);
 
                             myDataGridView.Refresh();
                         }

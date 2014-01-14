@@ -118,7 +118,6 @@ namespace Vydejna
                     dataGridView1.Columns["celkcena"].HeaderText = "Celková cena";
                     dataGridView1.Columns["minimum"].HeaderText = "Minimální stav";
                     dataGridView1.Columns["poznamka"].HeaderText = "Poznámka";
-//                    dataGridView1.Columns["cntrcode"].Visible = false;   // cntrcode nezobrazujeme
                     dataGridView1.Columns["ucetkscen"].Visible = false;   // ucetkscen nezobrazujeme
                     dataGridView1.Columns["poradi"].Visible = false;   // poradi nezobrazujeme
 
@@ -165,8 +164,7 @@ namespace Vydejna
                     dataGridView1.Columns["celkcena"].HeaderText = "Celková cena";
                     dataGridView1.Columns["minimum"].HeaderText = "Minimální stav";
                     dataGridView1.Columns["poznamka"].HeaderText = "Poznámka";
-//                    dataGridView1.Columns["cntrcode"].Visible = false;   // cntrcode nezobrazujeme
-//                    dataGridView1.Columns["ucetkscen"].Visible = false;   // ucetkscen nezobrazujeme
+
                     dataGridView1.Columns["poradi"].Visible = false;   // poradi nezobrazujeme
                     dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
                 }

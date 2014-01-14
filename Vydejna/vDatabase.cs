@@ -426,9 +426,6 @@ namespace Vydejna
             return loadDataTable("SELECT poradi, kodd, nazev, jk, fyzstav, analucet, normacsn,"
                                      + " normadin, vyrobce, rozmer, ucetstav, cena, celkcena, minimum,"
                                      + " poznamka, ucetkscen from naradi ORDER BY nazev, jk");
-//            return loadDataTable("SELECT poradi, rtrim(kodd) as kodd, rtrim(nazev) as nazev, rtrim(jk) as jk, ucetstav, rtrim(analucet) as analucet, rtrim(normacsn) as normacsn,"
-//                                     + " rtrim(normadin) as normadin, rtrim(vyrobce) as vyrobce, rtrim(rozmer) as rozmer, fyzstav, cena, celkcena, minimum,"
-//                                     + " rtrim(poznamka) as poznamka, ucetkscen from naradi ORDER BY nazev, jk");
         }
 
 
@@ -436,13 +433,10 @@ namespace Vydejna
         {
             return loadDataTable("SELECT poradi, nazev, jk, rozmer,"
                                      + " fyzstav, poznamka, cena from naradi WHERE fyzstav > 0 ORDER BY nazev, jk");
-//            return loadDataTable("SELECT poradi, rtrim(nazev) as nazev, rtrim(jk) as jk, rtrim(rozmer) as rozmer,"
-//                                     + " fyzstav, rtrim(poznamka) as poznamka, cena from naradi WHERE fyzstav > 0 ORDER BY nazev, jk");
         }
 
         public virtual DataTable loadDataPartTableNaradiNazev(string nazev)
         {
-            //return loadDataTable("SELECT rtrim(nazev) as nazev FROM naradi where nazev like \'"+nazev+"%\' ORDER BY nazev");
             return loadDataTable("SELECT nazev FROM naradi where nazev like \'" + nazev + "%\' ORDER BY nazev");
         }
 
@@ -452,9 +446,6 @@ namespace Vydejna
             return loadDataTable("SELECT poradi, nazev, jk, ucetstav, analucet, normacsn,"
                                      + " normadin, vyrobce, rozmer, fyzstav, cena, celkcena, minimum,"
                                      + " poznamka from karta ORDER BY nazev, jk");
-//            return loadDataTable("SELECT poradi, rtrim(nazev) as nazev, rtrim(jk) as jk, ucetstav, rtrim(analucet) as analucet, rtrim(normacsn) as normacsn,"
-//                                     + " rtrim(normadin) as normadin, rtrim(vyrobce) as vyrobce, rtrim(rozmer) as rozmer, fyzstav, cena, celkcena, minimum,"
-//                                     + " rtrim(poznamka) as poznamka from karta ORDER BY nazev, jk");
         }
 
         public virtual DataTable loadDataTableVraceno()
