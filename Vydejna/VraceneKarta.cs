@@ -98,6 +98,7 @@ namespace Vydejna
         {
             InitializeComponent();
             setData(DBRow);
+            CancelButton = buttonCancel;
 
         }
 

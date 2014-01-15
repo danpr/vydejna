@@ -111,6 +111,8 @@ namespace Vydejna
             this.testExistItem = testExistItem;
             dataGridViewZmeny.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             setAddState();
+
+            this.CancelButton = this.buttonCancel;
         }
 
         public void setWinName(string winName)

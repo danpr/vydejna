@@ -171,7 +171,7 @@ namespace Vydejna
                     if (osobaRow.ContainsKey("stredisko")) labelStredisko.Text = Convert.ToString(osobaRow["stredisko"]);
                     if (osobaRow.ContainsKey("pracoviste")) labelProvoz.Text = Convert.ToString(osobaRow["pracoviste"]);
                 }
-
+                testKompletnosti();
             }
 
         }
