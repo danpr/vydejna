@@ -153,7 +153,7 @@ namespace Vydejna
 
         public virtual void closeDB()
         {
-            if (dBConnectionState == true)
+            if (myDBConn.State == ConnectionState.Open)
             {
                 myDBConn.Close();
                 myDBConn.Dispose();

@@ -407,7 +407,8 @@ namespace Vydejna
             if (localDB.DBIsOpened())
             {   // smaze tabulky
                 localDB.DropIndexes();
-                localDB.DropTables(); // take provede .closeDB()                localDB.closeDB();
+                localDB.DropTables();
+                localDB.closeDB();
                 MessageBox.Show("Rušení tabulek dokončeno.");
             }
         }
@@ -433,9 +434,10 @@ namespace Vydejna
             localDB.openDB();
             if (localDB.DBIsOpened())
             {
-                localDB.CreateTables(); // take provede .closeDB()
+                localDB.CreateTables(); 
                 localDB.CreateIndexes();
 
+                localDB.closeDB();
                 myDB = OpenDataBaseHandle();
                 myDB.openDB();
                 setStateChangeEvent(myDB);

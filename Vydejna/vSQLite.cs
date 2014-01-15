@@ -43,7 +43,7 @@ namespace Vydejna
 
         public override void DropTables()
         {
-            openDB();
+//            openDB();
             if (DBIsOpened())
             {
                 SQLiteCommand cmdKarta = new SQLiteCommand("DROP TABLE karta", myDBConn as SQLiteConnection);
@@ -161,8 +161,8 @@ namespace Vydejna
                     cmdPujceno.Dispose();
                 }
 
-                myDBConn.Close();
-                myDBConn.Dispose();
+//                myDBConn.Close();
+//                myDBConn.Dispose();
 //                MessageBox.Show("Rušení tabulek dokončeno.");
 
             }
@@ -172,7 +172,6 @@ namespace Vydejna
 
         public override void DeleteTables()
         {
-            openDB();
             if (DBIsOpened())
             {
                 SQLiteCommand cmdNaradi = new SQLiteCommand("DELETE from naradi", myDBConn as SQLiteConnection);
@@ -273,7 +272,7 @@ namespace Vydejna
                       "pprijmeni varchar(15), pnazev varchar(60), pjk varchar(15), pdatum date, pks integer, pcena float);";
 
 
-            openDB();
+//            openDB();
             if (DBIsOpened())
             {
                 SQLiteCommand cmdKarta = new SQLiteCommand(commandStringKarta, myDBConn as SQLiteConnection);
@@ -310,7 +309,7 @@ namespace Vydejna
                 }
                 finally
                 {
-                    myDBConn.Close();
+//                    myDBConn.Close();
                     cmdPujceno.Dispose();
                     cmdZmeny.Dispose();
                     cmdOsoby.Dispose();
@@ -322,7 +321,7 @@ namespace Vydejna
                     cmdSequence.Dispose();
                     cmdNaradi.Dispose();
                     cmdKarta.Dispose();
-                    myDBConn.Dispose();
+//                    myDBConn.Dispose();
                 }
             }
 

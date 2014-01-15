@@ -27,7 +27,7 @@ namespace Vydejna
 
         public override void DropTables()
         {
-            openDB();
+//            openDB();
             if (DBIsOpened())
             {
                 OdbcCommand cmdKarta = new OdbcCommand("DROP TABLE karta", myDBConn as OdbcConnection);
@@ -146,10 +146,8 @@ namespace Vydejna
                 }
 
 
-             myDBConn.Close();
-             myDBConn.Dispose();
-//             MessageBox.Show("Rušení tabulek dokončeno.");
-
+//             myDBConn.Close();
+//             myDBConn.Dispose();
             }
         }
 
@@ -164,10 +162,6 @@ namespace Vydejna
             string commandStringSequenceInit4 = "INSERT INTO tabseq ( nazev, poradi) VALUES ('pujceno', 1)";
 
 
-//            string commandStringKarta = "create table karta ( poradi integer, nazev char(60), jk char(15), normacsn char (15)," +
-//                      "normadin char(15), vyrobce char(40), cena float, poznamka char(60), minimum integer," +
-//                      "celkcena float, ucetstav integer, fyzstav integer, rozmer char(20), analucet char(5), tdate date," +
-//                      "stredisko char(5), druh char(3), odpis char(3));";
 
             string commandStringKarta = "create table karta ( poradi integer, nazev varchar(60), jk varchar(15), normacsn varchar (15)," +
                       "normadin varchar(15), vyrobce varchar(40), cena float, poznamka varchar(60), minimum integer," +
@@ -175,10 +169,6 @@ namespace Vydejna
                       "stredisko varchar(5), druh varchar(3), odpis varchar(3));";
 
 
-//            string commandStringNaradi = "create table naradi ( poradi integer, nazev char(60), jk char(15), normacsn char (15)," +
-//                      "normadin char(15), vyrobce char(40), cena float, poznamka char(60), minimum integer," +
-//                      "celkcena float, ucetstav integer, fyzstav integer, rozmer char(20), analucet char(5), tdate date," +
-//                      "stredisko char(5), druh char(3), odpis char(3), ucetkscen float, kdatum date, kodd char(2));";
 
             string commandStringNaradi = "create table naradi ( poradi integer, nazev varchar(60), jk varchar(15), normacsn varchar (15)," +
                       "normadin varchar(15), vyrobce varchar(40), cena float, poznamka varchar(60), minimum integer," +
@@ -186,10 +176,6 @@ namespace Vydejna
                       "stredisko varchar(5), druh varchar(3), odpis varchar(3), ucetkscen float, kdatum date, kodd varchar(2));";
 
 
-//            string commandStringPoskozeno = "create table poskozeno ( poradi integer, jmeno char(15), oscislo char(8), dilna char(15)," +
-//                      "pracoviste char(20), vyrobek char(15),nazev char(60), jk char(15), rozmer char(25)," +
-//                      "pocetks integer, cena float, datum date, csn char(15), krjmeno char(15)," +
-//                      "celkcena float, vevcislo char(12), konto char(15) );";
 
             string commandStringPoskozeno = "create table poskozeno ( poradi integer, jmeno varchar(15), oscislo varchar(8), dilna varchar(15)," +
                       "pracoviste varchar(20), vyrobek varchar(15),nazev varchar(60), jk varchar(15), rozmer varchar(25)," +
@@ -197,10 +183,6 @@ namespace Vydejna
                       "celkcena float, vevcislo varchar(12), konto varchar(15) );";
 
 
-//            string commandStringVraceno = "create table vraceno ( poradi integer, jmeno char(15), oscislo char(8), dilna char(15)," +
-//                      "pracoviste char(20), vyrobek char(15),nazev char(60), jk char(15), rozmer char(25)," +
-//                      "pocetks integer, cena float, datum date, csn char(15), krjmeno char(15)," +
-//                      "celkcena float, vevcislo char(12), konto char(15) );";
 
             string commandStringVraceno = "create table vraceno ( poradi integer, jmeno varchar(15), oscislo varchar(8), dilna varchar(15)," +
                       "pracoviste varchar(20), vyrobek varchar(15),nazev varchar(60), jk varchar(15), rozmer varchar(25)," +
@@ -223,7 +205,7 @@ namespace Vydejna
                       "pprijmeni varchar(15), pnazev varchar(60), pjk varchar(15), pdatum date, pks integer, pcena float);";
 
 
-            openDB();
+//            openDB();
             if (DBIsOpened())
             {
             OdbcCommand cmdKarta = new OdbcCommand(commandStringKarta, myDBConn as OdbcConnection);
@@ -253,7 +235,6 @@ namespace Vydejna
                     cmdOsoby.ExecuteNonQuery();
                     cmdZmeny.ExecuteNonQuery();
                     cmdPujceno.ExecuteNonQuery();
-//                    MessageBox.Show("Tabulky byly vytvořeny.");
                 }
                 catch (Exception ex)
                 {
@@ -261,7 +242,7 @@ namespace Vydejna
                 }
                 finally
                 {
-                    myDBConn.Close();
+//                    myDBConn.Close();
                     cmdPujceno.Dispose();
                     cmdZmeny.Dispose();
                     cmdOsoby.Dispose();
@@ -273,7 +254,7 @@ namespace Vydejna
                     cmdSequence.Dispose();
                     cmdNaradi.Dispose();
                     cmdKarta.Dispose();
-                    myDBConn.Dispose();
+//                    myDBConn.Dispose();
                 }
             }
 
@@ -281,7 +262,6 @@ namespace Vydejna
 
         public override void DeleteTables()
         {
-            openDB();
             if (DBIsOpened())
             {
                 OdbcCommand cmdNaradi = new OdbcCommand("DELETE from naradi", myDBConn as OdbcConnection);
@@ -329,9 +309,6 @@ namespace Vydejna
                     cmdNaradi.Dispose();
                 }
             }
-
-            // vymaze tabulky
-
         }
 
 
