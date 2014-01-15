@@ -450,9 +450,6 @@ namespace Vydejna
 
         public virtual DataTable loadDataTableVraceno()
         {
-//            return loadDataTable("SELECT poradi, rtrim(nazev) as nazev, rtrim(jk) as jk,  pocetks, rtrim(rozmer) as rozmer, rtrim(csn) as csn,"
-//                                     + " cena, datum, rtrim(vyrobek) as vyrobek, rtrim(konto) as konto, rtrim(jmeno) as jmeno, rtrim(krjmeno) as krjmmeno, rtrim(oscislo) as oscislo, rtrim(dilna) as dilna, rtrim(pracoviste) as pracoviste"
-//                                     + " from vraceno ORDER BY datum, poradi");
             return loadDataTable("SELECT poradi, nazev, jk,  pocetks, rozmer, csn,"
                                      + " cena, datum, vyrobek, konto, jmeno, krjmeno, oscislo, dilna, pracoviste"
                                      + " from vraceno ORDER BY datum, poradi");
@@ -463,9 +460,6 @@ namespace Vydejna
             return loadDataTable("SELECT poradi, nazev, jk,  pocetks, rozmer, csn,"
                                      + " cena, datum, vyrobek, konto, jmeno, krjmeno, oscislo, dilna, pracoviste"
                                      + " from poskozeno ORDER BY datum, poradi");
-//            return loadDataTable("SELECT poradi, rtrim(nazev) as nazev, rtrim(jk) as jk,  pocetks, rtrim(rozmer) as rozmer, rtrim(csn) as csn,"
-//                                     + " cena, datum, rtrim(vyrobek) as vyrobek, rtrim(konto) as konto, rtrim(jmeno) as jmeno, rtrim(krjmeno) as krjmeno, rtrim(oscislo) as oscislo, rtrim(dilna) as dilna, rtrim(pracoviste) as pracoviste"
-//                                     + " from poskozeno ORDER BY datum, poradi");
         }
 
 

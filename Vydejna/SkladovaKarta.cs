@@ -98,6 +98,7 @@ namespace Vydejna
 
             setData(DBRow);
             loadZmenyItems();
+            this.CancelButton = this.buttonCancel;
         }
 
 

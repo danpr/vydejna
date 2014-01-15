@@ -248,14 +248,17 @@ namespace Vydejna
             if ((myDB != null) && (myDB.DBIsOpened()))
             {
                 Int32 poradi = findPoradiInRow(DBRow);
-                DBRow = myDB.getNaradiLine(poradi,DBRow);
+                if (poradi != 0)
+                {
+                    DBRow = myDB.getNaradiLine(poradi, DBRow);
 
-                SkladovaKarta sklKarta = new SkladovaKarta(myDB, DBRow, findPoradiInRow (DBRow), new tableItemExistDelgStr(myDB.tableNaradiItemExist));
-                sklKarta.setWinName("Skladová karta");
-                sklKarta.ShowDialog();
+                    SkladovaKarta sklKarta = new SkladovaKarta(myDB, DBRow, findPoradiInRow(DBRow), new tableItemExistDelgStr(myDB.tableNaradiItemExist));
+                    sklKarta.setWinName("Skladová karta");
+                    sklKarta.ShowDialog();
 
-                DBRow = myDB.getNaradiLine(poradi, DBRow);
-                reloadRow((myDataGridView.DataSource as DataTable), findIndex((myDataGridView.DataSource as DataTable), "poradi", poradi), DBRow);
+                    DBRow = myDB.getNaradiLine(poradi, DBRow);
+                    reloadRow((myDataGridView.DataSource as DataTable), findIndex((myDataGridView.DataSource as DataTable), "poradi", poradi), DBRow);
+                }
             }
         }
 
@@ -660,22 +663,22 @@ namespace Vydejna
                         Int32 dataRowIndex = findIndex((myDataGridView.DataSource as DataTable), "poradi", mesenger.poradi);
                         if (dataRowIndex != -1)
                         {
-                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(1, mesenger.nazev);
-                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(2, mesenger.jk);
+                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("nazev", mesenger.nazev);
+                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("jk", mesenger.jk);
 
-                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(3, mesenger.pocetKs);
-                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(4, mesenger.rozmer);
+                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("pocetks", mesenger.pocetKs);
+                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("rozmer", mesenger.rozmer);
 
-                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(5, mesenger.csn);
-                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(6, mesenger.cena);
-                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(7, mesenger.datum);
-                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(8, mesenger.zakazka);
-                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(9, mesenger.konto);
-                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(10, mesenger.prijmeni);
-                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(11, mesenger.jmeno);
-                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(12, mesenger.oscislo);
-                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(13, mesenger.stredisko);
-                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(14, mesenger.provoz);
+                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("csn", mesenger.csn);
+                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("cena", mesenger.cena);
+                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("datum", mesenger.datum);
+                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("vyrobek", mesenger.zakazka);
+                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("konto", mesenger.konto);
+                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("jmeno", mesenger.prijmeni);
+                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("krjmeno", mesenger.jmeno);
+                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("oscislo", mesenger.oscislo);
+                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("dilna", mesenger.stredisko);
+                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("pracoviste", mesenger.provoz);
 
                             myDataGridView.Refresh();
                         }
@@ -740,22 +743,22 @@ namespace Vydejna
 
                     if (dataRowIndex != -1)
                     {
-                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(1, mesenger.nazev);
-                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(2, mesenger.jk);
+                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("naradi", mesenger.nazev);
+                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("jk", mesenger.jk);
 
-                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(3, mesenger.pocetKs);
-                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(4, mesenger.rozmer);
+                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("pocetks", mesenger.pocetKs);
+                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("rozmer", mesenger.rozmer);
 
-                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(5, mesenger.csn);
-                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(6, mesenger.cena);
-                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(7, mesenger.datum);
-                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(8, mesenger.zakazka);
-                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(9, mesenger.konto);
-                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(10, mesenger.prijmeni);
-                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(11, mesenger.jmeno);
-                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(12, mesenger.oscislo);
-                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(13, mesenger.stredisko);
-                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(14, mesenger.provoz);
+                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("csn", mesenger.csn);
+                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("cena", mesenger.cena);
+                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("datum", mesenger.datum);
+                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("vyrobek", mesenger.zakazka);
+                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("konto", mesenger.konto);
+                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("jmeno", mesenger.prijmeni);
+                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("krjmeno", mesenger.jmeno);
+                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("oscislo", mesenger.oscislo);
+                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("dilna", mesenger.stredisko);
+                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("pracoviste", mesenger.provoz);
 
                         myDataGridView.Refresh();
                     }

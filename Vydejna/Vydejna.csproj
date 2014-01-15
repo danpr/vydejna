@@ -153,15 +153,19 @@
     </Compile>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="NastaveniDB.resx">
       <DependentUpon>NastaveniDB.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Poskozenka.resx">
       <DependentUpon>Poskozenka.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="PracovniciKarta.resx">
       <DependentUpon>PracovniciKarta.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="PrijemkaMaterialu.resx">
       <DependentUpon>PrijemkaMaterialu.cs</DependentUpon>

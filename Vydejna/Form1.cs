@@ -87,6 +87,31 @@ namespace Vydejna
         }
 
 
+        private Hashtable getPoradiOscisloFromSelectedRow()
+        {
+            if (dataGridView1.SelectedRows.Count > 0)
+            {
+                Hashtable newDBRow = new Hashtable();
+
+                DataGridViewRow myRow = dataGridView1.SelectedRows[0];
+                for (int i = 0; i < dataGridView1.ColumnCount; i++)
+                {
+                    if ((dataGridView1.Columns[i].Name == "poradi") || (dataGridView1.Columns[i].Name == "oscislo"))
+                    {
+                        if (newDBRow.ContainsKey(dataGridView1.Columns[i].Name))
+                        {
+                            newDBRow.Remove(dataGridView1.Columns[i].Name);
+                        }
+                        newDBRow.Add(dataGridView1.Columns[i].Name, myRow.Cells[i].Value);
+                    }
+                }
+                return newDBRow;
+            }
+            return null;
+        }
+
+
+
         private void loadNaradiItems()
         {
             // nahraje hlavni tabulku - naradi - skladove karty
@@ -678,20 +703,11 @@ namespace Vydejna
 
         private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            int index = dataGridView1.Rows.GetFirstRow(DataGridViewElementStates.Selected);
-            if (index > -1)
+            Hashtable DBRowShow = getPoradiOscisloFromSelectedRow();
+            if (DBRowShow != null)
             {
-                for (int i = 0; i < dataGridView1.ColumnCount; i++)
-                {
-                    if (DBRow.ContainsKey(dataGridView1.Columns[i].Name))
-                    {
-                        DBRow.Remove(dataGridView1.Columns[i].Name);
-                    }
-                    DBRow.Add(dataGridView1.Columns[i].Name, dataGridView1[i, index].Value);
-                }
-                karta.zobrazKartu(DBRow);
+                karta.zobrazKartu(DBRowShow);
             }
-
         }
 
         private void toolStripMenuItem6_Click(object sender, EventArgs e)
@@ -1012,10 +1028,6 @@ namespace Vydejna
 
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
 
         private void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
         {
@@ -1039,6 +1051,16 @@ namespace Vydejna
             if (e.KeyData == Keys.F3)
             {
                 karta.HledejDalsi(this.Location.Y + this.Size.Width,this.Top);
+            }
+            if (e.KeyData == Keys.Return)
+            {
+
+                Hashtable DBRowShow = getPoradiOscisloFromSelectedRow();
+                if (DBRowShow != null)
+                {
+                    karta.zobrazKartu(DBRowShow);
+                }
+
             }
         }
 
