@@ -904,7 +904,16 @@ namespace Vydejna
                 try
                 {
                     Int32 maxporadi;
-                    transaction = (myDBConn as OdbcConnection).BeginTransaction(System.Data.IsolationLevel.ReadCommitted);
+
+                    try
+                    {
+                        transaction = (myDBConn as OdbcConnection).BeginTransaction(System.Data.IsolationLevel.ReadCommitted);
+                    }
+                    catch
+                    {
+                    }
+
+
 
                     OdbcCommand cmd0 = new OdbcCommand(commandReadString0, myDBConn as OdbcConnection);
                     OdbcDataReader myReader0 = cmd0.ExecuteReader();

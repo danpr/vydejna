@@ -69,7 +69,7 @@
             this.buttonCancel.Location = new System.Drawing.Point(15, 225);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
-            this.buttonCancel.TabIndex = 16;
+            this.buttonCancel.TabIndex = 6;
             this.buttonCancel.Text = "Zrušit";
             this.buttonCancel.UseVisualStyleBackColor = true;
             // 
@@ -79,7 +79,7 @@
             this.buttonOK.Location = new System.Drawing.Point(234, 225);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
-            this.buttonOK.TabIndex = 17;
+            this.buttonOK.TabIndex = 5;
             this.buttonOK.Text = "Hledat";
             this.buttonOK.UseVisualStyleBackColor = true;
             this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
@@ -94,7 +94,7 @@
             this.groupBox1.Location = new System.Drawing.Point(15, 39);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(291, 108);
-            this.groupBox1.TabIndex = 19;
+            this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Hledat";
             // 
@@ -109,7 +109,7 @@
             this.comboBoxDate.Location = new System.Drawing.Point(21, 72);
             this.comboBoxDate.Name = "comboBoxDate";
             this.comboBoxDate.Size = new System.Drawing.Size(63, 21);
-            this.comboBoxDate.TabIndex = 4;
+            this.comboBoxDate.TabIndex = 3;
             // 
             // comboBoxNumeric
             // 
@@ -122,7 +122,7 @@
             this.comboBoxNumeric.Location = new System.Drawing.Point(21, 45);
             this.comboBoxNumeric.Name = "comboBoxNumeric";
             this.comboBoxNumeric.Size = new System.Drawing.Size(63, 21);
-            this.comboBoxNumeric.TabIndex = 3;
+            this.comboBoxNumeric.TabIndex = 1;
             this.comboBoxNumeric.SelectedIndexChanged += new System.EventHandler(this.comboBoxNumeric_SelectedIndexChanged);
             // 
             // dateTimePickerDate
@@ -130,14 +130,14 @@
             this.dateTimePickerDate.Location = new System.Drawing.Point(119, 71);
             this.dateTimePickerDate.Name = "dateTimePickerDate";
             this.dateTimePickerDate.Size = new System.Drawing.Size(147, 20);
-            this.dateTimePickerDate.TabIndex = 2;
+            this.dateTimePickerDate.TabIndex = 4;
             // 
             // numericUpDownNumeric
             // 
             this.numericUpDownNumeric.Location = new System.Drawing.Point(119, 46);
             this.numericUpDownNumeric.Name = "numericUpDownNumeric";
             this.numericUpDownNumeric.Size = new System.Drawing.Size(147, 20);
-            this.numericUpDownNumeric.TabIndex = 1;
+            this.numericUpDownNumeric.TabIndex = 2;
             // 
             // textBoxString
             // 
@@ -153,7 +153,7 @@
             this.checkBoxUpcase.Location = new System.Drawing.Point(36, 153);
             this.checkBoxUpcase.Name = "checkBoxUpcase";
             this.checkBoxUpcase.Size = new System.Drawing.Size(148, 17);
-            this.checkBoxUpcase.TabIndex = 20;
+            this.checkBoxUpcase.TabIndex = 3;
             this.checkBoxUpcase.Text = "Ignorovat velikost písmen";
             this.checkBoxUpcase.UseVisualStyleBackColor = true;
             // 
@@ -163,7 +163,7 @@
             this.checkBoxFromStart.Location = new System.Drawing.Point(36, 185);
             this.checkBoxFromStart.Name = "checkBoxFromStart";
             this.checkBoxFromStart.Size = new System.Drawing.Size(113, 17);
-            this.checkBoxFromStart.TabIndex = 21;
+            this.checkBoxFromStart.TabIndex = 4;
             this.checkBoxFromStart.Text = "Hledat od začátku";
             this.checkBoxFromStart.UseVisualStyleBackColor = true;
             // 

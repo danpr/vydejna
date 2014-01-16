@@ -55,6 +55,20 @@ namespace Vydejna
             if ((preferedColumn != null) && (preferedColumn.Trim() != ""))
             {
                 groupBox1.Focus();
+                ColumnInfo myColumnInfo = (ColumnInfo)comboBoxColumnInfo[comboBoxColumns.SelectedIndex];
+                string myType = Convert.ToString(myColumnInfo.varColumnType);
+                switch (myType)
+                {
+                    case "String":
+                        textBoxString.Focus();
+                        break;
+                    case "Numeric":
+                        comboBoxNumeric.Focus();
+                        break;
+                    case "DateTime":
+                        comboBoxDate.Focus();
+                        break;
+                }
             }
         }
 
@@ -109,6 +123,7 @@ namespace Vydejna
                 dateTimePickerDate.Enabled = false;
                 checkBoxUpcase.Enabled = false;
 
+                groupBox1.Focus();
                 switch (myType)
                 {
                     case "String":
@@ -118,17 +133,19 @@ namespace Vydejna
                         {
                             buttonOK.Enabled = false;
                         }
+                        textBoxString.Focus();
                         break;
                     case "Numeric":
                         comboBoxNumeric.Enabled = true;
                         numericUpDownNumeric.Enabled = true;
+                        comboBoxNumeric.Focus();
                         break;
                     case "DateTime":
                         comboBoxDate.Enabled = true;
                         dateTimePickerDate.Enabled = true;
+                        comboBoxDate.Focus();
                         break;
                 }
-                groupBox1.Focus();
 
             }
             else

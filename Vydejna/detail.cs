@@ -281,15 +281,39 @@ namespace Vydejna
                                    mesenger.ucet, mesenger.ucetCenaKs, new DateTime(0));
                     if (poradi != -1)
                     {
-                       (myDataGridView.DataSource as DataTable).Rows.Add(poradi, "", mesenger.nazev, mesenger.jk, mesenger.ucetStav, mesenger.ucet, mesenger.csn, mesenger.din, mesenger.vyrobce, mesenger.rozmer, 0, mesenger.cenaKs, mesenger.ucetCena, mesenger.minStav, mesenger.poznamka, mesenger.ucetCenaKs);
-                       int counter = myDataGridView.Rows.Count - 1;
 
-                       myDataGridView.FirstDisplayedScrollingRowIndex = myDataGridView.Rows[counter].Index;
-                       myDataGridView.Refresh();
+                        //                        (myDataGridView.DataSource as DataTable).Rows.Add(poradi, "", mesenger.nazev, mesenger.jk, mesenger.ucetStav, mesenger.ucet, mesenger.csn, mesenger.din, mesenger.vyrobce, mesenger.rozmer, 0, mesenger.cenaKs, mesenger.ucetCena, mesenger.minStav, mesenger.poznamka, mesenger.ucetCenaKs);
+                        //
+                        DataRow newRow = (myDataGridView.DataSource as DataTable).NewRow();
+                        newRow["poradi"] = poradi;
+                        newRow["nazev"] = mesenger.nazev;
+                        newRow["jk"] = mesenger.jk;
+                        newRow["fyzstav"] = mesenger.fyzStav;
+                        newRow["analucet"] = mesenger.ucet;
+                        newRow["normacsn"] = mesenger.csn;
+                        newRow["normadin"] = mesenger.din;
+                        newRow["vyrobce"] = mesenger.vyrobce;
+                        newRow["rozmer"] = mesenger.rozmer;
+                        newRow["ucetstav"] = mesenger.ucetStav;
+                        newRow["cena"] = mesenger.cenaKs;
+                        newRow["celkcena"] = mesenger.ucetCena;
+                        newRow["minimum"] = mesenger.minStav;
+                        newRow["poznamka"] = mesenger.poznamka;
+                        newRow["ucetkscen"] = mesenger.ucetCenaKs;
+                        (myDataGridView.DataSource as DataTable).Rows.Add(newRow);
+                        //
+                        int counter = myDataGridView.Rows.Count - 1;
 
-                       myDataGridView.CurrentCell = myDataGridView.Rows[counter].Cells[1];
-                       myDataGridView.Rows[counter].Selected = true;
+                        myDataGridView.FirstDisplayedScrollingRowIndex = myDataGridView.Rows[counter].Index;
+                        myDataGridView.Refresh();
 
+                        myDataGridView.CurrentCell = myDataGridView.Rows[counter].Cells[1];
+                        myDataGridView.Rows[counter].Selected = true;
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("Nepodařilo se přidat položku.");
                     }
 
                 }
