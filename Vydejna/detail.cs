@@ -863,7 +863,21 @@ namespace Vydejna
                     Int32 stav = myDB.addNewLineOsoby(mesenger.prijmeni, mesenger.jmeno, mesenger.ulice, mesenger.mesto, mesenger.psc, mesenger.telHome, mesenger.oscislo, mesenger.stredisko, mesenger.cisZnamky, mesenger.oddeleni, mesenger.pracoviste, mesenger.telZam, mesenger.poznamka);
                     if (stav != -1)
                     {
-                        (myDataGridView.DataSource as DataTable).Rows.Add(mesenger.prijmeni, mesenger.jmeno, mesenger.oscislo, mesenger.oddeleni, mesenger.stredisko, mesenger.pracoviste, mesenger.cisZnamky, mesenger.ulice,mesenger.psc, mesenger.mesto, mesenger.telHome, mesenger.telZam, mesenger.poznamka);
+                        DataRow newRow = (myDataGridView.DataSource as DataTable).NewRow();
+                        newRow["prijmeni"] = mesenger.prijmeni;
+                        newRow["jmeno"] = mesenger.jmeno;
+                        newRow["oscislo"] = mesenger.oscislo;
+                        newRow["odeleni"] = mesenger.oddeleni;
+                        newRow["stredisko"] = mesenger.stredisko;
+                        newRow["pracoviste"] = mesenger.pracoviste;
+                        newRow["cisznamky"] = mesenger.cisZnamky;
+                        newRow["ulice"] = mesenger.ulice;
+                        newRow["psc"] = mesenger.psc;
+                        newRow["mesto"] = mesenger.mesto;
+                        newRow["telhome"] = mesenger.telHome;
+                        newRow["telzam"] = mesenger.telZam;
+                        newRow["poznamka"] = mesenger.poznamka;
+                        (myDataGridView.DataSource as DataTable).Rows.Add(newRow);
                         int counter = myDataGridView.Rows.Count -1;
 
                         myDataGridView.FirstDisplayedScrollingRowIndex = myDataGridView.Rows[counter].Index;
@@ -899,21 +913,21 @@ namespace Vydejna
 
                         if (dataRowIndex != -1)
                         {
-                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(0, mesenger.prijmeni);
-                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(1, mesenger.jmeno);
+                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("prijmeni", mesenger.prijmeni);
+                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("jmeno", mesenger.jmeno);
 
-                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(2, mesenger.oscislo);
-                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(3, mesenger.oddeleni);
+                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("oscislo", mesenger.oscislo);
+                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("odeleni", mesenger.oddeleni);
 
-                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(4, mesenger.stredisko);
-                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(5, mesenger.pracoviste);
-                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(6, mesenger.cisZnamky);
-                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(7, mesenger.ulice);
-                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(8, mesenger.psc);
-                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(9, mesenger.mesto);
-                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(10, mesenger.telHome);
-                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(11, mesenger.telZam);
-                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField(12, mesenger.poznamka);
+                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("stredisko", mesenger.stredisko);
+                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("pracoviste", mesenger.pracoviste);
+                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("cisznamky", mesenger.cisZnamky);
+                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("ulice", mesenger.ulice);
+                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("psc", mesenger.psc);
+                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("mesto", mesenger.mesto);
+                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("telhome", mesenger.telHome);
+                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("telzam", mesenger.telZam);
+                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("poznamka", mesenger.poznamka);
 
                             myDataGridView.Refresh();
                         }
@@ -950,7 +964,7 @@ namespace Vydejna
 
     }
 
-    class detailOsobyZapujcNaradi : detail
+    class detailOsobyZapujcNaradi : detailOsoby
         {
 
         public detailOsobyZapujcNaradi(vDatabase myDB, DataGridView myDataGridView)
@@ -974,20 +988,20 @@ namespace Vydejna
             }
 
 
-            public override void Zapujceno(Hashtable DBRow)
-            {
-                if ((myDB != null) && (myDB.DBIsOpened()))
-                {
-                    string osCislo = Convert.ToString(DBRow["oscislo"]);
-                    ZapujceneNaradiKarta zapujcKarta = new ZapujceneNaradiKarta(osCislo, myDB);// (DBRow, myDataBase, uKartaState.edit);
-                    zapujcKarta.ShowDialog();
-                }
-            }
+//            public override void Zapujceno(Hashtable DBRow)
+//            {
+//                if ((myDB != null) && (myDB.DBIsOpened()))
+//                {
+//                    string osCislo = Convert.ToString(DBRow["oscislo"]);
+//                    ZapujceneNaradiKarta zapujcKarta = new ZapujceneNaradiKarta(osCislo, myDB);// (DBRow, myDataBase, uKartaState.edit);
+//                    zapujcKarta.ShowDialog();
+//                }
+//            }
 
-            public override string preferovanySloupec()
-            {
-                return "prijmeni";
-            }
+//            public override string preferovanySloupec()
+//            {
+//                return "prijmeni";
+//            }
 
         }
 
