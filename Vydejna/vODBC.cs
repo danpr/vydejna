@@ -14,6 +14,8 @@ namespace Vydejna
     class vODBC : vDatabase
     {
 
+        private string commandStringUsers = "create table uzivatele (user varchar(15),  password char(40), jmeno char(15), prijmeni char(15), admin char(1), permission char(60));";
+
         public vODBC(string dataBaseName, string serverAddress, string serverName, string port, string locale, string driver, string userName, string password)
             : base(dataBaseName, serverAddress, serverName, port, locale, driver, userName, password)
         {
@@ -145,6 +147,19 @@ namespace Vydejna
                     cmdPujceno.Dispose();
                 }
 
+                OdbcCommand cmdUsers = new OdbcCommand("DROP TABLE uzivatele", myDBConn as OdbcConnection);
+                try
+                {
+                    cmdUsers.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                finally
+                {
+                    cmdUsers.Dispose();
+                }
 
 //             myDBConn.Close();
 //             myDBConn.Dispose();
@@ -220,6 +235,7 @@ namespace Vydejna
             OdbcCommand cmdOsoby = new OdbcCommand(commandStringOsoby, myDBConn as OdbcConnection);
             OdbcCommand cmdZmeny = new OdbcCommand(commandStringZmeny, myDBConn as OdbcConnection);
             OdbcCommand cmdPujceno = new OdbcCommand(commandStringPujceno, myDBConn as OdbcConnection);
+            OdbcCommand cmdUsers = new OdbcCommand(commandStringUsers, myDBConn as OdbcConnection);
 
             try
                 {
@@ -235,6 +251,7 @@ namespace Vydejna
                     cmdOsoby.ExecuteNonQuery();
                     cmdZmeny.ExecuteNonQuery();
                     cmdPujceno.ExecuteNonQuery();
+                    cmdUsers.ExecuteNonQuery();
                 }
                 catch (Exception ex)
                 {
@@ -243,6 +260,7 @@ namespace Vydejna
                 finally
                 {
 //                    myDBConn.Close();
+                    cmdUsers.Dispose();
                     cmdPujceno.Dispose();
                     cmdZmeny.Dispose();
                     cmdOsoby.Dispose();
@@ -384,6 +402,26 @@ namespace Vydejna
             }
         }
 
+
+        public override void CreateTableUzivatele()
+        {
+            if (DBIsOpened())
+            {
+                OdbcCommand cmdUsers = new OdbcCommand(commandStringUsers, myDBConn as OdbcConnection);
+                try
+                {
+                    cmdUsers.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                finally
+                {
+                    cmdUsers.Dispose();
+                }
+            }
+        }
 
 
 
@@ -2839,6 +2877,21 @@ namespace Vydejna
             return getDBLine(DBSelect, DBRow);
         }
 
+        public override Boolean tableUzivateleExist()
+        {
+            if (DBIsOpened())
+            {
+                DataTable dt = (myDBConn as OdbcConnection).GetSchema("Tables");
+                for (Int32 i = 0; i < dt.Rows.Count; i++)
+                {
+                    if (dt.Rows[i].ItemArray[2].ToString() == "uzivatele")
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
 
 
     }

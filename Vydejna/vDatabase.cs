@@ -184,6 +184,12 @@ namespace Vydejna
         {
         }
 
+
+        public virtual void CreateTableUzivatele()
+        {
+        }
+
+
         public virtual DbTransaction startTransaction()
         {
             return null;   
@@ -469,6 +475,12 @@ namespace Vydejna
             return loadDataTable("SELECT prijmeni, jmeno, oscislo, odeleni, stredisko, pracoviste, cisznamky,"
                                      +"ulice, psc, mesto, telhome, telzam, poznamka from osoby order by prijmeni");
 
+        }
+
+
+        public virtual Boolean tableUzivateleExist()
+        {
+            return false;
         }
 
 

@@ -28,7 +28,7 @@ namespace Vydejna
         {
             InitializeComponent();
 
-            labelView.Font = new Font( labelView.Font, FontStyle.Bold);
+            labelView.Font = new Font(labelView.Font, FontStyle.Bold);
 
             myDB = null;
 
@@ -38,8 +38,8 @@ namespace Vydejna
 
             loadSettingDB(nastaveniDB);
 
-            karta = new detailNone (myDB, dataGridView1); // karta - stavovy objekt - volame vzdy funkci karta.zobrazKartu 
-                                       //  a podle toho jakeho je karta typu se objevi prislusne okno
+            karta = new detailNone(myDB, dataGridView1); // karta - stavovy objekt - volame vzdy funkci karta.zobrazKartu 
+            //  a podle toho jakeho je karta typu se objevi prislusne okno
 
 
             dataGridView1.MultiSelect = false;
@@ -64,6 +64,13 @@ namespace Vydejna
                 myDB.openDB();
                 setStateChangeEvent(myDB);
             }
+
+            if (myDB.DBIsOpened())
+            {
+                usersTest();
+
+            }
+
         }
 
 
@@ -1136,5 +1143,42 @@ namespace Vydejna
                     }
             }
         }
+
+        private void usersTest ()
+        {
+            if (myDB.DBIsOpened())
+            {
+                if (!(myDB.tableUzivateleExist()))
+                {
+
+                    if (MessageBox.Show("Tabulka uživatelských účtů patrně neexistuje\n a bez ní program nemůže pracovat.\n"
+                        + "Požadujete její vytvoření ?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    {
+
+                        vDatabase localDB = OpenDataBaseHandle(false);
+                        localDB.openDB();
+                        if (localDB.DBIsOpened())
+                        {
+                            localDB.CreateTableUzivatele();
+                            localDB.closeDB();
+                        }
+                        if (!(myDB.tableUzivateleExist()))
+                        {
+                            MessageBox.Show("Tabulka uživatelských účtů patrně neexistuje, program bude ukončen.");
+                            myDB.closeDB();
+                            Environment.Exit(0);
+                        }
+
+
+                    }
+                    else
+                    {
+                        myDB.closeDB();
+                        Environment.Exit(0);
+                    }
+                }
+            }
+        }
+
     }
 }

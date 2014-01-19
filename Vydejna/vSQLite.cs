@@ -15,6 +15,8 @@ namespace Vydejna
     class vSQLite : vDatabase
     {
 
+        private string commandStringUsers = "create table uzivatele (user varchar(15), password char(40), jmeno char(15), prijmeni char(15), admin char(1), permission char(60));";
+
 
         public vSQLite(string dataBaseName, string serverAddress, string serverName, string port, string locale, string driver, string userName, string password)
             : base(dataBaseName, serverAddress, serverName, port, locale, driver, userName, password)
@@ -161,6 +163,21 @@ namespace Vydejna
                     cmdPujceno.Dispose();
                 }
 
+                SQLiteCommand cmdUsers = new SQLiteCommand("DROP TABLE uzivatele", myDBConn as SQLiteConnection);
+                try
+                {
+                    cmdUsers.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                finally
+                {
+                    cmdUsers.Dispose();
+                }
+
+
 //                myDBConn.Close();
 //                myDBConn.Dispose();
 //                MessageBox.Show("Rušení tabulek dokončeno.");
@@ -287,6 +304,7 @@ namespace Vydejna
                 SQLiteCommand cmdOsoby = new SQLiteCommand(commandStringOsoby, myDBConn as SQLiteConnection);
                 SQLiteCommand cmdZmeny = new SQLiteCommand(commandStringZmeny, myDBConn as SQLiteConnection);
                 SQLiteCommand cmdPujceno = new SQLiteCommand(commandStringPujceno, myDBConn as SQLiteConnection);
+                SQLiteCommand cmdUsers = new SQLiteCommand(commandStringUsers, myDBConn as SQLiteConnection);
                 try
                 {
                     cmdKarta.ExecuteNonQuery();
@@ -301,7 +319,7 @@ namespace Vydejna
                     cmdOsoby.ExecuteNonQuery();
                     cmdZmeny.ExecuteNonQuery();
                     cmdPujceno.ExecuteNonQuery();
-//                    MessageBox.Show("Tabulky byly vytvořeny.");
+                    cmdUsers.ExecuteNonQuery();
                 }
                 catch (Exception ex)
                 {
@@ -309,7 +327,7 @@ namespace Vydejna
                 }
                 finally
                 {
-//                    myDBConn.Close();
+                    cmdUsers.Dispose();
                     cmdPujceno.Dispose();
                     cmdZmeny.Dispose();
                     cmdOsoby.Dispose();
@@ -321,7 +339,6 @@ namespace Vydejna
                     cmdSequence.Dispose();
                     cmdNaradi.Dispose();
                     cmdKarta.Dispose();
-//                    myDBConn.Dispose();
                 }
             }
 
@@ -410,6 +427,27 @@ namespace Vydejna
                     {
                         cmdIndex.Dispose();
                     }
+                }
+            }
+        }
+
+
+        public override void CreateTableUzivatele()
+        {
+            if (DBIsOpened())
+            {
+                SQLiteCommand cmdUsers = new SQLiteCommand(commandStringUsers, myDBConn as SQLiteConnection);
+                try
+                {
+                    cmdUsers.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                finally
+                {
+                    cmdUsers.Dispose();
                 }
             }
         }
@@ -2833,5 +2871,23 @@ namespace Vydejna
             }
             else return null;
         }
+
+
+        public override Boolean tableUzivateleExist()
+        {
+            if (DBIsOpened())
+            {
+                DataTable dt = (myDBConn as SQLiteConnection).GetSchema("Tables");
+                for (Int32 i = 0; i < dt.Rows.Count; i++)
+                {
+                    if (dt.Rows[i].ItemArray[2].ToString() == "uzivatele")
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
     }
 }
