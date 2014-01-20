@@ -745,13 +745,18 @@ namespace Vydejna
               if ((myDB != null) && myDB.DBIsOpened())
               {
                   myDB.closeDB();
-//                  closeDBConnection();
                   myDB = null;
               }
 
               myDB = OpenDataBaseHandle();
-              setStateChangeEvent(myDB);
               myDB.openDB();
+              setStateChangeEvent(myDB);
+              if (myDB.DBIsOpened())
+              {
+                  usersTest();
+
+              }
+
             }
         }
 
@@ -1101,8 +1106,14 @@ namespace Vydejna
 
         private void setStateChangeEvent(vDatabase myDB)
         {
-            myDB.myDBConn.StateChange += new StateChangeEventHandler(changesStateConnection);
-            setConnectionLabel(myDB.myDBConn.State);
+            if (myDB != null)
+            {
+                if (myDB.myDBConn != null)
+                {
+                    myDB.myDBConn.StateChange += new StateChangeEventHandler(changesStateConnection);
+                    setConnectionLabel(myDB.myDBConn.State);
+                }
+            }
         }
 
 
@@ -1150,11 +1161,9 @@ namespace Vydejna
             {
                 if (!(myDB.tableUzivateleExist()))
                 {
-
                     if (MessageBox.Show("Tabulka uživatelských účtů patrně neexistuje\n a bez ní program nemůže pracovat.\n"
                         + "Požadujete její vytvoření ?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     {
-
                         vDatabase localDB = OpenDataBaseHandle(false);
                         localDB.openDB();
                         if (localDB.DBIsOpened())
@@ -1168,8 +1177,6 @@ namespace Vydejna
                             myDB.closeDB();
                             Environment.Exit(0);
                         }
-
-
                     }
                     else
                     {
@@ -1177,7 +1184,29 @@ namespace Vydejna
                         Environment.Exit(0);
                     }
                 }
+
+// test pocet user admin
+                if (!(myDB.tableUzivateleAdminExist()))
+                {
+                    if (MessageBox.Show("Neexistuje žádný AMINISTRÁTORSKÝ účet\n a bez něj program bohužel nemůže pracovat.\n"
+                        + "Požadujete jeho vytvoření ?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    {
+                        // vztvoření uctu
+                    }
+                    else
+                    {
+                        myDB.closeDB();
+                        Environment.Exit(0);
+                    }
+
+                }
             }
+        }
+
+        private void toolStripMenuItem11_Click(object sender, EventArgs e)
+        {
+            // sprava uzivatelských účtů
+
         }
 
     }

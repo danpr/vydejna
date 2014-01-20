@@ -517,6 +517,11 @@ namespace Vydejna
 
         }
 
+        public virtual Boolean tableUzivateleAdminExist()
+        {
+            return tableItemExist("select count(*) as countOC from uzivatele where admin = ?", "A");
+        }
+
 
         public virtual Hashtable getDBLine(string DBSelect, Hashtable DBRow)
         {

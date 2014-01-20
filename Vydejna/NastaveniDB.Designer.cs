@@ -93,14 +93,14 @@
             this.groupBox1.Location = new System.Drawing.Point(12, 54);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(547, 240);
-            this.groupBox1.TabIndex = 0;
+            this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Databáze";
             // 
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(19, 113);
+            this.label12.Location = new System.Drawing.Point(19, 106);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(100, 13);
             this.label12.TabIndex = 17;
@@ -108,17 +108,17 @@
             // 
             // textBoxJmenoServeru
             // 
-            this.textBoxJmenoServeru.Location = new System.Drawing.Point(202, 106);
+            this.textBoxJmenoServeru.Location = new System.Drawing.Point(202, 103);
             this.textBoxJmenoServeru.Name = "textBoxJmenoServeru";
             this.textBoxJmenoServeru.Size = new System.Drawing.Size(176, 20);
-            this.textBoxJmenoServeru.TabIndex = 16;
+            this.textBoxJmenoServeru.TabIndex = 4;
             // 
             // buttonDriverDefault
             // 
-            this.buttonDriverDefault.Location = new System.Drawing.Point(384, 190);
+            this.buttonDriverDefault.Location = new System.Drawing.Point(384, 179);
             this.buttonDriverDefault.Name = "buttonDriverDefault";
             this.buttonDriverDefault.Size = new System.Drawing.Size(81, 23);
-            this.buttonDriverDefault.TabIndex = 15;
+            this.buttonDriverDefault.TabIndex = 10;
             this.buttonDriverDefault.Text = "Doporučené";
             this.buttonDriverDefault.UseVisualStyleBackColor = true;
             this.buttonDriverDefault.Click += new System.EventHandler(this.buttonDriverDefault_Click);
@@ -126,7 +126,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(23, 193);
+            this.label11.Location = new System.Drawing.Point(20, 184);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(100, 13);
             this.label11.TabIndex = 14;
@@ -134,32 +134,32 @@
             // 
             // textBoxDriver
             // 
-            this.textBoxDriver.Location = new System.Drawing.Point(202, 190);
+            this.textBoxDriver.Location = new System.Drawing.Point(202, 181);
             this.textBoxDriver.Name = "textBoxDriver";
             this.textBoxDriver.Size = new System.Drawing.Size(176, 20);
-            this.textBoxDriver.TabIndex = 13;
+            this.textBoxDriver.TabIndex = 9;
             // 
             // buttonLocalDefault
             // 
-            this.buttonLocalDefault.Location = new System.Drawing.Point(384, 164);
+            this.buttonLocalDefault.Location = new System.Drawing.Point(384, 153);
             this.buttonLocalDefault.Name = "buttonLocalDefault";
             this.buttonLocalDefault.Size = new System.Drawing.Size(81, 23);
-            this.buttonLocalDefault.TabIndex = 12;
+            this.buttonLocalDefault.TabIndex = 8;
             this.buttonLocalDefault.Text = "Doporučené";
             this.buttonLocalDefault.UseVisualStyleBackColor = true;
             this.buttonLocalDefault.Click += new System.EventHandler(this.buttonLocalDefault_Click);
             // 
             // textBoxLocal
             // 
-            this.textBoxLocal.Location = new System.Drawing.Point(202, 164);
+            this.textBoxLocal.Location = new System.Drawing.Point(202, 155);
             this.textBoxLocal.Name = "textBoxLocal";
             this.textBoxLocal.Size = new System.Drawing.Size(176, 20);
-            this.textBoxLocal.TabIndex = 11;
+            this.textBoxLocal.TabIndex = 7;
             // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(20, 163);
+            this.label10.Location = new System.Drawing.Point(19, 158);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(120, 13);
             this.label10.TabIndex = 10;
@@ -167,10 +167,10 @@
             // 
             // buttonPortDefault
             // 
-            this.buttonPortDefault.Location = new System.Drawing.Point(384, 134);
+            this.buttonPortDefault.Location = new System.Drawing.Point(384, 129);
             this.buttonPortDefault.Name = "buttonPortDefault";
             this.buttonPortDefault.Size = new System.Drawing.Size(81, 23);
-            this.buttonPortDefault.TabIndex = 9;
+            this.buttonPortDefault.TabIndex = 6;
             this.buttonPortDefault.Text = "Doporučené";
             this.buttonPortDefault.UseVisualStyleBackColor = true;
             this.buttonPortDefault.Click += new System.EventHandler(this.buttonPortDefault_Click);
@@ -180,7 +180,7 @@
             this.buttonBrowseDialog.Location = new System.Drawing.Point(384, 49);
             this.buttonBrowseDialog.Name = "buttonBrowseDialog";
             this.buttonBrowseDialog.Size = new System.Drawing.Size(81, 23);
-            this.buttonBrowseDialog.TabIndex = 8;
+            this.buttonBrowseDialog.TabIndex = 2;
             this.buttonBrowseDialog.Text = "Vyhledat";
             this.buttonBrowseDialog.UseVisualStyleBackColor = true;
             this.buttonBrowseDialog.Click += new System.EventHandler(this.buttonBrowseDialog_Click);
@@ -190,25 +190,25 @@
             this.textBoxAdresa.Location = new System.Drawing.Point(202, 77);
             this.textBoxAdresa.Name = "textBoxAdresa";
             this.textBoxAdresa.Size = new System.Drawing.Size(176, 20);
-            this.textBoxAdresa.TabIndex = 7;
+            this.textBoxAdresa.TabIndex = 3;
             // 
             // textBoxUmisteni
             // 
             this.textBoxUmisteni.Location = new System.Drawing.Point(202, 51);
             this.textBoxUmisteni.Name = "textBoxUmisteni";
             this.textBoxUmisteni.Size = new System.Drawing.Size(176, 20);
-            this.textBoxUmisteni.TabIndex = 6;
+            this.textBoxUmisteni.TabIndex = 1;
             // 
             // textBoxNazev
             // 
             this.textBoxNazev.Location = new System.Drawing.Point(202, 25);
             this.textBoxNazev.Name = "textBoxNazev";
             this.textBoxNazev.Size = new System.Drawing.Size(176, 20);
-            this.textBoxNazev.TabIndex = 5;
+            this.textBoxNazev.TabIndex = 0;
             // 
             // numericUpDownPort
             // 
-            this.numericUpDownPort.Location = new System.Drawing.Point(202, 132);
+            this.numericUpDownPort.Location = new System.Drawing.Point(202, 129);
             this.numericUpDownPort.Maximum = new decimal(new int[] {
             65556,
             0,
@@ -216,12 +216,12 @@
             0});
             this.numericUpDownPort.Name = "numericUpDownPort";
             this.numericUpDownPort.Size = new System.Drawing.Size(176, 20);
-            this.numericUpDownPort.TabIndex = 4;
+            this.numericUpDownPort.TabIndex = 5;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(23, 139);
+            this.label5.Location = new System.Drawing.Point(20, 134);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(32, 13);
             this.label5.TabIndex = 3;
@@ -239,7 +239,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(20, 54);
+            this.label3.Location = new System.Drawing.Point(19, 54);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(60, 13);
             this.label3.TabIndex = 1;
@@ -260,7 +260,7 @@
             this.comboBoxTypDB.Location = new System.Drawing.Point(214, 17);
             this.comboBoxTypDB.Name = "comboBoxTypDB";
             this.comboBoxTypDB.Size = new System.Drawing.Size(176, 21);
-            this.comboBoxTypDB.TabIndex = 1;
+            this.comboBoxTypDB.TabIndex = 0;
             this.comboBoxTypDB.SelectedIndexChanged += new System.EventHandler(this.comboBoxTypDB_SelectedIndexChanged);
             // 
             // label1
@@ -282,7 +282,7 @@
             this.groupBox2.Location = new System.Drawing.Point(12, 300);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(263, 90);
-            this.groupBox2.TabIndex = 3;
+            this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Práva uživatele";
             // 
@@ -292,7 +292,7 @@
             this.checkBoxUserPasswd.Location = new System.Drawing.Point(238, 48);
             this.checkBoxUserPasswd.Name = "checkBoxUserPasswd";
             this.checkBoxUserPasswd.Size = new System.Drawing.Size(15, 14);
-            this.checkBoxUserPasswd.TabIndex = 4;
+            this.checkBoxUserPasswd.TabIndex = 2;
             this.checkBoxUserPasswd.UseVisualStyleBackColor = true;
             this.checkBoxUserPasswd.CheckStateChanged += new System.EventHandler(this.checkBoxUserPasswd_CheckStateChanged);
             // 
@@ -340,17 +340,17 @@
             this.groupBox3.Location = new System.Drawing.Point(297, 300);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(263, 90);
-            this.groupBox3.TabIndex = 4;
+            this.groupBox3.TabIndex = 3;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Práva administratora";
             // 
             // checkBoxAdminPasswd
             // 
             this.checkBoxAdminPasswd.AutoSize = true;
-            this.checkBoxAdminPasswd.Location = new System.Drawing.Point(234, 48);
+            this.checkBoxAdminPasswd.Location = new System.Drawing.Point(242, 48);
             this.checkBoxAdminPasswd.Name = "checkBoxAdminPasswd";
             this.checkBoxAdminPasswd.Size = new System.Drawing.Size(15, 14);
-            this.checkBoxAdminPasswd.TabIndex = 5;
+            this.checkBoxAdminPasswd.TabIndex = 2;
             this.checkBoxAdminPasswd.UseVisualStyleBackColor = true;
             this.checkBoxAdminPasswd.CheckedChanged += new System.EventHandler(this.checkBoxAdminPasswd_CheckedChanged);
             // 
@@ -377,7 +377,7 @@
             this.textBoxAdminPasswd.Location = new System.Drawing.Point(83, 45);
             this.textBoxAdminPasswd.Name = "textBoxAdminPasswd";
             this.textBoxAdminPasswd.PasswordChar = '*';
-            this.textBoxAdminPasswd.Size = new System.Drawing.Size(145, 20);
+            this.textBoxAdminPasswd.Size = new System.Drawing.Size(152, 20);
             this.textBoxAdminPasswd.TabIndex = 1;
             this.textBoxAdminPasswd.TextChanged += new System.EventHandler(this.textBoxAdminPasswd_TextChanged);
             // 
@@ -404,7 +404,7 @@
             this.button2.Location = new System.Drawing.Point(485, 396);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 6;
+            this.button2.TabIndex = 4;
             this.button2.Text = "Budiž";
             this.button2.UseVisualStyleBackColor = true;
             // 
