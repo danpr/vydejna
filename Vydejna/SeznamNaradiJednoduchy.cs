@@ -66,7 +66,7 @@ namespace Vydejna
             {
                 try
                 {
-                    labelView.Text = "Pracovníci provozu - Načítání";
+                    labelView.Text = "Seznam nářadí - Načítání";
                     Application.DoEvents();
 
                     dataGridView1.DataSource = myDataBase.loadDataTableNaradiJednoduchy();

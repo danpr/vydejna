@@ -478,6 +478,13 @@ namespace Vydejna
         }
 
 
+        public virtual DataTable loadDataTableUzivatele()
+        {
+            return loadDataTable("SELECT jmeno, prijmeni, user, admin from uzivatele order by prijmeni, jmeno");
+
+        }
+
+
         public virtual Boolean tableUzivateleExist()
         {
             return false;
