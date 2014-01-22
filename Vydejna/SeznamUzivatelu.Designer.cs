@@ -47,6 +47,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.ContextMenuStrip = this.contextMenuStrip1;
             this.dataGridView1.Location = new System.Drawing.Point(0, 29);
             this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
@@ -84,32 +85,32 @@
             this.smazatPoložkuToolStripMenuItem,
             this.prohledáváníToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(186, 114);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(184, 92);
             // 
             // přidatPoložkuToolStripMenuItem
             // 
             this.přidatPoložkuToolStripMenuItem.Name = "přidatPoložkuToolStripMenuItem";
-            this.přidatPoložkuToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
+            this.přidatPoložkuToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
             this.přidatPoložkuToolStripMenuItem.Text = "Přidat položku";
             this.přidatPoložkuToolStripMenuItem.Click += new System.EventHandler(this.přidatPoložkuToolStripMenuItem_Click);
             // 
             // opravitPoložkuToolStripMenuItem
             // 
             this.opravitPoložkuToolStripMenuItem.Name = "opravitPoložkuToolStripMenuItem";
-            this.opravitPoložkuToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
+            this.opravitPoložkuToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
             this.opravitPoložkuToolStripMenuItem.Text = "Opravit položku";
             // 
             // smazatPoložkuToolStripMenuItem
             // 
             this.smazatPoložkuToolStripMenuItem.Name = "smazatPoložkuToolStripMenuItem";
-            this.smazatPoložkuToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
+            this.smazatPoložkuToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
             this.smazatPoložkuToolStripMenuItem.Text = "Smazat položku";
             // 
             // prohledáváníToolStripMenuItem
             // 
             this.prohledáváníToolStripMenuItem.Name = "prohledáváníToolStripMenuItem";
             this.prohledáváníToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F)));
-            this.prohledáváníToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
+            this.prohledáváníToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
             this.prohledáváníToolStripMenuItem.Text = "Prohledávání";
             // 
             // SeznamUzivatelu

@@ -37,6 +37,7 @@ namespace Vydejna
             dataGridView1.DataSource = null;
             Application.DoEvents();
 
+//            loadData(myDataBase);
         }
 
 
@@ -52,9 +53,9 @@ namespace Vydejna
                     dataGridView1.DataSource = myDataBase.loadDataTableUzivatele();
 
                     dataGridView1.Columns["jmeno"].HeaderText = "Jméno";
-                    dataGridView1.Columns["prijmeni"].HeaderText = "Název";
-                    dataGridView1.Columns["user"].HeaderText = "Označení JK";
-                    dataGridView1.Columns["admin"].HeaderText = "Rozměr";
+                    dataGridView1.Columns["prijmeni"].HeaderText = "Přijmení";
+                    dataGridView1.Columns["userid"].HeaderText = "Uživatelské jméno";
+                    dataGridView1.Columns["admin"].HeaderText = "Admin. prava";
                     dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
                     labelView.Text = "Uživatelé výdejny";
                     Application.DoEvents();
@@ -84,6 +85,10 @@ namespace Vydejna
         private void přidatPoložkuToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // pridani polozky
+
+            UzivatelKarta uk = new UzivatelKarta();
+            uk.Show();
+
         }
 
 

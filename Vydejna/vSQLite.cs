@@ -15,7 +15,7 @@ namespace Vydejna
     class vSQLite : vDatabase
     {
 
-        private string commandStringUsers = "create table uzivatele (user varchar(15) PRIMARY KEY, password char(40), jmeno char(15), prijmeni char(15), admin char(1), permission char(60));";
+        private string commandStringUsers = "create table uzivatele (userid varchar(15) PRIMARY KEY, password char(40), jmeno char(15), prijmeni char(15), admin char(1), permission char(60));";
 
 
         public vSQLite(string dataBaseName, string serverAddress, string serverName, string port, string locale, string driver, string userName, string password)

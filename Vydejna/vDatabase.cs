@@ -480,7 +480,7 @@ namespace Vydejna
 
         public virtual DataTable loadDataTableUzivatele()
         {
-            return loadDataTable("SELECT jmeno, prijmeni, user, admin from uzivatele order by prijmeni, jmeno");
+            return loadDataTable("SELECT jmeno, prijmeni, userid, admin from uzivatele order by prijmeni, jmeno");
 
         }
 
