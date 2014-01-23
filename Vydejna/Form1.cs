@@ -1192,6 +1192,9 @@ namespace Vydejna
                         + "Požadujete jeho vytvoření ?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     {
                         // vztvoření uctu
+                        UzivatelKarta uk = new UzivatelKarta(myDB,true);
+                        uk.ShowDialog();
+
                     }
                     else
                     {

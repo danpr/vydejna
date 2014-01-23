@@ -86,7 +86,7 @@ namespace Vydejna
         {
             // pridani polozky
 
-            UzivatelKarta uk = new UzivatelKarta();
+            UzivatelKarta uk = new UzivatelKarta(myDataBase,false);
             uk.Show();
 
         }

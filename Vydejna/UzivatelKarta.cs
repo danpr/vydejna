@@ -6,20 +6,34 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Security.Cryptography;
 
 namespace Vydejna
 {
     public partial class UzivatelKarta : Form
     {
-        public UzivatelKarta()
+
+        private vDatabase myDataBase;
+
+        public UzivatelKarta(vDatabase myDataBase, Boolean admin = false)
         {
             InitializeComponent();
 
+            this.myDataBase = myDataBase;
+
             this.CancelButton = buttonCancel;
             this.AcceptButton = buttonOK;
-            radioButton1.Checked = true;
 
             buttonOK.Enabled = false;
+            if (admin)
+            {
+                radioButton1.Checked = true;
+            }
+            else
+            {
+                radioButton1.Checked = false;
+            }
+
         }
 
 
@@ -73,7 +87,21 @@ namespace Vydejna
         private void buttonOK_Click(object sender, EventArgs e)
         {
             // spocteme hash hesla
+            using (SHA1 sha1FingerPrint = SHA1.Create())
+            {
+                ASCIIEncoding encoder = new ASCIIEncoding();
+                byte[] passByte = encoder.GetBytes(textBoxPass1.Text);
+                sha1FingerPrint.ComputeHash(passByte);
+                string passHash = Convert.ToBase64String(sha1FingerPrint.Hash);
 
+                // zavolame ulozeni date
+
+                if (!(myDataBase.tableUzivateleItemExist(textBoxUserID.Text)))
+                {
+                    // uziavtel neexistuje ulozime data
+
+                }
+            }
 
         }
     }

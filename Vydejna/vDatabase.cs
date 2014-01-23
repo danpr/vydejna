@@ -530,6 +530,12 @@ namespace Vydejna
         }
 
 
+        public virtual Boolean tableUzivateleItemExist(string userID)
+        {
+            return tableItemExist("select count(*) as countID from uzivatele where userid = ?", userID);
+        }
+
+
         public virtual Hashtable getDBLine(string DBSelect, Hashtable DBRow)
         {
             return null;
