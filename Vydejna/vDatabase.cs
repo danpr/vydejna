@@ -616,6 +616,14 @@ namespace Vydejna
 
         }
 
+        public virtual Hashtable getUzivateleLine(string userID, Hashtable DBRow)
+        {
+            if (DBRow == null) DBRow = new Hashtable();
+
+            string DBSelect = "SELECT * from uzivatele WHERE userid = \'" + userID + "\'";
+            return getDBLine(DBSelect, DBRow);
+
+        }
 
 
         public Boolean tableItemExist(string DBSelect, string item)

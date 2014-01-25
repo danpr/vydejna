@@ -1210,7 +1210,7 @@ namespace Vydejna
         {
             // sprava uzivatelských účtů
             SeznamUzivatelu spravaUzivatelu = new SeznamUzivatelu(myDB);
-            spravaUzivatelu.Show();
+            spravaUzivatelu.ShowDialog();
         }
 
     }

@@ -116,6 +116,11 @@ namespace Vydejna
 
         }
 
+        public string getUserID()
+        {
+            return textBoxUserID.Text;
+        }
+
         private void buttonCancel_Click(object sender, EventArgs e)
         {
             Close();
