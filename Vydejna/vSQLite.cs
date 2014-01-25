@@ -2667,7 +2667,7 @@ namespace Vydejna
                         }
                         myReader.Close();
 
-                        // zjisteni   poradi pro tabulku poskoyeneho naradi
+                        // zjisteni   poradi pro tabulku poskozeneho naradi
                         SQLiteCommand cmdSeq1 = new SQLiteCommand(commandStringRead3, myDBConn as SQLiteConnection);
                         SQLiteDataReader seqReader = cmdSeq1.ExecuteReader();
                         seqReader.Read();
@@ -2825,6 +2825,81 @@ namespace Vydejna
                 return 0;  // ok
             }
             return -1;  // databaze neni otevrena
+        }
+
+
+
+        public override Int32 addNewLineUzivatele(string DBuserid, string DBpasswdHash, string DBjmeno, string DBprijmeni, string DBpermission,
+                       Boolean DBadmin)
+        {
+            SQLiteTransaction transaction = null;
+
+            if (DBIsOpened())
+            {
+                string commandStringRead1 = "SELECT userid FROM uzivatele WHERE userid = ? ";
+                string commandString1 = "INSERT INTO uzivatele (userid, password, jmeno, prijmeni, admin, permission )" +
+                      "VALUES ( ?, ?, ?, ?, ?, ? )";
+
+                try
+                {
+                    try
+                    {
+                        transaction = (myDBConn as SQLiteConnection).BeginTransaction(System.Data.IsolationLevel.ReadCommitted);
+                    }
+                    catch
+                    {
+                    }
+
+                    SQLiteCommand cmdr1 = new SQLiteCommand(commandStringRead1, myDBConn as SQLiteConnection);
+                    cmdr1.Transaction = transaction;
+                    cmdr1.Parameters.AddWithValue("@userid", DBuserid);
+                    SQLiteDataReader myReader = cmdr1.ExecuteReader();
+                    // true osCisloExist
+                    if (myReader.Read() == true)
+                    {
+                        myReader.Close();
+                        if (transaction != null)
+                        {
+                            (transaction as SQLiteTransaction).Rollback();
+                        }
+                        return -2; // uzivatel existuje
+                    }
+                    myReader.Close();
+                    SQLiteCommand cmd1 = new SQLiteCommand(commandString1, myDBConn as SQLiteConnection);
+                    cmd1.Parameters.AddWithValue("@userid", DBuserid);
+                    cmd1.Parameters.AddWithValue("@password", DBpasswdHash);
+                    cmd1.Parameters.AddWithValue("@jmeno", DBjmeno);
+                    cmd1.Parameters.AddWithValue("@prijmeni", DBprijmeni);
+                    if (DBadmin)
+                    {
+                        cmd1.Parameters.AddWithValue("@admin", "A");
+                    }
+                    else
+                    {
+                        cmd1.Parameters.AddWithValue("@admin", "N");
+                    }
+                    cmd1.Parameters.AddWithValue("@permission", DBpermission);
+                    cmd1.Transaction = transaction;
+                    cmd1.ExecuteNonQuery();
+
+                    if (transaction != null)
+                    {
+                        (transaction as SQLiteTransaction).Commit();
+                    }
+
+                                }
+                catch (Exception)
+                {
+                    // doslo k chybe
+                    if (transaction != null)
+                    {
+                        (transaction as SQLiteTransaction).Rollback();
+                    }
+                    return -1;  // chyba
+                }
+                return 0;  // ok
+            }
+            return -1;
         }
 
 

@@ -28,10 +28,12 @@ namespace Vydejna
             if (admin)
             {
                 radioButton1.Checked = true;
+                radioButton2.Checked = false;
             }
             else
             {
                 radioButton1.Checked = false;
+                radioButton2.Checked = true;
             }
 
         }
@@ -99,10 +101,24 @@ namespace Vydejna
                 if (!(myDataBase.tableUzivateleItemExist(textBoxUserID.Text)))
                 {
                     // uziavtel neexistuje ulozime data
+                    Int32 errCode = myDataBase.addNewLineUzivatele(textBoxUserID.Text, passHash, textBoxJmeno.Text, textBoxPrijmeni.Text, "", radioButton1.Checked);
+                    if (errCode== -1)
+                    {
+                        MessageBox.Show("Nepodařilo se uložit nového uživatele.");
+                    }
+                    if (errCode == -2)
+                    {
+                        MessageBox.Show("Lituji. Uživatel již v systému exisuje.");
+                    }
 
                 }
             }
 
+        }
+
+        private void buttonCancel_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }
