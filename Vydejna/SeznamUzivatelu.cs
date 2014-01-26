@@ -123,8 +123,8 @@ namespace Vydejna
         {
             if (dataGridView1.SelectedRows.Count > 0)
             {
-
-              Int32 errCode =  myDataBase.deleteLineUzivatele( Convert.ToString( dataGridView1.SelectedRows[0].Cells["userid"].Value));
+              string userid = Convert.ToString( dataGridView1.SelectedRows[0].Cells["userid"].Value);
+              Int32 errCode =  myDataBase.deleteLineUzivatele( userid);
               if (errCode == -2)
               {
                   MessageBox.Show("Lituji, uživatelské jméno neexistuje.");
@@ -135,6 +135,8 @@ namespace Vydejna
               }
               if (errCode == 0)
               {
+                  Int32 dataIndex = detail.findIndex((dataGridView1.DataSource as DataTable), "userid", userid);
+                  (dataGridView1.DataSource as DataTable).Rows.RemoveAt(dataIndex);
               }
             }
         }
