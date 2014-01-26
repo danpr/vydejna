@@ -395,6 +395,11 @@ namespace Vydejna
             return -1;
         }
 
+        public virtual Int32 deleteLineUzivatele(string DBuserid)
+        {
+            return -1;
+        }
+
 
         public virtual DataTable loadDataTable(string DBSelect)
         {

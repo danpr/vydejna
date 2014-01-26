@@ -119,5 +119,24 @@ namespace Vydejna
             Close();
         }
 
+        private void smazatPoložkuToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.SelectedRows.Count > 0)
+            {
+
+              Int32 errCode =  myDataBase.deleteLineUzivatele( Convert.ToString( dataGridView1.SelectedRows[0].Cells["userid"].Value));
+              if (errCode == -2)
+              {
+                  MessageBox.Show("Lituji, uživatelské jméno neexistuje.");
+              }
+              if (errCode == -1)
+              {
+                  MessageBox.Show("Lituji, uživatele se nopadřilo odtranit.");
+              }
+              if (errCode == 0)
+              {
+              }
+            }
+        }
     }
 }

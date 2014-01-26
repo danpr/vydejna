@@ -49,7 +49,7 @@
             this.smazatPoložkuToolStripMenuItem,
             this.prohledáváníToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(186, 92);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(186, 114);
             // 
             // přidatPoložkuToolStripMenuItem
             // 
@@ -69,6 +69,7 @@
             this.smazatPoložkuToolStripMenuItem.Name = "smazatPoložkuToolStripMenuItem";
             this.smazatPoložkuToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
             this.smazatPoložkuToolStripMenuItem.Text = "Smazat položku";
+            this.smazatPoložkuToolStripMenuItem.Click += new System.EventHandler(this.smazatPoložkuToolStripMenuItem_Click);
             // 
             // prohledáváníToolStripMenuItem
             // 
