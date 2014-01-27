@@ -1203,6 +1203,14 @@ namespace Vydejna
                     }
 
                 }
+                if (!(myDB.tableUzivateleAdminExist()))
+                {
+                    MessageBox.Show("Neexistuje žádný AMINISTRÁTORSKÝ účet, program bude ukončen.");
+                    myDB.closeDB();
+                    Environment.Exit(0);
+                }
+
+                PrihlaseniKarta prihlaseni = new PrihlaseniKarta(myDB);
             }
         }
 
