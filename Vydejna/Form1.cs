@@ -67,7 +67,7 @@ namespace Vydejna
 
             if (myDB.DBIsOpened())
             {
-                usersTest();
+                    usersTest();
 
             }
 
@@ -1211,6 +1211,11 @@ namespace Vydejna
                 }
 
                 PrihlaseniKarta prihlaseni = new PrihlaseniKarta(myDB);
+                if (prihlaseni.ShowDialog() == System.Windows.Forms.DialogResult.Cancel)
+                {
+                    myDB.closeDB();
+                    Environment.Exit(0);
+                }
             }
         }
 

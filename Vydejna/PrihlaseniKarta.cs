@@ -85,14 +85,19 @@ namespace Vydejna
             if (testKompletnosti())
             {
                 // test existence jmena
-                
+
                 if (myDataBase.tableUzivateleItemExist(textBoxUserID.Text))
                 {
                     // test hesla
-
                     Close();
 
                 }
+                else
+                {
+                    MessageBox.Show("Jméno uživatele neexistuje.");
+                    DialogResult = System.Windows.Forms.DialogResult.None;
+                }
+
 
             }
         }

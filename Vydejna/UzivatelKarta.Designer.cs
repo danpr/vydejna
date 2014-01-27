@@ -72,6 +72,7 @@
             this.textBoxPass2.Location = new System.Drawing.Point(179, 80);
             this.textBoxPass2.MaxLength = 15;
             this.textBoxPass2.Name = "textBoxPass2";
+            this.textBoxPass2.PasswordChar = '*';
             this.textBoxPass2.Size = new System.Drawing.Size(136, 20);
             this.textBoxPass2.TabIndex = 2;
             this.textBoxPass2.TextChanged += new System.EventHandler(this.textBoxUserID_TextChanged);
