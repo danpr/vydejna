@@ -1210,6 +1210,9 @@ namespace Vydejna
                     Environment.Exit(0);
                 }
 
+                UzivatelData ud = UzivatelData.makeInstance();
+                ud.setDB(myDB);
+
                 PrihlaseniKarta prihlaseni = new PrihlaseniKarta(myDB);
                 if (prihlaseni.ShowDialog() == System.Windows.Forms.DialogResult.Cancel)
                 {

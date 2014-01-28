@@ -123,6 +123,7 @@
     <Compile Include="SkladovaKarta.Designer.cs">
       <DependentUpon>SkladovaKarta.cs</DependentUpon>
     </Compile>
+    <Compile Include="UzivatelData.cs" />
     <Compile Include="UzivatelKarta.cs">
       <SubType>Form</SubType>
     </Compile>

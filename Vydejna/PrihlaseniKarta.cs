@@ -85,8 +85,7 @@ namespace Vydejna
             if (testKompletnosti())
             {
                 // test existence jmena
-
-                if (myDataBase.tableUzivateleItemExist(textBoxUserID.Text))
+                if (UzivatelData.userIDExist(textBoxUserID.Text, myDataBase))
                 {
                     // test hesla
                     Close();
