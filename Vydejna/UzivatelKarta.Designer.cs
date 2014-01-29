@@ -28,6 +28,22 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Přidat položku");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Nazev");
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Cislo polozky");
+            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Učetní stav");
+            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Editovat položku", new System.Windows.Forms.TreeNode[] {
+            treeNode2,
+            treeNode3,
+            treeNode4});
+            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Nářadí", new System.Windows.Forms.TreeNode[] {
+            treeNode1,
+            treeNode5});
+            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Editovat položku");
+            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Zrušit položku");
+            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("Poškozené nářadí", new System.Windows.Forms.TreeNode[] {
+            treeNode7,
+            treeNode8});
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.textBoxPass2 = new System.Windows.Forms.TextBox();
             this.textBoxPass1 = new System.Windows.Forms.TextBox();
@@ -45,9 +61,12 @@
             this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonOK = new System.Windows.Forms.Button();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.treeView1 = new System.Windows.Forms.TreeView();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -235,11 +254,59 @@
             this.buttonOK.UseVisualStyleBackColor = true;
             this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
             // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.treeView1);
+            this.groupBox4.Location = new System.Drawing.Point(364, 12);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(267, 271);
+            this.groupBox4.TabIndex = 5;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "groupBox4";
+            // 
+            // treeView1
+            // 
+            this.treeView1.CheckBoxes = true;
+            this.treeView1.Location = new System.Drawing.Point(16, 19);
+            this.treeView1.Name = "treeView1";
+            treeNode1.Checked = true;
+            treeNode1.Name = "Node2";
+            treeNode1.Tag = "2";
+            treeNode1.Text = "Přidat položku";
+            treeNode2.Checked = true;
+            treeNode2.Name = "Node6";
+            treeNode2.Tag = "4";
+            treeNode2.Text = "Nazev";
+            treeNode3.Name = "Node7";
+            treeNode3.Text = "Cislo polozky";
+            treeNode4.Name = "Node9";
+            treeNode4.Text = "Učetní stav";
+            treeNode5.Name = "Node4";
+            treeNode5.Tag = "3";
+            treeNode5.Text = "Editovat položku";
+            treeNode6.Checked = true;
+            treeNode6.Name = "Node0";
+            treeNode6.Tag = "1";
+            treeNode6.Text = "Nářadí";
+            treeNode7.Name = "Node3";
+            treeNode7.Text = "Editovat položku";
+            treeNode8.Name = "Node5";
+            treeNode8.Text = "Zrušit položku";
+            treeNode9.Name = "Node1";
+            treeNode9.Text = "Poškozené nářadí";
+            this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+            treeNode6,
+            treeNode9});
+            this.treeView1.Size = new System.Drawing.Size(245, 246);
+            this.treeView1.TabIndex = 0;
+            this.treeView1.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);
+            // 
             // UzivatelKarta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(364, 338);
+            this.ClientSize = new System.Drawing.Size(643, 338);
+            this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.buttonOK);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.groupBox3);
@@ -253,6 +320,7 @@
             this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            this.groupBox4.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -276,6 +344,8 @@
         private System.Windows.Forms.Button buttonOK;
         private System.Windows.Forms.RadioButton radioButton2;
         private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.TreeView treeView1;
 
 
     }

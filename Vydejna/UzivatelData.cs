@@ -8,6 +8,7 @@ namespace Vydejna
 {
     public sealed class UzivatelData
     {
+        private Boolean userLogin = false;
         private Boolean admin = false;
         private string userid = "";
         private string passwordHash = "";
@@ -17,7 +18,7 @@ namespace Vydejna
         private vDatabase myDataBase = null;
         
         
-        UzivatelData()
+        private UzivatelData()
         {
         }
 
@@ -98,6 +99,55 @@ namespace Vydejna
                 return false;
             }
 
+        }
+
+        public bool login()
+        {
+            if (myDataBase == null)
+            {
+                return false;
+            }
+            if (myDataBase.DBIsOpened())
+            {
+                PrihlaseniKarta prihlaseni = new PrihlaseniKarta(myDataBase);
+                if (prihlaseni.ShowDialog() == System.Windows.Forms.DialogResult.Cancel)
+                {
+                    return false;
+                }
+                else
+                {
+                    // nastavime promenne
+                    userLogin = true;
+                    loadUzivatele(prihlaseni.getUserId());
+                    return true;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+
+        public Boolean userIsLogin()
+        {
+            return userLogin;
+        }
+
+        public Boolean userIsAdmin ()
+        {
+            if (userLogin) { return admin; } else { return false; }
+        }
+
+
+        public string Jmeno
+        {
+            get { if (userLogin) return jmeno; else return ""; }
+        }
+
+        public string Prijmerni
+        {
+            get { if (userLogin) return prijmeni; else return ""; }
         }
 
     }

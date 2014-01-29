@@ -29,8 +29,11 @@ namespace Vydejna
             InitializeComponent();
 
             labelView.Font = new Font(labelView.Font, FontStyle.Bold);
+            labelUser.Text = "";
 
             myDB = null;
+
+
 
             contextMenuDisable();
 
@@ -1213,12 +1216,12 @@ namespace Vydejna
                 UzivatelData ud = UzivatelData.makeInstance();
                 ud.setDB(myDB);
 
-                PrihlaseniKarta prihlaseni = new PrihlaseniKarta(myDB);
-                if (prihlaseni.ShowDialog() == System.Windows.Forms.DialogResult.Cancel)
+                if (!(ud.login()))
                 {
                     myDB.closeDB();
                     Environment.Exit(0);
                 }
+                labelUser.Text = ud.Jmeno + " " + ud.Prijmerni;
             }
         }
 

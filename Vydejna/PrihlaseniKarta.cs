@@ -80,6 +80,11 @@ namespace Vydejna
             Close();
         }
 
+        public string getUserId()
+        {
+            return textBoxUserID.Text;
+        }
+
         private void buttonOK_Click(object sender, EventArgs e)
         {
             if (testKompletnosti())
@@ -100,7 +105,6 @@ namespace Vydejna
 
             }
         }
-
 
     }
 }

@@ -125,5 +125,10 @@ namespace Vydejna
         {
             Close();
         }
+
+        private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+
+        }
     }
 }
