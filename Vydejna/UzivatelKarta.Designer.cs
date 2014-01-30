@@ -28,17 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Přidat položku");
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Nazev");
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Cislo polozky");
-            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Učetní stav");
-            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Editovat položku", new System.Windows.Forms.TreeNode[] {
-            treeNode2,
-            treeNode3,
-            treeNode4});
-            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Nářadí", new System.Windows.Forms.TreeNode[] {
-            treeNode1,
-            treeNode5});
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.textBoxPass2 = new System.Windows.Forms.TextBox();
             this.textBoxPass1 = new System.Windows.Forms.TextBox();
@@ -229,7 +218,7 @@
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(21, 294);
+            this.buttonCancel.Location = new System.Drawing.Point(12, 294);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 4;
@@ -241,7 +230,7 @@
             // 
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOK.Location = new System.Drawing.Point(271, 294);
+            this.buttonOK.Location = new System.Drawing.Point(556, 294);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
             this.buttonOK.TabIndex = 3;
@@ -251,6 +240,9 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox4.Controls.Add(this.treeView1);
             this.groupBox4.Location = new System.Drawing.Point(364, 12);
             this.groupBox4.Name = "groupBox4";
@@ -264,27 +256,6 @@
             this.treeView1.CheckBoxes = true;
             this.treeView1.Location = new System.Drawing.Point(16, 19);
             this.treeView1.Name = "treeView1";
-            treeNode1.Checked = true;
-            treeNode1.Name = "Node2";
-            treeNode1.Tag = "2";
-            treeNode1.Text = "Přidat položku";
-            treeNode2.Checked = true;
-            treeNode2.Name = "Node6";
-            treeNode2.Tag = "4";
-            treeNode2.Text = "Nazev";
-            treeNode3.Name = "Node7";
-            treeNode3.Text = "Cislo polozky";
-            treeNode4.Name = "Node9";
-            treeNode4.Text = "Učetní stav";
-            treeNode5.Name = "Node4";
-            treeNode5.Tag = "3";
-            treeNode5.Text = "Editovat položku";
-            treeNode6.Checked = true;
-            treeNode6.Name = "Node0";
-            treeNode6.Tag = "1";
-            treeNode6.Text = "Nářadí";
-            this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode6});
             this.treeView1.Size = new System.Drawing.Size(245, 246);
             this.treeView1.TabIndex = 0;
             this.treeView1.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);

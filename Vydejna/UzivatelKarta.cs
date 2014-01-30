@@ -134,26 +134,18 @@ namespace Vydejna
 
         private void setTreeView ()
         {
-            TreeNode newNode = new TreeNode("Text for new node 1");
-            newNode.Tag = 1;
-            treeView1.Nodes.Add(newNode);
-            newNode = new TreeNode("Text for new node 2");
-            newNode.Tag = 2;
-            treeView1.Nodes.Add(newNode);
+//            TreeNode newNode = new TreeNode("Text for new node 1");
+//            newNode.Tag = 1;
+//            treeView1.Nodes.Add(newNode);
 
-            foreach (string permStr in UzivatelData.permText)
+            foreach (permStruct ps in UzivatelData.permList)
             {
-               int b = permStr.IndexOf("-");
-               int e = permStr.LastIndexOf("-");
-               string indexb = permStr.Substring(0, b);
-               int parentCode = Convert.ToInt32(permStr.Substring(0, b));
-
-               string nazev = permStr.Substring(b + 1, e - b - 1);
-               string indexe = permStr.Substring(e + 1, permStr.Length - e - 1);
-
-               int intemCode = Convert.ToInt32(permStr.Substring(e + 1, permStr.Length - e - 1));
-
+                if (ps.parent == 0)
+                {
+                    treeView1.Nodes.Add(new TreeNode(ps.Description));
+                }
             }
+
 
         }
 

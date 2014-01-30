@@ -9,12 +9,26 @@ namespace Vydejna
 
        enum permCode  { NarAdd = 2, NarEd, NarDel, ZNarEd = 6, ZNarDel };
 
+       public class permStruct
+       {
+           public Int32 parent;
+           public Int32 index;
+           public string Description;
+
+           public permStruct(Int32 parent, Int32 index, string Description)
+           {
+               this.parent = parent;
+               this.index = index;
+               this.Description = Description;
+           }
+       }
+
 
     
     public sealed class UzivatelData
     {
 
-        public static string[] permText = {"0-Naradi-1", "1-Přidat položku-2", "1-Opravit položku-3", "1-Smazat položku-4", "0-Zrušené nářadí-5"};
+        public static ArrayList permList;
 
         private Boolean userLogin = false;
         private Boolean admin = false;
@@ -24,7 +38,20 @@ namespace Vydejna
         private string prijmeni = "";
 
         private vDatabase myDataBase = null;
-        
+
+        static UzivatelData()
+        {
+            permList = new ArrayList();
+            permList.Add(new permStruct(0, 1, "Karty nářadí"));
+            permList.Add(new permStruct(1, (Int32)permCode.NarAdd, "Přidat položku"));
+            permList.Add(new permStruct(1, (Int32)permCode.NarEd, "Opravit položku"));
+            permList.Add(new permStruct(1, (Int32)permCode.NarDel, "Smazat položku"));
+            permList.Add(new permStruct(0, 20, "Zrušené karty"));
+            permList.Add(new permStruct(0, 30, "Poškozené nářadí"));
+            permList.Add(new permStruct(0, 40, "Vrácené nářadí"));
+
+        }
+
         
         private UzivatelData()
         {
