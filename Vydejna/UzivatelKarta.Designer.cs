@@ -39,11 +39,6 @@
             System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Nářadí", new System.Windows.Forms.TreeNode[] {
             treeNode1,
             treeNode5});
-            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Editovat položku");
-            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Zrušit položku");
-            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("Poškozené nářadí", new System.Windows.Forms.TreeNode[] {
-            treeNode7,
-            treeNode8});
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.textBoxPass2 = new System.Windows.Forms.TextBox();
             this.textBoxPass1 = new System.Windows.Forms.TextBox();
@@ -262,7 +257,7 @@
             this.groupBox4.Size = new System.Drawing.Size(267, 271);
             this.groupBox4.TabIndex = 5;
             this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "groupBox4";
+            this.groupBox4.Text = "Oprávnění přístupu";
             // 
             // treeView1
             // 
@@ -288,15 +283,8 @@
             treeNode6.Name = "Node0";
             treeNode6.Tag = "1";
             treeNode6.Text = "Nářadí";
-            treeNode7.Name = "Node3";
-            treeNode7.Text = "Editovat položku";
-            treeNode8.Name = "Node5";
-            treeNode8.Text = "Zrušit položku";
-            treeNode9.Name = "Node1";
-            treeNode9.Text = "Poškozené nářadí";
             this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode6,
-            treeNode9});
+            treeNode6});
             this.treeView1.Size = new System.Drawing.Size(245, 246);
             this.treeView1.TabIndex = 0;
             this.treeView1.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);

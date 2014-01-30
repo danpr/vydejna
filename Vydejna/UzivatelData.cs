@@ -6,8 +6,16 @@ using System.Text;
 
 namespace Vydejna
 {
+
+       enum permCode  { NarAdd = 2, NarEd, NarDel, ZNarEd = 6, ZNarDel };
+
+
+    
     public sealed class UzivatelData
     {
+
+        public static string[] permText = {"0-Naradi-1", "1-Přidat položku-2", "1-Opravit položku-3", "1-Smazat položku-4", "0-Zrušené nářadí-5"};
+
         private Boolean userLogin = false;
         private Boolean admin = false;
         private string userid = "";
