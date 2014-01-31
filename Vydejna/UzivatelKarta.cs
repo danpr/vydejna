@@ -132,22 +132,60 @@ namespace Vydejna
 
         }
 
-        private void setTreeView ()
+        private void setTreeView()
         {
-//            TreeNode newNode = new TreeNode("Text for new node 1");
-//            newNode.Tag = 1;
-//            treeView1.Nodes.Add(newNode);
+            //            TreeNode newNode = new TreeNode("Text for new node 1");
+            //            newNode.Tag = 1;
+            //            treeView1.Nodes.Add(newNode);
 
             foreach (permStruct ps in UzivatelData.permList)
             {
                 if (ps.parent == 0)
                 {
-                    treeView1.Nodes.Add(new TreeNode(ps.Description));
+                    //                    TreeNode newNode = new TreeNode(ps.Description);
+                    //                    newNode.Tag = ps.index;
+                    Int32 index = ps.index;
+                    string indexString = index.ToString();
+                    TreeNode newNode = treeView1.Nodes.Add(indexString, ps.Description);
+                    newNode.Tag = ps.index;
+                }
+                else
+                {
+                    // najdeme node
+                    TreeNode parentNode = foundNode(ps.parent);
+                    if (parentNode != null)
+                    {
+                        TreeNode newNode = parentNode.Nodes.Add(ps.index.ToString(), ps.Description);
+                        newNode.Tag = ps.index;
+//                        parentNode.Nodes.Add(newNode);
+                    }
                 }
             }
+        }
+
+        private TreeNode foundNode(Int32 index)
+        {
+            if (treeView1.Nodes != null)
+            {
+
+                if (treeView1.Nodes.Find(index.ToString(), false).Count() > 0)
+                {
+                    return treeView1.Nodes.Find(index.ToString(), false)[0];
+                }
+                else
+                {
+                    if (treeView1.Nodes.Find(index.ToString(), true).Count() > 0)
+                    {
+                        return treeView1.Nodes.Find(index.ToString(), true)[0];
+                    }
+                    else    return null;
+                }
+            }
+            else return null;
 
 
         }
+
 
     }
 }
