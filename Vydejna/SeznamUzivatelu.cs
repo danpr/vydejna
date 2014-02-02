@@ -104,14 +104,8 @@ namespace Vydejna
 
                     dataGridView1.CurrentCell = dataGridView1.Rows[counter].Cells[1];
                     dataGridView1.Rows[counter].Selected = true;
-
-
                 }
-
             }
-
-
-
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)
@@ -140,5 +134,40 @@ namespace Vydejna
               }
             }
         }
+
+        private void opravitPoložkuToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //opraveni polozky
+
+            if (dataGridView1.SelectedRows.Count > 0)
+            {
+                string userid =  Convert.ToString( dataGridView1.SelectedRows[0].Cells["userid"].Value);
+                Hashtable DBRow =  myDataBase.getUzivateleLine(userid,null);
+
+                if (DBRow != null)
+                {
+                    UzivatelKarta uk = new UzivatelKarta(myDataBase, DBRow);
+                    if (uk.ShowDialog() == DialogResult.OK)
+                    {
+                        // zobrazime vysledek
+                        Int32 index = detail.findIndex(dataGridView1.DataSource as DataTable, "userid", userid);
+                        DBRow = myDataBase.getUzivateleLine(userid, DBRow);
+                        (dataGridView1.DataSource as DataTable).Rows[index]["jmeno"] = Convert.ToString(DBRow["jmeno"]);
+                        (dataGridView1.DataSource as DataTable).Rows[index]["prijmeni"] = Convert.ToString(DBRow["prijmeni"]);
+                        (dataGridView1.DataSource as DataTable).Rows[index]["admin"] = Convert.ToString(DBRow["admin"]);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Lituji. Uživatel již neexistuje");
+                }
+            }            
+
+    
+
+
+        }
+
+
     }
 }

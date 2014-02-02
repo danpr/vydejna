@@ -63,6 +63,7 @@
             this.opravitPoložkuToolStripMenuItem.Name = "opravitPoložkuToolStripMenuItem";
             this.opravitPoložkuToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
             this.opravitPoložkuToolStripMenuItem.Text = "Opravit položku";
+            this.opravitPoložkuToolStripMenuItem.Click += new System.EventHandler(this.opravitPoložkuToolStripMenuItem_Click);
             // 
             // smazatPoložkuToolStripMenuItem
             // 

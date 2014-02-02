@@ -395,6 +395,18 @@ namespace Vydejna
             return -1;
         }
 
+        public virtual Int32 editNewLineUzivatele(string DBuserid, string DBjmeno, string DBprijmeni, string DBpermission,
+                               Boolean DBadmin)
+        {
+            return -1;
+        }
+
+        public virtual Int32 editNewLinePasswordUzivatele(string DBuserid, string DBpasswdHash)
+        {
+            return -1;
+        }
+
+
         public virtual Int32 deleteLineUzivatele(string DBuserid)
         {
             return -1;

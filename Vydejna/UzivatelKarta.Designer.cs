@@ -77,6 +77,7 @@
             this.textBoxPass2.Size = new System.Drawing.Size(136, 20);
             this.textBoxPass2.TabIndex = 2;
             this.textBoxPass2.TextChanged += new System.EventHandler(this.textBoxUserID_TextChanged);
+            this.textBoxPass2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxPass1_KeyPress);
             // 
             // textBoxPass1
             // 
@@ -207,6 +208,7 @@
             this.radioButton1.TabStop = true;
             this.radioButton1.Text = "Administrator";
             this.radioButton1.UseVisualStyleBackColor = true;
+            this.radioButton1.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
             // 
             // buttonCancel
             // 

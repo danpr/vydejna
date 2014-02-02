@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -12,12 +13,18 @@ namespace Vydejna
 {
     public partial class UzivatelKarta : Form
     {
+        const Int32 permStrLength = 60; //0 -59
 
+        
         private vDatabase myDataBase;
+        private Boolean kartaIsAddType = true;
 
+        // pridani polozky
         public UzivatelKarta(vDatabase myDataBase, Boolean admin = false)
         {
             InitializeComponent();
+
+            kartaIsAddType = true;
 
             this.myDataBase = myDataBase;
 
@@ -39,6 +46,65 @@ namespace Vydejna
             setTreeView();
         }
 
+        // editace polozky
+        public UzivatelKarta(vDatabase myDataBase, Hashtable DBRow)
+        {
+            InitializeComponent();
+
+            kartaIsAddType = false;
+
+            this.myDataBase = myDataBase;
+
+            this.CancelButton = buttonCancel;
+            this.AcceptButton = buttonOK;
+
+            buttonOK.Enabled = false;
+
+            bool admin = false;
+
+            if (DBRow.ContainsKey("admin"))
+            {
+                if (Convert.ToString(DBRow["admin"]) != "N")
+                {
+                    admin = true;
+                }
+            }
+
+
+            if (admin)
+            {
+                radioButton1.Checked = true;
+                radioButton2.Checked = false;
+            }
+            else
+            {
+                radioButton1.Checked = false;
+                radioButton2.Checked = true;
+            }
+
+            if (DBRow.ContainsKey("userid"))
+            {
+                textBoxUserID.Text = Convert.ToString(DBRow["userid"]);
+            }
+            textBoxPass1.Enabled = false;
+            textBoxPass2.Enabled = false;
+            if (DBRow.ContainsKey("jmeno"))
+            {
+                textBoxJmeno.Text = Convert.ToString(DBRow["jmeno"]);
+            }
+            if (DBRow.ContainsKey("prijmeni"))
+            {
+                textBoxPrijmeni.Text = Convert.ToString(DBRow["prijmeni"]);
+            }
+
+            setTreeView();
+            if (DBRow.ContainsKey("permission"))
+            {
+                stringToTree(Convert.ToString(DBRow["permission"]));
+            }
+        }
+
+
 
         private void setEnableButtonOK()
         {
@@ -53,8 +119,12 @@ namespace Vydejna
 
         }
 
-
         private Boolean testKompletnosti()
+        {
+            if (kartaIsAddType) return testKompletnostiAdd(); else return testKompletnostiEdit();
+        }
+
+        private Boolean testKompletnostiAdd()
         {
             if ((textBoxUserID.Text.Length > 2) && (textBoxPass1.Text.Length > 3) && (textBoxPass1.Text == textBoxPass2.Text)
                 && (( textBoxJmeno.Text.Length > 0) || (textBoxPrijmeni.Text.Length > 0)))
@@ -67,6 +137,21 @@ namespace Vydejna
             }
 
         }
+
+        private Boolean testKompletnostiEdit()
+        {
+            if ((textBoxUserID.Text.Length > 2) && ((textBoxJmeno.Text.Length > 0) || (textBoxPrijmeni.Text.Length > 0)))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+
+
 
         private void textBoxUserID_TextChanged(object sender, EventArgs e)
         {
@@ -90,20 +175,20 @@ namespace Vydejna
         private void buttonOK_Click(object sender, EventArgs e)
         {
             // spocteme hash hesla
-            using (SHA1 sha1FingerPrint = SHA1.Create())
+            if (kartaIsAddType)
             {
-                ASCIIEncoding encoder = new ASCIIEncoding();
-                byte[] passByte = encoder.GetBytes(textBoxPass1.Text);
-                sha1FingerPrint.ComputeHash(passByte);
-                string passHash = Convert.ToBase64String(sha1FingerPrint.Hash);
+
+
+                string passHash = UzivatelData.countHashPassd(textBoxPass1.Text);
+
+                string permStr = treeToString();
 
                 // zavolame ulozeni date
-
                 if (!(myDataBase.tableUzivateleItemExist(textBoxUserID.Text)))
                 {
                     // uziavtel neexistuje ulozime data
-                    Int32 errCode = myDataBase.addNewLineUzivatele(textBoxUserID.Text, passHash, textBoxJmeno.Text, textBoxPrijmeni.Text, "", radioButton1.Checked);
-                    if (errCode== -1)
+                    Int32 errCode = myDataBase.addNewLineUzivatele(textBoxUserID.Text, passHash, textBoxJmeno.Text, textBoxPrijmeni.Text, permStr, radioButton1.Checked);
+                    if (errCode == -1)
                     {
                         MessageBox.Show("Nepodařilo se uložit nového uživatele.");
                     }
@@ -114,7 +199,27 @@ namespace Vydejna
 
                 }
             }
+            else
+            {
+                // editace
+                if (myDataBase.tableUzivateleItemExist(textBoxUserID.Text))
+                {
+                    // uziavtel neexistuje ulozime data
+                    string permStr = treeToString();
 
+                    Int32 errCode = myDataBase.editNewLineUzivatele(textBoxUserID.Text, textBoxJmeno.Text, textBoxPrijmeni.Text, permStr, radioButton1.Checked);
+                    if (errCode == -1)
+                    {
+                        MessageBox.Show("Nepodařilo se opravit uživatele.");
+                    }
+                    if (errCode == -2)
+                    {
+                        MessageBox.Show("Lituji. Uživatel již v systému exisuje.");
+                    }
+
+                }
+
+            }
         }
 
         public string getUserID()
@@ -134,16 +239,10 @@ namespace Vydejna
 
         private void setTreeView()
         {
-            //            TreeNode newNode = new TreeNode("Text for new node 1");
-            //            newNode.Tag = 1;
-            //            treeView1.Nodes.Add(newNode);
-
             foreach (permStruct ps in UzivatelData.permList)
             {
                 if (ps.parent == 0)
                 {
-                    //                    TreeNode newNode = new TreeNode(ps.Description);
-                    //                    newNode.Tag = ps.index;
                     Int32 index = ps.index;
                     string indexString = index.ToString();
                     TreeNode newNode = treeView1.Nodes.Add(indexString, ps.Description);
@@ -157,10 +256,10 @@ namespace Vydejna
                     {
                         TreeNode newNode = parentNode.Nodes.Add(ps.index.ToString(), ps.Description);
                         newNode.Tag = ps.index;
-//                        parentNode.Nodes.Add(newNode);
                     }
                 }
             }
+            treeView1.ExpandAll();
         }
 
         private TreeNode foundNode(Int32 index)
@@ -186,6 +285,81 @@ namespace Vydejna
 
         }
 
+        private void runOverNodesSet(TreeNodeCollection myNodes, char[] permChars)
+        {
+            foreach (TreeNode tn in myNodes)
+            {
+                if (tn.Nodes != null)
+                {
+                    runOverNodesSet(tn.Nodes, permChars);
+                }
+
+                if (tn.Checked == true)
+                {
+                    Int32 uk = (Int32)tn.Tag;
+                    if (uk < permStrLength)
+                    {
+                        permChars[uk] = 'A';
+
+                    }
+                }
+            }
+        }
+
+
+        private string treeToString()
+        {
+            char[] permChars = new char[permStrLength];
+
+            for (Int32 i = 0; i < permStrLength; i++) permChars[i] = 'N';
+            runOverNodesSet(treeView1.Nodes, permChars);
+            return new string(permChars);
+        }
+
+        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButton1.Checked)
+            {
+                treeView1.Enabled = false;
+            }
+            else
+            {
+                treeView1.Enabled = true;
+            }
+        }
+
+        private void runOverNodesGet(TreeNodeCollection myNodes, char[] permChars)
+        {
+            foreach (TreeNode tn in myNodes)
+            {
+                if (tn.Nodes != null)
+                {
+                    runOverNodesGet(tn.Nodes, permChars);
+                }
+                Int32 uk = (Int32)tn.Tag;
+                if (permChars[uk] != 'N')
+                {
+                    tn.Checked = true;
+                }
+                else
+                {
+                    tn.Checked = false;
+                }
+            }
+        }
+
+
+        private void stringToTree(string permStr)
+        {
+            Int32 ls = permStr.Length;
+            char[] permChars = new char[permStrLength];
+            char[] permCharsHelp = permStr.ToCharArray(0, permStr.Length);
+            for (Int32 i = 0; i < permStrLength; i++)
+            {
+                if (i < ls) permChars[i] = permCharsHelp[i]; else permChars[i] = 'N';
+            }
+            runOverNodesGet(treeView1.Nodes, permChars);
+        }
 
     }
 }

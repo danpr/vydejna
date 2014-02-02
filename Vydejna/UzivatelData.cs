@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
 using System.Text;
+using System.Security.Cryptography;
 
 namespace Vydejna
 {
@@ -76,7 +77,41 @@ namespace Vydejna
 
         }
 
-        
+        public static string countHashPassd (string passwd)
+        {
+            using (SHA1 sha1FingerPrint = SHA1.Create())
+            {
+                ASCIIEncoding encoder = new ASCIIEncoding();
+                byte[] passByte = encoder.GetBytes(passwd);
+                sha1FingerPrint.ComputeHash(passByte);
+                string passHash = Convert.ToBase64String(sha1FingerPrint.Hash);
+
+                return passHash;
+            }
+        }
+
+
+        public static string getPasswdHashFromDB (string userid, vDatabase myDataBase)
+        {
+
+            if (myDataBase == null)
+            {
+                return null;
+            }
+
+            if (!(myDataBase.DBIsOpened()))
+            {
+                return null;
+            }
+
+            Hashtable DBRow = myDataBase.getUzivateleLine(userid, null);
+            if (DBRow.ContainsKey("password"))
+            {
+                return Convert.ToString( DBRow["password"]);
+            }
+            else return null;
+        }
+
         private UzivatelData()
         {
         }

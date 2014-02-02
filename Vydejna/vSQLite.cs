@@ -2902,6 +2902,80 @@ namespace Vydejna
             return -1;
         }
 
+
+        public override Int32 editNewLineUzivatele(string DBuserid, string DBjmeno, string DBprijmeni, string DBpermission,
+                               Boolean DBadmin)
+        {
+            SQLiteTransaction transaction = null;
+            if (DBIsOpened())
+            {
+                string commandStringRead1 = "SELECT userid FROM uzivatele WHERE userid = ? ";
+                string commandString1 = "UPDATE uzivatele set jmeno = ?, prijmeni = ?, admin = ?, permission = ? WHERE userid = ?";
+
+                try
+                {
+                    try
+                    {
+                        transaction = (myDBConn as SQLiteConnection).BeginTransaction(System.Data.IsolationLevel.ReadCommitted);
+                    }
+                    catch
+                    {
+                    }
+
+                    SQLiteCommand cmdr1 = new SQLiteCommand(commandStringRead1, myDBConn as SQLiteConnection);
+                    cmdr1.Transaction = transaction;
+                    cmdr1.Parameters.AddWithValue("@userid", DBuserid);
+                    SQLiteDataReader myReader = cmdr1.ExecuteReader();
+                    // true osCisloExist
+                    if (myReader.Read() != true)
+                    {
+                        myReader.Close();
+                        if (transaction != null)
+                        {
+                            (transaction as SQLiteTransaction).Rollback();
+                        }
+                        return -2; // uzivatel neexistuje
+                    }
+                    myReader.Close();
+                    SQLiteCommand cmd1 = new SQLiteCommand(commandString1, myDBConn as SQLiteConnection);
+                    cmd1.Parameters.AddWithValue("@jmeno", DBjmeno);
+                    cmd1.Parameters.AddWithValue("@prijmeni", DBprijmeni);
+                    if (DBadmin)
+                    {
+                        cmd1.Parameters.AddWithValue("@admin", "A");
+                    }
+                    else
+                    {
+                        cmd1.Parameters.AddWithValue("@admin", "N");
+                    }
+                    cmd1.Parameters.AddWithValue("@permission", DBpermission);
+                    cmd1.Parameters.AddWithValue("@userid", DBuserid);
+                    cmd1.Transaction = transaction;
+                    cmd1.ExecuteNonQuery();
+
+                    if (transaction != null)
+                    {
+                        (transaction as SQLiteTransaction).Commit();
+                    }
+
+                }
+                catch (Exception)
+                {
+                    // doslo k chybe
+                    if (transaction != null)
+                    {
+                        (transaction as SQLiteTransaction).Rollback();
+                    }
+                    return -1;  // chyba
+                }
+                return 0;  // ok
+            }
+            return -1;
+
+        }
+
+
+
         public override Int32 deleteLineUzivatele(string DBuserid)
         {
             SQLiteTransaction transaction = null;

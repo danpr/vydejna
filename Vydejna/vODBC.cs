@@ -14,7 +14,7 @@ namespace Vydejna
     class vODBC : vDatabase
     {
 
-        private string commandStringUsers = "create table uzivatele (userid varchar(15) PRIMARY KEY,  password char(40), jmeno char(15), prijmeni char(15), admin char(1), permission char(60));";
+        private string commandStringUsers = "create table uzivatele (userid varchar(15) PRIMARY KEY,  password char(40), jmeno varchar(15), prijmeni varchar(15), admin char(1), permission char(60));";
 
         public vODBC(string dataBaseName, string serverAddress, string serverName, string port, string locale, string driver, string userName, string password)
             : base(dataBaseName, serverAddress, serverName, port, locale, driver, userName, password)

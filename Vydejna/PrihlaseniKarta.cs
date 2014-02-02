@@ -93,8 +93,15 @@ namespace Vydejna
                 if (UzivatelData.userIDExist(textBoxUserID.Text, myDataBase))
                 {
                     // test hesla
-                    Close();
-
+                    if (UzivatelData.getPasswdHashFromDB(textBoxUserID.Text, myDataBase) == UzivatelData.countHashPassd(textBoxPass1.Text))
+                    {
+                        Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Zadané heslo pro tohoto uživatele není správné.");
+                        DialogResult = System.Windows.Forms.DialogResult.None;
+                    }
                 }
                 else
                 {
