@@ -168,6 +168,14 @@ namespace Vydejna
 
         }
 
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+
+           // string userid =  Convert.ToString( dataGridView1.SelectedRows[0].Cells["userid"].Value);
+            UzivatelZmenaHesla uzh = new UzivatelZmenaHesla(myDataBase, Convert.ToString(dataGridView1.SelectedRows[0].Cells["userid"].Value), "");
+            uzh.ShowDialog();
+        }
+
 
     }
 }

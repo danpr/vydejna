@@ -148,7 +148,6 @@ namespace Vydejna
             {
                 return false;
             }
-
         }
 
 
@@ -178,7 +177,6 @@ namespace Vydejna
             if (kartaIsAddType)
             {
 
-
                 string passHash = UzivatelData.countHashPassd(textBoxPass1.Text);
 
                 string permStr = treeToString();
@@ -194,9 +192,13 @@ namespace Vydejna
                     }
                     if (errCode == -2)
                     {
-                        MessageBox.Show("Lituji. Uživatel již v systému exisuje.");
+                        MessageBox.Show("Lituji. Uživatel již v systému exisuje. Změna z jiného místa?");
                     }
 
+                }
+                else
+                {
+                    MessageBox.Show("Lituji. Uživatel již v systému exisuje.");
                 }
             }
             else

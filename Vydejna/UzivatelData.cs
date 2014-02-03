@@ -107,7 +107,7 @@ namespace Vydejna
             Hashtable DBRow = myDataBase.getUzivateleLine(userid, null);
             if (DBRow.ContainsKey("password"))
             {
-                return Convert.ToString( DBRow["password"]);
+                return Convert.ToString( DBRow["password"]).Trim();
             }
             else return null;
         }

@@ -130,6 +130,12 @@
     <Compile Include="UzivatelKarta.Designer.cs">
       <DependentUpon>UzivatelKarta.cs</DependentUpon>
     </Compile>
+    <Compile Include="UzivatelZmenaHesla.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UzivatelZmenaHesla.Designer.cs">
+      <DependentUpon>UzivatelZmenaHesla.cs</DependentUpon>
+    </Compile>
     <Compile Include="vDatabase.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -230,6 +236,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UzivatelKarta.resx">
       <DependentUpon>UzivatelKarta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UzivatelZmenaHesla.resx">
+      <DependentUpon>UzivatelZmenaHesla.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="VraceneKarta.resx">
       <DependentUpon>VraceneKarta.cs</DependentUpon>
