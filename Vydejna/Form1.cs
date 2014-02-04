@@ -1059,12 +1059,6 @@ namespace Vydejna
             karta.NastaveniHledani(this.Location.X + this.Size.Width, this.Top);
         }
 
-        private void toolStripMenuItemFont_Click(object sender, EventArgs e)
-        {
-            // nastaveni pisma
-            fontDialog1.ShowDialog();
-            dataGridView1.Font = fontDialog1.Font;
-        }
 
         private void dataGridView1_KeyDown(object sender, KeyEventArgs e)
         {
@@ -1230,6 +1224,24 @@ namespace Vydejna
             // sprava uzivatelských účtů
             SeznamUzivatelu spravaUzivatelu = new SeznamUzivatelu(myDB);
             spravaUzivatelu.ShowDialog();
+        }
+
+
+        private void písmoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // nastaveni pisma
+            fontDialog1.ShowDialog();
+            dataGridView1.Font = fontDialog1.Font;
+        }
+
+        private void zmenaHeslaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (myDB.DBIsOpened())
+            {
+                // string userid =  Convert.ToString( dataGridView1.SelectedRows[0].Cells["userid"].Value);
+                UzivatelZmenaHesla uzh = new UzivatelZmenaHesla(myDB, Convert.ToString(dataGridView1.SelectedRows[0].Cells["userid"].Value), "");
+                uzh.ShowDialog();
+            }
         }
 
     }

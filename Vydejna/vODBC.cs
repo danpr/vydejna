@@ -2922,6 +2922,65 @@ namespace Vydejna
 
         }
 
+        public override Int32 editNewLinePasswordUzivatele(string DBuserid, string DBpasswdHash)
+        {
+            OdbcTransaction transaction = null;
+            if (DBIsOpened())
+            {
+                string commandStringRead1 = "SELECT userid FROM uzivatele WHERE userid = ? ";
+                string commandString1 = "UPDATE uzivatele set password = ? WHERE userid = ?";
+
+                try
+                {
+                    try
+                    {
+                        transaction = (myDBConn as OdbcConnection).BeginTransaction(System.Data.IsolationLevel.ReadCommitted);
+                    }
+                    catch
+                    {
+                    }
+
+                    OdbcCommand cmdr1 = new OdbcCommand(commandStringRead1, myDBConn as OdbcConnection);
+                    cmdr1.Transaction = transaction;
+                    cmdr1.Parameters.AddWithValue("@userid", DBuserid);
+                    OdbcDataReader myReader = cmdr1.ExecuteReader();
+                    // true osCisloExist
+                    if (myReader.Read() != true)
+                    {
+                        myReader.Close();
+                        if (transaction != null)
+                        {
+                            (transaction as OdbcTransaction).Rollback();
+                        }
+                        return -2; // uzivatel neexistuje
+                    }
+                    myReader.Close();
+                    OdbcCommand cmd1 = new OdbcCommand(commandString1, myDBConn as OdbcConnection);
+                    cmd1.Parameters.AddWithValue("@password", DBpasswdHash);
+                    cmd1.Parameters.AddWithValue("@userid", DBuserid);
+                    cmd1.Transaction = transaction;
+                    cmd1.ExecuteNonQuery();
+
+                    if (transaction != null)
+                    {
+                        (transaction as OdbcTransaction).Commit();
+                    }
+                }
+                catch (Exception)
+                {
+                    // doslo k chybe
+                    if (transaction != null)
+                    {
+                        (transaction as OdbcTransaction).Rollback();
+                    }
+                    return -1;  // chyba
+                }
+                return 0;  // ok
+            }
+            return -1;
+
+
+        }
 
 
         public override Int32 deleteLineUzivatele(string DBuserid)

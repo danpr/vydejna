@@ -189,16 +189,19 @@ namespace Vydejna
                     if (errCode == -1)
                     {
                         MessageBox.Show("Nepodařilo se uložit nového uživatele.");
+                        DialogResult = System.Windows.Forms.DialogResult.None;
                     }
                     if (errCode == -2)
                     {
                         MessageBox.Show("Lituji. Uživatel již v systému exisuje. Změna z jiného místa?");
+                        DialogResult = System.Windows.Forms.DialogResult.None;
                     }
 
                 }
                 else
                 {
                     MessageBox.Show("Lituji. Uživatel již v systému exisuje.");
+                    DialogResult = System.Windows.Forms.DialogResult.None;
                 }
             }
             else
@@ -213,10 +216,12 @@ namespace Vydejna
                     if (errCode == -1)
                     {
                         MessageBox.Show("Nepodařilo se opravit uživatele.");
+                        DialogResult = System.Windows.Forms.DialogResult.None;
                     }
                     if (errCode == -2)
                     {
                         MessageBox.Show("Lituji. Uživatel již v systému exisuje.");
+                        DialogResult = System.Windows.Forms.DialogResult.None;
                     }
 
                 }

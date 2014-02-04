@@ -27,6 +27,7 @@ namespace Vydejna
                 textBoxOldPass.ReadOnly = true;
             }
 
+            setEnableButtonOK();
         }
 
         private void textBoxOldPass_KeyPress(object sender, KeyPressEventArgs e)
@@ -78,21 +79,26 @@ namespace Vydejna
                 Boolean oldPassIsOK = true;
                 if (textBoxOldPass.Enabled)
                 {
-                Hashtable DBRow;
-                DBRow = myDataBase.getUzivateleLine(labelUserID.Text, null);
+                    Hashtable DBRow;
+                    DBRow = myDataBase.getUzivateleLine(labelUserID.Text, null);
                     if (DBRow.ContainsKey("password"))
                     {
-                        if (passOldHash == Convert.ToString( DBRow["password"]).Trim())
+                        if (passOldHash == Convert.ToString(DBRow["password"]).Trim())
                         {
                             // heslo ok
                             oldPassIsOK = true;
                         }
                         else
                         {
-                        MessageBox.Show("Lituji. Původní heslo není spravné.");
+                            MessageBox.Show("Lituji. Původní heslo není spravné.");
                             // heslo false
                             oldPassIsOK = false;
+                            DialogResult = System.Windows.Forms.DialogResult.None;
                         }
+                    }
+                    else // nenacetlo se heslo
+                    {
+                        DialogResult = System.Windows.Forms.DialogResult.None;
 
                     }
 
@@ -105,20 +111,20 @@ namespace Vydejna
                     if (errCode == -1)
                     {
                         MessageBox.Show("Nepodařilo se změnit heslo.");
+                        DialogResult = System.Windows.Forms.DialogResult.None;
                     }
                     if (errCode == -2)
                     {
                         MessageBox.Show("Lituji. Uživatel již v systému neexisuje. Změna z jiného místa?");
+                        DialogResult = System.Windows.Forms.DialogResult.None;
                     }
                 }
             }
             else
             {
                 MessageBox.Show("Lituji. Uživatel již v systému neexisuje.");
+                DialogResult = System.Windows.Forms.DialogResult.None;
             }
-
-
-
         }
 
         private void setEnableButtonOK()
@@ -137,7 +143,8 @@ namespace Vydejna
 
         private Boolean testKompletnosti()
         {
-            if (((textBoxOldPass.Text.Length > 2) || (!(textBoxOldPass.Enabled))) && ((textBoxPass1.Text.Length > 2) || (textBoxPass2.Text.Length > 2)))
+            if (((textBoxOldPass.Text.Length > 2) || (!(textBoxOldPass.Enabled))) 
+                && ((textBoxPass1.Text.Length > 2) || (textBoxPass2.Text.Length > 2)) && (textBoxPass1.Text == textBoxPass2.Text))
             {
                 return true;
             }
