@@ -68,7 +68,7 @@ namespace Vydejna
                 setStateChangeEvent(myDB);
             }
 
-            if (myDB.DBIsOpened())
+            if ((myDB != null) && (myDB.DBIsOpened()))
             {
                     usersTest();
 
@@ -1215,7 +1215,7 @@ namespace Vydejna
                     myDB.closeDB();
                     Environment.Exit(0);
                 }
-                labelUser.Text = ud.Jmeno + " " + ud.Prijmerni;
+                labelUser.Text = ud.Jmeno + " " + ud.Prijmeni;
             }
         }
 
@@ -1239,8 +1239,14 @@ namespace Vydejna
             if (myDB.DBIsOpened())
             {
                 // string userid =  Convert.ToString( dataGridView1.SelectedRows[0].Cells["userid"].Value);
-                UzivatelZmenaHesla uzh = new UzivatelZmenaHesla(myDB, Convert.ToString(dataGridView1.SelectedRows[0].Cells["userid"].Value), "");
+                UzivatelData ud = UzivatelData.makeInstance();
+
+                if (ud.userIsLogin())
+                {
+
+                UzivatelZmenaHesla uzh = new UzivatelZmenaHesla(myDB, ud.userID);
                 uzh.ShowDialog();
+                }
             }
         }
 

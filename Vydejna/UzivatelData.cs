@@ -112,7 +112,7 @@ namespace Vydejna
             else return null;
         }
 
-        private UzivatelData()
+        private UzivatelData() // konstruktor
         {
         }
 
@@ -239,9 +239,14 @@ namespace Vydejna
             get { if (userLogin) return jmeno; else return ""; }
         }
 
-        public string Prijmerni
+        public string Prijmeni
         {
             get { if (userLogin) return prijmeni; else return ""; }
+        }
+
+        public string userID
+        {
+            get { if (userLogin) return userid; else return ""; }
         }
 
     }

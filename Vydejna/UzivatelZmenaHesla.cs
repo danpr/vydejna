@@ -14,14 +14,14 @@ namespace Vydejna
     {
         private vDatabase myDataBase;
 
-        public UzivatelZmenaHesla(vDatabase myDataBase, string userid, string oldPass)
+        public UzivatelZmenaHesla(vDatabase myDataBase, string userid, Boolean oldPass = true)
         {
             InitializeComponent();
 
             this.myDataBase = myDataBase;
 
             labelUserID.Text = userid;
-            if (oldPass.Trim() == "")
+            if (!(oldPass))
             {
                 textBoxOldPass.Enabled = false;
                 textBoxOldPass.ReadOnly = true;

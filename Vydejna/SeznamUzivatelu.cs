@@ -172,7 +172,7 @@ namespace Vydejna
         {
 
            // string userid =  Convert.ToString( dataGridView1.SelectedRows[0].Cells["userid"].Value);
-            UzivatelZmenaHesla uzh = new UzivatelZmenaHesla(myDataBase, Convert.ToString(dataGridView1.SelectedRows[0].Cells["userid"].Value), "");
+            UzivatelZmenaHesla uzh = new UzivatelZmenaHesla(myDataBase, Convert.ToString(dataGridView1.SelectedRows[0].Cells["userid"].Value), false);
             uzh.ShowDialog();
         }
 

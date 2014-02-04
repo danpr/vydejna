@@ -29,14 +29,14 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.textBoxOldPass = new System.Windows.Forms.TextBox();
+            this.labelUserID = new System.Windows.Forms.Label();
             this.textBoxPass2 = new System.Windows.Forms.TextBox();
             this.textBoxPass1 = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.labelUserID = new System.Windows.Forms.Label();
-            this.textBoxOldPass = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonOK = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
@@ -44,8 +44,8 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.textBoxOldPass);
             this.groupBox1.Controls.Add(this.labelUserID);
@@ -61,10 +61,43 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Přihlašovací údaje";
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(77, 61);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(82, 13);
+            this.label4.TabIndex = 4;
+            this.label4.Text = "Původní heslo :";
+            // 
+            // textBoxOldPass
+            // 
+            this.textBoxOldPass.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxOldPass.Location = new System.Drawing.Point(179, 54);
+            this.textBoxOldPass.Name = "textBoxOldPass";
+            this.textBoxOldPass.PasswordChar = '*';
+            this.textBoxOldPass.Size = new System.Drawing.Size(136, 20);
+            this.textBoxOldPass.TabIndex = 0;
+            this.textBoxOldPass.TextChanged += new System.EventHandler(this.textBoxOldPass_TextChanged);
+            this.textBoxOldPass.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxOldPass_KeyPress);
+            // 
+            // labelUserID
+            // 
+            this.labelUserID.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelUserID.AutoSize = true;
+            this.labelUserID.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelUserID.Location = new System.Drawing.Point(176, 25);
+            this.labelUserID.Name = "labelUserID";
+            this.labelUserID.Size = new System.Drawing.Size(73, 13);
+            this.labelUserID.TabIndex = 3;
+            this.labelUserID.Text = "labelUserID";
+            // 
             // textBoxPass2
             // 
-            this.textBoxPass2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxPass2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxPass2.Location = new System.Drawing.Point(179, 106);
             this.textBoxPass2.MaxLength = 15;
             this.textBoxPass2.Name = "textBoxPass2";
@@ -76,8 +109,8 @@
             // 
             // textBoxPass1
             // 
-            this.textBoxPass1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxPass1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxPass1.Location = new System.Drawing.Point(179, 80);
             this.textBoxPass1.MaxLength = 15;
             this.textBoxPass1.Name = "textBoxPass1";
@@ -114,39 +147,6 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Uživatelské jméno :";
             // 
-            // labelUserID
-            // 
-            this.labelUserID.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelUserID.AutoSize = true;
-            this.labelUserID.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelUserID.Location = new System.Drawing.Point(176, 25);
-            this.labelUserID.Name = "labelUserID";
-            this.labelUserID.Size = new System.Drawing.Size(73, 13);
-            this.labelUserID.TabIndex = 3;
-            this.labelUserID.Text = "labelUserID";
-            // 
-            // textBoxOldPass
-            // 
-            this.textBoxOldPass.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxOldPass.Location = new System.Drawing.Point(179, 54);
-            this.textBoxOldPass.Name = "textBoxOldPass";
-            this.textBoxOldPass.PasswordChar = '*';
-            this.textBoxOldPass.Size = new System.Drawing.Size(136, 20);
-            this.textBoxOldPass.TabIndex = 2;
-            this.textBoxOldPass.TextChanged += new System.EventHandler(this.textBoxOldPass_TextChanged);
-            this.textBoxOldPass.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxOldPass_KeyPress);
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(77, 61);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(82, 13);
-            this.label4.TabIndex = 4;
-            this.label4.Text = "Původní heslo :";
-            // 
             // buttonCancel
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -154,7 +154,7 @@
             this.buttonCancel.Location = new System.Drawing.Point(12, 174);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
-            this.buttonCancel.TabIndex = 5;
+            this.buttonCancel.TabIndex = 4;
             this.buttonCancel.Text = "Zrušit";
             this.buttonCancel.UseVisualStyleBackColor = true;
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
@@ -166,7 +166,7 @@
             this.buttonOK.Location = new System.Drawing.Point(271, 174);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
-            this.buttonOK.TabIndex = 6;
+            this.buttonOK.TabIndex = 3;
             this.buttonOK.Text = "Budiž";
             this.buttonOK.UseVisualStyleBackColor = true;
             this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
@@ -175,7 +175,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(360, 209);
+            this.ClientSize = new System.Drawing.Size(368, 213);
             this.Controls.Add(this.buttonOK);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.groupBox1);
