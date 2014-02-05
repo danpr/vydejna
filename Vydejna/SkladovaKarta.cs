@@ -458,8 +458,35 @@ namespace Vydejna
                         if (seznamNar.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                         {
                             SeznamNaradiJednoduchy.messager myMesenger = seznamNar.getMesseger();
-                            textBoxNazev.Text = myMesenger.nazev;
+                            Hashtable DBRow = myDB.getNaradiLine(myMesenger.poradi, null);
+                            if (DBRow != null)
+                            {
+                                if (DBRow.ContainsKey("nazev")) textBoxNazev.Text = Convert.ToString(DBRow["nazev"]);
+                                else textBoxNazev.Text = "";
+                                if (DBRow.ContainsKey("jk")) textBoxJK.Text = Convert.ToString(DBRow["jk"]);
+                                else textBoxJK.Text = "";
+                                if (DBRow.ContainsKey("normacsn")) textBoxCSN.Text = Convert.ToString(DBRow["normacsn"]);
+                                else textBoxCSN.Text = "";
+                                if (DBRow.ContainsKey("normadin")) textBoxDIN.Text = Convert.ToString(DBRow["normadin"]);
+                                else textBoxDIN.Text = "";
+                                if (DBRow.ContainsKey("rozmer")) textBoxRozmer.Text = Convert.ToString(DBRow["rozmer"]);
+                                else textBoxRozmer.Text = "";
+                                if (DBRow.ContainsKey("vyrobce")) textBoxVyrobce.Text = Convert.ToString(DBRow["vyrobce"]);
+                                else textBoxVyrobce.Text = "";
+                                if (DBRow.ContainsKey("analucet")) textBoxUcet.Text = Convert.ToString(DBRow["analucet"]);
+                                else textBoxUcet.Text = "";
 
+
+                                if (DBRow.ContainsKey("minimum")) numericUpDownMinStav.Value = Convert.ToInt32(DBRow["minimum"]);
+                                else numericUpDownMinStav.Value = 0;
+                                if (DBRow.ContainsKey("poznamka")) textBoxPoznamka.Text = Convert.ToString(DBRow["poznamka"]);
+                                else textBoxPoznamka.Text = "";
+
+                            }
+                            else
+                            {
+                                MessageBox.Show("Lituji. Položka neexistuje. Změna z jiného místa?");
+                            }
                         }
                     }
                     catch { };
