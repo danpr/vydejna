@@ -56,6 +56,7 @@
             this.dataGridViewZmeny = new System.Windows.Forms.DataGridView();
             this.contextMenuStripZmeny = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.opravaÚdajuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.zapujcenoNaKartuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonOK = new System.Windows.Forms.Button();
             this.numericUpDownCenaKs = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownUcetCenaKs = new System.Windows.Forms.NumericUpDown();
@@ -63,7 +64,7 @@
             this.numericUpDownFyzStav = new System.Windows.Forms.NumericUpDown();
             this.label14 = new System.Windows.Forms.Label();
             this.listBoxNazev = new System.Windows.Forms.ListBox();
-            this.zapujcenoNaKartuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.buttonCopy = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMinStav)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownUcetStav)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewZmeny)).BeginInit();
@@ -344,6 +345,13 @@
             this.opravaÚdajuToolStripMenuItem.Text = "Oprava údaju";
             this.opravaÚdajuToolStripMenuItem.Click += new System.EventHandler(this.ContextMenu_opravaUdaju);
             // 
+            // zapujcenoNaKartuToolStripMenuItem
+            // 
+            this.zapujcenoNaKartuToolStripMenuItem.Name = "zapujcenoNaKartuToolStripMenuItem";
+            this.zapujcenoNaKartuToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
+            this.zapujcenoNaKartuToolStripMenuItem.Text = "Zapujceno na kartu";
+            this.zapujcenoNaKartuToolStripMenuItem.Click += new System.EventHandler(this.contextMenu_ZapujcenoNaKartu);
+            // 
             // buttonOK
             // 
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -443,12 +451,16 @@
             this.listBoxNazev.TabIndex = 2;
             this.listBoxNazev.Click += new System.EventHandler(this.listBoxNazev_Click);
             // 
-            // zapujcenoNaKartuToolStripMenuItem
+            // buttonCopy
             // 
-            this.zapujcenoNaKartuToolStripMenuItem.Name = "zapujcenoNaKartuToolStripMenuItem";
-            this.zapujcenoNaKartuToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
-            this.zapujcenoNaKartuToolStripMenuItem.Text = "Zapujceno na kartu";
-            this.zapujcenoNaKartuToolStripMenuItem.Click += new System.EventHandler(this.contextMenu_ZapujcenoNaKartu);
+            this.buttonCopy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonCopy.Location = new System.Drawing.Point(636, 461);
+            this.buttonCopy.Name = "buttonCopy";
+            this.buttonCopy.Size = new System.Drawing.Size(78, 23);
+            this.buttonCopy.TabIndex = 19;
+            this.buttonCopy.Text = "Kopie";
+            this.buttonCopy.UseVisualStyleBackColor = true;
+            this.buttonCopy.Click += new System.EventHandler(this.buttonCopy_Click);
             // 
             // SkladovaKarta
             // 
@@ -456,6 +468,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(824, 500);
+            this.Controls.Add(this.buttonCopy);
             this.Controls.Add(this.listBoxNazev);
             this.Controls.Add(this.label14);
             this.Controls.Add(this.numericUpDownFyzStav);
@@ -542,5 +555,6 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuStripZmeny;
         private System.Windows.Forms.ToolStripMenuItem opravaÚdajuToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem zapujcenoNaKartuToolStripMenuItem;
+        private System.Windows.Forms.Button buttonCopy;
     }
 }

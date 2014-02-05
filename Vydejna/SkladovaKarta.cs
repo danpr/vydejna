@@ -88,11 +88,20 @@ namespace Vydejna
             {
                 buttonOK.Visible = false;
                 buttonOK.Enabled = false;
+                buttonCopy.Visible = false;
+                buttonCopy.Enabled = false;
             }
             else
             {
+                // edit + add
                 buttonOK.Visible = true;
                 buttonOK.Enabled = true;
+                if (state != sKartaState.add)
+                {
+                    buttonCopy.Visible = false;
+                    buttonCopy.Enabled = false;
+                }
+
                 setEditState();
             }
 
@@ -431,6 +440,31 @@ namespace Vydejna
                 }
             }
 
+        }
+
+        private void buttonCopy_Click(object sender, EventArgs e)
+        {
+            // kopie dat
+            // zobrazime seznam polozek naradi
+            SeznamNaradiJednoduchy seznamNar = new SeznamNaradiJednoduchy(myDB);
+            if (seznamNar != null)
+            {
+                seznamNar.Visible = false;   // formular se automaticky presune do show musime tedy ho vypnout
+                if (seznamNar != null)
+                {
+                    try  // protoze konstruktor "seznam naradi jednoduchy" -  pracuje dlouho s natahovanim polozek - uzivatel je muze prerusit, 
+                         // a tim dojde k odstraneni objektu musime tedy testovat existenci objektu
+                    {
+                        if (seznamNar.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                        {
+                            SeznamNaradiJednoduchy.messager myMesenger = seznamNar.getMesseger();
+                            textBoxNazev.Text = myMesenger.nazev;
+
+                        }
+                    }
+                    catch { };
+                }
+            }
         }
     }
 }
