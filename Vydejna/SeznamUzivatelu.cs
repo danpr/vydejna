@@ -115,23 +115,28 @@ namespace Vydejna
 
         private void smazatPoložkuToolStripMenuItem_Click(object sender, EventArgs e)
         {
+
             if (dataGridView1.SelectedRows.Count > 0)
             {
-              string userid = Convert.ToString( dataGridView1.SelectedRows[0].Cells["userid"].Value);
-              Int32 errCode =  myDataBase.deleteLineUzivatele( userid);
-              if (errCode == -2)
-              {
-                  MessageBox.Show("Lituji, uživatelské jméno neexistuje.");
-              }
-              if (errCode == -1)
-              {
-                  MessageBox.Show("Lituji, uživatele se nopadřilo odtranit.");
-              }
-              if (errCode == 0)
-              {
-                  Int32 dataIndex = detail.findIndex((dataGridView1.DataSource as DataTable), "userid", userid);
-                  (dataGridView1.DataSource as DataTable).Rows.RemoveAt(dataIndex);
-              }
+                if (MessageBox.Show("Opravdu chcete zrušit uživatele?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+
+                    string userid = Convert.ToString(dataGridView1.SelectedRows[0].Cells["userid"].Value);
+                    Int32 errCode = myDataBase.deleteLineUzivatele(userid);
+                    if (errCode == -2)
+                    {
+                        MessageBox.Show("Lituji, uživatelské jméno neexistuje.");
+                    }
+                    if (errCode == -1)
+                    {
+                        MessageBox.Show("Lituji, uživatele se nopadřilo odtranit.");
+                    }
+                    if (errCode == 0)
+                    {
+                        Int32 dataIndex = detail.findIndex((dataGridView1.DataSource as DataTable), "userid", userid);
+                        (dataGridView1.DataSource as DataTable).Rows.RemoveAt(dataIndex);
+                    }
+                }
             }
         }
 
@@ -174,6 +179,11 @@ namespace Vydejna
            // string userid =  Convert.ToString( dataGridView1.SelectedRows[0].Cells["userid"].Value);
             UzivatelZmenaHesla uzh = new UzivatelZmenaHesla(myDataBase, Convert.ToString(dataGridView1.SelectedRows[0].Cells["userid"].Value), false);
             uzh.ShowDialog();
+        }
+
+        private void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
+        {
+
         }
 
 

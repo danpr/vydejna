@@ -9,7 +9,7 @@ namespace Vydejna
 {
 
     enum permCode { Nar = 1, NarAdd, NarEd, NarEdNaz, NarEdJK, NarEdCenaKs, NarEdUcCenaKs, NarEdUcCena, NarEdMin, NarEdFyStav, NarEdUcStav, NarDel, NarPrijem, NarPosk, NarOprO,
-    ZNar, ZNarEd, ZNarDel, PNar, PNarEd, PNarDel, VNar, VNarEd, VNarDel, Prac, PracAdd, PracEd, PracDel, PracZapN, PracVracN  };
+    ZNar, ZNarEd, ZNarDel, PNar, PNarEd, PNarDel, VNar, VNarEd, VNarDel, Prac, PracAdd, PracEd, PracDel, PracZapN, PracVracN, PassSet  };
     
        public class permStruct
        {
@@ -74,6 +74,7 @@ namespace Vydejna
             permList.Add(new permStruct((Int32)permCode.Prac, (Int32)permCode.PracDel, "Smazání položky"));
             permList.Add(new permStruct((Int32)permCode.Prac, (Int32)permCode.PracZapN, "Zapůjčení nářadí"));
             permList.Add(new permStruct((Int32)permCode.Prac, (Int32)permCode.PracVracN, "Vrácení nářadí"));
+            permList.Add(new permStruct(0, (Int32)permCode.PassSet, "Změna hesla"));
 
         }
 

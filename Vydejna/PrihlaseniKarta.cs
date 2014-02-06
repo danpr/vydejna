@@ -100,6 +100,8 @@ namespace Vydejna
                     else
                     {
                         MessageBox.Show("Zadané heslo pro tohoto uživatele není správné.");
+                        textBoxPass1.Text = "";
+                        textBoxPass1.Focus();
                         DialogResult = System.Windows.Forms.DialogResult.None;
                     }
                 }

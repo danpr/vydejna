@@ -32,12 +32,12 @@
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.přidatPoložkuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.opravitPoložkuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.smazatPoložkuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.prohledáváníToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.labelView = new System.Windows.Forms.Label();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -52,6 +52,7 @@
             this.prohledáváníToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(184, 136);
+            this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             // 
             // přidatPoložkuToolStripMenuItem
             // 
@@ -66,6 +67,13 @@
             this.opravitPoložkuToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
             this.opravitPoložkuToolStripMenuItem.Text = "Opravit položku";
             this.opravitPoložkuToolStripMenuItem.Click += new System.EventHandler(this.opravitPoložkuToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(183, 22);
+            this.toolStripMenuItem1.Text = "Změnit heslo";
+            this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
             // 
             // smazatPoložkuToolStripMenuItem
             // 
@@ -117,13 +125,6 @@
             this.dataGridView1.Size = new System.Drawing.Size(651, 310);
             this.dataGridView1.TabIndex = 21;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
-            // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(183, 22);
-            this.toolStripMenuItem1.Text = "Změnit heslo";
-            this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
             // 
             // SeznamUzivatelu
             // 
