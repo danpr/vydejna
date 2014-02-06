@@ -125,6 +125,7 @@
             // 
             // textBoxNazev
             // 
+            this.textBoxNazev.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.textBoxNazev.Location = new System.Drawing.Point(103, 6);
             this.textBoxNazev.MaxLength = 60;
             this.textBoxNazev.Name = "textBoxNazev";
@@ -145,6 +146,7 @@
             // 
             // textBoxCSN
             // 
+            this.textBoxCSN.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.textBoxCSN.Location = new System.Drawing.Point(103, 58);
             this.textBoxCSN.MaxLength = 15;
             this.textBoxCSN.Name = "textBoxCSN";
@@ -154,6 +156,7 @@
             // 
             // textBoxDIN
             // 
+            this.textBoxDIN.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.textBoxDIN.Location = new System.Drawing.Point(103, 85);
             this.textBoxDIN.MaxLength = 15;
             this.textBoxDIN.Name = "textBoxDIN";
@@ -248,6 +251,7 @@
             // 
             // textBoxRozmer
             // 
+            this.textBoxRozmer.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.textBoxRozmer.Location = new System.Drawing.Point(103, 109);
             this.textBoxRozmer.MaxLength = 20;
             this.textBoxRozmer.Name = "textBoxRozmer";
@@ -257,6 +261,7 @@
             // 
             // textBoxVyrobce
             // 
+            this.textBoxVyrobce.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.textBoxVyrobce.Location = new System.Drawing.Point(103, 135);
             this.textBoxVyrobce.MaxLength = 40;
             this.textBoxVyrobce.Name = "textBoxVyrobce";
@@ -266,6 +271,7 @@
             // 
             // textBoxUcet
             // 
+            this.textBoxUcet.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.textBoxUcet.Location = new System.Drawing.Point(103, 187);
             this.textBoxUcet.MaxLength = 5;
             this.textBoxUcet.Name = "textBoxUcet";
@@ -276,6 +282,7 @@
             // numericUpDownMinStav
             // 
             this.numericUpDownMinStav.Enabled = false;
+            this.numericUpDownMinStav.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.numericUpDownMinStav.Location = new System.Drawing.Point(321, 187);
             this.numericUpDownMinStav.Maximum = new decimal(new int[] {
             1000000,
@@ -292,6 +299,7 @@
             // 
             this.numericUpDownUcetStav.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.numericUpDownUcetStav.Enabled = false;
+            this.numericUpDownUcetStav.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.numericUpDownUcetStav.Location = new System.Drawing.Point(708, 188);
             this.numericUpDownUcetStav.Maximum = new decimal(new int[] {
             1000000,
@@ -367,6 +375,7 @@
             // 
             this.numericUpDownCenaKs.DecimalPlaces = 2;
             this.numericUpDownCenaKs.Enabled = false;
+            this.numericUpDownCenaKs.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.numericUpDownCenaKs.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.numericUpDownCenaKs.Location = new System.Drawing.Point(103, 161);
             this.numericUpDownCenaKs.Maximum = new decimal(new int[] {
@@ -384,6 +393,7 @@
             // 
             this.numericUpDownUcetCenaKs.DecimalPlaces = 2;
             this.numericUpDownUcetCenaKs.Enabled = false;
+            this.numericUpDownUcetCenaKs.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.numericUpDownUcetCenaKs.Location = new System.Drawing.Point(321, 161);
             this.numericUpDownUcetCenaKs.Maximum = new decimal(new int[] {
             1000000,
@@ -402,6 +412,7 @@
             this.numericUpDownUcetCena.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.numericUpDownUcetCena.DecimalPlaces = 2;
             this.numericUpDownUcetCena.Enabled = false;
+            this.numericUpDownUcetCena.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.numericUpDownUcetCena.Location = new System.Drawing.Point(708, 161);
             this.numericUpDownUcetCena.Maximum = new decimal(new int[] {
             1000000,
@@ -418,6 +429,7 @@
             // 
             this.numericUpDownFyzStav.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.numericUpDownFyzStav.Enabled = false;
+            this.numericUpDownFyzStav.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.numericUpDownFyzStav.Location = new System.Drawing.Point(708, 212);
             this.numericUpDownFyzStav.Maximum = new decimal(new int[] {
             1000000,
