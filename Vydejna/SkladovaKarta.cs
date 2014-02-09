@@ -115,6 +115,8 @@ namespace Vydejna
         {
             InitializeComponent();
 
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+
             myDB = myDataBase;
             this.state = sKartaState.add;
             this.testExistItem = testExistItem;

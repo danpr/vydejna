@@ -85,30 +85,27 @@
             // labelVypujceno
             // 
             this.labelVypujceno.AutoSize = true;
-            this.labelVypujceno.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.labelVypujceno.Location = new System.Drawing.Point(386, 232);
             this.labelVypujceno.Name = "labelVypujceno";
-            this.labelVypujceno.Size = new System.Drawing.Size(48, 13);
+            this.labelVypujceno.Size = new System.Drawing.Size(41, 13);
             this.labelVypujceno.TabIndex = 54;
             this.labelVypujceno.Text = "label12";
             // 
             // labelJK
             // 
             this.labelJK.AutoSize = true;
-            this.labelJK.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.labelJK.Location = new System.Drawing.Point(170, 173);
             this.labelJK.Name = "labelJK";
-            this.labelJK.Size = new System.Drawing.Size(48, 13);
+            this.labelJK.Size = new System.Drawing.Size(41, 13);
             this.labelJK.TabIndex = 53;
             this.labelJK.Text = "label12";
             // 
             // labelNazev
             // 
             this.labelNazev.AutoSize = true;
-            this.labelNazev.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.labelNazev.Location = new System.Drawing.Point(170, 139);
             this.labelNazev.Name = "labelNazev";
-            this.labelNazev.Size = new System.Drawing.Size(48, 13);
+            this.labelNazev.Size = new System.Drawing.Size(41, 13);
             this.labelNazev.TabIndex = 52;
             this.labelNazev.Text = "label12";
             // 
@@ -200,10 +197,9 @@
             // labelIEvCislo
             // 
             this.labelIEvCislo.AutoSize = true;
-            this.labelIEvCislo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.labelIEvCislo.Location = new System.Drawing.Point(170, 201);
             this.labelIEvCislo.Name = "labelIEvCislo";
-            this.labelIEvCislo.Size = new System.Drawing.Size(41, 13);
+            this.labelIEvCislo.Size = new System.Drawing.Size(35, 13);
             this.labelIEvCislo.TabIndex = 59;
             this.labelIEvCislo.Text = "label2";
             // 
@@ -238,10 +234,9 @@
             // labelJmeno
             // 
             this.labelJmeno.AutoSize = true;
-            this.labelJmeno.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.labelJmeno.Location = new System.Drawing.Point(158, 24);
             this.labelJmeno.Name = "labelJmeno";
-            this.labelJmeno.Size = new System.Drawing.Size(48, 13);
+            this.labelJmeno.Size = new System.Drawing.Size(41, 13);
             this.labelJmeno.TabIndex = 33;
             this.labelJmeno.Text = "label12";
             // 
@@ -257,10 +252,9 @@
             // labelOsCislo
             // 
             this.labelOsCislo.AutoSize = true;
-            this.labelOsCislo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.labelOsCislo.Location = new System.Drawing.Point(158, 53);
             this.labelOsCislo.Name = "labelOsCislo";
-            this.labelOsCislo.Size = new System.Drawing.Size(48, 13);
+            this.labelOsCislo.Size = new System.Drawing.Size(41, 13);
             this.labelOsCislo.TabIndex = 35;
             this.labelOsCislo.Text = "label12";
             // 
@@ -294,30 +288,27 @@
             // labelProvoz
             // 
             this.labelProvoz.AutoSize = true;
-            this.labelProvoz.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.labelProvoz.Location = new System.Drawing.Point(374, 81);
             this.labelProvoz.Name = "labelProvoz";
-            this.labelProvoz.Size = new System.Drawing.Size(48, 13);
+            this.labelProvoz.Size = new System.Drawing.Size(41, 13);
             this.labelProvoz.TabIndex = 37;
             this.labelProvoz.Text = "label12";
             // 
             // labelPrijmeni
             // 
             this.labelPrijmeni.AutoSize = true;
-            this.labelPrijmeni.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.labelPrijmeni.Location = new System.Drawing.Point(374, 24);
             this.labelPrijmeni.Name = "labelPrijmeni";
-            this.labelPrijmeni.Size = new System.Drawing.Size(48, 13);
+            this.labelPrijmeni.Size = new System.Drawing.Size(41, 13);
             this.labelPrijmeni.TabIndex = 34;
             this.labelPrijmeni.Text = "label12";
             // 
             // labelStredisko
             // 
             this.labelStredisko.AutoSize = true;
-            this.labelStredisko.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.labelStredisko.Location = new System.Drawing.Point(374, 53);
             this.labelStredisko.Name = "labelStredisko";
-            this.labelStredisko.Size = new System.Drawing.Size(48, 13);
+            this.labelStredisko.Size = new System.Drawing.Size(41, 13);
             this.labelStredisko.TabIndex = 36;
             this.labelStredisko.Text = "label12";
             // 

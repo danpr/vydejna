@@ -694,7 +694,7 @@ namespace Vydejna
             labelView.Text = "Vrácené nářadí do skladu - Stahuji";
             Application.DoEvents();
             loadVracenoItems();
-            karta = new detailVraceno(myDB,dataGridView1);
+            karta = new detailVraceno(myDB,dataGridView1,null);
             contextMenuEnable(false);
             labelView.Text = "Vrácené nářadí do skladu";
         }
@@ -1042,7 +1042,7 @@ namespace Vydejna
             labelView.Text = "Pracovníci provozu - Načítání";
             Application.DoEvents();
             loadOsobyItems();
-            karta = new detailOsobyZapujcNaradi(myDB,dataGridView1);
+            karta = new detailOsobyZapujcNaradi(myDB, dataGridView1);
             contextMenuEnable(true, false, false, true);
             labelView.Text = "Pracovníci provozu - Zapůjčení nářadí";
 
@@ -1248,6 +1248,11 @@ namespace Vydejna
                 uzh.ShowDialog();
                 }
             }
+        }
+
+        private void NasaveniToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
 
     }

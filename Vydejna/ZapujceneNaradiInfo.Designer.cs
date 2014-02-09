@@ -92,20 +92,18 @@
             // labelNazev
             // 
             this.labelNazev.AutoSize = true;
-            this.labelNazev.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.labelNazev.Location = new System.Drawing.Point(145, 13);
             this.labelNazev.Name = "labelNazev";
-            this.labelNazev.Size = new System.Drawing.Size(41, 13);
+            this.labelNazev.Size = new System.Drawing.Size(35, 13);
             this.labelNazev.TabIndex = 2;
             this.labelNazev.Text = "label3";
             // 
             // labelJK
             // 
             this.labelJK.AutoSize = true;
-            this.labelJK.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.labelJK.Location = new System.Drawing.Point(145, 36);
             this.labelJK.Name = "labelJK";
-            this.labelJK.Size = new System.Drawing.Size(41, 13);
+            this.labelJK.Size = new System.Drawing.Size(35, 13);
             this.labelJK.TabIndex = 3;
             this.labelJK.Text = "label3";
             // 
@@ -130,20 +128,18 @@
             // labelRozmer
             // 
             this.labelRozmer.AutoSize = true;
-            this.labelRozmer.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.labelRozmer.Location = new System.Drawing.Point(145, 62);
             this.labelRozmer.Name = "labelRozmer";
-            this.labelRozmer.Size = new System.Drawing.Size(41, 13);
+            this.labelRozmer.Size = new System.Drawing.Size(35, 13);
             this.labelRozmer.TabIndex = 6;
             this.labelRozmer.Text = "label5";
             // 
             // labelCSN
             // 
             this.labelCSN.AutoSize = true;
-            this.labelCSN.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.labelCSN.Location = new System.Drawing.Point(145, 88);
             this.labelCSN.Name = "labelCSN";
-            this.labelCSN.Size = new System.Drawing.Size(41, 13);
+            this.labelCSN.Size = new System.Drawing.Size(35, 13);
             this.labelCSN.TabIndex = 7;
             this.labelCSN.Text = "label5";
             // 
@@ -186,48 +182,44 @@
             // labelPoznamka
             // 
             this.labelPoznamka.AutoSize = true;
-            this.labelPoznamka.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.labelPoznamka.Location = new System.Drawing.Point(145, 114);
             this.labelPoznamka.Name = "labelPoznamka";
-            this.labelPoznamka.Size = new System.Drawing.Size(41, 13);
+            this.labelPoznamka.Size = new System.Drawing.Size(35, 13);
             this.labelPoznamka.TabIndex = 12;
             this.labelPoznamka.Text = "label9";
             // 
             // labelVevcislo
             // 
             this.labelVevcislo.AutoSize = true;
-            this.labelVevcislo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.labelVevcislo.Location = new System.Drawing.Point(145, 142);
             this.labelVevcislo.Name = "labelVevcislo";
-            this.labelVevcislo.Size = new System.Drawing.Size(41, 13);
+            this.labelVevcislo.Size = new System.Drawing.Size(35, 13);
             this.labelVevcislo.TabIndex = 13;
             this.labelVevcislo.Text = "label9";
             // 
             // labelCena
             // 
             this.labelCena.AutoSize = true;
-            this.labelCena.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.labelCena.Location = new System.Drawing.Point(145, 167);
             this.labelCena.Name = "labelCena";
-            this.labelCena.Size = new System.Drawing.Size(41, 13);
+            this.labelCena.Size = new System.Drawing.Size(35, 13);
             this.labelCena.TabIndex = 14;
             this.labelCena.Text = "label9";
             // 
             // labelDatum
             // 
             this.labelDatum.AutoSize = true;
-            this.labelDatum.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.labelDatum.Location = new System.Drawing.Point(145, 194);
             this.labelDatum.Name = "labelDatum";
-            this.labelDatum.Size = new System.Drawing.Size(41, 13);
+            this.labelDatum.Size = new System.Drawing.Size(35, 13);
             this.labelDatum.TabIndex = 15;
             this.labelDatum.Text = "label9";
             // 
             // tabControl1
             // 
-            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
@@ -269,20 +261,18 @@
             // labelStavks
             // 
             this.labelStavks.AutoSize = true;
-            this.labelStavks.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.labelStavks.Location = new System.Drawing.Point(145, 256);
             this.labelStavks.Name = "labelStavks";
-            this.labelStavks.Size = new System.Drawing.Size(48, 13);
+            this.labelStavks.Size = new System.Drawing.Size(41, 13);
             this.labelStavks.TabIndex = 19;
             this.labelStavks.Text = "label18";
             // 
             // labelKs
             // 
             this.labelKs.AutoSize = true;
-            this.labelKs.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.labelKs.Location = new System.Drawing.Point(145, 226);
             this.labelKs.Name = "labelKs";
-            this.labelKs.Size = new System.Drawing.Size(48, 13);
+            this.labelKs.Size = new System.Drawing.Size(41, 13);
             this.labelKs.TabIndex = 18;
             this.labelKs.Text = "label18";
             // 
@@ -324,37 +314,34 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(525, 276);
+            this.tabPage2.Size = new System.Drawing.Size(525, 282);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "V době výpujčky";
             // 
             // labelPPrijmeni
             // 
             this.labelPPrijmeni.AutoSize = true;
-            this.labelPPrijmeni.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.labelPPrijmeni.Location = new System.Drawing.Point(145, 157);
             this.labelPPrijmeni.Name = "labelPPrijmeni";
-            this.labelPPrijmeni.Size = new System.Drawing.Size(48, 13);
+            this.labelPPrijmeni.Size = new System.Drawing.Size(41, 13);
             this.labelPPrijmeni.TabIndex = 14;
             this.labelPPrijmeni.Text = "label16";
             // 
             // labelPJmeno
             // 
             this.labelPJmeno.AutoSize = true;
-            this.labelPJmeno.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.labelPJmeno.Location = new System.Drawing.Point(145, 134);
             this.labelPJmeno.Name = "labelPJmeno";
-            this.labelPJmeno.Size = new System.Drawing.Size(48, 13);
+            this.labelPJmeno.Size = new System.Drawing.Size(41, 13);
             this.labelPJmeno.TabIndex = 13;
             this.labelPJmeno.Text = "label16";
             // 
             // labelPKs
             // 
             this.labelPKs.AutoSize = true;
-            this.labelPKs.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.labelPKs.Location = new System.Drawing.Point(145, 109);
             this.labelPKs.Name = "labelPKs";
-            this.labelPKs.Size = new System.Drawing.Size(48, 13);
+            this.labelPKs.Size = new System.Drawing.Size(41, 13);
             this.labelPKs.TabIndex = 12;
             this.labelPKs.Text = "label16";
             // 
@@ -388,20 +375,18 @@
             // labelPCena
             // 
             this.labelPCena.AutoSize = true;
-            this.labelPCena.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.labelPCena.Location = new System.Drawing.Point(145, 84);
             this.labelPCena.Name = "labelPCena";
-            this.labelPCena.Size = new System.Drawing.Size(48, 13);
+            this.labelPCena.Size = new System.Drawing.Size(41, 13);
             this.labelPCena.TabIndex = 8;
             this.labelPCena.Text = "label13";
             // 
             // labelPDatum
             // 
             this.labelPDatum.AutoSize = true;
-            this.labelPDatum.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.labelPDatum.Location = new System.Drawing.Point(145, 61);
             this.labelPDatum.Name = "labelPDatum";
-            this.labelPDatum.Size = new System.Drawing.Size(48, 13);
+            this.labelPDatum.Size = new System.Drawing.Size(41, 13);
             this.labelPDatum.TabIndex = 7;
             this.labelPDatum.Text = "label13";
             // 
@@ -426,10 +411,9 @@
             // labelPJK
             // 
             this.labelPJK.AutoSize = true;
-            this.labelPJK.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.labelPJK.Location = new System.Drawing.Point(145, 37);
             this.labelPJK.Name = "labelPJK";
-            this.labelPJK.Size = new System.Drawing.Size(48, 13);
+            this.labelPJK.Size = new System.Drawing.Size(41, 13);
             this.labelPJK.TabIndex = 4;
             this.labelPJK.Text = "label11";
             // 
@@ -445,10 +429,9 @@
             // labelPNazev
             // 
             this.labelPNazev.AutoSize = true;
-            this.labelPNazev.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.labelPNazev.Location = new System.Drawing.Point(145, 13);
             this.labelPNazev.Name = "labelPNazev";
-            this.labelPNazev.Size = new System.Drawing.Size(48, 13);
+            this.labelPNazev.Size = new System.Drawing.Size(41, 13);
             this.labelPNazev.TabIndex = 2;
             this.labelPNazev.Text = "label10";
             // 

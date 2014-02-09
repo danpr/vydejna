@@ -121,6 +121,7 @@ namespace Vydejna
         }
         //-------------------------------------- virtualni metody -------------------//
 
+
         public virtual void zobrazKartu(Hashtable DBRow)
         {
         }
@@ -254,6 +255,7 @@ namespace Vydejna
 
                     SkladovaKarta sklKarta = new SkladovaKarta(myDB, DBRow, findPoradiInRow(DBRow), new tableItemExistDelgStr(myDB.tableNaradiItemExist));
                     sklKarta.setWinName("Skladová karta");
+                    sklKarta.Font = myDataGridView.Font;
                     sklKarta.ShowDialog();
 
                     DBRow = myDB.getNaradiLine(poradi, DBRow);
@@ -269,6 +271,7 @@ namespace Vydejna
             {
                 SkladovaKarta sklKarta = new SkladovaKarta(myDB, new tableItemExistDelgStr(myDB.tableNaradiItemExist));
                 sklKarta.setWinName("Skladová karta");
+                sklKarta.Font = myDataGridView.Font;
                 if (sklKarta.ShowDialog() == DialogResult.OK)
                 {
 
@@ -328,6 +331,7 @@ namespace Vydejna
                 Int32 poradi = findPoradiInRow(DBRow);
                 DBRow = myDB.getNaradiLine(poradi,DBRow);
                 SkladovaKarta sklKarta = new SkladovaKarta(myDB, DBRow, poradi, new tableItemExistDelgStr(myDB.tableNaradiItemExist), sKartaState.edit);
+                sklKarta.Font = myDataGridView.Font;
                 if (sklKarta.ShowDialog() == DialogResult.OK)
                 {
                     SkladovaKarta.messager mesenger = sklKarta.getMesseger();
@@ -413,6 +417,7 @@ namespace Vydejna
             if ((myDB != null) && (myDB.DBIsOpened()))
             {
                 PrijemkaMaterialu prijemka = new PrijemkaMaterialu(DBRow, myDB);
+                prijemka.Font = myDataGridView.Font;
                 if (prijemka.ShowDialog() == DialogResult.OK)
                 {
                     PrijemkaMaterialu.messager mesenger = prijemka.getMesseger();
@@ -462,6 +467,7 @@ namespace Vydejna
             if ((myDB != null) && (myDB.DBIsOpened()))
             {
                 Poskozenka poskozenka = new Poskozenka(DBRow, myDB);
+                poskozenka.Font = myDataGridView.Font;
                 if (poskozenka.ShowDialog() == DialogResult.OK)
                 {
                     Poskozenka.messager mesenger = poskozenka.getMesseger();
@@ -537,6 +543,7 @@ namespace Vydejna
                 Int32 poradi = findPoradiInRow(DBRow);
                 DBRow = myDB.getZrusenoLine(poradi, DBRow);
                 SkladovaKarta sklKarta = new SkladovaKarta(myDB, DBRow, findPoradiInRow(DBRow), new tableItemExistDelgStr(myDB.tableZrusenoItemExist));
+                sklKarta.Font = myDataGridView.Font;
                 sklKarta.setWinName("Zrušená karta");
                 sklKarta.ShowDialog();
                 DBRow = myDB.getZrusenoLine(poradi, DBRow);
@@ -551,6 +558,7 @@ namespace Vydejna
                 Int32 poradi = findPoradiInRow(DBRow);
                 DBRow = myDB.getZrusenoLine(poradi, DBRow);
                 SkladovaKarta sklKarta = new SkladovaKarta(myDB, DBRow, findPoradiInRow(DBRow), new tableItemExistDelgStr(myDB.tableZrusenoItemExist), sKartaState.edit);
+                sklKarta.Font = myDataGridView.Font;
                 sklKarta.setWinName("Zrušená karta");
                 if (sklKarta.ShowDialog() == DialogResult.OK)
                 {
@@ -663,6 +671,7 @@ namespace Vydejna
 
             VraceneKarta poskozKarta = new VraceneKarta(DBRow);
             poskozKarta.setWinName("Poškozeno");
+            poskozKarta.Font = myDataGridView.Font;
             poskozKarta.ShowDialog();
             DBRow = myDB.getPoskozenoLine(poradi, DBRow);
             reloadRow((myDataGridView.DataSource as DataTable), findIndex((myDataGridView.DataSource as DataTable), "poradi", poradi), DBRow);
@@ -676,6 +685,7 @@ namespace Vydejna
                 Int32 poradi = findPoradiInRow(DBRow);
                 DBRow = myDB.getPoskozenoLine(poradi, DBRow);
                 VraceneKarta poskozKarta = new VraceneKarta(DBRow, myDB, new tableItemExistDelgInt(myDB.tablePoskozenoItemExist), vKartaState.edit);
+                poskozKarta.Font = myDataGridView.Font;
                 poskozKarta.setWinName("Poškozeno");
                 if (poskozKarta.ShowDialog() == DialogResult.OK)
                 {
@@ -732,7 +742,7 @@ namespace Vydejna
     class detailVraceno : detail
     {
 
-        public detailVraceno(vDatabase myDB, DataGridView myDataGridView)
+        public detailVraceno(vDatabase myDB, DataGridView myDataGridView, System.Drawing.Font myFont)
             : base(myDB, myDataGridView)
         {
         }
@@ -743,6 +753,7 @@ namespace Vydejna
             Int32 poradi = findPoradiInRow(DBRow);
             DBRow = myDB.getVracenoLine(poradi, DBRow);
             VraceneKarta vracKarta = new VraceneKarta(DBRow);
+            vracKarta.Font = myDataGridView.Font;
             vracKarta.setWinName("Vraceno");
             vracKarta.ShowDialog();
             DBRow = myDB.getVracenoLine(poradi, DBRow);
@@ -755,6 +766,7 @@ namespace Vydejna
             Int32 poradi = findPoradiInRow(DBRow);
             DBRow = myDB.getVracenoLine(poradi, DBRow);
             VraceneKarta vracKarta = new VraceneKarta(DBRow, myDB, new tableItemExistDelgInt(myDB.tablePoskozenoItemExist), vKartaState.edit);
+            vracKarta.Font = myDataGridView.Font;
             vracKarta.setWinName("Vraceno");
             if (vracKarta.ShowDialog() == DialogResult.OK)
             {
@@ -841,7 +853,9 @@ namespace Vydejna
         {
             string osCislo = findOsCisloInRow(DBRow);
             DBRow = myDB.getOsobyLine(osCislo, DBRow);
+
             PracovniciKarta pracKarta = new PracovniciKarta(DBRow, myDB);
+            pracKarta.Font = myDataGridView.Font;
             pracKarta.ShowDialog();
 
             DBRow = myDB.getOsobyLine(osCislo, DBRow);
@@ -856,6 +870,7 @@ namespace Vydejna
             if ((myDB != null) && (myDB.DBIsOpened()))
             {
                 PracovniciKarta pracKarta = new PracovniciKarta(myDB);
+                pracKarta.Font = myDataGridView.Font;
                 if (pracKarta.ShowDialog() == DialogResult.OK)
                 {
 
@@ -899,6 +914,7 @@ namespace Vydejna
                 string osCislo = findOsCisloInRow(DBRow);
                 DBRow = myDB.getOsobyLine(osCislo, DBRow);
                 PracovniciKarta pracKarta = new PracovniciKarta(DBRow, myDB, uKartaState.edit);
+                pracKarta.Font = myDataGridView.Font;
                 if (pracKarta.ShowDialog() == DialogResult.OK)
                 {
                     PracovniciKarta.messager mesenger = pracKarta.getMesseger();
@@ -954,6 +970,7 @@ namespace Vydejna
                 string osCislo = Convert.ToString(DBRow["oscislo"]);
 
                 ZapujceneNaradiKarta zapujcKarta = new ZapujceneNaradiKarta(osCislo, myDB);// (DBRow, myDataBase, uKartaState.edit);
+                zapujcKarta.Font = myDataGridView.Font;
                 zapujcKarta.ShowDialog();
             }
         }
@@ -981,27 +998,12 @@ namespace Vydejna
                     string osCislo = findOsCisloInRow(DBRow);
                     DBRow = myDB.getOsobyLine(osCislo, DBRow);
                     ZapujceneNaradiKarta zapujcKarta = new ZapujceneNaradiKarta(osCislo, myDB);// (DBRow, myDataBase, uKartaState.edit);
+                    zapujcKarta.Font = myDataGridView.Font;
                     zapujcKarta.ShowDialog();
                     DBRow = myDB.getOsobyLine(osCislo, DBRow);
                     reloadRow((myDataGridView.DataSource as DataTable), findIndex((myDataGridView.DataSource as DataTable), "oscislo", osCislo), DBRow);
                 }
             }
-
-
-//            public override void Zapujceno(Hashtable DBRow)
-//            {
-//                if ((myDB != null) && (myDB.DBIsOpened()))
-//                {
-//                    string osCislo = Convert.ToString(DBRow["oscislo"]);
-//                    ZapujceneNaradiKarta zapujcKarta = new ZapujceneNaradiKarta(osCislo, myDB);// (DBRow, myDataBase, uKartaState.edit);
-//                    zapujcKarta.ShowDialog();
-//                }
-//            }
-
-//            public override string preferovanySloupec()
-//            {
-//                return "prijmeni";
-//            }
 
         }
 

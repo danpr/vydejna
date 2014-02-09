@@ -114,6 +114,7 @@ namespace Vydejna
         {
             // zobrazime seznam polozek naradi
             SeznamNaradiJednoduchy seznamNar = new SeznamNaradiJednoduchy(myDB);
+            seznamNar.Font = this.Font;
             if (seznamNar != null)
             {
                 seznamNar.Visible = false;   // formular se automaticky presune do show musime tedy ho vypnout
@@ -125,7 +126,7 @@ namespace Vydejna
                         {
                             SeznamNaradiJednoduchy.messager myMesenger = seznamNar.getMesseger();
                             ZapujceniNaradi zapujcNaradi = new ZapujceniNaradi(osobyDBRow, myMesenger.nazev, myMesenger.jk, myMesenger.fyzStav);
-
+                            zapujcNaradi.Font = this.Font;
                             if (zapujcNaradi.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                             {
                                 // pridame zapujcene naradi
@@ -196,6 +197,7 @@ namespace Vydejna
                 {
                     Hashtable DBVypujcRow = makeVypujcDBRow(osobyDBRow);
                     VraceniNaradi vraceniNaradi = new VraceniNaradi(DBVypujcRow);
+                    vraceniNaradi.Font = this.Font;
                     Int32 pujcPoradi = Convert.ToInt32(DBVypujcRow["poradi"]);
 
                     if (vraceniNaradi.ShowDialog() == System.Windows.Forms.DialogResult.OK)
@@ -286,6 +288,7 @@ namespace Vydejna
                         Hashtable infoDBRow = myDB.getNaradiLine(nporadi, null);
 
                         SkladovaKarta sklKarta = new SkladovaKarta(myDB, infoDBRow, nporadi, new tableItemExistDelgStr(myDB.tableNaradiItemExist));
+                        sklKarta.Font = this.Font;
                         sklKarta.setWinName("Skladová karta");
                         sklKarta.ShowDialog();
                     }
@@ -340,12 +343,18 @@ namespace Vydejna
 
 
                         ZapujceneNaradiInfo zapNarInfo = new ZapujceneNaradiInfo(vypujcDBRow);
+                        zapNarInfo.Font = this.Font;
                         zapNarInfo.ShowDialog();
 
 
                     }
                 }
             }
+        }
+
+        private void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
+        {
+
         }
     }
 }

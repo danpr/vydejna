@@ -41,6 +41,7 @@
             this.zapůjčeníNářadíToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.vraceníNářadíToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.informaceONářadíToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.informaceOZapůjčeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.labelPrijmeni = new System.Windows.Forms.Label();
             this.labelJmeno = new System.Windows.Forms.Label();
@@ -49,7 +50,6 @@
             this.labelOddeleni = new System.Windows.Forms.Label();
             this.labelPracoviste = new System.Windows.Forms.Label();
             this.labelCisZnamky = new System.Windows.Forms.Label();
-            this.informaceOZapůjčeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewZmeny)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -120,9 +120,9 @@
             // dataGridViewZmeny
             // 
             this.dataGridViewZmeny.AllowUserToAddRows = false;
-            this.dataGridViewZmeny.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridViewZmeny.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridViewZmeny.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewZmeny.ContextMenuStrip = this.contextMenuStrip1;
             this.dataGridViewZmeny.Location = new System.Drawing.Point(15, 125);
@@ -141,6 +141,7 @@
             this.informaceOZapůjčeToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(185, 114);
+            this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             // 
             // zapůjčeníNářadíToolStripMenuItem
             // 
@@ -163,6 +164,13 @@
             this.informaceONářadíToolStripMenuItem.Text = "Informace o nářadí";
             this.informaceONářadíToolStripMenuItem.Click += new System.EventHandler(this.informaceONaradiToolStripMenuItem_Click);
             // 
+            // informaceOZapůjčeToolStripMenuItem
+            // 
+            this.informaceOZapůjčeToolStripMenuItem.Name = "informaceOZapůjčeToolStripMenuItem";
+            this.informaceOZapůjčeToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.informaceOZapůjčeToolStripMenuItem.Text = "Informace o výpůjce";
+            this.informaceOZapůjčeToolStripMenuItem.Click += new System.EventHandler(this.informaceOZapůjčeToolStripMenuItem_Click);
+            // 
             // buttonCancel
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -177,79 +185,65 @@
             // labelPrijmeni
             // 
             this.labelPrijmeni.AutoSize = true;
-            this.labelPrijmeni.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.labelPrijmeni.Location = new System.Drawing.Point(80, 9);
             this.labelPrijmeni.Name = "labelPrijmeni";
-            this.labelPrijmeni.Size = new System.Drawing.Size(51, 13);
+            this.labelPrijmeni.Size = new System.Drawing.Size(43, 13);
             this.labelPrijmeni.TabIndex = 31;
             this.labelPrijmeni.Text = "Prijmeni";
             // 
             // labelJmeno
             // 
             this.labelJmeno.AutoSize = true;
-            this.labelJmeno.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.labelJmeno.Location = new System.Drawing.Point(80, 38);
             this.labelJmeno.Name = "labelJmeno";
-            this.labelJmeno.Size = new System.Drawing.Size(43, 13);
+            this.labelJmeno.Size = new System.Drawing.Size(38, 13);
             this.labelJmeno.TabIndex = 32;
             this.labelJmeno.Text = "Jmeno";
             // 
             // labelOsCislo
             // 
             this.labelOsCislo.AutoSize = true;
-            this.labelOsCislo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.labelOsCislo.Location = new System.Drawing.Point(80, 67);
             this.labelOsCislo.Name = "labelOsCislo";
-            this.labelOsCislo.Size = new System.Drawing.Size(53, 13);
+            this.labelOsCislo.Size = new System.Drawing.Size(45, 13);
             this.labelOsCislo.TabIndex = 33;
             this.labelOsCislo.Text = "Os Cislo";
             // 
             // labelStredisko
             // 
             this.labelStredisko.AutoSize = true;
-            this.labelStredisko.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.labelStredisko.Location = new System.Drawing.Point(425, 9);
             this.labelStredisko.Name = "labelStredisko";
-            this.labelStredisko.Size = new System.Drawing.Size(60, 13);
+            this.labelStredisko.Size = new System.Drawing.Size(51, 13);
             this.labelStredisko.TabIndex = 34;
             this.labelStredisko.Text = "Stredisko";
             // 
             // labelOddeleni
             // 
             this.labelOddeleni.AutoSize = true;
-            this.labelOddeleni.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.labelOddeleni.Location = new System.Drawing.Point(425, 38);
             this.labelOddeleni.Name = "labelOddeleni";
-            this.labelOddeleni.Size = new System.Drawing.Size(46, 13);
+            this.labelOddeleni.Size = new System.Drawing.Size(40, 13);
             this.labelOddeleni.TabIndex = 35;
             this.labelOddeleni.Text = "Provoz";
             // 
             // labelPracoviste
             // 
             this.labelPracoviste.AutoSize = true;
-            this.labelPracoviste.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.labelPracoviste.Location = new System.Drawing.Point(425, 64);
             this.labelPracoviste.Name = "labelPracoviste";
-            this.labelPracoviste.Size = new System.Drawing.Size(67, 13);
+            this.labelPracoviste.Size = new System.Drawing.Size(57, 13);
             this.labelPracoviste.TabIndex = 36;
             this.labelPracoviste.Text = "Pracoviste";
             // 
             // labelCisZnamky
             // 
             this.labelCisZnamky.AutoSize = true;
-            this.labelCisZnamky.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.labelCisZnamky.Location = new System.Drawing.Point(425, 93);
             this.labelCisZnamky.Name = "labelCisZnamky";
-            this.labelCisZnamky.Size = new System.Drawing.Size(70, 13);
+            this.labelCisZnamky.Size = new System.Drawing.Size(60, 13);
             this.labelCisZnamky.TabIndex = 37;
             this.labelCisZnamky.Text = "Cis znamky";
-            // 
-            // informaceOZapůjčeToolStripMenuItem
-            // 
-            this.informaceOZapůjčeToolStripMenuItem.Name = "informaceOZapůjčeToolStripMenuItem";
-            this.informaceOZapůjčeToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
-            this.informaceOZapůjčeToolStripMenuItem.Text = "Informace o výpůjce";
-            this.informaceOZapůjčeToolStripMenuItem.Click += new System.EventHandler(this.informaceOZapůjčeToolStripMenuItem_Click);
             // 
             // ZapujceneNaradiKarta
             // 
