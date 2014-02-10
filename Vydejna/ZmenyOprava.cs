@@ -16,7 +16,7 @@ namespace Vydejna
         private Int32 parPoradi;
         private Int32 poradi;
 
-        public ZmenyOprava(vDatabase myDB, Int32 parPoradi, Int32 poradi)
+        public ZmenyOprava(vDatabase myDB, Int32 parPoradi, Int32 poradi, Font myFont)
         {
             InitializeComponent();
             this.myDB = myDB;
@@ -27,6 +27,7 @@ namespace Vydejna
 
             AcceptButton = buttonOK;
             CancelButton = buttonCancel;
+            this.Font = myFont;
         }
 
         private void groupBox3_Enter(object sender, EventArgs e)

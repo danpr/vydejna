@@ -253,9 +253,9 @@ namespace Vydejna
                 {
                     DBRow = myDB.getNaradiLine(poradi, DBRow);
 
-                    SkladovaKarta sklKarta = new SkladovaKarta(myDB, DBRow, findPoradiInRow(DBRow), new tableItemExistDelgStr(myDB.tableNaradiItemExist));
+                    SkladovaKarta sklKarta = new SkladovaKarta(myDB, DBRow, findPoradiInRow(DBRow), new tableItemExistDelgStr(myDB.tableNaradiItemExist),myDataGridView.Font);
                     sklKarta.setWinName("Skladová karta");
-                    sklKarta.Font = myDataGridView.Font;
+//                    sklKarta.Font = myDataGridView.Font;
                     sklKarta.ShowDialog();
 
                     DBRow = myDB.getNaradiLine(poradi, DBRow);
@@ -269,9 +269,9 @@ namespace Vydejna
             // zalozeni nove skladove karty
             if ((myDB != null) && (myDB.DBIsOpened()))
             {
-                SkladovaKarta sklKarta = new SkladovaKarta(myDB, new tableItemExistDelgStr(myDB.tableNaradiItemExist));
+                SkladovaKarta sklKarta = new SkladovaKarta(myDB, new tableItemExistDelgStr(myDB.tableNaradiItemExist), myDataGridView.Font);
                 sklKarta.setWinName("Skladová karta");
-                sklKarta.Font = myDataGridView.Font;
+//                sklKarta.Font = myDataGridView.Font;
                 if (sklKarta.ShowDialog() == DialogResult.OK)
                 {
 
@@ -330,8 +330,8 @@ namespace Vydejna
             {
                 Int32 poradi = findPoradiInRow(DBRow);
                 DBRow = myDB.getNaradiLine(poradi,DBRow);
-                SkladovaKarta sklKarta = new SkladovaKarta(myDB, DBRow, poradi, new tableItemExistDelgStr(myDB.tableNaradiItemExist), sKartaState.edit);
-                sklKarta.Font = myDataGridView.Font;
+                SkladovaKarta sklKarta = new SkladovaKarta(myDB, DBRow, poradi, new tableItemExistDelgStr(myDB.tableNaradiItemExist), myDataGridView.Font, sKartaState.edit);
+//                sklKarta.Font = myDataGridView.Font;
                 if (sklKarta.ShowDialog() == DialogResult.OK)
                 {
                     SkladovaKarta.messager mesenger = sklKarta.getMesseger();
@@ -416,8 +416,8 @@ namespace Vydejna
         {
             if ((myDB != null) && (myDB.DBIsOpened()))
             {
-                PrijemkaMaterialu prijemka = new PrijemkaMaterialu(DBRow, myDB);
-                prijemka.Font = myDataGridView.Font;
+                PrijemkaMaterialu prijemka = new PrijemkaMaterialu(DBRow, myDB,myDataGridView.Font);
+//                prijemka.Font = myDataGridView.Font;
                 if (prijemka.ShowDialog() == DialogResult.OK)
                 {
                     PrijemkaMaterialu.messager mesenger = prijemka.getMesseger();
@@ -466,8 +466,8 @@ namespace Vydejna
         {
             if ((myDB != null) && (myDB.DBIsOpened()))
             {
-                Poskozenka poskozenka = new Poskozenka(DBRow, myDB);
-                poskozenka.Font = myDataGridView.Font;
+                Poskozenka poskozenka = new Poskozenka(DBRow, myDB, myDataGridView.Font);
+//                poskozenka.Font = myDataGridView.Font;
                 if (poskozenka.ShowDialog() == DialogResult.OK)
                 {
                     Poskozenka.messager mesenger = poskozenka.getMesseger();
@@ -542,8 +542,8 @@ namespace Vydejna
 
                 Int32 poradi = findPoradiInRow(DBRow);
                 DBRow = myDB.getZrusenoLine(poradi, DBRow);
-                SkladovaKarta sklKarta = new SkladovaKarta(myDB, DBRow, findPoradiInRow(DBRow), new tableItemExistDelgStr(myDB.tableZrusenoItemExist));
-                sklKarta.Font = myDataGridView.Font;
+                SkladovaKarta sklKarta = new SkladovaKarta(myDB, DBRow, findPoradiInRow(DBRow), new tableItemExistDelgStr(myDB.tableZrusenoItemExist),myDataGridView.Font);
+//                sklKarta.Font = myDataGridView.Font;
                 sklKarta.setWinName("Zrušená karta");
                 sklKarta.ShowDialog();
                 DBRow = myDB.getZrusenoLine(poradi, DBRow);
@@ -557,8 +557,8 @@ namespace Vydejna
             {
                 Int32 poradi = findPoradiInRow(DBRow);
                 DBRow = myDB.getZrusenoLine(poradi, DBRow);
-                SkladovaKarta sklKarta = new SkladovaKarta(myDB, DBRow, findPoradiInRow(DBRow), new tableItemExistDelgStr(myDB.tableZrusenoItemExist), sKartaState.edit);
-                sklKarta.Font = myDataGridView.Font;
+                SkladovaKarta sklKarta = new SkladovaKarta(myDB, DBRow, findPoradiInRow(DBRow), new tableItemExistDelgStr(myDB.tableZrusenoItemExist), myDataGridView.Font, sKartaState.edit);
+//                sklKarta.Font =C;
                 sklKarta.setWinName("Zrušená karta");
                 if (sklKarta.ShowDialog() == DialogResult.OK)
                 {
@@ -669,9 +669,9 @@ namespace Vydejna
             Int32 poradi = findPoradiInRow(DBRow);
             DBRow = myDB.getPoskozenoLine(poradi, DBRow);
 
-            VraceneKarta poskozKarta = new VraceneKarta(DBRow);
+            VraceneKarta poskozKarta = new VraceneKarta(DBRow,myDataGridView.Font);
             poskozKarta.setWinName("Poškozeno");
-            poskozKarta.Font = myDataGridView.Font;
+//            poskozKarta.Font = myDataGridView.Font;
             poskozKarta.ShowDialog();
             DBRow = myDB.getPoskozenoLine(poradi, DBRow);
             reloadRow((myDataGridView.DataSource as DataTable), findIndex((myDataGridView.DataSource as DataTable), "poradi", poradi), DBRow);
@@ -684,8 +684,8 @@ namespace Vydejna
             {
                 Int32 poradi = findPoradiInRow(DBRow);
                 DBRow = myDB.getPoskozenoLine(poradi, DBRow);
-                VraceneKarta poskozKarta = new VraceneKarta(DBRow, myDB, new tableItemExistDelgInt(myDB.tablePoskozenoItemExist), vKartaState.edit);
-                poskozKarta.Font = myDataGridView.Font;
+                VraceneKarta poskozKarta = new VraceneKarta(DBRow, myDB, new tableItemExistDelgInt(myDB.tablePoskozenoItemExist), myDataGridView.Font, vKartaState.edit);
+//                poskozKarta.Font = myDataGridView.Font;
                 poskozKarta.setWinName("Poškozeno");
                 if (poskozKarta.ShowDialog() == DialogResult.OK)
                 {
@@ -752,8 +752,8 @@ namespace Vydejna
         {
             Int32 poradi = findPoradiInRow(DBRow);
             DBRow = myDB.getVracenoLine(poradi, DBRow);
-            VraceneKarta vracKarta = new VraceneKarta(DBRow);
-            vracKarta.Font = myDataGridView.Font;
+            VraceneKarta vracKarta = new VraceneKarta(DBRow, myDataGridView.Font);
+//            vracKarta.Font = myDataGridView.Font;
             vracKarta.setWinName("Vraceno");
             vracKarta.ShowDialog();
             DBRow = myDB.getVracenoLine(poradi, DBRow);
@@ -765,8 +765,8 @@ namespace Vydejna
         {
             Int32 poradi = findPoradiInRow(DBRow);
             DBRow = myDB.getVracenoLine(poradi, DBRow);
-            VraceneKarta vracKarta = new VraceneKarta(DBRow, myDB, new tableItemExistDelgInt(myDB.tablePoskozenoItemExist), vKartaState.edit);
-            vracKarta.Font = myDataGridView.Font;
+            VraceneKarta vracKarta = new VraceneKarta(DBRow, myDB, new tableItemExistDelgInt(myDB.tablePoskozenoItemExist), myDataGridView.Font, vKartaState.edit);
+//            vracKarta.Font = myDataGridView.Font;
             vracKarta.setWinName("Vraceno");
             if (vracKarta.ShowDialog() == DialogResult.OK)
             {
@@ -854,8 +854,8 @@ namespace Vydejna
             string osCislo = findOsCisloInRow(DBRow);
             DBRow = myDB.getOsobyLine(osCislo, DBRow);
 
-            PracovniciKarta pracKarta = new PracovniciKarta(DBRow, myDB);
-            pracKarta.Font = myDataGridView.Font;
+            PracovniciKarta pracKarta = new PracovniciKarta(DBRow, myDB, myDataGridView.Font);
+//            pracKarta.Font = myDataGridView.Font;
             pracKarta.ShowDialog();
 
             DBRow = myDB.getOsobyLine(osCislo, DBRow);
@@ -869,8 +869,8 @@ namespace Vydejna
             // zalozeni nove skladove karty
             if ((myDB != null) && (myDB.DBIsOpened()))
             {
-                PracovniciKarta pracKarta = new PracovniciKarta(myDB);
-                pracKarta.Font = myDataGridView.Font;
+                PracovniciKarta pracKarta = new PracovniciKarta(myDB, myDataGridView.Font);
+//                pracKarta.Font = myDataGridView.Font;
                 if (pracKarta.ShowDialog() == DialogResult.OK)
                 {
 
@@ -913,8 +913,8 @@ namespace Vydejna
             {
                 string osCislo = findOsCisloInRow(DBRow);
                 DBRow = myDB.getOsobyLine(osCislo, DBRow);
-                PracovniciKarta pracKarta = new PracovniciKarta(DBRow, myDB, uKartaState.edit);
-                pracKarta.Font = myDataGridView.Font;
+                PracovniciKarta pracKarta = new PracovniciKarta(DBRow, myDB, myDataGridView.Font, uKartaState.edit);
+//                pracKarta.Font = myDataGridView.Font;
                 if (pracKarta.ShowDialog() == DialogResult.OK)
                 {
                     PracovniciKarta.messager mesenger = pracKarta.getMesseger();
@@ -969,8 +969,8 @@ namespace Vydejna
             {
                 string osCislo = Convert.ToString(DBRow["oscislo"]);
 
-                ZapujceneNaradiKarta zapujcKarta = new ZapujceneNaradiKarta(osCislo, myDB);// (DBRow, myDataBase, uKartaState.edit);
-                zapujcKarta.Font = myDataGridView.Font;
+                ZapujceneNaradiKarta zapujcKarta = new ZapujceneNaradiKarta(osCislo, myDB,myDataGridView.Font);// (DBRow, myDataBase, uKartaState.edit);
+//                zapujcKarta.Font = myDataGridView.Font;
                 zapujcKarta.ShowDialog();
             }
         }
@@ -997,7 +997,7 @@ namespace Vydejna
                 {
                     string osCislo = findOsCisloInRow(DBRow);
                     DBRow = myDB.getOsobyLine(osCislo, DBRow);
-                    ZapujceneNaradiKarta zapujcKarta = new ZapujceneNaradiKarta(osCislo, myDB);// (DBRow, myDataBase, uKartaState.edit);
+                    ZapujceneNaradiKarta zapujcKarta = new ZapujceneNaradiKarta(osCislo, myDB, myDataGridView.Font);// (DBRow, myDataBase, uKartaState.edit);
                     zapujcKarta.Font = myDataGridView.Font;
                     zapujcKarta.ShowDialog();
                     DBRow = myDB.getOsobyLine(osCislo, DBRow);

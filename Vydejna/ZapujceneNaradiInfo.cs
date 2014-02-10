@@ -14,12 +14,13 @@ namespace Vydejna
     {
         private Hashtable DBRow;
 
-        public ZapujceneNaradiInfo(Hashtable DBRow)
+        public ZapujceneNaradiInfo(Hashtable DBRow, Font myFont)
         {
             InitializeComponent();
             this.DBRow = DBRow;
             setData();
             CancelButton = buttonCancel;
+            this.Font = myFont;
         }
 
 

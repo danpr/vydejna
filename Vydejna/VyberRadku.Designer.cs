@@ -119,7 +119,7 @@
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.dataGridView2);
             this.Name = "VyberRadku";
-            this.Text = "VyberRadku";
+            this.Text = "Seznam pracovníků";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);

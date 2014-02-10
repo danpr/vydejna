@@ -12,7 +12,7 @@ namespace Vydejna
 {
     public partial class ZapujceniNaradi : Form
     {
-        public ZapujceniNaradi(Hashtable DBRow, string nazev, string JK , Int32 fyzStav)
+        public ZapujceniNaradi(Hashtable DBRow, string nazev, string JK , Int32 fyzStav, Font myFont)
         {
             InitializeComponent();
 
@@ -35,6 +35,7 @@ namespace Vydejna
 
             AcceptButton = buttonOK;
             CancelButton = buttonCancel;
+            this.Font = myFont;
         }
 
         private void numericUpDownKs_ValueChanged(object sender, EventArgs e)

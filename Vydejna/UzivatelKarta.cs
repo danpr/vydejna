@@ -20,7 +20,7 @@ namespace Vydejna
         private Boolean kartaIsAddType = true;
 
         // pridani polozky
-        public UzivatelKarta(vDatabase myDataBase, Boolean admin = false)
+        public UzivatelKarta(vDatabase myDataBase, Font myFont, Boolean admin = false)
         {
             InitializeComponent();
 
@@ -44,10 +44,11 @@ namespace Vydejna
             }
 
             setTreeView();
+            this.Font = myFont;
         }
 
         // editace polozky
-        public UzivatelKarta(vDatabase myDataBase, Hashtable DBRow)
+        public UzivatelKarta(vDatabase myDataBase, Hashtable DBRow, Font myFont)
         {
             InitializeComponent();
 
@@ -57,6 +58,8 @@ namespace Vydejna
 
             this.CancelButton = buttonCancel;
             this.AcceptButton = buttonOK;
+
+            this.Font = myFont;
 
             buttonOK.Enabled = false;
 
@@ -102,6 +105,7 @@ namespace Vydejna
             {
                 stringToTree(Convert.ToString(DBRow["permission"]));
             }
+
         }
 
 

@@ -65,6 +65,7 @@
             this.label14 = new System.Windows.Forms.Label();
             this.listBoxNazev = new System.Windows.Forms.ListBox();
             this.buttonCopy = new System.Windows.Forms.Button();
+            this.labelCenaKs = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMinStav)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownUcetStav)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewZmeny)).BeginInit();
@@ -305,8 +306,8 @@
             // 
             // textBoxPoznamka
             // 
-            this.textBoxPoznamka.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxPoznamka.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxPoznamka.Location = new System.Drawing.Point(98, 238);
             this.textBoxPoznamka.MaxLength = 60;
             this.textBoxPoznamka.Name = "textBoxPoznamka";
@@ -317,9 +318,9 @@
             // dataGridViewZmeny
             // 
             this.dataGridViewZmeny.AllowUserToAddRows = false;
-            this.dataGridViewZmeny.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridViewZmeny.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridViewZmeny.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewZmeny.ContextMenuStrip = this.contextMenuStripZmeny;
             this.dataGridViewZmeny.Location = new System.Drawing.Point(98, 264);
@@ -335,19 +336,19 @@
             this.opravaÚdajuToolStripMenuItem,
             this.zapujcenoNaKartuToolStripMenuItem});
             this.contextMenuStripZmeny.Name = "contextMenuStripZmeny";
-            this.contextMenuStripZmeny.Size = new System.Drawing.Size(179, 70);
+            this.contextMenuStripZmeny.Size = new System.Drawing.Size(177, 48);
             // 
             // opravaÚdajuToolStripMenuItem
             // 
             this.opravaÚdajuToolStripMenuItem.Name = "opravaÚdajuToolStripMenuItem";
-            this.opravaÚdajuToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
+            this.opravaÚdajuToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
             this.opravaÚdajuToolStripMenuItem.Text = "Oprava údaju";
             this.opravaÚdajuToolStripMenuItem.Click += new System.EventHandler(this.ContextMenu_opravaUdaju);
             // 
             // zapujcenoNaKartuToolStripMenuItem
             // 
             this.zapujcenoNaKartuToolStripMenuItem.Name = "zapujcenoNaKartuToolStripMenuItem";
-            this.zapujcenoNaKartuToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
+            this.zapujcenoNaKartuToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
             this.zapujcenoNaKartuToolStripMenuItem.Text = "Zapujceno na kartu";
             this.zapujcenoNaKartuToolStripMenuItem.Click += new System.EventHandler(this.contextMenu_ZapujcenoNaKartu);
             // 
@@ -383,6 +384,7 @@
             // 
             this.numericUpDownUcetCenaKs.DecimalPlaces = 2;
             this.numericUpDownUcetCenaKs.Enabled = false;
+            this.numericUpDownUcetCenaKs.ForeColor = System.Drawing.Color.Red;
             this.numericUpDownUcetCenaKs.Location = new System.Drawing.Point(321, 161);
             this.numericUpDownUcetCenaKs.Maximum = new decimal(new int[] {
             1000000,
@@ -401,6 +403,7 @@
             this.numericUpDownUcetCena.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.numericUpDownUcetCena.DecimalPlaces = 2;
             this.numericUpDownUcetCena.Enabled = false;
+            this.numericUpDownUcetCena.ForeColor = System.Drawing.Color.Red;
             this.numericUpDownUcetCena.Location = new System.Drawing.Point(708, 161);
             this.numericUpDownUcetCena.Maximum = new decimal(new int[] {
             1000000,
@@ -440,8 +443,8 @@
             // 
             // listBoxNazev
             // 
-            this.listBoxNazev.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.listBoxNazev.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.listBoxNazev.Enabled = false;
             this.listBoxNazev.FormattingEnabled = true;
             this.listBoxNazev.Location = new System.Drawing.Point(436, 6);
@@ -461,12 +464,22 @@
             this.buttonCopy.UseVisualStyleBackColor = true;
             this.buttonCopy.Click += new System.EventHandler(this.buttonCopy_Click);
             // 
+            // labelCenaKs
+            // 
+            this.labelCenaKs.AutoSize = true;
+            this.labelCenaKs.Location = new System.Drawing.Point(100, 163);
+            this.labelCenaKs.Name = "labelCenaKs";
+            this.labelCenaKs.Size = new System.Drawing.Size(66, 13);
+            this.labelCenaKs.TabIndex = 30;
+            this.labelCenaKs.Text = "labelCenaKs";
+            // 
             // SkladovaKarta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(824, 500);
+            this.Controls.Add(this.labelCenaKs);
             this.Controls.Add(this.buttonCopy);
             this.Controls.Add(this.listBoxNazev);
             this.Controls.Add(this.label14);
@@ -555,5 +568,6 @@
         private System.Windows.Forms.ToolStripMenuItem opravaÚdajuToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem zapujcenoNaKartuToolStripMenuItem;
         private System.Windows.Forms.Button buttonCopy;
+        private System.Windows.Forms.Label labelCenaKs;
     }
 }

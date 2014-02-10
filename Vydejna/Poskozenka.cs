@@ -63,7 +63,7 @@ namespace Vydejna
         private double celkCena;
         private string csn;
 
-        public Poskozenka(Hashtable DBRow, vDatabase myDataBase)
+        public Poskozenka(Hashtable DBRow, vDatabase myDataBase, Font myFont)
         {
             InitializeComponent();
 
@@ -88,6 +88,7 @@ namespace Vydejna
 
             numericUpDownMnozstvi.Maximum = Convert.ToInt32(DBRow["fyzstav"]);
             textBoxOsCislo.Focus();
+            this.Font = myFont;
         }
 
         public messager getMesseger()
@@ -155,7 +156,7 @@ namespace Vydejna
         {
             // vyber radku
 
-            VyberRadku vyberOsoby = new VyberRadku(myDataBase);
+            VyberRadku vyberOsoby = new VyberRadku(myDataBase, this.Font);
             if (vyberOsoby.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 Hashtable osobaRow = vyberOsoby.getDBRowFromSelectedRow(null);

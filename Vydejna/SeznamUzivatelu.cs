@@ -14,7 +14,7 @@ namespace Vydejna
     {
         private vDatabase myDataBase;
 
-        public SeznamUzivatelu(vDatabase myDataBase)
+        public SeznamUzivatelu(vDatabase myDataBase, Font myFont)
         {
             this.myDataBase = myDataBase;
             InitializeComponent();
@@ -32,6 +32,7 @@ namespace Vydejna
             dataGridView1.DataSource = null;
             Application.DoEvents();
 
+            this.Font = myFont;
 //            loadData(myDataBase);
         }
 
@@ -82,7 +83,7 @@ namespace Vydejna
         {
             // pridani polozky
 
-            UzivatelKarta uk = new UzivatelKarta(myDataBase, false);
+            UzivatelKarta uk = new UzivatelKarta(myDataBase, this.Font, false);
             if (uk.ShowDialog() == DialogResult.OK)
             {
                 string userID = uk.getUserID();
@@ -151,7 +152,7 @@ namespace Vydejna
 
                 if (DBRow != null)
                 {
-                    UzivatelKarta uk = new UzivatelKarta(myDataBase, DBRow);
+                    UzivatelKarta uk = new UzivatelKarta(myDataBase, DBRow, this.Font);
                     if (uk.ShowDialog() == DialogResult.OK)
                     {
                         // zobrazime vysledek

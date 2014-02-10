@@ -15,8 +15,9 @@ namespace Vydejna
     {
         public vDatabase myDataBase;
         
-        public VyberRadku(vDatabase myDataBase)
+        public VyberRadku(vDatabase myDataBase, Font myFont)
         {
+
             this.myDataBase = myDataBase;
 
             InitializeComponent();
@@ -30,6 +31,8 @@ namespace Vydejna
             dataGridView2.Columns.Clear();
             dataGridView2.DataSource = null;
             Application.DoEvents();
+
+            this.Font = myFont;
 
             if (myDataBase.DBIsOpened())
             {
@@ -119,10 +122,9 @@ namespace Vydejna
         {
             if ((myDataBase != null) && (myDataBase.DBIsOpened()))
             {
-                PracovniciKarta pracKarta = new PracovniciKarta(myDataBase);
+                PracovniciKarta pracKarta = new PracovniciKarta(myDataBase, this.Font);
                 if (pracKarta.ShowDialog() == DialogResult.OK)
                 {
-
                     PracovniciKarta.messager mesenger = pracKarta.getMesseger();
                     Int32 stav = myDataBase.addNewLineOsoby(mesenger.prijmeni, mesenger.jmeno, mesenger.ulice, mesenger.mesto, mesenger.psc, mesenger.telHome, mesenger.oscislo, mesenger.stredisko, mesenger.cisZnamky, mesenger.oddeleni, mesenger.pracoviste, mesenger.telZam, mesenger.poznamka);
                     if (stav != -1)
@@ -148,7 +150,7 @@ namespace Vydejna
 
             Hashtable DBRow = getDBRowFromSelectedRow(null);
 
-            PracovniciKarta pracKarta = new PracovniciKarta(DBRow, myDataBase, uKartaState.edit);
+            PracovniciKarta pracKarta = new PracovniciKarta(DBRow, myDataBase, this.Font, uKartaState.edit);
             if (pracKarta.ShowDialog() == DialogResult.OK)
             {
                 PracovniciKarta.messager mesenger = pracKarta.getMesseger();

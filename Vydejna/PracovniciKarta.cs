@@ -59,7 +59,7 @@ namespace Vydejna
         private uKartaState state;
 
 
-        public PracovniciKarta(Hashtable DBRow, vDatabase myDataBase, uKartaState state = uKartaState.show)
+        public PracovniciKarta(Hashtable DBRow, vDatabase myDataBase, Font myFont, uKartaState state = uKartaState.show)
         {
             InitializeComponent();
             this.state = state;
@@ -81,14 +81,16 @@ namespace Vydejna
 
             AcceptButton = buttonOK;
             CancelButton = buttonCancel;
+            this.Font = myFont;
         }
 
-        public PracovniciKarta(vDatabase myDataBase)
+        public PracovniciKarta(vDatabase myDataBase, Font myFont)
         {
             InitializeComponent();
             myDB = myDataBase;
             this.state = uKartaState.add;
             setAddState();
+            this.Font = myFont;
         }
 
 

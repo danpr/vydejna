@@ -17,7 +17,7 @@ namespace Vydejna
         Hashtable osobyDBRow;
         private string osCislo;
 
-        public ZapujceneNaradiKarta(string osCislo, vDatabase myDataBase)
+        public ZapujceneNaradiKarta(string osCislo, vDatabase myDataBase, Font myFont)
         {
             myDB = myDataBase;
             InitializeComponent();
@@ -37,6 +37,7 @@ namespace Vydejna
             dataGridViewZmeny.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
             CancelButton = buttonCancel;
+            this.Font = myFont;
         }
 
         private void ZapujceneNaradiKarta_Load(object sender, EventArgs e)
@@ -113,8 +114,8 @@ namespace Vydejna
         private void zapůjčeníNářadíToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // zobrazime seznam polozek naradi
-            SeznamNaradiJednoduchy seznamNar = new SeznamNaradiJednoduchy(myDB);
-            seznamNar.Font = this.Font;
+            SeznamNaradiJednoduchy seznamNar = new SeznamNaradiJednoduchy(myDB,this.Font);
+//            seznamNar.Font = this.Font;
             if (seznamNar != null)
             {
                 seznamNar.Visible = false;   // formular se automaticky presune do show musime tedy ho vypnout
@@ -125,7 +126,7 @@ namespace Vydejna
                         if (seznamNar.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                         {
                             SeznamNaradiJednoduchy.messager myMesenger = seznamNar.getMesseger();
-                            ZapujceniNaradi zapujcNaradi = new ZapujceniNaradi(osobyDBRow, myMesenger.nazev, myMesenger.jk, myMesenger.fyzStav);
+                            ZapujceniNaradi zapujcNaradi = new ZapujceniNaradi(osobyDBRow, myMesenger.nazev, myMesenger.jk, myMesenger.fyzStav,this.Font);
                             zapujcNaradi.Font = this.Font;
                             if (zapujcNaradi.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                             {
@@ -287,7 +288,7 @@ namespace Vydejna
                     {
                         Hashtable infoDBRow = myDB.getNaradiLine(nporadi, null);
 
-                        SkladovaKarta sklKarta = new SkladovaKarta(myDB, infoDBRow, nporadi, new tableItemExistDelgStr(myDB.tableNaradiItemExist));
+                        SkladovaKarta sklKarta = new SkladovaKarta(myDB, infoDBRow, nporadi, new tableItemExistDelgStr(myDB.tableNaradiItemExist),this.Font);
                         sklKarta.Font = this.Font;
                         sklKarta.setWinName("Skladová karta");
                         sklKarta.ShowDialog();
@@ -342,7 +343,7 @@ namespace Vydejna
 
 
 
-                        ZapujceneNaradiInfo zapNarInfo = new ZapujceneNaradiInfo(vypujcDBRow);
+                        ZapujceneNaradiInfo zapNarInfo = new ZapujceneNaradiInfo(vypujcDBRow,this.Font);
                         zapNarInfo.Font = this.Font;
                         zapNarInfo.ShowDialog();
 

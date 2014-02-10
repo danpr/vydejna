@@ -64,7 +64,7 @@ namespace Vydejna
         private string oldJK;
 
 
-        public SkladovaKarta(vDatabase myDataBase, Hashtable DBRow, Int32 poradi, tableItemExistDelgStr testExistItem, sKartaState state = sKartaState.show)
+        public SkladovaKarta(vDatabase myDataBase, Hashtable DBRow, Int32 poradi, tableItemExistDelgStr testExistItem, Font myFont, sKartaState state = sKartaState.show)
         {
             InitializeComponent();
             this.state = state;
@@ -90,10 +90,16 @@ namespace Vydejna
                 buttonOK.Enabled = false;
                 buttonCopy.Visible = false;
                 buttonCopy.Enabled = false;
+                numericUpDownCenaKs.Enabled = false;
+                labelCenaKs.Enabled = true;
+                
             }
             else
             {
                 // edit + add
+                numericUpDownCenaKs.Enabled = true;
+                labelCenaKs.Enabled = false;
+
                 buttonOK.Visible = true;
                 buttonOK.Enabled = true;
                 if (state != sKartaState.add)
@@ -108,10 +114,11 @@ namespace Vydejna
             setData(DBRow);
             loadZmenyItems();
             this.CancelButton = this.buttonCancel;
+            this.Font = myFont;
         }
 
 
-        public SkladovaKarta(vDatabase myDataBase, tableItemExistDelgStr testExistItem)
+        public SkladovaKarta(vDatabase myDataBase, tableItemExistDelgStr testExistItem, Font myFont)
         {
             InitializeComponent();
 
@@ -124,6 +131,7 @@ namespace Vydejna
             setAddState();
 
             this.CancelButton = this.buttonCancel;
+            this.Font = myFont;
         }
 
         public void setWinName(string winName)
@@ -146,6 +154,7 @@ namespace Vydejna
             numericUpDownFyzStav.Value  = Convert.ToDecimal(DBRow["fyzstav"]);
             cenaKs = Convert.ToDecimal(DBRow["cena"]);
             numericUpDownCenaKs.Value = Convert.ToDecimal(DBRow["cena"]);
+            labelCenaKs.Text = Convert.ToString(DBRow["cena"]);
             numericUpDownUcetCenaKs.Value = Convert.ToDecimal(DBRow["ucetkscen"]); 
 //            celkCena = Convert.ToDecimal(DBRow["celkcena"]);
             numericUpDownUcetCena.Value = Convert.ToDecimal(DBRow["celkcena"]); //celkova cena
@@ -385,7 +394,7 @@ namespace Vydejna
                 int y = this.Location.Y + dataGridViewZmeny.Location.Y + dataGridViewZmeny.ColumnHeadersHeight + rowsHeight + titulekHeight;
 
 
-                ZmenyOprava opravaZmen = new ZmenyOprava(myDB, poradi, zmenPoradi);
+                ZmenyOprava opravaZmen = new ZmenyOprava(myDB, poradi, zmenPoradi, this.Font);
 
                 opravaZmen.StartPosition = FormStartPosition.Manual;
                 opravaZmen.SetDesktopLocation(x, y);
@@ -432,7 +441,7 @@ namespace Vydejna
                     if (myDB.tableOsobyItemExist(osCislo))
                     {
 
-                        ZapujceneNaradiKarta zapujcKarta = new ZapujceneNaradiKarta(osCislo, myDB);// (DBRow, myDataBase, uKartaState.edit);
+                        ZapujceneNaradiKarta zapujcKarta = new ZapujceneNaradiKarta(osCislo, myDB, this.Font);// (DBRow, myDataBase, uKartaState.edit);
                         zapujcKarta.ShowDialog();
                     }
                     else
@@ -448,7 +457,7 @@ namespace Vydejna
         {
             // kopie dat
             // zobrazime seznam polozek naradi
-            SeznamNaradiJednoduchy seznamNar = new SeznamNaradiJednoduchy(myDB);
+            SeznamNaradiJednoduchy seznamNar = new SeznamNaradiJednoduchy(myDB, this.Font);
             if (seznamNar != null)
             {
                 seznamNar.Visible = false;   // formular se automaticky presune do show musime tedy ho vypnout

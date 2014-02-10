@@ -647,7 +647,7 @@ namespace Vydejna
             // zalozeni nove skladove karty
             if ((myDB != null) && (myDB.DBIsOpened()))
             {
-                SkladovaKarta mySkladovaKarta = new SkladovaKarta(myDB, new tableItemExistDelgStr(myDB.tableNaradiItemExist));
+                SkladovaKarta mySkladovaKarta = new SkladovaKarta(myDB, new tableItemExistDelgStr(myDB.tableNaradiItemExist),dataGridView1.Font);
                 mySkladovaKarta.ShowDialog();
             }
         }
@@ -884,7 +884,7 @@ namespace Vydejna
             // zalozeni nove skladove karty
             if ((myDB != null) && (myDB.DBIsOpened()))
             {
-                SkladovaKarta sklKarta = new SkladovaKarta(myDB, new tableItemExistDelgStr(myDB.tableNaradiItemExist));
+                SkladovaKarta sklKarta = new SkladovaKarta(myDB, new tableItemExistDelgStr(myDB.tableNaradiItemExist),dataGridView1.Font);
                 if (sklKarta.ShowDialog() == DialogResult.OK)
                 {
                     SkladovaKarta.messager mesenger = sklKarta.getMesseger();
@@ -1189,7 +1189,7 @@ namespace Vydejna
                         + "Požadujete jeho vytvoření ?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     {
                         // vztvoření uctu
-                        UzivatelKarta uk = new UzivatelKarta(myDB,true);
+                        UzivatelKarta uk = new UzivatelKarta(myDB, dataGridView1.Font, true);
                         uk.ShowDialog();
 
                     }
@@ -1222,7 +1222,7 @@ namespace Vydejna
         private void toolStripMenuItem11_Click(object sender, EventArgs e)
         {
             // sprava uzivatelských účtů
-            SeznamUzivatelu spravaUzivatelu = new SeznamUzivatelu(myDB);
+            SeznamUzivatelu spravaUzivatelu = new SeznamUzivatelu(myDB,this.Font);
             spravaUzivatelu.ShowDialog();
         }
 

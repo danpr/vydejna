@@ -62,7 +62,7 @@ namespace Vydejna
         private Int32 poradi;
         private tableItemExistDelgInt testExistItem;
 
-        public VraceneKarta(Hashtable DBRow, vDatabase myDataBase, tableItemExistDelgInt testExistItem, vKartaState state = vKartaState.show)
+        public VraceneKarta(Hashtable DBRow, vDatabase myDataBase, tableItemExistDelgInt testExistItem, Font myFont, vKartaState state = vKartaState.show)
         {
             InitializeComponent();
             this.state = state;
@@ -86,6 +86,7 @@ namespace Vydejna
 
             AcceptButton = buttonOK;
             CancelButton = buttonCancel;
+            this.Font = myFont;
         }
 
         public void setWinName (string winName)
@@ -94,12 +95,12 @@ namespace Vydejna
         }
 
 
-        public VraceneKarta(Hashtable DBRow)
+        public VraceneKarta(Hashtable DBRow, Font myFont)
         {
             InitializeComponent();
             setData(DBRow);
             CancelButton = buttonCancel;
-
+            this.Font = myFont;
         }
 
         public void setData(Hashtable DBRow)

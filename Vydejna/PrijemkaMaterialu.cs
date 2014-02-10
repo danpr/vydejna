@@ -36,7 +36,7 @@ namespace Vydejna
 
         public Int32 parentPoradi;
 
-        public PrijemkaMaterialu(Hashtable DBRow, vDatabase myDataBase)
+        public PrijemkaMaterialu(Hashtable DBRow, vDatabase myDataBase, Font myFont)
         {
             InitializeComponent();
             labelJK.Text = Convert.ToString(DBRow["jk"]);
@@ -48,6 +48,7 @@ namespace Vydejna
 
             AcceptButton = buttonOK;
             CancelButton = buttonCancel;
+            this.Font = myFont;
         }
 
 

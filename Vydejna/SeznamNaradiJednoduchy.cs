@@ -37,7 +37,7 @@ namespace Vydejna
 
 
 
-        public SeznamNaradiJednoduchy(vDatabase myDataBase)
+        public SeznamNaradiJednoduchy(vDatabase myDataBase, Font myFont)
         {
             this.myDataBase = myDataBase;
             InitializeComponent();
@@ -57,7 +57,7 @@ namespace Vydejna
             dataGridView1.Columns.Clear();
             dataGridView1.DataSource = null;
             Application.DoEvents();
-
+            this.Font = myFont;
         }
 
         private void loadData(vDatabase myDataBase)
