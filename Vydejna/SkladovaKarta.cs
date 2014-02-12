@@ -72,8 +72,6 @@ namespace Vydejna
             this.poradi = poradi;
             myDB = myDataBase;
 
-            if (state == sKartaState.edit) setEditState();
-
             dataGridViewZmeny.MultiSelect = false;
             dataGridViewZmeny.ReadOnly = true;
             dataGridViewZmeny.RowHeadersVisible = false;
@@ -83,32 +81,22 @@ namespace Vydejna
             dataGridViewZmeny.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
             listBoxNazev.Hide();
-            
+
             if (state == sKartaState.show)
             {
-                buttonOK.Visible = false;
-                buttonOK.Enabled = false;
-                buttonCopy.Visible = false;
-                buttonCopy.Enabled = false;
-                numericUpDownCenaKs.Enabled = false;
-                labelCenaKs.Enabled = true;
-                
+                setShowState();
             }
             else
             {
                 // edit + add
-                numericUpDownCenaKs.Enabled = true;
-                labelCenaKs.Enabled = false;
-
-                buttonOK.Visible = true;
-                buttonOK.Enabled = true;
-                if (state != sKartaState.add)
+                if (state == sKartaState.add)
                 {
-                    buttonCopy.Visible = false;
-                    buttonCopy.Enabled = false;
+                    setAddState();
                 }
-
-                setEditState();
+                else
+                {
+                    setEditState();
+                }
             }
 
             setData(DBRow);
@@ -146,21 +134,24 @@ namespace Vydejna
             textBoxJK.Text = Convert.ToString(DBRow["jk"]);
             oldJK = textBoxJK.Text;
             numericUpDownUcetStav.Value = Convert.ToInt32(DBRow["ucetstav"]);
+            labelUcetStav.Text = Convert.ToString(DBRow["ucetstav"]);
             textBoxUcet.Text = Convert.ToString(DBRow["analucet"]);
             textBoxCSN.Text = Convert.ToString(DBRow["normacsn"]);
             textBoxDIN.Text = Convert.ToString(DBRow["normadin"]);
             textBoxVyrobce.Text = Convert.ToString(DBRow["vyrobce"]);
             textBoxRozmer.Text = Convert.ToString(DBRow["rozmer"]);
             numericUpDownFyzStav.Value  = Convert.ToDecimal(DBRow["fyzstav"]);
+            labelFyzStav.Text = Convert.ToString(DBRow["fyzstav"]);
             cenaKs = Convert.ToDecimal(DBRow["cena"]);
             numericUpDownCenaKs.Value = Convert.ToDecimal(DBRow["cena"]);
             labelCenaKs.Text = Convert.ToString(DBRow["cena"]);
-            numericUpDownUcetCenaKs.Value = Convert.ToDecimal(DBRow["ucetkscen"]); 
-//            celkCena = Convert.ToDecimal(DBRow["celkcena"]);
+            numericUpDownUcetCenaKs.Value = Convert.ToDecimal(DBRow["ucetkscen"]);
+            labelUcetCenaKs.Text = Convert.ToString(DBRow["ucetkscen"]);
             numericUpDownUcetCena.Value = Convert.ToDecimal(DBRow["celkcena"]); //celkova cena
+            labelUcetCena.Text = Convert.ToString(DBRow["celkcena"]);
             numericUpDownMinStav.Value = Convert.ToInt32(DBRow["minimum"]);
+            labelMinStav.Text = Convert.ToString(DBRow["minimum"]);
             textBoxPoznamka.Text = Convert.ToString(DBRow["poznamka"]);
-//            poradi = Convert.ToInt32(DBRow["poradi"]);
         }
 
         private void label10_Click(object sender, EventArgs e)
@@ -221,18 +212,66 @@ namespace Vydejna
         }
 
 
+        private void setShowState()
+        {
+            buttonOK.Visible = false;
+            buttonOK.Enabled = false;
+            buttonCopy.Visible = false;
+            buttonCopy.Enabled = false;
+
+            numericUpDownCenaKs.Enabled = false;
+            numericUpDownCenaKs.Hide();
+            labelCenaKs.Show();
+            numericUpDownUcetCenaKs.Enabled = false;
+            numericUpDownUcetCenaKs.Hide();
+            labelUcetCenaKs.Show();
+            numericUpDownMinStav.Enabled = false;
+            numericUpDownMinStav.Hide();
+            labelMinStav.Show();
+            numericUpDownUcetCena.Enabled = false;
+            numericUpDownUcetCena.Hide();
+            labelUcetCena.Show();
+            numericUpDownUcetStav.Enabled = false;
+            numericUpDownUcetStav.Hide();
+            labelUcetStav.Show();
+            numericUpDownFyzStav.Enabled = false;
+            numericUpDownFyzStav.Hide();
+            labelFyzStav.Show();
+
+        }
+
         private void setEditState()
         {
-            setAddState();
+            setAddEditState();
             numericUpDownUcetCena.ReadOnly = false;
             numericUpDownUcetCena.Enabled = true;
             numericUpDownUcetStav.ReadOnly = false;
             numericUpDownUcetStav.Enabled = true;
             numericUpDownFyzStav.ReadOnly = false;
             numericUpDownFyzStav.Enabled = true;
+
+            buttonCopy.Visible = false;
+            buttonCopy.Enabled = false;
         }
-        
+
+
         private void setAddState()
+        {
+            setAddEditState();
+
+            numericUpDownUcetCena.ReadOnly = true;
+            numericUpDownUcetCena.Enabled = false;
+            numericUpDownUcetStav.ReadOnly = true;
+            numericUpDownUcetStav.Enabled = false;
+            numericUpDownFyzStav.ReadOnly = true;
+            numericUpDownFyzStav.Enabled = false;
+
+            buttonCopy.Visible = true;
+            buttonCopy.Enabled = true;
+        }
+
+
+        private void setAddEditState()
         {
             textBoxNazev.ReadOnly = false;
             textBoxPoznamka.ReadOnly = false;
@@ -247,19 +286,36 @@ namespace Vydejna
             numericUpDownCenaKs.Enabled = true;
             numericUpDownUcetCenaKs.ReadOnly = false;
             numericUpDownUcetCenaKs.Enabled = true;
-            numericUpDownUcetCena.ReadOnly = true;
-            numericUpDownUcetCena.Enabled = false;
             numericUpDownMinStav.ReadOnly = false;
             numericUpDownMinStav.Enabled = true;
-            numericUpDownUcetStav.ReadOnly = true;
-            numericUpDownUcetStav.Enabled = false;
-            numericUpDownFyzStav.ReadOnly = true;
-            numericUpDownFyzStav.Enabled = false;
-
             listBoxNazev.Enabled = true;
             listBoxNazev.Show();
 
+            numericUpDownCenaKs.Enabled = true;
+            numericUpDownCenaKs.Show();
+            labelCenaKs.Hide();
+            numericUpDownUcetCenaKs.Enabled = true;
+            numericUpDownUcetCenaKs.Show();
+            labelUcetCenaKs.Hide();
+            numericUpDownMinStav.Enabled = true;
+            numericUpDownMinStav.Show();
+            labelMinStav.Hide();
+            numericUpDownUcetCena.Enabled = true;
+            numericUpDownUcetCena.Show();
+            labelUcetCena.Hide();
+            numericUpDownUcetStav.Enabled = true;
+            numericUpDownUcetStav.Show();
+            labelUcetStav.Hide();
+            numericUpDownFyzStav.Enabled = true;
+            numericUpDownFyzStav.Show();
+            labelFyzStav.Hide();
+
+            buttonOK.Visible = true;
+            buttonOK.Enabled = true;
         }
+
+
+
 
         private void SkladovaKarta_Activated(object sender, EventArgs e)
         {

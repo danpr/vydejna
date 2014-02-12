@@ -66,6 +66,11 @@
             this.listBoxNazev = new System.Windows.Forms.ListBox();
             this.buttonCopy = new System.Windows.Forms.Button();
             this.labelCenaKs = new System.Windows.Forms.Label();
+            this.labelUcetCenaKs = new System.Windows.Forms.Label();
+            this.labelMinStav = new System.Windows.Forms.Label();
+            this.labelUcetCena = new System.Windows.Forms.Label();
+            this.labelUcetStav = new System.Windows.Forms.Label();
+            this.labelFyzStav = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMinStav)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownUcetStav)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewZmeny)).BeginInit();
@@ -467,11 +472,58 @@
             // labelCenaKs
             // 
             this.labelCenaKs.AutoSize = true;
-            this.labelCenaKs.Location = new System.Drawing.Point(100, 163);
+            this.labelCenaKs.Location = new System.Drawing.Point(104, 163);
             this.labelCenaKs.Name = "labelCenaKs";
             this.labelCenaKs.Size = new System.Drawing.Size(66, 13);
             this.labelCenaKs.TabIndex = 30;
             this.labelCenaKs.Text = "labelCenaKs";
+            // 
+            // labelUcetCenaKs
+            // 
+            this.labelUcetCenaKs.AutoSize = true;
+            this.labelUcetCenaKs.ForeColor = System.Drawing.Color.Red;
+            this.labelUcetCenaKs.Location = new System.Drawing.Point(322, 163);
+            this.labelUcetCenaKs.Name = "labelUcetCenaKs";
+            this.labelUcetCenaKs.Size = new System.Drawing.Size(89, 13);
+            this.labelUcetCenaKs.TabIndex = 31;
+            this.labelUcetCenaKs.Text = "labelUcetCenaKs";
+            // 
+            // labelMinStav
+            // 
+            this.labelMinStav.AutoSize = true;
+            this.labelMinStav.Location = new System.Drawing.Point(322, 190);
+            this.labelMinStav.Name = "labelMinStav";
+            this.labelMinStav.Size = new System.Drawing.Size(69, 13);
+            this.labelMinStav.TabIndex = 32;
+            this.labelMinStav.Text = "labelMInStav";
+            // 
+            // labelUcetCena
+            // 
+            this.labelUcetCena.AutoSize = true;
+            this.labelUcetCena.ForeColor = System.Drawing.Color.Red;
+            this.labelUcetCena.Location = new System.Drawing.Point(709, 163);
+            this.labelUcetCena.Name = "labelUcetCena";
+            this.labelUcetCena.Size = new System.Drawing.Size(77, 13);
+            this.labelUcetCena.TabIndex = 33;
+            this.labelUcetCena.Text = "labelUcetCena";
+            // 
+            // labelUcetStav
+            // 
+            this.labelUcetStav.AutoSize = true;
+            this.labelUcetStav.Location = new System.Drawing.Point(709, 190);
+            this.labelUcetStav.Name = "labelUcetStav";
+            this.labelUcetStav.Size = new System.Drawing.Size(74, 13);
+            this.labelUcetStav.TabIndex = 34;
+            this.labelUcetStav.Text = "labelUcetStav";
+            // 
+            // labelFyzStav
+            // 
+            this.labelFyzStav.AutoSize = true;
+            this.labelFyzStav.Location = new System.Drawing.Point(709, 214);
+            this.labelFyzStav.Name = "labelFyzStav";
+            this.labelFyzStav.Size = new System.Drawing.Size(67, 13);
+            this.labelFyzStav.TabIndex = 35;
+            this.labelFyzStav.Text = "labelFyzStav";
             // 
             // SkladovaKarta
             // 
@@ -479,6 +531,11 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(824, 500);
+            this.Controls.Add(this.labelFyzStav);
+            this.Controls.Add(this.labelUcetStav);
+            this.Controls.Add(this.labelUcetCena);
+            this.Controls.Add(this.labelMinStav);
+            this.Controls.Add(this.labelUcetCenaKs);
             this.Controls.Add(this.labelCenaKs);
             this.Controls.Add(this.buttonCopy);
             this.Controls.Add(this.listBoxNazev);
@@ -569,5 +626,10 @@
         private System.Windows.Forms.ToolStripMenuItem zapujcenoNaKartuToolStripMenuItem;
         private System.Windows.Forms.Button buttonCopy;
         private System.Windows.Forms.Label labelCenaKs;
+        private System.Windows.Forms.Label labelUcetCenaKs;
+        private System.Windows.Forms.Label labelMinStav;
+        private System.Windows.Forms.Label labelUcetCena;
+        private System.Windows.Forms.Label labelUcetStav;
+        private System.Windows.Forms.Label labelFyzStav;
     }
 }
