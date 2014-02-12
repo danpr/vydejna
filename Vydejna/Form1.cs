@@ -28,12 +28,16 @@ namespace Vydejna
         {
             InitializeComponent();
 
+            Font initFont = loadSettingFont();
+            if (initFont != null)
+            {
+                dataGridView1.Font = initFont;
+            }
+
             labelView.Font = new Font(labelView.Font, FontStyle.Bold);
             labelUser.Text = "";
 
             myDB = null;
-
-
 
             contextMenuDisable();
 
@@ -764,6 +768,65 @@ namespace Vydejna
         }
 
 
+        private Font loadSettingFont()
+        {
+            RegistryKey klic = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\CS\FONT", true);
+
+            Font myFont = null;
+            string fontName;
+            float fontSize;
+            FontStyle fontStyle =FontStyle.Regular;
+
+            if (klic != null)
+            {
+                try
+                {
+                    fontName = klic.GetValue("Name").ToString();
+                    fontSize = (float)Convert.ToDouble(klic.GetValue("Size"));
+                }
+                catch 
+                {
+                    return null;
+                }
+
+                try
+                {
+                    fontStyle = (FontStyle)Convert.ToInt32(klic.GetValue("Style"));
+                }
+                catch { }
+
+                myFont = new Font(fontName, fontSize, fontStyle);
+                return myFont;
+            }
+            return null;
+        }
+
+
+        private void saveSettingFont(Font myFont)
+        {
+
+            RegistryKey regHelpKlic;
+            RegistryKey klic = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\CS\FONT", true);
+            if (klic == null)
+            {
+                RegistryKey regKlic = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\CS", true);
+                if (regKlic == null)
+                {
+                    regHelpKlic = Registry.CurrentUser.OpenSubKey(@"SOFTWARE", true);
+                    regHelpKlic.CreateSubKey("CS");
+                }
+                regHelpKlic = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\CS", true);
+                regHelpKlic.CreateSubKey("FONT");
+                klic = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\CS\FONT", true);
+            }
+            // zapis polozky
+            klic.SetValue("Name", myFont.FontFamily.Name);
+            klic.SetValue("Size", myFont.Size);
+            klic.SetValue("Style", (Int32)myFont.Style);
+        }
+
+
+
         private void loadSettingDB(parametryDB myParametryDB)
         {
             // nastavime default hodnoty
@@ -1230,8 +1293,12 @@ namespace Vydejna
         private void písmoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // nastaveni pisma
-            fontDialog1.ShowDialog();
-            dataGridView1.Font = fontDialog1.Font;
+            fontDialog1.Font = dataGridView1.Font;
+            if (fontDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                saveSettingFont(fontDialog1.Font);
+                dataGridView1.Font = fontDialog1.Font;
+            }
         }
 
         private void zmenaHeslaToolStripMenuItem_Click(object sender, EventArgs e)
