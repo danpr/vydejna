@@ -134,23 +134,17 @@ namespace Vydejna
             textBoxJK.Text = Convert.ToString(DBRow["jk"]);
             oldJK = textBoxJK.Text;
             numericUpDownUcetStav.Value = Convert.ToInt32(DBRow["ucetstav"]);
-            labelUcetStav.Text = Convert.ToString(DBRow["ucetstav"]);
             textBoxUcet.Text = Convert.ToString(DBRow["analucet"]);
             textBoxCSN.Text = Convert.ToString(DBRow["normacsn"]);
             textBoxDIN.Text = Convert.ToString(DBRow["normadin"]);
             textBoxVyrobce.Text = Convert.ToString(DBRow["vyrobce"]);
             textBoxRozmer.Text = Convert.ToString(DBRow["rozmer"]);
             numericUpDownFyzStav.Value  = Convert.ToDecimal(DBRow["fyzstav"]);
-            labelFyzStav.Text = Convert.ToString(DBRow["fyzstav"]);
             cenaKs = Convert.ToDecimal(DBRow["cena"]);
             numericUpDownCenaKs.Value = Convert.ToDecimal(DBRow["cena"]);
-            labelCenaKs.Text = Convert.ToString(DBRow["cena"]);
             numericUpDownUcetCenaKs.Value = Convert.ToDecimal(DBRow["ucetkscen"]);
-            labelUcetCenaKs.Text = Convert.ToString(DBRow["ucetkscen"]);
             numericUpDownUcetCena.Value = Convert.ToDecimal(DBRow["celkcena"]); //celkova cena
-            labelUcetCena.Text = Convert.ToString(DBRow["celkcena"]);
             numericUpDownMinStav.Value = Convert.ToInt32(DBRow["minimum"]);
-            labelMinStav.Text = Convert.ToString(DBRow["minimum"]);
             textBoxPoznamka.Text = Convert.ToString(DBRow["poznamka"]);
         }
 
@@ -219,36 +213,32 @@ namespace Vydejna
             buttonCopy.Visible = false;
             buttonCopy.Enabled = false;
 
-            numericUpDownCenaKs.Enabled = false;
-            numericUpDownCenaKs.Hide();
-            labelCenaKs.Show();
-            numericUpDownUcetCenaKs.Enabled = false;
-            numericUpDownUcetCenaKs.Hide();
-            labelUcetCenaKs.Show();
-            numericUpDownMinStav.Enabled = false;
-            numericUpDownMinStav.Hide();
-            labelMinStav.Show();
-            numericUpDownUcetCena.Enabled = false;
-            numericUpDownUcetCena.Hide();
-            labelUcetCena.Show();
-            numericUpDownUcetStav.Enabled = false;
-            numericUpDownUcetStav.Hide();
-            labelUcetStav.Show();
-            numericUpDownFyzStav.Enabled = false;
-            numericUpDownFyzStav.Hide();
-            labelFyzStav.Show();
+            textBoxNazev.BackColor = System.Drawing.SystemColors.Window;
+            textBoxJK.BackColor = System.Drawing.SystemColors.Window;
+            textBoxCSN.BackColor = System.Drawing.SystemColors.Window;
+            textBoxDIN.BackColor = System.Drawing.SystemColors.Window;
+            textBoxRozmer.BackColor = System.Drawing.SystemColors.Window;
+            textBoxVyrobce.BackColor = System.Drawing.SystemColors.Window;
+            textBoxPoznamka.BackColor = System.Drawing.SystemColors.Window;
+            textBoxUcet.BackColor = System.Drawing.SystemColors.Window;
 
-        }
+            numericUpDownCenaKs.BackColor = System.Drawing.SystemColors.Window;
+            numericUpDownUcetCenaKs.BackColor = System.Drawing.SystemColors.Window;
+            numericUpDownMinStav.BackColor = System.Drawing.SystemColors.Window;
+            numericUpDownUcetCena.BackColor = System.Drawing.SystemColors.Window;
+            numericUpDownUcetStav.BackColor = System.Drawing.SystemColors.Window;
+            numericUpDownFyzStav.BackColor = System.Drawing.SystemColors.Window;
+            }
 
         private void setEditState()
         {
             setAddEditState();
             numericUpDownUcetCena.ReadOnly = false;
-            numericUpDownUcetCena.Enabled = true;
+            numericUpDownUcetCena.Increment = 1;
             numericUpDownUcetStav.ReadOnly = false;
-            numericUpDownUcetStav.Enabled = true;
+            numericUpDownUcetStav.Increment = 1;
             numericUpDownFyzStav.ReadOnly = false;
-            numericUpDownFyzStav.Enabled = true;
+            numericUpDownFyzStav.Increment = 1;
 
             buttonCopy.Visible = false;
             buttonCopy.Enabled = false;
@@ -259,11 +249,8 @@ namespace Vydejna
         {
             setAddEditState();
 
-            numericUpDownUcetCena.ReadOnly = true;
             numericUpDownUcetCena.Enabled = false;
-            numericUpDownUcetStav.ReadOnly = true;
             numericUpDownUcetStav.Enabled = false;
-            numericUpDownFyzStav.ReadOnly = true;
             numericUpDownFyzStav.Enabled = false;
 
             buttonCopy.Visible = true;
@@ -283,32 +270,13 @@ namespace Vydejna
             textBoxUcet.ReadOnly = false;
             
             numericUpDownCenaKs.ReadOnly = false;
-            numericUpDownCenaKs.Enabled = true;
+            numericUpDownCenaKs.Increment = 1;
             numericUpDownUcetCenaKs.ReadOnly = false;
-            numericUpDownUcetCenaKs.Enabled = true;
+            numericUpDownUcetCenaKs.Increment = 1;
             numericUpDownMinStav.ReadOnly = false;
-            numericUpDownMinStav.Enabled = true;
+            numericUpDownMinStav.Increment = 1;
             listBoxNazev.Enabled = true;
             listBoxNazev.Show();
-
-            numericUpDownCenaKs.Enabled = true;
-            numericUpDownCenaKs.Show();
-            labelCenaKs.Hide();
-            numericUpDownUcetCenaKs.Enabled = true;
-            numericUpDownUcetCenaKs.Show();
-            labelUcetCenaKs.Hide();
-            numericUpDownMinStav.Enabled = true;
-            numericUpDownMinStav.Show();
-            labelMinStav.Hide();
-            numericUpDownUcetCena.Enabled = true;
-            numericUpDownUcetCena.Show();
-            labelUcetCena.Hide();
-            numericUpDownUcetStav.Enabled = true;
-            numericUpDownUcetStav.Show();
-            labelUcetStav.Hide();
-            numericUpDownFyzStav.Enabled = true;
-            numericUpDownFyzStav.Show();
-            labelFyzStav.Hide();
 
             buttonOK.Visible = true;
             buttonOK.Enabled = true;

@@ -1322,5 +1322,14 @@ namespace Vydejna
 
         }
 
+        private void dataGridView1_ColumnWidthChanged(object sender, DataGridViewColumnEventArgs e)
+        {
+            //sloupec zmenen
+            //e.Column.Name
+            //e.Column.Width
+            // jmeno tabulky
+
+        }
+
     }
 }

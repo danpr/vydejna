@@ -217,7 +217,11 @@
             // 
             // numericUpDownPocetKS
             // 
-            this.numericUpDownPocetKS.Enabled = false;
+            this.numericUpDownPocetKS.Increment = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
             this.numericUpDownPocetKS.Location = new System.Drawing.Point(104, 189);
             this.numericUpDownPocetKS.Name = "numericUpDownPocetKS";
             this.numericUpDownPocetKS.ReadOnly = true;
@@ -329,7 +333,11 @@
             // numericUpDownCena
             // 
             this.numericUpDownCena.DecimalPlaces = 2;
-            this.numericUpDownCena.Enabled = false;
+            this.numericUpDownCena.Increment = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
             this.numericUpDownCena.Location = new System.Drawing.Point(104, 268);
             this.numericUpDownCena.Maximum = new decimal(new int[] {
             10000000,
@@ -346,7 +354,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(629, 419);
+            this.ClientSize = new System.Drawing.Size(621, 415);
             this.Controls.Add(this.numericUpDownCena);
             this.Controls.Add(this.buttonOK);
             this.Controls.Add(this.buttonCancel);

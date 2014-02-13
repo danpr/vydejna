@@ -65,12 +65,6 @@
             this.label14 = new System.Windows.Forms.Label();
             this.listBoxNazev = new System.Windows.Forms.ListBox();
             this.buttonCopy = new System.Windows.Forms.Button();
-            this.labelCenaKs = new System.Windows.Forms.Label();
-            this.labelUcetCenaKs = new System.Windows.Forms.Label();
-            this.labelMinStav = new System.Windows.Forms.Label();
-            this.labelUcetCena = new System.Windows.Forms.Label();
-            this.labelUcetStav = new System.Windows.Forms.Label();
-            this.labelFyzStav = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMinStav)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownUcetStav)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewZmeny)).BeginInit();
@@ -280,7 +274,11 @@
             // 
             // numericUpDownMinStav
             // 
-            this.numericUpDownMinStav.Enabled = false;
+            this.numericUpDownMinStav.Increment = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
             this.numericUpDownMinStav.Location = new System.Drawing.Point(321, 187);
             this.numericUpDownMinStav.Maximum = new decimal(new int[] {
             1000000,
@@ -296,7 +294,11 @@
             // numericUpDownUcetStav
             // 
             this.numericUpDownUcetStav.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericUpDownUcetStav.Enabled = false;
+            this.numericUpDownUcetStav.Increment = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
             this.numericUpDownUcetStav.Location = new System.Drawing.Point(708, 188);
             this.numericUpDownUcetStav.Maximum = new decimal(new int[] {
             1000000,
@@ -371,8 +373,12 @@
             // numericUpDownCenaKs
             // 
             this.numericUpDownCenaKs.DecimalPlaces = 2;
-            this.numericUpDownCenaKs.Enabled = false;
             this.numericUpDownCenaKs.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.numericUpDownCenaKs.Increment = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
             this.numericUpDownCenaKs.Location = new System.Drawing.Point(103, 161);
             this.numericUpDownCenaKs.Maximum = new decimal(new int[] {
             1000000,
@@ -388,8 +394,12 @@
             // numericUpDownUcetCenaKs
             // 
             this.numericUpDownUcetCenaKs.DecimalPlaces = 2;
-            this.numericUpDownUcetCenaKs.Enabled = false;
             this.numericUpDownUcetCenaKs.ForeColor = System.Drawing.Color.Red;
+            this.numericUpDownUcetCenaKs.Increment = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
             this.numericUpDownUcetCenaKs.Location = new System.Drawing.Point(321, 161);
             this.numericUpDownUcetCenaKs.Maximum = new decimal(new int[] {
             1000000,
@@ -407,8 +417,12 @@
             // 
             this.numericUpDownUcetCena.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.numericUpDownUcetCena.DecimalPlaces = 2;
-            this.numericUpDownUcetCena.Enabled = false;
             this.numericUpDownUcetCena.ForeColor = System.Drawing.Color.Red;
+            this.numericUpDownUcetCena.Increment = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
             this.numericUpDownUcetCena.Location = new System.Drawing.Point(708, 161);
             this.numericUpDownUcetCena.Maximum = new decimal(new int[] {
             1000000,
@@ -424,7 +438,11 @@
             // numericUpDownFyzStav
             // 
             this.numericUpDownFyzStav.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericUpDownFyzStav.Enabled = false;
+            this.numericUpDownFyzStav.Increment = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
             this.numericUpDownFyzStav.Location = new System.Drawing.Point(708, 212);
             this.numericUpDownFyzStav.Maximum = new decimal(new int[] {
             1000000,
@@ -469,74 +487,12 @@
             this.buttonCopy.UseVisualStyleBackColor = true;
             this.buttonCopy.Click += new System.EventHandler(this.buttonCopy_Click);
             // 
-            // labelCenaKs
-            // 
-            this.labelCenaKs.AutoSize = true;
-            this.labelCenaKs.Location = new System.Drawing.Point(104, 163);
-            this.labelCenaKs.Name = "labelCenaKs";
-            this.labelCenaKs.Size = new System.Drawing.Size(66, 13);
-            this.labelCenaKs.TabIndex = 30;
-            this.labelCenaKs.Text = "labelCenaKs";
-            // 
-            // labelUcetCenaKs
-            // 
-            this.labelUcetCenaKs.AutoSize = true;
-            this.labelUcetCenaKs.ForeColor = System.Drawing.Color.Red;
-            this.labelUcetCenaKs.Location = new System.Drawing.Point(322, 163);
-            this.labelUcetCenaKs.Name = "labelUcetCenaKs";
-            this.labelUcetCenaKs.Size = new System.Drawing.Size(89, 13);
-            this.labelUcetCenaKs.TabIndex = 31;
-            this.labelUcetCenaKs.Text = "labelUcetCenaKs";
-            // 
-            // labelMinStav
-            // 
-            this.labelMinStav.AutoSize = true;
-            this.labelMinStav.Location = new System.Drawing.Point(322, 190);
-            this.labelMinStav.Name = "labelMinStav";
-            this.labelMinStav.Size = new System.Drawing.Size(69, 13);
-            this.labelMinStav.TabIndex = 32;
-            this.labelMinStav.Text = "labelMInStav";
-            // 
-            // labelUcetCena
-            // 
-            this.labelUcetCena.AutoSize = true;
-            this.labelUcetCena.ForeColor = System.Drawing.Color.Red;
-            this.labelUcetCena.Location = new System.Drawing.Point(709, 163);
-            this.labelUcetCena.Name = "labelUcetCena";
-            this.labelUcetCena.Size = new System.Drawing.Size(77, 13);
-            this.labelUcetCena.TabIndex = 33;
-            this.labelUcetCena.Text = "labelUcetCena";
-            // 
-            // labelUcetStav
-            // 
-            this.labelUcetStav.AutoSize = true;
-            this.labelUcetStav.Location = new System.Drawing.Point(709, 190);
-            this.labelUcetStav.Name = "labelUcetStav";
-            this.labelUcetStav.Size = new System.Drawing.Size(74, 13);
-            this.labelUcetStav.TabIndex = 34;
-            this.labelUcetStav.Text = "labelUcetStav";
-            // 
-            // labelFyzStav
-            // 
-            this.labelFyzStav.AutoSize = true;
-            this.labelFyzStav.Location = new System.Drawing.Point(709, 214);
-            this.labelFyzStav.Name = "labelFyzStav";
-            this.labelFyzStav.Size = new System.Drawing.Size(67, 13);
-            this.labelFyzStav.TabIndex = 35;
-            this.labelFyzStav.Text = "labelFyzStav";
-            // 
             // SkladovaKarta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(824, 500);
-            this.Controls.Add(this.labelFyzStav);
-            this.Controls.Add(this.labelUcetStav);
-            this.Controls.Add(this.labelUcetCena);
-            this.Controls.Add(this.labelMinStav);
-            this.Controls.Add(this.labelUcetCenaKs);
-            this.Controls.Add(this.labelCenaKs);
             this.Controls.Add(this.buttonCopy);
             this.Controls.Add(this.listBoxNazev);
             this.Controls.Add(this.label14);
@@ -625,11 +581,5 @@
         private System.Windows.Forms.ToolStripMenuItem opravaÚdajuToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem zapujcenoNaKartuToolStripMenuItem;
         private System.Windows.Forms.Button buttonCopy;
-        private System.Windows.Forms.Label labelCenaKs;
-        private System.Windows.Forms.Label labelUcetCenaKs;
-        private System.Windows.Forms.Label labelMinStav;
-        private System.Windows.Forms.Label labelUcetCena;
-        private System.Windows.Forms.Label labelUcetStav;
-        private System.Windows.Forms.Label labelFyzStav;
     }
 }

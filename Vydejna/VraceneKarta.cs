@@ -68,19 +68,9 @@ namespace Vydejna
             this.state = state;
             this.testExistItem = testExistItem;
 
-
-            if (state == vKartaState.edit) setEditState();
             myDB = myDataBase;
-            if (state == vKartaState.show)
-            {
-                buttonOK.Visible = false;
-                buttonOK.Enabled = false;
-            }
-            else
-            {
-                buttonOK.Visible = true;
-                buttonOK.Enabled = true;
-            }
+            if (state == vKartaState.edit) setEditState();
+            else setShowState();
 
             setData(DBRow);
 
@@ -98,6 +88,8 @@ namespace Vydejna
         public VraceneKarta(Hashtable DBRow, Font myFont)
         {
             InitializeComponent();
+            this.state = vKartaState.show;
+            setShowState();
             setData(DBRow);
             CancelButton = buttonCancel;
             this.Font = myFont;
@@ -131,13 +123,28 @@ namespace Vydejna
 
         }
 
-        private void setEditState()
+
+        private void setShowState()
         {
-            setAddState();
-            textBoxJK.ReadOnly = true;
+            textBoxJmeno.BackColor = System.Drawing.SystemColors.Window;
+            textBoxPrijmeni.BackColor = System.Drawing.SystemColors.Window;
+            textBoxOsCislo.BackColor = System.Drawing.SystemColors.Window;
+            textBoxProvoz.BackColor = System.Drawing.SystemColors.Window;
+            textBoxStredisko.BackColor = System.Drawing.SystemColors.Window;
+            textBoxRozmer.BackColor = System.Drawing.SystemColors.Window;
+            textBoxZakázka.BackColor = System.Drawing.SystemColors.Window;
+            textBoxNazev.BackColor = System.Drawing.SystemColors.Window;
+            textBoxJK.BackColor = System.Drawing.SystemColors.Window;
+            textBoxKonto.BackColor = System.Drawing.SystemColors.Window;
+            textBoxCSN.BackColor = System.Drawing.SystemColors.Window;
+            numericUpDownCena.BackColor = System.Drawing.SystemColors.Window;
+            numericUpDownPocetKS.BackColor = System.Drawing.SystemColors.Window;
+
+            buttonOK.Visible = false;
+            buttonOK.Enabled = false;
         }
 
-        private void setAddState()
+        private void setEditState()
         {
             textBoxJmeno.ReadOnly = false;
             textBoxPrijmeni.ReadOnly = false;
@@ -147,16 +154,20 @@ namespace Vydejna
             textBoxNazev.ReadOnly = false;
             textBoxJK.ReadOnly = false;
             numericUpDownPocetKS.ReadOnly = false;
-            numericUpDownPocetKS.Enabled = true;
+            numericUpDownPocetKS.Increment = 1;
             textBoxRozmer.ReadOnly = false;
             textBoxCSN.ReadOnly = false;
             numericUpDownCena.ReadOnly = false;
-            numericUpDownCena.Enabled = true;
+            numericUpDownCena.Increment = 1;
             dateTimePickerDatum.Enabled = true;
             textBoxZakázka.ReadOnly = false;
             textBoxKonto.ReadOnly = false;
+            textBoxJK.ReadOnly = true;
 
+            buttonOK.Visible = true;
+            buttonOK.Enabled = true;
         }
+
 
         public messager getMesseger()
         {
