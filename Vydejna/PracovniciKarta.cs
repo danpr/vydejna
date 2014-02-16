@@ -63,7 +63,6 @@ namespace Vydejna
         {
             InitializeComponent();
             this.state = state;
-            if (state == uKartaState.edit) setEditState();
             myDB = myDataBase;
             if (state == uKartaState.show)
             {
@@ -76,6 +75,23 @@ namespace Vydejna
                 buttonOK.Visible = true;
                 buttonOK.Enabled = true;
             }
+
+            if (state == uKartaState.show)
+            {
+                setShowState();
+            }
+            else
+            {
+                if (state == uKartaState.edit)
+                {
+                    setEditState();
+                }
+                else
+                {
+                    setAddState();
+                }
+            }
+
 
             setData(DBRow);
 
@@ -114,10 +130,34 @@ namespace Vydejna
             textBoxPoznamka.Text = Convert.ToString(DBRow["poznamka"]);
         
         }
+
+        private void setShowState()
+        {
+            textBoxPrijmeni.BackColor = System.Drawing.SystemColors.Window;
+            textBoxJmeno.BackColor = System.Drawing.SystemColors.Window; ;
+            textBoxUlice.BackColor = System.Drawing.SystemColors.Window;
+            textBoxMesto.BackColor = System.Drawing.SystemColors.Window;
+            textBoxPSC.BackColor = System.Drawing.SystemColors.Window;
+            textBoxTelDomu.BackColor = System.Drawing.SystemColors.Window;
+            textBoxOsCislo.BackColor = System.Drawing.SystemColors.Window;
+            textBoxStredisko.BackColor = System.Drawing.SystemColors.Window;
+            textBoxCisZnamky.BackColor = System.Drawing.SystemColors.Window;
+            textBoxOddeleni.BackColor = System.Drawing.SystemColors.Window;
+            textBoxPracoviste.BackColor = System.Drawing.SystemColors.Window;
+            textBoxTelZamest.BackColor = System.Drawing.SystemColors.Window;
+            textBoxPoznamka.BackColor = System.Drawing.SystemColors.Window;
+
+            buttonOK.Visible = false;
+            buttonOK.Enabled = false;
+            buttonCancel.Focus();
+
+        }
+
         private void setEditState()
         {
             setAddState();
             textBoxOsCislo.ReadOnly = true;
+            textBoxOsCislo.Enabled = false;
         }
 
 
@@ -136,6 +176,9 @@ namespace Vydejna
             textBoxPracoviste.ReadOnly = false;
             textBoxTelZamest.ReadOnly = false;
             textBoxPoznamka.ReadOnly = false;
+            buttonOK.Visible = true;
+            buttonOK.Enabled = true;
+
         }
 
 
@@ -156,9 +199,10 @@ namespace Vydejna
         private void buttonOK_Click(object sender, EventArgs e)
         {
             // stisknuti tlacitka OK
-            if (textBoxOsCislo.Text.Trim() == "")
+            if ((textBoxOsCislo.Text.Trim() == "") || ((textBoxJmeno.Text.Trim() == "") && (textBoxPrijmeni.Text.Trim() == "")) ||
+                (textBoxStredisko.Text.Trim() == ""))
             {
-                MessageBox.Show("Položka Osobní číslo není vyplněna.");
+                MessageBox.Show("Je nutno vyplnit Osobní čislo, Středisko a Přijmení nebo Jméno.");
             }
             else
             {

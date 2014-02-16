@@ -528,5 +528,10 @@ namespace Vydejna
                 }
             }
         }
+
+        private void contextMenuStripZmeny_Opening(object sender, CancelEventArgs e)
+        {
+
+        }
     }
 }

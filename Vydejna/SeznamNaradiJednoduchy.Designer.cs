@@ -37,9 +37,9 @@
             // 
             // dataGridView1
             // 
-            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(-1, 27);
             this.dataGridView1.MultiSelect = false;
@@ -50,6 +50,7 @@
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentDoubleClick);
             this.dataGridView1.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellDoubleClick);
+            this.dataGridView1.ColumnWidthChanged += new System.Windows.Forms.DataGridViewColumnEventHandler(this.dataGridView1_ColumnWidthChanged);
             // 
             // buttonCancel
             // 
@@ -92,8 +93,11 @@
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.dataGridView1);
             this.Name = "SeznamNaradiJednoduchy";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Seznam nářadí";
             this.Shown += new System.EventHandler(this.SeznamNaradiJednoduchy_Shown);
+            this.LocationChanged += new System.EventHandler(this.SeznamNaradiJednoduchy_LocationChanged);
+            this.SizeChanged += new System.EventHandler(this.SeznamNaradiJednoduchy_SizeChanged);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

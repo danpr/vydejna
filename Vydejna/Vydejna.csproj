@@ -64,6 +64,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConfigReg.cs" />
     <Compile Include="detail.cs" />
     <Compile Include="Interface1.cs" />
     <Compile Include="Interface2.cs" />

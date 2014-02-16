@@ -157,10 +157,18 @@ namespace Vydejna
             MessageBox.Show("Není implementováno.");
         }
 
+
+        public virtual string jmenoTabulky()
+        {
+            return "";
+        }
+
         public virtual string preferovanySloupec()
         {
             return "";
         }
+
+
 
         public virtual void NastaveniHledani(Int32 x, Int32 y)
         {
@@ -523,8 +531,16 @@ namespace Vydejna
 
         public override string preferovanySloupec()
         {
-            return "nazev";
+            return "jk";
         }
+
+
+        public override string jmenoTabulky()
+        {
+            return "naradi";
+        }
+
+
     }
 
 
@@ -637,6 +653,12 @@ namespace Vydejna
         {
             return "nazev";
         }
+
+        public override string jmenoTabulky()
+        {
+            return "zruseno";
+        }
+
     }
 
     class detailPoskozeno : detail
@@ -735,6 +757,12 @@ namespace Vydejna
         {
             return "nazev";
         }
+
+        public override string jmenoTabulky()
+        {
+            return "poskozeno";
+        }
+
     }
 
 
@@ -816,6 +844,11 @@ namespace Vydejna
         public override string preferovanySloupec()
         {
             return "nazev";
+        }
+
+        public override string jmenoTabulky()
+        {
+            return "vraceno";
         }
     }
 
@@ -979,6 +1012,10 @@ namespace Vydejna
             return "prijmeni";
         }
 
+        public override string jmenoTabulky()
+        {
+            return "osoby";
+        }
     }
 
     class detailOsobyZapujcNaradi : detailOsoby

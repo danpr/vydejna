@@ -313,8 +313,8 @@
             // 
             // textBoxPoznamka
             // 
-            this.textBoxPoznamka.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxPoznamka.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxPoznamka.Location = new System.Drawing.Point(98, 238);
             this.textBoxPoznamka.MaxLength = 60;
             this.textBoxPoznamka.Name = "textBoxPoznamka";
@@ -325,9 +325,9 @@
             // dataGridViewZmeny
             // 
             this.dataGridViewZmeny.AllowUserToAddRows = false;
-            this.dataGridViewZmeny.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridViewZmeny.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridViewZmeny.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewZmeny.ContextMenuStrip = this.contextMenuStripZmeny;
             this.dataGridViewZmeny.Location = new System.Drawing.Point(98, 264);
@@ -343,19 +343,20 @@
             this.opravaÚdajuToolStripMenuItem,
             this.zapujcenoNaKartuToolStripMenuItem});
             this.contextMenuStripZmeny.Name = "contextMenuStripZmeny";
-            this.contextMenuStripZmeny.Size = new System.Drawing.Size(177, 48);
+            this.contextMenuStripZmeny.Size = new System.Drawing.Size(179, 70);
+            this.contextMenuStripZmeny.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripZmeny_Opening);
             // 
             // opravaÚdajuToolStripMenuItem
             // 
             this.opravaÚdajuToolStripMenuItem.Name = "opravaÚdajuToolStripMenuItem";
-            this.opravaÚdajuToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
+            this.opravaÚdajuToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
             this.opravaÚdajuToolStripMenuItem.Text = "Oprava údaju";
             this.opravaÚdajuToolStripMenuItem.Click += new System.EventHandler(this.ContextMenu_opravaUdaju);
             // 
             // zapujcenoNaKartuToolStripMenuItem
             // 
             this.zapujcenoNaKartuToolStripMenuItem.Name = "zapujcenoNaKartuToolStripMenuItem";
-            this.zapujcenoNaKartuToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
+            this.zapujcenoNaKartuToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
             this.zapujcenoNaKartuToolStripMenuItem.Text = "Zapujceno na kartu";
             this.zapujcenoNaKartuToolStripMenuItem.Click += new System.EventHandler(this.contextMenu_ZapujcenoNaKartu);
             // 
@@ -466,8 +467,8 @@
             // 
             // listBoxNazev
             // 
-            this.listBoxNazev.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listBoxNazev.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.listBoxNazev.Enabled = false;
             this.listBoxNazev.FormattingEnabled = true;
             this.listBoxNazev.Location = new System.Drawing.Point(436, 6);

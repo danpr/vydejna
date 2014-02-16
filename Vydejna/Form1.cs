@@ -18,6 +18,10 @@ namespace Vydejna
 {
     public partial class Vydejna : Form
     {
+        private enum evenStateEnum { enable, disable };
+
+        private evenStateEnum evenState = evenStateEnum.disable;
+
         private string dbfPath;
         private vDatabase myDB;
         private detail karta;
@@ -28,7 +32,7 @@ namespace Vydejna
         {
             InitializeComponent();
 
-            Font initFont = loadSettingFont();
+            Font initFont = ConfigReg.loadSettingFont();
             if (initFont != null)
             {
                 dataGridView1.Font = initFont;
@@ -75,8 +79,13 @@ namespace Vydejna
             if ((myDB != null) && (myDB.DBIsOpened()))
             {
                     usersTest();
-
             }
+
+            Size size = ConfigReg.loadSettingWindowSize("MAIN");
+            if (!(size.IsEmpty)) this.Size = size;
+
+            Point location = ConfigReg.loadSettingWindowLocation("MAIN");
+            if (!(location.IsEmpty)) this.SetDesktopLocation(location.X, location.Y);
 
         }
 
@@ -768,65 +777,6 @@ namespace Vydejna
         }
 
 
-        private Font loadSettingFont()
-        {
-            RegistryKey klic = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\CS\FONT", true);
-
-            Font myFont = null;
-            string fontName;
-            float fontSize;
-            FontStyle fontStyle =FontStyle.Regular;
-
-            if (klic != null)
-            {
-                try
-                {
-                    fontName = klic.GetValue("Name").ToString();
-                    fontSize = (float)Convert.ToDouble(klic.GetValue("Size"));
-                }
-                catch 
-                {
-                    return null;
-                }
-
-                try
-                {
-                    fontStyle = (FontStyle)Convert.ToInt32(klic.GetValue("Style"));
-                }
-                catch { }
-
-                myFont = new Font(fontName, fontSize, fontStyle);
-                return myFont;
-            }
-            return null;
-        }
-
-
-        private void saveSettingFont(Font myFont)
-        {
-
-            RegistryKey regHelpKlic;
-            RegistryKey klic = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\CS\FONT", true);
-            if (klic == null)
-            {
-                RegistryKey regKlic = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\CS", true);
-                if (regKlic == null)
-                {
-                    regHelpKlic = Registry.CurrentUser.OpenSubKey(@"SOFTWARE", true);
-                    regHelpKlic.CreateSubKey("CS");
-                }
-                regHelpKlic = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\CS", true);
-                regHelpKlic.CreateSubKey("FONT");
-                klic = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\CS\FONT", true);
-            }
-            // zapis polozky
-            klic.SetValue("Name", myFont.FontFamily.Name);
-            klic.SetValue("Size", myFont.Size);
-            klic.SetValue("Style", (Int32)myFont.Style);
-        }
-
-
-
         private void loadSettingDB(parametryDB myParametryDB)
         {
             // nastavime default hodnoty
@@ -1296,7 +1246,7 @@ namespace Vydejna
             fontDialog1.Font = dataGridView1.Font;
             if (fontDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                saveSettingFont(fontDialog1.Font);
+                ConfigReg.saveSettingFont(fontDialog1.Font);
                 dataGridView1.Font = fontDialog1.Font;
             }
         }
@@ -1324,10 +1274,47 @@ namespace Vydejna
 
         private void dataGridView1_ColumnWidthChanged(object sender, DataGridViewColumnEventArgs e)
         {
-            //sloupec zmenen
-            //e.Column.Name
-            //e.Column.Width
-            // jmeno tabulky
+            if (karta.GetType() != typeof(detailNone))
+            {
+                if (karta.jmenoTabulky() != "")
+                {
+                    ConfigReg.saveSettingWindowTableColumnWidth("MAIN", karta.jmenoTabulky(), e.Column.Name, e.Column.Width);
+                }
+            }
+        }
+
+        private void Vydejna_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            // zavreni hlavniho okna
+            if (e.CloseReason == CloseReason.UserClosing)
+            {
+                if (MessageBox.Show("Požadujete ukončení činnosti programu?", "Vydejna", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                {
+                    e.Cancel = true;
+                }
+
+            }
+        }
+
+        private void Vydejna_SizeChanged(object sender, EventArgs e)
+        {
+            if (evenState == evenStateEnum.enable)
+            {
+                if (!(this.Size.IsEmpty)) ConfigReg.saveSettingWindowLocationSize("MAIN", 0, 0, this.Size.Width, this.Size.Height);
+            }
+        }
+
+        private void Vydejna_LocationChanged(object sender, EventArgs e)
+        {
+            if (evenState == evenStateEnum.enable)
+            {
+                if (!(this.Location.IsEmpty)) ConfigReg.saveSettingWindowLocationSize("MAIN", this.Location.X, this.Location.Y, 0, 0);
+            }
+        }
+
+        private void Vydejna_Shown(object sender, EventArgs e)
+        {
+            evenState = evenStateEnum.enable;
 
         }
 

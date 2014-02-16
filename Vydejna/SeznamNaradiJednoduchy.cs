@@ -11,8 +11,13 @@ namespace Vydejna
 {
     public partial class SeznamNaradiJednoduchy : Form
     {
+
+        private enum evenStateEnum {enable, disable};
+
+
         private vDatabase myDataBase;
 
+        private evenStateEnum evenState = evenStateEnum.disable;
 
         public class messager
         {
@@ -58,6 +63,12 @@ namespace Vydejna
             dataGridView1.DataSource = null;
             Application.DoEvents();
             this.Font = myFont;
+
+            Size size = ConfigReg.loadSettingWindowSize("LISTN");
+            if (!(size.IsEmpty)) this.Size = size;
+
+            Point location = ConfigReg.loadSettingWindowLocation("LISTN");
+            if (!(location.IsEmpty)) this.SetDesktopLocation(location.X, location.Y);
         }
 
         private void loadData(vDatabase myDataBase)
@@ -139,6 +150,29 @@ namespace Vydejna
         {
             // pozobrazeni
             loadData(myDataBase);
+            evenState = evenStateEnum.enable;
+        }
+
+        private void SeznamNaradiJednoduchy_LocationChanged(object sender, EventArgs e)
+        {
+            if (evenState == evenStateEnum.enable)
+            {
+                if (!(this.Location.IsEmpty)) ConfigReg.saveSettingWindowLocationSize("LISTN", this.Location.X, this.Location.Y, 0, 0);
+            }
+        }
+
+        private void SeznamNaradiJednoduchy_SizeChanged(object sender, EventArgs e)
+        {
+            if (evenState == evenStateEnum.enable)
+            {
+                if (!(this.Size.IsEmpty)) ConfigReg.saveSettingWindowLocationSize("LISTN", 0, 0, this.Size.Width, this.Size.Height);
+            }
+        }
+
+        private void dataGridView1_ColumnWidthChanged(object sender, DataGridViewColumnEventArgs e)
+        {
+            ConfigReg.saveSettingWindowTableColumnWidth("LISTN", "naradi", e.Column.Name, e.Column.Width);
+
         }
 
 
