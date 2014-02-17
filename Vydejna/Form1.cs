@@ -652,6 +652,7 @@ namespace Vydejna
             karta = new detailSklad(myDB,dataGridView1);
             labelView.Text = "Výdejna nářadí přehled";
             contextMenuEnable(true,true,true);
+            Hashtable DBTableInfo = ConfigReg.loadSettingWindowTableColumnWidth("MAIN", karta.jmenoTabulky());
         }
 
 
@@ -1316,6 +1317,11 @@ namespace Vydejna
         {
             evenState = evenStateEnum.enable;
 
+        }
+
+        private void dataGridView1_ColumnDisplayIndexChanged(object sender, DataGridViewColumnEventArgs e)
+        {
+            ConfigReg.saveSettingWindowTableColumnIndex("MAIN", karta.jmenoTabulky(), e.Column.Name, e.Column.Index);
         }
 
     }
