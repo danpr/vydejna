@@ -22,6 +22,7 @@ namespace Vydejna
             this.myDB = myDB;
             this.myDataGridView = myDataGridView;
             searchWindow = null;
+            setColumnWidth();
         }
 
                 
@@ -168,6 +169,22 @@ namespace Vydejna
             return "";
         }
 
+        public virtual void setColumnWidth()
+        {
+           Hashtable DBTableInfo = ConfigReg.loadSettingWindowTableColumnWidth("MAIN", this.jmenoTabulky());
+           if (DBTableInfo != null)
+           {
+               foreach (DataGridViewColumn myColumn in myDataGridView.Columns)
+               {
+                   string myColumnName = myColumn.Name;
+                   if (DBTableInfo.ContainsKey(myColumnName))
+                   {
+                       myColumn.Width = Convert.ToInt32(DBTableInfo[myColumnName]);
+                   }
+
+               }
+           }
+        }
 
 
         public virtual void NastaveniHledani(Int32 x, Int32 y)
@@ -215,6 +232,11 @@ namespace Vydejna
     {
         public detailNone(vDatabase myDB, DataGridView myDataGridView)
             : base(myDB, myDataGridView)
+        {
+        }
+
+
+        public override void setColumnWidth()
         {
         }
 

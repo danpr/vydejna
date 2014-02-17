@@ -22,6 +22,8 @@ namespace Vydejna
             this.myDataBase = myDataBase;
             buttonOK.Enabled = false;
 
+            this.MinimizeBox = false;
+            this.MaximizeBox = false;
 
             this.AcceptButton = buttonOK;
             this.CancelButton = buttonCancel;

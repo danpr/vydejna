@@ -652,7 +652,7 @@ namespace Vydejna
             karta = new detailSklad(myDB,dataGridView1);
             labelView.Text = "Výdejna nářadí přehled";
             contextMenuEnable(true,true,true);
-            Hashtable DBTableInfo = ConfigReg.loadSettingWindowTableColumnWidth("MAIN", karta.jmenoTabulky());
+//            Hashtable DBTableInfo = ConfigReg.loadSettingWindowTableColumnWidth("MAIN", karta.jmenoTabulky());
         }
 
 
