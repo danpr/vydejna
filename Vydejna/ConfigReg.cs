@@ -12,6 +12,122 @@ namespace Vydejna
     class ConfigReg
     {
 
+
+        public static void loadSettingDB(parametryDB myParametryDB)
+        {
+            // nastavime default hodnoty
+            myParametryDB.nameDB = "";
+            myParametryDB.codeDB = -1;
+            myParametryDB.umistemiDB = "";
+            myParametryDB.adresaServerDB = "";
+            myParametryDB.nameDBServeru = "";
+            myParametryDB.portServerDB = 0;
+            myParametryDB.localizaceDBServeru = "";
+            myParametryDB.driverDB = "";
+            myParametryDB.userIdDB = "";
+            myParametryDB.userPasswdDB = "";
+            myParametryDB.adminIdDB = "";
+            myParametryDB.adminPasswdDB = "";
+
+            RegistryKey klic = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\CS\DB", true);
+            if (klic != null)
+            {
+                try
+                {
+                    myParametryDB.nameDB = klic.GetValue("Name").ToString();
+                }
+                catch { }
+                try
+                {
+                    myParametryDB.codeDB = Convert.ToInt32(klic.GetValue("CodeDB").ToString());
+                }
+                catch { }
+                try
+                {
+                    myParametryDB.umistemiDB = klic.GetValue("Location").ToString();
+                }
+                catch { }
+                try
+                {
+                    myParametryDB.adresaServerDB = klic.GetValue("ServerAddr").ToString();
+                }
+                catch { }
+                try
+                {
+                    myParametryDB.nameDBServeru = klic.GetValue("ServerName").ToString();
+                }
+                catch { }
+                try
+                {
+                    myParametryDB.portServerDB = Convert.ToInt32(klic.GetValue("ServerPort").ToString());
+                }
+                catch { }
+                try
+                {
+                    myParametryDB.localizaceDBServeru = klic.GetValue("ServerLocale").ToString();
+                }
+                catch { }
+                try
+                {
+                    myParametryDB.driverDB = klic.GetValue("ServerDriver").ToString();
+                }
+                catch { }
+                try
+                {
+                    myParametryDB.userIdDB = klic.GetValue("UserId").ToString();
+                }
+                catch { }
+                try
+                {
+                    myParametryDB.userPasswdDB = klic.GetValue("UserPassword").ToString();
+                }
+                catch { }
+                try
+                {
+                    myParametryDB.adminIdDB = klic.GetValue("AdminId").ToString();
+                }
+                catch { }
+                try
+                {
+                    myParametryDB.adminPasswdDB = klic.GetValue("AdminPassword").ToString();
+                }
+                catch { }
+
+            }
+        }
+
+        public static void saveSettingDB(parametryDB myParametryDB)
+        {
+            RegistryKey regHelpKlic;
+            RegistryKey klic = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\CS\DB", true);
+            if (klic == null)
+            {
+                RegistryKey regKlic = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\CS", true);
+                if (regKlic == null)
+                {
+                    regHelpKlic = Registry.CurrentUser.OpenSubKey(@"SOFTWARE", true);
+                    regHelpKlic.CreateSubKey("CS");
+                }
+                regHelpKlic = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\CS", true);
+                regHelpKlic.CreateSubKey("DB");
+                klic = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\CS\DB", true);
+            }
+            // zapis polozky
+            klic.SetValue("Name", myParametryDB.nameDB);
+            klic.SetValue("CodeDB", myParametryDB.codeDB);
+            klic.SetValue("Location", myParametryDB.umistemiDB);
+            klic.SetValue("ServerAddr", myParametryDB.adresaServerDB);
+            klic.SetValue("ServerName", myParametryDB.nameDBServeru);
+            klic.SetValue("ServerPort", myParametryDB.portServerDB);
+            klic.SetValue("ServerLocale", myParametryDB.localizaceDBServeru);
+            klic.SetValue("ServerDriver", myParametryDB.driverDB);
+            klic.SetValue("UserId", myParametryDB.userIdDB);
+            klic.SetValue("UserPassword", myParametryDB.userPasswdDB);
+            klic.SetValue("AdminId", myParametryDB.adminIdDB);
+            klic.SetValue("AdminPassword", myParametryDB.adminPasswdDB);
+        }
+
+
         public static Font loadSettingFont()
         {
             RegistryKey klic = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\CS\FONT", true);
@@ -229,6 +345,10 @@ namespace Vydejna
 
         public static void saveSettingWindowTableColumnIndex(string nameWin, string nameTab, string nameCol, Int32 index)
         {
+            if (nameTab == "")
+            {
+                return;
+            }
             string stringKlic1 = "SOFTWARE\\CS\\WINDOWS\\" + nameWin + "\\" + nameTab + "\\COLUMNS\\INDEX";
             string stringKlic2 = "SOFTWARE\\CS\\WINDOWS\\" + nameWin + "\\" + nameTab + "\\COLUMNS";
             string stringKlic3 = "SOFTWARE\\CS\\WINDOWS\\" + nameWin + "\\" + nameTab;
