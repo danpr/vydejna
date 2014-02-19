@@ -1213,8 +1213,7 @@ namespace Vydejna
 
         private void Vydejna_Shown(object sender, EventArgs e)
         {
-            evenState = evenStateEnum.enable;
-
+           evenState = evenStateEnum.enable;
         }
 
         private void dataGridView1_ColumnDisplayIndexChanged(object sender, DataGridViewColumnEventArgs e)
