@@ -1038,6 +1038,7 @@ namespace Vydejna
         {
             return "osoby";
         }
+
     }
 
     class detailOsobyZapujcNaradi : detailOsoby

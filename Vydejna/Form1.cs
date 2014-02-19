@@ -1171,16 +1171,6 @@ namespace Vydejna
 
         }
 
-        private void dataGridView1_ColumnWidthChanged(object sender, DataGridViewColumnEventArgs e)
-        {
-            if (karta.GetType() != typeof(detailNone))
-            {
-                if (karta.jmenoTabulky() != "")
-                {
-                    ConfigReg.saveSettingWindowTableColumnWidth("MAIN", karta.jmenoTabulky(), e.Column.Name, e.Column.Width);
-                }
-            }
-        }
 
         private void Vydejna_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -1213,19 +1203,38 @@ namespace Vydejna
 
         private void Vydejna_Shown(object sender, EventArgs e)
         {
-           evenState = evenStateEnum.enable;
+//           evenState = evenStateEnum.enable;
         }
 
-        private void dataGridView1_ColumnDisplayIndexChanged(object sender, DataGridViewColumnEventArgs e)
+
+
+        private void dataGridView1_ColumnWidthChanged(object sender, DataGridViewColumnEventArgs e)
         {
-            if (karta.GetType() != typeof(detailNone))
+            if (evenState == evenStateEnum.enable)
             {
-                if (karta.jmenoTabulky() != "")
+                if (karta.GetType() != typeof(detailNone))
                 {
-                    ConfigReg.saveSettingWindowTableColumnIndex("MAIN", karta.jmenoTabulky(), e.Column.Name, e.Column.Index);
+                    if (karta.jmenoTabulky().Trim() != "")
+                    {
+                        ConfigReg.saveSettingWindowTableColumnWidth("MAIN", karta.jmenoTabulky(), e.Column.Name, e.Column.Width);
+                    }
                 }
             }
         }
 
+
+        private void dataGridView1_ColumnDisplayIndexChanged(object sender, DataGridViewColumnEventArgs e)
+        {
+            if (evenState == evenStateEnum.enable)
+            {
+                if (karta.GetType() != typeof(detailNone))
+                {
+                    if (karta.jmenoTabulky() != "")
+                    {
+                        ConfigReg.saveSettingWindowTableColumnIndex("MAIN", karta.jmenoTabulky(), e.Column.Name, e.Column.Index);
+                    }
+                }
+            }
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -13,7 +14,6 @@ namespace Vydejna
     {
 
         private enum evenStateEnum {enable, disable};
-
 
         private vDatabase myDataBase;
 
@@ -150,6 +150,7 @@ namespace Vydejna
         {
             // pozobrazeni
             loadData(myDataBase);
+            setColumnWidth();
             evenState = evenStateEnum.enable;
         }
 
@@ -171,8 +172,36 @@ namespace Vydejna
 
         private void dataGridView1_ColumnWidthChanged(object sender, DataGridViewColumnEventArgs e)
         {
-            ConfigReg.saveSettingWindowTableColumnWidth("LISTN", "naradi", e.Column.Name, e.Column.Width);
+            if (evenState == evenStateEnum.enable)
+            {
+                ConfigReg.saveSettingWindowTableColumnWidth("LISTN", "naradi", e.Column.Name, e.Column.Width);
+            }
+        }
 
+        private void dataGridView1_ColumnDisplayIndexChanged(object sender, DataGridViewColumnEventArgs e)
+        {
+            if (evenState == evenStateEnum.enable)
+            {
+                ConfigReg.saveSettingWindowTableColumnIndex("LISTN", "naradi", e.Column.Name, e.Column.Index);
+            }
+
+        }
+
+        public virtual void setColumnWidth()
+        {
+            Hashtable DBTableInfo = ConfigReg.loadSettingWindowTableColumnWidth("LISTN", "naradi");
+            if (DBTableInfo != null)
+            {
+                foreach (DataGridViewColumn myColumn in dataGridView1.Columns)
+                {
+                    string myColumnName = myColumn.Name;
+                    if (DBTableInfo.ContainsKey(myColumnName))
+                    {
+                        myColumn.Width = Convert.ToInt32(DBTableInfo[myColumnName]);
+                    }
+
+                }
+            }
         }
 
 
