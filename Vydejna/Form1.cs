@@ -85,8 +85,15 @@ namespace Vydejna
             if (!(size.IsEmpty)) this.Size = size;
 
             Point location = ConfigReg.loadSettingWindowLocation("MAIN");
-            if (!(location.IsEmpty)) this.SetDesktopLocation(location.X, location.Y);
 
+            Int32 x = location.X;
+            Int32 y = location.Y;
+            if (x < 0) x = 0;
+            if (y < 0) y = 0;
+            if (x > (Screen.PrimaryScreen.Bounds.Width - 20)) x = Screen.PrimaryScreen.Bounds.Width - 20;
+            if (y > (Screen.PrimaryScreen.Bounds.Height - 20)) y = Screen.PrimaryScreen.Bounds.Height - 20;
+
+            if (!(location.IsEmpty)) this.SetDesktopLocation(x,y);
         }
 
 
@@ -1187,18 +1194,12 @@ namespace Vydejna
 
         private void Vydejna_SizeChanged(object sender, EventArgs e)
         {
-            if (evenState == evenStateEnum.enable)
-            {
                 if (!(this.Size.IsEmpty)) ConfigReg.saveSettingWindowLocationSize("MAIN", 0, 0, this.Size.Width, this.Size.Height);
-            }
         }
 
         private void Vydejna_LocationChanged(object sender, EventArgs e)
         {
-            if (evenState == evenStateEnum.enable)
-            {
                 if (!(this.Location.IsEmpty)) ConfigReg.saveSettingWindowLocationSize("MAIN", this.Location.X, this.Location.Y, 0, 0);
-            }
         }
 
         private void Vydejna_Shown(object sender, EventArgs e)
