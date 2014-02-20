@@ -1232,7 +1232,7 @@ namespace Vydejna
                 {
                     if (karta.jmenoTabulky() != "")
                     {
-                        ConfigReg.saveSettingWindowTableColumnIndex("MAIN", karta.jmenoTabulky(), e.Column.Name, e.Column.Index);
+                        ConfigReg.saveSettingWindowTableColumnIndex("MAIN", karta.jmenoTabulky(), e.Column.Name, e.Column.DisplayIndex);
                     }
                 }
             }

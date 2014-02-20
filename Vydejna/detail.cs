@@ -22,6 +22,7 @@ namespace Vydejna
             this.myDB = myDB;
             this.myDataGridView = myDataGridView;
             searchWindow = null;
+            setColumnIndex();
             setColumnWidth();
         }
 
@@ -168,6 +169,39 @@ namespace Vydejna
         {
             return "";
         }
+
+        public virtual void setColumnIndex()
+        {
+           Hashtable DBTableInfo = ConfigReg.loadSettingWindowTableColumnIndex("MAIN", this.jmenoTabulky());
+           if (DBTableInfo != null)
+           {
+               SortedDictionary< int, string> dict = new SortedDictionary<int, string>();
+
+              foreach (DictionaryEntry item in DBTableInfo)
+              {
+                  dict.Add(Convert.ToInt32(item.Value), Convert.ToString( item.Key));
+              }
+
+              foreach (var sortItem in dict)
+              {
+                  Int32 colIndex = Convert.ToInt32(sortItem.Key);
+                  string colName = sortItem.Value.ToString();
+              }
+
+               foreach (DataGridViewColumn myColumn in myDataGridView.Columns)
+               {
+                   string myColumnName = myColumn.Name;
+                   if (DBTableInfo.ContainsKey(myColumnName))
+                   {
+                       myColumn.DisplayIndex = Convert.ToInt32(DBTableInfo[myColumnName]);
+                   }
+
+               }
+
+           }
+        }
+            
+
 
         public virtual void setColumnWidth()
         {

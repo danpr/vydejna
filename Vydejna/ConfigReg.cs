@@ -272,10 +272,9 @@ namespace Vydejna
         }
 
 
-        public static Hashtable loadSettingWindowTableColumnWidth(string nameWin, string nameTab)
+        private static Hashtable loadSettingWindowTableColumn(string nameWin, string nameTab, string stringKlic)
         {
             Hashtable DBTableItems = null;
-            string stringKlic = "SOFTWARE\\CS\\WINDOWS\\" + nameWin + "\\" + nameTab + "\\COLUMNS\\WIDTH";
             RegistryKey klic = Registry.CurrentUser.OpenSubKey(stringKlic, true);
 
             if (klic != null)
@@ -292,6 +291,20 @@ namespace Vydejna
             }
             return DBTableItems;
         }
+
+        public static Hashtable loadSettingWindowTableColumnWidth(string nameWin, string nameTab)
+        {
+           string stringKlic = "SOFTWARE\\CS\\WINDOWS\\" + nameWin + "\\" + nameTab + "\\COLUMNS\\WIDTH";
+           return loadSettingWindowTableColumn(nameWin, nameTab, stringKlic);    
+        }
+
+
+        public static Hashtable loadSettingWindowTableColumnIndex(string nameWin, string nameTab)
+        {
+            string stringKlic = "SOFTWARE\\CS\\WINDOWS\\" + nameWin + "\\" + nameTab + "\\COLUMNS\\INDEX";
+            return loadSettingWindowTableColumn(nameWin, nameTab, stringKlic);
+        }
+
 
 
         public static void saveSettingWindowTableColumnWidth(string nameWin, string nameTab, string nameCol, Int32 width)
