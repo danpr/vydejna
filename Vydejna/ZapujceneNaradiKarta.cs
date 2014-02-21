@@ -114,8 +114,8 @@ namespace Vydejna
         private void zapůjčeníNářadíToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // zobrazime seznam polozek naradi
-            SeznamNaradiJednoduchy seznamNar = new SeznamNaradiJednoduchy(myDB,this.Font);
-//            seznamNar.Font = this.Font;
+            SeznamNaradiJednoduchy seznamNar = new SeznamNaradiJednoduchy(myDB, this.Font);
+            //            seznamNar.Font = this.Font;
             if (seznamNar != null)
             {
                 seznamNar.Visible = false;   // formular se automaticky presune do show musime tedy ho vypnout
@@ -126,7 +126,7 @@ namespace Vydejna
                         if (seznamNar.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                         {
                             SeznamNaradiJednoduchy.messager myMesenger = seznamNar.getMesseger();
-                            ZapujceniNaradi zapujcNaradi = new ZapujceniNaradi(osobyDBRow, myMesenger.nazev, myMesenger.jk, myMesenger.fyzStav,this.Font);
+                            ZapujceniNaradi zapujcNaradi = new ZapujceniNaradi(osobyDBRow, myMesenger.nazev, myMesenger.jk, myMesenger.fyzStav, this.Font);
                             zapujcNaradi.Font = this.Font;
                             if (zapujcNaradi.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                             {
@@ -288,7 +288,7 @@ namespace Vydejna
                     {
                         Hashtable infoDBRow = myDB.getNaradiLine(nporadi, null);
 
-                        SkladovaKarta sklKarta = new SkladovaKarta(myDB, infoDBRow, nporadi, new tableItemExistDelgStr(myDB.tableNaradiItemExist),this.Font);
+                        SkladovaKarta sklKarta = new SkladovaKarta(myDB, infoDBRow, nporadi, new tableItemExistDelgStr(myDB.tableNaradiItemExist), this.Font);
                         sklKarta.Font = this.Font;
                         sklKarta.setWinName("Skladová karta");
                         sklKarta.ShowDialog();
@@ -300,6 +300,61 @@ namespace Vydejna
         private void informaceOZapůjčeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //
+            if (dataGridViewZmeny.SelectedRows.Count > 0)
+            {
+                DataGridViewRow selectedDGVRow = dataGridViewZmeny.SelectedRows[0];
+                Int32 poradi = Convert.ToInt32(selectedDGVRow.Cells[0].Value);
+
+                Hashtable vypujcDBRow = myDB.getPujcenoLine(poradi, null);
+                if (vypujcDBRow != null)
+                {
+                    vypujcDBRow.Add("oscislo", labelOsCislo.Text);
+                    Int32 nporadi = -1;
+                    if (vypujcDBRow.Contains("nporadi"))
+                    {
+                        nporadi = Convert.ToInt32(vypujcDBRow["nporadi"]);
+                        if (nporadi != -1)
+                        {
+                            Hashtable infoDBRow = myDB.getNaradiLine(nporadi, null);
+                            if (infoDBRow != null)
+                            {
+                                vypujcDBRow.Add("nazev", infoDBRow["nazev"]);
+                                vypujcDBRow.Add("rozmer", infoDBRow["rozmer"]);
+                                vypujcDBRow.Add("normacsn", infoDBRow["normacsn"]);
+                                vypujcDBRow.Add("jk", infoDBRow["jk"]);
+                                vypujcDBRow.Add("cena", infoDBRow["cena"]);
+                            }
+                        }
+
+                        Int32 zporadi = -1;
+                        if (vypujcDBRow.Contains("zporadi"))
+                        {
+                            zporadi = Convert.ToInt32(vypujcDBRow["zporadi"]);
+                            if (zporadi != -1)
+                            {
+                                Hashtable zmenyDBRow = myDB.getZmenyLine(nporadi, zporadi, null);
+                                vypujcDBRow.Add("poznamka", zmenyDBRow["poznamka"]);
+                                vypujcDBRow.Add("vevcislo", zmenyDBRow["vevcislo"]);
+                                vypujcDBRow.Add("datum", zmenyDBRow["datum"]);
+                                vypujcDBRow.Add("vydej", zmenyDBRow["vydej"]);
+                            }
+                        }
+
+
+
+                        ZapujceneNaradiInfo zapNarInfo = new ZapujceneNaradiInfo(vypujcDBRow, this.Font);
+                        zapNarInfo.Font = this.Font;
+                        zapNarInfo.ShowDialog();
+
+
+                    }
+                }
+            }
+        }
+
+
+        private void poskozeniNaradiToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
             if (dataGridViewZmeny.SelectedRows.Count > 0)
             {
                 DataGridViewRow selectedDGVRow = dataGridViewZmeny.SelectedRows[0];
@@ -322,9 +377,7 @@ namespace Vydejna
                                 vypujcDBRow.Add("normacsn", infoDBRow["normacsn"]);
                                 vypujcDBRow.Add("jk", infoDBRow["jk"]);
                                 vypujcDBRow.Add("cena", infoDBRow["cena"]);
-
                             }
-
                         }
 
                         Int32 zporadi = -1;
@@ -342,19 +395,31 @@ namespace Vydejna
                         }
 
 
+                        Poskozenka poskozenka = new Poskozenka(vypujcDBRow, myDB, this.Font);
+                        if (poskozenka.ShowDialog() == DialogResult.OK)
+                        {
+                            Poskozenka.messager mesenger = poskozenka.getMesseger();
+                            //                    int errCode;
+                            //                    if ((errCode = myDB.addNewLineZmenyAndPoskozeno(mesenger.poradi, mesenger.jk, mesenger.datum, mesenger.pocetKs, mesenger.poznamka, mesenger.osCislo, mesenger.jmeno, mesenger.prijmeni,
+                            //                                                               mesenger.stredisko, mesenger.provoz, mesenger.nazev, mesenger.rozmer, mesenger.konto, mesenger.cena, mesenger.celkCena, mesenger.csn, mesenger.cisZak)) < 0)
+                            //                    {
+                            //                        if (errCode == -2)
+                            //                            MessageBox.Show("Nemohu odepsat poškozené položky. Učetní stav nebo stav výdejny je menší než požadované množství. Lituji.");
+                            //                        else
+                            //                            MessageBox.Show("Odepsání poškozených položek se nezdařilo. Lituji.");
+                            //
+                            //                    }
 
-                        ZapujceneNaradiInfo zapNarInfo = new ZapujceneNaradiInfo(vypujcDBRow,this.Font);
-                        zapNarInfo.Font = this.Font;
-                        zapNarInfo.ShowDialog();
+                        }
+
+                        //                        ZapujceneNaradiInfo zapNarInfo = new ZapujceneNaradiInfo(vypujcDBRow, this.Font);
+                        //                        zapNarInfo.Font = this.Font;
+                        //                        zapNarInfo.ShowDialog();
 
 
                     }
                 }
             }
-        }
-
-        private void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
-        {
 
         }
     }

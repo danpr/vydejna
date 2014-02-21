@@ -177,27 +177,16 @@ namespace Vydejna
            {
                SortedDictionary< int, string> dict = new SortedDictionary<int, string>();
 
+              // naplnime setrideny seznam  
               foreach (DictionaryEntry item in DBTableInfo)
               {
                   dict.Add(Convert.ToInt32(item.Value), Convert.ToString( item.Key));
               }
-
+              // upravime index podle setrideneho seznamu
               foreach (var sortItem in dict)
               {
-                  Int32 colIndex = Convert.ToInt32(sortItem.Key);
-                  string colName = sortItem.Value.ToString();
+                  myDataGridView.Columns[sortItem.Value.ToString()].DisplayIndex = Convert.ToInt32(sortItem.Key);
               }
-
-               foreach (DataGridViewColumn myColumn in myDataGridView.Columns)
-               {
-                   string myColumnName = myColumn.Name;
-                   if (DBTableInfo.ContainsKey(myColumnName))
-                   {
-                       myColumn.DisplayIndex = Convert.ToInt32(DBTableInfo[myColumnName]);
-                   }
-
-               }
-
            }
         }
             
@@ -531,7 +520,6 @@ namespace Vydejna
             if ((myDB != null) && (myDB.DBIsOpened()))
             {
                 Poskozenka poskozenka = new Poskozenka(DBRow, myDB, myDataGridView.Font);
-//                poskozenka.Font = myDataGridView.Font;
                 if (poskozenka.ShowDialog() == DialogResult.OK)
                 {
                     Poskozenka.messager mesenger = poskozenka.getMesseger();
