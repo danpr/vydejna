@@ -63,7 +63,7 @@ namespace Vydejna
         private double celkCena;
         private string csn;
 
-        public Poskozenka(Hashtable DBRow, vDatabase myDataBase, Font myFont)
+        public Poskozenka(Hashtable DBRow, vDatabase myDataBase, Font myFont, Boolean pujceneNaradi = false)
         {
             InitializeComponent();
 
@@ -88,6 +88,33 @@ namespace Vydejna
 
             numericUpDownMnozstvi.Maximum = Convert.ToInt32(DBRow["fyzstav"]);
             textBoxOsCislo.Focus();
+
+            if (pujceneNaradi)
+            {
+                if (DBRow.ContainsKey("oscislo"))
+                {
+                  Int32 celkPujc = Convert.ToInt32(DBRow["ucetstav"]) - Convert.ToInt32(DBRow["fyzstav"]);
+                  textBoxOsCislo.Text = Convert.ToString(DBRow["oscislo"]);
+                  textBoxOsCislo.Enabled = false;
+                  buttonChoosePerson.Enabled = false;
+                  label13.Text = "Zapůjčeno nyní / celkem :";
+                  labelStav.Text = Convert.ToString(DBRow["stavks"]) + " / " + Convert.ToString(celkPujc);
+                  if (Convert.ToInt32(DBRow["stavks"]) < celkPujc)
+                  {
+                      numericUpDownMnozstvi.Maximum = Convert.ToInt32(DBRow["stavks"]);
+                  }
+                  else
+                  {
+                      numericUpDownMnozstvi.Maximum = celkPujc;
+                  }
+                  choosePerson();
+                     
+                  textBoxCisZak.Focus();
+                }
+
+            }
+
+
             this.Font = myFont;
         }
 
@@ -154,8 +181,6 @@ namespace Vydejna
 
         private void buttonChoosePerson_Click(object sender, EventArgs e)
         {
-            // vyber radku
-
             VyberRadku vyberOsoby = new VyberRadku(myDataBase, this.Font);
             if (vyberOsoby.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
@@ -175,6 +200,22 @@ namespace Vydejna
                 testKompletnosti();
             }
 
+        }
+
+
+        private void choosePerson()
+        {
+            Hashtable osobaRow = null;
+            osobaRow = myDataBase.getOsobyLine(textBoxOsCislo.Text, null);
+            if (osobaRow != null)
+            {
+                if (osobaRow.ContainsKey("jmeno")) labelJmeno.Text = Convert.ToString(osobaRow["jmeno"]);
+                if (osobaRow.ContainsKey("prijmeni")) labelPrijmeni.Text = Convert.ToString(osobaRow["prijmeni"]);
+                if (osobaRow.ContainsKey("stredisko")) labelStredisko.Text = Convert.ToString(osobaRow["stredisko"]);
+                if (osobaRow.ContainsKey("pracoviste")) labelProvoz.Text = Convert.ToString(osobaRow["pracoviste"]);
+                testKompletnosti();
+
+            }
         }
 
         private void buttonOK_Click(object sender, EventArgs e)

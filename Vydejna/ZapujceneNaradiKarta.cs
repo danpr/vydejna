@@ -151,7 +151,7 @@ namespace Vydejna
                                     }
 
                                     // poradi, datum. nazev, rozmer, jk, vevcislo, stavks. cena, poznamka, oscislo, pjmeno, prijmeni, pnazev, pjk, pujcks, nporadi, zporadi
-                                    // stavks je soucanz stav ks je pouze v tabulce pujceno
+                                    // stavks je soucasny stav ks je pouze v tabulce pujceno
                                     // pujcks je brano jako vydej z tabulky zmeny pripadne jako pks (pomocne ks) z tabulky pujceno
                                     (dataGridViewZmeny.DataSource as DataTable).Rows.Add(pujcPoradi, zapujcNaradi.getDatum(), myMesenger.nazev, myMesenger.rozmer, myMesenger.jk, zapujcNaradi.getVevCislo(), zapujcNaradi.getKs(), myMesenger.cena,
                                                                                          zapujcNaradi.getPoznamka(), zapujcNaradi.getOsCiclo(), zapujcNaradi.getJmeno(), zapujcNaradi.getPrijmeni(), myMesenger.nazev, myMesenger.jk, zapujcNaradi.getKs(), myMesenger.poradi, zporadi);
@@ -308,7 +308,7 @@ namespace Vydejna
                 Hashtable vypujcDBRow = myDB.getPujcenoLine(poradi, null);
                 if (vypujcDBRow != null)
                 {
-                    vypujcDBRow.Add("oscislo", labelOsCislo.Text);
+//                    vypujcDBRow.Add("oscislo", labelOsCislo.Text);
                     Int32 nporadi = -1;
                     if (vypujcDBRow.Contains("nporadi"))
                     {
@@ -377,25 +377,31 @@ namespace Vydejna
                                 vypujcDBRow.Add("normacsn", infoDBRow["normacsn"]);
                                 vypujcDBRow.Add("jk", infoDBRow["jk"]);
                                 vypujcDBRow.Add("cena", infoDBRow["cena"]);
+                                vypujcDBRow.Add("ucetstav", infoDBRow["ucetstav"]);
+                                vypujcDBRow.Add("fyzstav", infoDBRow["fyzstav"]);
+                                vypujcDBRow.Add("celkcena", infoDBRow["celkcena"]);
                             }
                         }
 
                         Int32 zporadi = -1;
+                        // pujceno.stavks je soucasny stav zapujceneho naradi danemu uzivately
+                        // zmeny.vydej je kolik mu bylo povodne pujceno
+
                         if (vypujcDBRow.Contains("zporadi"))
                         {
                             zporadi = Convert.ToInt32(vypujcDBRow["zporadi"]);
                             if (zporadi != -1)
                             {
                                 Hashtable zmenyDBRow = myDB.getZmenyLine(nporadi, zporadi, null);
-                                vypujcDBRow.Add("poznamka", zmenyDBRow["poznamka"]);
-                                vypujcDBRow.Add("vevcislo", zmenyDBRow["vevcislo"]);
+//                                vypujcDBRow.Add("poznamka", zmenyDBRow["poznamka"]);
+//                                vypujcDBRow.Add("vevcislo", zmenyDBRow["vevcislo"]);
                                 vypujcDBRow.Add("datum", zmenyDBRow["datum"]);
-                                vypujcDBRow.Add("vydej", zmenyDBRow["vydej"]);
+//                                vypujcDBRow.Add("vydej", zmenyDBRow["vydej"]);
                             }
                         }
 
 
-                        Poskozenka poskozenka = new Poskozenka(vypujcDBRow, myDB, this.Font);
+                        Poskozenka poskozenka = new Poskozenka(vypujcDBRow, myDB, this.Font,true);
                         if (poskozenka.ShowDialog() == DialogResult.OK)
                         {
                             Poskozenka.messager mesenger = poskozenka.getMesseger();
