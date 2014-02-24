@@ -348,6 +348,13 @@ namespace Vydejna
             return -1;
         }
 
+
+        public virtual Boolean editNewLineZmeny(Int32 DBParPoradi, Int32 DBPoradi, string DBPoznamka, string DBVevcislo)
+        {
+            return false;
+        }
+
+
         //  vraci
         // 0 OK
         // -1 zapis se nepodaril
@@ -358,17 +365,11 @@ namespace Vydejna
         }
 
 
-        public virtual Boolean editNewLineZmeny(Int32 DBParPoradi, Int32 DBPoradi, string DBPoznamka, string DBVevcislo)
-        {
-            return false;
-        }
-
-
-
         public virtual Int32 addNewLineZmenyAndVraceno(Int32 DBporadi, DateTime DBdatum, Int32 DBks, string DBpoznamka, string DBosCislo)
         {
             return -1;
         }
+
 
 
         public virtual Int32 addNewLineZmenyAndPoskozeno(Int32 DBporadi, string DBJK, DateTime DBdatum, Int32 DBvydej, string DBpoznamka,

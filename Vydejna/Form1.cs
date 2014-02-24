@@ -830,7 +830,7 @@ namespace Vydejna
         }
 
 
-        private void contextMenuEnable(Boolean useAdd, Boolean useMatAdd = false, Boolean useMatDel = false, Boolean useNaradiPujc =false)
+        private void contextMenuEnable(Boolean useAdd, Boolean useInc = false, Boolean useDec = false, Boolean useLend =false)
         {
             if (useAdd)
             {
@@ -842,18 +842,7 @@ namespace Vydejna
                 contextMenuStrip1.Items[0].Enabled = false;
                 contextMenuStrip1.Items[0].Visible = false;
             }
-            if (useMatAdd)
-            {
-                contextMenuStrip1.Items[3].Enabled = true;
-                contextMenuStrip1.Items[3].Visible = true;
-            }
-            else
-            {
-                contextMenuStrip1.Items[3].Enabled = false;
-                contextMenuStrip1.Items[3].Visible = false;
-            }
-
-            if (useMatDel)
+            if (useInc)  // prijem
             {
                 contextMenuStrip1.Items[4].Enabled = true;
                 contextMenuStrip1.Items[4].Visible = true;
@@ -864,7 +853,7 @@ namespace Vydejna
                 contextMenuStrip1.Items[4].Visible = false;
             }
 
-            if (useNaradiPujc)
+            if (useDec)  // poskozeno
             {
                 contextMenuStrip1.Items[5].Enabled = true;
                 contextMenuStrip1.Items[5].Visible = true;
@@ -873,6 +862,34 @@ namespace Vydejna
             {
                 contextMenuStrip1.Items[5].Enabled = false;
                 contextMenuStrip1.Items[5].Visible = false;
+            }
+
+            if ((!useDec) && (!useInc))
+            {
+                contextMenuStrip1.Items[3].Enabled = false;
+                contextMenuStrip1.Items[3].Visible = false;
+            }
+            else
+            {
+                contextMenuStrip1.Items[3].Enabled = true;
+                contextMenuStrip1.Items[3].Visible = true;
+            }
+
+
+            if (useLend)  // pujceno
+            {
+                contextMenuStrip1.Items[7].Enabled = true;
+                contextMenuStrip1.Items[7].Visible = true;
+                contextMenuStrip1.Items[6].Enabled = true;
+                contextMenuStrip1.Items[6].Visible = true;
+
+            }
+            else
+            {
+                contextMenuStrip1.Items[7].Enabled = false;
+                contextMenuStrip1.Items[7].Visible = false;
+                contextMenuStrip1.Items[6].Enabled = false;
+                contextMenuStrip1.Items[6].Visible = false;
             }
 
             contextMenuStrip1.Enabled = true;

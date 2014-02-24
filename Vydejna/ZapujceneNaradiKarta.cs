@@ -383,38 +383,39 @@ namespace Vydejna
                             }
                         }
 
-                        Int32 zporadi = -1;
+//                        Int32 zporadi = -1;
                         // pujceno.stavks je soucasny stav zapujceneho naradi danemu uzivately
                         // zmeny.vydej je kolik mu bylo povodne pujceno
 
-                        if (vypujcDBRow.Contains("zporadi"))
-                        {
-                            zporadi = Convert.ToInt32(vypujcDBRow["zporadi"]);
-                            if (zporadi != -1)
-                            {
-                                Hashtable zmenyDBRow = myDB.getZmenyLine(nporadi, zporadi, null);
+//                        if (vypujcDBRow.Contains("zporadi"))
+//                        {
+//                            zporadi = Convert.ToInt32(vypujcDBRow["zporadi"]);
+//                            if (zporadi != -1)
+//                            {
+//                                Hashtable zmenyDBRow = myDB.getZmenyLine(nporadi, zporadi, null);
 //                                vypujcDBRow.Add("poznamka", zmenyDBRow["poznamka"]);
 //                                vypujcDBRow.Add("vevcislo", zmenyDBRow["vevcislo"]);
-                                vypujcDBRow.Add("datum", zmenyDBRow["datum"]);
+//                                vypujcDBRow.Add("datum", zmenyDBRow["datum"]);
 //                                vypujcDBRow.Add("vydej", zmenyDBRow["vydej"]);
-                            }
-                        }
+//                            }
+//                        }
 
 
                         Poskozenka poskozenka = new Poskozenka(vypujcDBRow, myDB, this.Font,true);
                         if (poskozenka.ShowDialog() == DialogResult.OK)
                         {
                             Poskozenka.messager mesenger = poskozenka.getMesseger();
-                            //                    int errCode;
-                            //                    if ((errCode = myDB.addNewLineZmenyAndPoskozeno(mesenger.poradi, mesenger.jk, mesenger.datum, mesenger.pocetKs, mesenger.poznamka, mesenger.osCislo, mesenger.jmeno, mesenger.prijmeni,
-                            //                                                               mesenger.stredisko, mesenger.provoz, mesenger.nazev, mesenger.rozmer, mesenger.konto, mesenger.cena, mesenger.celkCena, mesenger.csn, mesenger.cisZak)) < 0)
-                            //                    {
-                            //                        if (errCode == -2)
-                            //                            MessageBox.Show("Nemohu odepsat poškozené položky. Učetní stav nebo stav výdejny je menší než požadované množství. Lituji.");
-                            //                        else
-                            //                            MessageBox.Show("Odepsání poškozených položek se nezdařilo. Lituji.");
-                            //
-                            //                    }
+                                                int errCode;
+ //                                                                 addNewLineZmenyAndPoskozeno(Int32 DBporadi, DateTime DBdatum, Int32 DBks, string DBpoznamka, string DBosCislo)
+                                                if ((errCode = myDB.addNewLineZmenyAndPoskozeno(mesenger.poradi, mesenger.jk, mesenger.datum, mesenger.pocetKs, mesenger.poznamka, mesenger.osCislo, mesenger.jmeno, mesenger.prijmeni,
+                                                                                           mesenger.stredisko, mesenger.provoz, mesenger.nazev, mesenger.rozmer, mesenger.konto, mesenger.cena, mesenger.celkCena, mesenger.csn, mesenger.cisZak)) < 0)
+                                                {
+                                                    if (errCode == -2)
+                                                        MessageBox.Show("Nemohu odepsat poškozené položky. Učetní stav nebo stav výdejny je menší než požadované množství. Lituji.");
+                                                    else
+                                                        MessageBox.Show("Odepsání poškozených položek se nezdařilo. Lituji.");
+                            
+                                                }
 
                         }
 

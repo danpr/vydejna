@@ -180,7 +180,10 @@ namespace Vydejna
               // naplnime setrideny seznam  
               foreach (DictionaryEntry item in DBTableInfo)
               {
-                  dict.Add(Convert.ToInt32(item.Value), Convert.ToString( item.Key));
+                  if (dict.ContainsKey(Convert.ToInt32(item.Value)))
+                  {
+                      dict.Add(Convert.ToInt32(item.Value), Convert.ToString(item.Key));
+                  }
               }
               // upravime index podle setrideneho seznamu
               foreach (var sortItem in dict)
