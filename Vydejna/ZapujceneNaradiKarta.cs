@@ -406,9 +406,8 @@ namespace Vydejna
                         {
                             Poskozenka.messager mesenger = poskozenka.getMesseger();
                                                 int errCode;
- //                                                                 addNewLineZmenyAndPoskozeno(Int32 DBporadi, DateTime DBdatum, Int32 DBks, string DBpoznamka, string DBosCislo)
-                                                if ((errCode = myDB.addNewLineZmenyAndPoskozeno(mesenger.poradi, mesenger.jk, mesenger.datum, mesenger.pocetKs, mesenger.poznamka, mesenger.osCislo, mesenger.jmeno, mesenger.prijmeni,
-                                                                                           mesenger.stredisko, mesenger.provoz, mesenger.nazev, mesenger.rozmer, mesenger.konto, mesenger.cena, mesenger.celkCena, mesenger.csn, mesenger.cisZak)) < 0)
+                                                                // poradi - tabulka pujceno
+                                                if ((errCode = myDB.addNewLineZmenyAndVracenoAndPoskozeno(poradi, mesenger.datum, mesenger.pocetKs, mesenger.poznamka, labelOsCislo.Text)) < 0)
                                                 {
                                                     if (errCode == -2)
                                                         MessageBox.Show("Nemohu odepsat poškozené položky. Učetní stav nebo stav výdejny je menší než požadované množství. Lituji.");

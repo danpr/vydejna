@@ -99,6 +99,7 @@ namespace Vydejna
                   buttonChoosePerson.Enabled = false;
                   label13.Text = "Zapůjčeno nyní / celkem :";
                   labelStav.Text = Convert.ToString(DBRow["stavks"]) + " / " + Convert.ToString(celkPujc);
+                  textBoxPoznamka.Text = "Vráceno a poškozeno";
                   if (Convert.ToInt32(DBRow["stavks"]) < celkPujc)
                   {
                       numericUpDownMnozstvi.Maximum = Convert.ToInt32(DBRow["stavks"]);

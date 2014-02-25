@@ -370,6 +370,10 @@ namespace Vydejna
             return -1;
         }
 
+        public virtual Int32 addNewLineZmenyAndVracenoAndPoskozeno(Int32 DBporadi, DateTime DBdatum, Int32 DBks, string DBpoznamka, string DBosCislo)
+        {
+            return -1;
+        }
 
 
         public virtual Int32 addNewLineZmenyAndPoskozeno(Int32 DBporadi, string DBJK, DateTime DBdatum, Int32 DBvydej, string DBpoznamka,
