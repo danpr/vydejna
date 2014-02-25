@@ -82,12 +82,12 @@ namespace Vydejna
 
                     dataGridView1.DataSource = myDataBase.loadDataTableNaradiJednoduchy();
 
-                    dataGridView1.Columns[0].HeaderText = "Pořadí";
-                    dataGridView1.Columns[1].HeaderText = "Název";
-                    dataGridView1.Columns[2].HeaderText = "Označení JK";
-                    dataGridView1.Columns[3].HeaderText = "Rozměr";
-                    dataGridView1.Columns[4].HeaderText = "KS/Fyzický stav";
-                    dataGridView1.Columns[5].HeaderText = "Poznámka";
+                    dataGridView1.Columns["poradi"].HeaderText = "Pořadí";
+                    dataGridView1.Columns["nazev"].HeaderText = "Název";
+                    dataGridView1.Columns["jk"].HeaderText = "Označení JK";
+                    dataGridView1.Columns["rozmer"].HeaderText = "Rozměr";
+                    dataGridView1.Columns["fyzstav"].HeaderText = "KS/Fyzický stav";
+                    dataGridView1.Columns["poznamka"].HeaderText = "Poznámka";
                     dataGridView1.Columns["poradi"].Visible = false;   // poradi nezobrazujeme
                     dataGridView1.Columns["cena"].Visible = false;   // cenu nezobrazujeme
                     dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
@@ -137,7 +137,9 @@ namespace Vydejna
             {
                 DataGridViewRow myRow = dataGridView1.SelectedRows[0];
 
-                prepravka = new messager( Convert.ToInt32( myRow.Cells[0].Value), Convert.ToString( myRow.Cells[1].Value),Convert.ToString( myRow.Cells[2].Value), Convert.ToString( myRow.Cells[2].Value),  Convert.ToInt32(myRow.Cells[4].Value), Convert.ToDouble(myRow.Cells[6].Value));
+                prepravka = new messager( Convert.ToInt32( myRow.Cells["poradi"].Value), Convert.ToString( myRow.Cells["nazev"].Value),
+                                          Convert.ToString( myRow.Cells["jk"].Value), Convert.ToString( myRow.Cells["rozmer"].Value),  
+                                          Convert.ToInt32(myRow.Cells["fyzstav"].Value), Convert.ToDouble(myRow.Cells["cena"].Value));
             }
             else
             {
