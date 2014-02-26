@@ -258,7 +258,7 @@ namespace Vydejna
                     dataGridView1.Columns["poradi"].HeaderText = "Pořadí";
                     dataGridView1.Columns["nazev"].HeaderText = "Název";
                     dataGridView1.Columns["jk"].HeaderText = "Označení JK";
-                    dataGridView1.Columns["pocetks"].HeaderText = "Vráceno ks";
+                    dataGridView1.Columns["pocetks"].HeaderText = "Poškozeno ks";
                     dataGridView1.Columns["rozmer"].HeaderText = "Rozměr";
                     dataGridView1.Columns["csn"].HeaderText = "Norma ČSN";
                     dataGridView1.Columns["cena"].HeaderText = "Cena";

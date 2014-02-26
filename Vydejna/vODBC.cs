@@ -1506,7 +1506,7 @@ namespace Vydejna
 
 
 
-        public override Int32 addNewLineZmenyAndVracenoAndPoskozeno(Int32 DBporadi, DateTime DBdatum, Int32 DBks, string DBpoznamka, string DBosCislo)
+        public override Int32 addNewLineZmenyAndVracenoAndPoskozeno(Int32 DBporadi, DateTime DBdatum, Int32 DBks, string DBpoznamka, string DBosCislo, string DBKonto, string DBcisZak)
         {
             OdbcTransaction transaction = null;
 
@@ -1522,7 +1522,7 @@ namespace Vydejna
                 ///------------
                 string commandReadString7 = "SELECT poradi FROM tabseq WHERE nazev = 'poskozeno'";
 
-                string commandString1 = "UPDATE naradi SET ucetstav = ucetstav + ? WHERE poradi = ? ";
+                string commandString1 = "UPDATE naradi SET ucetstav = ucetstav - ? WHERE poradi = ? ";
 
                 string commandString2 = "INSERT INTO zmeny (parporadi, pomozjk, datum, poznamka, prijem, vydej, zustatek, zapkarta, vevcislo, pocivc, stav, poradi )" +
                     "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
@@ -1704,6 +1704,54 @@ namespace Vydejna
                     }
                     zmenTailReader.Close();
 
+
+
+                    Int32 newVracenoPoradi;
+                    // cislo poradi pro novy zaznam
+
+                    OdbcCommand cmdr4 = new OdbcCommand(commandReadString4, myDBConn as OdbcConnection);
+                    cmdr4.Transaction = transaction;
+                    OdbcDataReader vracNewPoradiReader = cmdr4.ExecuteReader();
+                    if (vracNewPoradiReader.Read() == true)
+                    {
+                        newVracenoPoradi = vracNewPoradiReader.GetInt32(vracNewPoradiReader.GetOrdinal("poradi")) + 1;
+                    }
+                    else
+                    {
+                        vracNewPoradiReader.Close();
+                        if (transaction != null)
+                        {
+                            (transaction as OdbcTransaction).Rollback();
+                        }
+                        return -1;
+                    }
+                    vracNewPoradiReader.Close();
+
+
+                    Int32 newPoskozenoPoradi;
+                    // cislo poradi pro novy zaznam
+
+                    OdbcCommand cmdr8 = new OdbcCommand(commandReadString7, myDBConn as OdbcConnection);
+                    cmdr8.Transaction = transaction;
+                    OdbcDataReader vracNewPoskPoradiReader = cmdr8.ExecuteReader();
+                    if (vracNewPoskPoradiReader.Read() == true)
+                    {
+                        newPoskozenoPoradi = vracNewPoskPoradiReader.GetInt32(vracNewPoskPoradiReader.GetOrdinal("poradi")) + 1;
+                    }
+                    else
+                    {
+                        vracNewPoskPoradiReader.Close();
+                        if (transaction != null)
+                        {
+                            (transaction as OdbcTransaction).Rollback();
+                        }
+                        return -1;
+                    }
+                    vracNewPoskPoradiReader.Close();
+
+
+
+
                     // tab naradi zmensi ucet. stav
 
                     OdbcCommand cmd1 = new OdbcCommand(commandString1, myDBConn as OdbcConnection);
@@ -1750,58 +1798,14 @@ namespace Vydejna
                     }
 
 
-                    Int32 newVracenoPoradi;
-                    // cislo poradi pro novy zaznam
-
-                    OdbcCommand cmdr4 = new OdbcCommand(commandReadString4, myDBConn as OdbcConnection);
-                    cmdr4.Transaction = transaction;
-                    OdbcDataReader vracNewPoradiReader = cmdr4.ExecuteReader();
-                    if (vracNewPoradiReader.Read() == true)
-                    {
-                        newVracenoPoradi = vracNewPoradiReader.GetInt32(vracNewPoradiReader.GetOrdinal("poradi")) + 1;
-                    }
-                    else
-                    {
-                        vracNewPoradiReader.Close();
-                        if (transaction != null)
-                        {
-                            (transaction as OdbcTransaction).Rollback();
-                        }
-                        return -1;
-                    }
-                    vracNewPoradiReader.Close();
-
-
-                    Int32 newPoskozenoPoradi;
-                    // cislo poradi pro novy zaznam
-
-                    OdbcCommand cmdr8 = new OdbcCommand(commandReadString7, myDBConn as OdbcConnection);
-                    cmdr4.Transaction = transaction;
-                    OdbcDataReader vracNewPoskPoradiReader = cmdr8.ExecuteReader();
-                    if (vracNewPoskPoradiReader.Read() == true)
-                    {
-                        newPoskozenoPoradi = vracNewPoradiReader.GetInt32(vracNewPoradiReader.GetOrdinal("poradi")) + 1;
-                    }
-                    else
-                    {
-                        vracNewPoskPoradiReader.Close();
-                        if (transaction != null)
-                        {
-                            (transaction as OdbcTransaction).Rollback();
-                        }
-                        return -1;
-                    }
-                    vracNewPoskPoradiReader.Close();
-
-
+                    // pridani do tabulky vraceno
                     OdbcCommand cmd5 = new OdbcCommand(commandString5, myDBConn as OdbcConnection);
-                    // "INSERT INTO vraceno ( poradi, jmeno, oscislo, dilna, pracoviste, vyrobek, nazev, jk, rozmer, pocetks, cena, datum, csn, krjmeno, celkcena, vevcislo, konto) "
                     cmd5.Parameters.AddWithValue("poradi", newZmenyPoradi);
                     cmd5.Parameters.AddWithValue("jmeno", osobyPrijmeni);
                     cmd5.Parameters.AddWithValue("oscislo", DBosCislo);
                     cmd5.Parameters.AddWithValue("dilna", osobyStredisko);
                     cmd5.Parameters.AddWithValue("pracoviste", osobyOddeleni);
-                    cmd5.Parameters.AddWithValue("vyrobek", "");
+                    cmd5.Parameters.AddWithValue("vyrobek", DBcisZak);
                     cmd5.Parameters.AddWithValue("nazev", naradiNazev);
                     cmd5.Parameters.AddWithValue("jk", naradiJK);
                     cmd5.Parameters.AddWithValue("rozmer", naradiRozmer);
@@ -1812,7 +1816,7 @@ namespace Vydejna
                     cmd5.Parameters.AddWithValue("krjmeno", osobyJmeno);
                     cmd5.Parameters.AddWithValue("celkcena", naradiCelkCena);
                     cmd5.Parameters.AddWithValue("vevcislo", zmenyVevcislo);
-                    cmd5.Parameters.AddWithValue("konto", "");
+                    cmd5.Parameters.AddWithValue("konto", DBKonto);
                     cmd5.Transaction = transaction;
                     cmd5.ExecuteNonQuery();
 
@@ -1829,7 +1833,7 @@ namespace Vydejna
                     cmd7.Parameters.AddWithValue("@poznamka", DBpoznamka);
                     cmd7.Parameters.AddWithValue("@prijem", 0);
                     cmd7.Parameters.AddWithValue("@vydej", DBks);
-                    cmd7.Parameters.AddWithValue("@zustatek", zustatek - DBks);
+                    cmd7.Parameters.AddWithValue("@zustatek", zustatek); // jen zustatek
                     cmd7.Parameters.AddWithValue("@zapkarta", DBosCislo);
                     cmd7.Parameters.AddWithValue("@vevcislo", zmenyVevcislo);
                     cmd7.Parameters.AddWithValue("@pocivc", 0);
@@ -1838,15 +1842,15 @@ namespace Vydejna
                     cmd7.Transaction = transaction;
                     errCode = cmd7.ExecuteNonQuery();
 
-                    //                string commandString9 = "INSERT INTO poskozeno ( poradi, jmeno, oscislo, dilna, pracoviste, vyrobek, nazev, jk, rozmer, pocetks, cena, datum, csn, krjmeno, celkcena, vevcislo, konto) " +
 
+                    // pridani do tabulky poskozeno
                     OdbcCommand cmd8 = new OdbcCommand(commandString9, myDBConn as OdbcConnection);
                     cmd8.Parameters.AddWithValue("@pporadi", newPoskozenoPoradi);
                     cmd8.Parameters.AddWithValue("@jmeno", osobyPrijmeni);
                     cmd8.Parameters.AddWithValue("@oscislo", DBosCislo);
                     cmd8.Parameters.AddWithValue("@dilna", osobyStredisko);
                     cmd8.Parameters.AddWithValue("@pracoviste", osobyOddeleni);
-                    cmd8.Parameters.AddWithValue("@vyrobek", "");
+                    cmd8.Parameters.AddWithValue("@vyrobek", DBcisZak);
                     cmd8.Parameters.AddWithValue("@nazev", naradiNazev);
                     cmd8.Parameters.AddWithValue("@jk", naradiJK);
                     cmd8.Parameters.AddWithValue("@rozmer", naradiRozmer);
@@ -1857,7 +1861,7 @@ namespace Vydejna
                     cmd8.Parameters.AddWithValue("@krjmeno", osobyJmeno);
                     cmd8.Parameters.AddWithValue("@celkcena", naradiCelkCena);
                     cmd8.Parameters.AddWithValue("@vevcislo", zmenyVevcislo);
-                    cmd8.Parameters.AddWithValue("@konto", "");
+                    cmd8.Parameters.AddWithValue("@konto", DBKonto);
                     cmd8.Transaction = transaction;
                     errCode = cmd8.ExecuteNonQuery();
 

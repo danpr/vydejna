@@ -370,7 +370,7 @@ namespace Vydejna
             return -1;
         }
 
-        public virtual Int32 addNewLineZmenyAndVracenoAndPoskozeno(Int32 DBporadi, DateTime DBdatum, Int32 DBks, string DBpoznamka, string DBosCislo)
+        public virtual Int32 addNewLineZmenyAndVracenoAndPoskozeno(Int32 DBporadi, DateTime DBdatum, Int32 DBks, string DBpoznamka, string DBosCislo, string DBKonto, string DBcisZak)
         {
             return -1;
         }
@@ -493,7 +493,7 @@ namespace Vydejna
         {
             return loadDataTable("SELECT poradi, nazev, jk,  pocetks, rozmer, csn,"
                                      + " cena, datum, vyrobek, konto, jmeno, krjmeno, oscislo, dilna, pracoviste"
-                                     + " from poskozeno ORDER BY datum, poradi");
+                                     + " from poskozeno ORDER BY poradi, datum");
         }
 
 
