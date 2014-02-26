@@ -40,6 +40,8 @@
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.zapůjčeníNářadíToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.vraceníNářadíToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.informaceONářadíToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.informaceOZapůjčeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonCancel = new System.Windows.Forms.Button();
@@ -50,8 +52,6 @@
             this.labelOddeleni = new System.Windows.Forms.Label();
             this.labelPracoviste = new System.Windows.Forms.Label();
             this.labelCisZnamky = new System.Windows.Forms.Label();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewZmeny)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -122,9 +122,9 @@
             // dataGridViewZmeny
             // 
             this.dataGridViewZmeny.AllowUserToAddRows = false;
-            this.dataGridViewZmeny.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridViewZmeny.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridViewZmeny.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewZmeny.ContextMenuStrip = this.contextMenuStrip1;
             this.dataGridViewZmeny.Location = new System.Drawing.Point(15, 125);
@@ -159,6 +159,18 @@
             this.vraceníNářadíToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
             this.vraceníNářadíToolStripMenuItem.Text = "Vracení nářadí";
             this.vraceníNářadíToolStripMenuItem.Click += new System.EventHandler(this.vraceníNářadíToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(182, 22);
+            this.toolStripMenuItem1.Text = "Poškození nářadí";
+            this.toolStripMenuItem1.Click += new System.EventHandler(this.poskozeniNaradiToolStripMenuItem1_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(179, 6);
             // 
             // informaceONářadíToolStripMenuItem
             // 
@@ -248,18 +260,6 @@
             this.labelCisZnamky.TabIndex = 37;
             this.labelCisZnamky.Text = "Cis znamky";
             // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(182, 22);
-            this.toolStripMenuItem1.Text = "Poškození nářadí";
-            this.toolStripMenuItem1.Click += new System.EventHandler(this.poskozeniNaradiToolStripMenuItem1_Click);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(179, 6);
-            // 
             // ZapujceneNaradiKarta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -282,8 +282,10 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "ZapujceneNaradiKarta";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Zapůjčené nářadí na osobu";
             this.Load += new System.EventHandler(this.ZapujceneNaradiKarta_Load);
+            this.SizeChanged += new System.EventHandler(this.ZapujceneNaradiKarta_SizeChanged);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewZmeny)).EndInit();
             this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);

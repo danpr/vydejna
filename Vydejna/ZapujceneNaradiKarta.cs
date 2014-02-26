@@ -17,6 +17,11 @@ namespace Vydejna
         Hashtable osobyDBRow;
         private string osCislo;
 
+        private enum evenStateEnum { enable, disable };
+
+        private evenStateEnum evenState = evenStateEnum.disable;
+
+
         public ZapujceneNaradiKarta(string osCislo, vDatabase myDataBase, Font myFont)
         {
             myDB = myDataBase;
@@ -38,6 +43,10 @@ namespace Vydejna
 
             CancelButton = buttonCancel;
             this.Font = myFont;
+
+            Size size = ConfigReg.loadSettingWindowSize("LEND");
+            if (!(size.IsEmpty)) this.Size = size;
+            evenState = evenStateEnum.enable;
         }
 
         private void ZapujceneNaradiKarta_Load(object sender, EventArgs e)
@@ -427,6 +436,14 @@ namespace Vydejna
                 }
             }
 
+        }
+
+        private void ZapujceneNaradiKarta_SizeChanged(object sender, EventArgs e)
+        {
+            if (evenState == evenStateEnum.enable)
+            {
+                if (!(this.Size.IsEmpty)) ConfigReg.saveSettingWindowLocationSize("LEND", 0, 0, this.Size.Width, this.Size.Height);
+            }
         }
     }
 }
