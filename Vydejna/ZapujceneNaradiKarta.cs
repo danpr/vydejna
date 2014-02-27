@@ -366,7 +366,11 @@ namespace Vydejna
         {
             if (dataGridViewZmeny.SelectedRows.Count > 0)
             {
-                DataGridViewRow selectedDGVRow = dataGridViewZmeny.SelectedRows[0];
+                DataGridViewRow myRow = dataGridViewZmeny.SelectedRows[0];
+                Int32 pujcPoradi = myRow.Cells["poradi"].Value;
+
+                
+                 DataGridViewRow selectedDGVRow = dataGridViewZmeny.SelectedRows[0];
                 Int32 poradi = Convert.ToInt32(selectedDGVRow.Cells[0].Value);
 
                 Hashtable vypujcDBRow = myDB.getPujcenoLine(poradi, null);
@@ -392,46 +396,97 @@ namespace Vydejna
                             }
                         }
 
-//                        Int32 zporadi = -1;
-                        // pujceno.stavks je soucasny stav zapujceneho naradi danemu uzivately
-                        // zmeny.vydej je kolik mu bylo povodne pujceno
 
-//                        if (vypujcDBRow.Contains("zporadi"))
-//                        {
-//                            zporadi = Convert.ToInt32(vypujcDBRow["zporadi"]);
-//                            if (zporadi != -1)
-//                            {
-//                                Hashtable zmenyDBRow = myDB.getZmenyLine(nporadi, zporadi, null);
-//                                vypujcDBRow.Add("poznamka", zmenyDBRow["poznamka"]);
-//                                vypujcDBRow.Add("vevcislo", zmenyDBRow["vevcislo"]);
-//                                vypujcDBRow.Add("datum", zmenyDBRow["datum"]);
-//                                vypujcDBRow.Add("vydej", zmenyDBRow["vydej"]);
-//                            }
-//                        }
-
-
-                        Poskozenka poskozenka = new Poskozenka(vypujcDBRow, myDB, this.Font,true);
+                        Poskozenka poskozenka = new Poskozenka(vypujcDBRow, myDB, this.Font, true);
                         if (poskozenka.ShowDialog() == DialogResult.OK)
                         {
                             Poskozenka.messager mesenger = poskozenka.getMesseger();
-                                                int errCode;
-                                                                // poradi - tabulka pujceno
-                                                if ((errCode = myDB.addNewLineZmenyAndVracenoAndPoskozeno(poradi, mesenger.datum, mesenger.pocetKs, mesenger.poznamka, labelOsCislo.Text, mesenger.konto, mesenger.cisZak)) < 0)
-                                                {
-                                                    if (errCode == -2)
-                                                        MessageBox.Show("Nemohu odepsat poškozené položky. Učetní stav nebo stav výdejny je menší než požadované množství. Lituji.");
-                                                    else
-                                                        MessageBox.Show("Odepsání poškozených položek se nezdařilo. Lituji.");
-                            
-                                                }
+                            int errCode;
+                            // -1 obecna chyba 
+                            // -2 pokus o vraceni o odepsani vice kusu nez bylo vypujceno
+                            // -3 pokus o odepsani o zruseni o vice nez je ucetni stav // ucetni stav by byl zaporny 
+                            // -4 stavks v tabulce zmen je zaporny
+                            // -5 v tabulce změn nejsou žádné záznamy
+
+                            // poradi - tabulka pujceno
+                            if ((errCode = myDB.addNewLineZmenyAndVracenoAndPoskozeno(poradi, mesenger.datum, mesenger.pocetKs, mesenger.poznamka, labelOsCislo.Text, mesenger.konto, mesenger.cisZak)) < 0)
+                            {
+
+
+                                if (errCode == -4)
+                                {
+                                    MessageBox.Show("Stav změn je záporné číslo. Nejprve opravte data o pohybu nářadí.");
+                                }
+                                if (errCode == -5)
+                                {
+                                    MessageBox.Show("Neexistují žádné záznamy o pohybu nářadi. Nejprve opravte data o pohybu nářadí.");
+                                }
+                                if (errCode == -3)
+                                {
+                                    MessageBox.Show("Nemohu odepsat poškozené položky. Požadováno je odepsat více než je účetní stav. Lituji.");
+                                }
+
+                                if (errCode == -2)
+                                {
+                                    MessageBox.Show("Požadujete vrátit vetší možství než je vypůjčeno. Data byla patrně změněna z jiného pracoviště.");
+                                }
+                                if (errCode == -1)
+                                {
+                                    MessageBox.Show("Vrácení nářadi se nezdařilo. Lituji.");
+                                }
+
+                                /////
+                                if (errCode == 0)
+                                {
+
+                                    // opravime tabulku
+                                    Hashtable DBPujcenoRow = null;
+                                    DBPujcenoRow = myDB.getPujcenoLine(Convert.ToInt32(DBVypujcRow["poradi"]), DBPujcenoRow);
+                                    if (DBPujcenoRow != null)
+                                    {
+                                        // opravime radku
+
+                                        // je potreba najit index v datove tabulce - po trideni neni schodny s indexem ve view
+                                        Int32 dataRowIndex = -1;
+                                        for (int x = 0; x < (dataGridViewZmeny.DataSource as DataTable).Rows.Count; x++)
+                                        {
+                                            if (Convert.ToInt32((dataGridViewZmeny.DataSource as DataTable).Rows[x]["poradi"]) == pujcPoradi)
+                                            {
+                                                dataRowIndex = x;
+                                                break;
+                                            }
+                                        }
+                                        if (dataRowIndex != -1)
+                                        {
+                                            (dataGridViewZmeny.DataSource as DataTable).Rows[dataRowIndex].SetField(6, Convert.ToString(DBPujcenoRow["stavks"]));
+                                            dataGridViewZmeny.Refresh();
+                                        }
+                                    }
+                                    else
+                                    {
+                                        // smazeme radku
+                                        dataGridViewZmeny.Rows.Remove(dataGridViewZmeny.SelectedRows[0]);
+                                        Int32 counter = dataGridViewZmeny.Rows.Count - 1;
+                                        if (counter > 0)
+                                        {
+                                            dataGridViewZmeny.FirstDisplayedScrollingRowIndex = dataGridViewZmeny.Rows[counter].Index;
+                                            dataGridViewZmeny.Refresh();
+                                            dataGridViewZmeny.CurrentCell = dataGridViewZmeny.Rows[counter].Cells[1];
+                                            dataGridViewZmeny.Rows[counter].Selected = true;
+                                        }
+                                    }
+
+                                }
+
+                                ////
+
+
+
+
+
+                            }
 
                         }
-
-                        //                        ZapujceneNaradiInfo zapNarInfo = new ZapujceneNaradiInfo(vypujcDBRow, this.Font);
-                        //                        zapNarInfo.Font = this.Font;
-                        //                        zapNarInfo.ShowDialog();
-
-
                     }
                 }
             }

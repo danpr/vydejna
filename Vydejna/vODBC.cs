@@ -1517,7 +1517,7 @@ namespace Vydejna
                 string commandReadString2 = "SELECT nporadi, zporadi, stavks FROM pujceno WHERE poradi = ? ";
                 string commandReadString3 = "SELECT poradi, zustatek from zmeny where parporadi = ? ORDER BY poradi DESC";
                 string commandReadString4 = "SELECT poradi FROM tabseq WHERE nazev = 'vraceno'";
-                string commandReadString5 = "SELECT rtrim(nazev) as nazev, rtrim(jk) as jk, rtrim(rozmer) as rozmer, rtrim(normacsn) as normacsn, cena, celkcena  FROM naradi WHERE poradi = ? ";
+                string commandReadString5 = "SELECT rtrim(nazev) as nazev, rtrim(jk) as jk, rtrim(rozmer) as rozmer, rtrim(normacsn) as normacsn, cena, celkcena, ucetstav  FROM naradi WHERE poradi = ? ";
                 string commandReadString6 = "SELECT jmeno, prijmeni, odeleni, stredisko, pracoviste FROM osoby WHERE oscislo = ? ";
                 ///------------
                 string commandReadString7 = "SELECT poradi FROM tabseq WHERE nazev = 'poskozeno'";
@@ -1615,6 +1615,7 @@ namespace Vydejna
                     string naradiCSN;
                     double naradiCena;
                     double naradiCelkCena;
+                    Int32 naradiUcetStav;
 
                     OdbcCommand cmdr5 = new OdbcCommand(commandReadString5, myDBConn as OdbcConnection);
                     cmdr5.Parameters.AddWithValue("@poradi", parPoradi);
@@ -1628,6 +1629,17 @@ namespace Vydejna
                         naradiCSN = naradiReader.GetString(naradiReader.GetOrdinal("normacsn"));
                         naradiCena = naradiReader.GetDouble(naradiReader.GetOrdinal("cena"));
                         naradiCelkCena = naradiReader.GetDouble(naradiReader.GetOrdinal("celkcena"));
+                        naradiUcetStav = naradiReader.GetInt32(naradiReader.GetOrdinal("ucetstav"));
+                        if (naradiUcetStav < DBks)
+                        {
+                            // nemohu odepsat vice nez je ucetni stav
+                            naradiReader.Close();
+                            if (transaction != null)
+                            {
+                                (transaction as OdbcTransaction).Rollback();
+                            }
+                            return -3;
+                        }
                     }
                     else
                     {
@@ -1674,6 +1686,7 @@ namespace Vydejna
                     Int32 zustatek;
                     // cislo poradi pro novy zaznam a stav podle zmen
 
+                    //commandReadString3 = "SELECT poradi, zustatek from zmeny where parporadi = ? ORDER BY poradi DESC";
                     OdbcCommand cmdr3 = new OdbcCommand(commandReadString3, myDBConn as OdbcConnection);
                     cmdr3.Parameters.AddWithValue("poradi", parPoradi);
                     cmdr3.Transaction = transaction;
@@ -1700,7 +1713,7 @@ namespace Vydejna
                         {
                             (transaction as OdbcTransaction).Rollback();
                         }
-                        return -3;  // zadne zaznamy ve zmenach
+                        return -5;  // zadne zaznamy ve zmenach
                     }
                     zmenTailReader.Close();
 
@@ -1873,8 +1886,6 @@ namespace Vydejna
                     {
                         (transaction as OdbcTransaction).Commit();
                     }
-
-
                 }
                 catch (Exception)
                 {
