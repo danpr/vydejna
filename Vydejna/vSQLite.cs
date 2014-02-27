@@ -2371,6 +2371,401 @@ namespace Vydejna
         }
 
 
+        public override Int32 addNewLineZmenyAndVracenoAndPoskozeno(Int32 DBporadi, DateTime DBdatum, Int32 DBks, string DBpoznamka, string DBosCislo, string DBKonto, string DBcisZak)
+        {
+            SQLiteTransaction transaction = null;
+
+            if (DBIsOpened())
+            {
+
+                string commandReadString1 = "SELECT rtrim(vevcislo) as vevcislo FROM zmeny WHERE poradi = ? AND parporadi = ? ";
+                string commandReadString2 = "SELECT nporadi, zporadi, stavks FROM pujceno WHERE poradi = ? ";
+                string commandReadString3 = "SELECT poradi, zustatek from zmeny where parporadi = ? ORDER BY poradi DESC";
+                string commandReadString4 = "SELECT poradi FROM tabseq WHERE nazev = 'vraceno'";
+                string commandReadString5 = "SELECT rtrim(nazev) as nazev, rtrim(jk) as jk, rtrim(rozmer) as rozmer, rtrim(normacsn) as normacsn, cena, celkcena, ucetstav  FROM naradi WHERE poradi = ? ";
+                string commandReadString6 = "SELECT jmeno, prijmeni, odeleni, stredisko, pracoviste FROM osoby WHERE oscislo = ? ";
+                ///------------
+                string commandReadString7 = "SELECT poradi FROM tabseq WHERE nazev = 'poskozeno'";
+
+                string commandString1 = "UPDATE naradi SET ucetstav = ucetstav - ? WHERE poradi = ? ";
+
+                string commandString2 = "INSERT INTO zmeny (parporadi, pomozjk, datum, poznamka, prijem, vydej, zustatek, zapkarta, vevcislo, pocivc, stav, poradi )" +
+                    "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
+
+                string commandString3 = "UPDATE pujceno SET stavks = stavks - ? WHERE poradi = ? ";
+                string commandString4 = "DELETE FROM pujceno WHERE poradi = ? ";
+                string commandString5 = "INSERT INTO vraceno ( poradi, jmeno, oscislo, dilna, pracoviste, vyrobek, nazev, jk, rozmer, pocetks, cena, datum, csn, krjmeno, celkcena, vevcislo, konto) " +
+                      "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
+                string commandString6 = "UPDATE  tabseq set poradi = poradi +1 WHERE nazev = 'vraceno'";
+                ///--------------------------------
+
+                string commandString8 = "UPDATE  tabseq set poradi = poradi +1 WHERE nazev = 'poskozeno'";
+                string commandString9 = "INSERT INTO poskozeno ( poradi, jmeno, oscislo, dilna, pracoviste, vyrobek, nazev, jk, rozmer, pocetks, cena, datum, csn, krjmeno, celkcena, vevcislo, konto) " +
+                      "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
+
+
+
+                try
+                {
+                    try
+                    {
+                        transaction = (myDBConn as SQLiteConnection).BeginTransaction(System.Data.IsolationLevel.ReadCommitted);
+                    }
+                    catch
+                    {
+                    }
+                    Int32 parPoradi;
+                    Int32 zmenPoradi;
+                    Int32 pujcKs;
+
+
+                    // soucasny stav pujceno
+                    SQLiteCommand cmdr2 = new SQLiteCommand(commandReadString2, myDBConn as SQLiteConnection);
+                    cmdr2.Parameters.AddWithValue("@poradi", DBporadi);
+                    cmdr2.Transaction = transaction;
+                    SQLiteDataReader pujcReader = cmdr2.ExecuteReader();
+                    if (pujcReader.Read())
+                    {
+                        parPoradi = pujcReader.GetInt32(pujcReader.GetOrdinal("nporadi"));
+                        zmenPoradi = pujcReader.GetInt32(pujcReader.GetOrdinal("zporadi"));
+                        pujcKs = pujcReader.GetInt32(pujcReader.GetOrdinal("stavks"));
+                    }
+                    else
+                    {
+                        pujcReader.Close();
+                        if (transaction != null)
+                        {
+                            (transaction as SQLiteTransaction).Rollback();
+                        }
+                        return -1;  // chyba
+                    }
+                    pujcReader.Close();
+
+                    if (pujcKs < DBks)
+                    {
+                        if (transaction != null)
+                        {
+                            (transaction as SQLiteTransaction).Rollback();
+                        }
+                        return -2;  // pozadavek na odepsani vice kusu nez je mozno
+                    }
+
+                    string zmenyVevcislo;
+
+                    SQLiteCommand cmdr7 = new SQLiteCommand(commandReadString1, myDBConn as SQLiteConnection);
+                    cmdr7.Parameters.AddWithValue("@poradi", zmenPoradi);
+                    cmdr7.Parameters.AddWithValue("@parporadi", parPoradi);
+                    cmdr7.Transaction = transaction;
+                    SQLiteDataReader zmenyReader = cmdr7.ExecuteReader();
+                    if (zmenyReader.Read())
+                    {
+                        zmenyVevcislo = zmenyReader.GetString(zmenyReader.GetOrdinal("vevcislo"));
+                    }
+                    else
+                    {
+                        zmenyReader.Close();
+                        if (transaction != null)
+                        {
+                            (transaction as SQLiteTransaction).Rollback();
+                        }
+                        return -1;  // chyba
+                    }
+                    zmenyReader.Close();
+
+
+
+                    string naradiNazev;
+                    string naradiJK;
+                    string naradiRozmer;
+                    string naradiCSN;
+                    double naradiCena;
+                    double naradiCelkCena;
+                    Int32 naradiUcetStav;
+
+                    SQLiteCommand cmdr5 = new SQLiteCommand(commandReadString5, myDBConn as SQLiteConnection);
+                    cmdr5.Parameters.AddWithValue("@poradi", parPoradi);
+                    cmdr5.Transaction = transaction;
+                    SQLiteDataReader naradiReader = cmdr5.ExecuteReader();
+                    if (naradiReader.Read())
+                    {
+                        naradiNazev = naradiReader.GetString(naradiReader.GetOrdinal("nazev"));
+                        naradiJK = naradiReader.GetString(naradiReader.GetOrdinal("jk"));
+                        naradiRozmer = naradiReader.GetString(naradiReader.GetOrdinal("rozmer"));
+                        naradiCSN = naradiReader.GetString(naradiReader.GetOrdinal("normacsn"));
+                        naradiCena = naradiReader.GetDouble(naradiReader.GetOrdinal("cena"));
+                        naradiCelkCena = naradiReader.GetDouble(naradiReader.GetOrdinal("celkcena"));
+                        naradiUcetStav = naradiReader.GetInt32(naradiReader.GetOrdinal("ucetstav"));
+                        if (naradiUcetStav < DBks)
+                        {
+                            // nemohu odepsat vice nez je ucetni stav
+                            naradiReader.Close();
+                            if (transaction != null)
+                            {
+                                (transaction as SQLiteTransaction).Rollback();
+                            }
+                            return -3;
+                        }
+                    }
+                    else
+                    {
+                        naradiReader.Close();
+                        if (transaction != null)
+                        {
+                            (transaction as SQLiteTransaction).Rollback();
+                        }
+                        return -1;
+                    }
+                    naradiReader.Close();
+
+                    string osobyJmeno;
+                    string osobyPrijmeni;
+                    string osobyOddeleni;
+                    string osobyPracoviste;
+                    string osobyStredisko;
+
+
+                    SQLiteCommand cmdr6 = new SQLiteCommand(commandReadString6, myDBConn as SQLiteConnection);
+                    cmdr6.Parameters.AddWithValue("@oscislo", DBosCislo);
+                    cmdr6.Transaction = transaction;
+                    SQLiteDataReader osobyReader = cmdr6.ExecuteReader();
+                    if (osobyReader.Read())
+                    {
+                        osobyJmeno = osobyReader.GetString(osobyReader.GetOrdinal("jmeno"));
+                        osobyPrijmeni = osobyReader.GetString(osobyReader.GetOrdinal("prijmeni"));
+                        osobyOddeleni = osobyReader.GetString(osobyReader.GetOrdinal("odeleni"));
+                        osobyStredisko = osobyReader.GetString(osobyReader.GetOrdinal("stredisko"));
+                        osobyPracoviste = osobyReader.GetString(osobyReader.GetOrdinal("pracoviste"));
+                    }
+                    else
+                    {
+                        osobyReader.Close();
+                        if (transaction != null)
+                        {
+                            (transaction as SQLiteTransaction).Rollback();
+                        }
+                        return -1;
+                    }
+                    osobyReader.Close();
+
+                    Int32 newZmenyPoradi;
+                    Int32 zustatek;
+                    // cislo poradi pro novy zaznam a stav podle zmen
+
+                    //commandReadString3 = "SELECT poradi, zustatek from zmeny where parporadi = ? ORDER BY poradi DESC";
+                    SQLiteCommand cmdr3 = new SQLiteCommand(commandReadString3, myDBConn as SQLiteConnection);
+                    cmdr3.Parameters.AddWithValue("poradi", parPoradi);
+                    cmdr3.Transaction = transaction;
+                    SQLiteDataReader zmenTailReader = cmdr3.ExecuteReader();
+                    if (zmenTailReader.Read() == true)
+                    {
+                        newZmenyPoradi = zmenTailReader.GetInt32(zmenTailReader.GetOrdinal("poradi")) + 1;
+                        zustatek = zmenTailReader.GetInt32(zmenTailReader.GetOrdinal("zustatek")); //zmeny.stav - posledni
+                        if (zustatek < 0)
+                        {
+                            zmenTailReader.Close();
+                            if (transaction != null)
+                            {
+                                (transaction as SQLiteTransaction).Rollback();
+                            }
+                            return -4;  // zadne zaznamy ve zmenach
+                        }
+
+                    }
+                    else
+                    {
+                        zmenTailReader.Close();
+                        if (transaction != null)
+                        {
+                            (transaction as SQLiteTransaction).Rollback();
+                        }
+                        return -5;  // zadne zaznamy ve zmenach
+                    }
+                    zmenTailReader.Close();
+
+
+
+                    Int32 newVracenoPoradi;
+                    // cislo poradi pro novy zaznam
+
+                    SQLiteCommand cmdr4 = new SQLiteCommand(commandReadString4, myDBConn as SQLiteConnection);
+                    cmdr4.Transaction = transaction;
+                    SQLiteDataReader vracNewPoradiReader = cmdr4.ExecuteReader();
+                    if (vracNewPoradiReader.Read() == true)
+                    {
+                        newVracenoPoradi = vracNewPoradiReader.GetInt32(vracNewPoradiReader.GetOrdinal("poradi")) + 1;
+                    }
+                    else
+                    {
+                        vracNewPoradiReader.Close();
+                        if (transaction != null)
+                        {
+                            (transaction as SQLiteTransaction).Rollback();
+                        }
+                        return -1;
+                    }
+                    vracNewPoradiReader.Close();
+
+
+                    Int32 newPoskozenoPoradi;
+                    // cislo poradi pro novy zaznam
+
+                    SQLiteCommand cmdr8 = new SQLiteCommand(commandReadString7, myDBConn as SQLiteConnection);
+                    cmdr8.Transaction = transaction;
+                    SQLiteDataReader vracNewPoskPoradiReader = cmdr8.ExecuteReader();
+                    if (vracNewPoskPoradiReader.Read() == true)
+                    {
+                        newPoskozenoPoradi = vracNewPoskPoradiReader.GetInt32(vracNewPoskPoradiReader.GetOrdinal("poradi")) + 1;
+                    }
+                    else
+                    {
+                        vracNewPoskPoradiReader.Close();
+                        if (transaction != null)
+                        {
+                            (transaction as SQLiteTransaction).Rollback();
+                        }
+                        return -1;
+                    }
+                    vracNewPoskPoradiReader.Close();
+
+
+
+
+                    // tab naradi zmensi ucet. stav
+
+                    SQLiteCommand cmd1 = new SQLiteCommand(commandString1, myDBConn as SQLiteConnection);
+                    cmd1.Parameters.AddWithValue("@ucetstav", DBks);
+                    cmd1.Parameters.AddWithValue("@poradi", parPoradi);
+
+                    cmd1.Transaction = transaction;
+                    Int32 errCode = cmd1.ExecuteNonQuery();
+
+                    //  tab zmeny novy zaznam
+                    SQLiteCommand cmd2 = new SQLiteCommand(commandString2, myDBConn as SQLiteConnection);
+
+                    cmd2.Parameters.AddWithValue("@parporadi", parPoradi);
+                    cmd2.Parameters.AddWithValue("@pomozjk", naradiJK);
+                    cmd2.Parameters.AddWithValue("@datum", DBdatum);
+                    cmd2.Parameters.AddWithValue("@poznamka", DBpoznamka);
+                    cmd2.Parameters.AddWithValue("@prijem", DBks);
+                    cmd2.Parameters.AddWithValue("@vydej", 0);
+                    cmd2.Parameters.AddWithValue("@zustatek", zustatek + DBks);
+                    cmd2.Parameters.AddWithValue("@zapkarta", DBosCislo);
+                    cmd2.Parameters.AddWithValue("@vevcislo", zmenyVevcislo);
+                    cmd2.Parameters.AddWithValue("@pocivc", 0);
+                    cmd2.Parameters.AddWithValue("@stav", "R");
+                    cmd2.Parameters.AddWithValue("@poradi", newZmenyPoradi);
+                    cmd2.Transaction = transaction;
+                    errCode = cmd2.ExecuteNonQuery();
+
+                    if (pujcKs != DBks)
+                    {
+                        // tab pujceno zmena stavu
+                        SQLiteCommand cmd3 = new SQLiteCommand(commandString3, myDBConn as SQLiteConnection);
+                        cmd3.Parameters.AddWithValue("@stavks", DBks);
+                        cmd3.Parameters.AddWithValue("@poradi", DBporadi);
+                        cmd3.Transaction = transaction;
+                        errCode = cmd3.ExecuteNonQuery();
+                    }
+                    else
+                    {
+                        // tab pujceno smazani
+                        SQLiteCommand cmd4 = new SQLiteCommand(commandString4, myDBConn as SQLiteConnection);
+                        cmd4.Parameters.AddWithValue("@poradi", DBporadi);
+                        cmd4.Transaction = transaction;
+                        errCode = cmd4.ExecuteNonQuery();
+                    }
+
+
+                    // pridani do tabulky vraceno
+                    SQLiteCommand cmd5 = new SQLiteCommand(commandString5, myDBConn as SQLiteConnection);
+                    cmd5.Parameters.AddWithValue("poradi", newVracenoPoradi);
+                    cmd5.Parameters.AddWithValue("jmeno", osobyPrijmeni);
+                    cmd5.Parameters.AddWithValue("oscislo", DBosCislo);
+                    cmd5.Parameters.AddWithValue("dilna", osobyStredisko);
+                    cmd5.Parameters.AddWithValue("pracoviste", osobyOddeleni);
+                    cmd5.Parameters.AddWithValue("vyrobek", DBcisZak);
+                    cmd5.Parameters.AddWithValue("nazev", naradiNazev);
+                    cmd5.Parameters.AddWithValue("jk", naradiJK);
+                    cmd5.Parameters.AddWithValue("rozmer", naradiRozmer);
+                    cmd5.Parameters.AddWithValue("pocetks", DBks);
+                    cmd5.Parameters.AddWithValue("cena", naradiCena);
+                    cmd5.Parameters.AddWithValue("datum", DBdatum);
+                    cmd5.Parameters.AddWithValue("csn", naradiCSN);
+                    cmd5.Parameters.AddWithValue("krjmeno", osobyJmeno);
+                    cmd5.Parameters.AddWithValue("celkcena", naradiCelkCena);
+                    cmd5.Parameters.AddWithValue("vevcislo", zmenyVevcislo);
+                    cmd5.Parameters.AddWithValue("konto", DBKonto);
+                    cmd5.Transaction = transaction;
+                    cmd5.ExecuteNonQuery();
+
+                    SQLiteCommand cmd6 = new SQLiteCommand(commandString6, myDBConn as SQLiteConnection);
+                    cmd6.Transaction = transaction;
+                    cmd6.ExecuteNonQuery();
+
+
+                    //  tab zmeny novy zaznam pro zmeny - poskozeno
+                    SQLiteCommand cmd7 = new SQLiteCommand(commandString2, myDBConn as SQLiteConnection);
+                    cmd7.Parameters.AddWithValue("@parporadi", parPoradi);
+                    cmd7.Parameters.AddWithValue("@pomozjk", naradiJK);
+                    cmd7.Parameters.AddWithValue("@datum", DBdatum);
+                    cmd7.Parameters.AddWithValue("@poznamka", DBpoznamka);
+                    cmd7.Parameters.AddWithValue("@prijem", 0);
+                    cmd7.Parameters.AddWithValue("@vydej", DBks);
+                    cmd7.Parameters.AddWithValue("@zustatek", zustatek); // jen zustatek
+                    cmd7.Parameters.AddWithValue("@zapkarta", DBosCislo);
+                    cmd7.Parameters.AddWithValue("@vevcislo", zmenyVevcislo);
+                    cmd7.Parameters.AddWithValue("@pocivc", 0);
+                    cmd7.Parameters.AddWithValue("@stav", "O");
+                    cmd7.Parameters.AddWithValue("@poradi", newZmenyPoradi + 1);
+                    cmd7.Transaction = transaction;
+                    errCode = cmd7.ExecuteNonQuery();
+
+
+                    // pridani do tabulky poskozeno
+                    SQLiteCommand cmd8 = new SQLiteCommand(commandString9, myDBConn as SQLiteConnection);
+                    cmd8.Parameters.AddWithValue("@pporadi", newPoskozenoPoradi);
+                    cmd8.Parameters.AddWithValue("@jmeno", osobyPrijmeni);
+                    cmd8.Parameters.AddWithValue("@oscislo", DBosCislo);
+                    cmd8.Parameters.AddWithValue("@dilna", osobyStredisko);
+                    cmd8.Parameters.AddWithValue("@pracoviste", osobyOddeleni);
+                    cmd8.Parameters.AddWithValue("@vyrobek", DBcisZak);
+                    cmd8.Parameters.AddWithValue("@nazev", naradiNazev);
+                    cmd8.Parameters.AddWithValue("@jk", naradiJK);
+                    cmd8.Parameters.AddWithValue("@rozmer", naradiRozmer);
+                    cmd8.Parameters.AddWithValue("@pocetks", DBks);
+                    cmd8.Parameters.AddWithValue("@cena", naradiCena);
+                    cmd8.Parameters.AddWithValue("@datum", DBdatum);
+                    cmd8.Parameters.AddWithValue("@csn", naradiCSN);
+                    cmd8.Parameters.AddWithValue("@krjmeno", osobyJmeno);
+                    cmd8.Parameters.AddWithValue("@celkcena", naradiCelkCena);
+                    cmd8.Parameters.AddWithValue("@vevcislo", zmenyVevcislo);
+                    cmd8.Parameters.AddWithValue("@konto", DBKonto);
+                    cmd8.Transaction = transaction;
+                    errCode = cmd8.ExecuteNonQuery();
+
+                    SQLiteCommand cmd9 = new SQLiteCommand(commandString8, myDBConn as SQLiteConnection);
+                    cmd9.Transaction = transaction;
+                    cmd9.ExecuteNonQuery();
+
+                    if (transaction != null)
+                    {
+                        (transaction as SQLiteTransaction).Commit();
+                    }
+                }
+                catch (Exception)
+                {
+                    // doslo k chybe
+                    if (transaction != null)
+                    {
+                        (transaction as SQLiteTransaction).Rollback();
+                    }
+                    return -1;  // chyba
+                }
+                return 0;
+            }
+            return -1;
+        }
+
 
         public override Int32 addNewLineZmenyAndPujceno(Int32 DBparPoradi, DateTime DBdatum, Int32 DBks, string DBpoznamka, string DBvevCislo, string DBosCislo)
         {

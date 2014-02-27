@@ -1813,7 +1813,7 @@ namespace Vydejna
 
                     // pridani do tabulky vraceno
                     OdbcCommand cmd5 = new OdbcCommand(commandString5, myDBConn as OdbcConnection);
-                    cmd5.Parameters.AddWithValue("poradi", newZmenyPoradi);
+                    cmd5.Parameters.AddWithValue("poradi", newVracenoPoradi);
                     cmd5.Parameters.AddWithValue("jmeno", osobyPrijmeni);
                     cmd5.Parameters.AddWithValue("oscislo", DBosCislo);
                     cmd5.Parameters.AddWithValue("dilna", osobyStredisko);

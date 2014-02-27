@@ -531,6 +531,7 @@
             this.Name = "SkladovaKarta";
             this.Text = "SkladovaKarta";
             this.Activated += new System.EventHandler(this.SkladovaKarta_Activated);
+            this.SizeChanged += new System.EventHandler(this.SkladovaKarta_SizeChanged);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMinStav)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownUcetStav)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewZmeny)).EndInit();

@@ -282,7 +282,6 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "ZapujceneNaradiKarta";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Zapůjčené nářadí na osobu";
             this.Load += new System.EventHandler(this.ZapujceneNaradiKarta_Load);
             this.SizeChanged += new System.EventHandler(this.ZapujceneNaradiKarta_SizeChanged);

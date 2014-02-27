@@ -15,6 +15,11 @@ namespace Vydejna
     public partial class SkladovaKarta : Form
     {
 
+        private enum evenStateEnum { enable, disable };
+
+        private evenStateEnum evenState = evenStateEnum.disable;
+
+
         public class messager
         {
             public string nazev;
@@ -103,6 +108,10 @@ namespace Vydejna
             loadZmenyItems();
             this.CancelButton = this.buttonCancel;
             this.Font = myFont;
+
+            Size size = ConfigReg.loadSettingWindowSize("MCARD");
+            if (!(size.IsEmpty)) this.Size = size;
+            evenState = evenStateEnum.enable;
         }
 
 
@@ -120,6 +129,10 @@ namespace Vydejna
 
             this.CancelButton = this.buttonCancel;
             this.Font = myFont;
+
+            Size size = ConfigReg.loadSettingWindowSize("MCARD");
+            if (!(size.IsEmpty)) this.Size = size;
+            evenState = evenStateEnum.enable;
         }
 
         public void setWinName(string winName)
@@ -531,6 +544,15 @@ namespace Vydejna
 
         private void contextMenuStripZmeny_Opening(object sender, CancelEventArgs e)
         {
+
+        }
+
+        private void SkladovaKarta_SizeChanged(object sender, EventArgs e)
+        {
+            if (evenState == evenStateEnum.enable)
+            {
+                if (!(this.Size.IsEmpty)) ConfigReg.saveSettingWindowLocationSize("MCARD", 0, 0, this.Size.Width, this.Size.Height);
+            }
 
         }
     }
