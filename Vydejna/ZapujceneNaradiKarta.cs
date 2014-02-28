@@ -467,9 +467,23 @@ namespace Vydejna
                                 {
                                     // smazeme radku
                                     dataGridViewZmeny.Rows.Remove(dataGridViewZmeny.SelectedRows[0]);
+
+
                                     Int32 counter = dataGridViewZmeny.Rows.Count - 1;
                                     if (counter > 0)
                                     {
+
+                                        Int32 dataRowIndex = -1;
+                                        for (int x = 0; x < (dataGridViewZmeny.DataSource as DataTable).Rows.Count; x++)
+                                        {
+                                            if (Convert.ToInt32((dataGridViewZmeny.DataSource as DataTable).Rows[x]["poradi"]) == pujcPoradi)
+                                            {
+                                                dataRowIndex = x;
+
+                                                break;
+                                            }
+                                        }
+                                        (dataGridViewZmeny.DataSource as DataTable).Rows.RemoveAt(dataRowIndex);
                                         dataGridViewZmeny.FirstDisplayedScrollingRowIndex = dataGridViewZmeny.Rows[counter].Index;
                                         dataGridViewZmeny.Refresh();
                                         dataGridViewZmeny.CurrentCell = dataGridViewZmeny.Rows[counter].Cells[1];
