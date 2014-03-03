@@ -133,6 +133,8 @@
             this.dataGridViewZmeny.ReadOnly = true;
             this.dataGridViewZmeny.Size = new System.Drawing.Size(590, 190);
             this.dataGridViewZmeny.TabIndex = 29;
+            this.dataGridViewZmeny.ColumnDisplayIndexChanged += new System.Windows.Forms.DataGridViewColumnEventHandler(this.dataGridViewZmeny_ColumnDisplayIndexChanged);
+            this.dataGridViewZmeny.ColumnWidthChanged += new System.Windows.Forms.DataGridViewColumnEventHandler(this.dataGridViewZmeny_ColumnWidthChanged);
             // 
             // contextMenuStrip1
             // 
@@ -284,6 +286,8 @@
             this.Name = "ZapujceneNaradiKarta";
             this.Text = "Zapůjčené nářadí na osobu";
             this.Load += new System.EventHandler(this.ZapujceneNaradiKarta_Load);
+            this.Shown += new System.EventHandler(this.ZapujceneNaradiKarta_Shown);
+            this.LocationChanged += new System.EventHandler(this.ZapujceneNaradiKarta_LocationChanged);
             this.SizeChanged += new System.EventHandler(this.ZapujceneNaradiKarta_SizeChanged);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewZmeny)).EndInit();
             this.contextMenuStrip1.ResumeLayout(false);

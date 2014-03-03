@@ -67,6 +67,9 @@ namespace Vydejna
         {
             InitializeComponent();
 
+            CancelButton = buttonCancel;
+            AcceptButton = buttonOK;
+
             labelJmeno.Text = "";
             labelPrijmeni.Text = "";
             labelStredisko.Text = "";
@@ -114,7 +117,6 @@ namespace Vydejna
                 }
 
             }
-
 
             this.Font = myFont;
         }

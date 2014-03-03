@@ -46,11 +46,59 @@ namespace Vydejna
 
             Size size = ConfigReg.loadSettingWindowSize("LEND");
             if (!(size.IsEmpty)) this.Size = size;
-            evenState = evenStateEnum.enable;
+
+            Point location = ConfigReg.loadSettingWindowLocation("LEND");
+
+            Int32 x = location.X;
+            Int32 y = location.Y;
+            if (x < 0) x = 0;
+            if (y < 0) y = 0;
+            if (x > (Screen.PrimaryScreen.Bounds.Width - 20)) x = Screen.PrimaryScreen.Bounds.Width - 20;
+            if (y > (Screen.PrimaryScreen.Bounds.Height - 20)) y = Screen.PrimaryScreen.Bounds.Height - 20;
+
+            if (!(location.IsEmpty))
+            {
+                StartPosition = FormStartPosition.Manual;
+                this.SetDesktopLocation(x, y);
+            }
+            else
+            {
+                StartPosition = FormStartPosition.WindowsDefaultLocation;
+            }
+
+            setColumnWidth();
+
+        //    evenState = evenStateEnum.enable;
         }
 
         private void ZapujceneNaradiKarta_Load(object sender, EventArgs e)
         {
+
+        }
+
+
+        private void viewZmenyRemoveSelectedRow(Int32 poradi )
+        {
+            Int32 counter = dataGridViewZmeny.Rows.Count;
+            if (counter > 0)
+            {
+                counter--; // ukazuje na posledni prvek
+
+                Int32 dataRowIndex =  detail.findIndex(dataGridViewZmeny.DataSource as DataTable, "poradi", poradi);
+
+                Int32 nextIndexAfterSelected = dataGridViewZmeny.SelectedRows[0].Index;
+                (dataGridViewZmeny.DataSource as DataTable).Rows.RemoveAt(dataRowIndex);
+                counter--; // ukazatel na posledni ... -1 neni zadna
+
+                if (counter > -1) // neni zadna dalsi polozka
+                {
+                    if (nextIndexAfterSelected > counter) nextIndexAfterSelected = counter;
+                    dataGridViewZmeny.FirstDisplayedScrollingRowIndex = dataGridViewZmeny.Rows[nextIndexAfterSelected].Index;
+                    dataGridViewZmeny.Refresh();
+                    dataGridViewZmeny.CurrentCell = dataGridViewZmeny.Rows[nextIndexAfterSelected].Cells[1];
+                    dataGridViewZmeny.Rows[nextIndexAfterSelected].Selected = true;
+                }
+            }
 
         }
 
@@ -240,15 +288,7 @@ namespace Vydejna
                                 // opravime radku
 
                                 // je potreba najit index v datove tabulce - po trideni neni schodny s indexem ve view
-                                Int32 dataRowIndex = -1;
-                                for (int x = 0; x < (dataGridViewZmeny.DataSource as DataTable).Rows.Count; x++)
-                                {
-                                    if (Convert.ToInt32((dataGridViewZmeny.DataSource as DataTable).Rows[x]["poradi"]) == pujcPoradi)
-                                    {
-                                        dataRowIndex = x;
-                                        break;
-                                    }
-                                }
+                                Int32 dataRowIndex = detail.findIndex(dataGridViewZmeny.DataSource as DataTable, "poradi", pujcPoradi);
                                 if (dataRowIndex != -1)
                                 {
                                     (dataGridViewZmeny.DataSource as DataTable).Rows[dataRowIndex].SetField(6, Convert.ToString(DBPujcenoRow["stavks"]));
@@ -257,18 +297,9 @@ namespace Vydejna
                             }
                             else
                             {
+                                viewZmenyRemoveSelectedRow(pujcPoradi);
                                 // smazeme radku
-                                dataGridViewZmeny.Rows.Remove(dataGridViewZmeny.SelectedRows[0]);
-                                Int32 counter = dataGridViewZmeny.Rows.Count - 1;
-                                if (counter > 0)
-                                {
-                                    dataGridViewZmeny.FirstDisplayedScrollingRowIndex = dataGridViewZmeny.Rows[counter].Index;
-                                    dataGridViewZmeny.Refresh();
-                                    dataGridViewZmeny.CurrentCell = dataGridViewZmeny.Rows[counter].Cells[1];
-                                    dataGridViewZmeny.Rows[counter].Selected = true;
-                                }
                             }
-
                         }
                     }
                 }
@@ -448,15 +479,7 @@ namespace Vydejna
                                     // opravime radku
 
                                     // je potreba najit index v datove tabulce - po trideni neni schodny s indexem ve view
-                                    Int32 dataRowIndex = -1;
-                                    for (int x = 0; x < (dataGridViewZmeny.DataSource as DataTable).Rows.Count; x++)
-                                    {
-                                        if (Convert.ToInt32((dataGridViewZmeny.DataSource as DataTable).Rows[x]["poradi"]) == pujcPoradi)
-                                        {
-                                            dataRowIndex = x;
-                                            break;
-                                        }
-                                    }
+                                    Int32 dataRowIndex = detail.findIndex(dataGridViewZmeny.DataSource as DataTable, "poradi", pujcPoradi);
                                     if (dataRowIndex != -1)
                                     {
                                         (dataGridViewZmeny.DataSource as DataTable).Rows[dataRowIndex].SetField("stavks", Convert.ToString(DBPujcenoRow["stavks"]));
@@ -465,42 +488,35 @@ namespace Vydejna
                                 }
                                 else
                                 {
-                                    // smazeme radku
-                                    dataGridViewZmeny.Rows.Remove(dataGridViewZmeny.SelectedRows[0]);
-
-
-                                    Int32 counter = dataGridViewZmeny.Rows.Count - 1;
-                                    if (counter > 0)
-                                    {
-
-                                        Int32 dataRowIndex = -1;
-                                        for (int x = 0; x < (dataGridViewZmeny.DataSource as DataTable).Rows.Count; x++)
-                                        {
-                                            if (Convert.ToInt32((dataGridViewZmeny.DataSource as DataTable).Rows[x]["poradi"]) == pujcPoradi)
-                                            {
-                                                dataRowIndex = x;
-
-                                                break;
-                                            }
-                                        }
-                                        (dataGridViewZmeny.DataSource as DataTable).Rows.RemoveAt(dataRowIndex);
-                                        dataGridViewZmeny.FirstDisplayedScrollingRowIndex = dataGridViewZmeny.Rows[counter].Index;
-                                        dataGridViewZmeny.Refresh();
-                                        dataGridViewZmeny.CurrentCell = dataGridViewZmeny.Rows[counter].Cells[1];
-                                        dataGridViewZmeny.Rows[counter].Selected = true;
-                                    }
+                                    // smazeme vybranou radku
+                                    viewZmenyRemoveSelectedRow(pujcPoradi);
                                 }
-
                             }
-
                         }
-
                     }
                 }
-
             }
-
         }
+
+
+        public virtual void setColumnWidth()
+        {
+            Hashtable DBTableInfo = ConfigReg.loadSettingWindowTableColumnWidth("LEND", "pujceno");
+            if (DBTableInfo != null)
+            {
+                foreach (DataGridViewColumn myColumn in dataGridViewZmeny.Columns)
+                {
+                    string myColumnName = myColumn.Name;
+                    if (DBTableInfo.ContainsKey(myColumnName))
+                    {
+                        myColumn.Width = Convert.ToInt32(DBTableInfo[myColumnName]);
+                    }
+
+                }
+            }
+        }
+
+
 
         private void ZapujceneNaradiKarta_SizeChanged(object sender, EventArgs e)
         {
@@ -508,6 +524,36 @@ namespace Vydejna
             {
                 if (!(this.Size.IsEmpty)) ConfigReg.saveSettingWindowLocationSize("LEND", 0, 0, this.Size.Width, this.Size.Height);
             }
+        }
+
+        private void ZapujceneNaradiKarta_LocationChanged(object sender, EventArgs e)
+        {
+            if (evenState == evenStateEnum.enable)
+            {
+                if (!(this.Location.IsEmpty)) ConfigReg.saveSettingWindowLocationSize("LEND", this.Location.X, this.Location.Y, 0, 0);
+            }
+
+        }
+
+        private void dataGridViewZmeny_ColumnWidthChanged(object sender, DataGridViewColumnEventArgs e)
+        {
+            if (evenState == evenStateEnum.enable)
+            {
+                ConfigReg.saveSettingWindowTableColumnWidth("LEND", "pujceno", e.Column.Name, e.Column.Width);
+            }
+        }
+
+        private void dataGridViewZmeny_ColumnDisplayIndexChanged(object sender, DataGridViewColumnEventArgs e)
+        {
+            if (evenState == evenStateEnum.enable)
+            {
+                ConfigReg.saveSettingWindowTableColumnIndex("LEND", "pujceno", e.Column.Name, e.Column.DisplayIndex);
+            }
+        }
+
+        private void ZapujceneNaradiKarta_Shown(object sender, EventArgs e)
+        {
+            evenState = evenStateEnum.enable;
         }
     }
 }

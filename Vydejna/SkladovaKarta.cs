@@ -108,9 +108,7 @@ namespace Vydejna
             loadZmenyItems();
             this.CancelButton = this.buttonCancel;
             this.Font = myFont;
-
-            Size size = ConfigReg.loadSettingWindowSize("MCARD");
-            if (!(size.IsEmpty)) this.Size = size;
+            setGeometry();
             evenState = evenStateEnum.enable;
         }
 
@@ -129,16 +127,42 @@ namespace Vydejna
 
             this.CancelButton = this.buttonCancel;
             this.Font = myFont;
+            setGeometry();
+            evenState = evenStateEnum.enable;
+        }
 
+
+        private void setGeometry()
+        {
             Size size = ConfigReg.loadSettingWindowSize("MCARD");
             if (!(size.IsEmpty)) this.Size = size;
-            evenState = evenStateEnum.enable;
+            Point location = ConfigReg.loadSettingWindowLocation("MCARD");
+
+            Int32 x = location.X;
+            Int32 y = location.Y;
+            if (x < 0) x = 0;
+            if (y < 0) y = 0;
+            if (x > (Screen.PrimaryScreen.Bounds.Width - 20)) x = Screen.PrimaryScreen.Bounds.Width - 20;
+            if (y > (Screen.PrimaryScreen.Bounds.Height - 20)) y = Screen.PrimaryScreen.Bounds.Height - 20;
+
+            if (!(location.IsEmpty))
+            {
+                StartPosition = FormStartPosition.Manual;
+                this.SetDesktopLocation(x, y);
+            }
+            else
+            {
+                StartPosition = FormStartPosition.WindowsDefaultLocation;
+            }
+
         }
 
         public void setWinName(string winName)
         {
             this.Text = winName;
         }
+
+
 
 
         public void setData(Hashtable DBRow) 
@@ -552,6 +576,37 @@ namespace Vydejna
             if (evenState == evenStateEnum.enable)
             {
                 if (!(this.Size.IsEmpty)) ConfigReg.saveSettingWindowLocationSize("MCARD", 0, 0, this.Size.Width, this.Size.Height);
+            }
+
+        }
+
+        private void SkladovaKarta_LocationChanged(object sender, EventArgs e)
+        {
+            if (evenState == evenStateEnum.enable)
+            {
+                if (!(this.Location.IsEmpty)) ConfigReg.saveSettingWindowLocationSize("MCARD", this.Location.X, this.Location.Y, 0, 0);
+            }
+        }
+
+        private void SkladovaKarta_Shown(object sender, EventArgs e)
+        {
+            evenState = evenStateEnum.enable;
+        }
+
+        private void dataGridViewZmeny_ColumnWidthChanged(object sender, DataGridViewColumnEventArgs e)
+        {
+            if (evenState == evenStateEnum.enable)
+            {
+                ConfigReg.saveSettingWindowTableColumnWidth("MCARD", "zmeny", e.Column.Name, e.Column.Width);
+            }
+
+        }
+
+        private void dataGridViewZmeny_ColumnDisplayIndexChanged(object sender, DataGridViewColumnEventArgs e)
+        {
+            if (evenState == evenStateEnum.enable)
+            {
+                ConfigReg.saveSettingWindowTableColumnIndex("MCARD", "zmeny", e.Column.Name, e.Column.DisplayIndex);
             }
 
         }

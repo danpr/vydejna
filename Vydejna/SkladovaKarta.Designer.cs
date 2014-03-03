@@ -336,6 +336,8 @@
             this.dataGridViewZmeny.ReadOnly = true;
             this.dataGridViewZmeny.Size = new System.Drawing.Size(710, 185);
             this.dataGridViewZmeny.TabIndex = 16;
+            this.dataGridViewZmeny.ColumnDisplayIndexChanged += new System.Windows.Forms.DataGridViewColumnEventHandler(this.dataGridViewZmeny_ColumnDisplayIndexChanged);
+            this.dataGridViewZmeny.ColumnWidthChanged += new System.Windows.Forms.DataGridViewColumnEventHandler(this.dataGridViewZmeny_ColumnWidthChanged);
             // 
             // contextMenuStripZmeny
             // 
@@ -531,6 +533,8 @@
             this.Name = "SkladovaKarta";
             this.Text = "SkladovaKarta";
             this.Activated += new System.EventHandler(this.SkladovaKarta_Activated);
+            this.Shown += new System.EventHandler(this.SkladovaKarta_Shown);
+            this.LocationChanged += new System.EventHandler(this.SkladovaKarta_LocationChanged);
             this.SizeChanged += new System.EventHandler(this.SkladovaKarta_SizeChanged);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMinStav)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownUcetStav)).EndInit();

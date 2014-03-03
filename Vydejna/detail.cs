@@ -121,6 +121,35 @@ namespace Vydejna
 
             }
         }
+
+
+         public void removeViewSelectedRow(Int32 poradi)
+        {
+            Int32 counter = myDataGridView.Rows.Count;
+            if (counter > 0)
+            {
+                counter--; // ukazuje na posledni prvek
+
+                Int32 dataRowIndex = detail.findIndex(myDataGridView.DataSource as DataTable, "poradi", poradi);
+
+                Int32 nextIndexAfterSelected = myDataGridView.SelectedRows[0].Index;
+
+                (myDataGridView.DataSource as DataTable).Rows.RemoveAt(dataRowIndex);
+                counter--; // ukazatel na posledni ... -1 neni zadna
+
+                if (counter > -1) // neni zadna dalsi polozka
+                {
+                    if (nextIndexAfterSelected > counter) nextIndexAfterSelected = counter;
+                    myDataGridView.FirstDisplayedScrollingRowIndex = myDataGridView.Rows[nextIndexAfterSelected].Index;
+                    myDataGridView.Refresh();
+                    myDataGridView.CurrentCell = myDataGridView.Rows[nextIndexAfterSelected].Cells[1];
+                    myDataGridView.Rows[nextIndexAfterSelected].Selected = true;
+                }
+            }
+
+        }
+
+
         //-------------------------------------- virtualni metody -------------------//
 
 
@@ -446,13 +475,7 @@ namespace Vydejna
                     if (myDB.moveNaradiToNewKaret(poradi))
                     {
                         // smazeme z obrazovky
-                        // je potreba najit index v datove tabulce - po trideni neni schodny s indexem ve view
-                        Int32 dataRowIndex = findIndex((myDataGridView.DataSource as DataTable), "poradi", poradi);
-                        if (dataRowIndex != -1)
-                        {
-                            // smazeme radku
-                            (myDataGridView.DataSource as DataTable).Rows.RemoveAt(dataRowIndex);
-                        }
+                        removeViewSelectedRow(poradi); 
                     }
                     else
                     {
@@ -680,14 +703,16 @@ namespace Vydejna
 
                 if (myDB.deleteLineKaret(poradi))
                 {
-                    // smazeme z obrazovky
-                    // je potreba najit index v datove tabulce - po trideni neni schodny s indexem ve view
-                    Int32 dataRowIndex = findIndex((myDataGridView.DataSource as DataTable),"poradi",poradi);
-                    if (dataRowIndex != -1)
-                    {
-                        // smazeme radku
-                        (myDataGridView.DataSource as DataTable).Rows.RemoveAt(dataRowIndex);
-                    }
+                    removeViewSelectedRow(poradi);
+
+//                    // smazeme z obrazovky
+//                    // je potreba najit index v datove tabulce - po trideni neni schodny s indexem ve view
+//                    Int32 dataRowIndex = findIndex((myDataGridView.DataSource as DataTable),"poradi",poradi);
+//                    if (dataRowIndex != -1)
+//                    {
+//                        // smazeme radku
+//                        (myDataGridView.DataSource as DataTable).Rows.RemoveAt(dataRowIndex);
+//                    }
                 }
                 else
                 {
