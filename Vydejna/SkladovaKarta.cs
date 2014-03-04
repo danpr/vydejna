@@ -109,6 +109,7 @@ namespace Vydejna
             this.CancelButton = this.buttonCancel;
             this.Font = myFont;
             setGeometry();
+            setColumnWidth();
             evenState = evenStateEnum.enable;
         }
 
@@ -128,6 +129,7 @@ namespace Vydejna
             this.CancelButton = this.buttonCancel;
             this.Font = myFont;
             setGeometry();
+            setColumnWidth();
             evenState = evenStateEnum.enable;
         }
 
@@ -570,6 +572,30 @@ namespace Vydejna
         {
 
         }
+
+        public virtual void setColumnWidth()
+        {
+            Hashtable DBTableInfo = ConfigReg.loadSettingWindowTableColumnWidth("MCARD", "zmeny");
+            if (DBTableInfo != null)
+            {
+                Int32 columnWidth = 0;
+                for (Int32 i = 0; i < dataGridViewZmeny.Columns.Count; i++)
+                {
+                    string myColumnName = dataGridViewZmeny.Columns[i].Name;
+                    if (DBTableInfo.ContainsKey(myColumnName))
+                    {
+                        columnWidth = Convert.ToInt32(DBTableInfo[myColumnName]);
+                        try
+                        {
+                            dataGridViewZmeny.Columns[i].Width = columnWidth;
+                        }
+                        catch { }
+                    }
+                }
+            }
+        }
+
+
 
         private void SkladovaKarta_SizeChanged(object sender, EventArgs e)
         {

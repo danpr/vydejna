@@ -129,15 +129,15 @@ namespace Vydejna
                     dataGridViewZmeny.DataSource = myDB.loadDataTableVypujcenoNaOsobuNext(labelOsCislo.Text);  // zde zavolame tabulku                   
                     dataGridViewZmeny.RowHeadersVisible = false;
 
-                    dataGridViewZmeny.Columns[0].HeaderText = "Poradi";
-                    dataGridViewZmeny.Columns[1].HeaderText = "Datum";
-                    dataGridViewZmeny.Columns[2].HeaderText = "Název";
-                    dataGridViewZmeny.Columns[3].HeaderText = "Rozměr";
-                    dataGridViewZmeny.Columns[4].HeaderText = "JK";
-                    dataGridViewZmeny.Columns[5].HeaderText = "I. ev. číslo";
-                    dataGridViewZmeny.Columns[6].HeaderText = "KS";
-                    dataGridViewZmeny.Columns[7].HeaderText = "Cena";
-                    dataGridViewZmeny.Columns[8].HeaderText = "Poznámka";
+                    dataGridViewZmeny.Columns["poradi"].HeaderText = "Poradi";
+                    dataGridViewZmeny.Columns["datum"].HeaderText = "Datum";
+                    dataGridViewZmeny.Columns["nazev"].HeaderText = "Název";
+                    dataGridViewZmeny.Columns["rozmer"].HeaderText = "Rozměr";
+                    dataGridViewZmeny.Columns["jk"].HeaderText = "JK";
+                    dataGridViewZmeny.Columns["vevcislo"].HeaderText = "I. ev. číslo";
+                    dataGridViewZmeny.Columns["stavks"].HeaderText = "KS";
+                    dataGridViewZmeny.Columns["cena"].HeaderText = "Cena";
+                    dataGridViewZmeny.Columns["poznamka"].HeaderText = "Poznámka";
                     dataGridViewZmeny.Columns["poradi"].Visible = false;
                     dataGridViewZmeny.Columns["oscislo"].Visible = false;
 
@@ -504,14 +504,19 @@ namespace Vydejna
             Hashtable DBTableInfo = ConfigReg.loadSettingWindowTableColumnWidth("LEND", "pujceno");
             if (DBTableInfo != null)
             {
-                foreach (DataGridViewColumn myColumn in dataGridViewZmeny.Columns)
+                Int32 columnWidth = 0;
+                for (Int32 i = 0; i < dataGridViewZmeny.Columns.Count;i++)
                 {
-                    string myColumnName = myColumn.Name;
+                    string myColumnName = dataGridViewZmeny.Columns[i].Name;
                     if (DBTableInfo.ContainsKey(myColumnName))
                     {
-                        myColumn.Width = Convert.ToInt32(DBTableInfo[myColumnName]);
+                        columnWidth = Convert.ToInt32(DBTableInfo[myColumnName]);
+                        try
+                        {
+                            dataGridViewZmeny.Columns[i].Width = columnWidth;
+                        }
+                        catch { }
                     }
-
                 }
             }
         }
