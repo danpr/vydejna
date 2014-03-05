@@ -217,7 +217,11 @@ namespace Vydejna
               // upravime index podle setrideneho seznamu
               foreach (var sortItem in dict)
               {
-                  myDataGridView.Columns[sortItem.Value.ToString()].DisplayIndex = Convert.ToInt32(sortItem.Key);
+                  try
+                  {
+                      myDataGridView.Columns[sortItem.Value.ToString()].DisplayIndex = Convert.ToInt32(sortItem.Key);
+                  }
+                  catch { }
               }
            }
         }
@@ -229,14 +233,17 @@ namespace Vydejna
            Hashtable DBTableInfo = ConfigReg.loadSettingWindowTableColumnWidth("MAIN", this.jmenoTabulky());
            if (DBTableInfo != null)
            {
-               foreach (DataGridViewColumn myColumn in myDataGridView.Columns)
+               for (Int32 i = 0; i < myDataGridView.Columns.Count; i++)
                {
-                   string myColumnName = myColumn.Name;
+                   string myColumnName = myDataGridView.Columns[i].Name;
                    if (DBTableInfo.ContainsKey(myColumnName))
                    {
-                       myColumn.Width = Convert.ToInt32(DBTableInfo[myColumnName]);
+                       try
+                       {
+                           myDataGridView.Columns[i].Width = Convert.ToInt32(DBTableInfo[myColumnName]);
+                       }
+                       catch { }
                    }
-
                }
            }
         }
