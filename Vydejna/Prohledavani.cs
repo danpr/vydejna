@@ -29,10 +29,12 @@ namespace Vydejna
 
         private DataGridView myDataGridView;
         private ArrayList comboBoxColumnInfo;
+        private string preferedColumn;
 
         public Prohledavani(DataGridView myDataGridView, string preferedColumn)
         {
             InitializeComponent();
+            this.preferedColumn = preferedColumn;
             this.TopMost = true;
 
             FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
@@ -52,24 +54,6 @@ namespace Vydejna
             if (comboBoxDate.Items.Count > 0) comboBoxDate.SelectedIndex = 0;
             AcceptButton = buttonOK;
             CancelButton = buttonCancel;
-            if ((preferedColumn != null) && (preferedColumn.Trim() != ""))
-            {
-                groupBox1.Focus();
-                ColumnInfo myColumnInfo = (ColumnInfo)comboBoxColumnInfo[comboBoxColumns.SelectedIndex];
-                string myType = Convert.ToString(myColumnInfo.varColumnType);
-                switch (myType)
-                {
-                    case "String":
-                        textBoxString.Focus();
-                        break;
-                    case "Numeric":
-                        comboBoxNumeric.Focus();
-                        break;
-                    case "DateTime":
-                        comboBoxDate.Focus();
-                        break;
-                }
-            }
         }
 
         private void loadComboBox(string preferedColumn)
@@ -324,6 +308,29 @@ namespace Vydejna
                 }
             }
             return -1;
+        }
+
+        private void Prohledavani_Shown(object sender, EventArgs e)
+        {
+            if ((preferedColumn != null) && (preferedColumn.Trim() != ""))
+            {
+                groupBox1.Focus();
+                ColumnInfo myColumnInfo = (ColumnInfo)comboBoxColumnInfo[comboBoxColumns.SelectedIndex];
+                string myType = Convert.ToString(myColumnInfo.varColumnType);
+                switch (myType)
+                {
+                    case "String":
+                        textBoxString.Focus();
+                        break;
+                    case "Numeric":
+                        comboBoxNumeric.Focus();
+                        break;
+                    case "DateTime":
+                        comboBoxDate.Focus();
+                        break;
+                }
+            }
+
         }
 
 

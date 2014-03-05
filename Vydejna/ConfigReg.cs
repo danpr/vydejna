@@ -185,6 +185,46 @@ namespace Vydejna
             klic.SetValue("Style", (Int32)myFont.Style);
         }
 
+
+        public static string loadSettingLastUser()
+        {
+            RegistryKey klic = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\CS", true);
+
+            string lastUserName;
+
+            if (klic != null)
+            {
+                try
+                {
+                    lastUserName = klic.GetValue("lastUserName").ToString();
+                }
+                catch
+                {
+                    return null;
+                }
+                return lastUserName;
+            }
+            return null;
+        }
+
+
+
+        public static void saveSettingLastUser(string user)
+        {
+            RegistryKey klic = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\CS", true);
+            if (klic == null)
+            {
+                klic = Registry.CurrentUser.OpenSubKey(@"SOFTWARE", true);
+                klic.CreateSubKey("CS");
+                klic = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\CS", true);
+            }
+            // zapis polozky
+            klic.SetValue("LastUserName", user);
+        }
+
+
+
+
         public static Point loadSettingWindowLocation(string name)
         {
             string stringKlic = "SOFTWARE\\CS\\WINDOWS\\" + name;

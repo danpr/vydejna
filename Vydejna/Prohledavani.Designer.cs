@@ -182,6 +182,7 @@
             this.MinimumSize = new System.Drawing.Size(337, 298);
             this.Name = "Prohledavani";
             this.Text = "Prohledávání tabulky";
+            this.Shown += new System.EventHandler(this.Prohledavani_Shown);
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Prohledavani_KeyPress);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

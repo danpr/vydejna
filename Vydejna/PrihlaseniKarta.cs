@@ -97,6 +97,7 @@ namespace Vydejna
                     // test hesla
                     if (UzivatelData.getPasswdHashFromDB(textBoxUserID.Text, myDataBase) == UzivatelData.countHashPassd(textBoxPass1.Text))
                     {
+                        ConfigReg.saveSettingLastUser(textBoxUserID.Text);
                         Close();
                     }
                     else
@@ -115,6 +116,17 @@ namespace Vydejna
 
 
             }
+        }
+
+        private void PrihlaseniKarta_Shown(object sender, EventArgs e)
+        {
+            string lastUserName = ConfigReg.loadSettingLastUser();
+            if (lastUserName != null)
+            {
+                textBoxUserID.Text = lastUserName;
+                textBoxPass1.Focus();
+            }
+
         }
 
     }

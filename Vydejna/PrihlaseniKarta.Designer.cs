@@ -122,6 +122,7 @@
             this.Controls.Add(this.buttonCancel);
             this.Name = "PrihlaseniKarta";
             this.Text = "Přihlášení uživatele";
+            this.Shown += new System.EventHandler(this.PrihlaseniKarta_Shown);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
