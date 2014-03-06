@@ -55,12 +55,17 @@ namespace Vydejna
 
             dataGridView1.MultiSelect = false;
             dataGridView1.ReadOnly = true;
+
             dataGridView1.RowHeadersVisible = false;
             dataGridView1.AllowUserToAddRows = false;
             dataGridView1.AllowUserToDeleteRows = false;
             dataGridView1.AllowUserToResizeRows = false;
+            dataGridView1.AllowUserToOrderColumns = true;
             dataGridView1.Columns.Clear();
             dataGridView1.DataSource = null;
+
+
+
             Application.DoEvents();
             this.Font = myFont;
 
@@ -152,6 +157,7 @@ namespace Vydejna
         {
             // pozobrazeni
             loadData(myDataBase);
+            setColumnIndex();
             setColumnWidth();
             evenState = evenStateEnum.enable;
         }
@@ -184,7 +190,7 @@ namespace Vydejna
         {
             if (evenState == evenStateEnum.enable)
             {
-                ConfigReg.saveSettingWindowTableColumnIndex("LISTN", "naradi", e.Column.Name, e.Column.Index);
+                ConfigReg.saveSettingWindowTableColumnIndex("LISTN", "naradi", e.Column.Name, e.Column.DisplayIndex);
             }
 
         }
@@ -202,6 +208,34 @@ namespace Vydejna
                         myColumn.Width = Convert.ToInt32(DBTableInfo[myColumnName]);
                     }
 
+                }
+            }
+        }
+
+
+        public virtual void setColumnIndex()
+        {
+            Hashtable DBTableInfo = ConfigReg.loadSettingWindowTableColumnIndex("LISTN", "naradi");
+            if (DBTableInfo != null)
+            {
+                SortedDictionary<int, string> dict = new SortedDictionary<int, string>();
+
+                // naplnime setrideny seznam  
+                foreach (DictionaryEntry item in DBTableInfo)
+                {
+                    if (!(dict.ContainsKey(Convert.ToInt32(item.Value))))
+                    {
+                        dict.Add(Convert.ToInt32(item.Value), Convert.ToString(item.Key));
+                    }
+                }
+                // upravime index podle setrideneho seznamu
+                foreach (var sortItem in dict)
+                {
+                    try
+                    {
+                        dataGridView1.Columns[sortItem.Value.ToString()].DisplayIndex = Convert.ToInt32(sortItem.Key);
+                    }
+                    catch { }
                 }
             }
         }

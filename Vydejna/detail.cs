@@ -209,7 +209,7 @@ namespace Vydejna
               // naplnime setrideny seznam  
               foreach (DictionaryEntry item in DBTableInfo)
               {
-                  if (dict.ContainsKey(Convert.ToInt32(item.Value)))
+                  if (!(dict.ContainsKey(Convert.ToInt32(item.Value))))
                   {
                       dict.Add(Convert.ToInt32(item.Value), Convert.ToString(item.Key));
                   }
