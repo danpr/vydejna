@@ -167,6 +167,12 @@ namespace Vydejna
             MessageBox.Show("Není implementováno.");
         }
 
+        public virtual void zmenZnacku(Hashtable DBRow)
+        {
+            MessageBox.Show("Není implementováno.");
+        }
+
+
         public virtual void zrusKartu(Hashtable DBRow)
         {
             MessageBox.Show("Není implementováno.");
