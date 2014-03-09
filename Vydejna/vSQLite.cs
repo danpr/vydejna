@@ -1402,6 +1402,46 @@ namespace Vydejna
         }
 
 
+        public override Int32 editNewLineZnackaNaradi(Int32 poradi, string DBKodd)
+        {
+            string commandString2 = "UPDATE naradi set kodd = ? where  poradi = ?";
+
+            SQLiteTransaction transaction = null;
+            if (DBIsOpened())
+            {
+                try
+                {
+                    transaction = (myDBConn as SQLiteConnection).BeginTransaction(System.Data.IsolationLevel.ReadCommitted);
+
+                    SQLiteCommand cmd = new SQLiteCommand(commandString2, myDBConn as SQLiteConnection);
+
+                    cmd.Parameters.AddWithValue("@kodd", DBKodd);
+                    cmd.Parameters.AddWithValue("@poradi", poradi);
+
+                    cmd.Transaction = transaction;
+                    cmd.ExecuteNonQuery();
+                    if (transaction != null)
+                    {
+                        (transaction as SQLiteTransaction).Commit();
+                    }
+                    return 0;
+
+                }
+                catch (Exception)
+                {
+                    // doslo k chybe
+                    if (transaction != null)
+                    {
+                        (transaction as SQLiteTransaction).Rollback();
+                    }
+                    return -1;
+                }
+
+            }
+            return -0;
+        }
+
+
 
         public override Boolean editNewLinePoskozene(Int32 poradi, string DBkrjmeno, string DBjmeno, string DBosCislo, string DBdilna,
                                  string DBprovoz, string DBnazev, string DBJK, long DBpocetKS,

@@ -2332,6 +2332,46 @@ namespace Vydejna
         }
 
 
+        public override Int32 editNewLineZnackaNaradi(Int32 poradi, string DBKodd)
+        {
+            string commandString2 = "UPDATE naradi set kodd = ? where  poradi = ?";
+
+            OdbcTransaction transaction = null;
+            if (DBIsOpened())
+            {
+                try
+                {
+                    transaction = (myDBConn as OdbcConnection).BeginTransaction(System.Data.IsolationLevel.ReadCommitted);
+
+                    OdbcCommand cmd = new OdbcCommand(commandString2, myDBConn as OdbcConnection);
+
+                    cmd.Parameters.AddWithValue("@kodd", DBKodd);
+                    cmd.Parameters.AddWithValue("@poradi", poradi);
+
+                    cmd.Transaction = transaction;
+                    cmd.ExecuteNonQuery();
+                    if (transaction != null)
+                    {
+                        (transaction as OdbcTransaction).Commit();
+                    }
+                    return 0;
+
+                }
+                catch (Exception)
+                {
+                    // doslo k chybe
+                    if (transaction != null)
+                    {
+                        (transaction as OdbcTransaction).Rollback();
+                    }
+                    return -1;
+                }
+
+            }
+            return -0;
+        }
+
+
 
         public override Boolean moveNaradiToNewKaret(Int32 DBporadi)
         {

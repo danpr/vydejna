@@ -124,6 +124,8 @@
     <Compile Include="SkladovaKarta.Designer.cs">
       <DependentUpon>SkladovaKarta.cs</DependentUpon>
     </Compile>
+    <Compile Include="TiskDefault.cs" />
+    <Compile Include="TiskNaradi.cs" />
     <Compile Include="UzivatelData.cs" />
     <Compile Include="UzivatelKarta.cs">
       <SubType>Form</SubType>
@@ -191,6 +193,12 @@
     </Compile>
     <Compile Include="ZmenyOprava.Designer.cs">
       <DependentUpon>ZmenyOprava.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ZnackaZmena.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ZnackaZmena.Designer.cs">
+      <DependentUpon>ZnackaZmena.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
@@ -261,6 +269,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ZmenyOprava.resx">
       <DependentUpon>ZmenyOprava.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ZnackaZmena.resx">
+      <DependentUpon>ZnackaZmena.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

@@ -172,6 +172,11 @@ namespace Vydejna
             MessageBox.Show("Není implementováno.");
         }
 
+        public virtual void vytiskniKartu(Hashtable DBRow)
+        {
+            MessageBox.Show("Není implementováno.");
+        }
+
 
         public virtual void zrusKartu(Hashtable DBRow)
         {
@@ -462,6 +467,9 @@ namespace Vydejna
                     else
                     {
                         MessageBox.Show("Opravení karty se nezdařilo.");
+                        Hashtable newDBRow = null;
+                        newDBRow = myDB.getNaradiLine(poradi, newDBRow);
+                        reloadRow((myDataGridView.DataSource as DataTable), findIndex((myDataGridView.DataSource as DataTable), "poradi", poradi), newDBRow);
                     }
 
                 }
@@ -473,6 +481,26 @@ namespace Vydejna
                 }
             }
         }
+
+
+        public override void zmenZnacku(Hashtable DBRow)
+        {
+            Int32 poradi = Convert.ToInt32(DBRow["poradi"]);
+            ZnackaZmena zmenaZnacky = new ZnackaZmena(myDB, poradi);
+            if (zmenaZnacky.ShowDialog() == DialogResult.OK)
+            {
+                Int32 updateIsOk = myDB.editNewLineZnackaNaradi(poradi, zmenaZnacky.getMark());
+                // obnovime zobrazeni
+                if (updateIsOk != 0)
+                {
+                    MessageBox.Show("Opravení karty se nezdařilo.");
+                }
+            }
+            Hashtable newDBRow = null;
+            newDBRow = myDB.getNaradiLine(poradi, newDBRow);
+            reloadRow((myDataGridView.DataSource as DataTable), findIndex((myDataGridView.DataSource as DataTable), "poradi", poradi), newDBRow);
+        }
+
 
 
         public override void zrusKartu(Hashtable DBRow)
@@ -501,6 +529,14 @@ namespace Vydejna
                 }
             }
         }
+
+
+        public override void vytiskniKartu(Hashtable DBRow)
+        {
+            MessageBox.Show("Tisk neni k dispozici.");
+            TiskNaradi myTisk = new TiskNaradi(DBRow);
+        }
+
 
 
 

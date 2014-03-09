@@ -659,7 +659,7 @@ namespace Vydejna
             karta = new detailSklad(myDB,dataGridView1);
             evenState = evenStateEnum.enable;
             labelView.Text = "Výdejna nářadí přehled";
-            contextMenuEnable(true, true, true,false,true);
+            contextMenuEnable(true, true, true,false,true,true);
         }
 
 
@@ -830,7 +830,7 @@ namespace Vydejna
         }
 
 
-        private void contextMenuEnable(Boolean useAdd, Boolean useInc = false, Boolean useDec = false, Boolean useLend =false, Boolean useMark = false)
+        private void contextMenuEnable(Boolean useAdd, Boolean useInc = false, Boolean useDec = false, Boolean useLend =false, Boolean useMark = false, Boolean usePrint = false)
         {
             if (useAdd)
             {
@@ -855,23 +855,19 @@ namespace Vydejna
                 contextMenuStrip1.Items[2].Visible = false;
             }
 
-
-            
-            if (useInc)  // prijem
+            if (usePrint)
             {
-                contextMenuStrip1.Items[5].Enabled = true;
-                contextMenuStrip1.Items[5].Visible = true;
+                contextMenuStrip1.Items[4].Enabled = true;
+                contextMenuStrip1.Items[4].Visible = true;
             }
             else
             {
-                contextMenuStrip1.Items[5].Enabled = false;
-                contextMenuStrip1.Items[5].Visible = false;
+                contextMenuStrip1.Items[4].Enabled = false;
+                contextMenuStrip1.Items[4].Visible = false;
             }
 
             
-
-
-            if (useDec)  // poskozeno
+            if (useInc)  // prijem
             {
                 contextMenuStrip1.Items[6].Enabled = true;
                 contextMenuStrip1.Items[6].Visible = true;
@@ -882,32 +878,46 @@ namespace Vydejna
                 contextMenuStrip1.Items[6].Visible = false;
             }
 
-            if ((!useDec) && (!useInc))
+            
+
+
+            if (useDec)  // poskozeno
             {
-                contextMenuStrip1.Items[4].Enabled = false;
-                contextMenuStrip1.Items[4].Visible = false;
+                contextMenuStrip1.Items[7].Enabled = true;
+                contextMenuStrip1.Items[7].Visible = true;
             }
             else
             {
-                contextMenuStrip1.Items[4].Enabled = true;
-                contextMenuStrip1.Items[4].Visible = true;
+                contextMenuStrip1.Items[7].Enabled = false;
+                contextMenuStrip1.Items[7].Visible = false;
+            }
+
+            if ((!useDec) && (!useInc))
+            {
+                contextMenuStrip1.Items[5].Enabled = false;
+                contextMenuStrip1.Items[5].Visible = false;
+            }
+            else
+            {
+                contextMenuStrip1.Items[5].Enabled = true;
+                contextMenuStrip1.Items[5].Visible = true;
             }
 
 
             if (useLend)  // pujceno
             {
+                contextMenuStrip1.Items[9].Enabled = true;
+                contextMenuStrip1.Items[9].Visible = true;
                 contextMenuStrip1.Items[8].Enabled = true;
                 contextMenuStrip1.Items[8].Visible = true;
-                contextMenuStrip1.Items[7].Enabled = true;
-                contextMenuStrip1.Items[7].Visible = true;
 
             }
             else
             {
+                contextMenuStrip1.Items[9].Enabled = false;
+                contextMenuStrip1.Items[9].Visible = false;
                 contextMenuStrip1.Items[8].Enabled = false;
                 contextMenuStrip1.Items[8].Visible = false;
-                contextMenuStrip1.Items[7].Enabled = false;
-                contextMenuStrip1.Items[7].Visible = false;
             }
 
             contextMenuStrip1.Enabled = true;
@@ -1273,13 +1283,32 @@ namespace Vydejna
 
         private void toolStripMenuItem9_Click(object sender, EventArgs e)
         {
-            //zmena znacky
+
+        }
+
+        private void comMenuChangeMark(object sender, EventArgs e)
+        {
             if (dataGridView1.SelectedRows.Count > 0)
             {
                 DBRow = getDBRowFromSelectedRow(DBRow);
                 karta.zmenZnacku(DBRow);
             }
 
+        }
+
+        private void ukončeníProgramuToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void ConMenuPrintItem(object sender, EventArgs e)
+        {
+            // tisk
+            if (dataGridView1.SelectedRows.Count > 0)
+            {
+                DBRow = getDBRowFromSelectedRow(DBRow);
+                karta.vytiskniKartu(DBRow);
+            }
         }
     }
 }

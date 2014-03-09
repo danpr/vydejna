@@ -283,6 +283,10 @@ namespace Vydejna
 
 
 
+        public virtual Int32 editNewLineZnackaNaradi(Int32 poradi, string DBKodd)
+        {
+            return -1;
+        }
 
         public virtual Boolean editNewLinePoskozene(Int32 poradi, string DBkrjmeno, string DBjmeno, string DBosCislo, string DBdilna,
                                          string DBprovoz, string DBnazev, string DBJK, long DBpocetKS,

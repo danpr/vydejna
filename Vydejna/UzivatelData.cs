@@ -8,7 +8,9 @@ using System.Security.Cryptography;
 namespace Vydejna
 {
 
-    enum permCode { Nar = 1, NarAdd, NarEd, NarEdNaz, NarEdJK, NarEdCenaKs, NarEdUcCenaKs, NarEdUcCena, NarEdMin, NarEdFyStav, NarEdUcStav, NarDel, NarPrijem, NarPosk, NarOprO,
+    enum permCode
+    {
+        Nar = 1, NarAdd, NarEd, NarEdM, NarEdNaz, NarEdJK, NarEdCenaKs, NarEdUcCenaKs, NarEdUcCena, NarEdMin, NarEdFyStav, NarEdUcStav, NarDel, NarPrijem, NarPosk, NarOprO,
     ZNar, ZNarEd, ZNarDel, PNar, PNarEd, PNarDel, VNar, VNarEd, VNarDel, Prac, PracAdd, PracEd, PracDel, PracZapN, PracVracN, PassSet  };
     
        public class permStruct
@@ -55,6 +57,8 @@ namespace Vydejna
             permList.Add(new permStruct((Int32)permCode.NarEd, (Int32)permCode.NarEdMin, "Změna minimálního stavu"));
             permList.Add(new permStruct((Int32)permCode.NarEd, (Int32)permCode.NarEdFyStav, "Změna fyzického stavu"));
             permList.Add(new permStruct((Int32)permCode.NarEd, (Int32)permCode.NarEdUcStav, "Změna učetního stavu"));
+            permList.Add(new permStruct((Int32)permCode.Nar, (Int32)permCode.NarEdM, "Změna značky"));
+            
             permList.Add(new permStruct((Int32)permCode.Nar, (Int32)permCode.NarPrijem, "Příjemka nářadí"));
             permList.Add(new permStruct((Int32)permCode.Nar, (Int32)permCode.NarPosk, "Poškozenka nářadí"));
             permList.Add(new permStruct((Int32)permCode.Nar, (Int32)permCode.NarDel, "Smazání položky"));
