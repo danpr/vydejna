@@ -533,7 +533,6 @@ namespace Vydejna
 
         public override void vytiskniKartu(Hashtable DBRow)
         {
-            MessageBox.Show("Tisk neni k dispozici.");
             TiskNaradi myTisk = new TiskNaradi(DBRow);
         }
 
