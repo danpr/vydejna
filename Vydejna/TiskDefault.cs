@@ -26,7 +26,7 @@ namespace Vydejna
 
         protected void setPreview()
         {
-            tiskDoc = new PrintDocument();
+            tiskDoc = new PrintDocument();           
 
             tiskDoc.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(Tisk);
 
@@ -56,7 +56,8 @@ namespace Vydejna
 
                 PrinterSettings nastaveniTisku = new PrinterSettings();
                 nastaveniTisku.PrinterName = tiskDlg.PrinterSettings.PrinterName;
-                nastaveniTisku.Duplex = tiskDlg.PrinterSettings.Duplex;
+                nastaveniTisku.Duplex = tiskDlg.PrinterSettings.Duplex;                
+                
 
                 tiskDoc.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(Tisk);
                 //tiskDoc.PrinterSettings = nastaveniTisku;
