@@ -29,7 +29,7 @@ namespace Vydejna
             tiskDoc = new PrintDocument();           
 
             tiskDoc.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(Tisk);
-
+            tiskDoc.BeginPrint += new System.Drawing.Printing.PrintEventHandler(BeginTisk);
 
             PrintPreviewDialog nahled = new PrintPreviewDialog();
             nahled.Document = tiskDoc;
@@ -60,6 +60,7 @@ namespace Vydejna
                 
 
                 tiskDoc.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(Tisk);
+                tiskDoc.BeginPrint += new System.Drawing.Printing.PrintEventHandler(BeginTisk);
                 //tiskDoc.PrinterSettings = nastaveniTisku;
 
 
@@ -70,11 +71,13 @@ namespace Vydejna
         }
 
 
-         public virtual void Tisk(object sender, PrintPageEventArgs e)
+        public virtual void Tisk(object sender, PrintPageEventArgs e)
         {
-
         }
 
+         public virtual void BeginTisk(object sender, PrintEventArgs e)
+         {
+         }
 
     }
 }

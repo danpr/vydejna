@@ -41,10 +41,10 @@ namespace Vydejna
             e.Graphics.DrawString("Výrobce :", tiskFont1, Brushes.Black, new PointF(10, 45));
             e.Graphics.DrawString("Cena/ks :", tiskFont1, Brushes.Black, new PointF(10, 52));
             e.Graphics.DrawString("Účet :", tiskFont1, Brushes.Black, new PointF(70, 52));
-            e.Graphics.DrawString("Účetní cena :", tiskFont1, Brushes.Black, new PointF(30, 52));
+            e.Graphics.DrawString("Účetní cena :", tiskFont1, Brushes.Black, new PointF(150, 52));
             e.Graphics.DrawString("Min. stav :", tiskFont1, Brushes.Black, new PointF(10, 59));
             e.Graphics.DrawString("Fyz. stav stav :", tiskFont1, Brushes.Black, new PointF(80, 59));
-            e.Graphics.DrawString("Účetní stav :", tiskFont1, Brushes.Black, new PointF(130, 59));
+            e.Graphics.DrawString("Účetní stav :", tiskFont1, Brushes.Black, new PointF(150, 59));
             e.Graphics.DrawString("Poznámka :", tiskFont1, Brushes.Black, new PointF(10, 66));
 
 
@@ -66,9 +66,30 @@ namespace Vydejna
                 e.Graphics.DrawString(Convert.ToString(DBRow["rozmer"]), tiskFont1, Brushes.Black, new PointF(120, 38));
             if (DBRow.Contains("vyrobce"))
                 e.Graphics.DrawString(Convert.ToString(DBRow["vyrobce"]), tiskFont1, Brushes.Black, new PointF(30, 45));
+            if (DBRow.Contains("cena"))
+                e.Graphics.DrawString(Convert.ToString(DBRow["cena"]), tiskFont1, Brushes.Black, new PointF(30, 52));
+            if (DBRow.Contains("analucet"))
+                e.Graphics.DrawString(Convert.ToString(DBRow["analucet"]), tiskFont1, Brushes.Black, new PointF(90, 52));
+            if (DBRow.Contains("celkcena"))
+                e.Graphics.DrawString(Convert.ToString(DBRow["celkcena"]), tiskFont1, Brushes.Black, new PointF(180, 52));
+            if (DBRow.Contains("minimum"))
+                e.Graphics.DrawString(Convert.ToString(DBRow["minimum"]), tiskFont1, Brushes.Black, new PointF(40, 59));
+            if (DBRow.Contains("fyzstav"))
+                e.Graphics.DrawString(Convert.ToString(DBRow["fyzstav"]), tiskFont1, Brushes.Black, new PointF(115, 59));
+            if (DBRow.Contains("ucetstav"))
+                e.Graphics.DrawString(Convert.ToString(DBRow["ucetstav"]), tiskFont1, Brushes.Black, new PointF(180, 59));
+            if (DBRow.Contains("poznamka"))
+                e.Graphics.DrawString(Convert.ToString(DBRow["poznamka"]), tiskFont1, Brushes.Black, new PointF(40, 66));
 
 
         }
+
+
+        public override void BeginTisk(object sender, PrintEventArgs e)
+        {
+        }
+
+
 
         public override void Tisk(object sender, PrintPageEventArgs e)
         {
