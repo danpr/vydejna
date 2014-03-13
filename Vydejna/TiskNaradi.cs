@@ -29,35 +29,44 @@ namespace Vydejna
             Font tiskFont1 = new Font("Verdana", 11);
             Font tiskFont2 = new Font("Verdana", 9);
 
-            e.Graphics.DrawString("Strana :", tiskFont2, Brushes.Black, new PointF(50, 30));
-            e.Graphics.DrawString("Datum :", tiskFont2, Brushes.Black, new PointF(450, 30));
+            e.Graphics.DrawString("Strana :", tiskFont2, Brushes.Black, new PointF(10, 7));
+            e.Graphics.DrawString("Datum :", tiskFont2, Brushes.Black, new PointF(150, 7));
 
 
-            e.Graphics.DrawString("Nazev nářadí :", tiskFont1, Brushes.Black, new PointF(50, 50));
-            e.Graphics.DrawString("Číslo položky :", tiskFont1, Brushes.Black, new PointF(50, 70));
-            e.Graphics.DrawString("Norma ČSN :", tiskFont1, Brushes.Black, new PointF(50, 90));
-            e.Graphics.DrawString("Norma DIN :", tiskFont1, Brushes.Black, new PointF(50, 110));
-            e.Graphics.DrawString("Rozměr :", tiskFont1, Brushes.Black, new PointF(250, 110));
-            e.Graphics.DrawString("Výrobce :", tiskFont1, Brushes.Black, new PointF(50, 130));
-            e.Graphics.DrawString("Cena/ks :", tiskFont1, Brushes.Black, new PointF(50, 150));
-            e.Graphics.DrawString("Účet :", tiskFont1, Brushes.Black, new PointF(150, 150));
-            e.Graphics.DrawString("Účetní cena :", tiskFont1, Brushes.Black, new PointF(250, 150));
-            e.Graphics.DrawString("Min. stav :", tiskFont1, Brushes.Black, new PointF(50, 170));
-            e.Graphics.DrawString("Fyz. stav stav :", tiskFont1, Brushes.Black, new PointF(150, 170));
-            e.Graphics.DrawString("Účetní stav :", tiskFont1, Brushes.Black, new PointF(250, 170));
-            e.Graphics.DrawString("Poznámka :", tiskFont1, Brushes.Black, new PointF(50, 190));
+            e.Graphics.DrawString("Nazev nářadí :", tiskFont1, Brushes.Black, new PointF(10, 17));
+            e.Graphics.DrawString("Číslo položky :", tiskFont1, Brushes.Black, new PointF(10, 24));
+            e.Graphics.DrawString("Norma ČSN :", tiskFont1, Brushes.Black, new PointF(10, 31));
+            e.Graphics.DrawString("Norma DIN :", tiskFont1, Brushes.Black, new PointF(10, 38));
+            e.Graphics.DrawString("Rozměr :", tiskFont1, Brushes.Black, new PointF(100, 38));
+            e.Graphics.DrawString("Výrobce :", tiskFont1, Brushes.Black, new PointF(10, 45));
+            e.Graphics.DrawString("Cena/ks :", tiskFont1, Brushes.Black, new PointF(10, 52));
+            e.Graphics.DrawString("Účet :", tiskFont1, Brushes.Black, new PointF(70, 52));
+            e.Graphics.DrawString("Účetní cena :", tiskFont1, Brushes.Black, new PointF(30, 52));
+            e.Graphics.DrawString("Min. stav :", tiskFont1, Brushes.Black, new PointF(10, 59));
+            e.Graphics.DrawString("Fyz. stav stav :", tiskFont1, Brushes.Black, new PointF(80, 59));
+            e.Graphics.DrawString("Účetní stav :", tiskFont1, Brushes.Black, new PointF(130, 59));
+            e.Graphics.DrawString("Poznámka :", tiskFont1, Brushes.Black, new PointF(10, 66));
 
 
-            e.Graphics.DrawString("Datum", tiskFont2, Brushes.Black, new PointF(30, 240));
-            e.Graphics.DrawString("Stav", tiskFont2, Brushes.Black, new PointF(80, 240));
-            e.Graphics.DrawString("Poznámka", tiskFont2, Brushes.Black, new PointF(150, 240));
-            e.Graphics.DrawString("Interni", tiskFont2, Brushes.Black, new PointF(250, 235));
-            e.Graphics.DrawString("ev. číslo", tiskFont2, Brushes.Black, new PointF(250, 245));
+            e.Graphics.DrawString("Datum", tiskFont2, Brushes.Black, new PointF(5, 75));
+            e.Graphics.DrawString("Stav", tiskFont2, Brushes.Black, new PointF(30, 75));
+            e.Graphics.DrawString("Poznámka", tiskFont2, Brushes.Black, new PointF(70, 75));
+            e.Graphics.DrawString("Interni", tiskFont2, Brushes.Black, new PointF(150, 72));
+            e.Graphics.DrawString("ev. číslo", tiskFont2, Brushes.Black, new PointF(150, 78));
 
             if (DBRow.Contains("nazev"))
-                e.Graphics.DrawString(Convert.ToString(DBRow["nazev"]), tiskFont1, Brushes.Black, new PointF(200, 50));
+                e.Graphics.DrawString(Convert.ToString(DBRow["nazev"]), tiskFont1, Brushes.Black, new PointF(40, 17));
             if (DBRow.Contains("jk"))
-                e.Graphics.DrawString(Convert.ToString(DBRow["jk"]), tiskFont1, Brushes.Black, new PointF(200, 70));
+                e.Graphics.DrawString(Convert.ToString(DBRow["jk"]), tiskFont1, Brushes.Black, new PointF(40, 24));
+            if (DBRow.Contains("normacsn"))
+                e.Graphics.DrawString(Convert.ToString(DBRow["normacsn"]), tiskFont1, Brushes.Black, new PointF(38, 31));
+            if (DBRow.Contains("normadin"))
+                e.Graphics.DrawString(Convert.ToString(DBRow["normadin"]), tiskFont1, Brushes.Black, new PointF(38, 38));
+            if (DBRow.Contains("rozmer"))
+                e.Graphics.DrawString(Convert.ToString(DBRow["rozmer"]), tiskFont1, Brushes.Black, new PointF(120, 38));
+            if (DBRow.Contains("vyrobce"))
+                e.Graphics.DrawString(Convert.ToString(DBRow["vyrobce"]), tiskFont1, Brushes.Black, new PointF(30, 45));
+
 
         }
 
