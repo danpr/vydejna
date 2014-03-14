@@ -13,6 +13,8 @@ namespace Vydejna
     {
         private Hashtable DBRow;
 
+        private Int32 pageNumber;
+
         public TiskNaradi(Hashtable DBRow)
             : base(DBRow)
         {
@@ -32,15 +34,17 @@ namespace Vydejna
             e.Graphics.DrawString("Strana :", tiskFont2, Brushes.Black, new PointF(10, 7));
             e.Graphics.DrawString("Datum :", tiskFont2, Brushes.Black, new PointF(150, 7));
 
+            e.Graphics.DrawString( Convert.ToString(pageNumber), tiskFont2, Brushes.Black, new PointF(25, 7));
+            e.Graphics.DrawString(DateTime.Today.ToString("d"), tiskFont2, Brushes.Black, new PointF(165, 7));
 
             e.Graphics.DrawString("Nazev nářadí :", tiskFont1, Brushes.Black, new PointF(10, 17));
             e.Graphics.DrawString("Číslo položky :", tiskFont1, Brushes.Black, new PointF(10, 24));
             e.Graphics.DrawString("Norma ČSN :", tiskFont1, Brushes.Black, new PointF(10, 31));
             e.Graphics.DrawString("Norma DIN :", tiskFont1, Brushes.Black, new PointF(10, 38));
-            e.Graphics.DrawString("Rozměr :", tiskFont1, Brushes.Black, new PointF(100, 38));
+            e.Graphics.DrawString("Rozměr :", tiskFont1, Brushes.Black, new PointF(80, 38));
             e.Graphics.DrawString("Výrobce :", tiskFont1, Brushes.Black, new PointF(10, 45));
             e.Graphics.DrawString("Cena/ks :", tiskFont1, Brushes.Black, new PointF(10, 52));
-            e.Graphics.DrawString("Účet :", tiskFont1, Brushes.Black, new PointF(70, 52));
+            e.Graphics.DrawString("Účet :", tiskFont1, Brushes.Black, new PointF(80, 52));
             e.Graphics.DrawString("Účetní cena :", tiskFont1, Brushes.Black, new PointF(150, 52));
             e.Graphics.DrawString("Min. stav :", tiskFont1, Brushes.Black, new PointF(10, 59));
             e.Graphics.DrawString("Fyz. stav stav :", tiskFont1, Brushes.Black, new PointF(80, 59));
@@ -63,17 +67,17 @@ namespace Vydejna
             if (DBRow.Contains("normadin"))
                 e.Graphics.DrawString(Convert.ToString(DBRow["normadin"]), tiskFont1, Brushes.Black, new PointF(38, 38));
             if (DBRow.Contains("rozmer"))
-                e.Graphics.DrawString(Convert.ToString(DBRow["rozmer"]), tiskFont1, Brushes.Black, new PointF(120, 38));
+                e.Graphics.DrawString(Convert.ToString(DBRow["rozmer"]), tiskFont1, Brushes.Black, new PointF(100, 38));
             if (DBRow.Contains("vyrobce"))
                 e.Graphics.DrawString(Convert.ToString(DBRow["vyrobce"]), tiskFont1, Brushes.Black, new PointF(30, 45));
             if (DBRow.Contains("cena"))
                 e.Graphics.DrawString(Convert.ToString(DBRow["cena"]), tiskFont1, Brushes.Black, new PointF(30, 52));
             if (DBRow.Contains("analucet"))
-                e.Graphics.DrawString(Convert.ToString(DBRow["analucet"]), tiskFont1, Brushes.Black, new PointF(90, 52));
+                e.Graphics.DrawString(Convert.ToString(DBRow["analucet"]), tiskFont1, Brushes.Black, new PointF(100, 52));
             if (DBRow.Contains("celkcena"))
                 e.Graphics.DrawString(Convert.ToString(DBRow["celkcena"]), tiskFont1, Brushes.Black, new PointF(180, 52));
             if (DBRow.Contains("minimum"))
-                e.Graphics.DrawString(Convert.ToString(DBRow["minimum"]), tiskFont1, Brushes.Black, new PointF(40, 59));
+                e.Graphics.DrawString(Convert.ToString(DBRow["minimum"]), tiskFont1, Brushes.Black, new PointF(35, 59));
             if (DBRow.Contains("fyzstav"))
                 e.Graphics.DrawString(Convert.ToString(DBRow["fyzstav"]), tiskFont1, Brushes.Black, new PointF(115, 59));
             if (DBRow.Contains("ucetstav"))
@@ -82,11 +86,13 @@ namespace Vydejna
                 e.Graphics.DrawString(Convert.ToString(DBRow["poznamka"]), tiskFont1, Brushes.Black, new PointF(40, 66));
 
 
+            
         }
 
 
         public override void BeginTisk(object sender, PrintEventArgs e)
         {
+            pageNumber = 1;
         }
 
 
@@ -105,7 +111,7 @@ namespace Vydejna
 //                ev.HasMorePages = true;
 //            else
 //                ev.HasMorePages = false;
-
+            pageNumber++;
         }
     }
 }
