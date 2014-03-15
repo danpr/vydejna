@@ -12,12 +12,16 @@ namespace Vydejna
 
     class TiskDefault
     {
+
+        protected vDatabase myDB;
+
         private Hashtable DBRow;
         protected PrintDocument tiskDoc;
 
 
-        public TiskDefault(Hashtable DBRow)
+        public TiskDefault(vDatabase myDB, Hashtable DBRow)
         {
+            this.myDB = myDB;
             this.DBRow = DBRow;
 
             PrintDialog tiskDlg = new PrintDialog();

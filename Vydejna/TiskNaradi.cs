@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Drawing.Printing;
 using System.Drawing;
+using System.Data;
 
 
 namespace Vydejna
@@ -14,9 +15,12 @@ namespace Vydejna
         private Hashtable DBRow;
 
         private Int32 pageNumber;
+        private Int32 DTnumberSelectedRow;
+        private DataTable dataTableZmeny;
+        private Int32  DTRowCount;
 
-        public TiskNaradi(Hashtable DBRow)
-            : base(DBRow)
+        public TiskNaradi(vDatabase myDB, Hashtable DBRow)
+            : base(myDB, DBRow)
         {
             this.DBRow = DBRow;
             setPreview();
@@ -93,24 +97,51 @@ namespace Vydejna
         public override void BeginTisk(object sender, PrintEventArgs e)
         {
             pageNumber = 1;
+
+            //DataTable loadDataTableZmeny
+            dataTableZmeny = null;
+            if (DBRow.Contains("poradi"))
+            {
+                dataTableZmeny = myDB.loadDataTableZmeny(Convert.ToInt32(DBRow["poradi"]));
+                DTnumberSelectedRow = 0;
+                DTRowCount = dataTableZmeny.Rows.Count;
+            }
+
         }
 
 
 
         public override void Tisk(object sender, PrintPageEventArgs e)
         {
+            Int32 printRowsOnPage = 0;
+            Int32 RowsOnPage = 18;
+            Font tiskFont2 = new Font("Verdana", 9);
 
             printHeader(e);
-        
-            // while (count < pocetRadekNaStrance)
-            //{
-            // count++
-            //}
 
-//            if (line != prazdna tabulka)
-//                ev.HasMorePages = true;
-//            else
-//                ev.HasMorePages = false;
+            if (dataTableZmeny != null)
+            {
+
+
+                while ((printRowsOnPage < RowsOnPage) && (DTnumberSelectedRow < DTRowCount))
+                {
+
+
+                    string mydate = Convert.ToString( dataTableZmeny.Rows[DTnumberSelectedRow]["datum"]);
+
+ //                   if (DBRow.Contains("poznamka"))
+                        e.Graphics.DrawString(Convert.ToString(dataTableZmeny.Rows[DTnumberSelectedRow]["datum"]), tiskFont2, Brushes.Black, new PointF(5, printRowsOnPage * 8 + 85));
+                        e.Graphics.DrawString(Convert.ToString(dataTableZmeny.Rows[DTnumberSelectedRow]["stav"]), tiskFont2, Brushes.Black, new PointF(40, printRowsOnPage * 8 + 85));
+                        e.Graphics.DrawString(Convert.ToString(dataTableZmeny.Rows[DTnumberSelectedRow]["poznamka"]), tiskFont2, Brushes.Black, new PointF(80, printRowsOnPage * 8 + 85));
+                        printRowsOnPage++;
+                    DTnumberSelectedRow++;
+                }
+            }
+
+            if (DTnumberSelectedRow != DTRowCount)
+                e.HasMorePages = true;
+            else
+                e.HasMorePages = false;
             pageNumber++;
         }
     }

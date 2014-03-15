@@ -533,7 +533,7 @@ namespace Vydejna
 
         public override void vytiskniKartu(Hashtable DBRow)
         {
-            TiskNaradi myTisk = new TiskNaradi(DBRow);
+            TiskNaradi myTisk = new TiskNaradi(myDB, DBRow);
         }
 
 
