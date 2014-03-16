@@ -110,7 +110,7 @@ namespace Vydejna
             this.Font = myFont;
             setGeometry();
             setColumnWidth();
-            evenState = evenStateEnum.enable;
+//            evenState = evenStateEnum.enable;
         }
 
 
@@ -224,7 +224,8 @@ namespace Vydejna
                     dataGridViewZmeny.Columns["zustatek"].HeaderText = "Stav";
                     dataGridViewZmeny.Columns["zapkarta"].HeaderText = "Zapůjčeno na kartu";
 
-                    dataGridViewZmeny.Columns["poradi"].Visible = false;  
+                    dataGridViewZmeny.Columns["poradi"].Visible = false;
+                    dataGridViewZmeny.Columns["vevcislo"].Visible = false;  
 
                     dataGridViewZmeny.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
 

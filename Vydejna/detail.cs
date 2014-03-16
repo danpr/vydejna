@@ -1127,6 +1127,14 @@ namespace Vydejna
                 zapujcKarta.ShowDialog();
             }
         }
+
+
+        public override void vytiskniKartu(Hashtable DBRow)
+        {
+            TiskVypujcky myTisk = new TiskVypujcky(myDB, DBRow);
+        }
+
+
         public override string preferovanySloupec()
         {
             return "prijmeni";

@@ -5,6 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Drawing.Printing;
+using System.Drawing;
+using System.Data;
+
+
 
 namespace Vydejna
 {
@@ -15,14 +19,28 @@ namespace Vydejna
 
         protected vDatabase myDB;
 
-        private Hashtable DBRow;
+        protected Hashtable DBRow;
         protected PrintDocument tiskDoc;
+
+        protected Font tiskFont11 = new Font("Verdana", 11);
+        protected Font tiskFont9 = new Font("Verdana", 9);
+
+        protected Int32 pageNumber;  // cislo stranky
+        protected Int32 DTnumberSelectedRow; // cislo vybrane radky v datatable
+        protected Int32 DTRowCount; // pocet radku v datatable
+
+        protected Int32 RowsOnPage = 1;
+
+
+        protected DataTable dataTableRows;
+
 
 
         public TiskDefault(vDatabase myDB, Hashtable DBRow)
         {
             this.myDB = myDB;
             this.DBRow = DBRow;
+            RowsOnPage = 1;
 
             PrintDialog tiskDlg = new PrintDialog();
 
@@ -67,7 +85,6 @@ namespace Vydejna
                 tiskDoc.BeginPrint += new System.Drawing.Printing.PrintEventHandler(BeginTisk);
                 //tiskDoc.PrinterSettings = nastaveniTisku;
 
-
                 PrintPreviewDialog nahled = new PrintPreviewDialog();
                 nahled.Document = tiskDoc;
                 nahled.ShowDialog();
@@ -75,12 +92,57 @@ namespace Vydejna
         }
 
 
+        protected virtual DataTable loadDataTable()
+        {
+            return null;
+        }
+
+        protected virtual void printHeader(PrintPageEventArgs e)
+        {
+        }
+
+        protected virtual void printLine(PrintPageEventArgs e, Int32 line)
+        {
+        }
+
         public virtual void Tisk(object sender, PrintPageEventArgs e)
         {
+            Int32 lineOnPage = 0;
+
+            printHeader(e);
+
+            if (dataTableRows != null)
+            {
+                while ((lineOnPage < RowsOnPage) && (DTnumberSelectedRow < DTRowCount))
+                {
+                    printLine(e, lineOnPage);
+                    lineOnPage++;
+                    DTnumberSelectedRow++;
+                }
+            }
+
+            if (DTnumberSelectedRow != DTRowCount)
+                e.HasMorePages = true;
+            else
+                e.HasMorePages = false;
+            pageNumber++;
         }
 
          public virtual void BeginTisk(object sender, PrintEventArgs e)
          {
+             pageNumber = 1;
+             DTnumberSelectedRow = 0;
+
+             dataTableRows = null;
+
+             dataTableRows = loadDataTable();
+
+             loadDataTable();
+
+             if (dataTableRows != null)
+             {
+                 DTRowCount = dataTableRows.Rows.Count;
+             }
          }
 
     }

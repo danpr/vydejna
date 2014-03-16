@@ -733,7 +733,8 @@ namespace Vydejna
             loadOsobyItems();
             karta = new detailOsoby(myDB, dataGridView1);
             evenState = evenStateEnum.enable;
-            contextMenuEnable(true, false, false, true);
+            contextMenuEnable(true, false, false, true,false,true);
+
             labelView.Text = "Pracovníci provozu";
         }
 
@@ -1005,7 +1006,7 @@ namespace Vydejna
             loadOsobyItems();
             karta = new detailOsobyZapujcNaradi(myDB, dataGridView1);
             evenState = evenStateEnum.enable;
-            contextMenuEnable(true, false, false, true);
+            contextMenuEnable(true, false, false, true,false,true);
             labelView.Text = "Pracovníci provozu - Zapůjčení nářadí";
 
         }
