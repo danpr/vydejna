@@ -29,10 +29,10 @@ namespace Vydejna
             e.Graphics.PageUnit = GraphicsUnit.Millimeter;
 
             e.Graphics.DrawString("Strana :", tiskFont9, Brushes.Black, new PointF(5, 7));
-            e.Graphics.DrawString("Datum :", tiskFont9, Brushes.Black, new PointF(170, 7));
+            e.Graphics.DrawString("Datum :", tiskFont9, Brushes.Black, new PointF(168, 7));
 
             e.Graphics.DrawString( Convert.ToString(pageNumber), tiskFont9, Brushes.Black, new PointF(20, 7));
-            e.Graphics.DrawString(DateTime.Today.ToString("d"), tiskFont9, Brushes.Black, new PointF(185, 7));
+            e.Graphics.DrawString(DateTime.Today.ToString("d"), tiskFont9, Brushes.Black, new PointF(183, 7));
 
             e.Graphics.DrawString("Jméno :", tiskFont11, Brushes.Black, new PointF(10, 17));
 //            e.Graphics.DrawString("Číslo položky :", tiskFont11, Brushes.Black, new PointF(10, 24));
@@ -90,8 +90,8 @@ namespace Vydejna
 //            if (DBRow.Contains("poznamka"))
 //                e.Graphics.DrawString(Convert.ToString(DBRow["poznamka"]), tiskFont11, Brushes.Black, new PointF(40, 66));
 
-           e.Graphics.DrawRectangle(Pens.Black,new Rectangle(5,15,200,57));
-            e.Graphics.DrawLine (Pens.Black, new Point(5,83), new Point(205,83));
+           e.Graphics.DrawRectangle(Pens.Black,new Rectangle(5,15,195,57));
+            e.Graphics.DrawLine (Pens.Black, new Point(5,83), new Point(200,83));
         }
 
 
