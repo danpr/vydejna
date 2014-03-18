@@ -34,10 +34,10 @@ namespace Vydejna
             e.Graphics.DrawString( Convert.ToString(pageNumber), tiskFont9, Brushes.Black, new PointF(20, 7));
             e.Graphics.DrawString(DateTime.Today.ToString("d"), tiskFont9, Brushes.Black, new PointF(183, 7));
 
-            e.Graphics.DrawString("Jméno", tiskFont11, Brushes.Black, new PointF(30, 47));
-//            e.Graphics.DrawString("Číslo položky :", tiskFont11, Brushes.Black, new PointF(10, 24));
-//            e.Graphics.DrawString("Norma ČSN :", tiskFont11, Brushes.Black, new PointF(10, 31));
-//            e.Graphics.DrawString("Norma DIN :", tiskFont11, Brushes.Black, new PointF(10, 38));
+            e.Graphics.DrawString("Jméno", tiskFont9, Brushes.Black, new PointF(15, 47));
+            e.Graphics.DrawString("Číslo známky", tiskFont9, Brushes.Black, new PointF(50, 47));
+            e.Graphics.DrawString("Nářadí dle seznamu", tiskFont9, Brushes.Black, new PointF(100, 47));
+            e.Graphics.DrawString("Vrácení nářadí", tiskFont9, Brushes.Black, new PointF(150, 47));
 //            e.Graphics.DrawString("Rozměr :", tiskFont11, Brushes.Black, new PointF(80, 38));
 //            e.Graphics.DrawString("Výrobce :", tiskFont11, Brushes.Black, new PointF(10, 45));
 //            e.Graphics.DrawString("Cena/ks :", tiskFont11, Brushes.Black, new PointF(10, 52));
@@ -63,8 +63,27 @@ namespace Vydejna
 //            e.Graphics.DrawString("Osobní", tiskFont9, Brushes.Black, new PointF(180, 74));
 //            e.Graphics.DrawString("číslo", tiskFont9, Brushes.Black, new PointF(180, 78));
 
-            if (DBRow.Contains("jmeno"))
-                e.Graphics.DrawString(Convert.ToString(DBRow["jmeno"]), tiskFont11, Brushes.Black, new PointF(20, 57));
+           string celeJmeno = "";
+           if (DBRow.Contains("jmeno"))
+           {
+               if (DBRow.Contains("prijmeni"))
+               {
+                   celeJmeno = Convert.ToString(DBRow["jmeno"]) + " " + Convert.ToString(DBRow["prijmeni"]);
+               }
+               else
+               {
+                   celeJmeno = Convert.ToString(DBRow["jmeno"]);
+               }
+           }
+           else
+           {
+               celeJmeno = Convert.ToString(DBRow["jmeno"]);
+           }
+                
+
+
+
+                e.Graphics.DrawString(celeJmeno, tiskFont9, Brushes.Black, new PointF(9, 57));
 //            if (DBRow.Contains("jk"))
 //                e.Graphics.DrawString(Convert.ToString(DBRow["jk"]), tiskFont11, Brushes.Black, new PointF(40, 24));
 //            if (DBRow.Contains("normacsn"))
@@ -90,16 +109,22 @@ namespace Vydejna
 //            if (DBRow.Contains("poznamka"))
 //                e.Graphics.DrawString(Convert.ToString(DBRow["poznamka"]), tiskFont11, Brushes.Black, new PointF(40, 66));
 
-           e.Graphics.DrawRectangle(Pens.Black,new Rectangle(5,15,195,62));
-            e.Graphics.DrawLine (Pens.Black, new Point(5,32), new Point(200,32));
+           e.Graphics.DrawRectangle(Pens.Black,new Rectangle(5,15,195,54));
+            e.Graphics.DrawLine (Pens.Black, new Point(5,31), new Point(200,31));
+            e.Graphics.DrawLine(Pens.Black, new Point(149, 23), new Point(200, 23));
+
             e.Graphics.DrawLine(Pens.Black, new Point(5, 45), new Point(200, 45));
-            e.Graphics.DrawLine(Pens.Black, new Point(5, 53), new Point(200, 53));
-            e.Graphics.DrawLine(Pens.Black, new Point(5, 61), new Point(200, 61));
-            e.Graphics.DrawLine(Pens.Black, new Point(5, 69), new Point(200, 69));
+            e.Graphics.DrawLine(Pens.Black, new Point(88, 53), new Point(200, 53));
+            e.Graphics.DrawLine(Pens.Black, new Point(55, 61), new Point(200, 61));
 
 
-            
-            e.Graphics.DrawLine(Pens.Black, new Point(135, 15), new Point(135, 32));
+            e.Graphics.DrawLine(Pens.Black, new Point(149, 15), new Point(149, 45));
+            e.Graphics.DrawLine(Pens.Black, new Point(88, 32), new Point(88, 68));
+            e.Graphics.DrawLine(Pens.Black, new Point(55, 45), new Point(55, 68));
+            e.Graphics.DrawLine(Pens.Black, new Point(157, 45), new Point(157, 68));
+            e.Graphics.DrawLine(Pens.Black, new Point(173, 53), new Point(173, 68));
+            e.Graphics.DrawLine(Pens.Black, new Point(131, 53), new Point(131, 68));
+            e.Graphics.DrawLine(Pens.Black, new Point(106, 53), new Point(106, 68));
 
 
 
