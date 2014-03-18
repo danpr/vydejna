@@ -34,7 +34,7 @@ namespace Vydejna
             e.Graphics.DrawString( Convert.ToString(pageNumber), tiskFont9, Brushes.Black, new PointF(20, 7));
             e.Graphics.DrawString(DateTime.Today.ToString("d"), tiskFont9, Brushes.Black, new PointF(183, 7));
 
-            e.Graphics.DrawString("Jméno :", tiskFont11, Brushes.Black, new PointF(10, 17));
+            e.Graphics.DrawString("Jméno", tiskFont11, Brushes.Black, new PointF(30, 47));
 //            e.Graphics.DrawString("Číslo položky :", tiskFont11, Brushes.Black, new PointF(10, 24));
 //            e.Graphics.DrawString("Norma ČSN :", tiskFont11, Brushes.Black, new PointF(10, 31));
 //            e.Graphics.DrawString("Norma DIN :", tiskFont11, Brushes.Black, new PointF(10, 38));
@@ -49,9 +49,9 @@ namespace Vydejna
 //            e.Graphics.DrawString("Poznámka :", tiskFont11, Brushes.Black, new PointF(10, 66));
 
 
-            e.Graphics.DrawString("Datum", tiskFont9, Brushes.Black, new PointF(5, 76));
-            e.Graphics.DrawString("Název", tiskFont9, Brushes.Black, new PointF(25, 76));
-           e.Graphics.DrawString("Rozměr", tiskFont9, Brushes.Black, new PointF(50, 76));
+            e.Graphics.DrawString("Datum", tiskFont9, Brushes.Black, new PointF(5, 81));
+            e.Graphics.DrawString("Název", tiskFont9, Brushes.Black, new PointF(25, 81));
+           e.Graphics.DrawString("Rozměr", tiskFont9, Brushes.Black, new PointF(50, 81));
 //            e.Graphics.DrawString("Interni", tiskFont9, Brushes.Black, new PointF(90, 74));
 //            e.Graphics.DrawString("ev. číslo", tiskFont9, Brushes.Black, new PointF(90, 78));
 //            e.Graphics.DrawString("Příjem", tiskFont9, Brushes.Black, new PointF(120, 74));
@@ -64,7 +64,7 @@ namespace Vydejna
 //            e.Graphics.DrawString("číslo", tiskFont9, Brushes.Black, new PointF(180, 78));
 
             if (DBRow.Contains("jmeno"))
-                e.Graphics.DrawString(Convert.ToString(DBRow["jmeno"]), tiskFont11, Brushes.Black, new PointF(40, 17));
+                e.Graphics.DrawString(Convert.ToString(DBRow["jmeno"]), tiskFont11, Brushes.Black, new PointF(20, 57));
 //            if (DBRow.Contains("jk"))
 //                e.Graphics.DrawString(Convert.ToString(DBRow["jk"]), tiskFont11, Brushes.Black, new PointF(40, 24));
 //            if (DBRow.Contains("normacsn"))
@@ -90,16 +90,29 @@ namespace Vydejna
 //            if (DBRow.Contains("poznamka"))
 //                e.Graphics.DrawString(Convert.ToString(DBRow["poznamka"]), tiskFont11, Brushes.Black, new PointF(40, 66));
 
-           e.Graphics.DrawRectangle(Pens.Black,new Rectangle(5,15,195,57));
-            e.Graphics.DrawLine (Pens.Black, new Point(5,83), new Point(200,83));
+           e.Graphics.DrawRectangle(Pens.Black,new Rectangle(5,15,195,62));
+            e.Graphics.DrawLine (Pens.Black, new Point(5,32), new Point(200,32));
+            e.Graphics.DrawLine(Pens.Black, new Point(5, 45), new Point(200, 45));
+            e.Graphics.DrawLine(Pens.Black, new Point(5, 53), new Point(200, 53));
+            e.Graphics.DrawLine(Pens.Black, new Point(5, 61), new Point(200, 61));
+            e.Graphics.DrawLine(Pens.Black, new Point(5, 69), new Point(200, 69));
+
+
+            
+            e.Graphics.DrawLine(Pens.Black, new Point(135, 15), new Point(135, 32));
+
+
+
+            e.Graphics.DrawLine(Pens.Black, new Point(5, 88), new Point(200, 88));
+        
         }
 
 
         protected override void printLine(PrintPageEventArgs e, Int32 line)
         {
             DateTime mydate = Convert.ToDateTime(dataTableRows.Rows[DTnumberSelectedRow]["datum"]);
-            e.Graphics.DrawString(mydate.Date.ToString("d"), tiskFont9, Brushes.Black, new PointF(5, line * hightRow + 85));
-            e.Graphics.DrawString(Convert.ToString(dataTableRows.Rows[DTnumberSelectedRow]["nazev"]), tiskFont9, Brushes.Black, new PointF(25, line * hightRow + 85));
+            e.Graphics.DrawString(mydate.Date.ToString("d"), tiskFont9, Brushes.Black, new PointF(5, line * hightRow + 90));
+            e.Graphics.DrawString(Convert.ToString(dataTableRows.Rows[DTnumberSelectedRow]["nazev"]), tiskFont9, Brushes.Black, new PointF(25, line * hightRow + 90));
 //            e.Graphics.DrawString(Convert.ToString(dataTableRows.Rows[DTnumberSelectedRow]["poznamka"]), tiskFont9, Brushes.Black, new PointF(50, line * hightRow + 85));
 //            e.Graphics.DrawString(Convert.ToString(dataTableRows.Rows[DTnumberSelectedRow]["vevcislo"]), tiskFont9, Brushes.Black, new PointF(90, line * hightRow + 85));
 //            e.Graphics.DrawString(Convert.ToString(dataTableRows.Rows[DTnumberSelectedRow]["prijem"]), tiskFont9, Brushes.Black, new PointF(120, line * hightRow + 85));
