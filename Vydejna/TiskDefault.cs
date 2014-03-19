@@ -22,7 +22,9 @@ namespace Vydejna
         protected Hashtable DBRow;
         protected PrintDocument tiskDoc;
 
+        protected Font tiskFont25 = new Font("Verdana", 25);
         protected Font tiskFont11 = new Font("Verdana", 11);
+        protected Font tiskFont11b = new Font("Verdana", 11, FontStyle.Bold);
         protected Font tiskFont9 = new Font("Verdana", 9);
 
         protected Int32 pageNumber;  // cislo stranky
