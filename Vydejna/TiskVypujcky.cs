@@ -31,86 +31,69 @@ namespace Vydejna
             e.Graphics.DrawString("Strana :", tiskFont9, Brushes.Black, new PointF(5, 7));
             e.Graphics.DrawString("Datum :", tiskFont9, Brushes.Black, new PointF(168, 7));
 
-            e.Graphics.DrawString( Convert.ToString(pageNumber), tiskFont9, Brushes.Black, new PointF(20, 7));
+            e.Graphics.DrawString(Convert.ToString(pageNumber), tiskFont9, Brushes.Black, new PointF(20, 7));
             e.Graphics.DrawString(DateTime.Today.ToString("d"), tiskFont9, Brushes.Black, new PointF(183, 7));
 
-            e.Graphics.DrawString("Jméno", tiskFont9, Brushes.Black, new PointF(15, 47));
-            e.Graphics.DrawString("Číslo známky", tiskFont9, Brushes.Black, new PointF(50, 47));
+            e.Graphics.DrawString("Seznam nářadí ", tiskFont11, Brushes.Black, new PointF(50, 25));
+
+            e.Graphics.DrawString("Středisko:", tiskFont9, Brushes.Black, new PointF(150, 17));
+            e.Graphics.DrawString("Provoz:", tiskFont9, Brushes.Black, new PointF(150, 25));
+
+            e.Graphics.DrawString("Jméno", tiskFont9, Brushes.Black, new PointF(25, 47));
+            e.Graphics.DrawString("Číslo známky", tiskFont9, Brushes.Black, new PointF(60, 47));
             e.Graphics.DrawString("Nářadí dle seznamu", tiskFont9, Brushes.Black, new PointF(100, 47));
-            e.Graphics.DrawString("Vrácení nářadí", tiskFont9, Brushes.Black, new PointF(150, 47));
-//            e.Graphics.DrawString("Rozměr :", tiskFont11, Brushes.Black, new PointF(80, 38));
-//            e.Graphics.DrawString("Výrobce :", tiskFont11, Brushes.Black, new PointF(10, 45));
-//            e.Graphics.DrawString("Cena/ks :", tiskFont11, Brushes.Black, new PointF(10, 52));
-//            e.Graphics.DrawString("Účet :", tiskFont11, Brushes.Black, new PointF(80, 52));
-//            e.Graphics.DrawString("Účetní cena :", tiskFont11, Brushes.Black, new PointF(150, 52));
-//            e.Graphics.DrawString("Min. stav :", tiskFont11, Brushes.Black, new PointF(10, 59));
-//            e.Graphics.DrawString("Fyz. stav stav :", tiskFont11, Brushes.Black, new PointF(80, 59));
-//            e.Graphics.DrawString("Účetní stav :", tiskFont11, Brushes.Black, new PointF(150, 59));
-//            e.Graphics.DrawString("Poznámka :", tiskFont11, Brushes.Black, new PointF(10, 66));
+            e.Graphics.DrawString("Vrácení nářadí", tiskFont9, Brushes.Black, new PointF(165, 47));
+            e.Graphics.DrawString("Osobní číslo:", tiskFont9, Brushes.Black, new PointF(56, 63));
+            e.Graphics.DrawString("Dne", tiskFont9, Brushes.Black, new PointF(90, 55));
+            e.Graphics.DrawString("Vydal", tiskFont9, Brushes.Black, new PointF(108, 55));
+            e.Graphics.DrawString("Převzal", tiskFont9, Brushes.Black, new PointF(133, 55));
+            e.Graphics.DrawString("Dne", tiskFont9, Brushes.Black, new PointF(159, 55));
+            e.Graphics.DrawString("Vydal", tiskFont9, Brushes.Black, new PointF(175, 55));
+
+
 
 
             e.Graphics.DrawString("Datum", tiskFont9, Brushes.Black, new PointF(5, 81));
             e.Graphics.DrawString("Název", tiskFont9, Brushes.Black, new PointF(25, 81));
-           e.Graphics.DrawString("Rozměr", tiskFont9, Brushes.Black, new PointF(50, 81));
-//            e.Graphics.DrawString("Interni", tiskFont9, Brushes.Black, new PointF(90, 74));
-//            e.Graphics.DrawString("ev. číslo", tiskFont9, Brushes.Black, new PointF(90, 78));
-//            e.Graphics.DrawString("Příjem", tiskFont9, Brushes.Black, new PointF(120, 74));
-//            e.Graphics.DrawString("ks", tiskFont9, Brushes.Black, new PointF(120, 78));
-//            e.Graphics.DrawString("Výdej", tiskFont9, Brushes.Black, new PointF(140, 74));
-//            e.Graphics.DrawString("ks", tiskFont9, Brushes.Black, new PointF(140, 78));
-//            e.Graphics.DrawString("Stav", tiskFont9, Brushes.Black, new PointF(160, 74));
-//            e.Graphics.DrawString("ks", tiskFont9, Brushes.Black, new PointF(160, 78));
-//            e.Graphics.DrawString("Osobní", tiskFont9, Brushes.Black, new PointF(180, 74));
-//            e.Graphics.DrawString("číslo", tiskFont9, Brushes.Black, new PointF(180, 78));
+            e.Graphics.DrawString("Rozměr", tiskFont9, Brushes.Black, new PointF(50, 81));
 
-           string celeJmeno = "";
-           if (DBRow.Contains("jmeno"))
-           {
-               if (DBRow.Contains("prijmeni"))
-               {
-                   celeJmeno = Convert.ToString(DBRow["jmeno"]) + " " + Convert.ToString(DBRow["prijmeni"]);
-               }
-               else
-               {
-                   celeJmeno = Convert.ToString(DBRow["jmeno"]);
-               }
-           }
-           else
-           {
-               celeJmeno = Convert.ToString(DBRow["jmeno"]);
-           }
-                
+            string celeJmeno = "";
+            if (DBRow.Contains("jmeno"))
+            {
+                if (DBRow.Contains("prijmeni"))
+                {
+                    celeJmeno = Convert.ToString(DBRow["jmeno"]) + " " + Convert.ToString(DBRow["prijmeni"]);
+                }
+                else
+                {
+                    celeJmeno = Convert.ToString(DBRow["jmeno"]);
+                }
+            }
+            else
+            {
+                celeJmeno = Convert.ToString(DBRow["jmeno"]);
+            }
+
+//            e.Graphics.DrawString(celeJmeno, tiskFont9, Brushes.Black, new PointF(8, 58));
+            if (DBRow.Contains("jmeno"))
+                e.Graphics.DrawString(Convert.ToString(DBRow["jmeno"]), tiskFont11, Brushes.Black, new PointF(10, 55));
+            if (DBRow.Contains("prijmeni"))
+                e.Graphics.DrawString(Convert.ToString(DBRow["prijmeni"]), tiskFont11, Brushes.Black, new PointF(10, 63));
+
+            e.Graphics.DrawString(DateTime.Today.ToString("d"), tiskFont9, Brushes.Black, new PointF(88, 63));
+
+            if (DBRow.Contains("oscislo"))
+                e.Graphics.DrawString(Convert.ToString(DBRow["oscislo"]), tiskFont9, Brushes.Black, new PointF(77, 63));
+            if (DBRow.Contains("cisznamky"))
+                e.Graphics.DrawString(Convert.ToString(DBRow["cisznamky"]), tiskFont9, Brushes.Black, new PointF(65, 55));
+            if (DBRow.Contains("stredisko"))
+                e.Graphics.DrawString(Convert.ToString(DBRow["stredisko"]), tiskFont9, Brushes.Black, new PointF(168, 17));
+            if (DBRow.Contains("odeleni"))
+                e.Graphics.DrawString(Convert.ToString(DBRow["odeleni"]), tiskFont9, Brushes.Black, new PointF(163, 25));
 
 
-
-                e.Graphics.DrawString(celeJmeno, tiskFont9, Brushes.Black, new PointF(9, 57));
-//            if (DBRow.Contains("jk"))
-//                e.Graphics.DrawString(Convert.ToString(DBRow["jk"]), tiskFont11, Brushes.Black, new PointF(40, 24));
-//            if (DBRow.Contains("normacsn"))
-//                e.Graphics.DrawString(Convert.ToString(DBRow["normacsn"]), tiskFont11, Brushes.Black, new PointF(38, 31));
-//            if (DBRow.Contains("normadin"))
-//                e.Graphics.DrawString(Convert.ToString(DBRow["normadin"]), tiskFont11, Brushes.Black, new PointF(38, 38));
-//            if (DBRow.Contains("rozmer"))
-//                e.Graphics.DrawString(Convert.ToString(DBRow["rozmer"]), tiskFont11, Brushes.Black, new PointF(100, 38));
-//            if (DBRow.Contains("vyrobce"))
-//                e.Graphics.DrawString(Convert.ToString(DBRow["vyrobce"]), tiskFont11, Brushes.Black, new PointF(30, 45));
-//            if (DBRow.Contains("cena"))
-//                e.Graphics.DrawString(Convert.ToString(DBRow["cena"]), tiskFont11, Brushes.Black, new PointF(30, 52));
-//            if (DBRow.Contains("analucet"))
-//                e.Graphics.DrawString(Convert.ToString(DBRow["analucet"]), tiskFont11, Brushes.Black, new PointF(100, 52));
-//            if (DBRow.Contains("celkcena"))
-//                e.Graphics.DrawString(Convert.ToString(DBRow["celkcena"]), tiskFont11, Brushes.Black, new PointF(180, 52));
-//            if (DBRow.Contains("minimum"))
-//                e.Graphics.DrawString(Convert.ToString(DBRow["minimum"]), tiskFont11, Brushes.Black, new PointF(35, 59));
-//            if (DBRow.Contains("fyzstav"))
-//                e.Graphics.DrawString(Convert.ToString(DBRow["fyzstav"]), tiskFont11, Brushes.Black, new PointF(115, 59));
-//            if (DBRow.Contains("ucetstav"))
-//                e.Graphics.DrawString(Convert.ToString(DBRow["ucetstav"]), tiskFont11, Brushes.Black, new PointF(180, 59));
-//            if (DBRow.Contains("poznamka"))
-//                e.Graphics.DrawString(Convert.ToString(DBRow["poznamka"]), tiskFont11, Brushes.Black, new PointF(40, 66));
-
-           e.Graphics.DrawRectangle(Pens.Black,new Rectangle(5,15,195,54));
-            e.Graphics.DrawLine (Pens.Black, new Point(5,31), new Point(200,31));
+            e.Graphics.DrawRectangle(Pens.Black, new Rectangle(5, 15, 195, 54));
+            e.Graphics.DrawLine(Pens.Black, new Point(5, 31), new Point(200, 31));
             e.Graphics.DrawLine(Pens.Black, new Point(149, 23), new Point(200, 23));
 
             e.Graphics.DrawLine(Pens.Black, new Point(5, 45), new Point(200, 45));
@@ -129,7 +112,7 @@ namespace Vydejna
 
 
             e.Graphics.DrawLine(Pens.Black, new Point(5, 88), new Point(200, 88));
-        
+
         }
 
 
