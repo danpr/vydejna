@@ -27,6 +27,10 @@ namespace Vydejna
         protected Font tiskFont11b = new Font("Verdana", 11, FontStyle.Bold);
         protected Font tiskFont9 = new Font("Verdana", 9);
 
+        protected Pen PenDefault = new Pen(Brushes.Black);
+        protected Pen Pen3 = new Pen(Brushes.Black,0.3F);
+        protected Pen Pen5 = new Pen(Brushes.Black,0.5F);
+
         protected Int32 pageNumber;  // cislo stranky
         protected Int32 DTnumberSelectedRow; // cislo vybrane radky v datatable
         protected Int32 DTRowCount; // pocet radku v datatable

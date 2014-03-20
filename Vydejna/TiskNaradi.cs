@@ -90,7 +90,7 @@ namespace Vydejna
                 e.Graphics.DrawString(Convert.ToString(DBRow["poznamka"]), tiskFont11, Brushes.Black, new PointF(40, 66));
 
            e.Graphics.DrawRectangle(Pens.Black,new Rectangle(5,15,195,57));
-            e.Graphics.DrawLine (Pens.Black, new Point(5,83), new Point(200,83));
+           e.Graphics.DrawLine(Pens.Black, new Point(5, 83), new Point(200, 83));
         }
 
 
