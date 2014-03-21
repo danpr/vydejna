@@ -18,7 +18,7 @@ namespace Vydejna
         public TiskVypujcky(vDatabase myDB, Hashtable DBRow)
             : base(myDB, DBRow)
         {
-            RowsOnPage = 29;
+            RowsOnPage = 14;
             //            setPreview();
             setPrint(); // aktivuje tisk
         }
@@ -51,13 +51,13 @@ namespace Vydejna
             e.Graphics.DrawString("Vydal", tiskFont9, Brushes.Black, new PointF(176, 55));
 
 
-            e.Graphics.DrawString("Datum", tiskFont9, Brushes.Black, new PointF(5, 75));
-            e.Graphics.DrawString("Název", tiskFont9, Brushes.Black, new PointF(25, 75));
+            e.Graphics.DrawString("Datum", tiskFont9, Brushes.Black, new PointF(15, 75));
+            e.Graphics.DrawString("Název", tiskFont9, Brushes.Black, new PointF(40, 75));
             e.Graphics.DrawString("Rozměr", tiskFont9, Brushes.Black, new PointF(150, 75));
-            e.Graphics.DrawString("Vypůjčeno", tiskFont9, Brushes.Black, new PointF(185, 80));
-            e.Graphics.DrawString("Číslo položky", tiskFont9, Brushes.Black, new PointF(5, 80));
-            e.Graphics.DrawString("Int. ev. číslo", tiskFont9, Brushes.Black, new PointF(40, 80));
-            e.Graphics.DrawString("Poznámka", tiskFont9, Brushes.Black, new PointF(70, 80));
+            e.Graphics.DrawString("Vypůjč.", tiskFont9, Brushes.Black, new PointF(185, 80));
+            e.Graphics.DrawString("Číslo položky", tiskFont9, Brushes.Black, new PointF(15, 80));
+            e.Graphics.DrawString("Int. ev. číslo", tiskFont9, Brushes.Black, new PointF(50, 80));
+            e.Graphics.DrawString("Poznámka", tiskFont9, Brushes.Black, new PointF(80, 80));
 
 
             if (DBRow.Contains("jmeno"))
@@ -100,13 +100,15 @@ namespace Vydejna
         protected override void printLine(PrintPageEventArgs e, Int32 line)
         {
             DateTime mydate = Convert.ToDateTime(dataTableRows.Rows[DTnumberSelectedRow]["datum"]);
-            e.Graphics.DrawString(mydate.Date.ToString("d"), tiskFont9, Brushes.Black, new PointF(5, line * hightRow + 90));
-            e.Graphics.DrawString(Convert.ToString(dataTableRows.Rows[DTnumberSelectedRow]["nazev"]), tiskFont9, Brushes.Black, new PointF(25, line * hightRow + 90));
+            e.Graphics.DrawString(mydate.Date.ToString("d"), tiskFont9, Brushes.Black, new PointF(15, line * hightRow + 90));
+            e.Graphics.DrawString(Convert.ToString(dataTableRows.Rows[DTnumberSelectedRow]["nazev"]), tiskFont9, Brushes.Black, new PointF(40, line * hightRow + 90));
             e.Graphics.DrawString(Convert.ToString(dataTableRows.Rows[DTnumberSelectedRow]["rozmer"]), tiskFont9, Brushes.Black, new PointF(150, line * hightRow + 90));
             e.Graphics.DrawString(Convert.ToString(dataTableRows.Rows[DTnumberSelectedRow]["stavks"]), tiskFont9, Brushes.Black, new PointF(185, line * hightRow + 90));
-            e.Graphics.DrawString(Convert.ToString(dataTableRows.Rows[DTnumberSelectedRow]["jk"]), tiskFont9, Brushes.Black, new PointF(5, line * hightRow + 95));
-            e.Graphics.DrawString(Convert.ToString(dataTableRows.Rows[DTnumberSelectedRow]["vevcislo"]), tiskFont9, Brushes.Black, new PointF(40, line * hightRow + 95));
-            e.Graphics.DrawString(Convert.ToString(dataTableRows.Rows[DTnumberSelectedRow]["poznamka"]), tiskFont9, Brushes.Black, new PointF(70, line * hightRow + 95));
+            e.Graphics.DrawString(Convert.ToString(dataTableRows.Rows[DTnumberSelectedRow]["jk"]), tiskFont9, Brushes.Black, new PointF(15, line * hightRow + 95));
+            e.Graphics.DrawString(Convert.ToString(dataTableRows.Rows[DTnumberSelectedRow]["vevcislo"]), tiskFont9, Brushes.Black, new PointF(50, line * hightRow + 95));
+            e.Graphics.DrawString(Convert.ToString(dataTableRows.Rows[DTnumberSelectedRow]["poznamka"]), tiskFont9, Brushes.Black, new PointF(80, line * hightRow + 95));
+            e.Graphics.DrawString(Convert.ToString(DTnumberSelectedRow+1), tiskFont9, Brushes.Black, new PointF(5, line * hightRow + 90));
+            e.Graphics.DrawLine(Pen3, new Point(5, line * hightRow + 101), new Point(200, line * hightRow + 101));
         }
 
 

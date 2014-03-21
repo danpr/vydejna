@@ -10,8 +10,8 @@ namespace Vydejna
 
     enum permCode
     {
-        Nar = 1, NarAdd, NarEd, NarEdM, NarEdNaz, NarEdJK, NarEdCenaKs, NarEdUcCenaKs, NarEdUcCena, NarEdMin, NarEdFyStav, NarEdUcStav, NarDel, NarPrijem, NarPosk, NarOprO,
-    ZNar, ZNarEd, ZNarDel, PNar, PNarEd, PNarDel, VNar, VNarEd, VNarDel, Prac, PracAdd, PracEd, PracDel, PracZapN, PracVracN, PassSet  };
+        Nar = 1, NarAdd, NarEd, NarEdM, NarEdNaz, NarEdJK, NarEdCenaKs, NarEdUcCenaKs, NarEdUcCena, NarEdMin, NarEdFyStav, NarEdUcStav, NarDel, NarPrint, NarPrijem, NarPosk, NarOprO,
+    ZNar, ZNarEd, ZNarDel, PNar, PNarEd, PNarDel, VNar, VNarEd, VNarDel, Prac, PracAdd, PracEd, PracDel, PracPrint, PracZapN, PracVracN, PassSet  };
     
        public class permStruct
        {
@@ -58,10 +58,10 @@ namespace Vydejna
             permList.Add(new permStruct((Int32)permCode.NarEd, (Int32)permCode.NarEdFyStav, "Změna fyzického stavu"));
             permList.Add(new permStruct((Int32)permCode.NarEd, (Int32)permCode.NarEdUcStav, "Změna učetního stavu"));
             permList.Add(new permStruct((Int32)permCode.Nar, (Int32)permCode.NarEdM, "Změna značky"));
-            
             permList.Add(new permStruct((Int32)permCode.Nar, (Int32)permCode.NarPrijem, "Příjemka nářadí"));
             permList.Add(new permStruct((Int32)permCode.Nar, (Int32)permCode.NarPosk, "Poškozenka nářadí"));
             permList.Add(new permStruct((Int32)permCode.Nar, (Int32)permCode.NarDel, "Smazání položky"));
+            permList.Add(new permStruct((Int32)permCode.Nar, (Int32)permCode.NarPrint, "Tisk položky"));
             permList.Add(new permStruct((Int32)permCode.Nar, (Int32)permCode.NarOprO, "Opravit ůčet. operaci"));
             permList.Add(new permStruct(0, (Int32)permCode.ZNar, "Zrušené karty"));
             permList.Add(new permStruct((Int32)permCode.ZNar, (Int32)permCode.ZNarEd, "Opravení položky"));
@@ -76,6 +76,7 @@ namespace Vydejna
             permList.Add(new permStruct((Int32)permCode.Prac, (Int32)permCode.PracAdd, "Přidání položky"));
             permList.Add(new permStruct((Int32)permCode.Prac, (Int32)permCode.PracEd, "Opravení položky"));
             permList.Add(new permStruct((Int32)permCode.Prac, (Int32)permCode.PracDel, "Smazání položky"));
+            permList.Add(new permStruct((Int32)permCode.Prac, (Int32)permCode.PracPrint, "Tisk položky"));
             permList.Add(new permStruct((Int32)permCode.Prac, (Int32)permCode.PracZapN, "Zapůjčení nářadí"));
             permList.Add(new permStruct((Int32)permCode.Prac, (Int32)permCode.PracVracN, "Vrácení nářadí"));
             permList.Add(new permStruct(0, (Int32)permCode.PassSet, "Změna hesla"));
