@@ -1311,5 +1311,11 @@ namespace Vydejna
                 karta.vytiskniKartu(DBRow);
             }
         }
+
+        private void vyhodnoceniPoškozenekDleStřediskaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SestavaPosStrediska sestava = new SestavaPosStrediska();
+            sestava.ShowDialog();
+        }
     }
 }

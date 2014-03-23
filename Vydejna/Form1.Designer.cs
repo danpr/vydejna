@@ -65,6 +65,7 @@
             this.opravitPoložkuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem9 = new System.Windows.Forms.ToolStripMenuItem();
             this.smazatPoložkuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem13 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.příjemMaterialuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.poškozeníNářadíToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -76,7 +77,15 @@
             this.fontDialog1 = new System.Windows.Forms.FontDialog();
             this.labelStateConnection = new System.Windows.Forms.Label();
             this.labelUser = new System.Windows.Forms.Label();
-            this.toolStripMenuItem13 = new System.Windows.Forms.ToolStripMenuItem();
+            this.poškozenkyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.vyhodnoceniPoškozenekDleStřediskaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.vzhodnoceniDlePracovníkůToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.vyhodnoceníToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.seznamZaPracovníkaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.celkemPoškozenoZaPracovníkaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.vyhodnoceníDleZakázekVeStřediskuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.vzhodnoceníDleZakázekToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.vyhodnoceníDleKontaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
@@ -187,6 +196,8 @@
             // 
             // toolStripMenuItem12
             // 
+            this.toolStripMenuItem12.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.poškozenkyToolStripMenuItem});
             this.toolStripMenuItem12.Name = "toolStripMenuItem12";
             this.toolStripMenuItem12.Size = new System.Drawing.Size(58, 20);
             this.toolStripMenuItem12.Text = "Sestavy";
@@ -204,14 +215,14 @@
             // písnoToolStripMenuItem
             // 
             this.písnoToolStripMenuItem.Name = "písnoToolStripMenuItem";
-            this.písnoToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
+            this.písnoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.písnoToolStripMenuItem.Text = "Písmo";
             this.písnoToolStripMenuItem.Click += new System.EventHandler(this.písmoToolStripMenuItem_Click);
             // 
             // změnaHeslaToolStripMenuItem
             // 
             this.změnaHeslaToolStripMenuItem.Name = "změnaHeslaToolStripMenuItem";
-            this.změnaHeslaToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
+            this.změnaHeslaToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.změnaHeslaToolStripMenuItem.Text = "Změna hesla";
             this.změnaHeslaToolStripMenuItem.Click += new System.EventHandler(this.zmenaHeslaToolStripMenuItem_Click);
             // 
@@ -357,7 +368,7 @@
             this.toolStripSeparator3,
             this.prohledáváníToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(255, 242);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(255, 220);
             this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             // 
             // přidatPoložkuToolStripMenuItem
@@ -387,6 +398,13 @@
             this.smazatPoložkuToolStripMenuItem.Size = new System.Drawing.Size(254, 22);
             this.smazatPoložkuToolStripMenuItem.Text = "Smazat položku";
             this.smazatPoložkuToolStripMenuItem.Click += new System.EventHandler(this.ConMenuDeleteItem);
+            // 
+            // toolStripMenuItem13
+            // 
+            this.toolStripMenuItem13.Name = "toolStripMenuItem13";
+            this.toolStripMenuItem13.Size = new System.Drawing.Size(254, 22);
+            this.toolStripMenuItem13.Text = "Tisk položky";
+            this.toolStripMenuItem13.Click += new System.EventHandler(this.ConMenuPrintItem);
             // 
             // toolStripSeparator6
             // 
@@ -460,12 +478,70 @@
             this.labelUser.TabIndex = 6;
             this.labelUser.Text = "labeluser";
             // 
-            // toolStripMenuItem13
+            // poškozenkyToolStripMenuItem
             // 
-            this.toolStripMenuItem13.Name = "toolStripMenuItem13";
-            this.toolStripMenuItem13.Size = new System.Drawing.Size(254, 22);
-            this.toolStripMenuItem13.Text = "Tisk položky";
-            this.toolStripMenuItem13.Click += new System.EventHandler(this.ConMenuPrintItem);
+            this.poškozenkyToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.vyhodnoceniPoškozenekDleStřediskaToolStripMenuItem,
+            this.vzhodnoceniDlePracovníkůToolStripMenuItem,
+            this.vyhodnoceníDleZakázekVeStřediskuToolStripMenuItem,
+            this.vzhodnoceníDleZakázekToolStripMenuItem,
+            this.vyhodnoceníDleKontaToolStripMenuItem});
+            this.poškozenkyToolStripMenuItem.Name = "poškozenkyToolStripMenuItem";
+            this.poškozenkyToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.poškozenkyToolStripMenuItem.Text = "Poškozenky";
+            // 
+            // vyhodnoceniPoškozenekDleStřediskaToolStripMenuItem
+            // 
+            this.vyhodnoceniPoškozenekDleStřediskaToolStripMenuItem.Name = "vyhodnoceniPoškozenekDleStřediskaToolStripMenuItem";
+            this.vyhodnoceniPoškozenekDleStřediskaToolStripMenuItem.Size = new System.Drawing.Size(265, 22);
+            this.vyhodnoceniPoškozenekDleStřediskaToolStripMenuItem.Text = "Vyhodnoceni dle střediska";
+            this.vyhodnoceniPoškozenekDleStřediskaToolStripMenuItem.Click += new System.EventHandler(this.vyhodnoceniPoškozenekDleStřediskaToolStripMenuItem_Click);
+            // 
+            // vzhodnoceniDlePracovníkůToolStripMenuItem
+            // 
+            this.vzhodnoceniDlePracovníkůToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.vyhodnoceníToolStripMenuItem,
+            this.seznamZaPracovníkaToolStripMenuItem,
+            this.celkemPoškozenoZaPracovníkaToolStripMenuItem});
+            this.vzhodnoceniDlePracovníkůToolStripMenuItem.Name = "vzhodnoceniDlePracovníkůToolStripMenuItem";
+            this.vzhodnoceniDlePracovníkůToolStripMenuItem.Size = new System.Drawing.Size(265, 22);
+            this.vzhodnoceniDlePracovníkůToolStripMenuItem.Text = "Vyhodnoceni dle pracovníků";
+            // 
+            // vyhodnoceníToolStripMenuItem
+            // 
+            this.vyhodnoceníToolStripMenuItem.Name = "vyhodnoceníToolStripMenuItem";
+            this.vyhodnoceníToolStripMenuItem.Size = new System.Drawing.Size(242, 22);
+            this.vyhodnoceníToolStripMenuItem.Text = "Vyhodnocení";
+            // 
+            // seznamZaPracovníkaToolStripMenuItem
+            // 
+            this.seznamZaPracovníkaToolStripMenuItem.Name = "seznamZaPracovníkaToolStripMenuItem";
+            this.seznamZaPracovníkaToolStripMenuItem.Size = new System.Drawing.Size(242, 22);
+            this.seznamZaPracovníkaToolStripMenuItem.Text = "Seznam za pracovníka";
+            // 
+            // celkemPoškozenoZaPracovníkaToolStripMenuItem
+            // 
+            this.celkemPoškozenoZaPracovníkaToolStripMenuItem.Name = "celkemPoškozenoZaPracovníkaToolStripMenuItem";
+            this.celkemPoškozenoZaPracovníkaToolStripMenuItem.Size = new System.Drawing.Size(242, 22);
+            this.celkemPoškozenoZaPracovníkaToolStripMenuItem.Text = "Celkem poškozeno za pracovníka";
+            // 
+            // vyhodnoceníDleZakázekVeStřediskuToolStripMenuItem
+            // 
+            this.vyhodnoceníDleZakázekVeStřediskuToolStripMenuItem.Name = "vyhodnoceníDleZakázekVeStřediskuToolStripMenuItem";
+            this.vyhodnoceníDleZakázekVeStřediskuToolStripMenuItem.Size = new System.Drawing.Size(265, 22);
+            this.vyhodnoceníDleZakázekVeStřediskuToolStripMenuItem.Text = "Vyhodnocení dle zakázek ve středisku";
+            // 
+            // vzhodnoceníDleZakázekToolStripMenuItem
+            // 
+            this.vzhodnoceníDleZakázekToolStripMenuItem.Name = "vzhodnoceníDleZakázekToolStripMenuItem";
+            this.vzhodnoceníDleZakázekToolStripMenuItem.Size = new System.Drawing.Size(265, 22);
+            this.vzhodnoceníDleZakázekToolStripMenuItem.Text = "Vyhodnocení dle zakázek";
+            // 
+            // vyhodnoceníDleKontaToolStripMenuItem
+            // 
+            this.vyhodnoceníDleKontaToolStripMenuItem.Name = "vyhodnoceníDleKontaToolStripMenuItem";
+            this.vyhodnoceníDleKontaToolStripMenuItem.Size = new System.Drawing.Size(265, 22);
+            this.vyhodnoceníDleKontaToolStripMenuItem.Text = "Vyhodnocení dle konta";
             // 
             // Vydejna
             // 
@@ -545,6 +621,15 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem12;
         private System.Windows.Forms.ToolStripMenuItem ukončeníProgramuToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem13;
+        private System.Windows.Forms.ToolStripMenuItem poškozenkyToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem vyhodnoceniPoškozenekDleStřediskaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem vzhodnoceniDlePracovníkůToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem vyhodnoceníToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem seznamZaPracovníkaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem celkemPoškozenoZaPracovníkaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem vyhodnoceníDleZakázekVeStřediskuToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem vzhodnoceníDleZakázekToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem vyhodnoceníDleKontaToolStripMenuItem;
     }
 }
 

@@ -106,6 +106,15 @@
     <Compile Include="Prohledavani.Designer.cs">
       <DependentUpon>Prohledavani.cs</DependentUpon>
     </Compile>
+    <Compile Include="SestavaDefault.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SestavaDefault.Designer.cs">
+      <DependentUpon>SestavaDefault.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SestavaPosStrediska.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="SeznamNaradiJednoduchy.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -235,6 +244,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="SestavaDefault.resx">
+      <DependentUpon>SestavaDefault.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SeznamNaradiJednoduchy.resx">
       <DependentUpon>SeznamNaradiJednoduchy.cs</DependentUpon>
     </EmbeddedResource>
