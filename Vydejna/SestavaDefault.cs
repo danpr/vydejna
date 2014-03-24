@@ -11,9 +11,15 @@ namespace Vydejna
 {
     public partial class SestavaDefault : Form
     {
-        public SestavaDefault(string nadpis, string vyber)
+
+        protected vDatabase myDataBase;
+
+
+        public SestavaDefault(vDatabase myDataBase, string nadpis, string vyber)
         {
             InitializeComponent();
+            this.myDataBase = myDataBase;
+
             this.Text = nadpis;
             if (vyber == "")
             {
@@ -35,13 +41,25 @@ namespace Vydejna
             dataGridViewSestava.DataSource = loadDataTable();
         }
 
-        public void hideTextVyber()
+        protected void hideTextVyber()
         {
             labelVyber.Hide();
             labelVyber.Enabled = false;
             textBoxVyber.Hide();
             textBoxVyber.Enabled = false;
         }
+
+        protected DateTime getDateFrom()
+        {
+            return dateTimePickerFrom.Value;
+        }
+
+
+        protected DateTime getDateTo()
+        {
+            return dateTimePickerTo.Value;
+        }
+
 
         private void buttonRetry_Click(object sender, EventArgs e)
         {

@@ -10,11 +10,14 @@ namespace Vydejna
     class SestavaPosStrediska : SestavaDefault
     {
 
-        public SestavaPosStrediska() : base("Vyhodnocení poškozenek dle střediska","") { }
+        public SestavaPosStrediska(vDatabase myDataBase) : base(myDataBase,"Vyhodnocení poškozenek dle střediska", "") { }
 
         public override DataTable loadDataTable()
         {
-            return null;
+            DateTime dateTimeFrom = getDateFrom();
+            DateTime dateTimeTo = getDateTo();
+
+            return myDataBase.loadDataTableSestavaPosStrediska("2/2/2012", "12/3/2014");
         }
 
     }

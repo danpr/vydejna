@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.dateTimePickerFrom = new System.Windows.Forms.DateTimePicker();
             this.label2 = new System.Windows.Forms.Label();
-            this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
+            this.dateTimePickerTo = new System.Windows.Forms.DateTimePicker();
             this.labelVyber = new System.Windows.Forms.Label();
             this.textBoxVyber = new System.Windows.Forms.TextBox();
             this.buttonRetry = new System.Windows.Forms.Button();
@@ -49,12 +49,12 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Od :";
             // 
-            // dateTimePicker1
+            // dateTimePickerFrom
             // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(45, 14);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(125, 20);
-            this.dateTimePicker1.TabIndex = 1;
+            this.dateTimePickerFrom.Location = new System.Drawing.Point(45, 14);
+            this.dateTimePickerFrom.Name = "dateTimePickerFrom";
+            this.dateTimePickerFrom.Size = new System.Drawing.Size(125, 20);
+            this.dateTimePickerFrom.TabIndex = 1;
             // 
             // label2
             // 
@@ -65,12 +65,12 @@
             this.label2.TabIndex = 2;
             this.label2.Text = "Do :";
             // 
-            // dateTimePicker2
+            // dateTimePickerTo
             // 
-            this.dateTimePicker2.Location = new System.Drawing.Point(225, 14);
-            this.dateTimePicker2.Name = "dateTimePicker2";
-            this.dateTimePicker2.Size = new System.Drawing.Size(122, 20);
-            this.dateTimePicker2.TabIndex = 3;
+            this.dateTimePickerTo.Location = new System.Drawing.Point(225, 14);
+            this.dateTimePickerTo.Name = "dateTimePickerTo";
+            this.dateTimePickerTo.Size = new System.Drawing.Size(122, 20);
+            this.dateTimePickerTo.TabIndex = 3;
             // 
             // labelVyber
             // 
@@ -125,9 +125,9 @@
             this.Controls.Add(this.buttonRetry);
             this.Controls.Add(this.textBoxVyber);
             this.Controls.Add(this.labelVyber);
-            this.Controls.Add(this.dateTimePicker2);
+            this.Controls.Add(this.dateTimePickerTo);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.dateTimePicker1);
+            this.Controls.Add(this.dateTimePickerFrom);
             this.Controls.Add(this.label1);
             this.Name = "SestavaDefault";
             this.Text = "SestavaDefault";
@@ -140,9 +140,9 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.DateTimePicker dateTimePickerFrom;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.DateTimePicker dateTimePicker2;
+        private System.Windows.Forms.DateTimePicker dateTimePickerTo;
         private System.Windows.Forms.Label labelVyber;
         private System.Windows.Forms.TextBox textBoxVyber;
         private System.Windows.Forms.Button buttonRetry;
