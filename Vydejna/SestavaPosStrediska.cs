@@ -17,7 +17,7 @@ namespace Vydejna
             DateTime dateTimeFrom = getDateFrom();
             DateTime dateTimeTo = getDateTo();
 
-            return myDataBase.loadDataTableSestavaPosStrediska("2/2/2012", "12/3/2014");
+            return myDataBase.loadDataTableSestavaPosStrediska("2/2/2010", "12/3/2014");
         }
 
     }

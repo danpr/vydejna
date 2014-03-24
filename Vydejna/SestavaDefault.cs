@@ -20,6 +20,21 @@ namespace Vydejna
             InitializeComponent();
             this.myDataBase = myDataBase;
 
+//            CancelButton = buttonCancel;
+
+            dataGridViewSestava.MultiSelect = false;
+            dataGridViewSestava.ReadOnly = true;
+
+            dataGridViewSestava.RowHeadersVisible = false;
+            dataGridViewSestava.AllowUserToAddRows = false;
+            dataGridViewSestava.AllowUserToDeleteRows = false;
+            dataGridViewSestava.AllowUserToResizeRows = false;
+            dataGridViewSestava.AllowUserToOrderColumns = true;
+            dataGridViewSestava.Columns.Clear();
+            dataGridViewSestava.DataSource = null;
+
+
+
             this.Text = nadpis;
             if (vyber == "")
             {

@@ -37,6 +37,8 @@
             this.buttonRetry = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.dataGridViewSestava = new System.Windows.Forms.DataGridView();
+            this.label3 = new System.Windows.Forms.Label();
+            this.labelCelkem = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSestava)).BeginInit();
             this.SuspendLayout();
             // 
@@ -112,14 +114,34 @@
             this.dataGridViewSestava.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewSestava.Location = new System.Drawing.Point(-1, 45);
             this.dataGridViewSestava.Name = "dataGridViewSestava";
-            this.dataGridViewSestava.Size = new System.Drawing.Size(759, 386);
+            this.dataGridViewSestava.Size = new System.Drawing.Size(759, 358);
             this.dataGridViewSestava.TabIndex = 8;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(31, 409);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(48, 13);
+            this.label3.TabIndex = 9;
+            this.label3.Text = "Celkem :";
+            // 
+            // labelCelkem
+            // 
+            this.labelCelkem.AutoSize = true;
+            this.labelCelkem.Location = new System.Drawing.Point(97, 409);
+            this.labelCelkem.Name = "labelCelkem";
+            this.labelCelkem.Size = new System.Drawing.Size(28, 13);
+            this.labelCelkem.TabIndex = 10;
+            this.labelCelkem.Text = "0.00";
             // 
             // SestavaDefault
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(755, 431);
+            this.Controls.Add(this.labelCelkem);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.dataGridViewSestava);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.buttonRetry);
@@ -148,5 +170,7 @@
         private System.Windows.Forms.Button buttonRetry;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.DataGridView dataGridViewSestava;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label labelCelkem;
     }
 }
