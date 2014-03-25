@@ -3591,5 +3591,26 @@ namespace Vydejna
             return false;
         }
 
+        public override DataTable loadDataTableSestavaPosStrediska(DateTime dateFrom, DateTime dateTo)
+        {
+            if (DBIsOpened())
+            {
+                string commandStringRead1 = "select dilna, round(sum(cena),3) as cena, 0 as procenta from poskozeno where datum >= ? and datum <= ? group by dilna order by dilna";
+
+                SQLiteCommand cmdr1 = new SQLiteCommand(commandStringRead1, myDBConn as SQLiteConnection);
+                cmdr1.Parameters.AddWithValue("@dateFrom", dateFrom);
+                cmdr1.Parameters.AddWithValue("@dateTo", dateTo);
+                SQLiteDataAdapter myDataAdapter = new SQLiteDataAdapter(cmdr1);
+                DataTable DBDataTable = new DataTable();
+                DBDataTable.Locale = System.Globalization.CultureInfo.InvariantCulture;
+                myDataAdapter.Fill(DBDataTable);
+                myDataAdapter.Dispose();
+                return DBDataTable;
+            }
+            return null;
+        }
+
+
+
     }
 }
