@@ -16,8 +16,12 @@ namespace Vydejna
         {
             DateTime dateTimeFrom = getDateFrom();
             DateTime dateTimeTo = getDateTo();
+            return myDataBase.loadDataTableSestavaPosStrediska(dateTimeFrom.ToString("d"), dateTimeTo.ToString("d"));
+        }
 
-            return myDataBase.loadDataTableSestavaPosStrediska("2/2/2010", "12/3/2014");
+        protected override void makeSum()
+        {
+            makeSum("cena");
         }
 
     }

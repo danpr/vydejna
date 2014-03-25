@@ -57,6 +57,7 @@
             this.dateTimePickerFrom.Name = "dateTimePickerFrom";
             this.dateTimePickerFrom.Size = new System.Drawing.Size(125, 20);
             this.dateTimePickerFrom.TabIndex = 1;
+            this.dateTimePickerFrom.ValueChanged += new System.EventHandler(this.dateTimePickerFrom_ValueChanged);
             // 
             // label2
             // 
@@ -73,6 +74,7 @@
             this.dateTimePickerTo.Name = "dateTimePickerTo";
             this.dateTimePickerTo.Size = new System.Drawing.Size(122, 20);
             this.dateTimePickerTo.TabIndex = 3;
+            this.dateTimePickerTo.ValueChanged += new System.EventHandler(this.dateTimePickerTo_ValueChanged);
             // 
             // labelVyber
             // 
@@ -85,13 +87,17 @@
             // 
             // textBoxVyber
             // 
+            this.textBoxVyber.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxVyber.Location = new System.Drawing.Point(429, 14);
             this.textBoxVyber.Name = "textBoxVyber";
             this.textBoxVyber.Size = new System.Drawing.Size(99, 20);
             this.textBoxVyber.TabIndex = 5;
+            this.textBoxVyber.TextChanged += new System.EventHandler(this.textBoxVyber_TextChanged);
             // 
             // buttonRetry
             // 
+            this.buttonRetry.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonRetry.Location = new System.Drawing.Point(556, 11);
             this.buttonRetry.Name = "buttonRetry";
             this.buttonRetry.Size = new System.Drawing.Size(71, 27);
@@ -102,6 +108,7 @@
             // 
             // button1
             // 
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button1.Location = new System.Drawing.Point(644, 12);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(71, 27);
@@ -111,6 +118,9 @@
             // 
             // dataGridViewSestava
             // 
+            this.dataGridViewSestava.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridViewSestava.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewSestava.Location = new System.Drawing.Point(-1, 45);
             this.dataGridViewSestava.Name = "dataGridViewSestava";
@@ -119,6 +129,7 @@
             // 
             // label3
             // 
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(31, 409);
             this.label3.Name = "label3";
@@ -128,6 +139,7 @@
             // 
             // labelCelkem
             // 
+            this.labelCelkem.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.labelCelkem.AutoSize = true;
             this.labelCelkem.Location = new System.Drawing.Point(97, 409);
             this.labelCelkem.Name = "labelCelkem";

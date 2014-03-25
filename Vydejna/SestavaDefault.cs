@@ -24,7 +24,7 @@ namespace Vydejna
 
             dataGridViewSestava.MultiSelect = false;
             dataGridViewSestava.ReadOnly = true;
-
+            dataGridViewSestava.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridViewSestava.RowHeadersVisible = false;
             dataGridViewSestava.AllowUserToAddRows = false;
             dataGridViewSestava.AllowUserToDeleteRows = false;
@@ -79,6 +79,50 @@ namespace Vydejna
         private void buttonRetry_Click(object sender, EventArgs e)
         {
             loadData();
+            makeSum();
         }
+
+        private void dateTimePickerFrom_ValueChanged(object sender, EventArgs e)
+        {
+            dataGridViewSestava.DataSource = null;
+        }
+
+        private void dateTimePickerTo_ValueChanged(object sender, EventArgs e)
+        {
+            dataGridViewSestava.DataSource = null;
+        }
+
+        private void textBoxVyber_TextChanged(object sender, EventArgs e)
+        {
+            dataGridViewSestava.DataSource = null;
+        }
+
+
+        protected virtual void makeSum()
+        {
+        }
+
+        protected void makeSum(string column)
+        {
+            if (column.Trim() != "")
+            {
+                if ((dataGridViewSestava.DataSource as DataTable).Columns.Contains(column))
+                {
+                    Int32 suma = 0;
+
+                    for (int x = 0; x < (dataGridViewSestava.DataSource as DataTable).Rows.Count; x++)
+                    {
+                    suma = suma + Convert.ToInt32((dataGridViewSestava.DataSource as DataTable).Rows[x][column]);
+
+                    }
+                    labelCelkem.Text = Convert.ToString(suma);
+                }
+            }
+        }
+
+
+
+
+
     }
 }
