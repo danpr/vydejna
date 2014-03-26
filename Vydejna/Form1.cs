@@ -1314,7 +1314,7 @@ namespace Vydejna
 
         private void vyhodnoceniPoškozenekDleStřediskaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SestavaPosStrediska sestava = new SestavaPosStrediska(myDB);
+            SestavaDefault sestava = new SestavaDefault(myDB,new StrategiePosStrediska());
             sestava.ShowDialog();
         }
     }

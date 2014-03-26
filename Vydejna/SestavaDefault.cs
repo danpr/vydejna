@@ -14,13 +14,16 @@ namespace Vydejna
 
         protected vDatabase myDataBase;
 
+        protected ISestava1 strategie;
 
-        public SestavaDefault(vDatabase myDataBase, string nadpis, string vyber)
-        {
+//        public SestavaDefault(vDatabase myDataBase, string nadpis, string vyber)
+        public SestavaDefault(vDatabase myDataBase, ISestava1 strategie)
+
+    {
             InitializeComponent();
+            this.strategie = strategie;
             this.myDataBase = myDataBase;
 
-//            CancelButton = buttonCancel;
 
             dataGridViewSestava.MultiSelect = false;
             dataGridViewSestava.ReadOnly = true;
@@ -35,14 +38,14 @@ namespace Vydejna
 
 
 
-            this.Text = nadpis;
-            if (vyber == "")
+            this.Text = strategie.windowHeader();
+            if (strategie.existTextVyber())
             {
-                hideTextVyber();
+                labelVyber.Text = strategie.textVyberLabel();
             }
             else
             {
-                labelVyber.Text = vyber;
+                hideTextVyber();
             }
         }
 
@@ -53,7 +56,7 @@ namespace Vydejna
 
         public virtual void loadData()
         {
-            dataGridViewSestava.DataSource = loadDataTable();
+            dataGridViewSestava.DataSource = strategie.loadDataTable(myDataBase, dateTimePickerFrom.Value, dateTimePickerTo.Value);
         }
 
         protected void hideTextVyber()
