@@ -1317,5 +1317,12 @@ namespace Vydejna
             SestavaDefault sestava = new SestavaDefault(myDB,new StrategiePosStrediska());
             sestava.ShowDialog();
         }
+
+        private void vyhodnoceníToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SestavaDefault sestava = new SestavaDefault(myDB, new StrategiePosOsobyZaStred());
+            sestava.ShowDialog();
+
+        }
     }
 }

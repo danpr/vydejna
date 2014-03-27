@@ -6,11 +6,11 @@ using System.Data;
 
 namespace Vydejna
 {
-    class StrategiePosStrediska : ISestava1
+    class StrategiePosOsobyZaStred : ISestava1
     {
         public Boolean existTextVyber()
         {
-            return false;
+            return true;
         }
 
         public string getTextVyberLabel()
@@ -20,9 +20,8 @@ namespace Vydejna
 
         public string getWindowHeader()
         {
-            return "Vyhodnocení poškozenek dle střediska";
+            return "Vyhodnocení poškozenek dle pracovníků";
         }
-
         public Decimal makeSum(DataTable dt, string column)
         {
             if (column.Trim() != "")
@@ -41,28 +40,15 @@ namespace Vydejna
             return 0;
         }
 
-
         public void makeSumProcent(DataTable dt)
         {
-
-            Decimal suma = makeSum(dt, "cena");
-            if (suma > 0)
-            {
-                if ((dt.Columns.Contains("cena")) && (dt.Columns.Contains("procenta")))
-                {
-                    for (int x = 0; x < dt.Rows.Count; x++)
-                    {
-                        dt.Rows[x]["procenta"] = (Convert.ToDecimal(dt.Rows[x]["cena"]) / suma) * 100;
-                    }
-                }
-            }
         }
-
 
         public DataTable loadDataTable(vDatabase myDataBase, DateTime dateTimeFrom, DateTime dateTimeTo, string text1)
         {
-            return myDataBase.loadDataTableSestavaPosStrediska(dateTimeFrom, dateTimeTo);
+            return myDataBase.loadDataTableSestavaPosOsobyZaStred(dateTimeFrom, dateTimeTo,text1);
         }
 
+            
     }
 }

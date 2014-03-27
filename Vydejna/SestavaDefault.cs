@@ -49,7 +49,7 @@ namespace Vydejna
 
         public virtual void loadData()
         {
-            dataGridViewSestava.DataSource = strategie.loadDataTable(myDataBase, dateTimePickerFrom.Value, dateTimePickerTo.Value);
+            dataGridViewSestava.DataSource = strategie.loadDataTable(myDataBase, dateTimePickerFrom.Value, dateTimePickerTo.Value,textBoxVyber.Text);
         }
 
         protected void hideTextVyber()

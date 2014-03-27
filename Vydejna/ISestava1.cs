@@ -19,6 +19,6 @@ namespace Vydejna
 
         void makeSumProcent(DataTable dt);
 
-        DataTable loadDataTable(vDatabase myDataBase, DateTime dateTimeFrom, DateTime dateTimeTo);
+        DataTable loadDataTable(vDatabase myDataBase, DateTime dateTimeFrom, DateTime dateTimeTo, string text1);
     }
 }

@@ -518,7 +518,11 @@ namespace Vydejna
 
         public virtual DataTable loadDataTableSestavaPosStrediska(DateTime dateFrom, DateTime dateTo)
         {
-        //    return loadDataTable("select dilna, round(sum(cena),3) as cena, 0 as procenta from poskozeno where datum >= '"+dateFrom+"' and datum <= '"+dateTo+"' group by dilna order by dilna");
+            return null;
+        }
+
+        public virtual DataTable loadDataTableSestavaPosOsobyZaStred(DateTime dateFrom, DateTime dateTo, string stredisko)
+        {
             return null;
         }
 
