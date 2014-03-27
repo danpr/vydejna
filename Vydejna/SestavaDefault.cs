@@ -16,7 +16,6 @@ namespace Vydejna
 
         protected ISestava1 strategie;
 
-//        public SestavaDefault(vDatabase myDataBase, string nadpis, string vyber)
         public SestavaDefault(vDatabase myDataBase, ISestava1 strategie)
 
     {
@@ -36,12 +35,10 @@ namespace Vydejna
             dataGridViewSestava.Columns.Clear();
             dataGridViewSestava.DataSource = null;
 
-
-
-            this.Text = strategie.windowHeader();
+            this.Text = strategie.getWindowHeader();
             if (strategie.existTextVyber())
             {
-                labelVyber.Text = strategie.textVyberLabel();
+                labelVyber.Text = strategie.getTextVyberLabel();
             }
             else
             {
@@ -49,10 +46,6 @@ namespace Vydejna
             }
         }
 
-        public virtual DataTable loadDataTable()
-        {
-            return null;
-        }
 
         public virtual void loadData()
         {
@@ -83,6 +76,7 @@ namespace Vydejna
         {
             loadData();
             makeSum();
+            strategie.makeSumProcent(dataGridViewSestava.DataSource as DataTable);
         }
 
         private void dateTimePickerFrom_ValueChanged(object sender, EventArgs e)
@@ -103,6 +97,7 @@ namespace Vydejna
 
         protected virtual void makeSum()
         {
+            labelCelkem.Text = Convert.ToString(strategie.makeSum(dataGridViewSestava.DataSource as DataTable,"cena"));
         }
 
         protected void makeSum(string column)
@@ -111,11 +106,11 @@ namespace Vydejna
             {
                 if ((dataGridViewSestava.DataSource as DataTable).Columns.Contains(column))
                 {
-                    Int32 suma = 0;
+                    Decimal suma = 0;
 
                     for (int x = 0; x < (dataGridViewSestava.DataSource as DataTable).Rows.Count; x++)
                     {
-                    suma = suma + Convert.ToInt32((dataGridViewSestava.DataSource as DataTable).Rows[x][column]);
+                    suma = suma + Convert.ToDecimal((dataGridViewSestava.DataSource as DataTable).Rows[x][column]);
 
                     }
                     labelCelkem.Text = Convert.ToString(suma);

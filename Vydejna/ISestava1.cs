@@ -11,11 +11,13 @@ namespace Vydejna
     {
         Boolean existTextVyber();
 
-        string textVyberLabel();
+        string getTextVyberLabel();
 
-        string windowHeader();
+        string getWindowHeader();
 
-        void makeSum(string column);
+        Decimal makeSum(DataTable dt, string column);
+
+        void makeSumProcent(DataTable dt);
 
         DataTable loadDataTable(vDatabase myDataBase, DateTime dateTimeFrom, DateTime dateTimeTo);
     }
