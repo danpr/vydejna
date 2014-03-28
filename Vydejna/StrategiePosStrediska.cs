@@ -3,11 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Data;
+using System.Collections;
 
 namespace Vydejna
 {
     class StrategiePosStrediska : ISestava1
     {
+        public Hashtable getHeaderLabels()
+        {
+            Hashtable headerLabels = new Hashtable();
+            headerLabels.Add("dilna", "Pracoviště");
+            headerLabels.Add("cena", "Cena");
+            headerLabels.Add("procenta", "Procenta");
+            return headerLabels;
+        }
+
+
         public Boolean existTextVyber()
         {
             return false;

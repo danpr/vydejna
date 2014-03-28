@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -119,7 +120,18 @@ namespace Vydejna
         }
 
 
+        private void setHeaderLabels()
+        {
+          Hashtable headerLabels = strategie.getHeaderLabels();
+          for (Int32 i = 0; i < headerLabels.Count; i++)
+          {
+//              DataGridView.Columns["poradi"].HeaderText = "Pořadí";
 
+          }
+
+
+
+        }
 
 
     }

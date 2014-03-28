@@ -3614,7 +3614,7 @@ namespace Vydejna
         {
             if (DBIsOpened())
             {
-                string commandStringRead1 = "select krjmeno, jmeno, oscislo, round(sum(cena),3) as cena  from poskozeno where datum >= ? and datum <= ? and dilna = ? group by oscislo order by oscislo";
+                string commandStringRead1 = "select krjmeno, jmeno, oscislo, round(sum(cena),3) as cena  from poskozeno where datum >= ? and datum <= ? and dilna = ? group by oscislo,krjmeno,jmeno order by oscislo";
 
                 SQLiteCommand cmdr1 = new SQLiteCommand(commandStringRead1, myDBConn as SQLiteConnection);
                 cmdr1.Parameters.AddWithValue("@dateFrom", dateFrom);

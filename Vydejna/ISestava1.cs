@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Data;
+using System.Collections;
 
 
 namespace Vydejna
@@ -20,5 +21,7 @@ namespace Vydejna
         void makeSumProcent(DataTable dt);
 
         DataTable loadDataTable(vDatabase myDataBase, DateTime dateTimeFrom, DateTime dateTimeTo, string text1);
+
+        Hashtable getHeaderLabels();
     }
 }
