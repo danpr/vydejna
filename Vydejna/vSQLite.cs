@@ -3630,6 +3630,25 @@ namespace Vydejna
             return null;
         }
 
+        public override DataTable loadDataTableSestavaPosZaOsobu(DateTime dateFrom, DateTime dateTo, string oscislo)
+        {
+            if (DBIsOpened())
+            {
+                string commandStringRead1 = "select nazev, csn, jk, datum, pocetks, round(cena,3) as cena, round(cena *pocetks,3) as celkcena  from poskozeno where datum >= ? and datum <= ? and oscislo = ?  order by datum";
+
+                SQLiteCommand cmdr1 = new SQLiteCommand(commandStringRead1, myDBConn as SQLiteConnection);
+                cmdr1.Parameters.AddWithValue("@dateFrom", dateFrom);
+                cmdr1.Parameters.AddWithValue("@dateTo", dateTo);
+                cmdr1.Parameters.AddWithValue("@oscislo", oscislo);
+                SQLiteDataAdapter myDataAdapter = new SQLiteDataAdapter(cmdr1);
+                DataTable DBDataTable = new DataTable();
+                DBDataTable.Locale = System.Globalization.CultureInfo.InvariantCulture;
+                myDataAdapter.Fill(DBDataTable);
+                myDataAdapter.Dispose();
+                return DBDataTable;
+            }
+            return null;
+        }
 
     }
 }

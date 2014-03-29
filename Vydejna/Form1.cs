@@ -1324,5 +1324,12 @@ namespace Vydejna
             sestava.ShowDialog();
 
         }
+
+        private void seznamZaPracovníkaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SestavaDefault sestava = new SestavaDefault(myDB, new StrategiePosZaOsobu());
+            sestava.ShowDialog();
+
+        }
     }
 }

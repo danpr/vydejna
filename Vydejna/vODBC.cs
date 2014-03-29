@@ -200,7 +200,7 @@ namespace Vydejna
 
 
             string commandStringVraceno = "create table vraceno ( poradi integer, jmeno varchar(15), oscislo varchar(8), dilna varchar(15)," +
-                      "pracoviste varchar(20), vyrobek varchar(15),nazev varchar(60), jk varchar(15), rozmer varchar(25)," +
+                      "pracoviste varchar(20), vyrobek varchar(15), nazev varchar(60), jk varchar(15), rozmer varchar(25)," +
                       "pocetks integer, cena float, datum date, csn varchar(15), krjmeno varchar(15)," +
                       "celkcena float, vevcislo varchar(12), konto varchar(15) );";
 

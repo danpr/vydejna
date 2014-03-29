@@ -526,6 +526,11 @@ namespace Vydejna
             return null;
         }
 
+        public virtual DataTable loadDataTableSestavaPosZaOsobu(DateTime dateFrom, DateTime dateTo, string oscislo)
+        {
+            return null;
+        }
+
 
         public virtual Boolean tableUzivateleExist()
         {

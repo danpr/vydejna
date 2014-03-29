@@ -243,6 +243,7 @@
             this.seznamZaPracovníkaToolStripMenuItem.Name = "seznamZaPracovníkaToolStripMenuItem";
             this.seznamZaPracovníkaToolStripMenuItem.Size = new System.Drawing.Size(242, 22);
             this.seznamZaPracovníkaToolStripMenuItem.Text = "Seznam za pracovníka";
+            this.seznamZaPracovníkaToolStripMenuItem.Click += new System.EventHandler(this.seznamZaPracovníkaToolStripMenuItem_Click);
             // 
             // celkemPoškozenoZaPracovníkaToolStripMenuItem
             // 
