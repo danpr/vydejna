@@ -13,10 +13,13 @@ namespace Vydejna
         public Hashtable getHeaderLabels()
         {
             Hashtable headerLabels = new Hashtable();
-            headerLabels.Add("krjmeno", "Jméno");
-            headerLabels.Add("jmeno", "Přijmení");
-            headerLabels.Add("oscislo", "Os. číslo");
+            headerLabels.Add("nazev", "Název");
+            headerLabels.Add("csn", "Norma ČSN");
+            headerLabels.Add("jk", "Číslo položky");
+            headerLabels.Add("datum", "Datum");
+            headerLabels.Add("pocetks", "Počet ks");
             headerLabels.Add("cena", "Cena");
+            headerLabels.Add("celkcena", "Cena celkem");
             return headerLabels;
         }
 
@@ -27,7 +30,7 @@ namespace Vydejna
 
         public string getTextVyberLabel()
         {
-            return "Osobní číslo";
+            return "Os. číslo";
         }
 
         public string getWindowHeader()

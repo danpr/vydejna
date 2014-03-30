@@ -51,6 +51,15 @@ namespace Vydejna
         public virtual void loadData()
         {
             dataGridViewSestava.DataSource = strategie.loadDataTable(myDataBase, dateTimePickerFrom.Value, dateTimePickerTo.Value,textBoxVyber.Text);
+            Hashtable headerRow = strategie.getHeaderLabels();
+            foreach (DictionaryEntry pair in headerRow)
+            {
+                Console.WriteLine("{0}={1}", pair.Key, pair.Value);
+                dataGridViewSestava.Columns[Convert.ToString( pair.Key)].HeaderText = Convert.ToString( pair.Value);
+            }
+
+
+
         }
 
         protected void hideTextVyber()
