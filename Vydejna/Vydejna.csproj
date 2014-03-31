@@ -130,6 +130,7 @@
     <Compile Include="SkladovaKarta.Designer.cs">
       <DependentUpon>SkladovaKarta.cs</DependentUpon>
     </Compile>
+    <Compile Include="StrategiePosKonto.cs" />
     <Compile Include="StrategiePosOsobyZaStred.cs" />
     <Compile Include="StrategiePosStrediska.cs" />
     <Compile Include="StrategiePosZakazka.cs" />

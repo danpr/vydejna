@@ -1342,5 +1342,11 @@ namespace Vydejna
             SestavaDefault sestava = new SestavaDefault(myDB, new StrategiePosZakazka());
             sestava.ShowDialog();
         }
+
+        private void vyhodnoceníDleKontaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SestavaDefault sestava = new SestavaDefault(myDB, new StrategiePosKonto());
+            sestava.ShowDialog();
+        }
     }
 }

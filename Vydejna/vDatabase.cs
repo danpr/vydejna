@@ -542,6 +542,12 @@ namespace Vydejna
         }
 
 
+        public virtual DataTable loadDataTableSestavaPosKonto(DateTime dateFrom, DateTime dateTo)
+        {
+            return null;
+        }
+
+
         public virtual Boolean tableUzivateleExist()
         {
             return false;
