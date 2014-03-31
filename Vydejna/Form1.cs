@@ -1329,14 +1329,18 @@ namespace Vydejna
         {
             SestavaDefault sestava = new SestavaDefault(myDB, new StrategiePosZaOsobu());
             sestava.ShowDialog();
-
         }
 
         private void vyhodnoceníDleZakázekVeStřediskuToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SestavaDefault sestava = new SestavaDefault(myDB, new StrategiePosZakazkaZaStred());
             sestava.ShowDialog();
+        }
 
+        private void vzhodnoceníDleZakázekToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SestavaDefault sestava = new SestavaDefault(myDB, new StrategiePosZakazka());
+            sestava.ShowDialog();
         }
     }
 }

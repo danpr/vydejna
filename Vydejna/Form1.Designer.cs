@@ -263,6 +263,7 @@
             this.vzhodnoceníDleZakázekToolStripMenuItem.Name = "vzhodnoceníDleZakázekToolStripMenuItem";
             this.vzhodnoceníDleZakázekToolStripMenuItem.Size = new System.Drawing.Size(271, 22);
             this.vzhodnoceníDleZakázekToolStripMenuItem.Text = "Vyhodnocení dle zakázek";
+            this.vzhodnoceníDleZakázekToolStripMenuItem.Click += new System.EventHandler(this.vzhodnoceníDleZakázekToolStripMenuItem_Click);
             // 
             // vyhodnoceníDleKontaToolStripMenuItem
             // 
@@ -283,14 +284,14 @@
             // písnoToolStripMenuItem
             // 
             this.písnoToolStripMenuItem.Name = "písnoToolStripMenuItem";
-            this.písnoToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.písnoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.písnoToolStripMenuItem.Text = "Písmo";
             this.písnoToolStripMenuItem.Click += new System.EventHandler(this.písmoToolStripMenuItem_Click);
             // 
             // změnaHeslaToolStripMenuItem
             // 
             this.změnaHeslaToolStripMenuItem.Name = "změnaHeslaToolStripMenuItem";
-            this.změnaHeslaToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.změnaHeslaToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.změnaHeslaToolStripMenuItem.Text = "Změna hesla";
             this.změnaHeslaToolStripMenuItem.Click += new System.EventHandler(this.zmenaHeslaToolStripMenuItem_Click);
             // 

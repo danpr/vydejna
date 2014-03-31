@@ -54,7 +54,6 @@ namespace Vydejna
             Hashtable headerRow = strategie.getHeaderLabels();
             foreach (DictionaryEntry pair in headerRow)
             {
-                Console.WriteLine("{0}={1}", pair.Key, pair.Value);
                 dataGridViewSestava.Columns[Convert.ToString( pair.Key)].HeaderText = Convert.ToString( pair.Value);
             }
 
