@@ -531,6 +531,11 @@ namespace Vydejna
             return null;
         }
 
+        public virtual DataTable loadDataTableSestavaPosZakazkaZaStred(DateTime dateFrom, DateTime dateTo, string stredisko)
+        {
+            return null;
+        }
+
 
         public virtual Boolean tableUzivateleExist()
         {

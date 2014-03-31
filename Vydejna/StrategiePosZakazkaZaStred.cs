@@ -8,14 +8,13 @@ using System.Collections;
 
 namespace Vydejna
 {
-    class StrategiePosOsobyZaStred : ISestava1
+    class StrategiePosZakazkaZaStred : ISestava1
     {
+
         public Hashtable getHeaderLabels()
         {
             Hashtable headerLabels = new Hashtable();
-            headerLabels.Add("krjmeno", "Jméno");
-            headerLabels.Add("jmeno", "Přijmení");
-            headerLabels.Add("oscislo", "Os. číslo");
+            headerLabels.Add("vyrobek", "Zakázka");
             headerLabels.Add("cena", "Cena");
             return headerLabels;
         }
@@ -32,9 +31,8 @@ namespace Vydejna
 
         public string getWindowHeader()
         {
-            return "Vyhodnocení poškozenek dle pracovníků";
+            return "Vyhodnocení poškozenek dle zakazky za středisko";
         }
-
         public Decimal makeSum(DataTable dt, string column)
         {
             if (column.Trim() != "")
@@ -59,9 +57,8 @@ namespace Vydejna
 
         public DataTable loadDataTable(vDatabase myDataBase, DateTime dateTimeFrom, DateTime dateTimeTo, string text1)
         {
-            return myDataBase.loadDataTableSestavaPosOsobyZaStred(dateTimeFrom, dateTimeTo,text1);
+            return myDataBase.loadDataTableSestavaPosZakazkaZaStred(dateTimeFrom, dateTimeTo, text1);
         }
-
-            
+    
     }
 }

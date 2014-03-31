@@ -1331,5 +1331,12 @@ namespace Vydejna
             sestava.ShowDialog();
 
         }
+
+        private void vyhodnoceníDleZakázekVeStřediskuToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SestavaDefault sestava = new SestavaDefault(myDB, new StrategiePosZakazkaZaStred());
+            sestava.ShowDialog();
+
+        }
     }
 }

@@ -132,6 +132,7 @@
     </Compile>
     <Compile Include="StrategiePosOsobyZaStred.cs" />
     <Compile Include="StrategiePosStrediska.cs" />
+    <Compile Include="StrategiePosZakazkaZaStred.cs" />
     <Compile Include="StrategiePosZaOsobu.cs" />
     <Compile Include="TiskDefault.cs" />
     <Compile Include="TiskNaradi.cs" />
