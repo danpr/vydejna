@@ -427,6 +427,17 @@ namespace Vydejna
             return null;
         }
 
+        public virtual DataTable loadDataTable(string DBSelect, DateTime dateFrom, DateTime dateTo)
+        {
+            return null;
+        }
+
+        public virtual DataTable loadDataTable(string DBSelect, DateTime dateFrom, DateTime dateTo, string text1)
+        {
+            return null;
+        }
+
+
         public virtual DataTable loadDataTableZmeny (Int32 poradi) //(string kodID)
         {
             return loadDataTable("SELECT poradi, datum, CASE WHEN stav = \'O\' THEN \'Poskozeno\'  WHEN stav = \'U\' THEN \'Půjčeno\' WHEN stav = \'V\' THEN \'Vyřazeno\' WHEN stav = \'P\' THEN \'Přijmuto\' WHEN stav = \'R\' THEN \'Vráceno\' END AS stav, poznamka, prijem, vydej, zustatek, zapkarta, vevcislo FROM zmeny WHERE parporadi = " + poradi.ToString() + " order by poradi"); // datum
@@ -518,33 +529,33 @@ namespace Vydejna
 
         public virtual DataTable loadDataTableSestavaPosStrediska(DateTime dateFrom, DateTime dateTo)
         {
-            return null;
+            return loadDataTable("select dilna, round(sum(cena * pocetks),3) as cena, 0 as procenta from poskozeno where datum >= ? and datum <= ? group by dilna order by dilna", dateFrom, dateTo);
         }
 
         public virtual DataTable loadDataTableSestavaPosOsobyZaStred(DateTime dateFrom, DateTime dateTo, string stredisko)
         {
-            return null;
+            return loadDataTable("select krjmeno, jmeno, oscislo, round(sum(cena * pocetks),3) as cena  from poskozeno where datum >= ? and datum <= ? and dilna = ? group by oscislo,krjmeno,jmeno order by oscislo", dateFrom, dateTo, stredisko);
         }
 
         public virtual DataTable loadDataTableSestavaPosZaOsobu(DateTime dateFrom, DateTime dateTo, string oscislo)
         {
-            return null;
+            return loadDataTable("select nazev, csn, jk, datum, pocetks, round(cena ,3) as cena, round(cena *pocetks,3) as celkcena  from poskozeno where datum >= ? and datum <= ? and oscislo = ?  order by datum", dateFrom, dateTo, oscislo);
         }
 
         public virtual DataTable loadDataTableSestavaPosZakazkaZaStred(DateTime dateFrom, DateTime dateTo, string stredisko)
         {
-            return null;
+            return loadDataTable("select vyrobek, round(sum(cena * pocetks),3) as cena  from poskozeno where datum >= ? and datum <= ? and dilna = ? group by vyrobek order by vyrobek", dateFrom, dateTo, stredisko);
         }
 
         public virtual DataTable loadDataTableSestavaPosZakazka(DateTime dateFrom, DateTime dateTo)
         {
-            return null;
+            return loadDataTable("select vyrobek, round(sum(cena * pocetks),3) as cena  from poskozeno where datum >= ? and datum <= ?  group by vyrobek order by vyrobek", dateFrom, dateTo);
         }
 
 
         public virtual DataTable loadDataTableSestavaPosKonto(DateTime dateFrom, DateTime dateTo)
         {
-            return null;
+            return loadDataTable("select konto, round(sum(cena * pocetks),3) as cena  from poskozeno where datum >= ? and datum <= ?  group by konto order by konto", dateFrom, dateTo);
         }
 
 

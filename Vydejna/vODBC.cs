@@ -3481,11 +3481,6 @@ namespace Vydejna
 
 
 
-
-
-
-
-
         public override DataTable loadDataTable(string DBSelect)
         {
             if (DBIsOpened())
@@ -3501,6 +3496,44 @@ namespace Vydejna
             }
             return null;
         }
+
+
+        public override DataTable loadDataTable(string DBSelect, DateTime dateFrom, DateTime dateTo)
+        {
+            if (DBIsOpened())
+            {
+                OdbcCommand cmdr1 = new OdbcCommand(DBSelect, myDBConn as OdbcConnection);
+                cmdr1.Parameters.AddWithValue("@dateFrom", dateFrom);
+                cmdr1.Parameters.AddWithValue("@dateTo", dateTo);
+                OdbcDataAdapter myDataAdapter = new OdbcDataAdapter(cmdr1);
+                DataTable DBDataTable = new DataTable();
+                DBDataTable.Locale = System.Globalization.CultureInfo.InvariantCulture;
+                myDataAdapter.Fill(DBDataTable);
+                myDataAdapter.Dispose();
+                return DBDataTable;
+            }
+            return null;
+        }
+
+
+        public override DataTable loadDataTable(string DBSelect, DateTime dateFrom, DateTime dateTo, string text1)
+        {
+            if (DBIsOpened())
+            {
+                OdbcCommand cmdr1 = new OdbcCommand(DBSelect, myDBConn as OdbcConnection);
+                cmdr1.Parameters.AddWithValue("@dateFrom", dateFrom);
+                cmdr1.Parameters.AddWithValue("@dateTo", dateTo);
+                cmdr1.Parameters.AddWithValue("@text1", text1);
+                OdbcDataAdapter myDataAdapter = new OdbcDataAdapter(cmdr1);
+                DataTable DBDataTable = new DataTable();
+                DBDataTable.Locale = System.Globalization.CultureInfo.InvariantCulture;
+                myDataAdapter.Fill(DBDataTable);
+                myDataAdapter.Dispose();
+                return DBDataTable;
+            }
+            return null;
+        }
+
 
         public override Int64 countOfRows(string DBSelect, string whileValue)
         {
@@ -3602,123 +3635,6 @@ namespace Vydejna
             return false;
         }
 
-        public override DataTable loadDataTableSestavaPosStrediska(DateTime dateFrom, DateTime dateTo)
-        {
-            if (DBIsOpened())
-            {
-                string commandStringRead1 = "select dilna, round(sum(cena),3) as cena, 0 as procenta from poskozeno where datum >= ? and datum <= ? group by dilna order by dilna";
-
-                OdbcCommand cmdr1 = new OdbcCommand(commandStringRead1, myDBConn as OdbcConnection);
-                cmdr1.Parameters.AddWithValue("@dateFrom", dateFrom);
-                cmdr1.Parameters.AddWithValue("@dateTo", dateTo);
-                OdbcDataAdapter myDataAdapter = new OdbcDataAdapter(cmdr1);
-                DataTable DBDataTable = new DataTable();
-                DBDataTable.Locale = System.Globalization.CultureInfo.InvariantCulture;
-                myDataAdapter.Fill(DBDataTable);
-                myDataAdapter.Dispose();
-                return DBDataTable;
-            }
-            return null;
-        }
-
-        public override DataTable loadDataTableSestavaPosOsobyZaStred(DateTime dateFrom, DateTime dateTo, string stredisko)
-        {
-            if (DBIsOpened())
-            {
-                string commandStringRead1 = "select krjmeno, jmeno, oscislo, round(sum(cena),3) as cena  from poskozeno where datum >= ? and datum <= ? and dilna = ? group by oscislo,krjmeno,jmeno order by oscislo";
-
-                OdbcCommand cmdr1 = new OdbcCommand(commandStringRead1, myDBConn as OdbcConnection);
-                cmdr1.Parameters.AddWithValue("@dateFrom", dateFrom);
-                cmdr1.Parameters.AddWithValue("@dateTo", dateTo);
-                cmdr1.Parameters.AddWithValue("@dilna", stredisko);
-                OdbcDataAdapter myDataAdapter = new OdbcDataAdapter(cmdr1);
-                DataTable DBDataTable = new DataTable();
-                DBDataTable.Locale = System.Globalization.CultureInfo.InvariantCulture;
-                myDataAdapter.Fill(DBDataTable);
-                myDataAdapter.Dispose();
-                return DBDataTable;
-            }
-            return null;
-        }
-
-        public override DataTable loadDataTableSestavaPosZaOsobu(DateTime dateFrom, DateTime dateTo, string oscislo)
-        {
-            if (DBIsOpened())
-            {
-                string commandStringRead1 = "select nazev, csn, jk, datum, pocetks, round(cena,3) as cena, round(cena *pocetks,3) as celkcena  from poskozeno where datum >= ? and datum <= ? and oscislo = ?  order by datum";
-
-                OdbcCommand cmdr1 = new OdbcCommand(commandStringRead1, myDBConn as OdbcConnection);
-                cmdr1.Parameters.AddWithValue("@dateFrom", dateFrom);
-                cmdr1.Parameters.AddWithValue("@dateTo", dateTo);
-                cmdr1.Parameters.AddWithValue("@oscislo", oscislo);
-                OdbcDataAdapter myDataAdapter = new OdbcDataAdapter(cmdr1);
-                DataTable DBDataTable = new DataTable();
-                DBDataTable.Locale = System.Globalization.CultureInfo.InvariantCulture;
-                myDataAdapter.Fill(DBDataTable);
-                myDataAdapter.Dispose();
-                return DBDataTable;
-            }
-            return null;
-        }
-
-        public override DataTable loadDataTableSestavaPosZakazkaZaStred(DateTime dateFrom, DateTime dateTo, string stredisko)
-        {
-            if (DBIsOpened())
-            {
-                string commandStringRead1 = "select vyrobek, round(sum(cena),3) as cena  from poskozeno where datum >= ? and datum <= ? and dilna = ? group by vyrobek order by vyrobek";
-
-                OdbcCommand cmdr1 = new OdbcCommand(commandStringRead1, myDBConn as OdbcConnection);
-                cmdr1.Parameters.AddWithValue("@dateFrom", dateFrom);
-                cmdr1.Parameters.AddWithValue("@dateTo", dateTo);
-                cmdr1.Parameters.AddWithValue("@dilna", stredisko);
-                OdbcDataAdapter myDataAdapter = new OdbcDataAdapter(cmdr1);
-                DataTable DBDataTable = new DataTable();
-                DBDataTable.Locale = System.Globalization.CultureInfo.InvariantCulture;
-                myDataAdapter.Fill(DBDataTable);
-                myDataAdapter.Dispose();
-                return DBDataTable;
-            }
-            return null;
-        }
-
-
-        public override DataTable loadDataTableSestavaPosZakazka(DateTime dateFrom, DateTime dateTo)
-        {
-            if (DBIsOpened())
-            {
-                string commandStringRead1 = "select vyrobek, round(sum(cena),3) as cena  from poskozeno where datum >= ? and datum <= ?  group by vyrobek order by vyrobek";
-
-                OdbcCommand cmdr1 = new OdbcCommand(commandStringRead1, myDBConn as OdbcConnection);
-                cmdr1.Parameters.AddWithValue("@dateFrom", dateFrom);
-                cmdr1.Parameters.AddWithValue("@dateTo", dateTo);
-                OdbcDataAdapter myDataAdapter = new OdbcDataAdapter(cmdr1);
-                DataTable DBDataTable = new DataTable();
-                DBDataTable.Locale = System.Globalization.CultureInfo.InvariantCulture;
-                myDataAdapter.Fill(DBDataTable);
-                myDataAdapter.Dispose();
-                return DBDataTable;
-            }
-            return null;
-        }
-
-        public override DataTable loadDataTableSestavaPosKonto(DateTime dateFrom, DateTime dateTo)
-        {
-            if (DBIsOpened())
-            {
-                string commandStringRead1 = "select konto, round(sum(cena),3) as cena  from poskozeno where datum >= ? and datum <= ?  group by konto order by konto";
-
-                OdbcCommand cmdr1 = new OdbcCommand(commandStringRead1, myDBConn as OdbcConnection);
-                cmdr1.Parameters.AddWithValue("@dateFrom", dateFrom);
-                cmdr1.Parameters.AddWithValue("@dateTo", dateTo);
-                OdbcDataAdapter myDataAdapter = new OdbcDataAdapter(cmdr1);
-                DataTable DBDataTable = new DataTable();
-                DBDataTable.Locale = System.Globalization.CultureInfo.InvariantCulture;
-                myDataAdapter.Fill(DBDataTable);
-                myDataAdapter.Dispose();
-                return DBDataTable;
-            }
-            return null;
-        }
 
     }
 }
