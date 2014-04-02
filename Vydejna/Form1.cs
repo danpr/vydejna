@@ -1025,6 +1025,16 @@ namespace Vydejna
 
         private void dataGridView1_KeyDown(object sender, KeyEventArgs e)
         {
+
+            if ((e.KeyData == Keys.P) && (e.Control ))
+            {
+                if (dataGridView1.SelectedRows.Count > 0)
+                {
+                    DBRow = getDBRowFromSelectedRow(DBRow);
+                    karta.vytiskniKartu(DBRow);
+                }
+            }
+
             if (e.KeyData == Keys.F3)
             {
                 karta.HledejDalsi(this.Location.Y + this.Size.Width,this.Top);
@@ -1346,6 +1356,18 @@ namespace Vydejna
         private void vyhodnoceníDleKontaToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SestavaDefault sestava = new SestavaDefault(myDB, new StrategiePosKonto());
+            sestava.ShowDialog();
+        }
+
+        private void seznamPoškozenekZaZakázkuToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SestavaDefault sestava = new SestavaDefault(myDB, new StrategiePosZaZakazku());
+            sestava.ShowDialog();
+        }
+
+        private void seznamPoškozenekZaKontoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SestavaDefault sestava = new SestavaDefault(myDB, new StrategiePosZaKonto());
             sestava.ShowDialog();
         }
     }

@@ -558,6 +558,16 @@ namespace Vydejna
             return loadDataTable("select konto, round(sum(cena * pocetks),3) as cena  from poskozeno where datum >= ? and datum <= ?  group by konto order by konto", dateFrom, dateTo);
         }
 
+        public virtual DataTable loadDataTableSestavaPosZaKonto(DateTime dateFrom, DateTime dateTo, string konto)
+        {
+            return loadDataTable("select nazev, csn, jk, datum, pocetks, round(cena ,3) as cena, round(cena *pocetks,3) as celkcena  from poskozeno where datum >= ? and datum <= ? and konto = ?  order by datum", dateFrom, dateTo, konto);
+        }
+
+        public virtual DataTable loadDataTableSestavaPosZaZakazku(DateTime dateFrom, DateTime dateTo, string vyrobek)
+        {
+            return loadDataTable("select nazev, csn, jk, datum, pocetks, round(cena ,3) as cena, round(cena *pocetks,3) as celkcena  from poskozeno where datum >= ? and datum <= ? and vyrobek = ?  order by datum", dateFrom, dateTo, vyrobek);
+        }
+
 
         public virtual Boolean tableUzivateleExist()
         {
