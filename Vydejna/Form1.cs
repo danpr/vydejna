@@ -1026,7 +1026,7 @@ namespace Vydejna
         private void dataGridView1_KeyDown(object sender, KeyEventArgs e)
         {
 
-            if ((e.KeyData == Keys.P) && (e.Control ))
+            if ( (e.KeyData == (Keys.Control | Keys.P) )
             {
                 if (dataGridView1.SelectedRows.Count > 0)
                 {
