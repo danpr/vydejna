@@ -65,6 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConfigReg.cs" />
+    <Compile Include="dbfPrepare.cs" />
     <Compile Include="detail.cs" />
     <Compile Include="ISestava1.cs" />
     <Compile Include="Interface2.cs" />
