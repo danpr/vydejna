@@ -19,6 +19,11 @@ namespace Vydejna
 
         public static void presunVyrazene(vDatabase myDB, string filepath, Hashtable DBJoin)
         {
+
+            dbfPrepare dbfFile = new dbfPrepare();
+            dbfFile.open(filepath + "\\DATA\\AR_KARET.DBF");
+            dbfFile.close();
+            
             DbTransaction myTransaction = myDB.startTransaction();
 
             using (OleDbConnection fbase = new OleDbConnection("Provider=VFPOLEDB.1;CodePage=437;Data Source=" + filepath + ";Exclusive=false;Nulls=false;Collating Sequence=general"))
@@ -129,6 +134,9 @@ namespace Vydejna
 
     public static void presunNaradi(vDatabase myDB, string filepath, Hashtable DBJoin)
     {
+        dbfPrepare dbfFile = new dbfPrepare();
+        dbfFile.open(filepath + "\\DATA\\NARADI.DBF");
+        dbfFile.close();
 
 
         DbTransaction myTransaction = myDB.startTransaction();
