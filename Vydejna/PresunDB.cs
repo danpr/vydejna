@@ -23,6 +23,7 @@ namespace Vydejna
             dbfFile.open(filepath + "\\DATA\\AR_KARET.DBF");
             if (!(dbfFile.recordCountIsOK()))
             {
+                MessageBox.Show("Soubor " + "\\DATA\\AR_KARET.DBF" + " bude opraven.");
                 dbfFile.correctRecordCount();
             }
             dbfFile.close();
@@ -124,8 +125,6 @@ namespace Vydejna
                 {
                     if (!dr.IsClosed) dr.Close();
                 }
-                //              fbase.Close();
-                //              fbase.Dispose();
                 if (myTransaction != null)
                 {
                     myDB.stopTransaction(myTransaction);
@@ -142,6 +141,7 @@ namespace Vydejna
         dbfFile.open(filepath + "\\DATA\\NARADI.DBF");
         if (!(dbfFile.recordCountIsOK()))
         {
+            MessageBox.Show("Soubor \\DATA\\NARADI.DBF bude opraven.");
             dbfFile.correctRecordCount();
         }
         dbfFile.close();
@@ -246,8 +246,6 @@ namespace Vydejna
             {
                 if (!dr.IsClosed) dr.Close();
             }
-//            fbase.Close();
-//            fbase.Dispose();
             if (myTransaction != null)
             {
                 myDB.stopTransaction(myTransaction);
@@ -262,6 +260,7 @@ namespace Vydejna
         dbfFile.open(filepath + "\\DATA\\VRACSKL.DBF");
         if (!(dbfFile.recordCountIsOK()))
         {
+            MessageBox.Show("Soubor " + "\\DATA\\VRACSKL.DBF" + " bude opraven.");
             dbfFile.correctRecordCount();
         }
         dbfFile.close();
@@ -322,8 +321,8 @@ namespace Vydejna
             {
                 if (!dr.IsClosed) dr.Close();
             }
-            fbase.Close();
-            fbase.Dispose();
+//            fbase.Close();
+//            fbase.Dispose();
             if (myTransaction != null)
             {
                 myDB.stopTransaction(myTransaction);
@@ -336,9 +335,10 @@ namespace Vydejna
     public static void presunPoskozene(vDatabase myDB, string filepath)
     {
         dbfPrepare dbfFile = new dbfPrepare();
-        dbfFile.open("SELECT * FROM " + filepath + "\\DATA\\POSKNAR.DBF");
+        dbfFile.open(filepath + "\\DATA\\POSKNAR.DBF");
         if (!(dbfFile.recordCountIsOK()))
         {
+            MessageBox.Show("Soubor " + "\\DATA\\POSKNAR.DBF" + " bude opraven.");
             dbfFile.correctRecordCount();
         }
         dbfFile.close();
@@ -401,8 +401,6 @@ namespace Vydejna
             {
                 if (!dr.IsClosed) dr.Close();
             }
-         //   fbase.Close();
-         //   fbase.Dispose();
             if (myTransaction != null)
             {
                 myDB.stopTransaction(myTransaction);
@@ -449,7 +447,7 @@ namespace Vydejna
         dbfFile.open(filepath + "\\" + fileName);
         if (!(dbfFile.recordCountIsOK()))
         {
-            dbfFile.correctRecordCount();
+            MessageBox.Show("Soubor "+fileName+" bude opraven.");
         }
         dbfFile.close();
 
@@ -655,6 +653,7 @@ namespace Vydejna
         dbfFile.open(filepath + "\\" + fileName);
         if (!(dbfFile.recordCountIsOK()))
         {
+            MessageBox.Show("Soubor "+fileName+" bude opraven.");
             dbfFile.correctRecordCount();
         }
         dbfFile.close();
@@ -770,6 +769,7 @@ namespace Vydejna
         dbfFile.open(filepath + "\\DATA\\PERSON.DBF");
         if (!(dbfFile.recordCountIsOK()))
         {
+            MessageBox.Show("Soubor \\DATA\\PERSON.DBF bude opraven.");
             dbfFile.correctRecordCount();
         }
         dbfFile.close();
@@ -827,13 +827,6 @@ namespace Vydejna
                     }
 
                 }
-                //            fbase.Close();
-                //            fbase.Dispose();
-                //            if (myTransaction != null)
-                //            {
-                //                myDB.stopTransaction(myTransaction);
-                //            }
-
             }
             catch
             {
@@ -845,8 +838,6 @@ namespace Vydejna
                 {
                     if (!dr.IsClosed) dr.Close();
                 }
-         //       fbase.Close();
-         //       fbase.Dispose();
                 if (myTransaction != null)
                 {
                     myDB.stopTransaction(myTransaction);

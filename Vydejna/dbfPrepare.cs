@@ -27,13 +27,18 @@ namespace Vydejna
             {
                 DBFStream = new FileStream(fileName, FileMode.Open);
                 DBFlength = DBFStream.Length;
-                dbOpened = true;
                 logPocetZaznamu = 0;
                 fyzPocetZaznamu = 0;
+                dbOpened = true;
             }
             catch
             {
-                DBFStream.Close();
+                if (DBFStream != null)
+                {
+                    DBFStream.Close();
+                    DBFStream = null;
+                }
+                DBFlength = 0;
                 dbOpened = false;
             }
 
@@ -42,12 +47,19 @@ namespace Vydejna
 
         public void close()
         {
-        DBFStream.Close();
-        dbOpened = false;
-        DBFStream = null;
-        DBFlength = 0;
-        logPocetZaznamu = 0;
-        fyzPocetZaznamu = 0;
+            if (dbOpened)
+            {
+
+                if (DBFStream != null)
+                {
+                    DBFStream.Close();
+                }
+                dbOpened = false;
+                DBFStream = null;
+                DBFlength = 0;
+                logPocetZaznamu = 0;
+                fyzPocetZaznamu = 0;
+            }
         }
 
         private void getHeader()
@@ -70,7 +82,7 @@ namespace Vydejna
                     //8-9 velikost hlavickty
                     //9-10 velikost zaznamu
                     fyzPocetZaznamu = (DBFlength - velikostHlavicky) / velikostZaznamu;
-
+                    br.Dispose();
                 }
                 else
                 {
@@ -104,12 +116,10 @@ namespace Vydejna
                     pocetZaznamu[1] = (byte)(pocet / (256));
                     pocetZaznamu[0] = (byte)(pocet % (256));
 
-                    BinaryWriter bw = new BinaryWriter(DBFStream);
-                    bw.BaseStream.Position = 7;
-                    bw.Write(pocetZaznamu);
-                    getHeader();
-
-                    //                logPocetZaznamu = hlavicka[7] * 65536 * 256 + hlavicka[6] * 65536 + hlavicka[5] * 256 + hlavicka[4];
+//                    BinaryWriter bw = new BinaryWriter(DBFStream);
+//                    bw.BaseStream.Position = 7;
+//                    bw.Write(pocetZaznamu);
+//                    getHeader();
                 }
             }
         }
