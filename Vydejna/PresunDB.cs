@@ -19,11 +19,15 @@ namespace Vydejna
 
         public static void presunVyrazene(vDatabase myDB, string filepath, Hashtable DBJoin)
         {
-
             dbfPrepare dbfFile = new dbfPrepare();
             dbfFile.open(filepath + "\\DATA\\AR_KARET.DBF");
+            if (!(dbfFile.recordCountIsOK()))
+            {
+                dbfFile.correctRecordCount();
+            }
             dbfFile.close();
             
+
             DbTransaction myTransaction = myDB.startTransaction();
 
             using (OleDbConnection fbase = new OleDbConnection("Provider=VFPOLEDB.1;CodePage=437;Data Source=" + filepath + ";Exclusive=false;Nulls=false;Collating Sequence=general"))
@@ -136,8 +140,11 @@ namespace Vydejna
     {
         dbfPrepare dbfFile = new dbfPrepare();
         dbfFile.open(filepath + "\\DATA\\NARADI.DBF");
+        if (!(dbfFile.recordCountIsOK()))
+        {
+            dbfFile.correctRecordCount();
+        }
         dbfFile.close();
-
 
         DbTransaction myTransaction = myDB.startTransaction();
         using (OleDbConnection fbase = new OleDbConnection("Provider=VFPOLEDB.1;Data Source=" + filepath + ";Exclusive=false;Nulls=false;Collating Sequence=general"))
@@ -251,6 +258,14 @@ namespace Vydejna
 
     public static void presunVracene(vDatabase myDB, string filepath)
     {
+        dbfPrepare dbfFile = new dbfPrepare();
+        dbfFile.open(filepath + "\\DATA\\VRACSKL.DBF");
+        if (!(dbfFile.recordCountIsOK()))
+        {
+            dbfFile.correctRecordCount();
+        }
+        dbfFile.close();
+
         DbTransaction myTransaction = myDB.startTransaction();
         using (OleDbConnection fbase = new OleDbConnection("Provider=VFPOLEDB.1;CodePage=437;Data Source=" + filepath + ";Exclusive=false;Nulls=false"))
         {
@@ -320,6 +335,14 @@ namespace Vydejna
 
     public static void presunPoskozene(vDatabase myDB, string filepath)
     {
+        dbfPrepare dbfFile = new dbfPrepare();
+        dbfFile.open("SELECT * FROM " + filepath + "\\DATA\\POSKNAR.DBF");
+        if (!(dbfFile.recordCountIsOK()))
+        {
+            dbfFile.correctRecordCount();
+        }
+        dbfFile.close();
+
         DbTransaction myTransaction = myDB.startTransaction();
         using (OleDbConnection fbase = new OleDbConnection("Provider=VFPOLEDB.1;CodePage=437;Data Source=" + filepath + ";Exclusive=false;Nulls=false"))
         {
@@ -422,6 +445,14 @@ namespace Vydejna
 
     private static void presunZmenyMDatFile(vDatabase myDB, string filepath, string fileName, string index, Hashtable DBJoin)
     {
+        dbfPrepare dbfFile = new dbfPrepare();
+        dbfFile.open(filepath + "\\" + fileName);
+        if (!(dbfFile.recordCountIsOK()))
+        {
+            dbfFile.correctRecordCount();
+        }
+        dbfFile.close();
+
         OleDbConnection fbase = new OleDbConnection("Provider=VFPOLEDB.1;CodePage=437;Data Source=" + filepath + ";Exclusive=false;Nulls=false");
         fbase.Open();
         OleDbCommand fbaseCom = new OleDbCommand("SELECT * FROM " + filepath + "\\"+fileName, fbase);
@@ -620,6 +651,14 @@ namespace Vydejna
 
     private static void presunPersonFile(vDatabase myDB, string filepath, string fileName, Hashtable DBJoin)
     {
+        dbfPrepare dbfFile = new dbfPrepare();
+        dbfFile.open(filepath + "\\" + fileName);
+        if (!(dbfFile.recordCountIsOK()))
+        {
+            dbfFile.correctRecordCount();
+        }
+        dbfFile.close();
+
         OleDbConnection fbase = new OleDbConnection("Provider=VFPOLEDB.1;CodePage=437;Data Source=" + filepath + ";Exclusive=false;Nulls=false");
         fbase.Open();
         OleDbCommand fbaseCom = new OleDbCommand("SELECT * FROM " + filepath + "\\" + fileName, fbase);
@@ -727,6 +766,14 @@ namespace Vydejna
 
     public static void presunOsoby(vDatabase myDB, string filepath)
     {
+        dbfPrepare dbfFile = new dbfPrepare();
+        dbfFile.open(filepath + "\\DATA\\PERSON.DBF");
+        if (!(dbfFile.recordCountIsOK()))
+        {
+            dbfFile.correctRecordCount();
+        }
+        dbfFile.close();
+
         DbTransaction myTransaction = myDB.startTransaction();
         using (OleDbConnection fbase = new OleDbConnection("Provider=VFPOLEDB.1;CodePage=437;Data Source=" + filepath + "\\DATA;Exclusive=false;Nulls=false"))
         {

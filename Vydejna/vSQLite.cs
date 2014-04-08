@@ -966,87 +966,95 @@ namespace Vydejna
             string commandStringSeq1 = "SELECT poradi FROM tabseq WHERE nazev = 'pujceno'";
             string commandStringSeq2 = "UPDATE  tabseq set poradi = poradi +1 WHERE nazev = 'pujceno'";
             string commandStringSeq3 = "SELECT poradi FROM zmeny WHERE parporadi = ? AND stav = 'U' AND zapkarta = ?  AND datum = ? ";
-            
+
 
             if (DBIsOpened())
             {
-
-                SQLiteCommand cmdSeq1 = new SQLiteCommand(commandStringSeq1, myDBConn as SQLiteConnection);
-                SQLiteDataReader seqReader1 = cmdSeq1.ExecuteReader();
-                seqReader1.Read();
-                Int32 pujcPoradi = seqReader1.GetInt32(0);
-                seqReader1.Close();
-
-
-                SQLiteCommand cmdSeq3 = new SQLiteCommand(commandStringSeq3, myDBConn as SQLiteConnection);
-                SQLiteParameter pz0 = new SQLiteParameter("pz0", DbType.Int32);
-                pz0.Value = DBparPoradi;
-                SQLiteParameter pz1 = new SQLiteParameter("pz1", DbType.String);
-                pz1.Value = DBosCislo;
-                SQLiteParameter pz2 = new SQLiteParameter("pz2", DbType.Date);
-                pz2.Value = DBdatum;
-                cmdSeq3.Parameters.Add(pz0);
-                cmdSeq3.Parameters.Add(pz1);
-                cmdSeq3.Parameters.Add(pz2);
-                SQLiteDataReader seqReader2 = cmdSeq3.ExecuteReader();
-
-                Int32 zmenyPoradi;
-                if (seqReader2.Read() == true)
+                try
                 {
-                    zmenyPoradi = seqReader2.GetInt32(0);
-                    seqReader2.Close();
+
+                    SQLiteCommand cmdSeq1 = new SQLiteCommand(commandStringSeq1, myDBConn as SQLiteConnection);
+                    SQLiteDataReader seqReader1 = cmdSeq1.ExecuteReader();
+                    seqReader1.Read();
+                    Int32 pujcPoradi = seqReader1.GetInt32(0);
+                    seqReader1.Close();
+
+
+                    SQLiteCommand cmdSeq3 = new SQLiteCommand(commandStringSeq3, myDBConn as SQLiteConnection);
+                    SQLiteParameter pz0 = new SQLiteParameter("pz0", DbType.Int32);
+                    pz0.Value = DBparPoradi;
+                    SQLiteParameter pz1 = new SQLiteParameter("pz1", DbType.String);
+                    pz1.Value = DBosCislo;
+                    SQLiteParameter pz2 = new SQLiteParameter("pz2", DbType.Date);
+                    pz2.Value = DBdatum;
+                    cmdSeq3.Parameters.Add(pz0);
+                    cmdSeq3.Parameters.Add(pz1);
+                    cmdSeq3.Parameters.Add(pz2);
+                    SQLiteDataReader seqReader2 = cmdSeq3.ExecuteReader();
+
+                    Int32 zmenyPoradi;
+                    if (seqReader2.Read() == true)
+                    {
+                        zmenyPoradi = seqReader2.GetInt32(0);
+                        seqReader2.Close();
+                    }
+                    else
+                    {
+                        zmenyPoradi = 0;
+                        seqReader2.Close();
+                        MessageBox.Show("Neexistuje zmena stavu pro vypujcení. Poradi/Nazev:" + DBparPoradi.ToString() + " - " + DBnazev + " OSCislo: " + DBosCislo + " - " + DBPrijmeni);
+                    }
+
+                    SQLiteCommand cmd = new SQLiteCommand(commandString, myDBConn as SQLiteConnection);
+
+                    SQLiteParameter p0 = new SQLiteParameter("p0", DbType.Int32);
+                    p0.Value = pujcPoradi;
+                    SQLiteParameter p1 = new SQLiteParameter("p1", DbType.String);
+                    p1.Value = DBosCislo;
+                    SQLiteParameter p2 = new SQLiteParameter("p2", DbType.Int32);
+                    p2.Value = DBparPoradi;
+                    SQLiteParameter p3 = new SQLiteParameter("p3", DbType.Int32);
+                    p3.Value = zmenyPoradi; // DBzmPoradi;
+                    SQLiteParameter p4 = new SQLiteParameter("p4", DbType.Int32);
+                    p4.Value = DBks; // DBzmPoradi;
+
+                    SQLiteParameter p5 = new SQLiteParameter("p5", DbType.String);
+                    p5.Value = DBjmeno;
+                    SQLiteParameter p6 = new SQLiteParameter("p6", DbType.String);
+                    p6.Value = DBPrijmeni;
+                    SQLiteParameter p7 = new SQLiteParameter("p7", DbType.String);
+                    p7.Value = DBnazev;
+                    SQLiteParameter p8 = new SQLiteParameter("p8", DbType.String);
+                    p8.Value = DBjk;
+                    SQLiteParameter p9 = new SQLiteParameter("p9", DbType.Date);
+                    p9.Value = DBdatum;
+                    SQLiteParameter p10 = new SQLiteParameter("p10", DbType.Int32);
+                    p10.Value = DBks;
+                    SQLiteParameter p11 = new SQLiteParameter("p11", DbType.Double);
+                    p11.Value = DBcena;
+
+                    cmd.Parameters.Add(p0);
+                    cmd.Parameters.Add(p1);
+                    cmd.Parameters.Add(p2);
+                    cmd.Parameters.Add(p3);
+                    cmd.Parameters.Add(p4);
+                    cmd.Parameters.Add(p5);
+                    cmd.Parameters.Add(p6);
+                    cmd.Parameters.Add(p7);
+                    cmd.Parameters.Add(p8);
+                    cmd.Parameters.Add(p9);
+                    cmd.Parameters.Add(p10);
+                    cmd.Parameters.Add(p11);
+                    cmd.ExecuteNonQuery();
+
+                    SQLiteCommand cmdSeq2 = new SQLiteCommand(commandStringSeq2, myDBConn as SQLiteConnection);
+                    cmdSeq2.ExecuteNonQuery();
                 }
-                else
+                catch
                 {
-                    zmenyPoradi = 0;
-                    MessageBox.Show("Neexistuje zmena stavu pro vypujcení. Poradi/Nazev:" + DBparPoradi.ToString() + " - " + DBnazev + " OSCislo: " + DBosCislo + " - " + DBPrijmeni);
                 }
-
-                SQLiteCommand cmd = new SQLiteCommand(commandString, myDBConn as SQLiteConnection);
-
-                SQLiteParameter p0 = new SQLiteParameter("p0", DbType.Int32);
-                p0.Value = pujcPoradi;
-                SQLiteParameter p1 = new SQLiteParameter("p1", DbType.String);
-                p1.Value = DBosCislo;
-                SQLiteParameter p2 = new SQLiteParameter("p2", DbType.Int32);
-                p2.Value = DBparPoradi;
-                SQLiteParameter p3 = new SQLiteParameter("p3", DbType.Int32);
-                p3.Value = zmenyPoradi; // DBzmPoradi;
-                SQLiteParameter p4 = new SQLiteParameter("p4", DbType.Int32);
-                p4.Value = DBks; // DBzmPoradi;
-
-                SQLiteParameter p5 = new SQLiteParameter("p5", DbType.String);
-                p5.Value = DBjmeno;
-                SQLiteParameter p6 = new SQLiteParameter("p6", DbType.String);
-                p6.Value = DBPrijmeni;
-                SQLiteParameter p7 = new SQLiteParameter("p7", DbType.String);
-                p7.Value = DBnazev;
-                SQLiteParameter p8 = new SQLiteParameter("p8", DbType.String);
-                p8.Value = DBjk;
-                SQLiteParameter p9 = new SQLiteParameter("p9", DbType.Date);
-                p9.Value = DBdatum;
-                SQLiteParameter p10 = new SQLiteParameter("p10", DbType.Int32);
-                p10.Value = DBks;
-                SQLiteParameter p11 = new SQLiteParameter("p11", DbType.Double);
-                p11.Value = DBcena;
-
-                cmd.Parameters.Add(p0);
-                cmd.Parameters.Add(p1);
-                cmd.Parameters.Add(p2);
-                cmd.Parameters.Add(p3);
-                cmd.Parameters.Add(p4);
-                cmd.Parameters.Add(p5);
-                cmd.Parameters.Add(p6);
-                cmd.Parameters.Add(p7);
-                cmd.Parameters.Add(p8);
-                cmd.Parameters.Add(p9);
-                cmd.Parameters.Add(p10);
-                cmd.Parameters.Add(p11);
-                cmd.ExecuteNonQuery();
-
-                SQLiteCommand cmdSeq2 = new SQLiteCommand(commandStringSeq2, myDBConn as SQLiteConnection);
-                cmdSeq2.ExecuteNonQuery();
-                }
+            }
+            
         }
 
 
