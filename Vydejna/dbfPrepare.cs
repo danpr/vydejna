@@ -38,8 +38,8 @@ namespace Vydejna
                     DBFStream.Close();
                     DBFStream = null;
                 }
-                DBFlength = 0;
                 dbOpened = false;
+                clearVariables();
             }
 
             getHeader();
@@ -55,10 +55,7 @@ namespace Vydejna
                     DBFStream.Close();
                 }
                 dbOpened = false;
-                DBFStream = null;
-                DBFlength = 0;
-                logPocetZaznamu = 0;
-                fyzPocetZaznamu = 0;
+                clearVariables();
             }
         }
 
@@ -86,8 +83,10 @@ namespace Vydejna
                 }
                 else
                 {
-                    DBFStream.Close();
-                    dbOpened = false;
+                    close();
+//                    DBFStream.Close();
+ //                   dbOpened = false;
+//                    clearVariables();
                 }
 
             }
@@ -123,6 +122,15 @@ namespace Vydejna
                 }
             }
         }
+
+        private void clearVariables()
+        {
+        DBFStream = null;
+        DBFlength = 0;
+        logPocetZaznamu = 0;
+        fyzPocetZaznamu = 0;
+        }
+
 
     }
 
