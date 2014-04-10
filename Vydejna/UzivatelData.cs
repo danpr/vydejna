@@ -240,6 +240,22 @@ namespace Vydejna
         }
 
 
+        public Boolean userHasAccess(Int32 numberOfPermcode )
+        {
+            if (userLogin)
+            {// permision
+
+                return admin;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+
+
+
         public string Jmeno
         {
             get { if (userLogin) return jmeno; else return ""; }
