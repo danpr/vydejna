@@ -40,6 +40,7 @@ namespace Vydejna
         private string passwordHash = "";
         private string jmeno = "";
         private string prijmeni = "";
+        private string permission = "";
 
         private vDatabase myDataBase = null;
 
@@ -175,13 +176,20 @@ namespace Vydejna
                     {
                         this.jmeno = Convert.ToString( DBRow["jmeno"]);
                     }
+
                     if (DBRow.ContainsKey("prijmeni"))
                     {
                         this.prijmeni = Convert.ToString( DBRow["prijmeni"]);
                     }
+
+                    if (DBRow.ContainsKey("permission"))
+                    {
+                        this.permission = Convert.ToString(DBRow["permission"]);
+                    }
+
                     if (DBRow.ContainsKey("admin"))
                     {
-                        if (Convert.ToString(DBRow["prijmeni"]) == "N")
+                        if (Convert.ToString(DBRow["admin"]) == "N")
                         {
                             this.admin = false;
                         }
@@ -240,12 +248,22 @@ namespace Vydejna
         }
 
 
-        public Boolean userHasAccess(Int32 numberOfPermcode )
+        public Boolean userHasAccessRights(Int32 numberOfPermcode )
         {
             if (userLogin)
             {// permision
 
-                return admin;
+                if (admin)
+                {
+                    return false;
+                }
+                else
+                {
+                    if ((permission[numberOfPermcode] == 'Y') || (permission[numberOfPermcode] == 'A'))
+                        return true;
+                    else
+                        return false;
+                }
             }
             else
             {

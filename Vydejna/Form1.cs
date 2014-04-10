@@ -1195,8 +1195,12 @@ namespace Vydejna
         private void toolStripMenuItem11_Click(object sender, EventArgs e)
         {
             // sprava uzivatelských účtů
-            SeznamUzivatelu spravaUzivatelu = new SeznamUzivatelu(myDB,this.Font);
-            spravaUzivatelu.ShowDialog();
+            UzivatelData ud = UzivatelData.makeInstance();
+            if (ud.userIsAdmin())
+            {
+                SeznamUzivatelu spravaUzivatelu = new SeznamUzivatelu(myDB, this.Font);
+                spravaUzivatelu.ShowDialog();
+            }
         }
 
 
