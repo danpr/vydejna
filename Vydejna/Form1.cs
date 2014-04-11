@@ -769,27 +769,32 @@ namespace Vydejna
 // NASTAVENI DATABAZE
         private void toolStripMenuItem7_Click(object sender, EventArgs e)
         {
-            NastaveniDB dbPref = new NastaveniDB(nastaveniDB);
-            if (dbPref.ShowDialog() == DialogResult.OK)
+            UzivatelData ud = UzivatelData.makeInstance();
+            if (ud.userIsAdminWM())
             {
-              nastaveniDB = dbPref.getParemetryDB();
-              ConfigReg.saveSettingDB(nastaveniDB);
 
-              if ((myDB != null) && myDB.DBIsOpened())
-              {
-                  myDB.closeDB();
-                  myDB = null;
-              }
+                NastaveniDB dbPref = new NastaveniDB(nastaveniDB);
+                if (dbPref.ShowDialog() == DialogResult.OK)
+                {
+                    nastaveniDB = dbPref.getParemetryDB();
+                    ConfigReg.saveSettingDB(nastaveniDB);
 
-              myDB = OpenDataBaseHandle();
-              myDB.openDB();
-              setStateChangeEvent(myDB);
-              if (myDB.DBIsOpened())
-              {
-                  usersTest();
+                    if ((myDB != null) && myDB.DBIsOpened())
+                    {
+                        myDB.closeDB();
+                        myDB = null;
+                    }
 
-              }
+                    myDB = OpenDataBaseHandle();
+                    myDB.openDB();
+                    setStateChangeEvent(myDB);
+                    if (myDB.DBIsOpened())
+                    {
+                        usersTest();
 
+                    }
+
+                }
             }
         }
 
@@ -1196,7 +1201,7 @@ namespace Vydejna
         {
             // sprava uzivatelských účtů
             UzivatelData ud = UzivatelData.makeInstance();
-            if (ud.userIsAdmin())
+            if (ud.userIsAdminWM())
             {
                 SeznamUzivatelu spravaUzivatelu = new SeznamUzivatelu(myDB, this.Font);
                 spravaUzivatelu.ShowDialog();

@@ -4,6 +4,7 @@ using System.Collections;
 using System.Linq;
 using System.Text;
 using System.Security.Cryptography;
+using System.Windows.Forms;
 
 namespace Vydejna
 {
@@ -240,6 +241,17 @@ namespace Vydejna
         public Boolean userIsLogin()
         {
             return userLogin;
+        }
+
+        public Boolean userIsAdminWM()
+        {
+            Boolean returnCode = userIsAdmin();
+            if (!(returnCode))
+            {
+                MessageBox.Show("Lituji, tuto akci muže vyvolat jen uživatel s administrátorským oprávněním.");
+            }
+
+            return returnCode;
         }
 
         public Boolean userIsAdmin ()
