@@ -259,6 +259,24 @@ namespace Vydejna
             if (userLogin) { return admin; } else { return false; }
         }
 
+        public Boolean userHasAccessRightsWM(Int32 numberOfPermcode)
+        {
+            Boolean returnCode = userIsAdmin();
+            if (returnCode)
+            {
+                MessageBox.Show("Lituji, tuto akci nemůže vyvolat jen uživatel s administrátorským oprávněním.");
+                return false;
+            }
+            else
+            {
+                returnCode = userHasAccessRights(numberOfPermcode);
+                if (!(returnCode))
+                {
+                    MessageBox.Show("Lituji, ale nemáte právo pro vyvolání této akce.");
+                }
+                return returnCode;
+            }
+        }
 
         public Boolean userHasAccessRights(Int32 numberOfPermcode )
         {

@@ -479,112 +479,116 @@ namespace Vydejna
 
         private void nahráníDatZDBaseToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            dbfPath = "";
-            folderBrowserDialog1.ShowNewFolderButton = false;
-            DialogResult result = folderBrowserDialog1.ShowDialog();
-            if (result == DialogResult.OK) // Test result.
+            UzivatelData ud = UzivatelData.makeInstance();
+            if (ud.userIsAdminWM())
             {
-                dbfPath = folderBrowserDialog1.SelectedPath;
-            }
-
-            Application.DoEvents();
-
-            if (dbfPath != "") 
-            {
-                String filepath = dbfPath;
-                progressBarMain.Style = ProgressBarStyle.Marquee;
-
-                dataGridView1.DataSource = null;
-
-                // prvni soubor AR_KARET
-               // string connString = @"Provider=vfpoledb.1;Data Source=c:\wwapps\wc3\wwdemo;Exclusive=false;Nulls=false";
-
-                Hashtable DBJoin;
-                DBJoin = new Hashtable();
-
-                DBJoin.Clear();
-
-                DBJoin.Add("test", 1);
-                if (myDB == null)
+                dbfPath = "";
+                folderBrowserDialog1.ShowNewFolderButton = false;
+                DialogResult result = folderBrowserDialog1.ShowDialog();
+                if (result == DialogResult.OK) // Test result.
                 {
-                    myDB = OpenDataBaseHandle();
-                    myDB.openDB();
-                    setStateChangeEvent(myDB);
+                    dbfPath = folderBrowserDialog1.SelectedPath;
                 }
 
-                labelView.Text = "Přesouvám tabulku vyřazených karet";
                 Application.DoEvents();
 
+                if (dbfPath != "")
+                {
+                    String filepath = dbfPath;
+                    progressBarMain.Style = ProgressBarStyle.Marquee;
 
-                progressBarMain.MarqueeAnimationSpeed = 100;
-                PresunDB.presunVyrazene(myDB, filepath, DBJoin);
-                progressBarMain.MarqueeAnimationSpeed = 0;
- 
+                    dataGridView1.DataSource = null;
 
-                // druhy soubor naradi
-                labelView.Text = "Přesouvám tabulku nářadí";
-                Application.DoEvents();
+                    // prvni soubor AR_KARET
+                    // string connString = @"Provider=vfpoledb.1;Data Source=c:\wwapps\wc3\wwdemo;Exclusive=false;Nulls=false";
 
-                progressBarMain.MarqueeAnimationSpeed = 100;
-                PresunDB.presunNaradi(myDB, filepath, DBJoin);
-                progressBarMain.MarqueeAnimationSpeed = 0;
+                    Hashtable DBJoin;
+                    DBJoin = new Hashtable();
 
-                // treti soubor vraceno
-                labelView.Text = "Přesouvám tabulku vráceného nářadí";
-                Application.DoEvents();
+                    DBJoin.Clear();
 
+                    DBJoin.Add("test", 1);
+                    if (myDB == null)
+                    {
+                        myDB = OpenDataBaseHandle();
+                        myDB.openDB();
+                        setStateChangeEvent(myDB);
+                    }
 
-                progressBarMain.MarqueeAnimationSpeed = 100;
-                PresunDB.presunVracene(myDB, filepath);
-                progressBarMain.MarqueeAnimationSpeed = 0;
-
-                // ctrvrty soubor vyrazeno
-                labelView.Text = "Přesouvám tabulku poškozeného nářadí";
-                Application.DoEvents();
-
-
-                progressBarMain.MarqueeAnimationSpeed = 100;
-                PresunDB.presunPoskozene(myDB, filepath);
-                progressBarMain.MarqueeAnimationSpeed = 0;
+                    labelView.Text = "Přesouvám tabulku vyřazených karet";
+                    Application.DoEvents();
 
 
-                // sesty soubor zmeny
-                labelView.Text = "Přesouvám tabulku změn stavu nářadí";
-                Application.DoEvents();
+                    progressBarMain.MarqueeAnimationSpeed = 100;
+                    PresunDB.presunVyrazene(myDB, filepath, DBJoin);
+                    progressBarMain.MarqueeAnimationSpeed = 0;
 
 
-                progressBarMain.MarqueeAnimationSpeed = 100;
-                PresunDB.presunVyrazeneMDat(myDB, filepath, DBJoin);
-                progressBarMain.MarqueeAnimationSpeed = 0;
+                    // druhy soubor naradi
+                    labelView.Text = "Přesouvám tabulku nářadí";
+                    Application.DoEvents();
+
+                    progressBarMain.MarqueeAnimationSpeed = 100;
+                    PresunDB.presunNaradi(myDB, filepath, DBJoin);
+                    progressBarMain.MarqueeAnimationSpeed = 0;
+
+                    // treti soubor vraceno
+                    labelView.Text = "Přesouvám tabulku vráceného nářadí";
+                    Application.DoEvents();
 
 
-                // sedmy soubor zapujcene
-                labelView.Text = "Přesouvám tabulku zapůjčeného nářadí";
-                Application.DoEvents();
+                    progressBarMain.MarqueeAnimationSpeed = 100;
+                    PresunDB.presunVracene(myDB, filepath);
+                    progressBarMain.MarqueeAnimationSpeed = 0;
+
+                    // ctrvrty soubor vyrazeno
+                    labelView.Text = "Přesouvám tabulku poškozeného nářadí";
+                    Application.DoEvents();
 
 
-                progressBarMain.MarqueeAnimationSpeed = 100;
-                PresunDB.presunPerson(myDB, filepath, DBJoin);
-                progressBarMain.MarqueeAnimationSpeed = 0;
+                    progressBarMain.MarqueeAnimationSpeed = 100;
+                    PresunDB.presunPoskozene(myDB, filepath);
+                    progressBarMain.MarqueeAnimationSpeed = 0;
+
+
+                    // sesty soubor zmeny
+                    labelView.Text = "Přesouvám tabulku změn stavu nářadí";
+                    Application.DoEvents();
+
+
+                    progressBarMain.MarqueeAnimationSpeed = 100;
+                    PresunDB.presunVyrazeneMDat(myDB, filepath, DBJoin);
+                    progressBarMain.MarqueeAnimationSpeed = 0;
+
+
+                    // sedmy soubor zapujcene
+                    labelView.Text = "Přesouvám tabulku zapůjčeného nářadí";
+                    Application.DoEvents();
+
+
+                    progressBarMain.MarqueeAnimationSpeed = 100;
+                    PresunDB.presunPerson(myDB, filepath, DBJoin);
+                    progressBarMain.MarqueeAnimationSpeed = 0;
 
 
 
-                // paty soubor osoby
-                
-                labelView.Text = "Přesouvám tabulku osob.";
-                Application.DoEvents();
+                    // paty soubor osoby
+
+                    labelView.Text = "Přesouvám tabulku osob.";
+                    Application.DoEvents();
 
 
-                progressBarMain.MarqueeAnimationSpeed = 100;
-                PresunDB.presunOsoby(myDB, filepath);
-                progressBarMain.MarqueeAnimationSpeed = 0;
+                    progressBarMain.MarqueeAnimationSpeed = 100;
+                    PresunDB.presunOsoby(myDB, filepath);
+                    progressBarMain.MarqueeAnimationSpeed = 0;
 
 
-                progressBarMain.Style = ProgressBarStyle.Blocks;
-                progressBarMain.Value=0;
-                labelView.Text = "";
+                    progressBarMain.Style = ProgressBarStyle.Blocks;
+                    progressBarMain.Value = 0;
+                    labelView.Text = "";
 
-                MessageBox.Show("Přesun dat ukončen.");
+                    MessageBox.Show("Přesun dat ukončen.");
+                }
             }
         }
 
@@ -600,47 +604,58 @@ namespace Vydejna
 
         private void vytvoreniToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            // vytvoreni tabulek
-            if (MessageBox.Show("Opravdu chcete vytvořit tabulky v databázi?", "Vytvoření tabulek", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            UzivatelData ud = UzivatelData.makeInstance();
+            if (ud.userIsAdminWM())
             {
-                labelView.Text = "Vytvářím tabulky";
-                contextMenuDisable();
-                dataGridView1.DataSource = null;
-                karta = new detailNone(null,null);
-                Application.DoEvents();
-                CreateDBTables();
-                labelView.Text = "";
+                // vytvoreni tabulek
+                if (MessageBox.Show("Opravdu chcete vytvořit tabulky v databázi?", "Vytvoření tabulek", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    labelView.Text = "Vytvářím tabulky";
+                    contextMenuDisable();
+                    dataGridView1.DataSource = null;
+                    karta = new detailNone(null, null);
+                    Application.DoEvents();
+                    CreateDBTables();
+                    labelView.Text = "";
+                }
             }
         }
 
         private void smazániToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Opravdu chcete odstranit tabulky z databáze?", "Odstranění tabulek", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            UzivatelData ud = UzivatelData.makeInstance();
+            if (ud.userIsAdminWM())
             {
-                //zruseni tabulek
-                labelView.Text = "Ruším tabulky";
-                contextMenuDisable();
-                dataGridView1.DataSource = null;
-                karta = new detailNone(null, null);
-                Application.DoEvents();
-                DropDBTables();
-                labelView.Text = "";
+                if (MessageBox.Show("Opravdu chcete odstranit tabulky z databáze?", "Odstranění tabulek", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    //zruseni tabulek
+                    labelView.Text = "Ruším tabulky";
+                    contextMenuDisable();
+                    dataGridView1.DataSource = null;
+                    karta = new detailNone(null, null);
+                    Application.DoEvents();
+                    DropDBTables();
+                    labelView.Text = "";
+                }
             }
-
         }
 
 
         private void vymazáníToolStripMenuItem_Click(object sender, EventArgs e)
         {
-              if (MessageBox.Show("Opravdu chcete smazat tabulky v databázi?", "Vymazání tabulek", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            UzivatelData ud = UzivatelData.makeInstance();
+            if (ud.userIsAdminWM())
+            {
+                if (MessageBox.Show("Opravdu chcete smazat tabulky v databázi?", "Vymazání tabulek", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
-                labelView.Text = "Mažu tabulky";
-                contextMenuDisable();
-                dataGridView1.DataSource = null;
-                karta = new detailNone(null,null);
-                Application.DoEvents();
-                DeleteDBTables();
-                labelView.Text = "";
+                    labelView.Text = "Mažu tabulky";
+                    contextMenuDisable();
+                    dataGridView1.DataSource = null;
+                    karta = new detailNone(null, null);
+                    Application.DoEvents();
+                    DeleteDBTables();
+                    labelView.Text = "";
+                }
             }
         }
 
@@ -1058,25 +1073,27 @@ namespace Vydejna
 
         private void IndexesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
-            // vytvori nove pripojeni na mazani tabulek
-            vDatabase localDB = OpenDataBaseHandle(false);
-            localDB.openDB();
-            if (localDB.DBIsOpened())
-            {   
-                labelView.Text = "Mažu indexi";
-                contextMenuDisable();
-                dataGridView1.DataSource = null;
-                karta = new detailNone(null, null);
-                Application.DoEvents();
-                localDB.DropIndexes();
-                labelView.Text = "Vytvořím indexi";
-                localDB.CreateIndexes();
-                labelView.Text = "";
+            UzivatelData ud = UzivatelData.makeInstance();
+            if (ud.userIsAdminWM())
+            {
+                // vytvori nove pripojeni na mazani tabulek
+                vDatabase localDB = OpenDataBaseHandle(false);
+                localDB.openDB();
+                if (localDB.DBIsOpened())
+                {
+                    labelView.Text = "Mažu indexi";
+                    contextMenuDisable();
+                    dataGridView1.DataSource = null;
+                    karta = new detailNone(null, null);
+                    Application.DoEvents();
+                    localDB.DropIndexes();
+                    labelView.Text = "Vytvořím indexi";
+                    localDB.CreateIndexes();
+                    labelView.Text = "";
+                }
+                localDB.closeDB();
+                MessageBox.Show("Indexy jsou vytvořeny.");
             }
-            localDB.closeDB();
-            MessageBox.Show("Indexy jsou vytvořeny.");
-
         }
 
         private void setStateChangeEvent(vDatabase myDB)
@@ -1211,12 +1228,17 @@ namespace Vydejna
 
         private void písmoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            // nastaveni pisma
-            fontDialog1.Font = dataGridView1.Font;
-            if (fontDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            UzivatelData ud = UzivatelData.makeInstance();
+            if (ud.userIsAdminWM())
             {
-                ConfigReg.saveSettingFont(fontDialog1.Font);
-                dataGridView1.Font = fontDialog1.Font;
+
+                // nastaveni pisma
+                fontDialog1.Font = dataGridView1.Font;
+                if (fontDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    ConfigReg.saveSettingFont(fontDialog1.Font);
+                    dataGridView1.Font = fontDialog1.Font;
+                }
             }
         }
 
@@ -1227,7 +1249,7 @@ namespace Vydejna
                 // string userid =  Convert.ToString( dataGridView1.SelectedRows[0].Cells["userid"].Value);
                 UzivatelData ud = UzivatelData.makeInstance();
 
-                if (ud.userIsLogin())
+                if (ud.userHasAccessRightsWM((Int32)permCode.PassSet))
                 {
 
                 UzivatelZmenaHesla uzh = new UzivatelZmenaHesla(myDB, ud.userID);
