@@ -666,15 +666,19 @@ namespace Vydejna
 
         private void toolStripMenuItem2_Click(object sender, EventArgs e)
         {
-            // naradi - skladove karty - hlavni tabulka
-            labelView.Text = "Výdejna nářadí přehled - Stahuji";
-            Application.DoEvents();
-            evenState = evenStateEnum.disable;
-            loadNaradiItems();
-            karta = new detailSklad(myDB,dataGridView1);
-            evenState = evenStateEnum.enable;
-            labelView.Text = "Výdejna nářadí přehled";
-            contextMenuEnable(true, true, true,false,true,true);
+         UzivatelData ud = UzivatelData.makeInstance();
+         if (ud.userHasAccessRightsWM((Int32)permCode.Nar))
+         {
+             // naradi - skladove karty - hlavni tabulka
+             labelView.Text = "Výdejna nářadí přehled - Stahuji";
+             Application.DoEvents();
+             evenState = evenStateEnum.disable;
+             loadNaradiItems();
+             karta = new detailSklad(myDB, dataGridView1);
+             evenState = evenStateEnum.enable;
+             labelView.Text = "Výdejna nářadí přehled";
+             contextMenuEnable(true, true, true, false, true, true);
+         }
         }
 
 
@@ -712,14 +716,18 @@ namespace Vydejna
 
         private void toolStripMenuItem3_Click(object sender, EventArgs e)
         {
-            labelView.Text = "Archív zrušených karet - Stahuji";
-            Application.DoEvents();
-            evenState = evenStateEnum.disable;
-            loadZrusenychItems();
-            karta = new detailZruseno(myDB, dataGridView1);
-            evenState = evenStateEnum.enable;
-            contextMenuEnable(false);
-            labelView.Text = "Archív zrušených karet";
+            UzivatelData ud = UzivatelData.makeInstance();
+            if (ud.userHasAccessRightsWM((Int32)permCode.ZNar))
+            {
+                labelView.Text = "Archív zrušených karet - Stahuji";
+                Application.DoEvents();
+                evenState = evenStateEnum.disable;
+                loadZrusenychItems();
+                karta = new detailZruseno(myDB, dataGridView1);
+                evenState = evenStateEnum.enable;
+                contextMenuEnable(false);
+                labelView.Text = "Archív zrušených karet";
+            }
         }
 
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
@@ -729,28 +737,36 @@ namespace Vydejna
 
         private void toolStripMenuItem5_Click(object sender, EventArgs e)
         {
-            labelView.Text = "Vrácené nářadí do skladu - Stahuji";
-            Application.DoEvents();
-            evenState = evenStateEnum.disable;
-            loadVracenoItems();
-            karta = new detailVraceno(myDB, dataGridView1, null);
-            evenState = evenStateEnum.enable;
-            contextMenuEnable(false);
-            labelView.Text = "Vrácené nářadí do skladu";
+            UzivatelData ud = UzivatelData.makeInstance();
+            if (ud.userHasAccessRightsWM((Int32)permCode.VNar))
+            {
+                labelView.Text = "Vrácené nářadí do skladu - Stahuji";
+                Application.DoEvents();
+                evenState = evenStateEnum.disable;
+                loadVracenoItems();
+                karta = new detailVraceno(myDB, dataGridView1, null);
+                evenState = evenStateEnum.enable;
+                contextMenuEnable(false);
+                labelView.Text = "Vrácené nářadí do skladu";
+            }
         }
 
         private void pracovníciProvozuToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //osoby
-            labelView.Text = "Pracovníci provozu - Načítání";
-            Application.DoEvents();
-            evenState = evenStateEnum.disable;
-            loadOsobyItems();
-            karta = new detailOsoby(myDB, dataGridView1);
-            evenState = evenStateEnum.enable;
-            contextMenuEnable(true, false, false, true,false,true);
+            UzivatelData ud = UzivatelData.makeInstance();
+            if (ud.userHasAccessRightsWM((Int32)permCode.Prac))
+            {
+                labelView.Text = "Pracovníci provozu - Načítání";
+                Application.DoEvents();
+                evenState = evenStateEnum.disable;
+                loadOsobyItems();
+                karta = new detailOsoby(myDB, dataGridView1);
+                evenState = evenStateEnum.enable;
+                contextMenuEnable(true, false, false, true, false, true);
 
-            labelView.Text = "Pracovníci provozu";
+                labelView.Text = "Pracovníci provozu";
+            }
         }
 
         private void toolStripMenuItem4_Click(object sender, EventArgs e)
@@ -770,15 +786,18 @@ namespace Vydejna
 
         private void toolStripMenuItem6_Click(object sender, EventArgs e)
         {
-            labelView.Text = "Poškozené nářadí - Stahuji";
-            Application.DoEvents();
-            evenState = evenStateEnum.disable;
-            loadPoskozenoItems();
-            karta = new detailPoskozeno(myDB,dataGridView1);
-            evenState = evenStateEnum.enable;
-            contextMenuEnable(false);
-            labelView.Text = "Poškozené nářadí";
-          
+         UzivatelData ud = UzivatelData.makeInstance();
+         if (ud.userHasAccessRightsWM((Int32)permCode.PNar))
+         {
+             labelView.Text = "Poškozené nářadí - Stahuji";
+             Application.DoEvents();
+             evenState = evenStateEnum.disable;
+             loadPoskozenoItems();
+             karta = new detailPoskozeno(myDB, dataGridView1);
+             evenState = evenStateEnum.enable;
+             contextMenuEnable(false);
+             labelView.Text = "Poškozené nářadí";
+         }          
         }
 
 // NASTAVENI DATABAZE
@@ -956,27 +975,39 @@ namespace Vydejna
         private void ConMenuAddItem(object sender, EventArgs e)
         {
             // pridani polozky
-
-            karta.pridejKartu();
+            UzivatelData ud = UzivatelData.makeInstance();
+            if (ud.userHasAccessRightsWM(karta.myPermissions.addEnableCode))
+            {
+                karta.pridejKartu();
+            }
         }
 
         private void ConMenuEditItem(object sender, EventArgs e)
         {
             //oprava polozky
-            if ( dataGridView1.SelectedRows.Count > 0)
+            UzivatelData ud = UzivatelData.makeInstance();
+            if (ud.userHasAccessRightsWM(karta.myPermissions.editEnableCode))
             {
-                DBRow = getDBRowFromSelectedRow(DBRow);
-                karta.opravKartu(DBRow);
+
+                if (dataGridView1.SelectedRows.Count > 0)
+                {
+                    DBRow = getDBRowFromSelectedRow(DBRow);
+                    karta.opravKartu(DBRow);
+                }
             }
         }
 
         private void ConMenuDeleteItem(object sender, EventArgs e)
         {
             // smazani polozky
-            if (dataGridView1.SelectedRows.Count > 0)
+            UzivatelData ud = UzivatelData.makeInstance();
+            if (ud.userHasAccessRightsWM(karta.myPermissions.deleteEnableCode))
             {
-                DBRow = getDBRowFromSelectedRow(DBRow);
-                karta.zrusKartu(DBRow);
+                if (dataGridView1.SelectedRows.Count > 0)
+                {
+                    DBRow = getDBRowFromSelectedRow(DBRow);
+                    karta.zrusKartu(DBRow);
+                }
             }
         }
 
@@ -992,19 +1023,27 @@ namespace Vydejna
 
         private void conMenuAddMat(object sender, EventArgs e)
         {
-            if (dataGridView1.SelectedRows.Count > 0)
+            UzivatelData ud = UzivatelData.makeInstance();
+            if (ud.userHasAccessRightsWM(karta.myPermissions.prijemEnableCode))
             {
-                DBRow = getDBRowFromSelectedRow(DBRow);
-                karta.Prijem(DBRow);
+                if (dataGridView1.SelectedRows.Count > 0)
+                {
+                    DBRow = getDBRowFromSelectedRow(DBRow);
+                    karta.Prijem(DBRow);
+                }
             }
         }
 
         private void conMenuDelMat_Click(object sender, EventArgs e)
         {
-            if (dataGridView1.SelectedRows.Count > 0)
+            UzivatelData ud = UzivatelData.makeInstance();
+            if (ud.userHasAccessRightsWM(karta.myPermissions.poskozeniEnableCode))
             {
-                DBRow = getDBRowFromSelectedRow(DBRow);
-                karta.Poskozeno(DBRow);
+                if (dataGridView1.SelectedRows.Count > 0)
+                {
+                    DBRow = getDBRowFromSelectedRow(DBRow);
+                    karta.Poskozeno(DBRow);
+                }
             }
         }
 
@@ -1019,16 +1058,19 @@ namespace Vydejna
 
         private void zapujceniNaradi_Click(object sender, EventArgs e)
         {
-            //osoby
-            labelView.Text = "Pracovníci provozu - Načítání";
-            evenState = evenStateEnum.disable;
-            Application.DoEvents();
-            loadOsobyItems();
-            karta = new detailOsobyZapujcNaradi(myDB, dataGridView1);
-            evenState = evenStateEnum.enable;
-            contextMenuEnable(true, false, false, true,false,true);
-            labelView.Text = "Pracovníci provozu - Zapůjčení nářadí";
-
+            //Zapujceni vraceni poskozeni
+            UzivatelData ud = UzivatelData.makeInstance();
+            if (ud.userHasAccessRightsWM((Int32)permCode.Prac))
+            {
+                labelView.Text = "Pracovníci provozu - Načítání";
+                evenState = evenStateEnum.disable;
+                Application.DoEvents();
+                loadOsobyItems();
+                karta = new detailOsobyZapujcNaradi(myDB, dataGridView1);
+                evenState = evenStateEnum.enable;
+                contextMenuEnable(true, false, false, true, false, true);
+                labelView.Text = "Pracovníci provozu - Zapůjčení nářadí";
+            }
         }
 
 
@@ -1046,12 +1088,17 @@ namespace Vydejna
         private void dataGridView1_KeyDown(object sender, KeyEventArgs e)
         {
 
-            if  (e.Control && e.KeyCode == Keys.P )
+            if (e.Control && e.KeyCode == Keys.P)
             {
-                if (dataGridView1.SelectedRows.Count > 0)
+                UzivatelData ud = UzivatelData.makeInstance();
+                if (ud.userHasAccessRightsWM(karta.myPermissions.printEnableCode))
                 {
-                    DBRow = getDBRowFromSelectedRow(DBRow);
-                    karta.vytiskniKartu(DBRow);
+
+                    if (dataGridView1.SelectedRows.Count > 0)
+                    {
+                        DBRow = getDBRowFromSelectedRow(DBRow);
+                        karta.vytiskniKartu(DBRow);
+                    }
                 }
             }
 
@@ -1330,12 +1377,15 @@ namespace Vydejna
 
         private void comMenuChangeMark(object sender, EventArgs e)
         {
-            if (dataGridView1.SelectedRows.Count > 0)
+            UzivatelData ud = UzivatelData.makeInstance();
+            if (ud.userHasAccessRightsWM(karta.myPermissions.editChangeMarkCode))
             {
-                DBRow = getDBRowFromSelectedRow(DBRow);
-                karta.zmenZnacku(DBRow);
+                if (dataGridView1.SelectedRows.Count > 0)
+                {
+                    DBRow = getDBRowFromSelectedRow(DBRow);
+                    karta.zmenZnacku(DBRow);
+                }
             }
-
         }
 
         private void ukončeníProgramuToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1346,10 +1396,14 @@ namespace Vydejna
         private void ConMenuPrintItem(object sender, EventArgs e)
         {
             // tisk
-            if (dataGridView1.SelectedRows.Count > 0)
+            UzivatelData ud = UzivatelData.makeInstance();
+            if (ud.userHasAccessRightsWM(karta.myPermissions.printEnableCode))
             {
-                DBRow = getDBRowFromSelectedRow(DBRow);
-                karta.vytiskniKartu(DBRow);
+                if (dataGridView1.SelectedRows.Count > 0)
+                {
+                    DBRow = getDBRowFromSelectedRow(DBRow);
+                    karta.vytiskniKartu(DBRow);
+                }
             }
         }
 

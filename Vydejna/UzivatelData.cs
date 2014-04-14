@@ -11,7 +11,7 @@ namespace Vydejna
 
     enum permCode
     {
-        Nar = 1, NarAdd, NarEd, NarEdM, NarEdNaz, NarEdJK, NarEdCenaKs, NarEdUcCenaKs, NarEdUcCena, NarEdMin, NarEdFyStav, NarEdUcStav, NarDel, NarPrint, NarPrijem, NarPosk, NarOprO,
+      All = 0,  Nar = 1, NarAdd, NarEd, NarEdM, NarEdNaz, NarEdJK, NarEdCenaKs, NarEdUcCenaKs, NarEdUcCena, NarEdMin, NarEdFyStav, NarEdUcStav, NarDel, NarPrint, NarPrijem, NarPosk, NarOprO,
     ZNar, ZNarEd, ZNarDel, PNar, PNarEd, PNarDel, VNar, VNarEd, VNarDel, Prac, PracAdd, PracEd, PracDel, PracPrint, PracZapN, PracVracN, PassSet  };
     
        public class permStruct
@@ -248,7 +248,7 @@ namespace Vydejna
             Boolean returnCode = userIsAdmin();
             if (!(returnCode))
             {
-                MessageBox.Show("Lituji, tuto akci muže vyvolat jen uživatel s administrátorským oprávněním.");
+                MessageBox.Show("Lituji, tuto akci múže vyvolat jen uživatel s administrátorským oprávněním.");
             }
 
             return returnCode;
@@ -264,7 +264,7 @@ namespace Vydejna
             Boolean returnCode = userIsAdmin();
             if (returnCode)
             {
-                MessageBox.Show("Lituji, tuto akci nemůže vyvolat jen uživatel s administrátorským oprávněním.");
+                MessageBox.Show("Lituji, tuto akci nemůže vyvolat uživatel s administrátorským oprávněním.");
                 return false;
             }
             else
@@ -278,10 +278,21 @@ namespace Vydejna
             }
         }
 
+
         public Boolean userHasAccessRights(Int32 numberOfPermcode )
         {
             if (userLogin)
             {// permision
+
+                if (numberOfPermcode == (Int32)permCode.All)
+                {
+                    return true;
+                }
+
+                if (numberOfPermcode == -1)
+                {
+                    return false;
+                }
 
                 if (admin)
                 {

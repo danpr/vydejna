@@ -12,6 +12,39 @@ namespace Vydejna
 {
     abstract class detail
     {
+
+       public class codeOfPermissions
+        {
+            public Int32 showEnableCode;
+            public Int32 addEnableCode;
+            public Int32 editEnableCode;
+            public Int32 editChangeMarkCode;
+            public Int32 deleteEnableCode;
+            public Int32 printEnableCode;
+            public Int32 prijemEnableCode;
+            public Int32 poskozeniEnableCode;
+
+            public codeOfPermissions()
+            {
+                init();
+            }
+
+            public void init()
+            {
+                showEnableCode = 0;
+                addEnableCode = 0;
+                editEnableCode = 0;
+                editChangeMarkCode = 0;
+                deleteEnableCode = 0;
+                printEnableCode = 0;
+                prijemEnableCode = 0;
+                poskozeniEnableCode = 0;
+            }
+
+        }
+
+        public codeOfPermissions myPermissions;
+
         public vDatabase myDB;
         public DataGridView myDataGridView;
         private Prohledavani searchWindow;
@@ -24,6 +57,7 @@ namespace Vydejna
             searchWindow = null;
             setColumnIndex();
             setColumnWidth();
+            myPermissions = new codeOfPermissions();
         }
 
                 
@@ -306,6 +340,7 @@ namespace Vydejna
         public detailNone(vDatabase myDB, DataGridView myDataGridView)
             : base(myDB, myDataGridView)
         {
+            myPermissions.init();
         }
 
 
@@ -344,6 +379,14 @@ namespace Vydejna
         public detailSklad(vDatabase myDB, DataGridView myDataGridView)
             : base(myDB, myDataGridView)
         {
+            myPermissions.showEnableCode = (Int32)permCode.Nar;
+            myPermissions.addEnableCode = (Int32)permCode.NarAdd;
+            myPermissions.editChangeMarkCode = (Int32)permCode.NarEdM;
+            myPermissions.deleteEnableCode = (Int32)permCode.NarDel;
+            myPermissions.printEnableCode = (Int32)permCode.NarPrint;
+
+            myPermissions.prijemEnableCode = (Int32)permCode.NarPrijem;
+            myPermissions.poskozeniEnableCode = (Int32)permCode.NarPosk;
         }
 
         public override void zobrazKartu(Hashtable DBRow) 
