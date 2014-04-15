@@ -23,6 +23,8 @@ namespace Vydejna
             public Int32 printEnableCode;
             public Int32 prijemEnableCode;
             public Int32 poskozeniEnableCode;
+            public Int32 pujcEnableCode;
+            public Int32 vracEnableCode;
 
             public codeOfPermissions()
             {
@@ -31,14 +33,16 @@ namespace Vydejna
 
             public void init()
             {
-                showEnableCode = 0;
-                addEnableCode = 0;
-                editEnableCode = 0;
-                editChangeMarkCode = 0;
-                deleteEnableCode = 0;
-                printEnableCode = 0;
-                prijemEnableCode = 0;
-                poskozeniEnableCode = 0;
+                showEnableCode = -1;
+                addEnableCode = -1;
+                editEnableCode = -1;
+                editChangeMarkCode = -1;
+                deleteEnableCode = -1;
+                printEnableCode = -1;
+                prijemEnableCode = -1;
+                poskozeniEnableCode = -1;
+                pujcEnableCode = -1;
+                vracEnableCode = -1;
             }
 
         }
@@ -710,6 +714,9 @@ namespace Vydejna
         public detailZruseno(vDatabase myDB, DataGridView myDataGridView)
             : base(myDB, myDataGridView)
         {
+            myPermissions.showEnableCode = (Int32)permCode.ZNar;
+            myPermissions.editEnableCode = (Int32)permCode.ZNarEd;
+            myPermissions.deleteEnableCode = (Int32)permCode.ZNarDel;
         }
 
         public override void zobrazKartu(Hashtable DBRow)
@@ -846,6 +853,9 @@ namespace Vydejna
         public detailPoskozeno(vDatabase myDB, DataGridView myDataGridView)
             : base(myDB,myDataGridView)
         {
+            myPermissions.showEnableCode = (Int32)permCode.PNar;
+            myPermissions.editEnableCode = (Int32)permCode.PNarEd;
+            myPermissions.deleteEnableCode = (Int32)permCode.PNarDel;
         }
 
 
@@ -936,6 +946,9 @@ namespace Vydejna
         public detailVraceno(vDatabase myDB, DataGridView myDataGridView, System.Drawing.Font myFont)
             : base(myDB, myDataGridView)
         {
+            myPermissions.showEnableCode = (Int32)permCode.VNar;
+            myPermissions.editEnableCode = (Int32)permCode.VNarEd;
+            myPermissions.deleteEnableCode = (Int32)permCode.VNarDel;
         }
 
 
@@ -1042,6 +1055,13 @@ namespace Vydejna
         public detailOsoby(vDatabase myDB, DataGridView myDataGridView)
             : base(myDB, myDataGridView)
         {
+            myPermissions.showEnableCode = (Int32)permCode.Prac;
+            myPermissions.addEnableCode = (Int32)permCode.PracAdd;
+            myPermissions.deleteEnableCode = (Int32)permCode.PracEd;
+            myPermissions.printEnableCode = (Int32)permCode.PracPrint;
+
+            myPermissions.pujcEnableCode = (Int32)permCode.PracZapN;
+            myPermissions.vracEnableCode = (Int32)permCode.PracVracN;
         }
 
 

@@ -827,46 +827,45 @@ namespace Vydejna
                         usersTest();
 
                     }
-
                 }
             }
         }
 
 
-
-
         private void NovaSklKarta(object sender, EventArgs e)
         {
-
-            // zalozeni nove skladove karty
-            if ((myDB != null) && (myDB.DBIsOpened()))
+            UzivatelData ud = UzivatelData.makeInstance();
+            if (ud.userHasAccessRightsWM((Int32)permCode.NarAdd))
             {
-                SkladovaKarta sklKarta = new SkladovaKarta(myDB, new tableItemExistDelgStr(myDB.tableNaradiItemExist),dataGridView1.Font);
-                if (sklKarta.ShowDialog() == DialogResult.OK)
+                // zalozeni nove skladove karty
+                if ((myDB != null) && (myDB.DBIsOpened()))
                 {
-                    SkladovaKarta.messager mesenger = sklKarta.getMesseger();
-
-                    Int32 poradi = myDB.addNewLineNaradi(mesenger.nazev, mesenger.jk, mesenger.csn, mesenger.din, mesenger.vyrobce, mesenger.cenaKs, mesenger.poznamka, mesenger.minStav, mesenger.ucetCena, mesenger.ucetStav, mesenger.ucetStav, mesenger.rozmer, mesenger.ucet, mesenger.ucetCenaKs, new DateTime(0));
-                    if (poradi != -1) 
+                    SkladovaKarta sklKarta = new SkladovaKarta(myDB, new tableItemExistDelgStr(myDB.tableNaradiItemExist), dataGridView1.Font);
+                    if (sklKarta.ShowDialog() == DialogResult.OK)
                     {
-                       if (karta.GetType() == typeof(detailSklad))  // zjisti typ karty
+                        SkladovaKarta.messager mesenger = sklKarta.getMesseger();
+
+                        Int32 poradi = myDB.addNewLineNaradi(mesenger.nazev, mesenger.jk, mesenger.csn, mesenger.din, mesenger.vyrobce, mesenger.cenaKs, mesenger.poznamka, mesenger.minStav, mesenger.ucetCena, mesenger.ucetStav, mesenger.ucetStav, mesenger.rozmer, mesenger.ucet, mesenger.ucetCenaKs, new DateTime(0));
+                        if (poradi != -1)
                         {
-                            (dataGridView1.DataSource as DataTable).Rows.Add(poradi, "", mesenger.nazev, mesenger.jk, mesenger.ucetStav, mesenger.ucet, mesenger.csn, mesenger.din, mesenger.vyrobce, mesenger.rozmer, 0, mesenger.cenaKs, mesenger.ucetCena, mesenger.minStav, mesenger.poznamka, mesenger.ucetCenaKs);
+                            if (karta.GetType() == typeof(detailSklad))  // zjisti typ karty
+                            {
+                                (dataGridView1.DataSource as DataTable).Rows.Add(poradi, "", mesenger.nazev, mesenger.jk, mesenger.ucetStav, mesenger.ucet, mesenger.csn, mesenger.din, mesenger.vyrobce, mesenger.rozmer, 0, mesenger.cenaKs, mesenger.ucetCena, mesenger.minStav, mesenger.poznamka, mesenger.ucetCenaKs);
 
-                            int counter = dataGridView1.Rows.Count-1;
+                                int counter = dataGridView1.Rows.Count - 1;
 
-                            dataGridView1.FirstDisplayedScrollingRowIndex = dataGridView1.Rows[counter].Index;
-                            dataGridView1.Refresh();
-                            dataGridView1.CurrentCell = dataGridView1.Rows[counter].Cells[1];
-                            dataGridView1.Rows[counter].Selected = true;
+                                dataGridView1.FirstDisplayedScrollingRowIndex = dataGridView1.Rows[counter].Index;
+                                dataGridView1.Refresh();
+                                dataGridView1.CurrentCell = dataGridView1.Rows[counter].Cells[1];
+                                dataGridView1.Rows[counter].Selected = true;
 
+                            }
                         }
+
+
                     }
-
-
                 }
             }
-          
         }
 
 
