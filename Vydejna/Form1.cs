@@ -79,6 +79,7 @@ namespace Vydejna
             if ((myDB != null) && (myDB.DBIsOpened()))
             {
                     usersTest();
+                    globalSettingTest();
             }
 
             Size size = ConfigReg.loadSettingWindowSize("MAIN");
@@ -1259,6 +1260,38 @@ namespace Vydejna
                 labelUser.Text = ud.Jmeno + " " + ud.Prijmeni;
             }
         }
+
+
+
+        private void globalSettingTest()
+        {
+            if (myDB.DBIsOpened())
+            {
+                if (!(myDB.tableNastaveniExist()))
+                {
+                    if (MessageBox.Show("Tabulka globálního nastavení patrně neexistuje\n a bez ní program nemůže aktivovat rozšířené funkce.\n"
+                        + "Požadujete její vytvoření ?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    {
+                        vDatabase localDB = OpenDataBaseHandle(false);
+                        localDB.openDB();
+                        if (localDB.DBIsOpened())
+                        {
+                            localDB.CreateTableNastaveni();
+                            localDB.closeDB();
+                        }
+                        if (!(myDB.tableNastaveniExist()))
+                        {
+                            MessageBox.Show("Tabulka globálního nastavení patrně neexistuje, program nemůže aktivovat rozšířené funkce.");
+                        }
+                    }
+                }
+            }
+        }
+
+
+
+
+
 
         private void toolStripMenuItem11_Click(object sender, EventArgs e)
         {

@@ -189,6 +189,11 @@ namespace Vydejna
         {
         }
 
+        public virtual void CreateTableNastaveni()
+        {
+        }
+
+
 
         public virtual DbTransaction startTransaction()
         {
@@ -573,6 +578,13 @@ namespace Vydejna
         {
             return false;
         }
+
+
+        public virtual Boolean tableNastaveniExist()
+        {
+            return false;
+        }
+
 
 
         public virtual Boolean tableNaradiItemExist(string jk)

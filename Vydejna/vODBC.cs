@@ -16,6 +16,9 @@ namespace Vydejna
 
         private string commandStringUsers = "create table uzivatele (userid varchar(15) PRIMARY KEY,  password char(40), jmeno varchar(15), prijmeni varchar(15), admin char(1), permission char(60));";
 
+        private string commandStringSetting = "create table nastaveni ( setid varchar(15) PRIMARY KEY,  permission char(1), permission_hs char(20), permission_hi int, userid char(15), datum date);";
+
+
         public vODBC(string dataBaseName, string serverAddress, string serverName, string port, string locale, string driver, string userName, string password)
             : base(dataBaseName, serverAddress, serverName, port, locale, driver, userName, password)
         {
@@ -422,6 +425,28 @@ namespace Vydejna
                 }
             }
         }
+
+
+        public override void CreateTableNastaveni()
+        {
+            if (DBIsOpened())
+            {
+                OdbcCommand cmdUsers = new OdbcCommand(commandStringSetting, myDBConn as OdbcConnection);
+                try
+                {
+                    cmdUsers.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                finally
+                {
+                    cmdUsers.Dispose();
+                }
+            }
+        }
+
 
 
 
@@ -3644,6 +3669,25 @@ namespace Vydejna
             }
             return false;
         }
+
+
+        public override Boolean tableNastaveniExist()
+        {
+            if (DBIsOpened())
+            {
+                DataTable dt = (myDBConn as OdbcConnection).GetSchema("Tables");
+                for (Int32 i = 0; i < dt.Rows.Count; i++)
+                {
+                    if (dt.Rows[i].ItemArray[2].ToString() == "nastaveni")
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+
 
 
     }

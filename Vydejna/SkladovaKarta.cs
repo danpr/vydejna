@@ -440,50 +440,54 @@ namespace Vydejna
 
         private void ContextMenu_opravaUdaju(object sender, EventArgs e)
         {
-            if (dataGridViewZmeny.SelectedRows.Count > 0)
+            UzivatelData ud = UzivatelData.makeInstance();
+            if (ud.userHasAccessRightsWM((Int32)permCode.NarOprO))
             {
-                DataGridViewRow selectedRow = dataGridViewZmeny.SelectedRows[0];
-                Int32 zmenPoradi = Convert.ToInt32(selectedRow.Cells["poradi"].Value);
-//                Point point1 = dataGridViewZmeny.CurrentCellAddress;
-
-                Int32 endRowIndex = selectedRow.Index +1; // ukazuje za vybranou radku
-                Int32 rowsHeight = 0;
-                for (Int32 i = dataGridViewZmeny.FirstDisplayedCell.RowIndex; i < (endRowIndex); i++)
+                if (dataGridViewZmeny.SelectedRows.Count > 0)
                 {
-                    rowsHeight += dataGridViewZmeny.Rows[i].Height;
-                }
-                int titulekHeight = this.Height - this.ClientSize.Height  - (this.Width - this.ClientSize.Width)/2;
+                    DataGridViewRow selectedRow = dataGridViewZmeny.SelectedRows[0];
+                    Int32 zmenPoradi = Convert.ToInt32(selectedRow.Cells["poradi"].Value);
+                    //                Point point1 = dataGridViewZmeny.CurrentCellAddress;
 
-                int x = this.Location.X + dataGridViewZmeny.Location.X;
-                int y = this.Location.Y + dataGridViewZmeny.Location.Y + dataGridViewZmeny.ColumnHeadersHeight + rowsHeight + titulekHeight;
-
-
-                ZmenyOprava opravaZmen = new ZmenyOprava(myDB, poradi, zmenPoradi, this.Font);
-
-                opravaZmen.StartPosition = FormStartPosition.Manual;
-                opravaZmen.SetDesktopLocation(x, y);
-
-                if (opravaZmen.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                {
-                    //opravit radku
-                    if (myDB.editNewLineZmeny(poradi, zmenPoradi, opravaZmen.getPoznamka(), opravaZmen.getVevcislo()) == false)
+                    Int32 endRowIndex = selectedRow.Index + 1; // ukazuje za vybranou radku
+                    Int32 rowsHeight = 0;
+                    for (Int32 i = dataGridViewZmeny.FirstDisplayedCell.RowIndex; i < (endRowIndex); i++)
                     {
-                        MessageBox.Show("Záznam se nepodařilo opravit.");
+                        rowsHeight += dataGridViewZmeny.Rows[i].Height;
                     }
-                    //dataGridViewZmeny nema povoleno trideni nemusime tedy hledat spravny index
-                    Int32 dataRowIndex = dataGridViewZmeny.SelectedRows[0].Index;
-                    if (dataRowIndex > -1)
-                    {
-                        Hashtable DBZRow = myDB.getZmenyLine(poradi, zmenPoradi, null);
-                        (dataGridViewZmeny.DataSource as DataTable).Rows[dataRowIndex].SetField("datum", Convert.ToDateTime(DBZRow["datum"]));
-                        (dataGridViewZmeny.DataSource as DataTable).Rows[dataRowIndex].SetField("stav", Convert.ToString(DBZRow["stav"]));
-                        (dataGridViewZmeny.DataSource as DataTable).Rows[dataRowIndex].SetField("poznamka", Convert.ToString(DBZRow["poznamka"]));
-                        (dataGridViewZmeny.DataSource as DataTable).Rows[dataRowIndex].SetField("prijem", Convert.ToInt32(DBZRow["prijem"]));
-                        (dataGridViewZmeny.DataSource as DataTable).Rows[dataRowIndex].SetField("vydej", Convert.ToInt32(DBZRow["vydej"]));
-                        (dataGridViewZmeny.DataSource as DataTable).Rows[dataRowIndex].SetField("zustatek", Convert.ToInt32(DBZRow["zustatek"]));
-                        (dataGridViewZmeny.DataSource as DataTable).Rows[dataRowIndex].SetField("zapkarta", Convert.ToString(DBZRow["zapkarta"]));
-                    }
+                    int titulekHeight = this.Height - this.ClientSize.Height - (this.Width - this.ClientSize.Width) / 2;
 
+                    int x = this.Location.X + dataGridViewZmeny.Location.X;
+                    int y = this.Location.Y + dataGridViewZmeny.Location.Y + dataGridViewZmeny.ColumnHeadersHeight + rowsHeight + titulekHeight;
+
+
+                    ZmenyOprava opravaZmen = new ZmenyOprava(myDB, poradi, zmenPoradi, this.Font);
+
+                    opravaZmen.StartPosition = FormStartPosition.Manual;
+                    opravaZmen.SetDesktopLocation(x, y);
+
+                    if (opravaZmen.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                    {
+                        //opravit radku
+                        if (myDB.editNewLineZmeny(poradi, zmenPoradi, opravaZmen.getPoznamka(), opravaZmen.getVevcislo()) == false)
+                        {
+                            MessageBox.Show("Záznam se nepodařilo opravit.");
+                        }
+                        //dataGridViewZmeny nema povoleno trideni nemusime tedy hledat spravny index
+                        Int32 dataRowIndex = dataGridViewZmeny.SelectedRows[0].Index;
+                        if (dataRowIndex > -1)
+                        {
+                            Hashtable DBZRow = myDB.getZmenyLine(poradi, zmenPoradi, null);
+                            (dataGridViewZmeny.DataSource as DataTable).Rows[dataRowIndex].SetField("datum", Convert.ToDateTime(DBZRow["datum"]));
+                            (dataGridViewZmeny.DataSource as DataTable).Rows[dataRowIndex].SetField("stav", Convert.ToString(DBZRow["stav"]));
+                            (dataGridViewZmeny.DataSource as DataTable).Rows[dataRowIndex].SetField("poznamka", Convert.ToString(DBZRow["poznamka"]));
+                            (dataGridViewZmeny.DataSource as DataTable).Rows[dataRowIndex].SetField("prijem", Convert.ToInt32(DBZRow["prijem"]));
+                            (dataGridViewZmeny.DataSource as DataTable).Rows[dataRowIndex].SetField("vydej", Convert.ToInt32(DBZRow["vydej"]));
+                            (dataGridViewZmeny.DataSource as DataTable).Rows[dataRowIndex].SetField("zustatek", Convert.ToInt32(DBZRow["zustatek"]));
+                            (dataGridViewZmeny.DataSource as DataTable).Rows[dataRowIndex].SetField("zapkarta", Convert.ToString(DBZRow["zapkarta"]));
+                        }
+
+                    }
                 }
             }
         }
