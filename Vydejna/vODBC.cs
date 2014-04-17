@@ -164,6 +164,19 @@ namespace Vydejna
                     cmdUsers.Dispose();
                 }
 
+                OdbcCommand cmdSettings = new OdbcCommand("DROP TABLE nastaveni", myDBConn as OdbcConnection);
+                try
+                {
+                    cmdSettings.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                finally
+                {
+                    cmdSettings.Dispose();
+                }
 //             myDBConn.Close();
 //             myDBConn.Dispose();
             }
@@ -239,6 +252,7 @@ namespace Vydejna
             OdbcCommand cmdZmeny = new OdbcCommand(commandStringZmeny, myDBConn as OdbcConnection);
             OdbcCommand cmdPujceno = new OdbcCommand(commandStringPujceno, myDBConn as OdbcConnection);
             OdbcCommand cmdUsers = new OdbcCommand(commandStringUsers, myDBConn as OdbcConnection);
+            OdbcCommand cmdSettings = new OdbcCommand(commandStringSetting, myDBConn as OdbcConnection);
 
             try
                 {
@@ -255,6 +269,7 @@ namespace Vydejna
                     cmdZmeny.ExecuteNonQuery();
                     cmdPujceno.ExecuteNonQuery();
                     cmdUsers.ExecuteNonQuery();
+                    cmdSettings.ExecuteNonQuery();
                 }
                 catch (Exception ex)
                 {
@@ -263,6 +278,7 @@ namespace Vydejna
                 finally
                 {
 //                    myDBConn.Close();
+                    cmdSettings.Dispose();
                     cmdUsers.Dispose();
                     cmdPujceno.Dispose();
                     cmdZmeny.Dispose();
@@ -3671,14 +3687,14 @@ namespace Vydejna
         }
 
 
-        public override Boolean tableNastaveniExist()
+        public override Boolean tableExist(string tableName)
         {
             if (DBIsOpened())
             {
                 DataTable dt = (myDBConn as OdbcConnection).GetSchema("Tables");
                 for (Int32 i = 0; i < dt.Rows.Count; i++)
                 {
-                    if (dt.Rows[i].ItemArray[2].ToString() == "nastaveni")
+                    if (dt.Rows[i].ItemArray[2].ToString() == tableName)
                     {
                         return true;
                     }

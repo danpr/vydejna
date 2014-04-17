@@ -576,11 +576,17 @@ namespace Vydejna
 
         public virtual Boolean tableUzivateleExist()
         {
-            return false;
+            return tableExist("uzivatele");
         }
 
 
         public virtual Boolean tableNastaveniExist()
+        {
+            return tableExist("nastaveni");
+        }
+
+
+        public virtual Boolean tableExist(string tableName)
         {
             return false;
         }

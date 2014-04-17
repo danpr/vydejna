@@ -179,6 +179,19 @@ namespace Vydejna
                     cmdUsers.Dispose();
                 }
 
+                SQLiteCommand cmdSettings = new SQLiteCommand("DROP TABLE nastaveni", myDBConn as SQLiteConnection);
+                try
+                {
+                    cmdSettings.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                finally
+                {
+                    cmdSettings.Dispose();
+                }
 
 //                myDBConn.Close();
 //                myDBConn.Dispose();
@@ -307,6 +320,7 @@ namespace Vydejna
                 SQLiteCommand cmdZmeny = new SQLiteCommand(commandStringZmeny, myDBConn as SQLiteConnection);
                 SQLiteCommand cmdPujceno = new SQLiteCommand(commandStringPujceno, myDBConn as SQLiteConnection);
                 SQLiteCommand cmdUsers = new SQLiteCommand(commandStringUsers, myDBConn as SQLiteConnection);
+                SQLiteCommand cmdSettings = new SQLiteCommand(commandStringSetting, myDBConn as SQLiteConnection);
                 try
                 {
                     cmdKarta.ExecuteNonQuery();
@@ -322,6 +336,7 @@ namespace Vydejna
                     cmdZmeny.ExecuteNonQuery();
                     cmdPujceno.ExecuteNonQuery();
                     cmdUsers.ExecuteNonQuery();
+                    cmdSettings.ExecuteNonQuery();
                 }
                 catch (Exception ex)
                 {
@@ -329,6 +344,7 @@ namespace Vydejna
                 }
                 finally
                 {
+                    cmdSettings.Dispose();
                     cmdUsers.Dispose();
                     cmdPujceno.Dispose();
                     cmdZmeny.Dispose();
@@ -3640,40 +3656,26 @@ namespace Vydejna
                     return null;
                 }
             }
+
             else return null;
         }
 
 
-        public override Boolean tableUzivateleExist()
+        public override Boolean tableExist(string tableName)
         {
             if (DBIsOpened())
             {
                 DataTable dt = (myDBConn as SQLiteConnection).GetSchema("Tables");
                 for (Int32 i = 0; i < dt.Rows.Count; i++)
                 {
-                    if (dt.Rows[i].ItemArray[2].ToString() == "uzivatele")
+                    if (dt.Rows[i].ItemArray[2].ToString() == tableName)
                     {
                         return true;
                     }
                 }
             }
             return false;
-        }
-
-        public override Boolean tableNastaveniExist()
-        {
-            if (DBIsOpened())
-            {
-                DataTable dt = (myDBConn as SQLiteConnection).GetSchema("Tables");
-                for (Int32 i = 0; i < dt.Rows.Count; i++)
-                {
-                    if (dt.Rows[i].ItemArray[2].ToString() == "nastaveni")
-                    {
-                        return true;
-                    }
-                }
-            }
-            return false;
+           
         }
 
 
