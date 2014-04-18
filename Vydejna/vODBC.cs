@@ -251,8 +251,11 @@ namespace Vydejna
             OdbcCommand cmdOsoby = new OdbcCommand(commandStringOsoby, myDBConn as OdbcConnection);
             OdbcCommand cmdZmeny = new OdbcCommand(commandStringZmeny, myDBConn as OdbcConnection);
             OdbcCommand cmdPujceno = new OdbcCommand(commandStringPujceno, myDBConn as OdbcConnection);
-            OdbcCommand cmdUsers = new OdbcCommand(commandStringUsers, myDBConn as OdbcConnection);
-            OdbcCommand cmdSettings = new OdbcCommand(commandStringSetting, myDBConn as OdbcConnection);
+//            OdbcCommand cmdUsers = new OdbcCommand(commandStringUsers, myDBConn as OdbcConnection);
+//            OdbcCommand cmdSettings = new OdbcCommand(commandStringSetting, myDBConn as OdbcConnection);
+
+            if (!(tableUzivateleExist())) CreateTableUzivatele();
+            if (!(tableNastaveniExist())) CreateTableNastaveni();
 
             try
                 {
@@ -268,8 +271,8 @@ namespace Vydejna
                     cmdOsoby.ExecuteNonQuery();
                     cmdZmeny.ExecuteNonQuery();
                     cmdPujceno.ExecuteNonQuery();
-                    cmdUsers.ExecuteNonQuery();
-                    cmdSettings.ExecuteNonQuery();
+//                    cmdUsers.ExecuteNonQuery();
+//                    cmdSettings.ExecuteNonQuery();
                 }
                 catch (Exception ex)
                 {
@@ -278,8 +281,8 @@ namespace Vydejna
                 finally
                 {
 //                    myDBConn.Close();
-                    cmdSettings.Dispose();
-                    cmdUsers.Dispose();
+//                    cmdSettings.Dispose();
+//                    cmdUsers.Dispose();
                     cmdPujceno.Dispose();
                     cmdZmeny.Dispose();
                     cmdOsoby.Dispose();

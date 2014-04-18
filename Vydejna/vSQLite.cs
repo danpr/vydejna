@@ -319,10 +319,13 @@ namespace Vydejna
                 SQLiteCommand cmdOsoby = new SQLiteCommand(commandStringOsoby, myDBConn as SQLiteConnection);
                 SQLiteCommand cmdZmeny = new SQLiteCommand(commandStringZmeny, myDBConn as SQLiteConnection);
                 SQLiteCommand cmdPujceno = new SQLiteCommand(commandStringPujceno, myDBConn as SQLiteConnection);
-                SQLiteCommand cmdUsers = new SQLiteCommand(commandStringUsers, myDBConn as SQLiteConnection);
-                SQLiteCommand cmdSettings = new SQLiteCommand(commandStringSetting, myDBConn as SQLiteConnection);
+//                SQLiteCommand cmdUsers = new SQLiteCommand(commandStringUsers, myDBConn as SQLiteConnection);
+//                SQLiteCommand cmdSettings = new SQLiteCommand(commandStringSetting, myDBConn as SQLiteConnection);
                 try
                 {
+                    if (!(tableUzivateleExist())) CreateTableUzivatele();
+                    if (!(tableNastaveniExist())) CreateTableNastaveni();
+
                     cmdKarta.ExecuteNonQuery();
                     cmdNaradi.ExecuteNonQuery();
                     cmdSequence.ExecuteNonQuery();
@@ -335,8 +338,8 @@ namespace Vydejna
                     cmdOsoby.ExecuteNonQuery();
                     cmdZmeny.ExecuteNonQuery();
                     cmdPujceno.ExecuteNonQuery();
-                    cmdUsers.ExecuteNonQuery();
-                    cmdSettings.ExecuteNonQuery();
+//                    cmdUsers.ExecuteNonQuery();
+//                    cmdSettings.ExecuteNonQuery();
                 }
                 catch (Exception ex)
                 {
@@ -344,8 +347,8 @@ namespace Vydejna
                 }
                 finally
                 {
-                    cmdSettings.Dispose();
-                    cmdUsers.Dispose();
+//                    cmdSettings.Dispose();
+//                    cmdUsers.Dispose();
                     cmdPujceno.Dispose();
                     cmdZmeny.Dispose();
                     cmdOsoby.Dispose();
