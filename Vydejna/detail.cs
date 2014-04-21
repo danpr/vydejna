@@ -358,7 +358,7 @@ namespace Vydejna
 
     }
     
-    
+//-------------------------------------------------------------------------------//    
     class detailSklad : detail  // karta naradi
     {
 
@@ -385,6 +385,7 @@ namespace Vydejna
         {
             myPermissions.showEnableCode = (Int32)permCode.Nar;
             myPermissions.addEnableCode = (Int32)permCode.NarAdd;
+            myPermissions.editEnableCode = (Int32)permCode.NarEd;
             myPermissions.editChangeMarkCode = (Int32)permCode.NarEdM;
             myPermissions.deleteEnableCode = (Int32)permCode.NarDel;
             myPermissions.printEnableCode = (Int32)permCode.NarPrint;
@@ -480,7 +481,17 @@ namespace Vydejna
             {
                 Int32 poradi = findPoradiInRow(DBRow);
                 DBRow = myDB.getNaradiLine(poradi,DBRow);
-                SkladovaKarta sklKarta = new SkladovaKarta(myDB, DBRow, poradi, new tableItemExistDelgStr(myDB.tableNaradiItemExist), myDataGridView.Font, sKartaState.edit);
+
+                UzivatelData ud = UzivatelData.makeInstance();
+                SkladovaKarta.permissonsData skladEditPerm = new SkladovaKarta.permissonsData(ud.userHasAccessRights((Int32)permCode.NarEdNaz),
+                                                                ud.userHasAccessRights((Int32)permCode.NarEdJK), 
+                                                                ud.userHasAccessRights((Int32)permCode.NarEdCenaKs),
+                                                                ud.userHasAccessRights((Int32)permCode.NarEdUcCenaKs),
+                                                                ud.userHasAccessRights((Int32)permCode.NarEdUcCena),
+                                                                ud.userHasAccessRights((Int32)permCode.NarEdMin),
+                                                                ud.userHasAccessRights((Int32)permCode.NarEdFyStav),
+                                                                ud.userHasAccessRights((Int32)permCode.NarEdUcStav));
+                SkladovaKarta sklKarta = new SkladovaKarta(myDB, DBRow, poradi, new tableItemExistDelgStr(myDB.tableNaradiItemExist), myDataGridView.Font, sKartaState.edit,skladEditPerm);
 //                sklKarta.Font = myDataGridView.Font;
                 if (sklKarta.ShowDialog() == DialogResult.OK)
                 {
@@ -708,7 +719,7 @@ namespace Vydejna
 
     }
 
-
+//-------------------------------------------------------------//
     class detailZruseno : detail
     {
         public detailZruseno(vDatabase myDB, DataGridView myDataGridView)

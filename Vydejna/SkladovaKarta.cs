@@ -20,6 +20,31 @@ namespace Vydejna
         private evenStateEnum evenState = evenStateEnum.disable;
 
 
+        public class permissonsData
+        {
+            public Boolean nazev;
+            public Boolean jk;
+            public Boolean cenaKs;
+            public Boolean ucetCenaKs;
+            public Boolean ucetCena;
+            public Boolean minimum;
+            public Boolean fyzStav;
+            public Boolean ucetStav;
+
+            public permissonsData(Boolean nazev, Boolean jk, Boolean cenaKs, Boolean ucetCenaKs, Boolean ucetCena, Boolean minimum, Boolean fyzStav, Boolean ucetStav)
+            {
+                this.nazev = nazev;
+                this.jk = jk;
+                this.cenaKs = cenaKs;
+                this.ucetCenaKs = ucetCenaKs;
+                this.ucetCena = ucetCena;
+                this.minimum = minimum;
+                this.fyzStav = fyzStav;
+                this.ucetStav = ucetStav;
+            }
+        }
+            
+
         public class messager
         {
             public string nazev;
@@ -67,14 +92,16 @@ namespace Vydejna
         private sKartaState state;
         private tableItemExistDelgStr testExistItem;
         private string oldJK;
+        private permissonsData readOnlyPermission;
 
 
-        public SkladovaKarta(vDatabase myDataBase, Hashtable DBRow, Int32 poradi, tableItemExistDelgStr testExistItem, Font myFont, sKartaState state = sKartaState.show)
+        public SkladovaKarta(vDatabase myDataBase, Hashtable DBRow, Int32 poradi, tableItemExistDelgStr testExistItem, Font myFont, sKartaState state = sKartaState.show, permissonsData readOnlyPermission = null)
         {
             InitializeComponent();
             this.state = state;
             this.testExistItem = testExistItem;
             this.poradi = poradi;
+            this.readOnlyPermission = readOnlyPermission;
             myDB = myDataBase;
 
             dataGridViewZmeny.MultiSelect = false;
@@ -164,6 +191,48 @@ namespace Vydejna
             this.Text = winName;
         }
 
+
+
+        public virtual void setPermission()
+        {
+            if (readOnlyPermission != null)
+            {
+                if (!(readOnlyPermission.nazev))
+                {
+                    textBoxNazev.ReadOnly = true;
+                    listBoxNazev.Enabled = false;
+                }
+                if (!(readOnlyPermission.jk)) textBoxJK.ReadOnly = true;
+                if (!(readOnlyPermission.cenaKs))
+                {   
+                    numericUpDownCenaKs.ReadOnly = true;
+                    numericUpDownCenaKs.Increment = 0;
+                }
+                if (!(readOnlyPermission.ucetCenaKs))
+                {
+                   numericUpDownUcetCenaKs.ReadOnly = true;
+                   numericUpDownUcetCenaKs.Increment = 0;
+                }
+                if (!(readOnlyPermission.ucetCena))
+                {
+                   numericUpDownUcetCena.ReadOnly = true;
+                   numericUpDownUcetCena.Increment = 0;
+
+                }
+                if (!(readOnlyPermission.fyzStav))
+                {
+                   numericUpDownFyzStav.ReadOnly = true;
+                   numericUpDownFyzStav.Increment = 0;
+                }
+                if (!(readOnlyPermission.ucetStav))
+                {
+                   numericUpDownUcetStav.ReadOnly = true;
+                   numericUpDownUcetStav.Increment = 0;
+                }
+
+
+            }
+        }
 
 
 
@@ -282,6 +351,8 @@ namespace Vydejna
 
             buttonCopy.Visible = false;
             buttonCopy.Enabled = false;
+
+            setPermission();
         }
 
 
