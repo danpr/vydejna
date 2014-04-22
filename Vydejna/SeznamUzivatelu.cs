@@ -13,6 +13,7 @@ namespace Vydejna
     public partial class SeznamUzivatelu : Form
     {
         private vDatabase myDataBase;
+        private Font boldFont;
 
         public SeznamUzivatelu(vDatabase myDataBase, Font myFont)
         {
@@ -32,6 +33,7 @@ namespace Vydejna
             dataGridView1.DataSource = null;
             Application.DoEvents();
 
+            boldFont = new Font(myFont, FontStyle.Bold);
             this.Font = myFont;
 //            loadData(myDataBase);
         }
@@ -70,7 +72,7 @@ namespace Vydejna
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-
+            opravaPolozky();
         }
 
         private void SeznamUzivatelu_Shown(object sender, EventArgs e)
@@ -145,10 +147,16 @@ namespace Vydejna
         {
             //opraveni polozky
 
+            opravaPolozky();
+        }
+
+        private void opravaPolozky()
+        {
+
             if (dataGridView1.SelectedRows.Count > 0)
             {
-                string userid =  Convert.ToString( dataGridView1.SelectedRows[0].Cells["userid"].Value);
-                Hashtable DBRow =  myDataBase.getUzivateleLine(userid,null);
+                string userid = Convert.ToString(dataGridView1.SelectedRows[0].Cells["userid"].Value);
+                Hashtable DBRow = myDataBase.getUzivateleLine(userid, null);
 
                 if (DBRow != null)
                 {
@@ -167,12 +175,10 @@ namespace Vydejna
                 {
                     MessageBox.Show("Lituji. Uživatel již neexistuje");
                 }
-            }            
-
-    
-
-
+            }
         }
+
+
 
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
         {
@@ -186,6 +192,26 @@ namespace Vydejna
         {
 
         }
+
+
+        private void dataGridView1_DoubleClick(object sender, EventArgs e)
+        {
+            opravaPolozky();
+        }
+
+        private void dataGridView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            // formatovani bunky
+            Int32 index = e.RowIndex;
+            if (Convert.ToString(dataGridView1.Rows[index].Cells["admin"].Value) == "A")
+            {
+                e.CellStyle.ForeColor = Color.Red;
+                e.CellStyle.Font = boldFont;
+            }
+
+        }
+
+
 
 
     }

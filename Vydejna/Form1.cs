@@ -95,6 +95,8 @@ namespace Vydejna
             if (y > (Screen.PrimaryScreen.Bounds.Height - 20)) y = Screen.PrimaryScreen.Bounds.Height - 20;
 
             if (!(location.IsEmpty)) this.SetDesktopLocation(x,y);
+
+            dataGridView1.AlternatingRowsDefaultCellStyle.BackColor = Color.LightCyan;
         }
 
 
