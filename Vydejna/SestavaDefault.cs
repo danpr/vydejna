@@ -17,10 +17,16 @@ namespace Vydejna
 
         protected ISestava1 strategie;
 
-        public SestavaDefault(vDatabase myDataBase, ISestava1 strategie)
+        public SestavaDefault(vDatabase myDataBase, ISestava1 strategie, Font myFont)
 
     {
             InitializeComponent();
+
+            // jak menit meritko
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+
+            this.Font = myFont;
+
             this.strategie = strategie;
             this.myDataBase = myDataBase;
 

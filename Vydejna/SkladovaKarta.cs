@@ -145,16 +145,22 @@ namespace Vydejna
         {
             InitializeComponent();
 
+            // jak menit meritko
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 
             myDB = myDataBase;
             this.state = sKartaState.add;
             this.testExistItem = testExistItem;
-            dataGridViewZmeny.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            setAddState();
 
             this.CancelButton = this.buttonCancel;
             this.Font = myFont;
+
+            dataGridViewZmeny.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            setAddState();
+
+//            this.CancelButton = this.buttonCancel;
+//            this.Font = myFont;
+
             setGeometry();
             setColumnWidth();
             evenState = evenStateEnum.enable;

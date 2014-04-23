@@ -1310,16 +1310,13 @@ namespace Vydejna
         private void písmoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             UzivatelData ud = UzivatelData.makeInstance();
-            if (ud.userIsAdminWM())
-            {
 
-                // nastaveni pisma
-                fontDialog1.Font = dataGridView1.Font;
-                if (fontDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                {
-                    ConfigReg.saveSettingFont(fontDialog1.Font);
-                    dataGridView1.Font = fontDialog1.Font;
-                }
+            // nastaveni pisma
+            fontDialog1.Font = dataGridView1.Font;
+            if (fontDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                ConfigReg.saveSettingFont(fontDialog1.Font);
+                dataGridView1.Font = fontDialog1.Font;
             }
         }
 
@@ -1443,50 +1440,50 @@ namespace Vydejna
 
         private void vyhodnoceniPoškozenekDleStřediskaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SestavaDefault sestava = new SestavaDefault(myDB,new StrategiePosStrediska());
+            SestavaDefault sestava = new SestavaDefault(myDB, new StrategiePosStrediska(), dataGridView1.Font);
             sestava.ShowDialog();
         }
 
         private void vyhodnoceníToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SestavaDefault sestava = new SestavaDefault(myDB, new StrategiePosOsobyZaStred());
+            SestavaDefault sestava = new SestavaDefault(myDB, new StrategiePosOsobyZaStred(), dataGridView1.Font);
             sestava.ShowDialog();
 
         }
 
         private void seznamZaPracovníkaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SestavaDefault sestava = new SestavaDefault(myDB, new StrategiePosZaOsobu());
+            SestavaDefault sestava = new SestavaDefault(myDB, new StrategiePosZaOsobu(), dataGridView1.Font);
             sestava.ShowDialog();
         }
 
         private void vyhodnoceníDleZakázekVeStřediskuToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SestavaDefault sestava = new SestavaDefault(myDB, new StrategiePosZakazkaZaStred());
+            SestavaDefault sestava = new SestavaDefault(myDB, new StrategiePosZakazkaZaStred(), dataGridView1.Font);
             sestava.ShowDialog();
         }
 
         private void vzhodnoceníDleZakázekToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SestavaDefault sestava = new SestavaDefault(myDB, new StrategiePosZakazka());
+            SestavaDefault sestava = new SestavaDefault(myDB, new StrategiePosZakazka(), dataGridView1.Font);
             sestava.ShowDialog();
         }
 
         private void vyhodnoceníDleKontaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SestavaDefault sestava = new SestavaDefault(myDB, new StrategiePosKonto());
+            SestavaDefault sestava = new SestavaDefault(myDB, new StrategiePosKonto(), dataGridView1.Font);
             sestava.ShowDialog();
         }
 
         private void seznamPoškozenekZaZakázkuToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SestavaDefault sestava = new SestavaDefault(myDB, new StrategiePosZaZakazku());
+            SestavaDefault sestava = new SestavaDefault(myDB, new StrategiePosZaZakazku(), dataGridView1.Font);
             sestava.ShowDialog();
         }
 
         private void seznamPoškozenekZaKontoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SestavaDefault sestava = new SestavaDefault(myDB, new StrategiePosZaKonto());
+            SestavaDefault sestava = new SestavaDefault(myDB, new StrategiePosZaKonto(), dataGridView1.Font);
             sestava.ShowDialog();
         }
     }
