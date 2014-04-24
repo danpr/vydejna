@@ -78,8 +78,8 @@ namespace Vydejna
 
             if ((myDB != null) && (myDB.DBIsOpened()))
             {
-                    usersTest();
-                    globalSettingTest();
+                usersTest();
+                globalSettingTest();
             }
 
             Size size = ConfigReg.loadSettingWindowSize("MAIN");
@@ -94,7 +94,7 @@ namespace Vydejna
             if (x > (Screen.PrimaryScreen.Bounds.Width - 20)) x = Screen.PrimaryScreen.Bounds.Width - 20;
             if (y > (Screen.PrimaryScreen.Bounds.Height - 20)) y = Screen.PrimaryScreen.Bounds.Height - 20;
 
-            if (!(location.IsEmpty)) this.SetDesktopLocation(x,y);
+            if (!(location.IsEmpty)) this.SetDesktopLocation(x, y);
 
             dataGridView1.AlternatingRowsDefaultCellStyle.BackColor = Color.LightCyan;
         }
@@ -189,10 +189,10 @@ namespace Vydejna
                 }
                 finally
                 {
-                 //   myDB.closeDB();
+                    //   myDB.closeDB();
                 }
             }
-          //  myDB.myDBConn.Dispose();
+            //  myDB.myDBConn.Dispose();
         }
 
 
@@ -234,10 +234,10 @@ namespace Vydejna
                 }
                 finally
                 {
-                 //   myDB.closeDB();
+                    //   myDB.closeDB();
                 }
             }
-          //  myDB.myDBConn.Dispose();
+            //  myDB.myDBConn.Dispose();
         }
 
 
@@ -283,10 +283,10 @@ namespace Vydejna
                 }
                 finally
                 {
-                //    myDB.closeDB();
+                    //    myDB.closeDB();
                 }
             }
-          //  myDB.myDBConn.Dispose();
+            //  myDB.myDBConn.Dispose();
         }
 
 
@@ -332,10 +332,10 @@ namespace Vydejna
                 }
                 finally
                 {
-                //    myDB.closeDB();
+                    //    myDB.closeDB();
                 }
             }
-        //    myDB.myDBConn.Dispose();
+            //    myDB.myDBConn.Dispose();
         }
 
 
@@ -346,7 +346,7 @@ namespace Vydejna
             dataGridView1.Columns.Clear();
             dataGridView1.DataSource = null;
             Application.DoEvents();
-            
+
 
             if (myDB.DBIsOpened())
             {
@@ -379,53 +379,53 @@ namespace Vydejna
                 }
                 finally
                 {
-                //    myDB.closeDB();
+                    //    myDB.closeDB();
                 }
             }
-       //     myDB.myDBConn.Dispose();
+            //     myDB.myDBConn.Dispose();
         }
 
 
-        private vDatabase OpenDataBaseHandle(Boolean useUserPriv = true )
+        private vDatabase OpenDataBaseHandle(Boolean useUserPriv = true)
         {
             switch (nastaveniDB.codeDB)
             {
-               case (int)kodDB.dbSQLite:
-                 string pathDbName =  nastaveniDB.umistemiDB +"\\"+ nastaveniDB.nameDB;
+                case (int)kodDB.dbSQLite:
+                    string pathDbName = nastaveniDB.umistemiDB + "\\" + nastaveniDB.nameDB;
 
-                 return new vSQLite (pathDbName,"","","","","","","");
-//                 break;
-                              case (int)kodDB.dbPostgresODBC:
-                 if (useUserPriv)
-                 {
-                     return new vPostgress(nastaveniDB.nameDB, nastaveniDB.adresaServerDB, nastaveniDB.nameDBServeru, nastaveniDB.portServerDB.ToString(),
-                            nastaveniDB.localizaceDBServeru, nastaveniDB.driverDB, nastaveniDB.userIdDB, nastaveniDB.userPasswdDB);
-                 }
-                 else
-                 {
-                     return new vPostgress(nastaveniDB.nameDB, nastaveniDB.adresaServerDB, nastaveniDB.nameDBServeru, nastaveniDB.portServerDB.ToString(),
-                            nastaveniDB.localizaceDBServeru, nastaveniDB.driverDB, nastaveniDB.adminIdDB, nastaveniDB.adminPasswdDB);
+                    return new vSQLite(pathDbName, "", "", "", "", "", "", "");
+                //                 break;
+                case (int)kodDB.dbPostgresODBC:
+                    if (useUserPriv)
+                    {
+                        return new vPostgress(nastaveniDB.nameDB, nastaveniDB.adresaServerDB, nastaveniDB.nameDBServeru, nastaveniDB.portServerDB.ToString(),
+                               nastaveniDB.localizaceDBServeru, nastaveniDB.driverDB, nastaveniDB.userIdDB, nastaveniDB.userPasswdDB);
+                    }
+                    else
+                    {
+                        return new vPostgress(nastaveniDB.nameDB, nastaveniDB.adresaServerDB, nastaveniDB.nameDBServeru, nastaveniDB.portServerDB.ToString(),
+                               nastaveniDB.localizaceDBServeru, nastaveniDB.driverDB, nastaveniDB.adminIdDB, nastaveniDB.adminPasswdDB);
 
-                 }
+                    }
 
-//                 break;
-               case (int)kodDB.dbInformixODBC:
-                 if (useUserPriv)
-                 {
-                     return new vInformixODBC(nastaveniDB.nameDB, nastaveniDB.adresaServerDB,  nastaveniDB.nameDBServeru, nastaveniDB.portServerDB.ToString(),
-                            nastaveniDB.localizaceDBServeru, nastaveniDB.driverDB, nastaveniDB.userIdDB, nastaveniDB.userPasswdDB);
-                 }
-                 else
-                 {
-                     return new vInformixODBC(nastaveniDB.nameDB, nastaveniDB.adresaServerDB, nastaveniDB.nameDBServeru, nastaveniDB.portServerDB.ToString(),
-                            nastaveniDB.localizaceDBServeru, nastaveniDB.driverDB, nastaveniDB.adminIdDB, nastaveniDB.adminPasswdDB);
+                //                 break;
+                case (int)kodDB.dbInformixODBC:
+                    if (useUserPriv)
+                    {
+                        return new vInformixODBC(nastaveniDB.nameDB, nastaveniDB.adresaServerDB, nastaveniDB.nameDBServeru, nastaveniDB.portServerDB.ToString(),
+                               nastaveniDB.localizaceDBServeru, nastaveniDB.driverDB, nastaveniDB.userIdDB, nastaveniDB.userPasswdDB);
+                    }
+                    else
+                    {
+                        return new vInformixODBC(nastaveniDB.nameDB, nastaveniDB.adresaServerDB, nastaveniDB.nameDBServeru, nastaveniDB.portServerDB.ToString(),
+                               nastaveniDB.localizaceDBServeru, nastaveniDB.driverDB, nastaveniDB.adminIdDB, nastaveniDB.adminPasswdDB);
 
-                 }
+                    }
 
-               //                 break;
+                //                 break;
                 default:
-                   return null;
-//                 break; 
+                    return null;
+                //                 break; 
             }
         }
 
@@ -452,13 +452,13 @@ namespace Vydejna
         public void DeleteDBTables()
         {
             // maze tabulky    
-               myDB.DeleteTables();
+            myDB.DeleteTables();
         }
-       
+
 
         public void CreateDBTables()
         {
-           // vytvori tabulky
+            // vytvori tabulky
             if ((myDB != null) && myDB.DBIsOpened())
             {
                 myDB.closeDB();
@@ -469,7 +469,7 @@ namespace Vydejna
             localDB.openDB();
             if (localDB.DBIsOpened())
             {
-                localDB.CreateTables(); 
+                localDB.CreateTables();
                 localDB.CreateIndexes();
 
                 localDB.closeDB();
@@ -669,19 +669,19 @@ namespace Vydejna
 
         private void toolStripMenuItem2_Click(object sender, EventArgs e)
         {
-         UzivatelData ud = UzivatelData.makeInstance();
-         if (ud.userHasAccessRightsWM((Int32)permCode.Nar))
-         {
-             // naradi - skladove karty - hlavni tabulka
-             labelView.Text = "Výdejna nářadí přehled - Stahuji";
-             Application.DoEvents();
-             evenState = evenStateEnum.disable;
-             loadNaradiItems();
-             karta = new detailSklad(myDB, dataGridView1);
-             evenState = evenStateEnum.enable;
-             labelView.Text = "Výdejna nářadí přehled";
-             contextMenuEnable(true, true, true, false, true, true);
-         }
+            UzivatelData ud = UzivatelData.makeInstance();
+            if (ud.userHasAccessRightsWM((Int32)permCode.Nar))
+            {
+                // naradi - skladove karty - hlavni tabulka
+                labelView.Text = "Výdejna nářadí přehled - Stahuji";
+                Application.DoEvents();
+                evenState = evenStateEnum.disable;
+                loadNaradiItems();
+                karta = new detailSklad(myDB, dataGridView1);
+                evenState = evenStateEnum.enable;
+                labelView.Text = "Výdejna nářadí přehled";
+                contextMenuEnable(true, true, true, false, true, true);
+            }
         }
 
 
@@ -690,7 +690,7 @@ namespace Vydejna
             // zalozeni nove skladove karty
             if ((myDB != null) && (myDB.DBIsOpened()))
             {
-                SkladovaKarta mySkladovaKarta = new SkladovaKarta(myDB, new tableItemExistDelgStr(myDB.tableNaradiItemExist),dataGridView1.Font);
+                SkladovaKarta mySkladovaKarta = new SkladovaKarta(myDB, new tableItemExistDelgStr(myDB.tableNaradiItemExist), dataGridView1.Font);
                 mySkladovaKarta.ShowDialog();
             }
         }
@@ -789,21 +789,21 @@ namespace Vydejna
 
         private void toolStripMenuItem6_Click(object sender, EventArgs e)
         {
-         UzivatelData ud = UzivatelData.makeInstance();
-         if (ud.userHasAccessRightsWM((Int32)permCode.PNar))
-         {
-             labelView.Text = "Poškozené nářadí - Stahuji";
-             Application.DoEvents();
-             evenState = evenStateEnum.disable;
-             loadPoskozenoItems();
-             karta = new detailPoskozeno(myDB, dataGridView1);
-             evenState = evenStateEnum.enable;
-             contextMenuEnable(false);
-             labelView.Text = "Poškozené nářadí";
-         }          
+            UzivatelData ud = UzivatelData.makeInstance();
+            if (ud.userHasAccessRightsWM((Int32)permCode.PNar))
+            {
+                labelView.Text = "Poškozené nářadí - Stahuji";
+                Application.DoEvents();
+                evenState = evenStateEnum.disable;
+                loadPoskozenoItems();
+                karta = new detailPoskozeno(myDB, dataGridView1);
+                evenState = evenStateEnum.enable;
+                contextMenuEnable(false);
+                labelView.Text = "Poškozené nářadí";
+            }
         }
 
-// NASTAVENI DATABAZE
+        // NASTAVENI DATABAZE
         private void toolStripMenuItem7_Click(object sender, EventArgs e)
         {
             UzivatelData ud = UzivatelData.makeInstance();
@@ -872,7 +872,7 @@ namespace Vydejna
         }
 
 
-        private void contextMenuEnable(Boolean useAdd, Boolean useInc = false, Boolean useDec = false, Boolean useLend =false, Boolean useMark = false, Boolean usePrint = false)
+        private void contextMenuEnable(Boolean useAdd, Boolean useInc = false, Boolean useDec = false, Boolean useLend = false, Boolean useMark = false, Boolean usePrint = false)
         {
             if (useAdd)
             {
@@ -908,7 +908,7 @@ namespace Vydejna
                 contextMenuStrip1.Items[4].Visible = false;
             }
 
-            
+
             if (useInc)  // prijem
             {
                 contextMenuStrip1.Items[6].Enabled = true;
@@ -920,7 +920,7 @@ namespace Vydejna
                 contextMenuStrip1.Items[6].Visible = false;
             }
 
-            
+
 
 
             if (useDec)  // poskozeno
@@ -1106,7 +1106,7 @@ namespace Vydejna
 
             if (e.KeyData == Keys.F3)
             {
-                karta.HledejDalsi(this.Location.Y + this.Size.Width,this.Top);
+                karta.HledejDalsi(this.Location.Y + this.Size.Width, this.Top);
             }
             if (e.KeyData == Keys.Return)
             {
@@ -1196,7 +1196,7 @@ namespace Vydejna
             }
         }
 
-        private void usersTest ()
+        private void usersTest()
         {
             if (myDB.DBIsOpened())
             {
@@ -1226,7 +1226,7 @@ namespace Vydejna
                     }
                 }
 
-// test pocet user admin
+                // test pocet user admin
                 if (!(myDB.tableUzivateleAdminExist()))
                 {
                     if (MessageBox.Show("Neexistuje žádný AMINISTRÁTORSKÝ účet\n a bez něj program bohužel nemůže pracovat.\n"
@@ -1330,8 +1330,8 @@ namespace Vydejna
                 if (ud.userHasAccessRightsWM((Int32)permCode.PassSet))
                 {
 
-                UzivatelZmenaHesla uzh = new UzivatelZmenaHesla(myDB, ud.userID);
-                uzh.ShowDialog();
+                    UzivatelZmenaHesla uzh = new UzivatelZmenaHesla(myDB, ud.userID);
+                    uzh.ShowDialog();
                 }
             }
         }
@@ -1357,17 +1357,17 @@ namespace Vydejna
 
         private void Vydejna_SizeChanged(object sender, EventArgs e)
         {
-                if (!(this.Size.IsEmpty)) ConfigReg.saveSettingWindowLocationSize("MAIN", 0, 0, this.Size.Width, this.Size.Height);
+            if (!(this.Size.IsEmpty)) ConfigReg.saveSettingWindowLocationSize("MAIN", 0, 0, this.Size.Width, this.Size.Height);
         }
 
         private void Vydejna_LocationChanged(object sender, EventArgs e)
         {
-                if (!(this.Location.IsEmpty)) ConfigReg.saveSettingWindowLocationSize("MAIN", this.Location.X, this.Location.Y, 0, 0);
+            if (!(this.Location.IsEmpty)) ConfigReg.saveSettingWindowLocationSize("MAIN", this.Location.X, this.Location.Y, 0, 0);
         }
 
         private void Vydejna_Shown(object sender, EventArgs e)
         {
-//           evenState = evenStateEnum.enable;
+            //           evenState = evenStateEnum.enable;
         }
 
 
@@ -1485,6 +1485,42 @@ namespace Vydejna
         {
             SestavaDefault sestava = new SestavaDefault(myDB, new StrategiePosZaKonto(), dataGridView1.Font);
             sestava.ShowDialog();
+        }
+
+        private void MenuItemUcetCena_Click(object sender, EventArgs e)
+        {
+            UzivatelData ud = UzivatelData.makeInstance();
+            if (ud.userIsAdminWM())
+            {
+                if (MenuItemUcetCena.Checked)
+                {
+                    DialogResult dialogResult = MessageBox.Show("Opravdu chcete zrušit použití Ůčetni ceny ?", "", MessageBoxButtons.YesNo);
+                    if (dialogResult != DialogResult.Yes)
+                    {
+                        return;
+                    }
+
+                }
+                else
+                {
+                    DialogResult dialogResult = MessageBox.Show("Opravdu chcete aktivovat použití Ůčetni ceny ?", "", MessageBoxButtons.YesNo);
+                    if (dialogResult != DialogResult.Yes)
+                    {
+                        return;
+                    }
+                }
+                // aktivujeme / deaktuvujeme nastaveni databaze
+                if (!(MenuItemUcetCena.Checked))
+                {
+                    if (!(myDB.tableNastaveniExist()))
+                    {
+                        MessageBox.Show ("Tabulka globálního nastavení patrně neexistuje\n a bez ní program nemůže aktivovat rozšířené funkce.");
+                        return;
+                    }
+                }
+                // myDB.enableUcetCena (!(MenuItemUcetCena.Checked));
+                MenuItemUcetCena.Checked = !(MenuItemUcetCena.Checked);
+            }
         }
     }
 }
