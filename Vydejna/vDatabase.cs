@@ -777,6 +777,17 @@ namespace Vydejna
         }
 
 
+        public virtual Boolean enableUcetCena(Boolean enable, string userID)
+        {
+           return setNastaveniItem(enable, "ucetcena", userID);
+        }
+
+
+        public virtual Boolean setNastaveniItem(Boolean state, string item, string userID)
+        {
+            return false;
+        }
+
     }
 
 

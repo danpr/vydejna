@@ -1518,8 +1518,11 @@ namespace Vydejna
                         return;
                     }
                 }
-                // myDB.enableUcetCena (!(MenuItemUcetCena.Checked));
-                MenuItemUcetCena.Checked = !(MenuItemUcetCena.Checked);
+                if (myDB.enableUcetCena(!(MenuItemUcetCena.Checked), ud.userID))
+                {
+                    // myDB.enableUcetCena (!(MenuItemUcetCena.Checked));
+                    MenuItemUcetCena.Checked = !(MenuItemUcetCena.Checked);
+                }
             }
         }
     }
