@@ -22,14 +22,14 @@ namespace Vydejna
 
         public class permissonsData
         {
-            public Boolean nazev;
-            public Boolean jk;
-            public Boolean cenaKs;
-            public Boolean ucetCenaKs;
-            public Boolean ucetCena;
-            public Boolean minimum;
-            public Boolean fyzStav;
-            public Boolean ucetStav;
+            public readonly Boolean nazev;
+            public readonly Boolean jk;
+            public readonly Boolean cenaKs;
+            public readonly Boolean ucetCenaKs;
+            public readonly Boolean ucetCena;
+            public readonly Boolean minimum;
+            public readonly Boolean fyzStav;
+            public readonly Boolean ucetStav;
 
             public permissonsData(Boolean nazev, Boolean jk, Boolean cenaKs, Boolean ucetCenaKs, Boolean ucetCena, Boolean minimum, Boolean fyzStav, Boolean ucetStav)
             {

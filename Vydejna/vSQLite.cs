@@ -3681,6 +3681,83 @@ namespace Vydejna
            
         }
 
+        public override Boolean setNastaveniItem(Boolean state, string item, string userID)
+        {
+            SQLiteTransaction transaction = null;
+
+            if (DBIsOpened())
+            {
+                string commandStringRead1 = "SELECT setid FROM nastaveni WHERE setid = ? ";
+                string commandString1 = "INSERT INTO nastaveni (setid, permission, permission_hs, permission_hi, userid, datum) VALUES (?,?,\"\",0,?,?)";
+                string commandString2 = "UPDATE nastaveni set permission =?, userid =?, datum = ? where setid =?";
+                string stateCode;
+                if (state) stateCode = "A";
+                else stateCode = "N";
+
+                Boolean useInsert = false;
+
+                try
+                {
+                    try
+                    {
+                        transaction = (myDBConn as SQLiteConnection).BeginTransaction(System.Data.IsolationLevel.ReadCommitted);
+                    }
+                    catch
+                    {
+                    }
+                    SQLiteCommand cmdr1 = new SQLiteCommand(commandStringRead1, myDBConn as SQLiteConnection);
+                    cmdr1.Transaction = transaction;
+                    cmdr1.Parameters.AddWithValue("@setid", item);
+                    SQLiteDataReader myReader = cmdr1.ExecuteReader();
+                    // true setidExist
+                    if (myReader.Read() != true)
+                    {
+                        useInsert = true;
+                    }
+                    myReader.Close();
+
+                    if (useInsert)
+                    {
+                        //insert
+                        SQLiteCommand cmd1 = new SQLiteCommand(commandString1, myDBConn as SQLiteConnection);
+                        cmd1.Parameters.AddWithValue("@setid", item);
+                        cmd1.Parameters.AddWithValue("@permission", stateCode);
+                        cmd1.Parameters.AddWithValue("@userid", userID);
+                        cmd1.Parameters.AddWithValue("@datum", DateTime.Now);
+                        cmd1.Transaction = transaction;
+                        cmd1.ExecuteNonQuery();
+
+                    }
+                    else
+                    {
+                        //update
+                        SQLiteCommand cmd2 = new SQLiteCommand(commandString2, myDBConn as SQLiteConnection);
+                        cmd2.Parameters.AddWithValue("@permission", stateCode);
+                        cmd2.Parameters.AddWithValue("@userid", userID);
+                        cmd2.Parameters.AddWithValue("@datum", DateTime.Now);
+                        cmd2.Parameters.AddWithValue("@setid", item);
+                        cmd2.Transaction = transaction;
+                        cmd2.ExecuteNonQuery();
+                    }
+                    if (transaction != null)
+                    {
+                        (transaction as SQLiteTransaction).Commit();
+                    }
+
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        public override Boolean getNastaveniItem(string item)
+        {
+            return false;
+        }
+
 
 
     }
