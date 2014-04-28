@@ -3779,6 +3779,67 @@ namespace Vydejna
         }
 
 
+        public override Boolean getNastaveniItem(string item)
+        {
+            OdbcTransaction transaction = null;
+
+            if (DBIsOpened())
+            {
+
+                string commandStringRead1 = "SELECT permission FROM nastaveni WHERE setid = ? ";
+                try
+                {
+                    try
+                    {
+                        transaction = (myDBConn as OdbcConnection).BeginTransaction(System.Data.IsolationLevel.ReadCommitted);
+                    }
+                    catch
+                    {
+                    }
+                    OdbcCommand cmdr1 = new OdbcCommand(commandStringRead1, myDBConn as OdbcConnection);
+                    cmdr1.Transaction = transaction;
+                    cmdr1.Parameters.AddWithValue("@setid", item);
+                    OdbcDataReader myReader = cmdr1.ExecuteReader();
+                    Boolean returnvalue = false;
+
+                    if (myReader.Read() == true)
+                    {
+                        // nalezeno
+                        // useInsert = true;
+                        string permision = myReader.GetString(0);
+                        myReader.Close();
+                        if (permision == "A")
+                        {
+                            returnvalue = true;
+                        }
+                    }
+                    else
+                    {
+                        // radka neexistuje
+                        myReader.Close();
+                    }
+                    if (transaction != null)
+                    {
+                        (transaction as OdbcTransaction).Commit();
+                    }
+                    return returnvalue;
+                }
+                catch
+                {
+                    if (transaction != null)
+                    {
+                        (transaction as OdbcTransaction).Commit();
+                    }
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+
 
     }
 }

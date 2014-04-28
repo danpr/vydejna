@@ -1521,7 +1521,9 @@ namespace Vydejna
                 if (myDB.enableUcetCena(!(MenuItemUcetCena.Checked), ud.userID))
                 {
                     // myDB.enableUcetCena (!(MenuItemUcetCena.Checked));
-                    MenuItemUcetCena.Checked = !(MenuItemUcetCena.Checked);
+
+                    MenuItemUcetCena.Checked = myDB.getEnableUcetCena();
+//                    MenuItemUcetCena.Checked = !(MenuItemUcetCena.Checked);
                 }
             }
         }

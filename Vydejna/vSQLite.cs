@@ -3753,11 +3753,66 @@ namespace Vydejna
             return true;
         }
 
+
         public override Boolean getNastaveniItem(string item)
         {
-            return false;
-        }
+            SQLiteTransaction transaction = null;
 
+            if (DBIsOpened())
+            {
+
+                string commandStringRead1 = "SELECT permission FROM nastaveni WHERE setid = ? ";
+                try
+                {
+                    try
+                    {
+                        transaction = (myDBConn as SQLiteConnection).BeginTransaction(System.Data.IsolationLevel.ReadCommitted);
+                    }
+                    catch
+                    {
+                    }
+                    SQLiteCommand cmdr1 = new SQLiteCommand(commandStringRead1, myDBConn as SQLiteConnection);
+                    cmdr1.Transaction = transaction;
+                    cmdr1.Parameters.AddWithValue("@setid", item);
+                    SQLiteDataReader myReader = cmdr1.ExecuteReader();
+                    Boolean returnvalue = false;
+
+                    if (myReader.Read() == true)
+                    {
+                        // nalezeno
+                        // useInsert = true;
+                        string permision = myReader.GetString(0);
+                        myReader.Close();
+                        if (permision == "A")
+                        {
+                            returnvalue = true;
+                        }
+                    }
+                    else
+                    {
+                        // radka neexistuje
+                        myReader.Close();
+                    }
+                    if (transaction != null)
+                    {
+                        (transaction as SQLiteTransaction).Commit();
+                    }
+                    return returnvalue;
+                }
+                catch
+                {
+                    if (transaction != null)
+                    {
+                        (transaction as SQLiteTransaction).Commit();
+                    }
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
 
 
     }
