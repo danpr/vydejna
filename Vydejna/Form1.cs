@@ -97,6 +97,9 @@ namespace Vydejna
             if (!(location.IsEmpty)) this.SetDesktopLocation(x, y);
 
             dataGridView1.AlternatingRowsDefaultCellStyle.BackColor = Color.LightCyan;
+
+            timer1.Interval = 300000;
+            timer1.Start();
         }
 
 
@@ -1526,6 +1529,15 @@ namespace Vydejna
 //                    MenuItemUcetCena.Checked = !(MenuItemUcetCena.Checked);
                 }
             }
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if (myDB.DBIsOpened())
+            {
+                MenuItemUcetCena.Checked = myDB.getEnableUcetCena();
+            }
+            timer1.Start();
         }
     }
 }
