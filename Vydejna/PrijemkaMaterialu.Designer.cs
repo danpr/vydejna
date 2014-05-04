@@ -45,14 +45,17 @@
             this.buttonOK = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.dateTimePickerDatum = new System.Windows.Forms.DateTimePicker();
+            this.label5 = new System.Windows.Forms.Label();
+            this.numericUpDownCenaKs = new System.Windows.Forms.NumericUpDown();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPrijemKs)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCenaKs)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(4, 16);
+            this.label1.Location = new System.Drawing.Point(6, 16);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(77, 13);
             this.label1.TabIndex = 1;
@@ -132,7 +135,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(4, 100);
+            this.label3.Location = new System.Drawing.Point(6, 100);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(147, 13);
             this.label3.TabIndex = 12;
@@ -141,7 +144,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(18, 174);
+            this.label12.Location = new System.Drawing.Point(16, 174);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(70, 13);
             this.label12.TabIndex = 17;
@@ -157,14 +160,14 @@
             0});
             this.numericUpDownPrijemKs.Name = "numericUpDownPrijemKs";
             this.numericUpDownPrijemKs.Size = new System.Drawing.Size(100, 20);
-            this.numericUpDownPrijemKs.TabIndex = 18;
+            this.numericUpDownPrijemKs.TabIndex = 1;
             this.numericUpDownPrijemKs.ValueChanged += new System.EventHandler(this.numericUpDownPrijemKs_ValueChanged);
             this.numericUpDownPrijemKs.Enter += new System.EventHandler(this.numericUpDownPrijemKs_Enter);
             // 
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(18, 233);
+            this.label13.Location = new System.Drawing.Point(16, 266);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(63, 13);
             this.label13.TabIndex = 19;
@@ -172,31 +175,31 @@
             // 
             // textBoxPoznamka
             // 
-            this.textBoxPoznamka.Location = new System.Drawing.Point(159, 230);
+            this.textBoxPoznamka.Location = new System.Drawing.Point(159, 263);
             this.textBoxPoznamka.MaxLength = 22;
             this.textBoxPoznamka.Name = "textBoxPoznamka";
             this.textBoxPoznamka.Size = new System.Drawing.Size(193, 20);
-            this.textBoxPoznamka.TabIndex = 20;
+            this.textBoxPoznamka.TabIndex = 4;
             this.textBoxPoznamka.Text = "Nákup";
             this.textBoxPoznamka.TextChanged += new System.EventHandler(this.textBoxPoznamka_TextChanged);
             // 
             // buttonCancel
             // 
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(12, 274);
+            this.buttonCancel.Location = new System.Drawing.Point(12, 299);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
-            this.buttonCancel.TabIndex = 21;
+            this.buttonCancel.TabIndex = 6;
             this.buttonCancel.Text = "Zrušit";
             this.buttonCancel.UseVisualStyleBackColor = true;
             // 
             // buttonOK
             // 
             this.buttonOK.Enabled = false;
-            this.buttonOK.Location = new System.Drawing.Point(408, 274);
+            this.buttonOK.Location = new System.Drawing.Point(409, 299);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
-            this.buttonOK.TabIndex = 22;
+            this.buttonOK.TabIndex = 5;
             this.buttonOK.Text = "Budiž";
             this.buttonOK.UseVisualStyleBackColor = true;
             this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
@@ -204,7 +207,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(18, 205);
+            this.label4.Location = new System.Drawing.Point(16, 238);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(44, 13);
             this.label4.TabIndex = 24;
@@ -213,16 +216,41 @@
             // 
             // dateTimePickerDatum
             // 
-            this.dateTimePickerDatum.Location = new System.Drawing.Point(159, 199);
+            this.dateTimePickerDatum.Location = new System.Drawing.Point(159, 234);
             this.dateTimePickerDatum.Name = "dateTimePickerDatum";
             this.dateTimePickerDatum.Size = new System.Drawing.Size(193, 20);
-            this.dateTimePickerDatum.TabIndex = 28;
+            this.dateTimePickerDatum.TabIndex = 3;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(16, 204);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(69, 13);
+            this.label5.TabIndex = 29;
+            this.label5.Text = "Cena za kus:";
+            // 
+            // numericUpDownCenaKs
+            // 
+            this.numericUpDownCenaKs.DecimalPlaces = 2;
+            this.numericUpDownCenaKs.Location = new System.Drawing.Point(159, 202);
+            this.numericUpDownCenaKs.Maximum = new decimal(new int[] {
+            100000000,
+            0,
+            0,
+            0});
+            this.numericUpDownCenaKs.Name = "numericUpDownCenaKs";
+            this.numericUpDownCenaKs.Size = new System.Drawing.Size(193, 20);
+            this.numericUpDownCenaKs.TabIndex = 2;
+            this.numericUpDownCenaKs.ValueChanged += new System.EventHandler(this.numericUpDownCenaKs_ValueChanged);
             // 
             // PrijemkaMaterialu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(496, 314);
+            this.ClientSize = new System.Drawing.Size(496, 331);
+            this.Controls.Add(this.numericUpDownCenaKs);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.dateTimePickerDatum);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.buttonOK);
@@ -237,6 +265,7 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPrijemKs)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCenaKs)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -261,5 +290,7 @@
         private System.Windows.Forms.Label labelVyrobce;
         private System.Windows.Forms.Label labelJK;
         private System.Windows.Forms.Label labelNazev;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.NumericUpDown numericUpDownCenaKs;
     }
 }

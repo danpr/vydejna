@@ -21,15 +21,17 @@ namespace Vydejna
             public DateTime datum;
             public string poznamka;
             public Int32 poradi;
+            public decimal cena;
 
 
-            public messager(Int32 poradi, string jk, Int32 pocetKs, DateTime datum, string poznamka)
+            public messager(Int32 poradi, string jk, Int32 pocetKs, DateTime datum, string poznamka, decimal cena)
             {
                 this.jk = jk;
                 this.pocetKs = pocetKs;
                 this.datum = datum;
                 this.poznamka = poznamka;
                 this.poradi = poradi;
+                this.cena = cena;
             }
         }
 
@@ -43,7 +45,22 @@ namespace Vydejna
             labelVyrobce.Text = Convert.ToString(DBRow["vyrobce"]);
             labelNazev.Text = Convert.ToString(DBRow["nazev"]);
             labelDosudKs.Text = Convert.ToString(DBRow["fyzstav"]) + " / " + Convert.ToString(DBRow["ucetstav"]);
-
+            try
+            {
+                numericUpDownCenaKs.Value = Convert.ToDecimal(DBRow["cena"]);
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                decimal cenaValue = Convert.ToDecimal(DBRow["cena"]);
+                if (cenaValue > numericUpDownCenaKs.Maximum)
+                {
+                    numericUpDownCenaKs.Value = numericUpDownCenaKs.Maximum;
+                }
+                else
+                {
+                    numericUpDownCenaKs.Value = numericUpDownCenaKs.Minimum;
+                }
+            }
             parentPoradi = Convert.ToInt32(DBRow["poradi"]);
 
             AcceptButton = buttonOK;
@@ -80,7 +97,7 @@ namespace Vydejna
 
         private void setButtonOK ()
         {
-        if ((numericUpDownPrijemKs.Value > 0) && (textBoxPoznamka.Text.Trim() != ""))
+        if ((numericUpDownPrijemKs.Value > 0) && (textBoxPoznamka.Text.Trim() != "") && (numericUpDownCenaKs.Value > 0))
             {
                 buttonOK.Enabled = true;
             }
@@ -104,8 +121,13 @@ namespace Vydejna
 
         public messager getMesseger()
         {
-            messager prepravka = new messager(parentPoradi, labelJK.Text, Convert.ToInt32(numericUpDownPrijemKs.Value), dateTimePickerDatum.Value, textBoxPoznamka.Text);
+            messager prepravka = new messager(parentPoradi, labelJK.Text, Convert.ToInt32(numericUpDownPrijemKs.Value), dateTimePickerDatum.Value, textBoxPoznamka.Text,numericUpDownCenaKs.Value);
             return prepravka;
+        }
+
+        private void numericUpDownCenaKs_ValueChanged(object sender, EventArgs e)
+        {
+            setButtonOK();
         }
 
 

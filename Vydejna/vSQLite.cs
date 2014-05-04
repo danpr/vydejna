@@ -2022,16 +2022,17 @@ namespace Vydejna
 
 
         // pridani nove polozky do tabulky zmeny
-        public override Int32 addNewLineZmeny(Int32 DBporadi, string DBJK, DateTime DBdatum, Int32 DBprijem, Int32 DBvydej, string DBpoznamka, string DBstav, Int32 DBfyzStavZmena, Int32 DBucetStavZmena, string DBosCislo)
+        public override Int32 addNewLineZmenyAndPrijmuto(Int32 DBporadi, string DBJK, DateTime DBdatum, Int32 DBprijem, Int32 DBvydej, decimal DBcena, string DBpoznamka, string DBstav, Int32 DBfyzStavZmena, Int32 DBucetStavZmena, string DBosCislo)
         {
             SQLiteTransaction transaction = null;
 
             if (DBIsOpened())
             {
-                string commandString1 = "UPDATE naradi set fyzstav = fyzstav + ?, ucetstav = ucetstav+ ?  where poradi = ? ";
+                string commandReadString1 = "SELECT poradi, zustatek from zmeny where parporadi = ? ORDER BY poradi DESC";
+                string commandReadString2 = "SELECT ucetkscen, celkcena, ucetstav from naradi where poradi = ? ";
+                string commandString1 = "UPDATE naradi set fyzstav = fyzstav + ?, ucetstav = ucetstav + ?, celkcena = celkcena + ?, cena = ? where poradi = ? ";
                 string commandString2 = "INSERT INTO zmeny (parporadi, pomozjk, datum, poznamka, prijem, vydej, zustatek, zapkarta, vevcislo, pocivc, stav, poradi )" +
                       "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
-                string commandString3 = "SELECT poradi, zustatek from zmeny where parporadi = ? ORDER BY poradi DESC";
 
                 try
                 {
@@ -2044,88 +2045,84 @@ namespace Vydejna
                     }
 
 
-                    SQLiteCommand cmdr = new SQLiteCommand(commandString3, myDBConn as SQLiteConnection);
-
-                    SQLiteParameter px = new SQLiteParameter("px", DbType.Int32);
-                    px.Value = DBporadi;
-                    cmdr.Parameters.Add(px);
+                    SQLiteCommand cmdr1 = new SQLiteCommand(commandReadString1, myDBConn as SQLiteConnection);
+                    cmdr1.Parameters.AddWithValue("@parporadi", DBporadi);
 
                     Int32 poradi;
                     Int32 zustatek;
 
-                    SQLiteDataReader myReader = cmdr.ExecuteReader();
+                    SQLiteDataReader myReader1 = cmdr1.ExecuteReader();
                     // true osCisloExist
-                    if (myReader.Read() == true)
+                    if (myReader1.Read() == true)
                     {
-                        poradi = myReader.GetInt32(0) + 1;
-                        zustatek = myReader.GetInt32(1);
+                        poradi = myReader1.GetInt32(0) + 1;
+                        zustatek = myReader1.GetInt32(1);
                     }
                     else
                     {
                         poradi = 1;
                         zustatek = 0;
+                    }
+                    myReader1.Close();
+
+
+
+                    SQLiteCommand cmdr2 = new SQLiteCommand(commandReadString2, myDBConn as SQLiteConnection);
+                    cmdr2.Parameters.AddWithValue("@poradi", DBporadi);
+
+                    decimal celkCena;
+                    decimal ucetCenaKs;
+                    Int32 ucetstav;
+
+                    SQLiteDataReader myReader2 = cmdr2.ExecuteReader();
+                    // true osCisloExist
+                    if (myReader2.Read() == true)
+                    {
+                        ucetCenaKs = myReader2.GetDecimal(0);
+                        celkCena = myReader2.GetDecimal(1);
+                        ucetstav = myReader2.GetInt32(2);
+                    }
+                    else
+                    {
+                        myReader2.Close();
+                        if (transaction != null)
+                        {
+                            (transaction as SQLiteTransaction).Commit();
+                        }
+                        return -2; // data neexistuji
 
                     }
+                    myReader2.Close();
 
-                    myReader.Close();
-
+                    // normalni rezim;
+                    decimal celkCenaZvyseni = ucetCenaKs * DBprijem;
 
 
                     SQLiteCommand cmd1 = new SQLiteCommand(commandString1, myDBConn as SQLiteConnection);
 
-                    SQLiteParameter pn1 = new SQLiteParameter("p1", DbType.Int32);
-                    pn1.Value = DBfyzStavZmena; // DBprijem - DBvydej;
-                    SQLiteParameter pn2 = new SQLiteParameter("p2", DbType.Int32);
-                    pn2.Value = DBucetStavZmena; // DBprijem - DBvydej;
-                    SQLiteParameter pn3 = new SQLiteParameter("p3", DbType.Int32);
-                    pn3.Value = DBporadi;
-
-                    cmd1.Parameters.Add(pn1);
-                    cmd1.Parameters.Add(pn2);
-                    cmd1.Parameters.Add(pn3);
-
+                    cmd1.Parameters.AddWithValue("@fyzstav", DBfyzStavZmena);
+                    cmd1.Parameters.AddWithValue("@ucetstav", DBucetStavZmena);
+                    cmd1.Parameters.AddWithValue("@celkcena", celkCenaZvyseni);
+                    cmd1.Parameters.AddWithValue("@cena", DBcena);
+                    cmd1.Parameters.AddWithValue("@poradi", DBporadi);
                     cmd1.Transaction = transaction;
                     cmd1.ExecuteNonQuery();
 
+
                     SQLiteCommand cmd2 = new SQLiteCommand(commandString2, myDBConn as SQLiteConnection);
 
-                    SQLiteParameter p1 = new SQLiteParameter("p1", DbType.Int32);
-                    p1.Value = DBporadi;
-                    SQLiteParameter p2 = new SQLiteParameter("p2", DbType.String);
-                    p2.Value = DBJK;
-                    SQLiteParameter p3 = new SQLiteParameter("p3", DbType.Date);
-                    p3.Value = DBdatum;
-                    SQLiteParameter p4 = new SQLiteParameter("p4", DbType.String);
-                    p4.Value = DBpoznamka;
-                    SQLiteParameter p5 = new SQLiteParameter("p5", DbType.Int32);
-                    p5.Value = DBprijem;
-                    SQLiteParameter p6 = new SQLiteParameter("p6", DbType.Int32);
-                    p6.Value = DBvydej;
-                    SQLiteParameter p7 = new SQLiteParameter("p7", DbType.Int32);
-                    p7.Value = zustatek +DBprijem - DBvydej;
-                    SQLiteParameter p8 = new SQLiteParameter("p8", DbType.String);
-                    p8.Value = DBosCislo;
-                    SQLiteParameter p9 = new SQLiteParameter("p9", DbType.String);
-                    p9.Value = "";
-                    SQLiteParameter p10 = new SQLiteParameter("p10", DbType.Int32);
-                    p10.Value = 0;
-                    SQLiteParameter p11 = new SQLiteParameter("p11", DbType.String);
-                    p11.Value = DBstav;
-                    SQLiteParameter p12 = new SQLiteParameter("p12", DbType.Int32);
-                    p12.Value = poradi;
-
-                    cmd2.Parameters.Add(p1);
-                    cmd2.Parameters.Add(p2);
-                    cmd2.Parameters.Add(p3);
-                    cmd2.Parameters.Add(p4);
-                    cmd2.Parameters.Add(p5);
-                    cmd2.Parameters.Add(p6);
-                    cmd2.Parameters.Add(p7);
-                    cmd2.Parameters.Add(p8);
-                    cmd2.Parameters.Add(p9);
-                    cmd2.Parameters.Add(p10);
-                    cmd2.Parameters.Add(p11);
-                    cmd2.Parameters.Add(p12);
+                    cmd2.Parameters.AddWithValue("@parporadi", DBporadi);
+                    cmd2.Parameters.AddWithValue("@pomozjk",DBJK );
+                    cmd2.Parameters.AddWithValue("@datum",DBdatum );
+                    cmd2.Parameters.AddWithValue("@poznamka",DBpoznamka );
+                    cmd2.Parameters.AddWithValue("@prijem", DBprijem);
+                    cmd2.Parameters.AddWithValue("@vydej",DBvydej );
+                    cmd2.Parameters.AddWithValue("@zustatek", zustatek +DBprijem - DBvydej);
+                    cmd2.Parameters.AddWithValue("@zapkarta", DBosCislo);
+                    cmd2.Parameters.AddWithValue("@vevcislo", "");
+                    cmd2.Parameters.AddWithValue("@pocivc", 0);
+                    cmd2.Parameters.AddWithValue("@stav", DBstav);
+                    cmd2.Parameters.AddWithValue("@poradi", poradi);
 
                     cmd2.Transaction = transaction;
                     cmd2.ExecuteNonQuery();
@@ -3623,7 +3620,7 @@ namespace Vydejna
         {
             if (DBRow == null) DBRow = new Hashtable();
 
-            string DBSelect = "SELECT n.poradi, n.fyzstav as fyzstav, n.ucetstav as ucetstav, z.zustatek as zmeny_zustatek FROM naradi  n, zmeny z " +
+            string DBSelect = "SELECT n.poradi, n.fyzstav as fyzstav, n.ucetstav as ucetstav, n.cena as cena, n.celkcena as celkcena, z.zustatek as zmeny_zustatek FROM naradi  n, zmeny z " +
                               "WHERE z.poradi = (SELECT MAX(s.poradi) FROM zmeny s WHERE s.parporadi = " + poradi.ToString() +" GROUP BY s.parporadi) " +
                               "AND z.parporadi = n.poradi and z.parporadi = " + poradi.ToString();
 

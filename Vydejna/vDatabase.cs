@@ -9,7 +9,7 @@ using System.Data.Odbc;
 using System.Data.SQLite;
 using System.Windows.Forms;
 
-//    tabulka naradi + karta
+//    tabulka naradi + karta /zrusene polozky/ 
 
 // tabulka    promenna    prehled   add/edit okno
 //
@@ -37,7 +37,7 @@ using System.Windows.Forms;
 // druh       DBdruhp
 // odpis      DBodpis    
 // zavod      DBzavod                // zruseno v SQL
-// ---- Nasledujici polozku neobsahuje tabulka karta
+// ---- Nasledujici polozku neobsahuje tabulka karta /zrusene polozky /
 // ucetkscen  DBucetkscen Ucet. cena/KS  numericUpDownUcetCenaKs
 // test       DBtest      // zruseno v SQL
 // pomroz     DBpomroz    // zruseno v SQL                              // pomocny rozmer
@@ -352,7 +352,7 @@ namespace Vydejna
         }
 
 
-        public virtual Int32 addNewLineZmeny(Int32 DBporadi, string DBJK, DateTime DBdatum, Int32 DBprijem, Int32 DBvydej, string DBpoznamka, string DBstav, Int32 DBfyzStavZmena, Int32 DBucetStavZmena, string DBosCislo)
+        public virtual Int32 addNewLineZmenyAndPrijmuto(Int32 DBporadi, string DBJK, DateTime DBdatum, Int32 DBprijem, Int32 DBvydej, decimal DBcena, string DBpoznamka, string DBstav, Int32 DBfyzStavZmena, Int32 DBucetStavZmena, string DBosCislo)
         {
             return -1;
         }
