@@ -2022,7 +2022,7 @@ namespace Vydejna
 
 
         // pridani nove polozky do tabulky zmeny
-        public override Int32 addNewLineZmenyAndPrijmuto(Int32 DBporadi, string DBJK, DateTime DBdatum, Int32 DBprijem, Int32 DBvydej, decimal DBcena, string DBpoznamka, string DBstav, Int32 DBfyzStavZmena, Int32 DBucetStavZmena, string DBosCislo)
+        public override Int32 addNewLineZmenyAndPrijmuto(Int32 DBporadi, string DBJK, DateTime DBdatum, Int32 DBprijem,  decimal DBcena, string DBpoznamka, Int32 DBfyzStavZmena, Int32 DBucetStavZmena)
         {
             SQLiteTransaction transaction = null;
 
@@ -2116,12 +2116,12 @@ namespace Vydejna
                     cmd2.Parameters.AddWithValue("@datum",DBdatum );
                     cmd2.Parameters.AddWithValue("@poznamka",DBpoznamka );
                     cmd2.Parameters.AddWithValue("@prijem", DBprijem);
-                    cmd2.Parameters.AddWithValue("@vydej",DBvydej );
-                    cmd2.Parameters.AddWithValue("@zustatek", zustatek +DBprijem - DBvydej);
-                    cmd2.Parameters.AddWithValue("@zapkarta", DBosCislo);
+                    cmd2.Parameters.AddWithValue("@vydej",0 );
+                    cmd2.Parameters.AddWithValue("@zustatek", zustatek +DBprijem );
+                    cmd2.Parameters.AddWithValue("@zapkarta", "");
                     cmd2.Parameters.AddWithValue("@vevcislo", "");
                     cmd2.Parameters.AddWithValue("@pocivc", 0);
-                    cmd2.Parameters.AddWithValue("@stav", DBstav);
+                    cmd2.Parameters.AddWithValue("@stav", "P");
                     cmd2.Parameters.AddWithValue("@poradi", poradi);
 
                     cmd2.Transaction = transaction;

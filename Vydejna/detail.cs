@@ -606,7 +606,7 @@ namespace Vydejna
                 if (prijemka.ShowDialog() == DialogResult.OK)
                 {
                     PrijemkaMaterialu.messager mesenger = prijemka.getMesseger();
-                    if (myDB.addNewLineZmenyAndPrijmuto(mesenger.poradi, mesenger.jk, mesenger.datum, mesenger.pocetKs, 0, mesenger.cena, mesenger.poznamka, "P", mesenger.pocetKs, mesenger.pocetKs, "") < 0)
+                    if (myDB.addNewLineZmenyAndPrijmuto(mesenger.poradi, mesenger.jk, mesenger.datum, mesenger.pocetKs, mesenger.cena, mesenger.poznamka, mesenger.pocetKs, mesenger.pocetKs) < 0)
                     {
                         MessageBox.Show("Příjem materialu se nezdařil. Lituji.");
                     }
