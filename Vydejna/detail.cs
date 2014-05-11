@@ -673,29 +673,30 @@ namespace Vydejna
                         if (dataRowIndex != -1)
                         {
                             // opravime tabulku
-                            Hashtable DBrow = myDB.getNaradiZmenyLine(mesenger.poradi, null);
-                            if (DBrow != null)
+                            Hashtable DBBackRow = myDB.getNaradiZmenyLine(mesenger.poradi, null);
+                            if (DBBackRow != null)
                             {
                                 Int32 fyzStav = 0;
                                 Int32 ucetStav = 0;
 
-                                if (DBrow.ContainsKey("fyzstav") && DBrow.ContainsKey("zmeny_zustatek"))
+                                (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("celkcena", Convert.ToDouble(DBBackRow["celkcena"]));
+                                if (DBBackRow.ContainsKey("fyzstav") && DBBackRow.ContainsKey("zmeny_zustatek"))
                                 {
-                                    fyzStav = Convert.ToInt32(DBrow["fyzstav"]);
-                                    int zustatek = Convert.ToInt32(DBrow["zmeny_zustatek"]);
+                                    fyzStav = Convert.ToInt32(DBBackRow["fyzstav"]);
+                                    int zustatek = Convert.ToInt32(DBBackRow["zmeny_zustatek"]);
                                     if (zustatek != fyzStav) MessageBox.Show("Pozor! Patrně nesouhlasí stav karet a stav vydejny položky.");
                                 }
-                                if (DBrow.ContainsKey("fyzstav"))
+                                if (DBBackRow.ContainsKey("fyzstav"))
                                 {
-                                    fyzStav = Convert.ToInt32(DBrow["fyzstav"]);
+                                    fyzStav = Convert.ToInt32(DBBackRow["fyzstav"]);
                                     (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("fyzstav", fyzStav);
                                 }
-                                if (DBrow.ContainsKey("ucetstav"))
+                                if (DBBackRow.ContainsKey("ucetstav"))
                                 {
-                                    ucetStav = Convert.ToInt32(DBrow["ucetstav"]);
+                                    ucetStav = Convert.ToInt32(DBBackRow["ucetstav"]);
                                     (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("ucetstav", ucetStav);
                                 }
-                                if (DBrow.ContainsKey("fyzstav") && DBrow.ContainsKey("ucetstav"))
+                                if (DBBackRow.ContainsKey("fyzstav") && DBBackRow.ContainsKey("ucetstav"))
                                 {
                                     if (ucetStav < fyzStav) MessageBox.Show("Pozor! Účetní stav je menší než stav výdejny.");
                                 }

@@ -1562,7 +1562,7 @@ namespace Vydejna
                 ///------------
                 string commandReadString7 = "SELECT poradi FROM tabseq WHERE nazev = 'poskozeno'";
 
-                string commandString1 = "UPDATE naradi SET ucetstav = ucetstav - ? WHERE poradi = ? ";
+                string commandString1 = "UPDATE naradi SET ucetstav = ucetstav - ?, celkcena = celkcena - (ucetkscen * ?) WHERE poradi = ? ";
 
                 string commandString2 = "INSERT INTO zmeny (parporadi, pomozjk, datum, poznamka, prijem, vydej, zustatek, zapkarta, vevcislo, pocivc, stav, poradi )" +
                     "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
@@ -1802,13 +1802,11 @@ namespace Vydejna
                     }
                     vracNewPoskPoradiReader.Close();
 
-
-
-
                     // tab naradi zmensi ucet. stav
 
                     OdbcCommand cmd1 = new OdbcCommand(commandString1, myDBConn as OdbcConnection);
                     cmd1.Parameters.AddWithValue("@ucetstav", DBks);
+                    cmd1.Parameters.AddWithValue("@celkcena", DBks);
                     cmd1.Parameters.AddWithValue("@poradi", parPoradi);
 
                     cmd1.Transaction = transaction;
