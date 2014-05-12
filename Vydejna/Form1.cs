@@ -1263,6 +1263,8 @@ namespace Vydejna
                     Environment.Exit(0);
                 }
                 labelUser.Text = ud.Jmeno + " " + ud.Prijmeni;
+
+                MenuItemUcetCena.Checked = myDB.getEnablePrumerUcetCena();
             }
         }
 
@@ -1490,54 +1492,27 @@ namespace Vydejna
             sestava.ShowDialog();
         }
 
-        private void MenuItemUcetCena_Click(object sender, EventArgs e)
-        {
-            UzivatelData ud = UzivatelData.makeInstance();
-            if (ud.userIsAdminWM())
-            {
-                if (MenuItemUcetCena.Checked)
-                {
-                    DialogResult dialogResult = MessageBox.Show("Opravdu chcete zrušit použití Ůčetni ceny ?", "", MessageBoxButtons.YesNo);
-                    if (dialogResult != DialogResult.Yes)
-                    {
-                        return;
-                    }
-
-                }
-                else
-                {
-                    DialogResult dialogResult = MessageBox.Show("Opravdu chcete aktivovat použití Ůčetni ceny ?", "", MessageBoxButtons.YesNo);
-                    if (dialogResult != DialogResult.Yes)
-                    {
-                        return;
-                    }
-                }
-                // aktivujeme / deaktuvujeme nastaveni databaze
-                if (!(MenuItemUcetCena.Checked))
-                {
-                    if (!(myDB.tableNastaveniExist()))
-                    {
-                        MessageBox.Show ("Tabulka globálního nastavení patrně neexistuje\n a bez ní program nemůže aktivovat rozšířené funkce.");
-                        return;
-                    }
-                }
-                if (myDB.enableUcetCena(!(MenuItemUcetCena.Checked), ud.userID))
-                {
-                    // myDB.enableUcetCena (!(MenuItemUcetCena.Checked));
-
-                    MenuItemUcetCena.Checked = myDB.getEnableUcetCena();
-//                    MenuItemUcetCena.Checked = !(MenuItemUcetCena.Checked);
-                }
-            }
-        }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
             if (myDB.DBIsOpened())
             {
-                MenuItemUcetCena.Checked = myDB.getEnableUcetCena();
+                MenuItemUcetCena.Checked = myDB.getEnablePrumerUcetCena();
             }
             timer1.Start();
+        }
+
+        private void MenuItemPrumerUcetCena_Click(object sender, EventArgs e)
+        {
+            if (myDB.DBIsOpened())
+            {
+            UzivatelData ud = UzivatelData.makeInstance();
+            myDB.enablePrumerUcetCena(!(MenuItemUcetCena.Checked), ud.userID);
+            MenuItemUcetCena.Checked = myDB.getEnablePrumerUcetCena();
+            }
+
+
+
         }
     }
 }

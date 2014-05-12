@@ -777,9 +777,9 @@ namespace Vydejna
         }
 
 
-        public virtual Boolean getEnableUcetCena()
+        public virtual Boolean getEnablePrumerUcetCena()
         {
-            return getNastaveniItem("ucetcena");
+            return getNastaveniItem("prumucetcena");
         }
 
         public virtual Boolean getNastaveniItem(string item)
@@ -788,9 +788,9 @@ namespace Vydejna
         }
 
 
-        public virtual Boolean enableUcetCena(Boolean enable, string userID)
+        public virtual Boolean enablePrumerUcetCena(Boolean enable, string userID)
         {
-           return setNastaveniItem(enable, "ucetcena", userID);
+           return setNastaveniItem(enable, "prumucetcena", userID);
         }
 
 
