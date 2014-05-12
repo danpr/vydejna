@@ -32,21 +32,18 @@ namespace Vydejna
         {
             return "Vyhodnocení poškozenek dle zakázky";
         }
-        public Decimal makeSum(DataTable dt, string column)
+        public Decimal makeSum(DataTable dt)
         {
-            if (column.Trim() != "")
-            {
-                if (dt.Columns.Contains(column))
+                if (dt.Columns.Contains("cena"))
                 {
                     Decimal suma = 0;
 
                     for (int x = 0; x < dt.Rows.Count; x++)
                     {
-                        suma = suma + Convert.ToDecimal(dt.Rows[x][column]);
+                        suma = suma + Convert.ToDecimal(dt.Rows[x]["cena"]);
                     }
                     return suma;
                 }
-            }
             return 0;
         }
 

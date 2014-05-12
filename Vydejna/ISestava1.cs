@@ -16,7 +16,7 @@ namespace Vydejna
 
         string getWindowHeader();
 
-        Decimal makeSum(DataTable dt, string column);
+        Decimal makeSum(DataTable dt);
 
         void makeSumProcent(DataTable dt);
 

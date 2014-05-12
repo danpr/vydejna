@@ -37,21 +37,19 @@ namespace Vydejna
         {
             return "Seznam poškozenek za osobu";
         }
-        public Decimal makeSum(DataTable dt, string column)
+
+        public Decimal makeSum(DataTable dt)
         {
-            if (column.Trim() != "")
-            {
-                if (dt.Columns.Contains(column))
+                if (dt.Columns.Contains("celkcena"))
                 {
                     Decimal suma = 0;
 
                     for (int x = 0; x < dt.Rows.Count; x++)
                     {
-                        suma = suma + Convert.ToDecimal(dt.Rows[x][column]);
+                        suma = suma + Convert.ToDecimal(dt.Rows[x]["celkcena"]);
                     }
                     return suma;
                 }
-            }
             return 0;
         }
 

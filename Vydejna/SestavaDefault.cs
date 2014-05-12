@@ -112,7 +112,7 @@ namespace Vydejna
 
         protected virtual void makeSum()
         {
-            labelCelkem.Text = Convert.ToString(strategie.makeSum(dataGridViewSestava.DataSource as DataTable,"cena"));
+            labelCelkem.Text = Convert.ToString(strategie.makeSum(dataGridViewSestava.DataSource as DataTable));
         }
 
         protected void makeSum(string column)

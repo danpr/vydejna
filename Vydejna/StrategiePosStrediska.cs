@@ -34,21 +34,18 @@ namespace Vydejna
             return "Vyhodnocení poškozenek dle střediska";
         }
 
-        public Decimal makeSum(DataTable dt, string column)
+        public Decimal makeSum(DataTable dt)
         {
-            if (column.Trim() != "")
-            {
-                if (dt.Columns.Contains(column))
+                if (dt.Columns.Contains("cena"))
                 {
                     Decimal suma = 0;
 
                     for (int x = 0; x < dt.Rows.Count; x++)
                     {
-                        suma = suma + Convert.ToDecimal(dt.Rows[x][column]);
+                        suma = suma + Convert.ToDecimal(dt.Rows[x]["cena"]);
                     }
                     return suma;
                 }
-            }
             return 0;
         }
 
@@ -56,7 +53,7 @@ namespace Vydejna
         public void makeSumProcent(DataTable dt)
         {
 
-            Decimal suma = makeSum(dt, "cena");
+            Decimal suma = makeSum(dt);
             if (suma > 0)
             {
                 if ((dt.Columns.Contains("cena")) && (dt.Columns.Contains("procenta")))
