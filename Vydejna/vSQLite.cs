@@ -2094,6 +2094,7 @@ namespace Vydejna
                     }
                     myReader2.Close();
 
+
                     // normalni rezim;
                     decimal celkCenaZvyseni = ucetCenaKs * DBprijem;
 

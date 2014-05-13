@@ -1080,6 +1080,8 @@ namespace Vydejna
             {
                 string commandReadString1 = "SELECT poradi, zustatek from zmeny where parporadi = ? ORDER BY poradi DESC";
                 string commandReadString2 = "SELECT ucetkscen, celkcena, ucetstav from naradi where poradi = ? ";
+                string commandStringRead3 = "SELECT permission FROM nastaveni WHERE setid = \"prumucetcena\"";
+//                string commandString1 = "UPDATE naradi set fyzstav = fyzstav + ?, ucetstav = ucetstav + ?, celkcena = celkcena + ?, cena = ?, ucetkscen = ? where poradi = ? ";
                 string commandString1 = "UPDATE naradi set fyzstav = fyzstav + ?, ucetstav = ucetstav + ?, celkcena = celkcena + ?, cena = ? where poradi = ? ";
                 string commandString2 = "INSERT INTO zmeny (parporadi, pomozjk, datum, poznamka, prijem, vydej, zustatek, zapkarta, vevcislo, pocivc, stav, poradi )" +
                       "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
@@ -1144,16 +1146,47 @@ namespace Vydejna
                     }
                     myReader2.Close();
 
+
+                    OdbcCommand cmdr3 = new OdbcCommand(commandStringRead3, myDBConn as OdbcConnection);
+                    cmdr3.Transaction = transaction;
+                    OdbcDataReader myReader3 = cmdr3.ExecuteReader();
+                    Boolean prumerUcetCenaEnabled = false;
+
+                    if (myReader3.Read() == true)
+                    {
+                        string permision = myReader3.GetString(0);
+                        myReader3.Close();
+                        if (permision == "A")
+                        {
+                            prumerUcetCenaEnabled = true;
+                        }
+                    }
+                    else
+                    {
+                        // radka neexistuje
+                        myReader3.Close();
+                    }
+
+
                     // normalni rezim;
                     decimal celkCenaZvyseni = ucetCenaKs * DBprijem;
 
+                    if (prumerUcetCenaEnabled) // kdyz je pouzita prumerovana cen musime spocitat nove ucetni ceny
+                    {
+                        celkCenaZvyseni = DBcena * DBprijem;
+                        ucetCenaKs = ((ucetCenaKs * ucetstav) + (DBcena * DBprijem)) / (ucetstav + DBprijem);
+                    }
+                    
 
                     OdbcCommand cmd1 = new OdbcCommand(commandString1, myDBConn as OdbcConnection);
+//                string commandString1 = "UPDATE naradi set fyzstav = fyzstav + ?, ucetstav = ucetstav + ?, celkcena = celkcena + ?, cena = ?, ucetkscen = ? where poradi = ? ";
 
                     cmd1.Parameters.AddWithValue("@fyzstav", DBfyzStavZmena);
                     cmd1.Parameters.AddWithValue("@ucetstav", DBucetStavZmena);
                     cmd1.Parameters.AddWithValue("@celkcena", celkCenaZvyseni);
-                    cmd1.Parameters.AddWithValue("@cena", DBcena);
+//                    cmd1.Parameters.AddWithValue("@cena", DBcena);
+                    cmd1.Parameters.AddWithValue("@cena", OdbcType.Decimal).Value = Convert.ToDecimal( DBcena);
+//                    cmd1.Parameters.AddWithValue("@ucetkscen", ucetCenaKs);
                     cmd1.Parameters.AddWithValue("@poradi", DBporadi);
                     cmd1.Transaction = transaction;
                     cmd1.ExecuteNonQuery();
@@ -3730,6 +3763,7 @@ namespace Vydejna
                     catch
                     {
                     }
+
                     OdbcCommand cmdr1 = new OdbcCommand(commandStringRead1, myDBConn as OdbcConnection);
                     cmdr1.Transaction = transaction;
                     cmdr1.Parameters.AddWithValue("@setid", item);
