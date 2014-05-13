@@ -809,10 +809,19 @@ namespace Vydejna
         // NASTAVENI DATABAZE
         private void toolStripMenuItem7_Click(object sender, EventArgs e)
         {
-            UzivatelData ud = UzivatelData.makeInstance();
-            if (ud.userIsAdminWM())
-            {
+            Boolean showPref = true;
 
+            if ((myDB != null) && myDB.DBIsOpened())
+            {
+                UzivatelData ud = UzivatelData.makeInstance();
+                if (!(ud.userIsAdminWM()))
+                {
+                    showPref = false;
+                }
+            }
+
+            if (showPref)
+            {
                 NastaveniDB dbPref = new NastaveniDB(nastaveniDB);
                 if (dbPref.ShowDialog() == DialogResult.OK)
                 {
@@ -831,7 +840,6 @@ namespace Vydejna
                     if (myDB.DBIsOpened())
                     {
                         usersTest();
-
                     }
                 }
             }
