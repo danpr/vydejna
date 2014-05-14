@@ -352,7 +352,7 @@ namespace Vydejna
         }
 
 
-        public virtual Int32 addNewLineZmenyAndPrijmuto(Int32 DBporadi, string DBJK, DateTime DBdatum, Int32 DBprijem, decimal DBcena, string DBpoznamka, Int32 DBfyzStavZmena, Int32 DBucetStavZmena)
+        public virtual Int32 addNewLineZmenyAndPrijmuto(Int32 DBporadi, string DBJK, DateTime DBdatum, Int32 DBprijem, decimal DBcena, string DBpoznamka)
         {
             return -1;
         }
