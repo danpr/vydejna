@@ -1238,25 +1238,25 @@ namespace Vydejna
 
                     SQLiteCommand cmd = new SQLiteCommand(commandString2, myDBConn as SQLiteConnection);
 
-                    cmd.Parameters.AddWithValue("@poradi",maxporadi);
+                    cmd.Parameters.AddWithValue("@poradi", maxporadi).DbType = DbType.Int32;
                     cmd.Parameters.AddWithValue("nazev",DBnazev);
                     cmd.Parameters.AddWithValue("@jk",DBJK);
                     cmd.Parameters.AddWithValue("@normacsn",DBnormacsn);
                     cmd.Parameters.AddWithValue("@normadin",DBnormadin);
                     cmd.Parameters.AddWithValue("@vyrobce",DBvyrobce);
-                    cmd.Parameters.AddWithValue("@cena",DBcena);
+                    cmd.Parameters.AddWithValue("@cena", DBcena).DbType = DbType.Double;
                     cmd.Parameters.AddWithValue("@poznamka",DBpoznamka);
-                    cmd.Parameters.AddWithValue("@minimum",DBminstav);
-                    cmd.Parameters.AddWithValue("@celkcena",DBcelkcena);
-                    cmd.Parameters.AddWithValue("@ucetstav",DBucetstav);
-                    cmd.Parameters.AddWithValue("@fyzstav",DBfyzstav);
+                    cmd.Parameters.AddWithValue("@minimum", DBminstav).DbType = DbType.Int32;
+                    cmd.Parameters.AddWithValue("@celkcena", DBcelkcena).DbType = DbType.Double;
+                    cmd.Parameters.AddWithValue("@ucetstav", DBucetstav).DbType = DbType.Int32;
+                    cmd.Parameters.AddWithValue("@fyzstav", DBfyzstav).DbType = DbType.Int32;
                     cmd.Parameters.AddWithValue("@rozmer",DBrozmer);
                     cmd.Parameters.AddWithValue("@analucet",DBanalucet);
                     cmd.Parameters.AddWithValue("@tdate",new DateTime(0));
                     cmd.Parameters.AddWithValue("@stredisko","");
                     cmd.Parameters.AddWithValue("@druh", "");
                     cmd.Parameters.AddWithValue("@odpis", "");
-                    cmd.Parameters.AddWithValue("@ucetkscen", DBucetkscen);
+                    cmd.Parameters.AddWithValue("@ucetkscen", DBucetkscen).DbType = DbType.Double;
                     cmd.Parameters.AddWithValue("@kdatum", DBkdatum);
                     cmd.Parameters.AddWithValue("@kodd", "");
                     cmd.Transaction = transaction; 
@@ -1504,7 +1504,7 @@ namespace Vydejna
                     SQLiteCommand cmd = new SQLiteCommand(commandString2, myDBConn as SQLiteConnection);
 
                     cmd.Parameters.AddWithValue("@kodd", DBKodd);
-                    cmd.Parameters.AddWithValue("@poradi", poradi);
+                    cmd.Parameters.AddWithValue("@poradi", poradi).DbType = DbType.Int32;
 
                     cmd.Transaction = transaction;
                     cmd.ExecuteNonQuery();
@@ -1966,7 +1966,7 @@ namespace Vydejna
 
 
                     SQLiteCommand cmdr1 = new SQLiteCommand(commandReadString1, myDBConn as SQLiteConnection);
-                    cmdr1.Parameters.AddWithValue("@poradi", DBporadi);
+                    cmdr1.Parameters.AddWithValue("@poradi", DBporadi).DbType = DbType.Int32;
                     cmdr1.Transaction = transaction;
                     SQLiteDataReader pujcReader = cmdr1.ExecuteReader();
                     if (pujcReader.Read()) // nalezeno v seznamu pujcenych
@@ -2046,7 +2046,7 @@ namespace Vydejna
                     }
 
                     SQLiteCommand cmdr1 = new SQLiteCommand(commandReadString1, myDBConn as SQLiteConnection);
-                    cmdr1.Parameters.AddWithValue("@parporadi", DBporadi);
+                    cmdr1.Parameters.AddWithValue("@parporadi", DBporadi).DbType = DbType.Int32;
 
                     Int32 poradi;
                     Int32 zustatek;
@@ -2068,7 +2068,7 @@ namespace Vydejna
 
 
                     SQLiteCommand cmdr2 = new SQLiteCommand(commandReadString2, myDBConn as SQLiteConnection);
-                    cmdr2.Parameters.AddWithValue("@poradi", DBporadi);
+                    cmdr2.Parameters.AddWithValue("@poradi", DBporadi).DbType = DbType.Int32;
 
                     decimal celkCena;
                     decimal ucetCenaKs;
@@ -2204,8 +2204,8 @@ namespace Vydejna
                     SQLiteCommand cmd1 = new SQLiteCommand(commandString1, myDBConn as SQLiteConnection);
                     cmd1.Parameters.AddWithValue("@poznamka", DBPoznamka);
                     cmd1.Parameters.AddWithValue("@vevcislo", DBVevcislo);
-                    cmd1.Parameters.AddWithValue("@parporadi", DBParPoradi);
-                    cmd1.Parameters.AddWithValue("@poradi", DBPoradi);
+                    cmd1.Parameters.AddWithValue("@parporadi", DBParPoradi).DbType = DbType.Int32;
+                    cmd1.Parameters.AddWithValue("@poradi", DBPoradi).DbType = DbType.Int32;
                     cmd1.Transaction = transaction;
                     Int32 errCode = cmd1.ExecuteNonQuery();
                 }
@@ -2266,7 +2266,7 @@ namespace Vydejna
 
                     // soucasny stav pujceno
                     SQLiteCommand cmdr2 = new SQLiteCommand(commandReadString2, myDBConn as SQLiteConnection);
-                    cmdr2.Parameters.AddWithValue("@poradi", DBporadi);
+                    cmdr2.Parameters.AddWithValue("@poradi", DBporadi).DbType = DbType.Int32;
                     cmdr2.Transaction = transaction;
                     SQLiteDataReader pujcReader = cmdr2.ExecuteReader();
                     if (pujcReader.Read())
@@ -2298,8 +2298,8 @@ namespace Vydejna
                     string zmenyVevcislo;
 
                     SQLiteCommand cmdr7 = new SQLiteCommand(commandReadString1, myDBConn as SQLiteConnection);
-                    cmdr7.Parameters.AddWithValue("@poradi", zmenPoradi);
-                    cmdr7.Parameters.AddWithValue("@parporadi", parPoradi);
+                    cmdr7.Parameters.AddWithValue("@poradi", zmenPoradi).DbType = DbType.Int32;
+                    cmdr7.Parameters.AddWithValue("@parporadi", parPoradi).DbType = DbType.Int32;
                     cmdr7.Transaction = transaction;
                     SQLiteDataReader zmenyReader = cmdr7.ExecuteReader();
                     if (zmenyReader.Read())
@@ -2328,7 +2328,7 @@ namespace Vydejna
 
 
                     SQLiteCommand cmdr5 = new SQLiteCommand(commandReadString5, myDBConn as SQLiteConnection);
-                    cmdr5.Parameters.AddWithValue("@poradi", parPoradi);
+                    cmdr5.Parameters.AddWithValue("@poradi", parPoradi).DbType = DbType.Int32;
                     cmdr5.Transaction = transaction;
                     SQLiteDataReader naradiReader = cmdr5.ExecuteReader();
                     if (naradiReader.Read())
@@ -2386,7 +2386,7 @@ namespace Vydejna
                     // cislo poradi pro novy zaznam a stav podle zmen
 
                     SQLiteCommand cmdr3 = new SQLiteCommand(commandReadString3, myDBConn as SQLiteConnection);
-                    cmdr3.Parameters.AddWithValue("poradi", parPoradi);
+                    cmdr3.Parameters.AddWithValue("poradi", parPoradi).DbType = DbType.Int32;
                     cmdr3.Transaction = transaction;
                     SQLiteDataReader zmenTailReader = cmdr3.ExecuteReader();
                     if (zmenTailReader.Read() == true)
@@ -2418,8 +2418,8 @@ namespace Vydejna
                     // tab naradi zvetsi fyz. stav
 
                     SQLiteCommand cmd1 = new SQLiteCommand(commandString1, myDBConn as SQLiteConnection);
-                    cmd1.Parameters.AddWithValue("@fyzstav", DBks);
-                    cmd1.Parameters.AddWithValue("@poradi", parPoradi);
+                    cmd1.Parameters.AddWithValue("@fyzstav", DBks).DbType = DbType.Int32;
+                    cmd1.Parameters.AddWithValue("@poradi", parPoradi).DbType = DbType.Int32;
 
                     cmd1.Transaction = transaction;
                     Int32 errCode = cmd1.ExecuteNonQuery();
@@ -2429,18 +2429,18 @@ namespace Vydejna
 
                     //                  parporadi, pomozjk, datum, poznamka, prijem, vydej, zustatek, zapkarta, vevcislo, pocivc, stav, poradi
 
-                    cmd2.Parameters.AddWithValue("@parporadi", parPoradi);
+                    cmd2.Parameters.AddWithValue("@parporadi", parPoradi).DbType = DbType.Int32;
                     cmd2.Parameters.AddWithValue("@pomozjk", naradiJK);
                     cmd2.Parameters.AddWithValue("@datum", DBdatum);
                     cmd2.Parameters.AddWithValue("@poznamka", DBpoznamka);
-                    cmd2.Parameters.AddWithValue("@prijem", DBks);
-                    cmd2.Parameters.AddWithValue("@vydej", 0);
-                    cmd2.Parameters.AddWithValue("@zustatek", zustatek + DBks);
+                    cmd2.Parameters.AddWithValue("@prijem", DBks).DbType = DbType.Int32;
+                    cmd2.Parameters.AddWithValue("@vydej", 0).DbType = DbType.Int32;
+                    cmd2.Parameters.AddWithValue("@zustatek", zustatek + DBks).DbType = DbType.Int32;
                     cmd2.Parameters.AddWithValue("@zapkarta", DBosCislo);
                     cmd2.Parameters.AddWithValue("@vevcislo", zmenyVevcislo);
                     cmd2.Parameters.AddWithValue("@pocivc", 0);
                     cmd2.Parameters.AddWithValue("@stav", "R");
-                    cmd2.Parameters.AddWithValue("@poradi", newZmenyPoradi);
+                    cmd2.Parameters.AddWithValue("@poradi", newZmenyPoradi).DbType = DbType.Int32;
                     cmd2.Transaction = transaction;
                     errCode = cmd2.ExecuteNonQuery();
 
@@ -2448,8 +2448,8 @@ namespace Vydejna
                     {
                         // tab pujceno zmena stavu
                         SQLiteCommand cmd3 = new SQLiteCommand(commandString3, myDBConn as SQLiteConnection);
-                        cmd3.Parameters.AddWithValue("@stavks", DBks);
-                        cmd3.Parameters.AddWithValue("@poradi", DBporadi);
+                        cmd3.Parameters.AddWithValue("@stavks", DBks).DbType = DbType.Int32;
+                        cmd3.Parameters.AddWithValue("@poradi", DBporadi).DbType = DbType.Int32;
                         cmd3.Transaction = transaction;
                         errCode = cmd3.ExecuteNonQuery();
                     }
@@ -2457,7 +2457,7 @@ namespace Vydejna
                     {
                         // tab pujceno smazani
                         SQLiteCommand cmd4 = new SQLiteCommand(commandString4, myDBConn as SQLiteConnection);
-                        cmd4.Parameters.AddWithValue("@poradi", DBporadi);
+                        cmd4.Parameters.AddWithValue("@poradi", DBporadi).DbType = DbType.Int32;
                         cmd4.Transaction = transaction;
                         errCode = cmd4.ExecuteNonQuery();
                     }
@@ -2486,7 +2486,7 @@ namespace Vydejna
 
                     SQLiteCommand cmd5 = new SQLiteCommand(commandString5, myDBConn as SQLiteConnection);
                     // "INSERT INTO vraceno ( poradi, jmeno, oscislo, dilna, pracoviste, vyrobek, nazev, jk, rozmer, pocetks, cena, datum, csn, krjmeno, celkcena, vevcislo, konto) "
-                    cmd5.Parameters.AddWithValue("poradi", newZmenyPoradi);
+                    cmd5.Parameters.AddWithValue("poradi", newZmenyPoradi).DbType = DbType.Int32;
                     cmd5.Parameters.AddWithValue("jmeno", osobyPrijmeni);
                     cmd5.Parameters.AddWithValue("oscislo", DBosCislo);
                     cmd5.Parameters.AddWithValue("dilna", osobyStredisko);
@@ -2495,12 +2495,12 @@ namespace Vydejna
                     cmd5.Parameters.AddWithValue("nazev", naradiNazev);
                     cmd5.Parameters.AddWithValue("jk", naradiJK);
                     cmd5.Parameters.AddWithValue("rozmer", naradiRozmer);
-                    cmd5.Parameters.AddWithValue("pocetks", DBks);
-                    cmd5.Parameters.AddWithValue("cena", naradiCena);
+                    cmd5.Parameters.AddWithValue("pocetks", DBks).DbType = DbType.Int32;
+                    cmd5.Parameters.AddWithValue("cena", naradiCena).DbType = DbType.Double;
                     cmd5.Parameters.AddWithValue("datum", DBdatum);
                     cmd5.Parameters.AddWithValue("csn", naradiCSN);
                     cmd5.Parameters.AddWithValue("krjmeno", osobyJmeno);
-                    cmd5.Parameters.AddWithValue("celkcena", naradiCelkCena);
+                    cmd5.Parameters.AddWithValue("celkcena", naradiCelkCena).DbType = DbType.Double;
                     cmd5.Parameters.AddWithValue("vevcislo", zmenyVevcislo);
                     cmd5.Parameters.AddWithValue("konto", "");
                     cmd5.Transaction = transaction;
@@ -2582,7 +2582,7 @@ namespace Vydejna
 
                     // soucasny stav pujceno
                     SQLiteCommand cmdr2 = new SQLiteCommand(commandReadString2, myDBConn as SQLiteConnection);
-                    cmdr2.Parameters.AddWithValue("@poradi", DBporadi);
+                    cmdr2.Parameters.AddWithValue("@poradi", DBporadi).DbType = DbType.Int32;
                     cmdr2.Transaction = transaction;
                     SQLiteDataReader pujcReader = cmdr2.ExecuteReader();
                     if (pujcReader.Read())
@@ -2614,8 +2614,8 @@ namespace Vydejna
                     string zmenyVevcislo;
 
                     SQLiteCommand cmdr7 = new SQLiteCommand(commandReadString1, myDBConn as SQLiteConnection);
-                    cmdr7.Parameters.AddWithValue("@poradi", zmenPoradi);
-                    cmdr7.Parameters.AddWithValue("@parporadi", parPoradi);
+                    cmdr7.Parameters.AddWithValue("@poradi", zmenPoradi).DbType = DbType.Int32;
+                    cmdr7.Parameters.AddWithValue("@parporadi", parPoradi).DbType = DbType.Int32;
                     cmdr7.Transaction = transaction;
                     SQLiteDataReader zmenyReader = cmdr7.ExecuteReader();
                     if (zmenyReader.Read())
@@ -2644,7 +2644,7 @@ namespace Vydejna
                     Int32 naradiUcetStav;
 
                     SQLiteCommand cmdr5 = new SQLiteCommand(commandReadString5, myDBConn as SQLiteConnection);
-                    cmdr5.Parameters.AddWithValue("@poradi", parPoradi);
+                    cmdr5.Parameters.AddWithValue("@poradi", parPoradi).DbType = DbType.Int32;
                     cmdr5.Transaction = transaction;
                     SQLiteDataReader naradiReader = cmdr5.ExecuteReader();
                     if (naradiReader.Read())
@@ -2714,7 +2714,7 @@ namespace Vydejna
 
                     //commandReadString3 = "SELECT poradi, zustatek from zmeny where parporadi = ? ORDER BY poradi DESC";
                     SQLiteCommand cmdr3 = new SQLiteCommand(commandReadString3, myDBConn as SQLiteConnection);
-                    cmdr3.Parameters.AddWithValue("poradi", parPoradi);
+                    cmdr3.Parameters.AddWithValue("poradi", parPoradi).DbType = DbType.Int32;
                     cmdr3.Transaction = transaction;
                     SQLiteDataReader zmenTailReader = cmdr3.ExecuteReader();
                     if (zmenTailReader.Read() == true)
@@ -2791,9 +2791,9 @@ namespace Vydejna
                     // tab naradi zmensi ucet. stav
 
                     SQLiteCommand cmd1 = new SQLiteCommand(commandString1, myDBConn as SQLiteConnection);
-                    cmd1.Parameters.AddWithValue("@ucetstav", DBks);
-                    cmd1.Parameters.AddWithValue("@celkcena", DBks);
-                    cmd1.Parameters.AddWithValue("@poradi", parPoradi);
+                    cmd1.Parameters.AddWithValue("@ucetstav", DBks).DbType = DbType.Int32;
+                    cmd1.Parameters.AddWithValue("@celkcena", DBks).DbType = DbType.Int32;
+                    cmd1.Parameters.AddWithValue("@poradi", parPoradi).DbType = DbType.Int32;
 
                     cmd1.Transaction = transaction;
                     Int32 errCode = cmd1.ExecuteNonQuery();
@@ -2801,18 +2801,18 @@ namespace Vydejna
                     //  tab zmeny novy zaznam
                     SQLiteCommand cmd2 = new SQLiteCommand(commandString2, myDBConn as SQLiteConnection);
 
-                    cmd2.Parameters.AddWithValue("@parporadi", parPoradi);
+                    cmd2.Parameters.AddWithValue("@parporadi", parPoradi).DbType = DbType.Int32;
                     cmd2.Parameters.AddWithValue("@pomozjk", naradiJK);
                     cmd2.Parameters.AddWithValue("@datum", DBdatum);
                     cmd2.Parameters.AddWithValue("@poznamka", DBpoznamka);
-                    cmd2.Parameters.AddWithValue("@prijem", DBks);
-                    cmd2.Parameters.AddWithValue("@vydej", 0);
-                    cmd2.Parameters.AddWithValue("@zustatek", zustatek + DBks);
+                    cmd2.Parameters.AddWithValue("@prijem", DBks).DbType = DbType.Int32;
+                    cmd2.Parameters.AddWithValue("@vydej", 0).DbType = DbType.Int32;
+                    cmd2.Parameters.AddWithValue("@zustatek", zustatek + DBks).DbType = DbType.Int32;
                     cmd2.Parameters.AddWithValue("@zapkarta", DBosCislo);
                     cmd2.Parameters.AddWithValue("@vevcislo", zmenyVevcislo);
                     cmd2.Parameters.AddWithValue("@pocivc", 0);
                     cmd2.Parameters.AddWithValue("@stav", "R");
-                    cmd2.Parameters.AddWithValue("@poradi", newZmenyPoradi);
+                    cmd2.Parameters.AddWithValue("@poradi", newZmenyPoradi).DbType = DbType.Int32;
                     cmd2.Transaction = transaction;
                     errCode = cmd2.ExecuteNonQuery();
 
@@ -2820,8 +2820,8 @@ namespace Vydejna
                     {
                         // tab pujceno zmena stavu
                         SQLiteCommand cmd3 = new SQLiteCommand(commandString3, myDBConn as SQLiteConnection);
-                        cmd3.Parameters.AddWithValue("@stavks", DBks);
-                        cmd3.Parameters.AddWithValue("@poradi", DBporadi);
+                        cmd3.Parameters.AddWithValue("@stavks", DBks).DbType = DbType.Int32;
+                        cmd3.Parameters.AddWithValue("@poradi", DBporadi).DbType = DbType.Int32;
                         cmd3.Transaction = transaction;
                         errCode = cmd3.ExecuteNonQuery();
                     }
@@ -2829,7 +2829,7 @@ namespace Vydejna
                     {
                         // tab pujceno smazani
                         SQLiteCommand cmd4 = new SQLiteCommand(commandString4, myDBConn as SQLiteConnection);
-                        cmd4.Parameters.AddWithValue("@poradi", DBporadi);
+                        cmd4.Parameters.AddWithValue("@poradi", DBporadi).DbType = DbType.Int32;
                         cmd4.Transaction = transaction;
                         errCode = cmd4.ExecuteNonQuery();
                     }
@@ -2837,7 +2837,7 @@ namespace Vydejna
 
                     // pridani do tabulky vraceno
                     SQLiteCommand cmd5 = new SQLiteCommand(commandString5, myDBConn as SQLiteConnection);
-                    cmd5.Parameters.AddWithValue("poradi", newVracenoPoradi);
+                    cmd5.Parameters.AddWithValue("poradi", newVracenoPoradi).DbType = DbType.Int32;
                     cmd5.Parameters.AddWithValue("jmeno", osobyPrijmeni);
                     cmd5.Parameters.AddWithValue("oscislo", DBosCislo);
                     cmd5.Parameters.AddWithValue("dilna", osobyStredisko);
@@ -2846,12 +2846,12 @@ namespace Vydejna
                     cmd5.Parameters.AddWithValue("nazev", naradiNazev);
                     cmd5.Parameters.AddWithValue("jk", naradiJK);
                     cmd5.Parameters.AddWithValue("rozmer", naradiRozmer);
-                    cmd5.Parameters.AddWithValue("pocetks", DBks);
-                    cmd5.Parameters.AddWithValue("cena", naradiCena);
+                    cmd5.Parameters.AddWithValue("pocetks", DBks).DbType = DbType.Int32;
+                    cmd5.Parameters.AddWithValue("cena", naradiCena).DbType = DbType.Double;
                     cmd5.Parameters.AddWithValue("datum", DBdatum);
                     cmd5.Parameters.AddWithValue("csn", naradiCSN);
                     cmd5.Parameters.AddWithValue("krjmeno", osobyJmeno);
-                    cmd5.Parameters.AddWithValue("celkcena", naradiCelkCena);
+                    cmd5.Parameters.AddWithValue("celkcena", naradiCelkCena).DbType = DbType.Double;
                     cmd5.Parameters.AddWithValue("vevcislo", zmenyVevcislo);
                     cmd5.Parameters.AddWithValue("konto", DBKonto);
                     cmd5.Transaction = transaction;
@@ -2864,25 +2864,25 @@ namespace Vydejna
 
                     //  tab zmeny novy zaznam pro zmeny - poskozeno
                     SQLiteCommand cmd7 = new SQLiteCommand(commandString2, myDBConn as SQLiteConnection);
-                    cmd7.Parameters.AddWithValue("@parporadi", parPoradi);
+                    cmd7.Parameters.AddWithValue("@parporadi", parPoradi).DbType = DbType.Int32;
                     cmd7.Parameters.AddWithValue("@pomozjk", naradiJK);
                     cmd7.Parameters.AddWithValue("@datum", DBdatum);
                     cmd7.Parameters.AddWithValue("@poznamka", DBpoznamka);
-                    cmd7.Parameters.AddWithValue("@prijem", 0);
-                    cmd7.Parameters.AddWithValue("@vydej", DBks);
-                    cmd7.Parameters.AddWithValue("@zustatek", zustatek); // jen zustatek
+                    cmd7.Parameters.AddWithValue("@prijem", 0).DbType = DbType.Int32;
+                    cmd7.Parameters.AddWithValue("@vydej", DBks).DbType = DbType.Int32;
+                    cmd7.Parameters.AddWithValue("@zustatek", zustatek).DbType = DbType.Int32; // jen zustatek
                     cmd7.Parameters.AddWithValue("@zapkarta", DBosCislo);
                     cmd7.Parameters.AddWithValue("@vevcislo", zmenyVevcislo);
                     cmd7.Parameters.AddWithValue("@pocivc", 0);
                     cmd7.Parameters.AddWithValue("@stav", "O");
-                    cmd7.Parameters.AddWithValue("@poradi", newZmenyPoradi + 1);
+                    cmd7.Parameters.AddWithValue("@poradi", newZmenyPoradi + 1).DbType = DbType.Int32;
                     cmd7.Transaction = transaction;
                     errCode = cmd7.ExecuteNonQuery();
 
 
                     // pridani do tabulky poskozeno
                     SQLiteCommand cmd8 = new SQLiteCommand(commandString9, myDBConn as SQLiteConnection);
-                    cmd8.Parameters.AddWithValue("@pporadi", newPoskozenoPoradi);
+                    cmd8.Parameters.AddWithValue("@pporadi", newPoskozenoPoradi).DbType = DbType.Int32;
                     cmd8.Parameters.AddWithValue("@jmeno", osobyPrijmeni);
                     cmd8.Parameters.AddWithValue("@oscislo", DBosCislo);
                     cmd8.Parameters.AddWithValue("@dilna", osobyStredisko);
@@ -2891,12 +2891,12 @@ namespace Vydejna
                     cmd8.Parameters.AddWithValue("@nazev", naradiNazev);
                     cmd8.Parameters.AddWithValue("@jk", naradiJK);
                     cmd8.Parameters.AddWithValue("@rozmer", naradiRozmer);
-                    cmd8.Parameters.AddWithValue("@pocetks", DBks);
-                    cmd8.Parameters.AddWithValue("@cena", naradiCena);
+                    cmd8.Parameters.AddWithValue("@pocetks", DBks).DbType = DbType.Int32;
+                    cmd8.Parameters.AddWithValue("@cena", naradiCena).DbType = DbType.Double;
                     cmd8.Parameters.AddWithValue("@datum", DBdatum);
                     cmd8.Parameters.AddWithValue("@csn", naradiCSN);
                     cmd8.Parameters.AddWithValue("@krjmeno", osobyJmeno);
-                    cmd8.Parameters.AddWithValue("@celkcena", naradiCelkCena);
+                    cmd8.Parameters.AddWithValue("@celkcena", naradiCelkCena).DbType = DbType.Double;
                     cmd8.Parameters.AddWithValue("@vevcislo", zmenyVevcislo);
                     cmd8.Parameters.AddWithValue("@konto", DBKonto);
                     cmd8.Transaction = transaction;
@@ -2960,7 +2960,7 @@ namespace Vydejna
                     }
 
                     SQLiteCommand cmdr2 = new SQLiteCommand(commandReadString2, myDBConn as SQLiteConnection);
-                    cmdr2.Parameters.AddWithValue("@poradi", DBparPoradi);
+                    cmdr2.Parameters.AddWithValue("@poradi", DBparPoradi).DbType = DbType.Int32;
                     cmdr2.Transaction = transaction;
                     SQLiteDataReader seqReader2 = cmdr2.ExecuteReader();
                     int fyzstav = 0;
@@ -2997,7 +2997,7 @@ namespace Vydejna
                     Int32 zustatek;
 
                     SQLiteCommand cmdr1 = new SQLiteCommand(commandReadString1, myDBConn as SQLiteConnection);
-                    cmdr1.Parameters.AddWithValue("@parporadi", DBparPoradi);
+                    cmdr1.Parameters.AddWithValue("@parporadi", DBparPoradi).DbType = DbType.Int32;
                     cmdr1.Transaction = transaction;
                     SQLiteDataReader seqReader1 = cmdr1.ExecuteReader();
                     // true osCisloExist
@@ -3041,7 +3041,7 @@ namespace Vydejna
                     double naradiCena;
 
                     SQLiteCommand cmdr5 = new SQLiteCommand(commandReadString5, myDBConn as SQLiteConnection);
-                    cmdr5.Parameters.AddWithValue("@poradi", DBparPoradi);
+                    cmdr5.Parameters.AddWithValue("@poradi", DBparPoradi).DbType = DbType.Int32;
                     cmdr5.Transaction = transaction;
                     SQLiteDataReader naradiReader = cmdr5.ExecuteReader();
                     if (naradiReader.Read())
@@ -3073,44 +3073,44 @@ namespace Vydejna
                     // tab naradi
 
                     SQLiteCommand cmd1 = new SQLiteCommand(commandString1, myDBConn as SQLiteConnection);
-                    cmd1.Parameters.AddWithValue("@fyzstav", DBks);
-                    cmd1.Parameters.AddWithValue("@poradi", DBparPoradi);
+                    cmd1.Parameters.AddWithValue("@fyzstav", DBks).DbType = DbType.Int32;
+                    cmd1.Parameters.AddWithValue("@poradi", DBparPoradi).DbType = DbType.Int32;
                     cmd1.Transaction = transaction;
                     cmd1.ExecuteNonQuery();
 
                     //  tab zmeny
                     SQLiteCommand cmd2 = new SQLiteCommand(commandString2, myDBConn as SQLiteConnection);
                     // "INSERT INTO zmeny (parporadi, pomozjk, datum, poznamka, prijem, vydej, zustatek, zapkarta, vevcislo, pocivc, stav, poradi )" +
-                    cmd2.Parameters.AddWithValue("@parporadi", DBparPoradi);
+                    cmd2.Parameters.AddWithValue("@parporadi", DBparPoradi).DbType = DbType.Int32;
                     cmd2.Parameters.AddWithValue("@pomozjk", naradiJK);
                     cmd2.Parameters.AddWithValue("@datum", DBdatum);
                     cmd2.Parameters.AddWithValue("@poznamka", DBpoznamka);
-                    cmd2.Parameters.AddWithValue("@prijem", 0);
-                    cmd2.Parameters.AddWithValue("@vydej", DBks);
-                    cmd2.Parameters.AddWithValue("@zustatek", zustatek - DBks);
+                    cmd2.Parameters.AddWithValue("@prijem", 0).DbType = DbType.Int32;
+                    cmd2.Parameters.AddWithValue("@vydej", DBks).DbType = DbType.Int32;
+                    cmd2.Parameters.AddWithValue("@zustatek", zustatek - DBks).DbType = DbType.Int32;
                     cmd2.Parameters.AddWithValue("@zapkarta", DBosCislo);
                     cmd2.Parameters.AddWithValue("@vevcislo", DBvevCislo);
                     cmd2.Parameters.AddWithValue("@pocivc", 0);
                     cmd2.Parameters.AddWithValue("@stav", "U");
-                    cmd2.Parameters.AddWithValue("@poradi", poradi);
+                    cmd2.Parameters.AddWithValue("@poradi", poradi).DbType = DbType.Int32;
                     cmd2.Transaction = transaction;
                     cmd2.ExecuteNonQuery();
 
                     //pujceno
                     // poradi, oscislo, nporadi, zporadi, pjmeno, pprijmeni, pnazev, pjk, pdatum, pks, pcena, stavks
                     SQLiteCommand cmd = new SQLiteCommand(commandString3, myDBConn as SQLiteConnection);
-                    cmd.Parameters.AddWithValue("@poradi", pujcPoradi);
+                    cmd.Parameters.AddWithValue("@poradi", pujcPoradi).DbType = DbType.Int32;
                     cmd.Parameters.AddWithValue("@oscislo", DBosCislo);
-                    cmd.Parameters.AddWithValue("@nporadi", DBparPoradi);
-                    cmd.Parameters.AddWithValue("@zporadi", poradi);
+                    cmd.Parameters.AddWithValue("@nporadi", DBparPoradi).DbType = DbType.Int32;
+                    cmd.Parameters.AddWithValue("@zporadi", poradi).DbType = DbType.Int32;
                     cmd.Parameters.AddWithValue("@pjmeno", osobyJmeno);
                     cmd.Parameters.AddWithValue("@pprijmeni", osobyPrijmeni);
                     cmd.Parameters.AddWithValue("@pnazev", naradiNazev);
                     cmd.Parameters.AddWithValue("@pjk", naradiJK);
                     cmd.Parameters.AddWithValue("@pdatum", DBdatum);
-                    cmd.Parameters.AddWithValue("@pks", DBks);
-                    cmd.Parameters.AddWithValue("@pcena", naradiCena);
-                    cmd.Parameters.AddWithValue("@stavks", DBks);
+                    cmd.Parameters.AddWithValue("@pks", DBks).DbType = DbType.Int32;
+                    cmd.Parameters.AddWithValue("@pcena", naradiCena).DbType = DbType.Double;
+                    cmd.Parameters.AddWithValue("@stavks", DBks).DbType = DbType.Int32;
 
                     cmd.Transaction = transaction;
                     cmd.ExecuteNonQuery();
@@ -3235,27 +3235,27 @@ namespace Vydejna
                         seqReader.Close();
 
                         SQLiteCommand cmd1 = new SQLiteCommand(commandString1, myDBConn as SQLiteConnection);
-                        cmd1.Parameters.AddWithValue("@fyzstav", DBvydej);
-                        cmd1.Parameters.AddWithValue("@ucetstav", DBvydej);
-                        cmd1.Parameters.AddWithValue("@celkcena", DBvydej);
-                        cmd1.Parameters.AddWithValue("@poradi", DBporadi);
+                        cmd1.Parameters.AddWithValue("@fyzstav", DBvydej).DbType = DbType.Int32;
+                        cmd1.Parameters.AddWithValue("@ucetstav", DBvydej).DbType = DbType.Int32;
+                        cmd1.Parameters.AddWithValue("@celkcena", DBvydej).DbType = DbType.Int32;
+                        cmd1.Parameters.AddWithValue("@poradi", DBporadi).DbType = DbType.Int32;
                         cmd1.Transaction = transaction;
                         cmd1.ExecuteNonQuery();
 
                         SQLiteCommand cmd2 = new SQLiteCommand(commandString2, myDBConn as SQLiteConnection);
 
-                        cmd2.Parameters.AddWithValue("@parporadi", DBporadi);
+                        cmd2.Parameters.AddWithValue("@parporadi", DBporadi).DbType = DbType.Int32;
                         cmd2.Parameters.AddWithValue("@pomozjk", jk);
                         cmd2.Parameters.AddWithValue("@datum", DBdatum);
                         cmd2.Parameters.AddWithValue("@poznamka", DBpoznamka);
-                        cmd2.Parameters.AddWithValue("@prijem", 0);
-                        cmd2.Parameters.AddWithValue("@vydej", DBvydej);
-                        cmd2.Parameters.AddWithValue("@zustatek", zustatek - DBvydej);
+                        cmd2.Parameters.AddWithValue("@prijem", 0).DbType = DbType.Int32;
+                        cmd2.Parameters.AddWithValue("@vydej", DBvydej).DbType = DbType.Int32;
+                        cmd2.Parameters.AddWithValue("@zustatek", zustatek - DBvydej).DbType = DbType.Int32;
                         cmd2.Parameters.AddWithValue("@zapkarta", osCislo);
                         cmd2.Parameters.AddWithValue("@vevcislo", "");
                         cmd2.Parameters.AddWithValue("@pocivc", 0);
                         cmd2.Parameters.AddWithValue("@stav", "O");
-                        cmd2.Parameters.AddWithValue("@poradi", poradi);
+                        cmd2.Parameters.AddWithValue("@poradi", poradi).DbType = DbType.Int32;
 
                         cmd2.Transaction = transaction;
                         cmd2.ExecuteNonQuery();
@@ -3264,7 +3264,7 @@ namespace Vydejna
                         SQLiteCommand cmd3 = new SQLiteCommand(commandString5, myDBConn as SQLiteConnection);
 //  string commandString5 = "INSERT INTO poskozeno ( poradi, jmeno, oscislo, dilna, pracoviste, vyrobek, nazev, jk, rozmer,
                         //pocetks, cena, datum, csn, krjmeno, celkcena, vevcislo, konto) " +
-                        cmd3.Parameters.AddWithValue("@poradi",poradiPoskozeno);
+                        cmd3.Parameters.AddWithValue("@poradi", poradiPoskozeno).DbType = DbType.Int32;
                         cmd3.Parameters.AddWithValue("@jmeno",DBprijmeni);
                         cmd3.Parameters.AddWithValue("@oscislo",osCislo);
                         cmd3.Parameters.AddWithValue("@dilna",DBstredisko);
@@ -3273,13 +3273,13 @@ namespace Vydejna
                         cmd3.Parameters.AddWithValue("@nazev",nazev);
                         cmd3.Parameters.AddWithValue("@jk",jk);
                         cmd3.Parameters.AddWithValue("@rozmer",rozmer);
-                        cmd3.Parameters.AddWithValue("@pocetks",DBvydej);
-                        cmd3.Parameters.AddWithValue("@cena",DBcena);
+                        cmd3.Parameters.AddWithValue("@pocetks", DBvydej).DbType = DbType.Int32;
+                        cmd3.Parameters.AddWithValue("@cena", DBcena).DbType = DbType.Double;
                         cmd3.Parameters.AddWithValue("@datum",DBdatum);
                         cmd3.Parameters.AddWithValue("@csn",csn);
                         cmd3.Parameters.AddWithValue("@krjmeno",DBjmeno);
 //                        cmd3.Parameters.AddWithValue("@celkcena", DBcelkCena);
-                        cmd3.Parameters.AddWithValue("@celkcena", ucetkscen * DBvydej);
+                        cmd3.Parameters.AddWithValue("@celkcena", ucetkscen * DBvydej).DbType = DbType.Double;
                         cmd3.Parameters.AddWithValue("@vevcislo","");
                         cmd3.Parameters.AddWithValue("@konto",DBkonto);
 
