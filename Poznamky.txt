@@ -11,9 +11,27 @@ Obsahuje:  Adresar Vydejna
           Soubor VFPOLEDBSetup instaluje VFPOLEDB.1 pro pristup k DBF souborum
                   po instalaci je doporucen restart systemu
 
+          Soubor psqlodbc instaluje odbc podporu pro postgresql
+                 Základní nastavení pro postgres 9.1
+                 su postgres
+                 createuser jmeno -P   /-P prida pozadavek na heslo
+                 createdb vydejna
+                 psql vydejna
+                     GRANT ALL PRIVILEGES ON DATABASE vydejna to jmeno;
+                 pøidat do /etc/postgresql/9.1/main/postgresql.conf øádku
+                 listen_addresses = '*'
+                 pøidat do /etc/postgresql/9.1/main/pg_hba.conf øádku
+                 host    all         dan         0.0.0.0/0             md5
+                 umožní pøístup ze sitì
+
+
+
    
-Materialova prijemka zobrazuje co je doposud vedeno  
-po pridani materialu prida ucetni a fyzicky stav o stejnou hodnotu
+Materialová pøíjemka zobrazuje co je doposud vedeno  
+po pøidání materialu pøida uèetní a fyzický stav o stejnou hodnotu
+
+Uèetní stav je stav na výdejnì a to co je vypùjèeno
+Fyzický stav je stav na výdejnì
 
 
 -------------------------------
