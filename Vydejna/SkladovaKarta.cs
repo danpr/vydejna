@@ -478,11 +478,6 @@ namespace Vydejna
             return prepravka;
         }
 
-        private void numericUpDownUcetCenaKs_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void numericUpDownSK_Enter(object sender, EventArgs e)
         {
             (sender as NumericUpDown).Select(0, (sender as NumericUpDown).Text.Length);
@@ -717,6 +712,11 @@ namespace Vydejna
                 ConfigReg.saveSettingWindowTableColumnIndex("MCARD", "zmeny", e.Column.Name, e.Column.DisplayIndex);
             }
 
+        }
+
+        private void prepoctiCelkovouCenu(object sender, EventArgs e)
+        {
+            numericUpDownUcetCena.Value = numericUpDownUcetCenaKs.Value * numericUpDownUcetStav.Value;
         }
     }
 }
