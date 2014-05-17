@@ -2047,6 +2047,7 @@ namespace Vydejna
 
                     SQLiteCommand cmdr1 = new SQLiteCommand(commandReadString1, myDBConn as SQLiteConnection);
                     cmdr1.Parameters.AddWithValue("@parporadi", DBporadi).DbType = DbType.Int32;
+                    cmdr1.Transaction = transaction;
 
                     Int32 poradi;
                     Int32 zustatek;
@@ -2069,6 +2070,7 @@ namespace Vydejna
 
                     SQLiteCommand cmdr2 = new SQLiteCommand(commandReadString2, myDBConn as SQLiteConnection);
                     cmdr2.Parameters.AddWithValue("@poradi", DBporadi).DbType = DbType.Int32;
+                    cmdr2.Transaction = transaction;
 
                     decimal celkCena;
                     decimal ucetCenaKs;

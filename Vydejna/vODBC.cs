@@ -1080,7 +1080,7 @@ namespace Vydejna
             {
                 string commandReadString1 = "SELECT poradi, zustatek from zmeny where parporadi = ? ORDER BY poradi DESC";
                 string commandReadString2 = "SELECT ucetkscen, celkcena, ucetstav from naradi where poradi = ? ";
-                string commandStringRead3 = "SELECT permission FROM nastaveni WHERE setid = \"prumucetcena\"";
+                string commandStringRead3 = "SELECT permission FROM nastaveni WHERE setid = \'prumucetcena\'";
                 string commandString1 = "UPDATE naradi set fyzstav = fyzstav + ?, ucetstav = ucetstav + ?, celkcena = ?, cena = ?, ucetkscen = ? where poradi = ? ";
                 string commandString2 = "INSERT INTO zmeny (parporadi, pomozjk, datum, poznamka, prijem, vydej, zustatek, zapkarta, vevcislo, pocivc, stav, poradi )" +
                       "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
@@ -1096,8 +1096,8 @@ namespace Vydejna
                     }
 
                     OdbcCommand cmdr1 = new OdbcCommand(commandReadString1, myDBConn as OdbcConnection);
-                    cmdr1.Parameters.AddWithValue("@parporadi", DBporadi);
-
+                    cmdr1.Parameters.AddWithValue("@parporadi", DBporadi).DbType = DbType.Int32;
+                    cmdr1.Transaction = transaction;
                     Int32 poradi;
                     Int32 zustatek;
 
@@ -1118,7 +1118,8 @@ namespace Vydejna
 
 
                     OdbcCommand cmdr2 = new OdbcCommand(commandReadString2, myDBConn as OdbcConnection);
-                    cmdr2.Parameters.AddWithValue("@poradi", DBporadi);
+                    cmdr2.Parameters.AddWithValue("@poradi", DBporadi).DbType = DbType.Int32;
+                    cmdr2.Transaction = transaction;
 
                     decimal celkCena;
                     decimal ucetCenaKs;
@@ -2535,7 +2536,7 @@ namespace Vydejna
             {
                 string commandStringRead1 = "SELECT poradi, zustatek from zmeny where parporadi = ? ORDER BY poradi DESC";
                 string commandStringRead2 = "SELECT fyzstav, ucetstav, ucetkscen, rozmer, nazev, jk, normacsn FROM naradi where poradi = ? ";
-                string commandStringRead3 = "SELECT poradi FROM tabseq WHERE nazev = 'poskozeno'";
+                string commandStringRead3 = "SELECT poradi FROM tabseq WHERE nazev = \'poskozeno\'";
 
 
                 string commandString1 = "UPDATE naradi set fyzstav = fyzstav - ?, ucetstav = ucetstav - ?, celkcena = celkcena - (ucetkscen * ?)  where poradi = ? ";
@@ -2610,6 +2611,7 @@ namespace Vydejna
 
                         // zjisteni   poradi pro tabulku poskozeneho naradi
                         OdbcCommand cmdSeq1 = new OdbcCommand(commandStringRead3, myDBConn as OdbcConnection);
+                        cmdSeq1.Transaction = transaction;
                         OdbcDataReader seqReader = cmdSeq1.ExecuteReader();
                         seqReader.Read();
                         Int32 poradiPoskozeno = seqReader.GetInt32(0);
