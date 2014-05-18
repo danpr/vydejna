@@ -162,28 +162,90 @@ namespace Vydejna
         }
 
 
-        public static void saveSettingFont(Font myFont)
+        public static Font loadSettingFontX( string name)
         {
-
-            RegistryKey regHelpKlic;
-            RegistryKey klic = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\CS\FONT", true);
-            if (klic == null)
+            string stringKey = "SOFTWARE\\CS\\FONT";
+            if (name.Trim() != "")
             {
-                RegistryKey regKlic = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\CS", true);
-                if (regKlic == null)
+                stringKey = "SOFTWARE\\CS\\FONT\\" + name;
+            }
+            
+
+            RegistryKey rkey = null;
+
+            rkey = Registry.CurrentUser.OpenSubKey(stringKey, true);
+
+            Font myFont = null;
+            string fontName;
+            float fontSize;
+            FontStyle fontStyle = FontStyle.Regular;
+
+            if (rkey != null)
+            {
+                try
                 {
-                    regHelpKlic = Registry.CurrentUser.OpenSubKey(@"SOFTWARE", true);
-                    regHelpKlic.CreateSubKey("CS");
+                    fontName = rkey.GetValue("Name").ToString();
+                    fontSize = (float)Convert.ToDouble(rkey.GetValue("Size"));
                 }
-                regHelpKlic = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\CS", true);
-                regHelpKlic.CreateSubKey("FONT");
-                klic = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\CS\FONT", true);
+                catch
+                {
+                    return null;
+                }
+
+                try
+                {
+                    fontStyle = (FontStyle)Convert.ToInt32(rkey.GetValue("Style"));
+                }
+                catch { }
+
+                myFont = new Font(fontName, fontSize, fontStyle);
+                return myFont;
+            }
+            return null;
+        }
+
+
+
+        public static void saveSettingFontX(Font myFont, string name)
+        {
+            string stringKey = "SOFTWARE\\CS\\FONT\\" + name;
+            RegistryKey rkey = null;
+
+            if (name.Trim() != "")
+            {
+                rkey = Registry.CurrentUser.OpenSubKey(stringKey, true);
+            }
+            if (rkey == null)
+            {
+                rkey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\CS\FONT", true);
+                if (rkey == null)
+                {
+                    rkey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\CS", true);
+                    if (rkey == null)
+                    {
+                        rkey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE", true);
+                        rkey.CreateSubKey("CS");
+                        rkey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\CS", true);
+                    }
+                    rkey.CreateSubKey("FONT");
+                    rkey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\CS\FONT", true);
+                    if (name.Trim() != "")
+                    {
+                        rkey = Registry.CurrentUser.OpenSubKey(stringKey, true);
+                    }
+                }
+                if (name.Trim() != "")
+                {
+                    rkey.CreateSubKey(name);
+                    rkey = Registry.CurrentUser.OpenSubKey(stringKey, true);
+                }
             }
             // zapis polozky
-            klic.SetValue("Name", myFont.FontFamily.Name);
-            klic.SetValue("Size", myFont.Size);
-            klic.SetValue("Style", (Int32)myFont.Style);
+            rkey.SetValue("Name", myFont.FontFamily.Name);
+            rkey.SetValue("Size", myFont.Size);
+            rkey.SetValue("Style", (Int32)myFont.Style);
         }
+
 
 
         public static string loadSettingLastUser()

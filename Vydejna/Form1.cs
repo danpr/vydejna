@@ -1314,7 +1314,7 @@ namespace Vydejna
             UzivatelData ud = UzivatelData.makeInstance();
             if (ud.userIsAdminWM())
             {
-                SeznamUzivatelu spravaUzivatelu = new SeznamUzivatelu(myDB, this.Font);
+                SeznamUzivatelu spravaUzivatelu = new SeznamUzivatelu(myDB, dataGridView1.Font);
                 spravaUzivatelu.ShowDialog();
             }
         }
@@ -1328,7 +1328,7 @@ namespace Vydejna
             fontDialog1.Font = dataGridView1.Font;
             if (fontDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                ConfigReg.saveSettingFont(fontDialog1.Font);
+                ConfigReg.saveSettingFontX(fontDialog1.Font,"");
                 dataGridView1.Font = fontDialog1.Font;
             }
         }

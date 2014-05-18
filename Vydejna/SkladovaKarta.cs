@@ -93,6 +93,7 @@ namespace Vydejna
         private tableItemExistDelgStr testExistItem;
         private string oldJK;
         private permissonsData readOnlyPermission;
+        private Font parentFont;
 
 
         public SkladovaKarta(vDatabase myDataBase, Hashtable DBRow, Int32 poradi, tableItemExistDelgStr testExistItem, Font myFont, sKartaState state = sKartaState.show, permissonsData readOnlyPermission = null)
@@ -102,6 +103,7 @@ namespace Vydejna
             this.testExistItem = testExistItem;
             this.poradi = poradi;
             this.readOnlyPermission = readOnlyPermission;
+            parentFont = myFont;
             myDB = myDataBase;
 
             dataGridViewZmeny.MultiSelect = false;
@@ -134,7 +136,7 @@ namespace Vydejna
             setData(DBRow);
             loadZmenyItems();
             this.CancelButton = this.buttonCancel;
-            this.Font = myFont;
+            setFont(myFont);
             setGeometry();
             setColumnWidth();
 //            evenState = evenStateEnum.enable;
@@ -153,19 +155,45 @@ namespace Vydejna
             this.testExistItem = testExistItem;
 
             this.CancelButton = this.buttonCancel;
-            this.Font = myFont;
+            parentFont = myFont;
+            setFont(myFont);
 
             dataGridViewZmeny.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             setAddState();
-
-//            this.CancelButton = this.buttonCancel;
-//            this.Font = myFont;
 
             setGeometry();
             setColumnWidth();
             evenState = evenStateEnum.enable;
         }
 
+        private void setFont(Font myFont)
+        {
+            Font loadFont = ConfigReg.loadSettingFontX("MCARD");
+            if (loadFont != null)
+            {
+                this.Font = loadFont;
+            }
+            else
+            {
+                this.Font = myFont;
+            }
+        }
+
+        private void setAppFont()
+        {
+            this.Font = parentFont;
+            // smazani registru
+        }
+
+        private void chooseFont()
+        {
+            fontDialog1.Font = this.Font;
+            if (fontDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                ConfigReg.saveSettingFontX(fontDialog1.Font, "MCARD");
+                this.Font = fontDialog1.Font;
+            }
+        }
 
         private void setGeometry()
         {
@@ -533,7 +561,7 @@ namespace Vydejna
                     int y = this.Location.Y + dataGridViewZmeny.Location.Y + dataGridViewZmeny.ColumnHeadersHeight + rowsHeight + titulekHeight;
 
 
-                    ZmenyOprava opravaZmen = new ZmenyOprava(myDB, poradi, zmenPoradi, this.Font);
+                    ZmenyOprava opravaZmen = new ZmenyOprava(myDB, poradi, zmenPoradi, parentFont);
 
                     opravaZmen.StartPosition = FormStartPosition.Manual;
                     opravaZmen.SetDesktopLocation(x, y);
@@ -581,7 +609,7 @@ namespace Vydejna
                     if (myDB.tableOsobyItemExist(osCislo))
                     {
 
-                        ZapujceneNaradiKarta zapujcKarta = new ZapujceneNaradiKarta(osCislo, myDB, this.Font);// (DBRow, myDataBase, uKartaState.edit);
+                        ZapujceneNaradiKarta zapujcKarta = new ZapujceneNaradiKarta(osCislo, myDB, parentFont);// (DBRow, myDataBase, uKartaState.edit);
                         zapujcKarta.ShowDialog();
                     }
                     else
@@ -597,7 +625,7 @@ namespace Vydejna
         {
             // kopie dat
             // zobrazime seznam polozek naradi
-            SeznamNaradiJednoduchy seznamNar = new SeznamNaradiJednoduchy(myDB, this.Font);
+            SeznamNaradiJednoduchy seznamNar = new SeznamNaradiJednoduchy(myDB, parentFont);
             if (seznamNar != null)
             {
                 seznamNar.Visible = false;   // formular se automaticky presune do show musime tedy ho vypnout
@@ -717,6 +745,21 @@ namespace Vydejna
         private void prepoctiCelkovouCenu(object sender, EventArgs e)
         {
             numericUpDownUcetCena.Value = numericUpDownUcetCenaKs.Value * numericUpDownUcetStav.Value;
+        }
+
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            chooseFont();
+        }
+
+        private void p9smoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void písmoAplikaceToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            setAppFont();
         }
     }
 }

@@ -92,7 +92,6 @@
             // 
             // textBoxUserID
             // 
-            this.textBoxUserID.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.textBoxUserID.Location = new System.Drawing.Point(179, 22);
             this.textBoxUserID.MaxLength = 15;
             this.textBoxUserID.Name = "textBoxUserID";
@@ -237,9 +236,9 @@
             // 
             // groupBox4
             // 
-            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox4.Controls.Add(this.treeView1);
             this.groupBox4.Location = new System.Drawing.Point(364, 12);
             this.groupBox4.Name = "groupBox4";
@@ -250,9 +249,9 @@
             // 
             // treeView1
             // 
-            this.treeView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.treeView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.treeView1.CheckBoxes = true;
             this.treeView1.Location = new System.Drawing.Point(16, 19);
             this.treeView1.Name = "treeView1";
@@ -264,7 +263,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(643, 328);
+            this.ClientSize = new System.Drawing.Size(651, 332);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.buttonOK);
             this.Controls.Add(this.buttonCancel);

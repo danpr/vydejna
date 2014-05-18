@@ -52,6 +52,9 @@ namespace Vydejna
         {
             InitializeComponent();
 
+            textBoxUserID.Font = new Font(myFont, FontStyle.Bold);
+
+
             kartaIsAddType = false;
 
             this.myDataBase = myDataBase;
