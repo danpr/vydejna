@@ -32,7 +32,7 @@ namespace Vydejna
         {
             InitializeComponent();
 
-            Font initFont = ConfigReg.loadSettingFont();
+            Font initFont = ConfigReg.loadSettingFontX("");
             if (initFont != null)
             {
                 dataGridView1.Font = initFont;

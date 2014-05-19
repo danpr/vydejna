@@ -19,6 +19,7 @@ namespace Vydejna
 
         private evenStateEnum evenState = evenStateEnum.disable;
 
+        private string formName = "MCARD";
 
         public class permissonsData
         {
@@ -168,7 +169,7 @@ namespace Vydejna
 
         private void setFont(Font myFont)
         {
-            Font loadFont = ConfigReg.loadSettingFontX("MCARD");
+            Font loadFont = ConfigReg.loadSettingFontX(formName);
             if (loadFont != null)
             {
                 this.Font = loadFont;
@@ -182,7 +183,7 @@ namespace Vydejna
         private void setAppFont()
         {
             this.Font = parentFont;
-            // smazani registru
+            ConfigReg.deleteSettingFontX(formName);
         }
 
         private void chooseFont()
@@ -190,16 +191,16 @@ namespace Vydejna
             fontDialog1.Font = this.Font;
             if (fontDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                ConfigReg.saveSettingFontX(fontDialog1.Font, "MCARD");
+                ConfigReg.saveSettingFontX(fontDialog1.Font, formName);
                 this.Font = fontDialog1.Font;
             }
         }
 
         private void setGeometry()
         {
-            Size size = ConfigReg.loadSettingWindowSize("MCARD");
+            Size size = ConfigReg.loadSettingWindowSize(formName);
             if (!(size.IsEmpty)) this.Size = size;
-            Point location = ConfigReg.loadSettingWindowLocation("MCARD");
+            Point location = ConfigReg.loadSettingWindowLocation(formName);
 
             Int32 x = location.X;
             Int32 y = location.Y;
@@ -680,7 +681,7 @@ namespace Vydejna
 
         public virtual void setColumnWidth()
         {
-            Hashtable DBTableInfo = ConfigReg.loadSettingWindowTableColumnWidth("MCARD", "zmeny");
+            Hashtable DBTableInfo = ConfigReg.loadSettingWindowTableColumnWidth(formName, "zmeny");
             if (DBTableInfo != null)
             {
                 Int32 columnWidth = 0;
@@ -706,7 +707,7 @@ namespace Vydejna
         {
             if (evenState == evenStateEnum.enable)
             {
-                if (!(this.Size.IsEmpty)) ConfigReg.saveSettingWindowLocationSize("MCARD", 0, 0, this.Size.Width, this.Size.Height);
+                if (!(this.Size.IsEmpty)) ConfigReg.saveSettingWindowLocationSize(formName, 0, 0, this.Size.Width, this.Size.Height);
             }
 
         }
@@ -715,7 +716,7 @@ namespace Vydejna
         {
             if (evenState == evenStateEnum.enable)
             {
-                if (!(this.Location.IsEmpty)) ConfigReg.saveSettingWindowLocationSize("MCARD", this.Location.X, this.Location.Y, 0, 0);
+                if (!(this.Location.IsEmpty)) ConfigReg.saveSettingWindowLocationSize(formName, this.Location.X, this.Location.Y, 0, 0);
             }
         }
 
@@ -728,7 +729,7 @@ namespace Vydejna
         {
             if (evenState == evenStateEnum.enable)
             {
-                ConfigReg.saveSettingWindowTableColumnWidth("MCARD", "zmeny", e.Column.Name, e.Column.Width);
+                ConfigReg.saveSettingWindowTableColumnWidth(formName, "zmeny", e.Column.Name, e.Column.Width);
             }
 
         }
@@ -737,7 +738,7 @@ namespace Vydejna
         {
             if (evenState == evenStateEnum.enable)
             {
-                ConfigReg.saveSettingWindowTableColumnIndex("MCARD", "zmeny", e.Column.Name, e.Column.DisplayIndex);
+                ConfigReg.saveSettingWindowTableColumnIndex(formName, "zmeny", e.Column.Name, e.Column.DisplayIndex);
             }
 
         }

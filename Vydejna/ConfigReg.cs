@@ -128,39 +128,6 @@ namespace Vydejna
         }
 
 
-        public static Font loadSettingFont()
-        {
-            RegistryKey klic = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\CS\FONT", true);
-
-            Font myFont = null;
-            string fontName;
-            float fontSize;
-            FontStyle fontStyle = FontStyle.Regular;
-
-            if (klic != null)
-            {
-                try
-                {
-                    fontName = klic.GetValue("Name").ToString();
-                    fontSize = (float)Convert.ToDouble(klic.GetValue("Size"));
-                }
-                catch
-                {
-                    return null;
-                }
-
-                try
-                {
-                    fontStyle = (FontStyle)Convert.ToInt32(klic.GetValue("Style"));
-                }
-                catch { }
-
-                myFont = new Font(fontName, fontSize, fontStyle);
-                return myFont;
-            }
-            return null;
-        }
-
 
         public static Font loadSettingFontX( string name)
         {
@@ -202,6 +169,30 @@ namespace Vydejna
                 return myFont;
             }
             return null;
+        }
+
+
+
+
+        public static void deleteSettingFontX(string name)
+        {
+            string stringKey = "SOFTWARE\\CS\\FONT";
+            if (name.Trim() == "")
+            {
+                stringKey = "SOFTWARE\\CS";
+                name = "FONT";
+            }
+
+            RegistryKey rkey = Registry.CurrentUser.OpenSubKey(stringKey, true);
+
+            if (rkey != null)
+            {
+                try
+                {
+                    rkey.DeleteSubKeyTree(name);
+                }
+                catch {}
+            }
         }
 
 
