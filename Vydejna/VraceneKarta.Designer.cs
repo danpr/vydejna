@@ -58,14 +58,19 @@
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonOK = new System.Windows.Forms.Button();
             this.numericUpDownCena = new System.Windows.Forms.NumericUpDown();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.písmoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.písmoAplikaceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPocetKS)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCena)).BeginInit();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(350, 19);
+            this.label1.Location = new System.Drawing.Point(350, 49);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(52, 13);
             this.label1.TabIndex = 0;
@@ -74,7 +79,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(54, 19);
+            this.label2.Location = new System.Drawing.Point(54, 45);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(44, 13);
             this.label2.TabIndex = 1;
@@ -83,7 +88,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(43, 45);
+            this.label3.Location = new System.Drawing.Point(43, 71);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(55, 13);
             this.label3.TabIndex = 2;
@@ -92,7 +97,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(40, 71);
+            this.label4.Location = new System.Drawing.Point(40, 97);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(58, 13);
             this.label4.TabIndex = 3;
@@ -110,7 +115,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(54, 123);
+            this.label6.Location = new System.Drawing.Point(54, 149);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(44, 13);
             this.label6.TabIndex = 5;
@@ -119,7 +124,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(23, 166);
+            this.label7.Location = new System.Drawing.Point(23, 192);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(75, 13);
             this.label7.TabIndex = 6;
@@ -128,7 +133,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(42, 191);
+            this.label8.Location = new System.Drawing.Point(42, 217);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(56, 13);
             this.label8.TabIndex = 7;
@@ -137,7 +142,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(49, 218);
+            this.label9.Location = new System.Drawing.Point(49, 244);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(49, 13);
             this.label9.TabIndex = 8;
@@ -146,7 +151,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(29, 244);
+            this.label11.Location = new System.Drawing.Point(29, 267);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(69, 13);
             this.label11.TabIndex = 10;
@@ -154,7 +159,7 @@
             // 
             // textBoxJmeno
             // 
-            this.textBoxJmeno.Location = new System.Drawing.Point(104, 16);
+            this.textBoxJmeno.Location = new System.Drawing.Point(104, 42);
             this.textBoxJmeno.MaxLength = 15;
             this.textBoxJmeno.Name = "textBoxJmeno";
             this.textBoxJmeno.ReadOnly = true;
@@ -163,7 +168,7 @@
             // 
             // textBoxPrijmeni
             // 
-            this.textBoxPrijmeni.Location = new System.Drawing.Point(408, 16);
+            this.textBoxPrijmeni.Location = new System.Drawing.Point(408, 42);
             this.textBoxPrijmeni.MaxLength = 15;
             this.textBoxPrijmeni.Name = "textBoxPrijmeni";
             this.textBoxPrijmeni.ReadOnly = true;
@@ -172,7 +177,7 @@
             // 
             // textBoxOsCislo
             // 
-            this.textBoxOsCislo.Location = new System.Drawing.Point(104, 42);
+            this.textBoxOsCislo.Location = new System.Drawing.Point(104, 68);
             this.textBoxOsCislo.MaxLength = 8;
             this.textBoxOsCislo.Name = "textBoxOsCislo";
             this.textBoxOsCislo.ReadOnly = true;
@@ -181,7 +186,7 @@
             // 
             // textBoxStredisko
             // 
-            this.textBoxStredisko.Location = new System.Drawing.Point(104, 68);
+            this.textBoxStredisko.Location = new System.Drawing.Point(104, 94);
             this.textBoxStredisko.MaxLength = 10;
             this.textBoxStredisko.Name = "textBoxStredisko";
             this.textBoxStredisko.ReadOnly = true;
@@ -199,7 +204,7 @@
             // 
             // textBoxNazev
             // 
-            this.textBoxNazev.Location = new System.Drawing.Point(104, 120);
+            this.textBoxNazev.Location = new System.Drawing.Point(104, 146);
             this.textBoxNazev.MaxLength = 60;
             this.textBoxNazev.Name = "textBoxNazev";
             this.textBoxNazev.ReadOnly = true;
@@ -208,7 +213,7 @@
             // 
             // textBoxJK
             // 
-            this.textBoxJK.Location = new System.Drawing.Point(104, 163);
+            this.textBoxJK.Location = new System.Drawing.Point(104, 189);
             this.textBoxJK.MaxLength = 15;
             this.textBoxJK.Name = "textBoxJK";
             this.textBoxJK.ReadOnly = true;
@@ -222,7 +227,7 @@
             0,
             0,
             0});
-            this.numericUpDownPocetKS.Location = new System.Drawing.Point(104, 189);
+            this.numericUpDownPocetKS.Location = new System.Drawing.Point(104, 215);
             this.numericUpDownPocetKS.Name = "numericUpDownPocetKS";
             this.numericUpDownPocetKS.ReadOnly = true;
             this.numericUpDownPocetKS.Size = new System.Drawing.Size(107, 20);
@@ -231,7 +236,7 @@
             // 
             // textBoxRozmer
             // 
-            this.textBoxRozmer.Location = new System.Drawing.Point(104, 215);
+            this.textBoxRozmer.Location = new System.Drawing.Point(104, 241);
             this.textBoxRozmer.MaxLength = 25;
             this.textBoxRozmer.Name = "textBoxRozmer";
             this.textBoxRozmer.ReadOnly = true;
@@ -240,7 +245,7 @@
             // 
             // textBoxCSN
             // 
-            this.textBoxCSN.Location = new System.Drawing.Point(104, 241);
+            this.textBoxCSN.Location = new System.Drawing.Point(104, 267);
             this.textBoxCSN.MaxLength = 15;
             this.textBoxCSN.Name = "textBoxCSN";
             this.textBoxCSN.ReadOnly = true;
@@ -250,7 +255,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(60, 270);
+            this.label12.Location = new System.Drawing.Point(60, 296);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(38, 13);
             this.label12.TabIndex = 22;
@@ -259,7 +264,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(54, 298);
+            this.label13.Location = new System.Drawing.Point(54, 326);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(44, 13);
             this.label13.TabIndex = 23;
@@ -268,7 +273,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(46, 323);
+            this.label14.Location = new System.Drawing.Point(43, 349);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(55, 13);
             this.label14.TabIndex = 24;
@@ -277,7 +282,7 @@
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(60, 349);
+            this.label15.Location = new System.Drawing.Point(57, 375);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(41, 13);
             this.label15.TabIndex = 25;
@@ -286,14 +291,14 @@
             // dateTimePickerDatum
             // 
             this.dateTimePickerDatum.Enabled = false;
-            this.dateTimePickerDatum.Location = new System.Drawing.Point(104, 294);
+            this.dateTimePickerDatum.Location = new System.Drawing.Point(104, 320);
             this.dateTimePickerDatum.Name = "dateTimePickerDatum";
             this.dateTimePickerDatum.Size = new System.Drawing.Size(193, 20);
             this.dateTimePickerDatum.TabIndex = 27;
             // 
             // textBoxZakázka
             // 
-            this.textBoxZakázka.Location = new System.Drawing.Point(104, 320);
+            this.textBoxZakázka.Location = new System.Drawing.Point(104, 346);
             this.textBoxZakázka.MaxLength = 15;
             this.textBoxZakázka.Name = "textBoxZakázka";
             this.textBoxZakázka.ReadOnly = true;
@@ -302,7 +307,7 @@
             // 
             // textBoxKonto
             // 
-            this.textBoxKonto.Location = new System.Drawing.Point(104, 346);
+            this.textBoxKonto.Location = new System.Drawing.Point(104, 372);
             this.textBoxKonto.MaxLength = 15;
             this.textBoxKonto.Name = "textBoxKonto";
             this.textBoxKonto.ReadOnly = true;
@@ -312,7 +317,7 @@
             // buttonCancel
             // 
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(26, 380);
+            this.buttonCancel.Location = new System.Drawing.Point(26, 406);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 30;
@@ -322,7 +327,7 @@
             // 
             // buttonOK
             // 
-            this.buttonOK.Location = new System.Drawing.Point(526, 380);
+            this.buttonOK.Location = new System.Drawing.Point(526, 406);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
             this.buttonOK.TabIndex = 31;
@@ -338,7 +343,7 @@
             0,
             0,
             0});
-            this.numericUpDownCena.Location = new System.Drawing.Point(104, 268);
+            this.numericUpDownCena.Location = new System.Drawing.Point(104, 294);
             this.numericUpDownCena.Maximum = new decimal(new int[] {
             10000000,
             0,
@@ -350,11 +355,44 @@
             this.numericUpDownCena.TabIndex = 32;
             this.numericUpDownCena.Enter += new System.EventHandler(this.numericUpDownCena_Enter);
             // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.písmoToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(621, 24);
+            this.menuStrip1.TabIndex = 33;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // písmoToolStripMenuItem
+            // 
+            this.písmoToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem1,
+            this.písmoAplikaceToolStripMenuItem});
+            this.písmoToolStripMenuItem.Name = "písmoToolStripMenuItem";
+            this.písmoToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
+            this.písmoToolStripMenuItem.Text = "Písmo";
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(153, 22);
+            this.toolStripMenuItem1.Text = "Vybrat písmo";
+            this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
+            // 
+            // písmoAplikaceToolStripMenuItem
+            // 
+            this.písmoAplikaceToolStripMenuItem.Name = "písmoAplikaceToolStripMenuItem";
+            this.písmoAplikaceToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+            this.písmoAplikaceToolStripMenuItem.Text = "Písmo aplikace";
+            this.písmoAplikaceToolStripMenuItem.Click += new System.EventHandler(this.písmoAplikaceToolStripMenuItem_Click);
+            // 
             // VraceneKarta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(621, 415);
+            this.ClientSize = new System.Drawing.Size(621, 441);
             this.Controls.Add(this.numericUpDownCena);
             this.Controls.Add(this.buttonOK);
             this.Controls.Add(this.buttonCancel);
@@ -385,12 +423,16 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.MaximumSize = new System.Drawing.Size(637, 453);
-            this.MinimumSize = new System.Drawing.Size(637, 453);
+            this.Controls.Add(this.menuStrip1);
+            this.MainMenuStrip = this.menuStrip1;
+            this.MaximumSize = new System.Drawing.Size(637, 479);
+            this.MinimumSize = new System.Drawing.Size(637, 479);
             this.Name = "VraceneKarta";
             this.Text = "Vracená karta";
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPocetKS)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCena)).EndInit();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -428,5 +470,9 @@
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.Button buttonOK;
         private System.Windows.Forms.NumericUpDown numericUpDownCena;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem písmoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem písmoAplikaceToolStripMenuItem;
     }
 }

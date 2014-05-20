@@ -15,6 +15,7 @@ namespace Vydejna
     public partial class VraceneKarta : Form
     {
 
+        private string formName = "RCARD";
 
         public class messager
         {
@@ -61,12 +62,14 @@ namespace Vydejna
         private vDatabase myDB;
         private Int32 poradi;
         private tableItemExistDelgInt testExistItem;
+        private Font parentFont;
 
         public VraceneKarta(Hashtable DBRow, vDatabase myDataBase, tableItemExistDelgInt testExistItem, Font myFont, vKartaState state = vKartaState.show)
         {
             InitializeComponent();
             this.state = state;
             this.testExistItem = testExistItem;
+            parentFont = myFont;
 
             myDB = myDataBase;
             if (state == vKartaState.edit) setEditState();
@@ -76,24 +79,57 @@ namespace Vydejna
 
             AcceptButton = buttonOK;
             CancelButton = buttonCancel;
-            this.Font = myFont;
+            setFont(myFont);
         }
+
+        public VraceneKarta(Hashtable DBRow, Font myFont)
+        {
+            InitializeComponent();
+            this.state = vKartaState.show;
+            parentFont = myFont;
+            setShowState();
+            setData(DBRow);
+            CancelButton = buttonCancel;
+            setFont(myFont);
+        }
+
+
+        private void setFont(Font myFont)
+        {
+            Font loadFont = ConfigReg.loadSettingFontX(formName);
+            if (loadFont != null)
+            {
+                this.Font = loadFont;
+            }
+            else
+            {
+                this.Font = myFont;
+            }
+        }
+
+        private void setAppFont()
+        {
+            this.Font = parentFont;
+            ConfigReg.deleteSettingFontX(formName);
+        }
+
+        private void chooseFont()
+        {
+            FontDialog fontDialog1 = new FontDialog();
+            fontDialog1.Font = this.Font;
+            if (fontDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                ConfigReg.saveSettingFontX(fontDialog1.Font, formName);
+                this.Font = fontDialog1.Font;
+            }
+        }
+
 
         public void setWinName (string winName)
         {
             this.Text = winName;
         }
 
-
-        public VraceneKarta(Hashtable DBRow, Font myFont)
-        {
-            InitializeComponent();
-            this.state = vKartaState.show;
-            setShowState();
-            setData(DBRow);
-            CancelButton = buttonCancel;
-            this.Font = myFont;
-        }
 
         public void setData(Hashtable DBRow)
         {
@@ -212,6 +248,16 @@ namespace Vydejna
         private void numericUpDownCena_Enter(object sender, EventArgs e)
         {
             (sender as NumericUpDown).Select(0, (sender as NumericUpDown).Text.Length);
+        }
+
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            chooseFont();
+        }
+
+        private void písmoAplikaceToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            setAppFont();
         }
 
 

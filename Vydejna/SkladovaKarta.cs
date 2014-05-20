@@ -188,6 +188,7 @@ namespace Vydejna
 
         private void chooseFont()
         {
+            FontDialog fontDialog1 = new FontDialog();
             fontDialog1.Font = this.Font;
             if (fontDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
