@@ -13,9 +13,12 @@ namespace Vydejna
     public partial class ZapujceneNaradiKarta : Form
     {
 
+        private string formName = "LCARD";
+
         private vDatabase myDB;
         Hashtable osobyDBRow;
         private string osCislo;
+        private Font parentFont;
 
         private enum evenStateEnum { enable, disable };
 
@@ -25,6 +28,8 @@ namespace Vydejna
         public ZapujceneNaradiKarta(string osCislo, vDatabase myDataBase, Font myFont)
         {
             myDB = myDataBase;
+            parentFont = myFont;
+
             InitializeComponent();
 
             osobyDBRow = myDB.getOsobyLine(osCislo, null);
@@ -42,12 +47,12 @@ namespace Vydejna
             dataGridViewZmeny.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
             CancelButton = buttonCancel;
-            this.Font = myFont;
+            setFont(myFont);
 
-            Size size = ConfigReg.loadSettingWindowSize("LEND");
+            Size size = ConfigReg.loadSettingWindowSize(formName);
             if (!(size.IsEmpty)) this.Size = size;
 
-            Point location = ConfigReg.loadSettingWindowLocation("LEND");
+            Point location = ConfigReg.loadSettingWindowLocation(formName);
 
             Int32 x = location.X;
             Int32 y = location.Y;
@@ -70,6 +75,37 @@ namespace Vydejna
 
         //    evenState = evenStateEnum.enable;
         }
+
+        private void setFont(Font myFont)
+        {
+            Font loadFont = ConfigReg.loadSettingFontX(formName);
+            if (loadFont != null)
+            {
+                this.Font = loadFont;
+            }
+            else
+            {
+                this.Font = myFont;
+            }
+        }
+
+        private void setAppFont()
+        {
+            this.Font = parentFont;
+            ConfigReg.deleteSettingFontX(formName);
+        }
+
+        private void chooseFont()
+        {
+            FontDialog fontDialog1 = new FontDialog();
+            fontDialog1.Font = this.Font;
+            if (fontDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                ConfigReg.saveSettingFontX(fontDialog1.Font, formName);
+                this.Font = fontDialog1.Font;
+            }
+        }
+
 
         private void ZapujceneNaradiKarta_Load(object sender, EventArgs e)
         {
@@ -175,7 +211,7 @@ namespace Vydejna
             UzivatelData ud = UzivatelData.makeInstance();
             if (ud.userHasAccessRightsWM((Int32)permCode.PracZapN))
             {
-                SeznamNaradiJednoduchy seznamNar = new SeznamNaradiJednoduchy(myDB, this.Font);
+                SeznamNaradiJednoduchy seznamNar = new SeznamNaradiJednoduchy(myDB, parentFont);
                 //            seznamNar.Font = this.Font;
                 if (seznamNar != null)
                 {
@@ -187,8 +223,8 @@ namespace Vydejna
                             if (seznamNar.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                             {
                                 SeznamNaradiJednoduchy.messager myMesenger = seznamNar.getMesseger();
-                                ZapujceniNaradi zapujcNaradi = new ZapujceniNaradi(osobyDBRow, myMesenger.nazev, myMesenger.jk, myMesenger.fyzStav, this.Font);
-                                zapujcNaradi.Font = this.Font;
+                                ZapujceniNaradi zapujcNaradi = new ZapujceniNaradi(osobyDBRow, myMesenger.nazev, myMesenger.jk, myMesenger.fyzStav, parentFont);
+//                                zapujcNaradi.Font = parentFont
                                 if (zapujcNaradi.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                                 {
                                     // pridame zapujcene naradi
@@ -263,7 +299,7 @@ namespace Vydejna
                     {
                         Hashtable DBVypujcRow = makeVypujcDBRow(osobyDBRow);
                         VraceniNaradi vraceniNaradi = new VraceniNaradi(DBVypujcRow);
-                        vraceniNaradi.Font = this.Font;
+                        vraceniNaradi.Font = parentFont;
                         Int32 pujcPoradi = Convert.ToInt32(DBVypujcRow["poradi"]);
 
                         if (vraceniNaradi.ShowDialog() == System.Windows.Forms.DialogResult.OK)
@@ -339,8 +375,8 @@ namespace Vydejna
                     {
                         Hashtable infoDBRow = myDB.getNaradiLine(nporadi, null);
 
-                        SkladovaKarta sklKarta = new SkladovaKarta(myDB, infoDBRow, nporadi, new tableItemExistDelgStr(myDB.tableNaradiItemExist), this.Font);
-                        sklKarta.Font = this.Font;
+                        SkladovaKarta sklKarta = new SkladovaKarta(myDB, infoDBRow, nporadi, new tableItemExistDelgStr(myDB.tableNaradiItemExist), parentFont);
+//                        sklKarta.Font = parentFont
                         sklKarta.setWinName("Skladová karta");
                         sklKarta.ShowDialog();
                     }
@@ -393,8 +429,8 @@ namespace Vydejna
 
 
 
-                        ZapujceneNaradiInfo zapNarInfo = new ZapujceneNaradiInfo(vypujcDBRow, this.Font);
-                        zapNarInfo.Font = this.Font;
+                        ZapujceneNaradiInfo zapNarInfo = new ZapujceneNaradiInfo(vypujcDBRow, parentFont);
+//                        zapNarInfo.Font = parentFont
                         zapNarInfo.ShowDialog();
 
 
@@ -441,7 +477,7 @@ namespace Vydejna
                         }
 
 
-                        Poskozenka poskozenka = new Poskozenka(vypujcDBRow, myDB, this.Font, true);
+                        Poskozenka poskozenka = new Poskozenka(vypujcDBRow, myDB, parentFont, true);
                         if (poskozenka.ShowDialog() == DialogResult.OK)
                         {
                             Poskozenka.messager mesenger = poskozenka.getMesseger();
@@ -514,7 +550,7 @@ namespace Vydejna
 
         public virtual void setColumnWidth()
         {
-            Hashtable DBTableInfo = ConfigReg.loadSettingWindowTableColumnWidth("LEND", "pujceno");
+            Hashtable DBTableInfo = ConfigReg.loadSettingWindowTableColumnWidth(formName, "pujceno");
             if (DBTableInfo != null)
             {
                 Int32 columnWidth = 0;
@@ -540,7 +576,7 @@ namespace Vydejna
         {
             if (evenState == evenStateEnum.enable)
             {
-                if (!(this.Size.IsEmpty)) ConfigReg.saveSettingWindowLocationSize("LEND", 0, 0, this.Size.Width, this.Size.Height);
+                if (!(this.Size.IsEmpty)) ConfigReg.saveSettingWindowLocationSize(formName, 0, 0, this.Size.Width, this.Size.Height);
             }
         }
 
@@ -548,7 +584,7 @@ namespace Vydejna
         {
             if (evenState == evenStateEnum.enable)
             {
-                if (!(this.Location.IsEmpty)) ConfigReg.saveSettingWindowLocationSize("LEND", this.Location.X, this.Location.Y, 0, 0);
+                if (!(this.Location.IsEmpty)) ConfigReg.saveSettingWindowLocationSize(formName, this.Location.X, this.Location.Y, 0, 0);
             }
 
         }
@@ -557,7 +593,7 @@ namespace Vydejna
         {
             if (evenState == evenStateEnum.enable)
             {
-                ConfigReg.saveSettingWindowTableColumnWidth("LEND", "pujceno", e.Column.Name, e.Column.Width);
+                ConfigReg.saveSettingWindowTableColumnWidth(formName, "pujceno", e.Column.Name, e.Column.Width);
             }
         }
 
@@ -565,13 +601,23 @@ namespace Vydejna
         {
             if (evenState == evenStateEnum.enable)
             {
-                ConfigReg.saveSettingWindowTableColumnIndex("LEND", "pujceno", e.Column.Name, e.Column.DisplayIndex);
+                ConfigReg.saveSettingWindowTableColumnIndex(formName, "pujceno", e.Column.Name, e.Column.DisplayIndex);
             }
         }
 
         private void ZapujceneNaradiKarta_Shown(object sender, EventArgs e)
         {
             evenState = evenStateEnum.enable;
+        }
+
+        private void vybratPísmoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            chooseFont();
+        }
+
+        private void písmoAplikaceToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            setAppFont();
         }
     }
 }

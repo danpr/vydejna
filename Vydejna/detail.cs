@@ -1085,7 +1085,6 @@ namespace Vydejna
             DBRow = myDB.getOsobyLine(osCislo, DBRow);
 
             PracovniciKarta pracKarta = new PracovniciKarta(DBRow, myDB, myDataGridView.Font);
-//            pracKarta.Font = myDataGridView.Font;
             pracKarta.ShowDialog();
 
             DBRow = myDB.getOsobyLine(osCislo, DBRow);
@@ -1100,7 +1099,6 @@ namespace Vydejna
             if ((myDB != null) && (myDB.DBIsOpened()))
             {
                 PracovniciKarta pracKarta = new PracovniciKarta(myDB, myDataGridView.Font);
-//                pracKarta.Font = myDataGridView.Font;
                 if (pracKarta.ShowDialog() == DialogResult.OK)
                 {
 
@@ -1144,7 +1142,6 @@ namespace Vydejna
                 string osCislo = findOsCisloInRow(DBRow);
                 DBRow = myDB.getOsobyLine(osCislo, DBRow);
                 PracovniciKarta pracKarta = new PracovniciKarta(DBRow, myDB, myDataGridView.Font, uKartaState.edit);
-//                pracKarta.Font = myDataGridView.Font;
                 if (pracKarta.ShowDialog() == DialogResult.OK)
                 {
                     PracovniciKarta.messager mesenger = pracKarta.getMesseger();
@@ -1200,7 +1197,6 @@ namespace Vydejna
                 string osCislo = Convert.ToString(DBRow["oscislo"]);
 
                 ZapujceneNaradiKarta zapujcKarta = new ZapujceneNaradiKarta(osCislo, myDB,myDataGridView.Font);// (DBRow, myDataBase, uKartaState.edit);
-//                zapujcKarta.Font = myDataGridView.Font;
                 zapujcKarta.ShowDialog();
             }
         }
@@ -1241,7 +1237,6 @@ namespace Vydejna
                     string osCislo = findOsCisloInRow(DBRow);
                     DBRow = myDB.getOsobyLine(osCislo, DBRow);
                     ZapujceneNaradiKarta zapujcKarta = new ZapujceneNaradiKarta(osCislo, myDB, myDataGridView.Font);// (DBRow, myDataBase, uKartaState.edit);
-                    zapujcKarta.Font = myDataGridView.Font;
                     zapujcKarta.ShowDialog();
                     DBRow = myDB.getOsobyLine(osCislo, DBRow);
                     reloadRow((myDataGridView.DataSource as DataTable), findIndex((myDataGridView.DataSource as DataTable), "oscislo", osCislo), DBRow);

@@ -16,6 +16,7 @@ namespace Vydejna
     
     public partial class PracovniciKarta : Form
     {
+        private string formName = "PCARD";
 
 
         public class messager
@@ -57,12 +58,13 @@ namespace Vydejna
 
         private vDatabase myDB;
         private uKartaState state;
-
+        private Font parentFont;
 
         public PracovniciKarta(Hashtable DBRow, vDatabase myDataBase, Font myFont, uKartaState state = uKartaState.show)
         {
             InitializeComponent();
             this.state = state;
+            parentFont = myFont;
             myDB = myDataBase;
             if (state == uKartaState.show)
             {
@@ -97,7 +99,7 @@ namespace Vydejna
 
             AcceptButton = buttonOK;
             CancelButton = buttonCancel;
-            this.Font = myFont;
+            setFont(myFont);
         }
 
         public PracovniciKarta(vDatabase myDataBase, Font myFont)
@@ -105,10 +107,41 @@ namespace Vydejna
             InitializeComponent();
             myDB = myDataBase;
             this.state = uKartaState.add;
+            parentFont = myFont;
             setAddState();
-            this.Font = myFont;
+            setFont(myFont);
         }
 
+
+        private void setFont(Font myFont)
+        {
+            Font loadFont = ConfigReg.loadSettingFontX(formName);
+            if (loadFont != null)
+            {
+                this.Font = loadFont;
+            }
+            else
+            {
+                this.Font = myFont;
+            }
+        }
+
+        private void setAppFont()
+        {
+            this.Font = parentFont;
+            ConfigReg.deleteSettingFontX(formName);
+        }
+
+        private void chooseFont()
+        {
+            FontDialog fontDialog1 = new FontDialog();
+            fontDialog1.Font = this.Font;
+            if (fontDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                ConfigReg.saveSettingFontX(fontDialog1.Font, formName);
+                this.Font = fontDialog1.Font;
+            }
+        }
 
 
         public void setData(Hashtable DBRow)
@@ -236,20 +269,19 @@ namespace Vydejna
                             MessageBox.Show("Pracovník s tímto osobním číslem již neexistuje.");
                         }
 
-
                     }
-
-
                 }
-
-
-
-
-
             }
+        }
 
+        private void vybratPísmoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            chooseFont();
+        }
 
-
+        private void písmoAplikaceToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            setAppFont();
         }
 
 
