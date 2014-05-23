@@ -40,6 +40,7 @@
             this.textBoxString = new System.Windows.Forms.TextBox();
             this.checkBoxUpcase = new System.Windows.Forms.CheckBox();
             this.checkBoxFromStart = new System.Windows.Forms.CheckBox();
+            this.checkBoxFromFirstChar = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNumeric)).BeginInit();
             this.SuspendLayout();
@@ -66,7 +67,7 @@
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(15, 225);
+            this.buttonCancel.Location = new System.Drawing.Point(15, 234);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 6;
@@ -76,7 +77,7 @@
             // buttonOK
             // 
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonOK.Location = new System.Drawing.Point(234, 225);
+            this.buttonOK.Location = new System.Drawing.Point(234, 234);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
             this.buttonOK.TabIndex = 5;
@@ -160,18 +161,29 @@
             // checkBoxFromStart
             // 
             this.checkBoxFromStart.AutoSize = true;
-            this.checkBoxFromStart.Location = new System.Drawing.Point(36, 185);
+            this.checkBoxFromStart.Location = new System.Drawing.Point(36, 199);
             this.checkBoxFromStart.Name = "checkBoxFromStart";
-            this.checkBoxFromStart.Size = new System.Drawing.Size(113, 17);
+            this.checkBoxFromStart.Size = new System.Drawing.Size(169, 17);
             this.checkBoxFromStart.TabIndex = 4;
-            this.checkBoxFromStart.Text = "Hledat od začátku";
+            this.checkBoxFromStart.Text = "Prohledávat od prvního řádku";
             this.checkBoxFromStart.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxFromFirstChar
+            // 
+            this.checkBoxFromFirstChar.AutoSize = true;
+            this.checkBoxFromFirstChar.Location = new System.Drawing.Point(36, 176);
+            this.checkBoxFromFirstChar.Name = "checkBoxFromFirstChar";
+            this.checkBoxFromFirstChar.Size = new System.Drawing.Size(168, 17);
+            this.checkBoxFromFirstChar.TabIndex = 7;
+            this.checkBoxFromFirstChar.Text = "Porovnávat od prvního znaku";
+            this.checkBoxFromFirstChar.UseVisualStyleBackColor = true;
             // 
             // Prohledavani
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(329, 264);
+            this.ClientSize = new System.Drawing.Size(329, 273);
+            this.Controls.Add(this.checkBoxFromFirstChar);
             this.Controls.Add(this.checkBoxFromStart);
             this.Controls.Add(this.checkBoxUpcase);
             this.Controls.Add(this.groupBox1);
@@ -206,5 +218,6 @@
         private System.Windows.Forms.TextBox textBoxString;
         private System.Windows.Forms.CheckBox checkBoxUpcase;
         private System.Windows.Forms.CheckBox checkBoxFromStart;
+        private System.Windows.Forms.CheckBox checkBoxFromFirstChar;
     }
 }

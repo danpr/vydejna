@@ -175,15 +175,29 @@ namespace Vydejna
                                 columnNameValue = columnNameValue.ToUpper();
                                 substring = substring.ToUpper();
                             }
-
+                            // naprosta shoda
                             if (columnNameValue == substring)
                             {
                                 lineIsFound = true;
                             }
-
-                            if (columnNameValue.IndexOf(substring) != -1)
+                            else
                             {
-                                lineIsFound = true;
+
+                                // shoda od prvnuho znaku
+                                if (checkBoxFromFirstChar.Checked)
+                                {
+                                    if (columnNameValue.IndexOf(substring) == 0)
+                                    {
+                                        lineIsFound = true;
+                                    }
+                                }
+                                else // shoda kdekilov
+                                {
+                                    if (columnNameValue.IndexOf(substring) != -1)
+                                    {
+                                        lineIsFound = true;
+                                    }
+                                }
                             }
                         break;
                         case "Numeric" :
@@ -269,6 +283,7 @@ namespace Vydejna
         {
             // prohledavani
             najdiRadku();
+            checkBoxFromStart.Checked = false;
 
         }
 
