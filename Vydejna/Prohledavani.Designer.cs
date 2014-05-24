@@ -41,6 +41,7 @@
             this.checkBoxUpcase = new System.Windows.Forms.CheckBox();
             this.checkBoxFromStart = new System.Windows.Forms.CheckBox();
             this.checkBoxFromFirstChar = new System.Windows.Forms.CheckBox();
+            this.checkBoxDiacritism = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNumeric)).BeginInit();
             this.SuspendLayout();
@@ -67,7 +68,7 @@
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(15, 234);
+            this.buttonCancel.Location = new System.Drawing.Point(15, 250);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 6;
@@ -77,7 +78,7 @@
             // buttonOK
             // 
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonOK.Location = new System.Drawing.Point(234, 234);
+            this.buttonOK.Location = new System.Drawing.Point(234, 250);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
             this.buttonOK.TabIndex = 5;
@@ -151,7 +152,7 @@
             // checkBoxUpcase
             // 
             this.checkBoxUpcase.AutoSize = true;
-            this.checkBoxUpcase.Location = new System.Drawing.Point(36, 153);
+            this.checkBoxUpcase.Location = new System.Drawing.Point(35, 199);
             this.checkBoxUpcase.Name = "checkBoxUpcase";
             this.checkBoxUpcase.Size = new System.Drawing.Size(148, 17);
             this.checkBoxUpcase.TabIndex = 3;
@@ -161,7 +162,7 @@
             // checkBoxFromStart
             // 
             this.checkBoxFromStart.AutoSize = true;
-            this.checkBoxFromStart.Location = new System.Drawing.Point(36, 199);
+            this.checkBoxFromStart.Location = new System.Drawing.Point(35, 153);
             this.checkBoxFromStart.Name = "checkBoxFromStart";
             this.checkBoxFromStart.Size = new System.Drawing.Size(169, 17);
             this.checkBoxFromStart.TabIndex = 4;
@@ -178,11 +179,24 @@
             this.checkBoxFromFirstChar.Text = "Porovnávat od prvního znaku";
             this.checkBoxFromFirstChar.UseVisualStyleBackColor = true;
             // 
+            // checkBoxDiacritism
+            // 
+            this.checkBoxDiacritism.AutoSize = true;
+            this.checkBoxDiacritism.Checked = true;
+            this.checkBoxDiacritism.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxDiacritism.Location = new System.Drawing.Point(36, 222);
+            this.checkBoxDiacritism.Name = "checkBoxDiacritism";
+            this.checkBoxDiacritism.Size = new System.Drawing.Size(114, 17);
+            this.checkBoxDiacritism.TabIndex = 8;
+            this.checkBoxDiacritism.Text = "Používat diakritiku";
+            this.checkBoxDiacritism.UseVisualStyleBackColor = true;
+            // 
             // Prohledavani
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(329, 273);
+            this.ClientSize = new System.Drawing.Size(329, 289);
+            this.Controls.Add(this.checkBoxDiacritism);
             this.Controls.Add(this.checkBoxFromFirstChar);
             this.Controls.Add(this.checkBoxFromStart);
             this.Controls.Add(this.checkBoxUpcase);
@@ -219,5 +233,6 @@
         private System.Windows.Forms.CheckBox checkBoxUpcase;
         private System.Windows.Forms.CheckBox checkBoxFromStart;
         private System.Windows.Forms.CheckBox checkBoxFromFirstChar;
+        private System.Windows.Forms.CheckBox checkBoxDiacritism;
     }
 }

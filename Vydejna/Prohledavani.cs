@@ -169,6 +169,11 @@ namespace Vydejna
                     {
                         case "String" :
                             string substring = textBoxString.Text;
+                            if (!(checkBoxDiacritism.Checked))
+                            {
+                                columnNameValue = RemoveDiacritics(columnNameValue);
+                                substring = RemoveDiacritics(substring);
+                            }
 
                             if (checkBoxUpcase.Checked)
                             {
@@ -346,6 +351,24 @@ namespace Vydejna
                 }
             }
 
+        }
+
+        public static string RemoveDiacritics(String s)
+        {
+            // oddělení znaků od modifikátorů (háčků, čárek, atd.)
+            s = s.Normalize(System.Text.NormalizationForm.FormD);
+            System.Text.StringBuilder sb = new System.Text.StringBuilder();
+
+            for (int i = 0; i < s.Length; i++)
+            {
+                // do řetězce přidá všechny znaky kromě modifikátorů
+                if (System.Globalization.CharUnicodeInfo.GetUnicodeCategory(s[i]) != System.Globalization.UnicodeCategory.NonSpacingMark)
+                {
+                    sb.Append(s[i]);
+                }
+            }
+            // vrátí řetězec bez diakritiky
+            return sb.ToString();
         }
 
 
