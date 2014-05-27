@@ -15,6 +15,28 @@ namespace Vydejna
 {
     public partial class Prohledavani : Form
     {
+
+        public class Wildcard : Regex
+        {
+            public Wildcard(string pattern)
+                : base(WildcardToRegex(pattern))
+            {
+            }
+
+            public Wildcard(string pattern, RegexOptions options)
+                : base(WildcardToRegex(pattern), options)
+            {
+            }
+
+            public static string WildcardToRegex(string pattern)
+            {
+                return "^" + Regex.Escape(pattern).
+                 Replace("\\*", ".*").
+                 Replace("\\?", ".") + "$";
+            }
+        }        
+        
+        
         public class ColumnInfo
         {
             public string varColumnType;
@@ -151,6 +173,45 @@ namespace Vydejna
                 string columnName = ((ColumnInfo)comboBoxColumnInfo[comboBoxColumns.SelectedIndex]).name;
                 
                 Int32 testingRow = 0;
+                Regex regex = null;
+                string substring="";
+
+
+                if (myType == "String")
+                {
+                    substring = textBoxString.Text;
+
+                    if (checkBoxWildCard.Checked)
+                    {
+                        if (!(checkBoxDiacritism.Checked))
+                        {
+                            substring = RemoveDiacritics(substring);
+                        }
+                        // pouzijeme divokou kartu
+                        if (checkBoxUpcase.Checked)
+                        {
+                            regex = new Wildcard(substring, RegexOptions.IgnoreCase);
+                        }
+                        else
+                        {
+                            regex = new Wildcard(substring);
+                        }
+                    }
+                    else
+                    {
+                        if (!(checkBoxDiacritism.Checked))
+                        {
+                            substring = RemoveDiacritics(textBoxString.Text);
+                        }
+
+                        if (checkBoxUpcase.Checked)
+                        {
+                            substring = substring.ToUpper();
+                        }
+
+                    }
+                }
+
 
                 if (checkBoxFromStart.Checked)
                 {
@@ -161,6 +222,7 @@ namespace Vydejna
                     testingRow = myDataGridView.SelectedRows[0].Index+1;
                 }
 
+
                 while ((testingRow < myDataGridView.Rows.Count) && (!(lineIsFound)))
                 {
 
@@ -169,21 +231,19 @@ namespace Vydejna
                     switch (myType)
                     {
                         case "String" :
-                            string substring = textBoxString.Text;
                             if (!(checkBoxDiacritism.Checked))
                             {
                                 columnNameValue = RemoveDiacritics(columnNameValue);
-                                substring = RemoveDiacritics(substring);
                             }
 
                             if (checkBoxUpcase.Checked)
                             {
                                 columnNameValue = columnNameValue.ToUpper();
-                                substring = substring.ToUpper();
                             }
+
                             if (checkBoxWildCard.Checked)
-                            {// pouzijeme divokou kartu
-                                Regex regex = new Regex(substring, RegexOptions.IgnoreCase);
+                            {
+                                // pouzijeme divokou kartu
                                 if (regex.IsMatch(columnNameValue))
                                 {
                                     lineIsFound = true;
@@ -192,7 +252,6 @@ namespace Vydejna
                             }
                             else
                             {
-
                                 // naprosta shoda
                                 if (columnNameValue == substring)
                                 {
@@ -269,9 +328,7 @@ namespace Vydejna
                                 break;
                         }
 
-
                         break;
-
                         
                     }
 
