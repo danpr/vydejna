@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Text.RegularExpressions;
 
 namespace Vydejna
 {
@@ -180,27 +181,40 @@ namespace Vydejna
                                 columnNameValue = columnNameValue.ToUpper();
                                 substring = substring.ToUpper();
                             }
-                            // naprosta shoda
-                            if (columnNameValue == substring)
-                            {
-                                lineIsFound = true;
+                            if (checkBoxWildCard.Checked)
+                            {// pouzijeme divokou kartu
+                                Regex regex = new Regex(substring, RegexOptions.IgnoreCase);
+                                if (regex.IsMatch(columnNameValue))
+                                {
+                                    lineIsFound = true;
+                                }
+
                             }
                             else
                             {
 
-                                // shoda od prvnuho znaku
-                                if (checkBoxFromFirstChar.Checked)
+                                // naprosta shoda
+                                if (columnNameValue == substring)
                                 {
-                                    if (columnNameValue.IndexOf(substring) == 0)
-                                    {
-                                        lineIsFound = true;
-                                    }
+                                    lineIsFound = true;
                                 }
-                                else // shoda kdekilov
+                                else
                                 {
-                                    if (columnNameValue.IndexOf(substring) != -1)
+
+                                    // shoda od prvnuho znaku
+                                    if (checkBoxFromFirstChar.Checked)
                                     {
-                                        lineIsFound = true;
+                                        if (columnNameValue.IndexOf(substring) == 0)
+                                        {
+                                            lineIsFound = true;
+                                        }
+                                    }
+                                    else // shoda kdekilov
+                                    {
+                                        if (columnNameValue.IndexOf(substring) != -1)
+                                        {
+                                            lineIsFound = true;
+                                        }
                                     }
                                 }
                             }

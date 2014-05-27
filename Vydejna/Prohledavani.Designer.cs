@@ -42,6 +42,7 @@
             this.checkBoxFromStart = new System.Windows.Forms.CheckBox();
             this.checkBoxFromFirstChar = new System.Windows.Forms.CheckBox();
             this.checkBoxDiacritism = new System.Windows.Forms.CheckBox();
+            this.checkBoxWildCard = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNumeric)).BeginInit();
             this.SuspendLayout();
@@ -68,7 +69,7 @@
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(15, 250);
+            this.buttonCancel.Location = new System.Drawing.Point(15, 307);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 6;
@@ -78,7 +79,7 @@
             // buttonOK
             // 
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonOK.Location = new System.Drawing.Point(234, 250);
+            this.buttonOK.Location = new System.Drawing.Point(234, 307);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
             this.buttonOK.TabIndex = 5;
@@ -191,11 +192,24 @@
             this.checkBoxDiacritism.Text = "Používat diakritiku";
             this.checkBoxDiacritism.UseVisualStyleBackColor = true;
             // 
+            // checkBoxWildCard
+            // 
+            this.checkBoxWildCard.AutoSize = true;
+            this.checkBoxWildCard.Checked = true;
+            this.checkBoxWildCard.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxWildCard.Location = new System.Drawing.Point(36, 245);
+            this.checkBoxWildCard.Name = "checkBoxWildCard";
+            this.checkBoxWildCard.Size = new System.Drawing.Size(118, 17);
+            this.checkBoxWildCard.TabIndex = 9;
+            this.checkBoxWildCard.Text = "Použít divoké karty";
+            this.checkBoxWildCard.UseVisualStyleBackColor = true;
+            // 
             // Prohledavani
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(329, 289);
+            this.ClientSize = new System.Drawing.Size(329, 346);
+            this.Controls.Add(this.checkBoxWildCard);
             this.Controls.Add(this.checkBoxDiacritism);
             this.Controls.Add(this.checkBoxFromFirstChar);
             this.Controls.Add(this.checkBoxFromStart);
@@ -234,5 +248,6 @@
         private System.Windows.Forms.CheckBox checkBoxFromStart;
         private System.Windows.Forms.CheckBox checkBoxFromFirstChar;
         private System.Windows.Forms.CheckBox checkBoxDiacritism;
+        private System.Windows.Forms.CheckBox checkBoxWildCard;
     }
 }
