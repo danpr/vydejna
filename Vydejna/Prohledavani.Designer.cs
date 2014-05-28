@@ -43,6 +43,7 @@
             this.checkBoxFromFirstChar = new System.Windows.Forms.CheckBox();
             this.checkBoxDiacritism = new System.Windows.Forms.CheckBox();
             this.checkBoxWildCard = new System.Windows.Forms.CheckBox();
+            this.comboBoxRegex = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNumeric)).BeginInit();
             this.SuspendLayout();
@@ -69,7 +70,7 @@
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(15, 307);
+            this.buttonCancel.Location = new System.Drawing.Point(15, 284);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 6;
@@ -79,7 +80,7 @@
             // buttonOK
             // 
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonOK.Location = new System.Drawing.Point(234, 307);
+            this.buttonOK.Location = new System.Drawing.Point(234, 284);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
             this.buttonOK.TabIndex = 5;
@@ -199,16 +200,30 @@
             this.checkBoxWildCard.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxWildCard.Location = new System.Drawing.Point(36, 245);
             this.checkBoxWildCard.Name = "checkBoxWildCard";
-            this.checkBoxWildCard.Size = new System.Drawing.Size(118, 17);
+            this.checkBoxWildCard.Size = new System.Drawing.Size(57, 17);
             this.checkBoxWildCard.TabIndex = 9;
-            this.checkBoxWildCard.Text = "Použít divoké karty";
+            this.checkBoxWildCard.Text = "Použít";
             this.checkBoxWildCard.UseVisualStyleBackColor = true;
+            this.checkBoxWildCard.CheckedChanged += new System.EventHandler(this.checkBoxWildCard_CheckedChanged);
+            // 
+            // comboBoxRegex
+            // 
+            this.comboBoxRegex.FormattingEnabled = true;
+            this.comboBoxRegex.Items.AddRange(new object[] {
+            "Divoké karty",
+            "Regularni výrazy"});
+            this.comboBoxRegex.Location = new System.Drawing.Point(134, 243);
+            this.comboBoxRegex.Name = "comboBoxRegex";
+            this.comboBoxRegex.Size = new System.Drawing.Size(147, 21);
+            this.comboBoxRegex.TabIndex = 10;
+            this.comboBoxRegex.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // Prohledavani
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(329, 346);
+            this.ClientSize = new System.Drawing.Size(329, 323);
+            this.Controls.Add(this.comboBoxRegex);
             this.Controls.Add(this.checkBoxWildCard);
             this.Controls.Add(this.checkBoxDiacritism);
             this.Controls.Add(this.checkBoxFromFirstChar);
@@ -249,5 +264,6 @@
         private System.Windows.Forms.CheckBox checkBoxFromFirstChar;
         private System.Windows.Forms.CheckBox checkBoxDiacritism;
         private System.Windows.Forms.CheckBox checkBoxWildCard;
+        private System.Windows.Forms.ComboBox comboBoxRegex;
     }
 }

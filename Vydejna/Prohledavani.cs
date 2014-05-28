@@ -18,21 +18,34 @@ namespace Vydejna
 
         public class Wildcard : Regex
         {
-            public Wildcard(string pattern)
-                : base(WildcardToRegex(pattern))
+            public Wildcard(string pattern, Boolean useFirstColumn)
+                : base(WildcardToRegex(pattern, useFirstColumn))
             {
             }
 
-            public Wildcard(string pattern, RegexOptions options)
-                : base(WildcardToRegex(pattern), options)
+
+
+            public Wildcard(string pattern, RegexOptions options, Boolean useFirstColumn)
+                : base(WildcardToRegex(pattern,useFirstColumn), options)
             {
             }
 
-            public static string WildcardToRegex(string pattern)
+
+
+            public static string WildcardToRegex(string pattern, Boolean useFC = false)
             {
-                return "^" + Regex.Escape(pattern).
-                 Replace("\\*", ".*").
-                 Replace("\\?", ".") + "$";
+                if (useFC)
+                {
+                    return "^" + Regex.Escape(pattern).
+                     Replace("\\*", ".*").
+                     Replace("\\?", ".") + "$";
+                }
+                else
+                {
+                    return Regex.Escape(pattern).
+                     Replace("\\*", ".*").
+                     Replace("\\?", ".") + "$";
+                }
             }
         }        
         
@@ -65,12 +78,18 @@ namespace Vydejna
             comboBoxColumnInfo = new ArrayList();
 
             this.myDataGridView = myDataGridView;
+            
             textBoxString.Enabled = false;
             comboBoxNumeric.Enabled = false;
             numericUpDownNumeric.Enabled = false;
             comboBoxDate.Enabled = false;
             dateTimePickerDate.Enabled = false;
+
             loadComboBox(preferedColumn);
+
+            comboBoxRegex.SelectedIndex = 0;
+            setFirstFromCharChecker();
+
 
             buttonOK.Enabled = false;
             if (comboBoxNumeric.Items.Count > 0) comboBoxNumeric.SelectedIndex = 0;
@@ -129,6 +148,9 @@ namespace Vydejna
                 comboBoxDate.Enabled = false;
                 dateTimePickerDate.Enabled = false;
                 checkBoxUpcase.Enabled = false;
+                checkBoxFromFirstChar.Enabled = false;
+                checkBoxWildCard.Enabled = false;
+                comboBoxRegex.Enabled = false;
 
                 groupBox1.Focus();
                 switch (myType)
@@ -136,7 +158,12 @@ namespace Vydejna
                     case "String":
                         textBoxString.Enabled = true;
                         checkBoxUpcase.Enabled = true;
-                        if (textBoxString.Text.Trim() == "")
+                        checkBoxFromFirstChar.Enabled = true;
+                        checkBoxWildCard.Enabled = true;
+                        comboBoxRegex.Enabled = true;
+
+                        setFirstFromCharChecker();
+                                                 if (textBoxString.Text.Trim() == "")
                         {
                             buttonOK.Enabled = false;
                         }
@@ -190,11 +217,11 @@ namespace Vydejna
                         // pouzijeme divokou kartu
                         if (checkBoxUpcase.Checked)
                         {
-                            regex = new Wildcard(substring, RegexOptions.IgnoreCase);
+                            regex = new Wildcard(substring, RegexOptions.IgnoreCase, checkBoxFromFirstChar.Checked);
                         }
                         else
                         {
-                            regex = new Wildcard(substring);
+                            regex = new Wildcard(substring,checkBoxFromFirstChar.Checked);
                         }
                     }
                     else
@@ -440,6 +467,45 @@ namespace Vydejna
             }
             // vrátí řetězec bez diakritiky
             return sb.ToString();
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            setFirstFromCharChecker();
+        }
+
+        private void checkBoxWildCard_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxWildCard.Checked )
+            {
+                comboBoxRegex.Enabled = true;
+            }
+            else
+            {
+                comboBoxRegex.Enabled = false;
+            }
+            setFirstFromCharChecker();
+
+        }
+
+        private void setFirstFromCharChecker()
+        {
+            if (checkBoxWildCard.Checked)
+            {
+
+                if (comboBoxRegex.SelectedIndex == 0)
+                {
+                    checkBoxFromFirstChar.Enabled = true;
+                }
+                else
+                {
+                    checkBoxFromFirstChar.Enabled = false;
+                }
+            }
+            else
+            {
+                checkBoxFromFirstChar.Enabled = true;
+            }
         }
 
 
