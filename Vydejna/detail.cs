@@ -317,8 +317,6 @@ namespace Vydejna
                 y = Screen.PrimaryScreen.Bounds.Height - searchWindow.Height;
             }
             if (y < 0) { y = 0; }
-
-
             searchWindow.SetDesktopLocation(x, y);
             searchWindow.ShowDialog();
         }

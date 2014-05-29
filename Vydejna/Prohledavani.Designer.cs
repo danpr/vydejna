@@ -184,8 +184,6 @@
             // checkBoxDiacritism
             // 
             this.checkBoxDiacritism.AutoSize = true;
-            this.checkBoxDiacritism.Checked = true;
-            this.checkBoxDiacritism.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxDiacritism.Location = new System.Drawing.Point(36, 222);
             this.checkBoxDiacritism.Name = "checkBoxDiacritism";
             this.checkBoxDiacritism.Size = new System.Drawing.Size(114, 17);
@@ -238,7 +236,7 @@
             this.Name = "Prohledavani";
             this.Text = "Prohledávání tabulky";
             this.Shown += new System.EventHandler(this.Prohledavani_Shown);
-            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Prohledavani_KeyPress);
+//            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Prohledavani_KeyPress);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNumeric)).EndInit();

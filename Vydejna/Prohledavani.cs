@@ -87,9 +87,9 @@ namespace Vydejna
 
             loadComboBox(preferedColumn);
 
+            checkBoxWildCard.Checked = true;
             comboBoxRegex.SelectedIndex = 0;
             setFirstFromCharChecker();
-
 
             buttonOK.Enabled = false;
             if (comboBoxNumeric.Items.Count > 0) comboBoxNumeric.SelectedIndex = 0;
@@ -147,6 +147,7 @@ namespace Vydejna
                 numericUpDownNumeric.Enabled = false;
                 comboBoxDate.Enabled = false;
                 dateTimePickerDate.Enabled = false;
+                checkBoxDiacritism.Enabled = false;
                 checkBoxUpcase.Enabled = false;
                 checkBoxFromFirstChar.Enabled = false;
                 checkBoxWildCard.Enabled = false;
@@ -161,9 +162,10 @@ namespace Vydejna
                         checkBoxFromFirstChar.Enabled = true;
                         checkBoxWildCard.Enabled = true;
                         comboBoxRegex.Enabled = true;
+                        checkBoxDiacritism.Enabled = true;
 
                         setFirstFromCharChecker();
-                                                 if (textBoxString.Text.Trim() == "")
+                        if (textBoxString.Text.Trim() == "")
                         {
                             buttonOK.Enabled = false;
                         }
@@ -215,13 +217,28 @@ namespace Vydejna
                             substring = RemoveDiacritics(substring);
                         }
                         // pouzijeme divokou kartu
-                        if (checkBoxUpcase.Checked)
+
+                        if (comboBoxRegex.SelectedIndex == 0)
                         {
-                            regex = new Wildcard(substring, RegexOptions.IgnoreCase, checkBoxFromFirstChar.Checked);
+                            if (checkBoxUpcase.Checked)
+                            {
+                                regex = new Wildcard(substring, RegexOptions.IgnoreCase, checkBoxFromFirstChar.Checked);
+                            }
+                            else
+                            {
+                                regex = new Wildcard(substring, checkBoxFromFirstChar.Checked);
+                            }
                         }
                         else
                         {
-                            regex = new Wildcard(substring,checkBoxFromFirstChar.Checked);
+                            if (checkBoxUpcase.Checked)
+                            {
+                                regex = new Regex(substring, RegexOptions.IgnoreCase);
+                            }
+                            else
+                            {
+                                regex = new Regex(substring);
+                            }
                         }
                     }
                     else
@@ -407,13 +424,13 @@ namespace Vydejna
             }
         }
 
-        private void Prohledavani_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == '1')
-            {
-                Close();
-            }
-        }
+//        private void Prohledavani_KeyPress(object sender, KeyPressEventArgs e)
+//        {
+//            if (e.KeyChar == '1')
+//            {
+//                Close();
+//            }
+//        }
 
         private int najdiCisloSloupce(string jmeno)
         {
