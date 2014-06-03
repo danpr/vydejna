@@ -12,6 +12,34 @@ namespace Vydejna
     class ConfigReg
     {
 
+        public class TableSearch
+        {
+            public string windowName;
+            public string typeWindowName;
+
+            public string columnName;
+            public Boolean searchFromFirstColumn;
+            public Boolean noCase;
+            public Boolean diacritcs;
+            public bool use;
+            public int useType;
+
+            public TableSearch (string windowName, string typeWindowName, string columnName, Boolean searchFromFirstColumn, Boolean noCase, Boolean diacritcs, bool use, int useType)
+            {
+                this.windowName = windowName;
+                this.typeWindowName = typeWindowName;
+                this.columnName = columnName;
+                this.searchFromFirstColumn = searchFromFirstColumn;
+                this.noCase = noCase;
+                this.diacritcs = diacritcs;
+                this.use = use;
+                this.useType = useType;
+            }
+
+        }
+
+
+
 
         public static void loadSettingDB(parametryDB myParametryDB)
         {
@@ -236,6 +264,65 @@ namespace Vydejna
             rkey.SetValue("Size", myFont.Size);
             rkey.SetValue("Style", (Int32)myFont.Style);
         }
+
+
+        public static void saveSettingSearch(TableSearch mySearch)
+        {
+            string windowName = mySearch.windowName;
+            string typeWindowName = mySearch.typeWindowName;
+            if (windowName.Trim() == "") typeWindowName = "";
+
+
+            RegistryKey rkey = null;
+
+            if ((windowName.Trim() != "") && (typeWindowName.Trim() != ""))
+            {
+                rkey = Registry.CurrentUser.OpenSubKey("SOFTWARE\\CS\\SEARCH\\" + windowName + "\\" + typeWindowName, true);
+            }
+
+            if (rkey == null)
+            {
+
+
+                if (windowName.Trim() != "")
+                {
+                    rkey = Registry.CurrentUser.OpenSubKey("SOFTWARE\\CS\\SEARCH\\" + windowName, true);
+                }
+
+                if (rkey == null)
+                {
+                    rkey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\CS\SEARCH", true);
+                    if (rkey == null)
+                    {
+                        rkey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\CS", true);
+                        if (rkey == null)
+                        {
+                            rkey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE", true);
+                            rkey.CreateSubKey("CS");
+                            rkey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\CS", true);
+                        }
+                        rkey.CreateSubKey("SEARCH");
+                        rkey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\CS\SEARCH", true);
+                        if (typeWindowName.Trim() != "")
+                        {
+                            rkey = Registry.CurrentUser.OpenSubKey("SOFTWARE\\CS\\SEARCH\\" + windowName, true);
+                        }
+                    }
+                    if ((windowName.Trim() != "") && (typeWindowName.Trim() != ""))
+                    {
+                        rkey.CreateSubKey(typeWindowName);
+                        rkey = Registry.CurrentUser.OpenSubKey("SOFTWARE\\CS\\SEARCH\\" + windowName + "\\" + typeWindowName, true);
+                    }
+
+                }
+            }
+            // zapis polozky
+            if (rkey != null)
+            {
+                rkey.SetValue("ColumnName", mySearch.columnName);
+            }
+        }
+
 
 
 
