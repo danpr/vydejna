@@ -405,6 +405,8 @@ namespace Vydejna
             najdiRadku();
             checkBoxFromStart.Checked = false;
 
+            ConfigReg.saveSettingSearch(new ConfigReg.TableSearch("MAIN","naradi",comboBoxColumns.Text,checkBoxFromFirstChar.Checked,checkBoxUpcase.Checked,checkBoxDiacritism.Checked,checkBoxWildCard.Checked,comboBoxRegex.SelectedIndex));
+
         }
 
         private void comboBoxNumeric_SelectedIndexChanged(object sender, EventArgs e)

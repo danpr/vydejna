@@ -19,18 +19,18 @@ namespace Vydejna
 
             public string columnName;
             public Boolean searchFromFirstColumn;
-            public Boolean noCase;
+            public Boolean noCaseSensitive;
             public Boolean diacritcs;
             public bool use;
             public int useType;
 
-            public TableSearch (string windowName, string typeWindowName, string columnName, Boolean searchFromFirstColumn, Boolean noCase, Boolean diacritcs, bool use, int useType)
+            public TableSearch (string windowName, string typeWindowName, string columnName, Boolean searchFromFirstColumn, Boolean noCaseSensitive, Boolean diacritcs, bool use, int useType)
             {
                 this.windowName = windowName;
                 this.typeWindowName = typeWindowName;
                 this.columnName = columnName;
                 this.searchFromFirstColumn = searchFromFirstColumn;
-                this.noCase = noCase;
+                this.noCaseSensitive = noCaseSensitive;
                 this.diacritcs = diacritcs;
                 this.use = use;
                 this.useType = useType;
@@ -303,23 +303,36 @@ namespace Vydejna
                         }
                         rkey.CreateSubKey("SEARCH");
                         rkey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\CS\SEARCH", true);
-                        if (typeWindowName.Trim() != "")
-                        {
-                            rkey = Registry.CurrentUser.OpenSubKey("SOFTWARE\\CS\\SEARCH\\" + windowName, true);
-                        }
                     }
-                    if ((windowName.Trim() != "") && (typeWindowName.Trim() != ""))
+                    if (typeWindowName.Trim() != "")
                     {
-                        rkey.CreateSubKey(typeWindowName);
-                        rkey = Registry.CurrentUser.OpenSubKey("SOFTWARE\\CS\\SEARCH\\" + windowName + "\\" + typeWindowName, true);
+                        rkey.CreateSubKey(windowName);
+                        rkey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\\CS\\SEARCH\\" + windowName, true);
                     }
 
                 }
+
+                if ((windowName.Trim() != "") && (typeWindowName.Trim() != ""))
+                {
+                    if (rkey != null)
+                    {
+
+                        rkey.CreateSubKey(typeWindowName);
+                        rkey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\\CS\\SEARCH\\" + windowName + "\\" + typeWindowName, true);
+                    }
+                }
+
+
             }
             // zapis polozky
             if (rkey != null)
             {
                 rkey.SetValue("ColumnName", mySearch.columnName);
+                rkey.SetValue("FromFirstColumn", mySearch.searchFromFirstColumn);
+                rkey.SetValue("NoCaseSensitive", mySearch.noCaseSensitive);
+                rkey.SetValue("UseDiacritics", mySearch.diacritcs);
+                rkey.SetValue("UseWildCart", mySearch.use);
+                rkey.SetValue("WildCardType", mySearch.useType);
             }
         }
 
