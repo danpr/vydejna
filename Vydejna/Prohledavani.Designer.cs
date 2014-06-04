@@ -160,6 +160,7 @@
             this.checkBoxUpcase.TabIndex = 3;
             this.checkBoxUpcase.Text = "Ignorovat velikost písmen";
             this.checkBoxUpcase.UseVisualStyleBackColor = true;
+            this.checkBoxUpcase.CheckedChanged += new System.EventHandler(this.checkBoxUpcase_CheckedChanged);
             // 
             // checkBoxFromStart
             // 
@@ -170,6 +171,7 @@
             this.checkBoxFromStart.TabIndex = 4;
             this.checkBoxFromStart.Text = "Prohledávat od prvního řádku";
             this.checkBoxFromStart.UseVisualStyleBackColor = true;
+            this.checkBoxFromStart.CheckedChanged += new System.EventHandler(this.checkBoxFromStart_CheckedChanged);
             // 
             // checkBoxFromFirstChar
             // 
@@ -180,6 +182,7 @@
             this.checkBoxFromFirstChar.TabIndex = 7;
             this.checkBoxFromFirstChar.Text = "Porovnávat od prvního znaku";
             this.checkBoxFromFirstChar.UseVisualStyleBackColor = true;
+            this.checkBoxFromFirstChar.CheckedChanged += new System.EventHandler(this.checkBoxFromFirstChar_CheckedChanged);
             // 
             // checkBoxDiacritism
             // 
@@ -190,6 +193,7 @@
             this.checkBoxDiacritism.TabIndex = 8;
             this.checkBoxDiacritism.Text = "Používat diakritiku";
             this.checkBoxDiacritism.UseVisualStyleBackColor = true;
+            this.checkBoxDiacritism.CheckedChanged += new System.EventHandler(this.checkBoxDiacritism_CheckedChanged);
             // 
             // checkBoxWildCard
             // 
@@ -236,7 +240,6 @@
             this.Name = "Prohledavani";
             this.Text = "Prohledávání tabulky";
             this.Shown += new System.EventHandler(this.Prohledavani_Shown);
-//            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Prohledavani_KeyPress);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNumeric)).EndInit();

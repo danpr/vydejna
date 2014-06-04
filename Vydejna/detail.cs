@@ -302,7 +302,7 @@ namespace Vydejna
         {
             if (searchWindow == null)
             {
-                searchWindow = new Prohledavani(myDataGridView, preferovanySloupec());
+                searchWindow = new Prohledavani(myDataGridView, preferovanySloupec(),"MAIN",jmenoTabulky());
                 searchWindow.StartPosition = FormStartPosition.Manual;
             }
 

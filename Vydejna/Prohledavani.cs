@@ -66,12 +66,18 @@ namespace Vydejna
         private DataGridView myDataGridView;
         private ArrayList comboBoxColumnInfo;
         private string preferedColumn;
+        private string windowName;
+        private string windowTypeTableName;
+        private Boolean settingChanged = false;
 
-        public Prohledavani(DataGridView myDataGridView, string preferedColumn)
+        public Prohledavani(DataGridView myDataGridView, string preferedColumn, string windowName = "", string windowTypeTableName = "")
         {
             InitializeComponent();
             this.preferedColumn = preferedColumn;
             this.TopMost = true;
+            this.windowName = windowName;
+            this.windowTypeTableName = windowTypeTableName;
+
 
             FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
 
@@ -137,6 +143,7 @@ namespace Vydejna
             // vybrani
             if (comboBoxColumns.SelectedIndex != -1)
             {
+                settingChanged = true;
                 buttonOK.Enabled = true;
                 textBoxString.Enabled = false;
                 ColumnInfo myColumnInfo = (ColumnInfo)comboBoxColumnInfo[comboBoxColumns.SelectedIndex];
@@ -404,8 +411,12 @@ namespace Vydejna
             // prohledavani
             najdiRadku();
             checkBoxFromStart.Checked = false;
+            if (settingChanged)
+            {
 
-            ConfigReg.saveSettingSearch(new ConfigReg.TableSearch("MAIN","naradi",comboBoxColumns.Text,checkBoxFromFirstChar.Checked,checkBoxUpcase.Checked,checkBoxDiacritism.Checked,checkBoxWildCard.Checked,comboBoxRegex.SelectedIndex));
+                ConfigReg.saveSettingSearch(new ConfigReg.TableSearch(windowName, windowTypeTableName, "", checkBoxFromFirstChar.Checked, checkBoxUpcase.Checked, checkBoxDiacritism.Checked, checkBoxWildCard.Checked, comboBoxRegex.SelectedIndex));
+                settingChanged = false;
+            }
 
         }
 
@@ -490,11 +501,13 @@ namespace Vydejna
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
+            settingChanged = true;
             setFirstFromCharChecker();
         }
 
         private void checkBoxWildCard_CheckedChanged(object sender, EventArgs e)
         {
+            settingChanged = true;
             if (checkBoxWildCard.Checked )
             {
                 comboBoxRegex.Enabled = true;
@@ -525,6 +538,26 @@ namespace Vydejna
             {
                 checkBoxFromFirstChar.Enabled = true;
             }
+        }
+
+        private void checkBoxFromStart_CheckedChanged(object sender, EventArgs e)
+        {
+            settingChanged = true;
+        }
+
+        private void checkBoxFromFirstChar_CheckedChanged(object sender, EventArgs e)
+        {
+            settingChanged = true;
+        }
+
+        private void checkBoxUpcase_CheckedChanged(object sender, EventArgs e)
+        {
+            settingChanged = true;
+        }
+
+        private void checkBoxDiacritism_CheckedChanged(object sender, EventArgs e)
+        {
+            settingChanged = true;
         }
 
 
