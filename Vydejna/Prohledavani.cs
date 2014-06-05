@@ -67,16 +67,16 @@ namespace Vydejna
         private ArrayList comboBoxColumnInfo;
         private string preferedColumn;
         private string windowName;
-        private string windowTypeTableName;
+        private string windowTableDesc;
         private Boolean settingChanged = false;
 
-        public Prohledavani(DataGridView myDataGridView, string preferedColumn, string windowName = "", string windowTypeTableName = "")
+        public Prohledavani(DataGridView myDataGridView, string preferedColumn, string windowName = "", string windowTableDesc = "")
         {
             InitializeComponent();
             this.preferedColumn = preferedColumn;
             this.TopMost = true;
             this.windowName = windowName;
-            this.windowTypeTableName = windowTypeTableName;
+            this.windowTableDesc = windowTableDesc;
 
 
             FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
@@ -413,8 +413,7 @@ namespace Vydejna
             checkBoxFromStart.Checked = false;
             if (settingChanged)
             {
-
-                ConfigReg.saveSettingSearch(new ConfigReg.TableSearch(windowName, windowTypeTableName, "", checkBoxFromFirstChar.Checked, checkBoxUpcase.Checked, checkBoxDiacritism.Checked, checkBoxWildCard.Checked, comboBoxRegex.SelectedIndex));
+                ConfigReg.saveSettingSearch(new ConfigReg.TableSearch(windowName, windowTableDesc, ((ColumnInfo)comboBoxColumnInfo[comboBoxColumns.SelectedIndex]).name, checkBoxFromFirstChar.Checked, checkBoxUpcase.Checked, checkBoxDiacritism.Checked, checkBoxWildCard.Checked, comboBoxRegex.SelectedIndex));
                 settingChanged = false;
             }
 

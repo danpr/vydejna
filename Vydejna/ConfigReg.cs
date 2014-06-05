@@ -15,7 +15,7 @@ namespace Vydejna
         public class TableSearch
         {
             public string windowName;
-            public string typeWindowName;
+            public string windowTableDesc;
 
             public string columnName;
             public Boolean searchFromFirstColumn;
@@ -24,10 +24,10 @@ namespace Vydejna
             public bool use;
             public int useType;
 
-            public TableSearch (string windowName, string typeWindowName, string columnName, Boolean searchFromFirstColumn, Boolean noCaseSensitive, Boolean diacritcs, bool use, int useType)
+            public TableSearch(string windowName, string windowTableDesc, string columnName, Boolean searchFromFirstColumn, Boolean noCaseSensitive, Boolean diacritcs, bool use, int useType)
             {
                 this.windowName = windowName;
-                this.typeWindowName = typeWindowName;
+                this.windowTableDesc = windowTableDesc;
                 this.columnName = columnName;
                 this.searchFromFirstColumn = searchFromFirstColumn;
                 this.noCaseSensitive = noCaseSensitive;
@@ -269,7 +269,7 @@ namespace Vydejna
         public static void saveSettingSearch(TableSearch mySearch)
         {
             string windowName = mySearch.windowName;
-            string typeWindowName = mySearch.typeWindowName;
+            string typeWindowName = mySearch.windowTableDesc;
             if (windowName.Trim() == "") typeWindowName = "";
 
 
