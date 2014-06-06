@@ -266,6 +266,55 @@ namespace Vydejna
         }
 
 
+        public static TableSearch loadSettingSearch(string windowName, string WindowTableDesc)
+        {
+            string stringKey = "";
+            if (windowName.Trim() == "")
+            {
+                stringKey = "SOFTWARE\\CS\\SEARCH";
+            }
+            else
+            {
+                if (WindowTableDesc.Trim() == "")
+                {
+                    stringKey = "SOFTWARE\\CS\\SEARCH\\" + windowName;
+                }
+                else
+                {
+                    stringKey = "SOFTWARE\\CS\\SEARCH\\" + windowName + "\\" + WindowTableDesc;
+                }
+
+            }
+
+            RegistryKey rkey = Registry.CurrentUser.OpenSubKey(stringKey, true);
+
+            TableSearch mySearch = null;
+            string columnName;
+            Boolean searchFromFirstColumn, noCaseSensitive, diacritcs, use;
+            Int32 useType;
+
+            if (rkey != null)
+            {
+                try
+                {
+                    columnName = rkey.GetValue("ColumName").ToString();
+                    searchFromFirstColumn = Convert.ToBoolean( rkey.GetValue("FromFirstColumn"));
+                    noCaseSensitive = Convert.ToBoolean(rkey.GetValue("NoCaseSensitive"));
+                    diacritcs = Convert.ToBoolean(rkey.GetValue("UseDiacritics"));
+                    use = Convert.ToBoolean(rkey.GetValue("UseWildCart"));
+                    useType = Convert.ToInt32(rkey.GetValue("WildCardType"));
+                }
+                catch
+                {
+                    return null;
+                }
+                mySearch = new TableSearch(windowName, WindowTableDesc, columnName, searchFromFirstColumn, noCaseSensitive, diacritcs, use, useType);
+                return mySearch;
+            }
+
+            return null;
+        }
+
         public static void saveSettingSearch(TableSearch mySearch)
         {
             string windowName = mySearch.windowName;

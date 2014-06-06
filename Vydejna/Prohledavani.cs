@@ -97,6 +97,16 @@ namespace Vydejna
             comboBoxRegex.SelectedIndex = 0;
             setFirstFromCharChecker();
 
+
+            ConfigReg.TableSearch myTableSearch = ConfigReg.loadSettingSearch(windowName, windowTableDesc);
+
+            if (myTableSearch != null)
+            {
+
+                checkBoxFromFirstChar.Checked = myTableSearch.searchFromFirstColumn;
+                checkBoxUpcase.Checked = myTableSearch.noCaseSensitive;
+            }
+
             buttonOK.Enabled = false;
             if (comboBoxNumeric.Items.Count > 0) comboBoxNumeric.SelectedIndex = 0;
             if (comboBoxDate.Items.Count > 0) comboBoxDate.SelectedIndex = 0;
