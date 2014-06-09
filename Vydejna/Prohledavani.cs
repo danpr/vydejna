@@ -102,9 +102,22 @@ namespace Vydejna
 
             if (myTableSearch != null)
             {
+                string fieldName = myTableSearch.columnName;
+                for (Int32 i = 0; i < comboBoxColumnInfo.Count; i++)
+                {
+                    if (((ColumnInfo)comboBoxColumnInfo[i]).name == fieldName)
+                    {
+                        comboBoxColumns.SelectedIndex = i;
+                        break;
+                    }
+                }
+
 
                 checkBoxFromFirstChar.Checked = myTableSearch.searchFromFirstColumn;
                 checkBoxUpcase.Checked = myTableSearch.noCaseSensitive;
+                checkBoxDiacritism.Checked = myTableSearch.diacritcs;
+                checkBoxWildCard.Checked = myTableSearch.use;
+                comboBoxRegex.SelectedIndex = myTableSearch.useType;
             }
 
             buttonOK.Enabled = false;

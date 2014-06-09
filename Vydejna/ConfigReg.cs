@@ -297,7 +297,7 @@ namespace Vydejna
             {
                 try
                 {
-                    columnName = rkey.GetValue("ColumName").ToString();
+                    columnName = rkey.GetValue("ColumnName").ToString();
                     searchFromFirstColumn = Convert.ToBoolean( rkey.GetValue("FromFirstColumn"));
                     noCaseSensitive = Convert.ToBoolean(rkey.GetValue("NoCaseSensitive"));
                     diacritcs = Convert.ToBoolean(rkey.GetValue("UseDiacritics"));
