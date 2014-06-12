@@ -84,18 +84,21 @@ namespace Vydejna
             comboBoxColumnInfo = new ArrayList();
 
             this.myDataGridView = myDataGridView;
-            
-            textBoxString.Enabled = false;
-            comboBoxNumeric.Enabled = false;
-            numericUpDownNumeric.Enabled = false;
-            comboBoxDate.Enabled = false;
-            dateTimePickerDate.Enabled = false;
 
-            loadComboBox(preferedColumn);
+            // nastavi standartni hodnoty pro hledani
+            setDefaultSearch();
 
-            checkBoxWildCard.Checked = true;
-            comboBoxRegex.SelectedIndex = 0;
-            setFirstFromCharChecker();
+//            textBoxString.Enabled = false;
+//            comboBoxNumeric.Enabled = false;
+//            numericUpDownNumeric.Enabled = false;
+//            comboBoxDate.Enabled = false;
+//            dateTimePickerDate.Enabled = false;
+
+//            loadComboBox(preferedColumn);
+
+//            checkBoxWildCard.Checked = true;
+//            comboBoxRegex.SelectedIndex = 0;
+//            setFirstFromCharChecker();
 
 
             ConfigReg.TableSearch myTableSearch = ConfigReg.loadSettingSearch(windowName, windowTableDesc);
@@ -580,6 +583,33 @@ namespace Vydejna
         private void checkBoxDiacritism_CheckedChanged(object sender, EventArgs e)
         {
             settingChanged = true;
+        }
+
+        private void buttonDefault_Click(object sender, EventArgs e)
+        {
+            setDefaultSearch();
+        }
+
+        private void setDefaultSearch()
+        {
+            textBoxString.Enabled = false;
+            comboBoxNumeric.Enabled = false;
+            numericUpDownNumeric.Enabled = false;
+            comboBoxDate.Enabled = false;
+            dateTimePickerDate.Enabled = false;
+
+            loadComboBox(preferedColumn);
+
+            checkBoxFromStart.Checked = false;
+            checkBoxUpcase.Checked = false;
+            checkBoxDiacritism.Checked = false;
+
+            checkBoxWildCard.Checked = true;
+            comboBoxRegex.SelectedIndex = 0;
+
+            // nastavi hledani od prveho sloupce
+            // v zavislosti od nastaveno zpusobu hledani
+            setFirstFromCharChecker();
         }
 
 

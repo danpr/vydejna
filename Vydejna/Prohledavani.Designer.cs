@@ -44,6 +44,7 @@
             this.checkBoxDiacritism = new System.Windows.Forms.CheckBox();
             this.checkBoxWildCard = new System.Windows.Forms.CheckBox();
             this.comboBoxRegex = new System.Windows.Forms.ComboBox();
+            this.buttonDefault = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNumeric)).BeginInit();
             this.SuspendLayout();
@@ -220,11 +221,23 @@
             this.comboBoxRegex.TabIndex = 10;
             this.comboBoxRegex.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
+            // buttonDefault
+            // 
+            this.buttonDefault.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonDefault.Location = new System.Drawing.Point(153, 284);
+            this.buttonDefault.Name = "buttonDefault";
+            this.buttonDefault.Size = new System.Drawing.Size(75, 23);
+            this.buttonDefault.TabIndex = 11;
+            this.buttonDefault.Text = "Standart";
+            this.buttonDefault.UseVisualStyleBackColor = true;
+            this.buttonDefault.Click += new System.EventHandler(this.buttonDefault_Click);
+            // 
             // Prohledavani
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(329, 323);
+            this.Controls.Add(this.buttonDefault);
             this.Controls.Add(this.comboBoxRegex);
             this.Controls.Add(this.checkBoxWildCard);
             this.Controls.Add(this.checkBoxDiacritism);
@@ -266,5 +279,6 @@
         private System.Windows.Forms.CheckBox checkBoxDiacritism;
         private System.Windows.Forms.CheckBox checkBoxWildCard;
         private System.Windows.Forms.ComboBox comboBoxRegex;
+        private System.Windows.Forms.Button buttonDefault;
     }
 }
