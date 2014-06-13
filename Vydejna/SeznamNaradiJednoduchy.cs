@@ -41,11 +41,14 @@ namespace Vydejna
         }
 
 
+        private Prohledavani searchWindow;
+
 
         public SeznamNaradiJednoduchy(vDatabase myDataBase, Font myFont)
         {
             this.myDataBase = myDataBase;
             InitializeComponent();
+            searchWindow = null;
             labelView.Text = "";
 
             // nastaveni gridView
@@ -239,6 +242,57 @@ namespace Vydejna
                 }
             }
         }
+
+
+        private void dataGridView1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.F3)
+            {
+//                karta.HledejDalsi(this.Location.Y + this.Size.Width, this.Top);
+
+            }
+            if (e.Control && e.KeyCode == Keys.P)
+            {
+//            karta.NastaveniHledani(this.Location.X + this.Size.Width, this.Top);
+            }
+        
+        }
+
+        public virtual void NastaveniHledani(Int32 x, Int32 y)
+        {
+            if (searchWindow == null)
+            {
+                searchWindow = new Prohledavani(dataGridView1, "", "LISTM", "naradi");
+                searchWindow.StartPosition = FormStartPosition.Manual;
+            }
+
+            if (x > (Screen.PrimaryScreen.Bounds.Width - searchWindow.Width))
+            {
+                x = Screen.PrimaryScreen.Bounds.Width - searchWindow.Width;
+            }
+            if (x < 0) { x = 0; }
+
+            if (y > (Screen.PrimaryScreen.Bounds.Height - searchWindow.Height))
+            {
+                y = Screen.PrimaryScreen.Bounds.Height - searchWindow.Height;
+            }
+            if (y < 0) { y = 0; }
+            searchWindow.SetDesktopLocation(x, y);
+            searchWindow.ShowDialog();
+        }
+
+        public virtual void HledejDalsi(Int32 x, Int32 y)
+        {
+            if (searchWindow == null)
+            {
+                NastaveniHledani(x, y);
+            }
+            else
+            {
+                searchWindow.najdiRadku();
+            }
+        }
+
 
 
     }
