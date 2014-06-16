@@ -248,12 +248,12 @@ namespace Vydejna
         {
             if (e.KeyData == Keys.F3)
             {
-//                karta.HledejDalsi(this.Location.Y + this.Size.Width, this.Top);
+                HledejDalsi(this.Location.Y + this.Size.Width, this.Top);
 
             }
-            if (e.Control && e.KeyCode == Keys.P)
+            if (e.Control && e.KeyCode == Keys.F)
             {
-//            karta.NastaveniHledani(this.Location.X + this.Size.Width, this.Top);
+                NastaveniHledani(this.Location.X + this.Size.Width, this.Top);
             }
         
         }
@@ -262,7 +262,7 @@ namespace Vydejna
         {
             if (searchWindow == null)
             {
-                searchWindow = new Prohledavani(dataGridView1, "", "LISTM", "naradi");
+                searchWindow = new Prohledavani(dataGridView1, "", "LISTN", "naradi");
                 searchWindow.StartPosition = FormStartPosition.Manual;
             }
 
