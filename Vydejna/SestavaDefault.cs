@@ -147,6 +147,19 @@ namespace Vydejna
 
         }
 
+        private void dataGridViewSestava_ColumnWidthChanged(object sender, DataGridViewColumnEventArgs e)
+        {
+            // ulozeni velikosti
+            //            if (evenState == evenStateEnum.enable)
+            {
+                if (getNameStrategy() != "")
+                {
+                    ConfigReg.saveSettingWindowTableColumnWidth("MAIN", getNameStrategy(), e.Column.Name, e.Column.Width);
+                }
+            }
+
+        }
+
 
     }
 }

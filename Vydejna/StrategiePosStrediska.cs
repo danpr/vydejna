@@ -72,5 +72,11 @@ namespace Vydejna
             return myDataBase.loadDataTableSestavaPosStrediska(dateTimeFrom, dateTimeTo);
         }
 
+        public string getNameStrategy()
+        {
+            return "posstred";
+        }
+
+
     }
 }

@@ -56,6 +56,12 @@ namespace Vydejna
         {
             return myDataBase.loadDataTableSestavaPosZakazkaZaStred(dateTimeFrom, dateTimeTo, text1);
         }
+
+        public string getNameStrategy()
+        {
+            return "poszastred";
+        }
+
     
     }
 }

@@ -126,6 +126,7 @@
             this.dataGridViewSestava.Name = "dataGridViewSestava";
             this.dataGridViewSestava.Size = new System.Drawing.Size(759, 358);
             this.dataGridViewSestava.TabIndex = 8;
+            this.dataGridViewSestava.ColumnWidthChanged += new System.Windows.Forms.DataGridViewColumnEventHandler(this.dataGridViewSestava_ColumnWidthChanged);
             // 
             // label3
             // 

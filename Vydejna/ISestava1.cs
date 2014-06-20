@@ -23,5 +23,8 @@ namespace Vydejna
         DataTable loadDataTable(vDatabase myDataBase, DateTime dateTimeFrom, DateTime dateTimeTo, string text1);
 
         Hashtable getHeaderLabels();
+
+        string getNameStrategy();
+
     }
 }
