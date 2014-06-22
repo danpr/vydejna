@@ -13,13 +13,15 @@ namespace Vydejna
     public partial class SestavaDefault : Form
     {
 
-        protected vDatabase myDataBase;
+        private enum evenStateEnum { enable, disable };
+        private evenStateEnum evenState = evenStateEnum.disable;
 
+        protected vDatabase myDataBase;
         protected ISestava1 strategie;
 
         public SestavaDefault(vDatabase myDataBase, ISestava1 strategie, Font myFont)
-
-    {
+        {
+            evenState = evenStateEnum.disable;
             InitializeComponent();
 
             // jak menit meritko
@@ -150,14 +152,20 @@ namespace Vydejna
         private void dataGridViewSestava_ColumnWidthChanged(object sender, DataGridViewColumnEventArgs e)
         {
             // ulozeni velikosti
-            //            if (evenState == evenStateEnum.enable)
+            if (evenState == evenStateEnum.enable)
             {
-                if (getNameStrategy() != "")
+                
+                if (strategie.getNameStrategy() != "")
                 {
-                    ConfigReg.saveSettingWindowTableColumnWidth("MAIN", getNameStrategy(), e.Column.Name, e.Column.Width);
+                    ConfigReg.saveSettingWindowTableColumnWidth("REPORT", strategie.getNameStrategy(), e.Column.Name, e.Column.Width);
                 }
             }
 
+        }
+
+        private void SestavaDefault_Load(object sender, EventArgs e)
+        {
+            evenState = evenStateEnum.enable;
         }
 
 

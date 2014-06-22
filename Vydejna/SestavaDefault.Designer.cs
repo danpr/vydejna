@@ -87,8 +87,8 @@
             // 
             // textBoxVyber
             // 
-            this.textBoxVyber.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxVyber.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxVyber.Location = new System.Drawing.Point(429, 14);
             this.textBoxVyber.Name = "textBoxVyber";
             this.textBoxVyber.Size = new System.Drawing.Size(99, 20);
@@ -118,9 +118,9 @@
             // 
             // dataGridViewSestava
             // 
-            this.dataGridViewSestava.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridViewSestava.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridViewSestava.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewSestava.Location = new System.Drawing.Point(-1, 45);
             this.dataGridViewSestava.Name = "dataGridViewSestava";
@@ -166,6 +166,7 @@
             this.Controls.Add(this.label1);
             this.Name = "SestavaDefault";
             this.Text = "SestavaDefault";
+            this.Load += new System.EventHandler(this.SestavaDefault_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSestava)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
