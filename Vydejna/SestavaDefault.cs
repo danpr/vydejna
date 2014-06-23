@@ -40,7 +40,7 @@ namespace Vydejna
             dataGridViewSestava.AllowUserToAddRows = false;
             dataGridViewSestava.AllowUserToDeleteRows = false;
             dataGridViewSestava.AllowUserToResizeRows = false;
-            dataGridViewSestava.AllowUserToOrderColumns = true;
+            dataGridViewSestava.AllowUserToOrderColumns = false;
             dataGridViewSestava.Columns.Clear();
             dataGridViewSestava.DataSource = null;
 
@@ -94,6 +94,9 @@ namespace Vydejna
             loadData();
             makeSum();
             strategie.makeSumProcent(dataGridViewSestava.DataSource as DataTable);
+            setColumnWidth();
+            evenState = evenStateEnum.enable; // povolime ukladat zmeny sloupcu
+
         }
 
         private void dateTimePickerFrom_ValueChanged(object sender, EventArgs e)
@@ -165,7 +168,27 @@ namespace Vydejna
 
         private void SestavaDefault_Load(object sender, EventArgs e)
         {
-            evenState = evenStateEnum.enable;
+//            evenState = evenStateEnum.enable;
+        }
+
+        public void setColumnWidth()
+        {
+            Hashtable DBTableInfo = ConfigReg.loadSettingWindowTableColumnWidth("REPORT", strategie.getNameStrategy());
+            if (DBTableInfo != null)
+            {
+                for (Int32 i = 0; i < dataGridViewSestava.Columns.Count; i++)
+                {
+                    string myColumnName = dataGridViewSestava.Columns[i].Name;
+                    if (DBTableInfo.ContainsKey(myColumnName))
+                    {
+                        try
+                        {
+                            dataGridViewSestava.Columns[i].Width = Convert.ToInt32(DBTableInfo[myColumnName]);
+                        }
+                        catch { }
+                    }
+                }
+            }
         }
 
 
