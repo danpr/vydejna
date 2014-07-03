@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Data;
 using System.Collections;
+using System.Drawing.Printing;
+using System.Drawing;
+
 
 
 namespace Vydejna
@@ -25,6 +28,13 @@ namespace Vydejna
         Hashtable getHeaderLabels();
 
         string getNameStrategy();
+
+        DataTable loadDataPrintTable();
+
+        Int32 getRowsOnPrintPage();
+
+        void printLine(PrintPageEventArgs e, Hashtable DBRow, Int32 posY);
+
 
     }
 }

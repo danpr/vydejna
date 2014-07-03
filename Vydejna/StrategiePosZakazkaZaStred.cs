@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Data;
 using System.Collections;
+using System.Drawing.Printing;
+using System.Drawing;
 
 
 namespace Vydejna
@@ -60,6 +62,22 @@ namespace Vydejna
         public string getNameStrategy()
         {
             return "poszastred";
+        }
+
+        public DataTable loadDataPrintTable()
+        {
+            return null;
+        }
+
+        
+        public Int32 getRowsOnPrintPage()
+        {
+            return 20;
+        }
+
+        public void printLine(PrintPageEventArgs e, Hashtable DataRow, Int32 posY)
+        {
+
         }
 
     
