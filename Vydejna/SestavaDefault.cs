@@ -298,6 +298,7 @@ namespace Vydejna
 
             e.Graphics.DrawString(Convert.ToString(pageNumber), tiskFont9, Brushes.Black, new PointF(20, 7));
             e.Graphics.DrawString(DateTime.Today.ToString("d"), tiskFont9, Brushes.Black, new PointF(183, 7));
+            strategie.printHeader(e, 17);
 
         }
 
@@ -313,8 +314,7 @@ namespace Vydejna
                 }
                 DBRow.Add(dataGridViewSestava.Columns[i].Name, myRow.Cells[i].Value);
             }
-            strategie.printLine(e, DBRow, line * hightRow + 85);
-
+            strategie.printLine(e, DBRow, line * hightRow + 34);
         }
 
 

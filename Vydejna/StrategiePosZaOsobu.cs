@@ -85,6 +85,11 @@ namespace Vydejna
 
         }
 
+        public void printHeader(PrintPageEventArgs e, Int32 posY)
+        {
+
+        }
+
 
     }
 }
