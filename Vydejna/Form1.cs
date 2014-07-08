@@ -652,9 +652,9 @@ namespace Vydejna
             UzivatelData ud = UzivatelData.makeInstance();
             if (ud.userIsAdminWM())
             {
-                if (MessageBox.Show("Opravdu chcete smazat tabulky v databázi?", "Vymazání tabulek", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                if (MessageBox.Show("Opravdu chcete vymazat/vyčistit tabulky v databázi?", "Vymazání tabulek", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
-                    labelView.Text = "Mažu tabulky";
+                    labelView.Text = "Čistím tabulky";
                     contextMenuDisable();
                     dataGridView1.DataSource = null;
                     karta = new detailNone(null, null);
