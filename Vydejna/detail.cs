@@ -238,6 +238,13 @@ namespace Vydejna
         }
 
 
+        public virtual void OpravChyby(Hashtable DBRow)
+        {
+            MessageBox.Show("Není implementováno.");
+        }
+
+
+
         public virtual string jmenoTabulky()
         {
             return "";
@@ -705,6 +712,23 @@ namespace Vydejna
                 }
             }
         }
+
+
+
+        public override void OpravChyby(Hashtable DBRow)
+        {
+            if ((myDB != null) && (myDB.DBIsOpened()))
+            {
+                Int32 poradi = findPoradiInRow(DBRow);
+
+                OpravaKarta opravKarta = new OpravaKarta(myDB, DBRow, poradi, myDataGridView.Font);
+//                OpravaKarta opravKarta = new OpravaKarta();
+                if (opravKarta.ShowDialog() == DialogResult.OK)
+                {
+                }
+            }
+        }
+
 
         public override string preferovanySloupec()
         {

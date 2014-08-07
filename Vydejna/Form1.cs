@@ -683,7 +683,7 @@ namespace Vydejna
                 karta = new detailSklad(myDB, dataGridView1);
                 evenState = evenStateEnum.enable;
                 labelView.Text = "Výdejna nářadí přehled";
-                contextMenuEnable(true, true, true, false, true, true);
+                contextMenuEnable(true, true, true, false, true, true, true);
             }
         }
 
@@ -710,7 +710,6 @@ namespace Vydejna
                         DBRow.Remove(dataGridView1.Columns[i].Name);
                     }
                     DBRow.Add(dataGridView1.Columns[i].Name, dataGridView1[i, index].Value);
-
                 }
 
                 karta.zobrazKartu(DBRow);
@@ -883,7 +882,7 @@ namespace Vydejna
         }
 
 
-        private void contextMenuEnable(Boolean useAdd, Boolean useInc = false, Boolean useDec = false, Boolean useLend = false, Boolean useMark = false, Boolean usePrint = false)
+        private void contextMenuEnable(Boolean useAdd, Boolean useInc = false, Boolean useDec = false, Boolean useLend = false, Boolean useMark = false, Boolean usePrint = false, Boolean useCorrect = false)
         {
             if (useAdd)
             {
@@ -971,6 +970,21 @@ namespace Vydejna
                 contextMenuStrip1.Items[9].Visible = false;
                 contextMenuStrip1.Items[8].Enabled = false;
                 contextMenuStrip1.Items[8].Visible = false;
+            }
+
+            if (useCorrect)
+            {
+                contextMenuStrip1.Items[12].Enabled = true;
+                contextMenuStrip1.Items[12].Visible = true;
+                contextMenuStrip1.Items[13].Enabled = true;
+                contextMenuStrip1.Items[13].Visible = true;
+            }
+            else
+            {
+                contextMenuStrip1.Items[12].Enabled = false;
+                contextMenuStrip1.Items[12].Visible = false;
+                contextMenuStrip1.Items[13].Enabled = false;
+                contextMenuStrip1.Items[13].Visible = false;
             }
 
             contextMenuStrip1.Enabled = true;
@@ -1521,6 +1535,29 @@ namespace Vydejna
 
 
 
+        }
+
+        private void conMenuCorrectDate(object sender, EventArgs e)
+        {
+            // oprava chybnych dat
+
+            int index = dataGridView1.Rows.GetFirstRow(DataGridViewElementStates.Selected);
+            if (index > -1)
+            {
+                for (int i = 0; i < dataGridView1.ColumnCount; i++)
+                {
+                    if (DBRow.ContainsKey(dataGridView1.Columns[i].Name))
+                    {
+                        DBRow.Remove(dataGridView1.Columns[i].Name);
+                    }
+                    DBRow.Add(dataGridView1.Columns[i].Name, dataGridView1[i, index].Value);
+                }
+            }
+            UzivatelData ud = UzivatelData.makeInstance();
+            if (ud.userHasAccessRightsWM(karta.myPermissions.addEnableCode))
+            {
+                karta.OpravChyby(DBRow);
+            }
         }
     }
 }

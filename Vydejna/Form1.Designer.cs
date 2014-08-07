@@ -91,6 +91,8 @@
             this.labelStateConnection = new System.Windows.Forms.Label();
             this.labelUser = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
+            this.opravaDatToolStripMenuItem14 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
@@ -471,9 +473,11 @@
             this.toolStripSeparator2,
             this.zapůjčeníNářadíToolStripMenuItem,
             this.toolStripSeparator3,
-            this.prohledáváníToolStripMenuItem});
+            this.prohledáváníToolStripMenuItem,
+            this.toolStripSeparator8,
+            this.opravaDatToolStripMenuItem14});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(265, 220);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(265, 270);
             this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             // 
             // přidatPoložkuToolStripMenuItem
@@ -587,6 +591,18 @@
             // 
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // toolStripSeparator8
+            // 
+            this.toolStripSeparator8.Name = "toolStripSeparator8";
+            this.toolStripSeparator8.Size = new System.Drawing.Size(261, 6);
+            // 
+            // opravaDatToolStripMenuItem14
+            // 
+            this.opravaDatToolStripMenuItem14.Name = "opravaDatToolStripMenuItem14";
+            this.opravaDatToolStripMenuItem14.Size = new System.Drawing.Size(264, 22);
+            this.opravaDatToolStripMenuItem14.Text = "Oprava dat";
+            this.opravaDatToolStripMenuItem14.Click += new System.EventHandler(this.conMenuCorrectDate);
+            // 
             // Vydejna
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -679,6 +695,8 @@
         private System.Windows.Forms.ToolStripMenuItem MenuItemUcetCena;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator8;
+        private System.Windows.Forms.ToolStripMenuItem opravaDatToolStripMenuItem14;
     }
 }
 
