@@ -78,7 +78,11 @@ namespace Vydejna
                         dataGridViewZmeny.Columns[i].SortMode = DataGridViewColumnSortMode.NotSortable;
                     }
                     // pridame sloupec
-                    dataGridViewZmeny.Columns.Add("novystav", "Nový stav");
+
+                    DataTable dt = (dataGridViewZmeny.DataSource as DataTable);
+                    DataColumnCollection dcc = dt.Columns;
+                    dcc.Add("novystav", System.Type.GetType("System.Decimal"));
+                    dataGridViewZmeny.Columns["novystav"].HeaderText = "Nový stav";
 
                 }
                 catch (Exception)
