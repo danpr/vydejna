@@ -763,5 +763,10 @@ namespace Vydejna
         {
             setAppFont();
         }
+
+        private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
     }
 }

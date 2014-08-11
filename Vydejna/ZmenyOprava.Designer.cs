@@ -64,7 +64,7 @@
             this.textBoxPoznamka.Location = new System.Drawing.Point(6, 18);
             this.textBoxPoznamka.MaxLength = 22;
             this.textBoxPoznamka.Name = "textBoxPoznamka";
-            this.textBoxPoznamka.Size = new System.Drawing.Size(136, 20);
+            this.textBoxPoznamka.Size = new System.Drawing.Size(132, 20);
             this.textBoxPoznamka.TabIndex = 0;
             this.textBoxPoznamka.TextChanged += new System.EventHandler(this.textBoxPoznamka_TextChanged);
             // 
@@ -92,7 +92,7 @@
             this.groupBox2.Controls.Add(this.labelOperace);
             this.groupBox2.Location = new System.Drawing.Point(116, 8);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(99, 48);
+            this.groupBox2.Size = new System.Drawing.Size(69, 48);
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Operace";
@@ -111,9 +111,9 @@
             this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox3.Controls.Add(this.textBoxPoznamka);
-            this.groupBox3.Location = new System.Drawing.Point(221, 8);
+            this.groupBox3.Location = new System.Drawing.Point(191, 8);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(153, 48);
+            this.groupBox3.Size = new System.Drawing.Size(146, 48);
             this.groupBox3.TabIndex = 3;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Poznámka";
@@ -123,19 +123,19 @@
             // 
             this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox4.Controls.Add(this.textBoxVevcislo);
-            this.groupBox4.Location = new System.Drawing.Point(380, 8);
+            this.groupBox4.Location = new System.Drawing.Point(343, 6);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(127, 50);
+            this.groupBox4.Size = new System.Drawing.Size(80, 50);
             this.groupBox4.TabIndex = 4;
             this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Pomocné inv. číslo";
+            this.groupBox4.Text = "Pom. inv. č.";
             // 
             // textBoxVevcislo
             // 
             this.textBoxVevcislo.Location = new System.Drawing.Point(6, 18);
             this.textBoxVevcislo.MaxLength = 12;
             this.textBoxVevcislo.Name = "textBoxVevcislo";
-            this.textBoxVevcislo.Size = new System.Drawing.Size(113, 20);
+            this.textBoxVevcislo.Size = new System.Drawing.Size(65, 20);
             this.textBoxVevcislo.TabIndex = 0;
             this.textBoxVevcislo.TextChanged += new System.EventHandler(this.textBoxVevcislo_TextChanged);
             // 
@@ -143,9 +143,9 @@
             // 
             this.groupBox5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox5.Controls.Add(this.labelPrijem);
-            this.groupBox5.Location = new System.Drawing.Point(513, 8);
+            this.groupBox5.Location = new System.Drawing.Point(429, 6);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(75, 50);
+            this.groupBox5.Size = new System.Drawing.Size(56, 50);
             this.groupBox5.TabIndex = 5;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Příjem";
@@ -153,7 +153,7 @@
             // labelPrijem
             // 
             this.labelPrijem.AutoSize = true;
-            this.labelPrijem.Location = new System.Drawing.Point(15, 21);
+            this.labelPrijem.Location = new System.Drawing.Point(7, 21);
             this.labelPrijem.Name = "labelPrijem";
             this.labelPrijem.Size = new System.Drawing.Size(35, 13);
             this.labelPrijem.TabIndex = 0;
@@ -163,9 +163,9 @@
             // 
             this.groupBox6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox6.Controls.Add(this.labelVydej);
-            this.groupBox6.Location = new System.Drawing.Point(594, 8);
+            this.groupBox6.Location = new System.Drawing.Point(491, 6);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(75, 50);
+            this.groupBox6.Size = new System.Drawing.Size(56, 50);
             this.groupBox6.TabIndex = 6;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Výdej";
@@ -173,7 +173,7 @@
             // labelVydej
             // 
             this.labelVydej.AutoSize = true;
-            this.labelVydej.Location = new System.Drawing.Point(16, 21);
+            this.labelVydej.Location = new System.Drawing.Point(7, 21);
             this.labelVydej.Name = "labelVydej";
             this.labelVydej.Size = new System.Drawing.Size(35, 13);
             this.labelVydej.TabIndex = 0;
@@ -183,17 +183,17 @@
             // 
             this.groupBox7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox7.Controls.Add(this.labelZustatek);
-            this.groupBox7.Location = new System.Drawing.Point(675, 8);
+            this.groupBox7.Location = new System.Drawing.Point(553, 6);
             this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(75, 50);
+            this.groupBox7.Size = new System.Drawing.Size(56, 50);
             this.groupBox7.TabIndex = 7;
             this.groupBox7.TabStop = false;
-            this.groupBox7.Text = "Zůstatek";
+            this.groupBox7.Text = "Zůs.";
             // 
             // labelZustatek
             // 
             this.labelZustatek.AutoSize = true;
-            this.labelZustatek.Location = new System.Drawing.Point(15, 21);
+            this.labelZustatek.Location = new System.Drawing.Point(7, 21);
             this.labelZustatek.Name = "labelZustatek";
             this.labelZustatek.Size = new System.Drawing.Size(35, 13);
             this.labelZustatek.TabIndex = 0;
@@ -203,17 +203,17 @@
             // 
             this.groupBox8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox8.Controls.Add(this.labelOsCislo);
-            this.groupBox8.Location = new System.Drawing.Point(756, 8);
+            this.groupBox8.Location = new System.Drawing.Point(615, 6);
             this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(84, 50);
+            this.groupBox8.Size = new System.Drawing.Size(56, 50);
             this.groupBox8.TabIndex = 8;
             this.groupBox8.TabStop = false;
-            this.groupBox8.Text = "Zapůjčeno";
+            this.groupBox8.Text = "Zapůj.";
             // 
             // labelOsCislo
             // 
             this.labelOsCislo.AutoSize = true;
-            this.labelOsCislo.Location = new System.Drawing.Point(15, 21);
+            this.labelOsCislo.Location = new System.Drawing.Point(7, 21);
             this.labelOsCislo.Name = "labelOsCislo";
             this.labelOsCislo.Size = new System.Drawing.Size(35, 13);
             this.labelOsCislo.TabIndex = 0;
@@ -234,7 +234,7 @@
             // 
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOK.Location = new System.Drawing.Point(762, 68);
+            this.buttonOK.Location = new System.Drawing.Point(593, 68);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(78, 23);
             this.buttonOK.TabIndex = 17;
@@ -256,7 +256,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(852, 103);
+            this.ClientSize = new System.Drawing.Size(683, 103);
             this.Controls.Add(this.buttonRetry);
             this.Controls.Add(this.buttonOK);
             this.Controls.Add(this.buttonCancel);
@@ -268,7 +268,7 @@
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
-            this.MinimumSize = new System.Drawing.Size(860, 137);
+            this.MinimumSize = new System.Drawing.Size(650, 137);
             this.Name = "ZmenyOprava";
             this.Text = "Změna údajů";
             this.groupBox1.ResumeLayout(false);

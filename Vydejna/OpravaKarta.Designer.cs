@@ -90,11 +90,6 @@
             // numericUpDownFyzStav
             // 
             this.numericUpDownFyzStav.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericUpDownFyzStav.Increment = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
             this.numericUpDownFyzStav.Location = new System.Drawing.Point(82, 43);
             this.numericUpDownFyzStav.Maximum = new decimal(new int[] {
             1000000,
@@ -102,7 +97,6 @@
             0,
             0});
             this.numericUpDownFyzStav.Name = "numericUpDownFyzStav";
-            this.numericUpDownFyzStav.ReadOnly = true;
             this.numericUpDownFyzStav.Size = new System.Drawing.Size(100, 20);
             this.numericUpDownFyzStav.TabIndex = 14;
             // 
@@ -129,11 +123,6 @@
             // numericUpDownUcetStav
             // 
             this.numericUpDownUcetStav.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericUpDownUcetStav.Increment = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
             this.numericUpDownUcetStav.Location = new System.Drawing.Point(82, 43);
             this.numericUpDownUcetStav.Maximum = new decimal(new int[] {
             1000000,
@@ -141,7 +130,6 @@
             0,
             0});
             this.numericUpDownUcetStav.Name = "numericUpDownUcetStav";
-            this.numericUpDownUcetStav.ReadOnly = true;
             this.numericUpDownUcetStav.Size = new System.Drawing.Size(100, 20);
             this.numericUpDownUcetStav.TabIndex = 14;
             // 
@@ -225,11 +213,6 @@
             // numericUpDownStartStav
             // 
             this.numericUpDownStartStav.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericUpDownStartStav.Increment = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
             this.numericUpDownStartStav.Location = new System.Drawing.Point(52, 43);
             this.numericUpDownStartStav.Maximum = new decimal(new int[] {
             1000000,
@@ -237,9 +220,9 @@
             0,
             0});
             this.numericUpDownStartStav.Name = "numericUpDownStartStav";
-            this.numericUpDownStartStav.ReadOnly = true;
             this.numericUpDownStartStav.Size = new System.Drawing.Size(100, 20);
             this.numericUpDownStartStav.TabIndex = 15;
+            this.numericUpDownStartStav.ValueChanged += new System.EventHandler(this.numericUpDownStartStav_ValueChanged);
             // 
             // OpravaKarta
             // 

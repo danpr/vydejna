@@ -127,5 +127,10 @@ namespace Vydejna
             }
         }
 
+        private void numericUpDownStartStav_ValueChanged(object sender, EventArgs e)
+        {
+            recountData();
+        }
+
     }
 }
