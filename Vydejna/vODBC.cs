@@ -2599,7 +2599,7 @@ namespace Vydejna
                         // true osCisloExist
                         if (myReader.Read() == true)
                         {
-                            poradi = myReader.GetInt32(0) + 1; // zjistime nove poradi
+                            poradi = myReader.GetInt32(0)+1; // zjistime nove poradi - vraci nejvyssi poradi
                             zustatek = myReader.GetInt32(1);
                         }
                         else
@@ -2614,7 +2614,7 @@ namespace Vydejna
                         cmdSeq1.Transaction = transaction;
                         OdbcDataReader seqReader = cmdSeq1.ExecuteReader();
                         seqReader.Read();
-                        Int32 poradiPoskozeno = seqReader.GetInt32(0)+1;
+                        Int32 poradiPoskozeno = seqReader.GetInt32(0);
                         seqReader.Close();
 
                         OdbcCommand cmd1 = new OdbcCommand(commandString1, myDBConn as OdbcConnection);
