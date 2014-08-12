@@ -563,9 +563,18 @@ namespace Vydejna
                     int y = this.Location.Y + dataGridViewZmeny.Location.Y + dataGridViewZmeny.ColumnHeadersHeight + rowsHeight + titulekHeight;
 
 
+
                     ZmenyOprava opravaZmen = new ZmenyOprava(myDB, poradi, zmenPoradi, parentFont);
 
                     opravaZmen.StartPosition = FormStartPosition.Manual;
+                    if ((x + opravaZmen.Width) > Screen.PrimaryScreen.Bounds.Width)
+                    {
+                        x = Screen.PrimaryScreen.Bounds.Width - opravaZmen.Width;
+                        if (x  < 1)
+                        {
+                            x = 1;
+                        }
+                    }
                     opravaZmen.SetDesktopLocation(x, y);
 
                     if (opravaZmen.ShowDialog() == System.Windows.Forms.DialogResult.OK)
