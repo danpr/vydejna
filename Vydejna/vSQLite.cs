@@ -3233,7 +3233,7 @@ namespace Vydejna
                         SQLiteCommand cmdSeq1 = new SQLiteCommand(commandStringRead3, myDBConn as SQLiteConnection);
                         SQLiteDataReader seqReader = cmdSeq1.ExecuteReader();
                         seqReader.Read();
-                        Int32 poradiPoskozeno = seqReader.GetInt32(0);
+                        Int32 poradiPoskozeno = seqReader.GetInt32(0) + 1;
                         seqReader.Close();
 
                         SQLiteCommand cmd1 = new SQLiteCommand(commandString1, myDBConn as SQLiteConnection);

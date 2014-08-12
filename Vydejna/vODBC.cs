@@ -2614,7 +2614,7 @@ namespace Vydejna
                         cmdSeq1.Transaction = transaction;
                         OdbcDataReader seqReader = cmdSeq1.ExecuteReader();
                         seqReader.Read();
-                        Int32 poradiPoskozeno = seqReader.GetInt32(0);
+                        Int32 poradiPoskozeno = seqReader.GetInt32(0)+1;
                         seqReader.Close();
 
                         OdbcCommand cmd1 = new OdbcCommand(commandString1, myDBConn as OdbcConnection);
