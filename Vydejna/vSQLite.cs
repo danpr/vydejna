@@ -3159,6 +3159,7 @@ namespace Vydejna
 
             if (DBIsOpened())
             {
+                string commandStringRead0 = "SELECT count(*) as countporadi from poskozeno";
                 string commandStringRead1 = "SELECT poradi, zustatek from zmeny where parporadi = ? ORDER BY poradi DESC";
                 string commandStringRead2 = "SELECT fyzstav, ucetstav, ucetkscen, rozmer, nazev, jk, normacsn FROM naradi where poradi = ? ";
                 string commandStringRead3 = "SELECT poradi FROM tabseq WHERE nazev = 'poskozeno'";
@@ -3237,13 +3238,25 @@ namespace Vydejna
                         myReader.Close();
 
                         // zjisteni   poradi pro tabulku poskozeneho naradi
-                        SQLiteCommand cmdSeq1 = new SQLiteCommand(commandStringRead3a, myDBConn as SQLiteConnection);
-                        SQLiteDataReader seqReader = cmdSeq1.ExecuteReader();
-                        seqReader.Read();
-//                        Int32 poradiPoskozeno = seqReader.GetInt32(0);
-                        Int32 poradiPoskozeno = seqReader.GetInt32(0) + 1;
-                        seqReader.Close();
+                        SQLiteCommand cmd0 = new SQLiteCommand(commandStringRead0, myDBConn as SQLiteConnection);
+                        cmd0.Transaction = transaction;
+                        SQLiteDataReader myReader0 = cmd0.ExecuteReader();
+                        myReader0.Read();
+                        Int32 countporadi = myReader0.GetInt32(0);
+                        myReader0.Close();
+                        Int32 poradiPoskozeno;
 
+                        if (countporadi == 0) poradiPoskozeno = 1;
+                        else
+                        {
+
+                            SQLiteCommand cmdSeq1 = new SQLiteCommand(commandStringRead3a, myDBConn as SQLiteConnection);
+                            SQLiteDataReader seqReader = cmdSeq1.ExecuteReader();
+                            seqReader.Read();
+                            //                        Int32 poradiPoskozeno = seqReader.GetInt32(0);
+                            poradiPoskozeno = seqReader.GetInt32(0) + 1;
+                            seqReader.Close();
+                        }
                         SQLiteCommand cmd1 = new SQLiteCommand(commandString1, myDBConn as SQLiteConnection);
                         cmd1.Parameters.AddWithValue("@fyzstav", DBvydej).DbType = DbType.Int32;
                         cmd1.Parameters.AddWithValue("@ucetstav", DBvydej).DbType = DbType.Int32;
