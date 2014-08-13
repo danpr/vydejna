@@ -972,7 +972,7 @@ namespace Vydejna
         {
             string commandReadString0 = "SELECT count(*) as countporadi from naradi";
             string commandReadString1 = "SELECT MAX(poradi) as maxporadi from naradi";
-            string commandString1 = "UPDATE  tabseq set poradi = poradi +1 WHERE nazev = 'naradi'";
+            string commandString1 = "UPDATE  tabseq set poradi = ? WHERE nazev = 'naradi'";
 
             string commandString2 = "INSERT INTO naradi ( poradi, nazev, jk, normacsn, normadin, vyrobce, cena,"+
                   " poznamka, minimum, celkcena,  ucetstav, fyzstav, rozmer, analucet, tdate, stredisko, druh,"+
@@ -998,6 +998,7 @@ namespace Vydejna
 
 
                     OdbcCommand cmd0 = new OdbcCommand(commandReadString0, myDBConn as OdbcConnection);
+                    cmd0.Transaction = transaction;
                     OdbcDataReader myReader0 = cmd0.ExecuteReader();
                     myReader0.Read();
                     Int32 countporadi = myReader0.GetInt32(0);
@@ -1009,6 +1010,7 @@ namespace Vydejna
 
 
                         OdbcCommand cmd1 = new OdbcCommand(commandReadString1, myDBConn as OdbcConnection);
+                        cmd1.Transaction = transaction;
                         OdbcDataReader myReader1 = cmd1.ExecuteReader();
                         myReader1.Read();
                         maxporadi = myReader1.GetInt32(0);
@@ -1045,6 +1047,7 @@ namespace Vydejna
 
                     OdbcCommand cmdSeq2 = new OdbcCommand(commandString1, myDBConn as OdbcConnection);
 
+                    cmdSeq2.Parameters.AddWithValue("@poradi", maxporadi + 1).DbType = DbType.Int32; //ukazuje prvni volne
                     cmdSeq2.Transaction = transaction;
                     cmdSeq2.ExecuteNonQuery();
 

@@ -1201,7 +1201,7 @@ namespace Vydejna
         {
             string commandReadString0 = "SELECT count(*) as countporadi from naradi";
             string commandReadString1 = "SELECT MAX(poradi) as maxporadi from naradi";
-            string commandString1 = "UPDATE  tabseq set poradi = poradi +1 WHERE nazev = 'naradi'";
+            string commandString1 = "UPDATE  tabseq set poradi = ? WHERE nazev = 'naradi'";
 
             string commandString2 = "INSERT INTO naradi ( poradi, nazev, jk, normacsn, normadin, vyrobce, cena," +
                   " poznamka, minimum, celkcena,  ucetstav, fyzstav, rozmer, analucet, tdate, stredisko, druh," +
@@ -1264,6 +1264,7 @@ namespace Vydejna
 
                     SQLiteCommand cmdSeq2 = new SQLiteCommand(commandString1, myDBConn as SQLiteConnection);
 
+                    cmdSeq2.Parameters.AddWithValue("@poradi", maxporadi).DbType = DbType.Int32;
                     cmdSeq2.Transaction = transaction;
                     cmdSeq2.ExecuteNonQuery();
                     
