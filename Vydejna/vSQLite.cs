@@ -2549,6 +2549,7 @@ namespace Vydejna
                 string commandReadString6 = "SELECT jmeno, prijmeni, odeleni, stredisko, pracoviste FROM osoby WHERE oscislo = ? ";
                 ///------------
                 string commandReadString7 = "SELECT poradi FROM tabseq WHERE nazev = 'poskozeno'";
+                string commandReadString7a = "SELECT MAX(poradi) FROM poskozeno";
 
                 string commandString1 = "UPDATE naradi SET ucetstav = ucetstav - ?, celkcena = celkcena - (ucetkscen * ?) WHERE poradi = ? ";
 
@@ -2563,6 +2564,7 @@ namespace Vydejna
                 ///--------------------------------
 
                 string commandString8 = "UPDATE  tabseq set poradi = poradi +1 WHERE nazev = 'poskozeno'";
+                string commandString8a = "UPDATE  tabseq set poradi = ? WHERE nazev = 'poskozeno'";
                 string commandString9 = "INSERT INTO poskozeno ( poradi, jmeno, oscislo, dilna, pracoviste, vyrobek, nazev, jk, rozmer, pocetks, cena, datum, csn, krjmeno, celkcena, vevcislo, konto) " +
                       "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
 
@@ -2777,7 +2779,8 @@ namespace Vydejna
                     SQLiteDataReader vracNewPoskPoradiReader = cmdr8.ExecuteReader();
                     if (vracNewPoskPoradiReader.Read() == true)
                     {
-                        newPoskozenoPoradi = vracNewPoskPoradiReader.GetInt32(vracNewPoskPoradiReader.GetOrdinal("poradi")) + 1;
+//                        newPoskozenoPoradi = vracNewPoskPoradiReader.GetInt32(vracNewPoskPoradiReader.GetOrdinal("poradi")) + 1;
+                        newPoskozenoPoradi = vracNewPoskPoradiReader.GetInt32(0);
                     }
                     else
                     {
@@ -2904,7 +2907,8 @@ namespace Vydejna
                     cmd8.Transaction = transaction;
                     errCode = cmd8.ExecuteNonQuery();
 
-                    SQLiteCommand cmd9 = new SQLiteCommand(commandString8, myDBConn as SQLiteConnection);
+                    SQLiteCommand cmd9 = new SQLiteCommand(commandString8a, myDBConn as SQLiteConnection);
+                    cmd9.Parameters.AddWithValue("@poradi", newPoskozenoPoradi + 1).DbType = DbType.Int32;
                     cmd9.Transaction = transaction;
                     cmd9.ExecuteNonQuery();
 
@@ -3157,12 +3161,14 @@ namespace Vydejna
                 string commandStringRead1 = "SELECT poradi, zustatek from zmeny where parporadi = ? ORDER BY poradi DESC";
                 string commandStringRead2 = "SELECT fyzstav, ucetstav, ucetkscen, rozmer, nazev, jk, normacsn FROM naradi where poradi = ? ";
                 string commandStringRead3 = "SELECT poradi FROM tabseq WHERE nazev = 'poskozeno'";
+                string commandStringRead3a = "SELECT MAX(poradi) FROM poskozeno";
 
 
                 string commandString1 = "UPDATE naradi set fyzstav = fyzstav - ?, ucetstav = ucetstav - ?, celkcena = celkcena - (ucetkscen * ?)  where poradi = ? ";
                 string commandString2 = "INSERT INTO zmeny (parporadi, pomozjk, datum, poznamka, prijem, vydej, zustatek, zapkarta, vevcislo, pocivc, stav, poradi )" +
                       "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
                 string commandString4 = "UPDATE  tabseq set poradi = poradi +1 WHERE nazev = 'poskozeno'";
+                string commandString4a = "UPDATE  tabseq set poradi = ? WHERE nazev = 'poskozeno'";
                 string commandString5 = "INSERT INTO poskozeno ( poradi, jmeno, oscislo, dilna, pracoviste, vyrobek, nazev, jk, rozmer, pocetks, cena, datum, csn, krjmeno, celkcena, vevcislo, konto) " +
                       "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
 
@@ -3230,10 +3236,11 @@ namespace Vydejna
                         myReader.Close();
 
                         // zjisteni   poradi pro tabulku poskozeneho naradi
-                        SQLiteCommand cmdSeq1 = new SQLiteCommand(commandStringRead3, myDBConn as SQLiteConnection);
+                        SQLiteCommand cmdSeq1 = new SQLiteCommand(commandStringRead3a, myDBConn as SQLiteConnection);
                         SQLiteDataReader seqReader = cmdSeq1.ExecuteReader();
                         seqReader.Read();
-                        Int32 poradiPoskozeno = seqReader.GetInt32(0);
+//                        Int32 poradiPoskozeno = seqReader.GetInt32(0);
+                        Int32 poradiPoskozeno = seqReader.GetInt32(0) + 1;
                         seqReader.Close();
 
                         SQLiteCommand cmd1 = new SQLiteCommand(commandString1, myDBConn as SQLiteConnection);
@@ -3288,7 +3295,8 @@ namespace Vydejna
                         cmd3.Transaction = transaction;
                         cmd3.ExecuteNonQuery();
 
-                        SQLiteCommand cmd4 = new SQLiteCommand(commandString4, myDBConn as SQLiteConnection);
+                        SQLiteCommand cmd4 = new SQLiteCommand(commandString4a, myDBConn as SQLiteConnection);
+                        cmd4.Parameters.AddWithValue("@poradi", poradiPoskozeno + 1).DbType = DbType.Int32;
                         cmd4.Transaction = transaction;
                         cmd4.ExecuteNonQuery();
 
