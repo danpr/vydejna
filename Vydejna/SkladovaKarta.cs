@@ -338,6 +338,14 @@ namespace Vydejna
                     {
                         dataGridViewZmeny.Columns[i].SortMode = DataGridViewColumnSortMode.NotSortable;
                     }
+
+                    // nastavime na posledni radku
+                    if (dataGridViewZmeny.RowCount > 0)
+                    {
+                        dataGridViewZmeny.FirstDisplayedScrollingRowIndex = dataGridViewZmeny.Rows[dataGridViewZmeny.RowCount -1].Index;
+                        dataGridViewZmeny.Refresh();
+                    }
+
                 }
                 catch (Exception)
                 {
