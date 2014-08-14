@@ -1264,6 +1264,10 @@ namespace Vydejna
                     cmd1.Parameters.AddWithValue("@poradi", DBPoradi).DbType = DbType.Int32;
                     cmd1.Transaction = transaction;
                     Int32 errCode = cmd1.ExecuteNonQuery();
+                    if (transaction != null)
+                    {
+                        (transaction as OdbcTransaction).Commit();
+                    }
                 }
                 catch (Exception)
                 {
@@ -1594,6 +1598,7 @@ namespace Vydejna
             if (DBIsOpened())
             {
 
+                string commandReadString0 = "SELECT count(*) as countporadi from poskozeno";
                 string commandReadString1 = "SELECT rtrim(vevcislo) as vevcislo FROM zmeny WHERE poradi = ? AND parporadi = ? ";
                 string commandReadString2 = "SELECT nporadi, zporadi, stavks FROM pujceno WHERE poradi = ? ";
                 string commandReadString3 = "SELECT poradi, zustatek from zmeny where parporadi = ? ORDER BY poradi DESC";
@@ -1828,27 +1833,47 @@ namespace Vydejna
                     Int32 newPoskozenoPoradi;
                     // cislo poradi pro novy zaznam
 
-                    OdbcCommand cmdr8 = new OdbcCommand(commandReadString7a, myDBConn as OdbcConnection);
-                    cmdr8.Transaction = transaction;
-                    OdbcDataReader vracNewPoskPoradiReader = cmdr8.ExecuteReader();
-                    if (vracNewPoskPoradiReader.Read() == true)
+                    OdbcCommand cmd0 = new OdbcCommand(commandReadString0, myDBConn as OdbcConnection);
+                    cmd0.Transaction = transaction;
+                    OdbcDataReader myReader0 = cmd0.ExecuteReader();
+                    if (myReader0.Read() == true)
                     {
-//                        newPoskozenoPoradi = vracNewPoskPoradiReader.GetInt32(vracNewPoskPoradiReader.GetOrdinal("poradi")) + 1;
-                        newPoskozenoPoradi = vracNewPoskPoradiReader.GetInt32(0) + 1;
+                        Int32 countporadi = myReader0.GetInt32(0);
+                        myReader0.Close();
+
+                        if (countporadi == 0) newPoskozenoPoradi = 1;
+                        else
+                        {
+
+                            OdbcCommand cmdr8 = new OdbcCommand(commandReadString7a, myDBConn as OdbcConnection);
+                            cmdr8.Transaction = transaction;
+                            OdbcDataReader vracNewPoskPoradiReader = cmdr8.ExecuteReader();
+                            if (vracNewPoskPoradiReader.Read() == true)
+                            {
+                                //                        newPoskozenoPoradi = vracNewPoskPoradiReader.GetInt32(vracNewPoskPoradiReader.GetOrdinal("poradi")) + 1;
+                                newPoskozenoPoradi = vracNewPoskPoradiReader.GetInt32(0) + 1;
+                            }
+                            else
+                            {
+                                vracNewPoskPoradiReader.Close();
+                                if (transaction != null)
+                                {
+                                    (transaction as OdbcTransaction).Rollback();
+                                }
+                                return -1;
+                            }
+                            vracNewPoskPoradiReader.Close();
+                        }
                     }
                     else
                     {
-                        vracNewPoskPoradiReader.Close();
+                        myReader0.Close();
                         if (transaction != null)
                         {
                             (transaction as OdbcTransaction).Rollback();
                         }
                         return -1;
                     }
-                    vracNewPoskPoradiReader.Close();
-
-
-
 
                     // tab naradi zmensi ucet. stav
 
@@ -1925,7 +1950,7 @@ namespace Vydejna
 
 
                     //  tab zmeny novy zaznam pro zmeny - poskozeno
-                    OdbcCommand  cmd7 = new OdbcCommand(commandString2, myDBConn as OdbcConnection);
+                    OdbcCommand cmd7 = new OdbcCommand(commandString2, myDBConn as OdbcConnection);
                     cmd7.Parameters.AddWithValue("@parporadi", parPoradi).DbType = DbType.Int32;
                     cmd7.Parameters.AddWithValue("@pomozjk", naradiJK);
                     cmd7.Parameters.AddWithValue("@datum", DBdatum);
@@ -1965,7 +1990,7 @@ namespace Vydejna
                     errCode = cmd8.ExecuteNonQuery();
 
                     OdbcCommand cmd9 = new OdbcCommand(commandString8a, myDBConn as OdbcConnection);
-                    cmd9.Parameters.AddWithValue("@poradi", newPoskozenoPoradi +1).DbType = DbType.Int32;
+                    cmd9.Parameters.AddWithValue("@poradi", newPoskozenoPoradi + 1).DbType = DbType.Int32;
                     cmd9.Transaction = transaction;
                     cmd9.ExecuteNonQuery();
 
@@ -2627,26 +2652,45 @@ namespace Vydejna
 
                         // zjisteni   poradi pro tabulku poskozeneho naradi
 
-
                         OdbcCommand cmd0 = new OdbcCommand(commandStringRead0, myDBConn as OdbcConnection);
                         cmd0.Transaction = transaction;
                         OdbcDataReader myReader0 = cmd0.ExecuteReader();
-                        myReader0.Read();
-                        Int32 countporadi = myReader0.GetInt32(0);
-                        myReader0.Close();
                         Int32 poradiPoskozeno;
-
-
-                        if (countporadi == 0) poradiPoskozeno = 1;
+                        if (myReader0.Read() == true)
+                        {
+                            Int32 countporadi = myReader0.GetInt32(0);
+                            myReader0.Close();
+                            if (countporadi == 0) poradiPoskozeno = 1;
+                            else
+                            {
+                                OdbcCommand cmdSeq1 = new OdbcCommand(commandStringRead3a, myDBConn as OdbcConnection);
+                                cmdSeq1.Transaction = transaction;
+                                OdbcDataReader seqReader = cmdSeq1.ExecuteReader();
+                                if (seqReader.Read() == true)
+                                {
+                                    //                        Int32 poradiPoskozeno = seqReader.GetInt32(0);
+                                    poradiPoskozeno = seqReader.GetInt32(0) + 1;
+                                    seqReader.Close();
+                                }
+                                else
+                                {
+                                    seqReader.Close();
+                                    if (transaction != null)
+                                    {
+                                        (transaction as OdbcTransaction).Rollback();
+                                    }
+                                    return -1;
+                                }
+                            }
+                        }
                         else
                         {
-                            OdbcCommand cmdSeq1 = new OdbcCommand(commandStringRead3a, myDBConn as OdbcConnection);
-                            cmdSeq1.Transaction = transaction;
-                            OdbcDataReader seqReader = cmdSeq1.ExecuteReader();
-                            seqReader.Read();
-                            //                        Int32 poradiPoskozeno = seqReader.GetInt32(0);
-                            poradiPoskozeno = seqReader.GetInt32(0) + 1;
-                            seqReader.Close();
+                            myReader0.Close();
+                            if (transaction != null)
+                            {
+                                (transaction as OdbcTransaction).Rollback();
+                            }
+                            return -1;
                         }
                         OdbcCommand cmd1 = new OdbcCommand(commandString1, myDBConn as OdbcConnection);
                         cmd1.Parameters.AddWithValue("@fyzstav", DBvydej).DbType = DbType.Int32;

@@ -79,6 +79,11 @@ namespace Vydejna
             return textBoxVevcislo.Text;
         }
 
+        private void buttonOK_Click(object sender, EventArgs e)
+        {
+
+        }
+
 
     }
 }
