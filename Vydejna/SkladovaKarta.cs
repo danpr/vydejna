@@ -340,10 +340,14 @@ namespace Vydejna
                     }
 
                     // nastavime na posledni radku
-                    if (dataGridViewZmeny.RowCount > 0)
+                    int counter = dataGridViewZmeny.Rows.Count - 1;
+
+                    if (dataGridViewZmeny.Rows.Count > 0)
                     {
-                        dataGridViewZmeny.FirstDisplayedScrollingRowIndex = dataGridViewZmeny.Rows[dataGridViewZmeny.RowCount -1].Index;
+                        dataGridViewZmeny.FirstDisplayedScrollingRowIndex = dataGridViewZmeny.Rows[counter].Index;
                         dataGridViewZmeny.Refresh();
+                        dataGridViewZmeny.CurrentCell = dataGridViewZmeny.Rows[counter].Cells[1];
+                        dataGridViewZmeny.Rows[counter].Selected = true;
                     }
 
                 }
