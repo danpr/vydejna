@@ -84,6 +84,18 @@ namespace Vydejna
                     dcc.Add("novystav", System.Type.GetType("System.Decimal"));
                     dataGridViewZmeny.Columns["novystav"].HeaderText = "Nový stav";
 
+                    // nastavime na posledni radku
+                    int counter = dataGridViewZmeny.Rows.Count - 1;
+                    //                    if (dataGridViewZmeny.Rows.Count > 0)
+                    if (counter > 0)
+                    {
+                        dataGridViewZmeny.FirstDisplayedScrollingRowIndex = dataGridViewZmeny.Rows[counter].Index;
+                        dataGridViewZmeny.Refresh();
+                        dataGridViewZmeny.CurrentCell = dataGridViewZmeny.Rows[counter].Cells[1];
+                        dataGridViewZmeny.Rows[counter].Selected = true;
+                    }
+
+
                 }
                 catch (Exception)
                 {
@@ -130,6 +142,76 @@ namespace Vydejna
         private void numericUpDownStartStav_ValueChanged(object sender, EventArgs e)
         {
             recountData();
+        }
+
+        private void setUcetStavColor()
+        {
+            Int32 labelUcetStavInt = 0;
+            try
+            {
+                labelUcetStavInt = Convert.ToInt32(labelUcetStav.Text);
+
+                if (numericUpDownUcetStav.Value != labelUcetStavInt)
+                {
+                    labelUcetStav.ForeColor = Color.Red;
+                }
+                else
+                {
+                    labelUcetStav.ForeColor = SystemColors.ControlText;
+                }
+
+            }
+            catch
+            {
+                labelUcetStav.ForeColor = SystemColors.ControlText;
+            }
+        }
+
+
+        private void setFyzStavColor()
+        {
+            Int32 labelFyzStavInt = 0;
+            try
+            {
+                labelFyzStavInt = Convert.ToInt32(labelFyzStav.Text);
+
+                if (numericUpDownFyzStav.Value != labelFyzStavInt)
+                {
+                    labelFyzStav.ForeColor = Color.Red;
+                }
+                else
+                {
+                    labelFyzStav.ForeColor = SystemColors.ControlText;
+                }
+
+            }
+            catch
+            {
+                labelFyzStav.ForeColor = SystemColors.ControlText;
+            }
+        }
+
+
+        private void numericUpDownUcetStav_ValueChanged(object sender, EventArgs e)
+        {
+            setUcetStavColor();
+        }
+
+
+
+        private void labelUcetStav_TextChanged(object sender, EventArgs e)
+        {
+            setUcetStavColor();
+        }
+
+        private void numericUpDownFyzStav_ValueChanged(object sender, EventArgs e)
+        {
+            setFyzStavColor();
+        }
+
+        private void labelFyzStav_TextChanged(object sender, EventArgs e)
+        {
+            setFyzStavColor();
         }
 
     }

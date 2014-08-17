@@ -330,7 +330,7 @@ namespace Vydejna
                     dataGridViewZmeny.Columns["zapkarta"].HeaderText = "Zapůjčeno na kartu";
 
                     dataGridViewZmeny.Columns["poradi"].Visible = false;
-                    dataGridViewZmeny.Columns["vevcislo"].Visible = false;  
+                    dataGridViewZmeny.Columns["vevcislo"].Visible = false;
 
                     dataGridViewZmeny.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
 
@@ -341,8 +341,8 @@ namespace Vydejna
 
                     // nastavime na posledni radku
                     int counter = dataGridViewZmeny.Rows.Count - 1;
-
-                    if (dataGridViewZmeny.Rows.Count > 0)
+                    //                    if (dataGridViewZmeny.Rows.Count > 0)
+                    if (counter > 0)
                     {
                         dataGridViewZmeny.FirstDisplayedScrollingRowIndex = dataGridViewZmeny.Rows[counter].Index;
                         dataGridViewZmeny.Refresh();

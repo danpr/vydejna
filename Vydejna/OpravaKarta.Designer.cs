@@ -56,9 +56,9 @@
             // dataGridViewZmeny
             // 
             this.dataGridViewZmeny.AllowUserToAddRows = false;
-            this.dataGridViewZmeny.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridViewZmeny.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridViewZmeny.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewZmeny.Location = new System.Drawing.Point(22, 186);
             this.dataGridViewZmeny.MultiSelect = false;
@@ -86,6 +86,7 @@
             this.labelFyzStav.Size = new System.Drawing.Size(65, 13);
             this.labelFyzStav.TabIndex = 15;
             this.labelFyzStav.Text = "labeFyzStav";
+            this.labelFyzStav.TextChanged += new System.EventHandler(this.labelFyzStav_TextChanged);
             // 
             // numericUpDownFyzStav
             // 
@@ -99,6 +100,7 @@
             this.numericUpDownFyzStav.Name = "numericUpDownFyzStav";
             this.numericUpDownFyzStav.Size = new System.Drawing.Size(100, 20);
             this.numericUpDownFyzStav.TabIndex = 14;
+            this.numericUpDownFyzStav.ValueChanged += new System.EventHandler(this.numericUpDownFyzStav_ValueChanged);
             // 
             // groupBoxUcetSatv
             // 
@@ -119,6 +121,7 @@
             this.labelUcetStav.Size = new System.Drawing.Size(74, 13);
             this.labelUcetStav.TabIndex = 15;
             this.labelUcetStav.Text = "labelUcetStav";
+            this.labelUcetStav.TextChanged += new System.EventHandler(this.labelUcetStav_TextChanged);
             // 
             // numericUpDownUcetStav
             // 
@@ -132,6 +135,7 @@
             this.numericUpDownUcetStav.Name = "numericUpDownUcetStav";
             this.numericUpDownUcetStav.Size = new System.Drawing.Size(100, 20);
             this.numericUpDownUcetStav.TabIndex = 14;
+            this.numericUpDownUcetStav.ValueChanged += new System.EventHandler(this.numericUpDownUcetStav_ValueChanged);
             // 
             // buttonCancel
             // 
