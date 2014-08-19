@@ -73,6 +73,10 @@ namespace Vydejna
         public Prohledavani(DataGridView myDataGridView, string preferedColumn, string windowName = "", string windowTableDesc = "")
         {
             InitializeComponent();
+
+// po prvnim spusteni je aktivovana prohledavani od prveho radku
+            checkBoxFromStart.Checked = true;
+
             this.preferedColumn = preferedColumn;
             this.TopMost = true;
             this.windowName = windowName;
@@ -485,6 +489,9 @@ namespace Vydejna
 
         private void Prohledavani_Shown(object sender, EventArgs e)
         {
+
+            checkBoxFromStart.Checked = true;
+            
             if ((preferedColumn != null) && (preferedColumn.Trim() != ""))
             {
                 groupBox1.Focus();
