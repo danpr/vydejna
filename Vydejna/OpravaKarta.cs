@@ -137,6 +137,7 @@ namespace Vydejna
                 dr.SetField("novystav", novyZustatek);
 
             }
+            setZmenyColor();
         }
 
         private void numericUpDownStartStav_ValueChanged(object sender, EventArgs e)
@@ -191,6 +192,22 @@ namespace Vydejna
             }
         }
 
+        private void setZmenyColor()
+        {
+            foreach (DataGridViewRow row in dataGridViewZmeny.Rows)
+            {
+                if (row.Cells["zustatek"].Value != null && ( Convert.ToInt32( row.Cells["zustatek"].Value) !=  Convert.ToInt32( row.Cells["novystav"].Value )))
+                {
+                    row.DefaultCellStyle.BackColor = Color.Red;
+                }
+                else
+                {
+                    row.DefaultCellStyle.BackColor = SystemColors.Window;
+                }
+
+
+            }
+        }
 
         private void numericUpDownUcetStav_ValueChanged(object sender, EventArgs e)
         {
@@ -213,6 +230,9 @@ namespace Vydejna
         {
             setFyzStavColor();
         }
+
+
+
 
     }
 }
