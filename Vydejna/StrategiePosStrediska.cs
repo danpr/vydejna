@@ -97,6 +97,12 @@ namespace Vydejna
             return 36;
         }
 
+        public Int32 getHighRowOnPrintPage()
+        {
+            return 7;
+        }
+
+
         public void printLine(PrintPageEventArgs e, Hashtable DBRow, Int32 posY)
         {
 
@@ -112,7 +118,6 @@ namespace Vydejna
         {
 
             e.Graphics.DrawString(getWindowHeader(), tiskFont11b, Brushes.Black, new PointF(60, posY));
-            
             e.Graphics.DrawString("Pracoviště", tiskFont9b, Brushes.Black, new PointF(25, posY+10));
             e.Graphics.DrawString("Cena", tiskFont9b, Brushes.Black, new PointF(75, posY+10));
             e.Graphics.DrawString("Procenta", tiskFont9b, Brushes.Black, new PointF(165, posY+10));

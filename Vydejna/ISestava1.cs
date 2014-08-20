@@ -33,6 +33,8 @@ namespace Vydejna
 
         Int32 getRowsOnPrintPage();
 
+        Int32 getHighRowOnPrintPage();
+
         void printLine(PrintPageEventArgs e, Hashtable DBRow, Int32 posY);
 
         void printHeader(PrintPageEventArgs e, Int32 posY);

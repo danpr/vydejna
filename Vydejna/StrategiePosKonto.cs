@@ -74,6 +74,13 @@ namespace Vydejna
             return 20;
         }
 
+        public Int32 getHighRowOnPrintPage()
+        {
+            return 7;
+        }
+
+
+
         public void printLine(PrintPageEventArgs e, Hashtable DataRow, Int32 posY)
         {
 

@@ -14,7 +14,7 @@ namespace Vydejna
     public partial class SestavaDefault : Form
     {
 
-        const Int32 hightRow = 7;
+        private Int32 hightRow = 7;
 
 
         private enum evenStateEnum { enable, disable };
@@ -78,6 +78,8 @@ namespace Vydejna
             {
                 hideTextVyber();
             }
+
+            hightRow = strategie.getHighRowOnPrintPage();
         }
 
 
