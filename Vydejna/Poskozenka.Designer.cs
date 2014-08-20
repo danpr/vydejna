@@ -90,40 +90,36 @@
             // labelProvoz
             // 
             this.labelProvoz.AutoSize = true;
-            this.labelProvoz.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.labelProvoz.Location = new System.Drawing.Point(124, 107);
             this.labelProvoz.Name = "labelProvoz";
-            this.labelProvoz.Size = new System.Drawing.Size(48, 13);
+            this.labelProvoz.Size = new System.Drawing.Size(41, 13);
             this.labelProvoz.TabIndex = 34;
             this.labelProvoz.Text = "label18";
             // 
             // labelStredisko
             // 
             this.labelStredisko.AutoSize = true;
-            this.labelStredisko.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.labelStredisko.Location = new System.Drawing.Point(124, 84);
             this.labelStredisko.Name = "labelStredisko";
-            this.labelStredisko.Size = new System.Drawing.Size(48, 13);
+            this.labelStredisko.Size = new System.Drawing.Size(41, 13);
             this.labelStredisko.TabIndex = 33;
             this.labelStredisko.Text = "label17";
             // 
             // labelPrijmeni
             // 
             this.labelPrijmeni.AutoSize = true;
-            this.labelPrijmeni.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.labelPrijmeni.Location = new System.Drawing.Point(418, 25);
             this.labelPrijmeni.Name = "labelPrijmeni";
-            this.labelPrijmeni.Size = new System.Drawing.Size(48, 13);
+            this.labelPrijmeni.Size = new System.Drawing.Size(41, 13);
             this.labelPrijmeni.TabIndex = 32;
             this.labelPrijmeni.Text = "label18";
             // 
             // labelJmeno
             // 
             this.labelJmeno.AutoSize = true;
-            this.labelJmeno.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.labelJmeno.Location = new System.Drawing.Point(124, 25);
             this.labelJmeno.Name = "labelJmeno";
-            this.labelJmeno.Size = new System.Drawing.Size(48, 13);
+            this.labelJmeno.Size = new System.Drawing.Size(41, 13);
             this.labelJmeno.TabIndex = 31;
             this.labelJmeno.Text = "label17";
             // 
@@ -346,60 +342,54 @@
             // labelNazev
             // 
             this.labelNazev.AutoSize = true;
-            this.labelNazev.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.labelNazev.Location = new System.Drawing.Point(136, 221);
             this.labelNazev.Name = "labelNazev";
-            this.labelNazev.Size = new System.Drawing.Size(48, 13);
+            this.labelNazev.Size = new System.Drawing.Size(41, 13);
             this.labelNazev.TabIndex = 30;
             this.labelNazev.Text = "label17";
             // 
             // labelJK
             // 
             this.labelJK.AutoSize = true;
-            this.labelJK.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.labelJK.Location = new System.Drawing.Point(136, 245);
             this.labelJK.Name = "labelJK";
-            this.labelJK.Size = new System.Drawing.Size(48, 13);
+            this.labelJK.Size = new System.Drawing.Size(41, 13);
             this.labelJK.TabIndex = 31;
             this.labelJK.Text = "label18";
             // 
             // labelRozmer
             // 
             this.labelRozmer.AutoSize = true;
-            this.labelRozmer.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.labelRozmer.Location = new System.Drawing.Point(136, 270);
             this.labelRozmer.Name = "labelRozmer";
-            this.labelRozmer.Size = new System.Drawing.Size(48, 13);
+            this.labelRozmer.Size = new System.Drawing.Size(41, 13);
             this.labelRozmer.TabIndex = 31;
             this.labelRozmer.Text = "label19";
             // 
             // labelStav
             // 
             this.labelStav.AutoSize = true;
-            this.labelStav.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.labelStav.Location = new System.Drawing.Point(430, 292);
             this.labelStav.Name = "labelStav";
-            this.labelStav.Size = new System.Drawing.Size(48, 13);
+            this.labelStav.Size = new System.Drawing.Size(41, 13);
             this.labelStav.TabIndex = 32;
             this.labelStav.Text = "label17";
             // 
             // labelCena
             // 
             this.labelCena.AutoSize = true;
-            this.labelCena.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.labelCena.Location = new System.Drawing.Point(430, 175);
             this.labelCena.Name = "labelCena";
-            this.labelCena.Size = new System.Drawing.Size(48, 13);
+            this.labelCena.Size = new System.Drawing.Size(41, 13);
             this.labelCena.TabIndex = 34;
             this.labelCena.Text = "label17";
             // 
             // labelCelkCena
             // 
             this.labelCelkCena.AutoSize = true;
-            this.labelCelkCena.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.labelCelkCena.Location = new System.Drawing.Point(430, 201);
             this.labelCelkCena.Name = "labelCelkCena";
-            this.labelCelkCena.Size = new System.Drawing.Size(48, 13);
+            this.labelCelkCena.Size = new System.Drawing.Size(41, 13);
             this.labelCelkCena.TabIndex = 35;
             this.labelCelkCena.Text = "label18";
             // 

@@ -37,6 +37,7 @@ namespace Vydejna
 
 
         public Int32 parentPoradi;
+        private Font boldFont;
 
         public PrijemkaMaterialu(Hashtable DBRow, vDatabase myDataBase, Font myFont)
         {
@@ -65,7 +66,13 @@ namespace Vydejna
 
             AcceptButton = buttonOK;
             CancelButton = buttonCancel;
+            boldFont = new Font(myFont, FontStyle.Bold);
             this.Font = myFont;
+
+            labelNazev.Font = boldFont;
+            labelJK.Font = boldFont;
+            labelVyrobce.Font = boldFont;
+            labelDosudKs.Font = boldFont;
         }
 
 

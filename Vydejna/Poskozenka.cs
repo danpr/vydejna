@@ -57,6 +57,8 @@ namespace Vydejna
         private Int32 parentPoradi;
         private double cena;
         private double celkCena;
+        private Font boldFont;
+
 
         public Poskozenka(Hashtable DBRow, vDatabase myDataBase, Font myFont, Boolean pujceneNaradi = false)
         {
@@ -112,7 +114,19 @@ namespace Vydejna
 
             }
 
+            boldFont = new Font(myFont, FontStyle.Bold);
             this.Font = myFont;
+            labelJmeno.Font = boldFont;
+            labelPrijmeni.Font = boldFont;
+            labelStredisko.Font = boldFont;
+            labelProvoz.Font = boldFont;
+            labelCena.Font = boldFont;
+            labelCelkCena.Font = boldFont;
+            labelNazev.Font = boldFont;
+            labelJK.Font = boldFont;
+            labelRozmer.Font = boldFont;
+            labelStav.Font = boldFont;
+
         }
 
         public messager getMesseger()

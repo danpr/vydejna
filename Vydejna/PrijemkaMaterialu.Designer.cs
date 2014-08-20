@@ -99,17 +99,16 @@
             // labelDosudKs
             // 
             this.labelDosudKs.AutoSize = true;
-            this.labelDosudKs.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelDosudKs.Location = new System.Drawing.Point(150, 100);
+            this.labelDosudKs.Location = new System.Drawing.Point(160, 100);
             this.labelDosudKs.Name = "labelDosudKs";
-            this.labelDosudKs.Size = new System.Drawing.Size(0, 13);
+            this.labelDosudKs.Size = new System.Drawing.Size(13, 13);
             this.labelDosudKs.TabIndex = 16;
+            this.labelDosudKs.Text = "1";
             // 
             // labelVyrobce
             // 
             this.labelVyrobce.AutoSize = true;
-            this.labelVyrobce.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelVyrobce.Location = new System.Drawing.Point(150, 71);
+            this.labelVyrobce.Location = new System.Drawing.Point(160, 71);
             this.labelVyrobce.Name = "labelVyrobce";
             this.labelVyrobce.Size = new System.Drawing.Size(0, 13);
             this.labelVyrobce.TabIndex = 15;
@@ -117,8 +116,7 @@
             // labelJK
             // 
             this.labelJK.AutoSize = true;
-            this.labelJK.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelJK.Location = new System.Drawing.Point(150, 43);
+            this.labelJK.Location = new System.Drawing.Point(160, 43);
             this.labelJK.Name = "labelJK";
             this.labelJK.Size = new System.Drawing.Size(0, 13);
             this.labelJK.TabIndex = 14;
@@ -126,8 +124,7 @@
             // labelNazev
             // 
             this.labelNazev.AutoSize = true;
-            this.labelNazev.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelNazev.Location = new System.Drawing.Point(150, 16);
+            this.labelNazev.Location = new System.Drawing.Point(160, 16);
             this.labelNazev.Name = "labelNazev";
             this.labelNazev.Size = new System.Drawing.Size(0, 13);
             this.labelNazev.TabIndex = 13;
@@ -152,7 +149,7 @@
             // 
             // numericUpDownPrijemKs
             // 
-            this.numericUpDownPrijemKs.Location = new System.Drawing.Point(159, 172);
+            this.numericUpDownPrijemKs.Location = new System.Drawing.Point(169, 172);
             this.numericUpDownPrijemKs.Maximum = new decimal(new int[] {
             1000000,
             0,
@@ -175,7 +172,7 @@
             // 
             // textBoxPoznamka
             // 
-            this.textBoxPoznamka.Location = new System.Drawing.Point(159, 263);
+            this.textBoxPoznamka.Location = new System.Drawing.Point(169, 263);
             this.textBoxPoznamka.MaxLength = 22;
             this.textBoxPoznamka.Name = "textBoxPoznamka";
             this.textBoxPoznamka.Size = new System.Drawing.Size(193, 20);
@@ -216,7 +213,7 @@
             // 
             // dateTimePickerDatum
             // 
-            this.dateTimePickerDatum.Location = new System.Drawing.Point(159, 234);
+            this.dateTimePickerDatum.Location = new System.Drawing.Point(169, 234);
             this.dateTimePickerDatum.Name = "dateTimePickerDatum";
             this.dateTimePickerDatum.Size = new System.Drawing.Size(193, 20);
             this.dateTimePickerDatum.TabIndex = 3;
@@ -233,7 +230,7 @@
             // numericUpDownCenaKs
             // 
             this.numericUpDownCenaKs.DecimalPlaces = 2;
-            this.numericUpDownCenaKs.Location = new System.Drawing.Point(159, 202);
+            this.numericUpDownCenaKs.Location = new System.Drawing.Point(169, 202);
             this.numericUpDownCenaKs.Maximum = new decimal(new int[] {
             100000000,
             0,
