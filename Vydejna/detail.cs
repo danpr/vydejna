@@ -1093,7 +1093,8 @@ namespace Vydejna
         {
             myPermissions.showEnableCode = (Int32)permCode.Prac;
             myPermissions.addEnableCode = (Int32)permCode.PracAdd;
-            myPermissions.deleteEnableCode = (Int32)permCode.PracEd;
+            myPermissions.editEnableCode = (Int32)permCode.PracEd;
+            myPermissions.deleteEnableCode = (Int32)permCode.PracDel;
             myPermissions.printEnableCode = (Int32)permCode.PracPrint;
 
             myPermissions.pujcEnableCode = (Int32)permCode.PracZapN;
