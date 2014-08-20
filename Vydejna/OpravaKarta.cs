@@ -143,6 +143,7 @@ namespace Vydejna
         private void numericUpDownStartStav_ValueChanged(object sender, EventArgs e)
         {
             recountData();
+            setStartStavColor();
         }
 
         private void setUcetStavColor()
@@ -155,16 +156,19 @@ namespace Vydejna
                 if (numericUpDownUcetStav.Value != labelUcetStavInt)
                 {
                     labelUcetStav.ForeColor = Color.Red;
+                    numericUpDownUcetStav.ForeColor = Color.Red;
                 }
                 else
                 {
                     labelUcetStav.ForeColor = SystemColors.ControlText;
+                    numericUpDownUcetStav.ForeColor = SystemColors.ControlText;
                 }
 
             }
             catch
             {
                 labelUcetStav.ForeColor = SystemColors.ControlText;
+                numericUpDownUcetStav.ForeColor = SystemColors.ControlText;
             }
         }
 
@@ -179,18 +183,36 @@ namespace Vydejna
                 if (numericUpDownFyzStav.Value != labelFyzStavInt)
                 {
                     labelFyzStav.ForeColor = Color.Red;
+                    numericUpDownFyzStav.ForeColor = Color.Red;
+
                 }
                 else
                 {
                     labelFyzStav.ForeColor = SystemColors.ControlText;
+                    numericUpDownFyzStav.ForeColor = SystemColors.ControlText;
                 }
 
             }
             catch
             {
                 labelFyzStav.ForeColor = SystemColors.ControlText;
+                numericUpDownFyzStav.ForeColor = SystemColors.ControlText;
             }
         }
+
+
+        private void setStartStavColor()
+        {
+            if (numericUpDownStartStav.Value != 0)
+            {
+                numericUpDownStartStav.ForeColor = Color.Red;
+            }
+            else
+            {
+                numericUpDownStartStav.ForeColor = SystemColors.ControlText;
+             }
+         }
+
 
         private void setZmenyColor()
         {
