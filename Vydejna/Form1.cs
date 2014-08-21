@@ -1559,5 +1559,10 @@ namespace Vydejna
                 karta.OpravChyby(DBRow);
             }
         }
+
+        private void celkemPoškozenoZaPracovníkaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

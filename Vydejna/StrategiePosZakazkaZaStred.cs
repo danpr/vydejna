@@ -13,6 +13,13 @@ namespace Vydejna
     class StrategiePosZakazkaZaStred : ISestava1
     {
 
+        protected Font tiskFont9 = new Font("Verdana", 9);
+        protected Font tiskFont9b = new Font("Verdana", 9, FontStyle.Bold);
+        protected Font tiskFont11b = new Font("Verdana", 11, FontStyle.Bold);
+
+        protected Pen Pen3 = new Pen(Brushes.Black, 0.3F);
+        protected Pen Pen5 = new Pen(Brushes.Black, 0.5F);
+
         public Hashtable getHeaderLabels()
         {
             Hashtable headerLabels = new Hashtable();
@@ -72,7 +79,7 @@ namespace Vydejna
         
         public Int32 getRowsOnPrintPage()
         {
-            return 20;
+            return 36;
         }
 
         public Int32 getHighRowOnPrintPage()
@@ -82,11 +89,18 @@ namespace Vydejna
 
         public void printLine(PrintPageEventArgs e, Hashtable DataRow, Int32 posY)
         {
+            e.Graphics.DrawString(Convert.ToString(DataRow["vyrobek"]), tiskFont9, Brushes.Black, new PointF(45, posY));
+            e.Graphics.DrawString(Convert.ToString(DataRow["cena"]), tiskFont9, Brushes.Black, new PointF(120, posY));
+            e.Graphics.DrawLine(Pen5, new Point(5, posY + 5), new Point(200, posY + 5));
 
         }
 
         public void printHeader(PrintPageEventArgs e, Int32 posY)
         {
+            e.Graphics.DrawString(getWindowHeader(), tiskFont11b, Brushes.Black, new PointF(60, posY));
+            e.Graphics.DrawString("Zakázka", tiskFont9b, Brushes.Black, new PointF(45, posY + 10));
+            e.Graphics.DrawString("Cena", tiskFont9b, Brushes.Black, new PointF(120, posY + 10));
+            e.Graphics.DrawLine(Pen3, new Point(5, posY + 15), new Point(200, posY + 15));
 
         }
 

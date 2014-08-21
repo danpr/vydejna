@@ -86,13 +86,13 @@
             this.zapůjčeníNářadíToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.prohledáváníToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
+            this.opravaDatToolStripMenuItem14 = new System.Windows.Forms.ToolStripMenuItem();
             this.labelView = new System.Windows.Forms.Label();
             this.fontDialog1 = new System.Windows.Forms.FontDialog();
             this.labelStateConnection = new System.Windows.Forms.Label();
             this.labelUser = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
-            this.opravaDatToolStripMenuItem14 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
@@ -220,7 +220,7 @@
             this.seznamPoškozenekZaZakázkuToolStripMenuItem,
             this.seznamPoškozenekZaKontoToolStripMenuItem});
             this.poškozenkyToolStripMenuItem.Name = "poškozenkyToolStripMenuItem";
-            this.poškozenkyToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.poškozenkyToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.poškozenkyToolStripMenuItem.Text = "Poškozenky";
             // 
             // vyhodnoceniPoškozenekDleStřediskaToolStripMenuItem
@@ -259,6 +259,7 @@
             this.celkemPoškozenoZaPracovníkaToolStripMenuItem.Name = "celkemPoškozenoZaPracovníkaToolStripMenuItem";
             this.celkemPoškozenoZaPracovníkaToolStripMenuItem.Size = new System.Drawing.Size(255, 22);
             this.celkemPoškozenoZaPracovníkaToolStripMenuItem.Text = "Celkem poškozeno za pracovníka";
+            this.celkemPoškozenoZaPracovníkaToolStripMenuItem.Click += new System.EventHandler(this.celkemPoškozenoZaPracovníkaToolStripMenuItem_Click);
             // 
             // vyhodnoceníDleZakázekVeStřediskuToolStripMenuItem
             // 
@@ -477,7 +478,7 @@
             this.toolStripSeparator8,
             this.opravaDatToolStripMenuItem14});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(265, 270);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(265, 248);
             this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             // 
             // přidatPoložkuToolStripMenuItem
@@ -559,6 +560,18 @@
             this.prohledáváníToolStripMenuItem.Text = "Prohledávání";
             this.prohledáváníToolStripMenuItem.Click += new System.EventHandler(this.ConMenuProhledávani_Click);
             // 
+            // toolStripSeparator8
+            // 
+            this.toolStripSeparator8.Name = "toolStripSeparator8";
+            this.toolStripSeparator8.Size = new System.Drawing.Size(261, 6);
+            // 
+            // opravaDatToolStripMenuItem14
+            // 
+            this.opravaDatToolStripMenuItem14.Name = "opravaDatToolStripMenuItem14";
+            this.opravaDatToolStripMenuItem14.Size = new System.Drawing.Size(264, 22);
+            this.opravaDatToolStripMenuItem14.Text = "Oprava dat";
+            this.opravaDatToolStripMenuItem14.Click += new System.EventHandler(this.conMenuCorrectDate);
+            // 
             // labelView
             // 
             this.labelView.AutoSize = true;
@@ -590,18 +603,6 @@
             // timer1
             // 
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-            // toolStripSeparator8
-            // 
-            this.toolStripSeparator8.Name = "toolStripSeparator8";
-            this.toolStripSeparator8.Size = new System.Drawing.Size(261, 6);
-            // 
-            // opravaDatToolStripMenuItem14
-            // 
-            this.opravaDatToolStripMenuItem14.Name = "opravaDatToolStripMenuItem14";
-            this.opravaDatToolStripMenuItem14.Size = new System.Drawing.Size(264, 22);
-            this.opravaDatToolStripMenuItem14.Text = "Oprava dat";
-            this.opravaDatToolStripMenuItem14.Click += new System.EventHandler(this.conMenuCorrectDate);
             // 
             // Vydejna
             // 

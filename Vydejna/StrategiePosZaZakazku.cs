@@ -12,6 +12,14 @@ namespace Vydejna
 {
     class StrategiePosZaZakazku : ISestava1
     {
+
+        protected Font tiskFont9 = new Font("Verdana", 9);
+        protected Font tiskFont9b = new Font("Verdana", 9, FontStyle.Bold);
+        protected Font tiskFont11b = new Font("Verdana", 11, FontStyle.Bold);
+
+        protected Pen Pen3 = new Pen(Brushes.Black, 0.3F);
+        protected Pen Pen5 = new Pen(Brushes.Black, 0.5F);
+
         public Hashtable getHeaderLabels()
         {
             Hashtable headerLabels = new Hashtable();
@@ -76,22 +84,39 @@ namespace Vydejna
 
         public Int32 getRowsOnPrintPage()
         {
-            return 20;
+            return 17;
         }
 
         public Int32 getHighRowOnPrintPage()
         {
-            return 7;
+            return 14;
         }
 
 
         public void printLine(PrintPageEventArgs e, Hashtable DataRow, Int32 posY)
         {
+            e.Graphics.DrawString(Convert.ToString(DataRow["nazev"]), tiskFont9, Brushes.Black, new PointF(10, posY));
+            e.Graphics.DrawString(Convert.ToString(DataRow["csn"]), tiskFont9, Brushes.Black, new PointF(10, posY + 5));
+            e.Graphics.DrawString(Convert.ToString(DataRow["jk"]), tiskFont9, Brushes.Black, new PointF(65, posY + 5));
+            e.Graphics.DrawString(Convert.ToString(DataRow["datum"]), tiskFont9, Brushes.Black, new PointF(100, posY + 5));
+            e.Graphics.DrawString(Convert.ToString(DataRow["pocetks"]), tiskFont9, Brushes.Black, new PointF(140, posY + 5));
+            e.Graphics.DrawString(Convert.ToString(DataRow["cena"]), tiskFont9, Brushes.Black, new PointF(160, posY + 5));
+            e.Graphics.DrawString(Convert.ToString(DataRow["celkcena"]), tiskFont9, Brushes.Black, new PointF(180, posY + 5));
+            e.Graphics.DrawLine(Pen5, new Point(5, posY + 10), new Point(200, posY + 10));
 
         }
 
         public void printHeader(PrintPageEventArgs e, Int32 posY)
         {
+            e.Graphics.DrawString(getWindowHeader(), tiskFont11b, Brushes.Black, new PointF(60, posY));
+            e.Graphics.DrawString("Název/ČSN", tiskFont9b, Brushes.Black, new PointF(10, posY + 10));
+            //            e.Graphics.DrawString("ČSN", tiskFont9b, Brushes.Black, new PointF(55, posY + 10));
+            e.Graphics.DrawString("Číslo položky", tiskFont9b, Brushes.Black, new PointF(65, posY + 10));
+            e.Graphics.DrawString("Datum", tiskFont9b, Brushes.Black, new PointF(100, posY + 10));
+            e.Graphics.DrawString("Ks", tiskFont9b, Brushes.Black, new PointF(140, posY + 10));
+            e.Graphics.DrawString("Cena", tiskFont9b, Brushes.Black, new PointF(160, posY + 10));
+            e.Graphics.DrawString("Celkem", tiskFont9b, Brushes.Black, new PointF(180, posY + 10));
+            e.Graphics.DrawLine(Pen3, new Point(5, posY + 15), new Point(200, posY + 15));
 
         }
 
