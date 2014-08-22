@@ -186,6 +186,12 @@
       <DependentUpon>VraceniNaradi.cs</DependentUpon>
     </Compile>
     <Compile Include="vSQLite.cs" />
+    <Compile Include="VyberDatumu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VyberDatumu.Designer.cs">
+      <DependentUpon>VyberDatumu.cs</DependentUpon>
+    </Compile>
     <Compile Include="VyberRadku.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -282,6 +288,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="VraceniNaradi.resx">
       <DependentUpon>VraceniNaradi.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VyberDatumu.resx">
+      <DependentUpon>VyberDatumu.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="VyberRadku.resx">
       <DependentUpon>VyberRadku.cs</DependentUpon>
