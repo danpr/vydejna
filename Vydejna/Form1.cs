@@ -255,10 +255,27 @@ namespace Vydejna
 
             if (myDB.DBIsOpened())
             {
+
+                VyberDatumu poskozenoDatum = new VyberDatumu();
+
                 try
                 {
+                    System.Windows.Forms.DialogResult dateChooseResult;
+                    dateChooseResult = poskozenoDatum.ShowDialog();
+                    DateTime dateFrom = poskozenoDatum.dateFromValue;
+                    DateTime dateTo = poskozenoDatum.dateToValue;
+                    poskozenoDatum.Dispose();
 
-                    dataGridView1.DataSource = myDB.loadDataTablePoskozeno();
+                    if (dateChooseResult == System.Windows.Forms.DialogResult.OK)
+                    {
+                        dataGridView1.DataSource = myDB.loadDataTablePoskozenoDate(dateFrom, dateTo);
+                    }
+                    else
+                    {
+                        dataGridView1.DataSource = myDB.loadDataTablePoskozeno();
+                    }
+
+                    
                     dataGridView1.RowHeadersVisible = false;
 
                     dataGridView1.Columns["poradi"].HeaderText = "Pořadí";

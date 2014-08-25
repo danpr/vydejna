@@ -517,6 +517,17 @@ namespace Vydejna
         }
 
 
+        public virtual DataTable loadDataTablePoskozenoDate(DateTime dateFrom, DateTime dateTo)
+        {
+
+
+            return loadDataTable("SELECT poradi, nazev, jk,  pocetks, rozmer, csn,"
+                                     + " cena, datum, vyrobek, konto, jmeno, krjmeno, oscislo, dilna, pracoviste"
+                                     + " FROM poskozeno"
+                                     + " WHERE   datum >= ? and datum <= ?  ORDER BY poradi, datum", dateFrom, dateTo);
+        }
+
+
 
         public virtual DataTable loadDataTableOsoby()
         {

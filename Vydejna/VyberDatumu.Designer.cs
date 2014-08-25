@@ -42,6 +42,8 @@
             this.dateTimePickerTo.Name = "dateTimePickerTo";
             this.dateTimePickerTo.Size = new System.Drawing.Size(122, 20);
             this.dateTimePickerTo.TabIndex = 7;
+            this.dateTimePickerTo.ValueChanged += new System.EventHandler(this.dateTimePicker_ValueChanged);
+            this.dateTimePickerTo.Leave += new System.EventHandler(this.dateTimePicker_ValueChanged);
             // 
             // label2
             // 
@@ -58,6 +60,8 @@
             this.dateTimePickerFrom.Name = "dateTimePickerFrom";
             this.dateTimePickerFrom.Size = new System.Drawing.Size(125, 20);
             this.dateTimePickerFrom.TabIndex = 5;
+            this.dateTimePickerFrom.ValueChanged += new System.EventHandler(this.dateTimePicker_ValueChanged);
+            this.dateTimePickerFrom.Leave += new System.EventHandler(this.dateTimePicker_ValueChanged);
             // 
             // label1
             // 
@@ -82,6 +86,7 @@
             // buttonOK
             // 
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonOK.Location = new System.Drawing.Point(271, 64);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(78, 23);
