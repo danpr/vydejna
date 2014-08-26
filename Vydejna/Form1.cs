@@ -40,6 +40,7 @@ namespace Vydejna
 
             labelView.Font = new Font(labelView.Font, FontStyle.Bold);
             labelUser.Text = "";
+            labelDate.Text = "";
 
             myDB = null;
 
@@ -153,6 +154,7 @@ namespace Vydejna
 
         private void loadNaradiItems()
         {
+            labelDate.Text = "";
             // nahraje hlavni tabulku - naradi - skladove karty
             Application.DoEvents();
             dataGridView1.Columns.Clear();
@@ -201,6 +203,7 @@ namespace Vydejna
 
         private void loadZrusenychItems()
         {
+            labelDate.Text = "";
             Application.DoEvents();
             dataGridView1.Columns.Clear();
             dataGridView1.DataSource = null;
@@ -248,6 +251,7 @@ namespace Vydejna
 
         private void loadPoskozenoItems()
         {
+            labelDate.Text = "";
             Application.DoEvents();
             dataGridView1.Columns.Clear();
             dataGridView1.DataSource = null;
@@ -260,18 +264,20 @@ namespace Vydejna
 
                 try
                 {
-                    System.Windows.Forms.DialogResult dateChooseResult;
-                    dateChooseResult = poskozenoDatum.ShowDialog();
+                    System.Windows.Forms.DialogResult dateChooseResult = poskozenoDatum.ShowDialog();
                     DateTime dateFrom = poskozenoDatum.dateFromValue;
                     DateTime dateTo = poskozenoDatum.dateToValue;
                     poskozenoDatum.Dispose();
+                    this.Refresh();
 
                     if (dateChooseResult == System.Windows.Forms.DialogResult.OK)
                     {
+                        setDateLabel(dateFrom, dateTo);
                         dataGridView1.DataSource = myDB.loadDataTablePoskozenoDate(dateFrom, dateTo);
                     }
                     else
                     {
+                        labelDate.Text = "";
                         dataGridView1.DataSource = myDB.loadDataTablePoskozeno();
                     }
 
@@ -314,6 +320,7 @@ namespace Vydejna
 
         private void loadVracenoItems()
         {
+            labelDate.Text = "";
             Application.DoEvents();
             dataGridView1.Columns.Clear();
             dataGridView1.DataSource = null;
@@ -321,10 +328,32 @@ namespace Vydejna
 
             if (myDB.DBIsOpened())
             {
+
+                VyberDatumu vracenoDatum = new VyberDatumu();
+
                 try
                 {
 
-                    dataGridView1.DataSource = myDB.loadDataTableVraceno();
+
+                    System.Windows.Forms.DialogResult dateChooseResult = vracenoDatum.ShowDialog();
+                    DateTime dateFrom = vracenoDatum.dateFromValue;
+                    DateTime dateTo = vracenoDatum.dateToValue;
+                    vracenoDatum.Dispose();
+                    this.Refresh();
+
+                    if (dateChooseResult == System.Windows.Forms.DialogResult.OK)
+                    {
+                        setDateLabel(dateFrom, dateTo);
+                        dataGridView1.DataSource = myDB.loadDataTableVracenoDate(dateFrom,dateTo);
+                    }
+                    else
+                    {
+                        labelDate.Text = "";
+                        dataGridView1.DataSource = myDB.loadDataTableVraceno();
+                    }
+
+
+//                    dataGridView1.DataSource = myDB.loadDataTableVraceno();
                     dataGridView1.RowHeadersVisible = false;
 
                     dataGridView1.Columns["poradi"].HeaderText = "Pořadí";
@@ -361,8 +390,8 @@ namespace Vydejna
 
         private void loadOsobyItems()
         {
+            labelDate.Text = "";
             Application.DoEvents();
-
             dataGridView1.Columns.Clear();
             dataGridView1.DataSource = null;
             Application.DoEvents();
@@ -1203,6 +1232,12 @@ namespace Vydejna
         void changesStateConnection(object sender, StateChangeEventArgs e)
         {
             setConnectionLabel(e.CurrentState);
+        }
+
+
+        private void setDateLabel(DateTime dateFrom, DateTime dateTo)
+        {
+            labelDate.Text = "Od : " + dateFrom.ToShortDateString() + " do : " + dateTo.ToShortDateString();
         }
 
 

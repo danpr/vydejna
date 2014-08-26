@@ -509,6 +509,16 @@ namespace Vydejna
                                      + " from vraceno ORDER BY datum, poradi");
         }
 
+
+        public virtual DataTable loadDataTableVracenoDate(DateTime dateFrom, DateTime dateTo)
+        {
+            return loadDataTable("SELECT poradi, nazev, jk,  pocetks, rozmer, csn,"
+                                     + " cena, datum, vyrobek, konto, jmeno, krjmeno, oscislo, dilna, pracoviste"
+                                     + " from vraceno"
+                                     + " WHERE datum >= ? and datum <= ? ORDER BY datum, poradi",dateFrom,dateTo);
+        }
+
+
         public virtual DataTable loadDataTablePoskozeno()
         {
             return loadDataTable("SELECT poradi, nazev, jk,  pocetks, rozmer, csn,"
@@ -519,12 +529,10 @@ namespace Vydejna
 
         public virtual DataTable loadDataTablePoskozenoDate(DateTime dateFrom, DateTime dateTo)
         {
-
-
             return loadDataTable("SELECT poradi, nazev, jk,  pocetks, rozmer, csn,"
                                      + " cena, datum, vyrobek, konto, jmeno, krjmeno, oscislo, dilna, pracoviste"
                                      + " FROM poskozeno"
-                                     + " WHERE   datum >= ? and datum <= ?  ORDER BY poradi, datum", dateFrom, dateTo);
+                                     + " WHERE datum >= ? and datum <= ? ORDER BY poradi, datum", dateFrom, dateTo);
         }
 
 

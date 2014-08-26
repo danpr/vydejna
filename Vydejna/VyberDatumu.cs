@@ -14,6 +14,7 @@ namespace Vydejna
         public VyberDatumu()
         {
             InitializeComponent();
+            StartPosition = FormStartPosition.CenterParent;
             buttonOK.Enabled = false;
             setDefaultDate();
             setButtonOk();

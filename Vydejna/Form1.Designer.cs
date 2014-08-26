@@ -93,6 +93,7 @@
             this.labelStateConnection = new System.Windows.Forms.Label();
             this.labelUser = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.labelDate = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
@@ -220,7 +221,7 @@
             this.seznamPoškozenekZaZakázkuToolStripMenuItem,
             this.seznamPoškozenekZaKontoToolStripMenuItem});
             this.poškozenkyToolStripMenuItem.Name = "poškozenkyToolStripMenuItem";
-            this.poškozenkyToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.poškozenkyToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.poškozenkyToolStripMenuItem.Text = "Poškozenky";
             // 
             // vyhodnoceniPoškozenekDleStřediskaToolStripMenuItem
@@ -604,11 +605,21 @@
             // 
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // labelDate
+            // 
+            this.labelDate.AutoSize = true;
+            this.labelDate.Location = new System.Drawing.Point(365, 32);
+            this.labelDate.Name = "labelDate";
+            this.labelDate.Size = new System.Drawing.Size(35, 13);
+            this.labelDate.TabIndex = 7;
+            this.labelDate.Text = "label1";
+            // 
             // Vydejna
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(919, 446);
+            this.Controls.Add(this.labelDate);
             this.Controls.Add(this.labelUser);
             this.Controls.Add(this.labelStateConnection);
             this.Controls.Add(this.labelView);
@@ -698,6 +709,7 @@
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator8;
         private System.Windows.Forms.ToolStripMenuItem opravaDatToolStripMenuItem14;
+        private System.Windows.Forms.Label labelDate;
     }
 }
 
