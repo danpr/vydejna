@@ -445,7 +445,7 @@ namespace Vydejna
 
         public virtual DataTable loadDataTableZmeny (Int32 poradi) //(string kodID)
         {
-            return loadDataTable("SELECT poradi, datum, CASE WHEN stav = \'O\' THEN \'Poskozeno\'  WHEN stav = \'U\' THEN \'Půjčeno\' WHEN stav = \'V\' THEN \'Vyřazeno\' WHEN stav = \'P\' THEN \'Přijmuto\' WHEN stav = \'R\' THEN \'Vráceno\' END AS stav, poznamka, prijem, vydej, zustatek, zapkarta, vevcislo FROM zmeny WHERE parporadi = " + poradi.ToString() + " order by poradi"); // datum
+            return loadDataTable("SELECT poradi, datum, CASE WHEN stav = \'O\' THEN \'Poskozeno\'  WHEN stav = \'U\' THEN \'Půjčeno\' WHEN stav = \'V\' THEN \'Vyřazeno\' WHEN stav = \'P\' THEN \'Přijmuto\' WHEN stav = \'R\' THEN \'Vráceno\' END AS stav, poznamka, prijem, vydej, zustatek, zapkarta, vevcislo, stav as stavkod FROM zmeny WHERE parporadi = " + poradi.ToString() + " order by poradi"); // datum
         }
 
         public virtual DataTable loadDataTableVypujceno(Int32 poradi) //(string kodID)
@@ -671,7 +671,7 @@ namespace Vydejna
         public virtual Hashtable getZmenyLine(Int32 parPoradi, Int32 poradi, Hashtable DBRow)
         {
             if (DBRow == null) DBRow = new Hashtable();
-            string DBSelect = "SELECT poradi, datum, CASE WHEN stav = \'O\' THEN \'Poskozeno\'  WHEN stav = \'U\' THEN \'Půjčeno\' WHEN stav = \'V\' THEN \'Vyřazeno\' WHEN stav = \'P\' THEN \'Přijmuto\' WHEN stav = \'R\' THEN \'Vráceno\' END AS stav, poznamka, prijem, vydej, zustatek, zapkarta FROM zmeny WHERE parporadi = " + parPoradi.ToString() + " AND poradi = "+ poradi.ToString() + " order by datum";
+            string DBSelect = "SELECT poradi, datum, CASE WHEN stav = \'O\' THEN \'Poskozeno\'  WHEN stav = \'U\' THEN \'Půjčeno\' WHEN stav = \'V\' THEN \'Vyřazeno\' WHEN stav = \'P\' THEN \'Přijmuto\' WHEN stav = \'R\' THEN \'Vráceno\' END AS stav, poznamka, prijem, vydej, zustatek, zapkarta, stav as stavkod FROM zmeny WHERE parporadi = " + parPoradi.ToString() + " AND poradi = "+ poradi.ToString() + " order by datum";
             return getDBLine(DBSelect, DBRow);
         }
 

@@ -789,5 +789,36 @@ namespace Vydejna
         {
 
         }
+
+        private void zrušeníPříjmuToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (dataGridViewZmeny.SelectedRows.Count > 0)
+            {
+                DataGridViewRow selectedRow = dataGridViewZmeny.SelectedRows[0];
+//                Int32 indexSelectedRow = dataGridViewZmeny.SelectedRows[0].Index;
+//                Int32 countRows = dataGridViewZmeny.RowCount;
+
+                if ((dataGridViewZmeny.SelectedRows[0].Index + 1) == dataGridViewZmeny.RowCount)
+                {
+                    Int32 poradi = Convert.ToInt32(selectedRow.Cells["poradi"].Value);
+                    string stavkod = Convert.ToString(selectedRow.Cells["stavkod"].Value);
+                    if (stavkod.Trim() == "P")
+                    {
+                        // test zda je posledni
+                        MessageBox.Show("Lituji. Činnost není implementována.");
+
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("Lituji. Poslední operace není PŘÍJEM.");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Lituji. Není vybrana poslední řadka.");
+                }
+            }
+        }
     }
 }

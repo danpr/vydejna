@@ -69,6 +69,7 @@
             this.p9smoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.písmoAplikaceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.zrušeníPříjmuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMinStav)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownUcetStav)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewZmeny)).BeginInit();
@@ -349,9 +350,10 @@
             // 
             this.contextMenuStripZmeny.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.opravaÚdajuToolStripMenuItem,
-            this.zapujcenoNaKartuToolStripMenuItem});
+            this.zapujcenoNaKartuToolStripMenuItem,
+            this.zrušeníPříjmuToolStripMenuItem});
             this.contextMenuStripZmeny.Name = "contextMenuStripZmeny";
-            this.contextMenuStripZmeny.Size = new System.Drawing.Size(177, 48);
+            this.contextMenuStripZmeny.Size = new System.Drawing.Size(177, 92);
             this.contextMenuStripZmeny.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripZmeny_Opening);
             // 
             // opravaÚdajuToolStripMenuItem
@@ -531,6 +533,13 @@
             this.písmoAplikaceToolStripMenuItem.Text = "Písmo aplikace";
             this.písmoAplikaceToolStripMenuItem.Click += new System.EventHandler(this.písmoAplikaceToolStripMenuItem_Click);
             // 
+            // zrušeníPříjmuToolStripMenuItem
+            // 
+            this.zrušeníPříjmuToolStripMenuItem.Name = "zrušeníPříjmuToolStripMenuItem";
+            this.zrušeníPříjmuToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
+            this.zrušeníPříjmuToolStripMenuItem.Text = "Zrušení příjmu";
+            this.zrušeníPříjmuToolStripMenuItem.Click += new System.EventHandler(this.zrušeníPříjmuToolStripMenuItem_Click);
+            // 
             // SkladovaKarta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -636,5 +645,6 @@
         private System.Windows.Forms.ToolStripMenuItem p9smoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem písmoAplikaceToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem zrušeníPříjmuToolStripMenuItem;
     }
 }
