@@ -12,7 +12,7 @@ namespace Vydejna
     enum permCode
     {
       All = 0,  Nar = 1, NarAdd, NarEd, NarEdM, NarEdNaz, NarEdJK, NarEdCenaKs, NarEdUcCenaKs, NarEdUcCena, NarEdMin, NarEdFyStav, NarEdUcStav, NarDel, NarPrint, NarPrijem, NarPosk, NarOprO,
-    ZNar, ZNarEd, ZNarDel, PNar, PNarEd, PNarDel, VNar, VNarEd, VNarDel, Prac, PracAdd, PracEd, PracDel, PracPrint, PracZapN, PracVracN, PassSet  };
+    ZNar, ZNarEd, ZNarDel, PNar, PNarEd, PNarDel, VNar, VNarEd, VNarDel, Prac, PracAdd, PracEd, PracDel, PracPrint, PracZapN, PracVracN, PassSet, NarDelPrij, NarOprData  };
     
        public class permStruct
        {
@@ -65,6 +65,10 @@ namespace Vydejna
             permList.Add(new permStruct((Int32)permCode.Nar, (Int32)permCode.NarDel, "Smazání položky"));
             permList.Add(new permStruct((Int32)permCode.Nar, (Int32)permCode.NarPrint, "Tisk položky"));
             permList.Add(new permStruct((Int32)permCode.Nar, (Int32)permCode.NarOprO, "Opravit ůčet. operaci"));
+
+            permList.Add(new permStruct((Int32)permCode.Nar, (Int32)permCode.NarDelPrij, "Zrušit posledni příjem"));
+            permList.Add(new permStruct((Int32)permCode.Nar, (Int32)permCode.NarOprData, "Opravit data"));
+
             permList.Add(new permStruct(0, (Int32)permCode.ZNar, "Zrušené karty"));
             permList.Add(new permStruct((Int32)permCode.ZNar, (Int32)permCode.ZNarEd, "Opravení položky"));
             permList.Add(new permStruct((Int32)permCode.ZNar, (Int32)permCode.ZNarDel, "Smazání položky"));

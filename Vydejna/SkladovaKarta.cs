@@ -792,33 +792,44 @@ namespace Vydejna
 
         private void zrušeníPříjmuToolStripMenuItem_Click(object sender, EventArgs e)
         {
+
+        }
+
+        private void ContextMenu_zruseníPrijmu(object sender, EventArgs e)
+        {
             if (dataGridViewZmeny.SelectedRows.Count > 0)
             {
                 DataGridViewRow selectedRow = dataGridViewZmeny.SelectedRows[0];
-//                Int32 indexSelectedRow = dataGridViewZmeny.SelectedRows[0].Index;
-//                Int32 countRows = dataGridViewZmeny.RowCount;
-
                 if ((dataGridViewZmeny.SelectedRows[0].Index + 1) == dataGridViewZmeny.RowCount)
                 {
                     Int32 poradi = Convert.ToInt32(selectedRow.Cells["poradi"].Value);
                     string stavkod = Convert.ToString(selectedRow.Cells["stavkod"].Value);
                     if (stavkod.Trim() == "P")
                     {
-                        // test zda je posledni
-                        MessageBox.Show("Lituji. Činnost není implementována.");
+                        UzivatelData ud = UzivatelData.makeInstance();
 
-
-                    }
-                    else
-                    {
-                        MessageBox.Show("Lituji. Poslední operace není PŘÍJEM.");
+                        if (ud.userHasAccessRightsWM((Int32)permCode.NarDelPrij))
+                        {
+                            MessageBox.Show("Lituji. Činnost není­ implementovaná.");
+                            // provede smazani prijmu a opravi udaje v ucet stav a fyzstav
+                        }
+                        else
+                        {
+                            MessageBox.Show("Lituji. Nemáte oprávnění k odstranění příjmu.");
+                        }
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Lituji. Není vybrana poslední řadka.");
+                    MessageBox.Show("Lituji. Poslední­ operace není PŘÍJEM.");
                 }
             }
+            else
+            {
+                MessageBox.Show("Lituji. Není­ vybraná poslední­ řádka.");
+            }
         }
+
+    
     }
 }
