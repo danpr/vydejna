@@ -3889,7 +3889,156 @@ namespace Vydejna
             }
         }
 
+        public override Int32 deleteLastPrijem(Int32 naradiPoradi, Int32 zmenyPoradi)
+        {
+            return -1;
 
+            OdbcTransaction transaction = null;
+
+            if (DBIsOpened())
+            {
+                string commandStringRead1 = "SELECT prijem, vydej, stav, parporadi, poradi FROM zmeny WHERE parporadi = ? AND poradi = (" +
+                    "select max(poradi) from zmeny where parporadi = ?)";
+                string commandStringRead2 = "SELECT fyzstav, ucetstav, ucetkscen, celkcena,  FROM naradi where poradi = ? ";
+
+
+                string commandString1 = "DELETE FROM zmeny where parporadi = ? AND poradi = ? ";
+                string commandString5 = "INSERT INTO zmeny (parporadi, pomozjk, datum, poznamka, prijem, vydej, zustatek, zapkarta, vevcislo, pocivc, stav, poradi )";
+
+
+                try
+                {
+                    try
+                    {
+                        transaction = (myDBConn as OdbcConnection).BeginTransaction(System.Data.IsolationLevel.ReadCommitted);
+                    }
+                    catch
+                    {
+                    }
+
+                    OdbcCommand cmdr1 = new OdbcCommand(commandStringRead1, myDBConn as OdbcConnection);
+                    cmdr1.Parameters.AddWithValue("@poradi", naradiPoradi).DbType = DbType.Int32;
+                    cmdr1.Parameters.AddWithValue("@poradi", naradiPoradi).DbType = DbType.Int32;
+                    cmdr1.Transaction = transaction;
+                    OdbcDataReader seqReader1 = cmdr1.ExecuteReader();
+                    Int32 prijem = 0;
+                    Int32 vydej = 0;
+                    string stav = "";
+
+                    if (seqReader1.Read() == true)
+                    {
+                        prijem = seqReader1.GetInt32(seqReader1.GetOrdinal("prijem"));
+                        vydej = seqReader1.GetInt32(seqReader1.GetOrdinal("vydej"));
+                        stav = seqReader1.GetString(seqReader1.GetOrdinal("stav"));
+                        if (stav != "P")
+                        {
+                            if (transaction != null)
+                            {
+                                (transaction as OdbcTransaction).Rollback();
+                            }
+                            seqReader1.Close();
+                            return -3; // Posledni zaznam neni prijem
+                        }
+                        if (prijem <= 0)
+                        {
+                            if (transaction != null)
+                            {
+                                (transaction as OdbcTransaction).Rollback();
+                            }
+                            seqReader1.Close();
+                            return -4; // Neexistuje spravna hodnota prijmu
+                        }
+
+                        if (vydej !=  0)
+                        {
+                            if (transaction != null)
+                            {
+                                (transaction as OdbcTransaction).Rollback();
+                            }
+                            seqReader1.Close();
+                            return -5; // Vydej musi byt nulovy
+                        }
+
+                    }
+                    else
+                    {
+                        seqReader1.Close();
+                        // material neexistuje zrusime transakci a navratime chybu
+                        if (transaction != null)
+                        {
+                            (transaction as OdbcTransaction).Rollback();
+                        }
+                        return -2; // Zaznam nexistuje
+                    }
+
+                    // test tabulky naradi
+                    Int32 fyzstav = 0;
+                    Int32 ucetstav = 0;
+                    double ucetkscen = 0;
+                    double celkcena = 0;
+
+
+                    OdbcCommand cmdr2 = new OdbcCommand(commandStringRead2, myDBConn as OdbcConnection);
+                    cmdr2.Parameters.AddWithValue("@poradi", naradiPoradi).DbType = DbType.Int32;
+                    cmdr2.Transaction = transaction;
+                    OdbcDataReader seqReader2 = cmdr2.ExecuteReader();
+                    if (seqReader1.Read() == true)
+                    {
+                        fyzstav = seqReader1.GetInt32(seqReader2.GetOrdinal("fyzstav"));
+                        ucetstav = seqReader1.GetInt32(seqReader2.GetOrdinal("ucetstav"));
+                        ucetkscen = seqReader1.GetDouble (seqReader2.GetOrdinal("ucetkscen"));
+                        celkcena = seqReader1.GetDouble(seqReader2.GetOrdinal("celkcena"));
+
+                        if ((ucetstav < prijem) || (fyzstav < prijem ))
+                        {
+                            if (transaction != null)
+                            {
+                                (transaction as OdbcTransaction).Rollback();
+                            }
+                            seqReader2.Close();
+                            return -7; // ucetni nebo fyz stav stav nesmi byt mensi nez prijem
+                        }
+                    }
+
+                    if (transaction != null)
+                    {
+                        (transaction as OdbcTransaction).Commit();
+                    }
+                    else
+                    {
+                        seqReader2.Close();
+                        // material neexistuje zrusime transakci a navratime chybu
+                        if (transaction != null)
+                        {
+                            (transaction as OdbcTransaction).Rollback();
+                        }
+                        return -6; // Zaznam nexistuje
+                    }
+                    seqReader2.Close();
+// dell a update
+
+
+                    return 0;
+
+                }
+                catch (Exception)
+                {
+                    // doslo k chybe
+                    if (transaction != null)
+                    {
+                        (transaction as OdbcTransaction).Rollback();
+                    }
+                    return -1;
+                }
+
+
+
+            }
+            else
+            {
+                return -1;
+            }
+        }
 
     }
 }

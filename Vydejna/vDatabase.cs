@@ -818,8 +818,14 @@ namespace Vydejna
             return false;
         }
 
+
+        public virtual Int32 deleteLastPrijem(Int32 naradiPoradi, Int32 zmenyPoradi)
+        {
+            return -1;
+        }
+
+
+
     }
-
-
 
 }

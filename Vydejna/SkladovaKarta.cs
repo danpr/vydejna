@@ -795,14 +795,16 @@ namespace Vydejna
 
         }
 
-        private void ContextMenu_zruseníPrijmu(object sender, EventArgs e)
+
+
+                private void ContextMenu_zruseníPrijmu(object sender, EventArgs e)
         {
             if (dataGridViewZmeny.SelectedRows.Count > 0)
             {
                 DataGridViewRow selectedRow = dataGridViewZmeny.SelectedRows[0];
                 if ((dataGridViewZmeny.SelectedRows[0].Index + 1) == dataGridViewZmeny.RowCount)
                 {
-                    Int32 poradi = Convert.ToInt32(selectedRow.Cells["poradi"].Value);
+                    Int32 poradiZ = Convert.ToInt32(selectedRow.Cells["poradi"].Value);
                     string stavkod = Convert.ToString(selectedRow.Cells["stavkod"].Value);
                     if (stavkod.Trim() == "P")
                     {
@@ -810,6 +812,7 @@ namespace Vydejna
 
                         if (ud.userHasAccessRightsWM((Int32)permCode.NarDelPrij))
                         {
+                            myDB.deleteLastPrijem(poradi,poradiZ);
                             MessageBox.Show("Lituji. Činnost není­ implementovaná.");
                             // provede smazani prijmu a opravi udaje v ucet stav a fyzstav
                         }
