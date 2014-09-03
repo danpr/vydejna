@@ -806,13 +806,15 @@ namespace Vydejna
                 {
                     Int32 poradiZ = Convert.ToInt32(selectedRow.Cells["poradi"].Value);
                     string stavkod = Convert.ToString(selectedRow.Cells["stavkod"].Value);
+                    Int32 prijemZ = Convert.ToInt32(selectedRow.Cells["prijem"].Value);
+
                     if (stavkod.Trim() == "P")
                     {
                         UzivatelData ud = UzivatelData.makeInstance();
 
                         if (ud.userHasAccessRightsWM((Int32)permCode.NarDelPrij))
                         {
-                            myDB.deleteLastPrijem(poradi,poradiZ);
+                            myDB.deleteLastPrijem(poradi,poradiZ,prijemZ);
                             MessageBox.Show("Lituji. Činnost není­ implementovaná.");
                             // provede smazani prijmu a opravi udaje v ucet stav a fyzstav
                         }

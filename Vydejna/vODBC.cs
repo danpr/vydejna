@@ -3889,7 +3889,7 @@ namespace Vydejna
             }
         }
 
-        public override Int32 deleteLastPrijem(Int32 naradiPoradi, Int32 zmenyPoradi)
+        public override Int32 deleteLastPrijem(Int32 DBnaradiPoradi, Int32 DBzmenyPoradi, Int32 DBprijem)
         {
             return -1;
 
@@ -3917,35 +3917,50 @@ namespace Vydejna
                     }
 
                     OdbcCommand cmdr1 = new OdbcCommand(commandStringRead1, myDBConn as OdbcConnection);
-                    cmdr1.Parameters.AddWithValue("@poradi", naradiPoradi).DbType = DbType.Int32;
-                    cmdr1.Parameters.AddWithValue("@poradi", naradiPoradi).DbType = DbType.Int32;
+                    cmdr1.Parameters.AddWithValue("@poradi", DBnaradiPoradi).DbType = DbType.Int32;
+                    cmdr1.Parameters.AddWithValue("@poradi", DBnaradiPoradi).DbType = DbType.Int32;
                     cmdr1.Transaction = transaction;
                     OdbcDataReader seqReader1 = cmdr1.ExecuteReader();
                     Int32 prijem = 0;
                     Int32 vydej = 0;
                     string stav = "";
+                    Int32 zmenyPoradi = 0;
+                    Int32 naradiPoradi = 0;
 
                     if (seqReader1.Read() == true)
                     {
                         prijem = seqReader1.GetInt32(seqReader1.GetOrdinal("prijem"));
                         vydej = seqReader1.GetInt32(seqReader1.GetOrdinal("vydej"));
                         stav = seqReader1.GetString(seqReader1.GetOrdinal("stav"));
+                        zmenyPoradi = seqReader1.GetInt32(seqReader1.GetOrdinal("poradi"));
+                        naradiPoradi = seqReader1.GetInt32(seqReader1.GetOrdinal("parporadi"));
+                        seqReader1.Close();
+
                         if (stav != "P")
                         {
                             if (transaction != null)
                             {
                                 (transaction as OdbcTransaction).Rollback();
                             }
-                            seqReader1.Close();
                             return -3; // Posledni zaznam neni prijem
                         }
+
+                        if (zmenyPoradi != DBzmenyPoradi)
+                        {
+                            if (transaction != null)
+                            {
+                                (transaction as OdbcTransaction).Rollback();
+                            }
+                            return -9; // Zaznam o zmene neexistuje - zmena z jineho mista
+                        }
+
+
                         if (prijem <= 0)
                         {
                             if (transaction != null)
                             {
                                 (transaction as OdbcTransaction).Rollback();
                             }
-                            seqReader1.Close();
                             return -4; // Neexistuje spravna hodnota prijmu
                         }
 
@@ -3955,7 +3970,6 @@ namespace Vydejna
                             {
                                 (transaction as OdbcTransaction).Rollback();
                             }
-                            seqReader1.Close();
                             return -5; // Vydej musi byt nulovy
                         }
 
@@ -3971,6 +3985,17 @@ namespace Vydejna
                         return -2; // Zaznam nexistuje
                     }
 
+                    // test opravy prijmu
+
+                    if (DBprijem != prijem)
+                    {
+                        if (transaction != null)
+                        {
+                            (transaction as OdbcTransaction).Rollback();
+                        }
+                        return -8; // Nesouhlasi velikost prijmu
+                    }
+
                     // test tabulky naradi
                     Int32 fyzstav = 0;
                     Int32 ucetstav = 0;
@@ -3979,7 +4004,7 @@ namespace Vydejna
 
 
                     OdbcCommand cmdr2 = new OdbcCommand(commandStringRead2, myDBConn as OdbcConnection);
-                    cmdr2.Parameters.AddWithValue("@poradi", naradiPoradi).DbType = DbType.Int32;
+                    cmdr2.Parameters.AddWithValue("@poradi", DBnaradiPoradi).DbType = DbType.Int32;
                     cmdr2.Transaction = transaction;
                     OdbcDataReader seqReader2 = cmdr2.ExecuteReader();
                     if (seqReader1.Read() == true)

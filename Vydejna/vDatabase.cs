@@ -819,7 +819,16 @@ namespace Vydejna
         }
 
 
-        public virtual Int32 deleteLastPrijem(Int32 naradiPoradi, Int32 zmenyPoradi)
+        // -1 obecna chyba
+        // -2 neexistuje zaznam v tabulce zmeny
+        // -3 posledni zaznam neni prijem
+        // -4 neexistuje spravna hodnota prijmu prijem neni kladny
+        // -5 Vydej musi byt nulovy
+        // -7 ucetni nebo fyz stav stav nesmi byt mensi nez prijem
+        // -6 neexistuje zaznam v tabulce naradi
+        // -8; Nesouhlasi velikost prijmu - zmena z jeneho mista
+        // -9 Zaznam o zmene neexistuje - zmena z jineho mista
+        public virtual Int32 deleteLastPrijem(Int32 DBnaradiPoradi, Int32 DBzmenyPoradi, Int32 DBprijem)
         {
             return -1;
         }
