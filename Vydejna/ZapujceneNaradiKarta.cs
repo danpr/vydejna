@@ -322,7 +322,7 @@ namespace Vydejna
                             {
                                 MessageBox.Show("Vrácení nářadi se nezdařilo. Lituji.");
                             }
-                            if (errCode == 0)
+                            if (errCode >= 0)
                             {
                                 // opravime tabulku
                                 Hashtable DBPujcenoRow = null;

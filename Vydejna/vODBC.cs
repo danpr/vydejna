@@ -3899,7 +3899,8 @@ namespace Vydejna
                     "select max(poradi) from zmeny where parporadi = ?)";
                 string commandStringRead2 = "SELECT fyzstav, ucetstav, ucetkscen, celkcena  FROM naradi where poradi = ? ";
                 string commandString1 = "DELETE FROM zmeny where parporadi = ? AND poradi = ? ";
-                string commandString2 = "UPDATE naradi SET fyzstav = fyzstav - ?, ucetstav = ucetstav - ?, celkcena = celkcena - ? WHERE poradi = ? )";
+                string commandString2 = "UPDATE naradi SET fyzstav = fyzstav - ?, ucetstav = ucetstav - ?, celkcena = celkcena - ? WHERE poradi = ? ";
+
 
                 try
                 {

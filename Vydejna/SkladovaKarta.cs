@@ -808,15 +808,60 @@ namespace Vydejna
                     string stavkod = Convert.ToString(selectedRow.Cells["stavkod"].Value);
                     Int32 prijemZ = Convert.ToInt32(selectedRow.Cells["prijem"].Value);
 
+                    
                     if (stavkod.Trim() == "P")
                     {
                         UzivatelData ud = UzivatelData.makeInstance();
 
                         if (ud.userHasAccessRightsWM((Int32)permCode.NarDelPrij))
                         {
-                            myDB.deleteLastPrijem(poradi,poradiZ,prijemZ);
-                            MessageBox.Show("Lituji. Činnost není­ implementovaná.");
-                            // provede smazani prijmu a opravi udaje v ucet stav a fyzstav
+                            Int32 errCode = myDB.deleteLastPrijem(poradi, poradiZ, prijemZ);
+
+                            if (errCode < 0)
+                            {
+                                if (errCode == -9)
+                                {
+                                    MessageBox.Show("Záznam o změně neexistuje  - změna z jiného místa ?.");
+                                }
+                                if (errCode == -8)
+                                {
+                                    MessageBox.Show("Nesouhlasí velikost příjmu - změna z jiného místa ?.");
+                                }
+                                if (errCode == -7)
+                                {
+                                    MessageBox.Show("Účetní nebo fyzický stav nesmí být menší než příjem.");
+                                }
+                                if (errCode == -6)
+                                {
+                                    MessageBox.Show("Neexistuje záznam v tabulce nářadí.");
+                                }
+                                if (errCode == -5)
+                                {
+                                    MessageBox.Show("Výdej nařadí při přijmu musí být nulový.");
+                                }
+                                if (errCode == -3)
+                                {
+                                    MessageBox.Show("Poslední záznam není příjem.");
+                                }
+                                if (errCode == -2)
+                                {
+                                    MessageBox.Show("Neexistuje záznam v tabulce změn.");
+                                }
+                                if (errCode == -1)
+                                {
+                                    MessageBox.Show("Zrušení posledního příjmu se nezdařilo. Lituji.");
+                                }
+                            }
+                            else
+                            {
+                                // smazat radku
+                                Int32 selectedLine = dataGridViewZmeny.SelectedRows[0].Index;
+                                if (selectedLine >= 0)
+                                {
+                                    (dataGridViewZmeny.DataSource as DataTable).Rows.RemoveAt(selectedLine);
+                                }
+
+                            }
                         }
                         else
                         {
