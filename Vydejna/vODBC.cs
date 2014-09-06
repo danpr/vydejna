@@ -3932,15 +3932,6 @@ namespace Vydejna
                         naradiPoradi = seqReader1.GetInt32(seqReader1.GetOrdinal("parporadi"));
                         seqReader1.Close();
 
-                        if (stav != "P")
-                        {
-                            if (transaction != null)
-                            {
-                                (transaction as OdbcTransaction).Rollback();
-                            }
-                            return -3; // Posledni zaznam neni prijem
-                        }
-
                         if (zmenyPoradi != DBzmenyPoradi)
                         {
                             if (transaction != null)
@@ -3948,6 +3939,15 @@ namespace Vydejna
                                 (transaction as OdbcTransaction).Rollback();
                             }
                             return -9; // Zaznam o zmene neexistuje - zmena z jineho mista
+                        }
+
+                        if (stav != "P")
+                        {
+                            if (transaction != null)
+                            {
+                                (transaction as OdbcTransaction).Rollback();
+                            }
+                            return -3; // Posledni zaznam neni prijem
                         }
 
 
