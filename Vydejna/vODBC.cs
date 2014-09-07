@@ -3897,9 +3897,10 @@ namespace Vydejna
             {
                 string commandStringRead1 = "SELECT prijem, vydej, stav, parporadi, poradi FROM zmeny WHERE parporadi = ? AND poradi = (" +
                     "select max(poradi) from zmeny where parporadi = ?)";
-                string commandStringRead2 = "SELECT fyzstav, ucetstav, ucetkscen, celkcena  FROM naradi where poradi = ? ";
+                string commandStringRead2 = "SELECT fyzstav, ucetstav, ucetkscen, celkcena, cena  FROM naradi where poradi = ? ";
+                string commandStringRead3 = "SELECT permission FROM nastaveni WHERE setid = \'prumucetcena\'";
                 string commandString1 = "DELETE FROM zmeny where parporadi = ? AND poradi = ? ";
-                string commandString2 = "UPDATE naradi SET fyzstav = fyzstav - ?, ucetstav = ucetstav - ?, celkcena = celkcena - ? WHERE poradi = ? ";
+                string commandString2 = "UPDATE naradi SET fyzstav = fyzstav - ?, ucetstav = ucetstav - ?, celkcena = celkcena - ?, ucetkscen = ?  WHERE poradi = ? ";
 
 
                 try
@@ -3997,6 +3998,7 @@ namespace Vydejna
                     Int32 ucetstav = 0;
                     double ucetkscen = 0;
                     double celkcena = 0;
+                    double cena = 0;
 
 
                     OdbcCommand cmdr2 = new OdbcCommand(commandStringRead2, myDBConn as OdbcConnection);
@@ -4009,6 +4011,7 @@ namespace Vydejna
                         ucetstav = seqReader2.GetInt32(seqReader2.GetOrdinal("ucetstav"));
                         ucetkscen = seqReader2.GetDouble(seqReader2.GetOrdinal("ucetkscen"));
                         celkcena = seqReader2.GetDouble(seqReader2.GetOrdinal("celkcena"));
+                        cena = seqReader2.GetDouble(seqReader2.GetOrdinal("cena"));
                         seqReader2.Close();
                     }
                     else
@@ -4033,6 +4036,26 @@ namespace Vydejna
                         return -7; // ucetni nebo fyz stav stav nesmi byt mensi nez prijem
                     }
 
+                    OdbcCommand cmdr3 = new OdbcCommand(commandStringRead3, myDBConn as OdbcConnection);
+                    cmdr3.Transaction = transaction;
+                    OdbcDataReader myReader3 = cmdr3.ExecuteReader();
+                    Boolean prumerUcetCenaEnabled = false;
+                    if (myReader3.Read() == true)
+                    {
+                        string permision = myReader3.GetString(0);
+                        myReader3.Close();
+                        if (permision == "A")
+                        {
+                            prumerUcetCenaEnabled = true;
+                        }
+                    }
+                    else
+                    {
+                        // radka neexistuje
+                        myReader3.Close();
+                    }
+
+
                     OdbcCommand cmd1 = new OdbcCommand(commandString1, myDBConn as OdbcConnection);
                     cmd1.Parameters.AddWithValue("@parporadi", DBnaradiPoradi).DbType = DbType.Int32;
                     cmd1.Parameters.AddWithValue("@poradi", DBzmenyPoradi).DbType = DbType.Int32;
@@ -4043,8 +4066,38 @@ namespace Vydejna
                     OdbcCommand cmd2 = new OdbcCommand(commandString2, myDBConn as OdbcConnection);
                     cmd2.Parameters.AddWithValue("@fyzstav", DBprijem).DbType = DbType.Double;
                     cmd2.Parameters.AddWithValue("@ucetstav", DBprijem).DbType = DbType.Double;
-                    cmd2.Parameters.AddWithValue("@celkcena", (DBprijem * ucetkscen)).DbType = DbType.Double;
-                    cmd2.Parameters.AddWithValue("@poradi", DBzmenyPoradi).DbType = DbType.Int32;
+                    // celkova cena nemuze byt zaporna
+                    if (celkcena < (DBprijem * ucetkscen))
+                    {
+                        cmd2.Parameters.AddWithValue("@celkcena", celkcena).DbType = DbType.Double;
+                    }
+                    else
+                    {
+                        cmd2.Parameters.AddWithValue("@celkcena", (DBprijem * ucetkscen)).DbType = DbType.Double;
+                    }
+                    // zde musi byt test podle zpusobu uctovani
+
+                    if (prumerUcetCenaEnabled)
+                    {
+                        // je nutno spocita novou prumernou cenu
+                        if (celkcena < (DBprijem * ucetkscen))
+                        {
+                            // celkova cena je nulova , ucetni cena za kus je tez nulova
+                            cmd2.Parameters.AddWithValue("@ucetkscen", 0).DbType = DbType.Double;
+                        }
+                        else
+                        {
+                            double newCelkCena = (celkcena - (DBprijem * ucetkscen)) / (fyzstav - DBprijem);
+                            cmd2.Parameters.AddWithValue("@ucetkscen", newCelkCena).DbType = DbType.Double;
+                        }
+                    }
+                    else
+                    {
+                        // ucetni cena za kus se nemeni
+                        cmd2.Parameters.AddWithValue("@ucetkscen", ucetkscen).DbType = DbType.Double;
+                    }
+                    // konec testu
+                    cmd2.Parameters.AddWithValue("@poradi", DBnaradiPoradi).DbType = DbType.Int32;
                     cmd2.Transaction = transaction;
                     cmd2.ExecuteNonQuery();
 
