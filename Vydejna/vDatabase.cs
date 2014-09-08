@@ -9,6 +9,18 @@ using System.Data.Odbc;
 using System.Data.SQLite;
 using System.Windows.Forms;
 
+// Vypocet celkove ceny
+//---------------------
+//  prumerovana cena NE
+//  jestli ze prumer za kus je 0 ulozi se do nej aktualni prijmova cena
+//  celkcena = celkcena + prumerna cena za kus * pocet kusu
+//------------------
+// prumerovane cena ANO
+// celkcena = celkcena + prijmova cena * pocet kusu
+// znovu spocitat  prumernou cenu za kus
+//--------------------
+
+
 //    tabulka naradi + karta /zrusene polozky/ 
 
 // tabulka    promenna    prehled   add/edit okno

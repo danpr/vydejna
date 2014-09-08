@@ -808,7 +808,7 @@ namespace Vydejna
                     string stavkod = Convert.ToString(selectedRow.Cells["stavkod"].Value);
                     Int32 prijemZ = Convert.ToInt32(selectedRow.Cells["prijem"].Value);
 
-                    
+
                     if (stavkod.Trim() == "P")
                     {
                         UzivatelData ud = UzivatelData.makeInstance();
@@ -859,6 +859,15 @@ namespace Vydejna
                                 if (selectedLine >= 0)
                                 {
                                     (dataGridViewZmeny.DataSource as DataTable).Rows.RemoveAt(selectedLine);
+                                }
+
+                                Hashtable DBRow = myDB.getNaradiLine(this.poradi, null);
+                                if (DBRow != null)
+                                {
+                                    if (DBRow.ContainsKey("fyzstav")) numericUpDownFyzStav.Value = Convert.ToInt32(DBRow["fyzstav"]);
+                                    if (DBRow.ContainsKey("ucetstav")) numericUpDownUcetStav.Value = Convert.ToInt32(DBRow["ucetstav"]);
+                                    if (DBRow.ContainsKey("celkcena")) numericUpDownUcetCena.Value = Convert.ToDecimal(DBRow["celkcena"]);
+                                    if (DBRow.ContainsKey("ucetkscen")) numericUpDownUcetCenaKs.Value = Convert.ToDecimal(DBRow["ucetkscen"]);
                                 }
 
                             }

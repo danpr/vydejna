@@ -3902,7 +3902,6 @@ namespace Vydejna
                 string commandString1 = "DELETE FROM zmeny where parporadi = ? AND poradi = ? ";
                 string commandString2 = "UPDATE naradi SET fyzstav = fyzstav - ?, ucetstav = ucetstav - ?, celkcena = celkcena - ?, ucetkscen = ?  WHERE poradi = ? ";
 
-
                 try
                 {
                     try
@@ -4062,38 +4061,42 @@ namespace Vydejna
                     cmd1.Transaction = transaction;
                     cmd1.ExecuteNonQuery();
 
-                    // do prokazu davame jen rozdily
+                    // do prikazu davame jen rozdily
                     OdbcCommand cmd2 = new OdbcCommand(commandString2, myDBConn as OdbcConnection);
                     cmd2.Parameters.AddWithValue("@fyzstav", DBprijem).DbType = DbType.Double;
                     cmd2.Parameters.AddWithValue("@ucetstav", DBprijem).DbType = DbType.Double;
                     // celkova cena nemuze byt zaporna
-                    if (celkcena < (DBprijem * ucetkscen))
-                    {
-                        cmd2.Parameters.AddWithValue("@celkcena", celkcena).DbType = DbType.Double;
-                    }
-                    else
-                    {
-                        cmd2.Parameters.AddWithValue("@celkcena", (DBprijem * ucetkscen)).DbType = DbType.Double;
-                    }
                     // zde musi byt test podle zpusobu uctovani
 
                     if (prumerUcetCenaEnabled)
                     {
                         // je nutno spocita novou prumernou cenu
-                        if (celkcena < (DBprijem * ucetkscen))
+                        if (celkcena < (DBprijem * cena))
                         {
                             // celkova cena je nulova , ucetni cena za kus je tez nulova
+                            // celkova cena nemuze byt zaporna
+                            cmd2.Parameters.AddWithValue("@celkcena", 0).DbType = DbType.Double;
                             cmd2.Parameters.AddWithValue("@ucetkscen", 0).DbType = DbType.Double;
                         }
                         else
                         {
-                            double newCelkCena = (celkcena - (DBprijem * ucetkscen)) / (fyzstav - DBprijem);
-                            cmd2.Parameters.AddWithValue("@ucetkscen", newCelkCena).DbType = DbType.Double;
+                            cmd2.Parameters.AddWithValue("@celkcena", (DBprijem * cena)).DbType = DbType.Double;
+                            double newUcetKsCen = (celkcena - (DBprijem * cena)) / (fyzstav - DBprijem);
+                            cmd2.Parameters.AddWithValue("@ucetkscen", newUcetKsCen).DbType = DbType.Double;
                         }
                     }
                     else
-                    {
-                        // ucetni cena za kus se nemeni
+                    {  // neni pouzita prumerovana cena
+                        // ucetni cena za kus se nemeni - nastavuje se rucne
+                        if (celkcena < (DBprijem * ucetkscen))
+                        {
+                            // celkova cena nemuze byt zaporna
+                            cmd2.Parameters.AddWithValue("@celkcena", 0).DbType = DbType.Double;
+                        }
+                        else
+                        {
+                            cmd2.Parameters.AddWithValue("@celkcena", (DBprijem * ucetkscen)).DbType = DbType.Double;
+                        }
                         cmd2.Parameters.AddWithValue("@ucetkscen", ucetkscen).DbType = DbType.Double;
                     }
                     // konec testu
