@@ -725,6 +725,8 @@ namespace Vydejna
 //                OpravaKarta opravKarta = new OpravaKarta();
                 if (opravKarta.ShowDialog() == DialogResult.OK)
                 {
+                    myDB.correctNaradiZmeny(poradi, 1, opravKarta.fyzStav, 1, opravKarta.ucetStav, opravKarta.getZmenyTab());
+
                 }
             }
         }

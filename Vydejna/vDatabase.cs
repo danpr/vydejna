@@ -112,6 +112,26 @@ namespace Vydejna
 
     public delegate Boolean tableItemExistDelgStr(string oc);
 
+
+    public struct zmenyCorrectLine
+    {
+        public Int32 poradi;
+        public Int32 prijem;
+        public Int32 vydej;
+        public Int32 zustatek;
+        public string stavcod;
+
+        public zmenyCorrectLine(Int32 poradi, Int32 prijem, Int32 vydej, Int32 zustatek, string stavcod)
+        {
+            this.poradi = poradi;
+            this.prijem = prijem;
+            this.vydej = vydej;
+            this.zustatek = zustatek;
+            this.stavcod = stavcod;
+        }
+
+    }
+
     public abstract class vDatabase
     {
         public static int[] defaultPortDB = new int[] { (int)defaultPortDBValue.SQLitePortDef, 
@@ -842,6 +862,14 @@ namespace Vydejna
         // -9 Zaznam o zmene neexistuje - zmena z jineho mista
         public virtual Int32 deleteLastPrijem(Int32 DBnaradiPoradi, Int32 DBzmenyPoradi, Int32 DBprijem)
         {
+            return -1;
+        }
+
+
+        public virtual Int32 correctNaradiZmeny(Int32 DBporadi, Int32 DBoldFyzstav, Int32 DBnewFyzStav, Int32 DBoldUcetStav, Int32 DBnewUcetStav, zmenyCorrectLine[] newZmeny)
+        {
+
+
             return -1;
         }
 

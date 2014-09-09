@@ -254,7 +254,39 @@ namespace Vydejna
         }
 
 
+        private Int32 zmenyLineCount
+        {
+            get { return dataGridViewZmeny.Rows.Count; }
+        }
 
+
+        public Int32 fyzStav
+        {
+            get { return Convert.ToInt32(numericUpDownFyzStav.Value); }
+        }
+
+        public Int32 ucetStav
+        {
+            get { return Convert.ToInt32(numericUpDownUcetStav.Value); }
+        }
+
+
+        public zmenyCorrectLine[] getZmenyTab()
+        {
+            zmenyCorrectLine[] newZmeny;
+            newZmeny = new zmenyCorrectLine[zmenyLineCount];
+            for (Int32 i = 0; i < zmenyLineCount; i++)
+            {
+                //naplnime data
+                DataGridViewRow newRow = dataGridViewZmeny.Rows[i];
+                newZmeny[i].poradi = Convert.ToInt32(newRow.Cells["poradi"].Value);
+                newZmeny[i].prijem = Convert.ToInt32(newRow.Cells["prijem"].Value);
+                newZmeny[i].vydej = Convert.ToInt32(newRow.Cells["vydej"].Value);
+                newZmeny[i].zustatek = Convert.ToInt32(newRow.Cells["zustatek"].Value);
+                newZmeny[i].stavcod = Convert.ToString(newRow.Cells["stavcod"].Value);
+            }
+            return newZmeny;
+        }
 
     }
 }
