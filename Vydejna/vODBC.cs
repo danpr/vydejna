@@ -4054,7 +4054,6 @@ namespace Vydejna
                         myReader3.Close();
                     }
 
-
                     OdbcCommand cmd1 = new OdbcCommand(commandString1, myDBConn as OdbcConnection);
                     cmd1.Parameters.AddWithValue("@parporadi", DBnaradiPoradi).DbType = DbType.Int32;
                     cmd1.Parameters.AddWithValue("@poradi", DBzmenyPoradi).DbType = DbType.Int32;
@@ -4104,12 +4103,10 @@ namespace Vydejna
                     cmd2.Transaction = transaction;
                     cmd2.ExecuteNonQuery();
 
-
                     if (transaction != null)
                     {
                         (transaction as OdbcTransaction).Commit();
                     }
-                    
                     return 0;
 
                 }
@@ -4122,8 +4119,6 @@ namespace Vydejna
                     }
                     return -1;
                 }
-
-
 
             }
             else
