@@ -26,13 +26,13 @@ namespace Vydejna
 
         public override void openDB()
         {
-        dBConnectionState = false;
-        MessageBox.Show("Připojeni této database není naprogramováno.");
+            dBConnectionState = false;
+            MessageBox.Show("Připojeni této database není naprogramováno.");
         }
 
         public override void DropTables()
         {
-//            openDB();
+            //            openDB();
             if (DBIsOpened())
             {
                 OdbcCommand cmdKarta = new OdbcCommand("DROP TABLE karta", myDBConn as OdbcConnection);
@@ -177,8 +177,8 @@ namespace Vydejna
                 {
                     cmdSettings.Dispose();
                 }
-//             myDBConn.Close();
-//             myDBConn.Dispose();
+                //             myDBConn.Close();
+                //             myDBConn.Dispose();
             }
         }
 
@@ -236,28 +236,28 @@ namespace Vydejna
                       "pprijmeni varchar(15), pnazev varchar(60), pjk varchar(15), pdatum date, pks integer, pcena float);";
 
 
-//            openDB();
+            //            openDB();
             if (DBIsOpened())
             {
-            OdbcCommand cmdKarta = new OdbcCommand(commandStringKarta, myDBConn as OdbcConnection);
-            OdbcCommand cmdNaradi = new OdbcCommand(commandStringNaradi, myDBConn as OdbcConnection);
-            OdbcCommand cmdSequence = new OdbcCommand(commandStringSequence, myDBConn as OdbcConnection);
-            OdbcCommand cmdSequenceInit1 = new OdbcCommand(commandStringSequenceInit1, myDBConn as OdbcConnection);
-            OdbcCommand cmdSequenceInit2 = new OdbcCommand(commandStringSequenceInit2, myDBConn as OdbcConnection);
-            OdbcCommand cmdSequenceInit3 = new OdbcCommand(commandStringSequenceInit3, myDBConn as OdbcConnection);
-            OdbcCommand cmdSequenceInit4 = new OdbcCommand(commandStringSequenceInit4, myDBConn as OdbcConnection);
-            OdbcCommand cmdVraceno = new OdbcCommand(commandStringVraceno, myDBConn as OdbcConnection);
-            OdbcCommand cmdPoskozeno = new OdbcCommand(commandStringPoskozeno, myDBConn as OdbcConnection);
-            OdbcCommand cmdOsoby = new OdbcCommand(commandStringOsoby, myDBConn as OdbcConnection);
-            OdbcCommand cmdZmeny = new OdbcCommand(commandStringZmeny, myDBConn as OdbcConnection);
-            OdbcCommand cmdPujceno = new OdbcCommand(commandStringPujceno, myDBConn as OdbcConnection);
-//            OdbcCommand cmdUsers = new OdbcCommand(commandStringUsers, myDBConn as OdbcConnection);
-//            OdbcCommand cmdSettings = new OdbcCommand(commandStringSetting, myDBConn as OdbcConnection);
+                OdbcCommand cmdKarta = new OdbcCommand(commandStringKarta, myDBConn as OdbcConnection);
+                OdbcCommand cmdNaradi = new OdbcCommand(commandStringNaradi, myDBConn as OdbcConnection);
+                OdbcCommand cmdSequence = new OdbcCommand(commandStringSequence, myDBConn as OdbcConnection);
+                OdbcCommand cmdSequenceInit1 = new OdbcCommand(commandStringSequenceInit1, myDBConn as OdbcConnection);
+                OdbcCommand cmdSequenceInit2 = new OdbcCommand(commandStringSequenceInit2, myDBConn as OdbcConnection);
+                OdbcCommand cmdSequenceInit3 = new OdbcCommand(commandStringSequenceInit3, myDBConn as OdbcConnection);
+                OdbcCommand cmdSequenceInit4 = new OdbcCommand(commandStringSequenceInit4, myDBConn as OdbcConnection);
+                OdbcCommand cmdVraceno = new OdbcCommand(commandStringVraceno, myDBConn as OdbcConnection);
+                OdbcCommand cmdPoskozeno = new OdbcCommand(commandStringPoskozeno, myDBConn as OdbcConnection);
+                OdbcCommand cmdOsoby = new OdbcCommand(commandStringOsoby, myDBConn as OdbcConnection);
+                OdbcCommand cmdZmeny = new OdbcCommand(commandStringZmeny, myDBConn as OdbcConnection);
+                OdbcCommand cmdPujceno = new OdbcCommand(commandStringPujceno, myDBConn as OdbcConnection);
+                //            OdbcCommand cmdUsers = new OdbcCommand(commandStringUsers, myDBConn as OdbcConnection);
+                //            OdbcCommand cmdSettings = new OdbcCommand(commandStringSetting, myDBConn as OdbcConnection);
 
-            if (!(tableUzivateleExist())) CreateTableUzivatele();
-            if (!(tableNastaveniExist())) CreateTableNastaveni();
+                if (!(tableUzivateleExist())) CreateTableUzivatele();
+                if (!(tableNastaveniExist())) CreateTableNastaveni();
 
-            try
+                try
                 {
                     cmdKarta.ExecuteNonQuery();
                     cmdNaradi.ExecuteNonQuery();
@@ -271,8 +271,8 @@ namespace Vydejna
                     cmdOsoby.ExecuteNonQuery();
                     cmdZmeny.ExecuteNonQuery();
                     cmdPujceno.ExecuteNonQuery();
-//                    cmdUsers.ExecuteNonQuery();
-//                    cmdSettings.ExecuteNonQuery();
+                    //                    cmdUsers.ExecuteNonQuery();
+                    //                    cmdSettings.ExecuteNonQuery();
                 }
                 catch (Exception ex)
                 {
@@ -280,9 +280,9 @@ namespace Vydejna
                 }
                 finally
                 {
-//                    myDBConn.Close();
-//                    cmdSettings.Dispose();
-//                    cmdUsers.Dispose();
+                    //                    myDBConn.Close();
+                    //                    cmdSettings.Dispose();
+                    //                    cmdUsers.Dispose();
                     cmdPujceno.Dispose();
                     cmdZmeny.Dispose();
                     cmdOsoby.Dispose();
@@ -294,7 +294,7 @@ namespace Vydejna
                     cmdSequence.Dispose();
                     cmdNaradi.Dispose();
                     cmdKarta.Dispose();
-//                    myDBConn.Dispose();
+                    //                    myDBConn.Dispose();
                 }
             }
 
@@ -469,7 +469,7 @@ namespace Vydejna
 
 
 
-        public override Int32 addLineKaret(string DBnazev,string DBJK, string DBnormacsn, string DBnormadin,
+        public override Int32 addLineKaret(string DBnazev, string DBJK, string DBnormacsn, string DBnormadin,
                                          string DBvyrobce, double DBcena, string DBpoznamka, int DBminstav,
                                          double DBcelkcena, int DBucetstav, int DBfyzstav,
                                          string DBrozmer, string DBanalucet, DateTime DBdate, string DBstredisko,
@@ -478,8 +478,8 @@ namespace Vydejna
             string commandStringSeq1 = "SELECT poradi FROM tabseq WHERE nazev = 'naradi'";
             string commandStringSeq2 = "UPDATE  tabseq set poradi = poradi +1 WHERE nazev = 'naradi'";
 
-            string commandString = "INSERT INTO karta ( poradi, nazev, jk, normacsn, normadin, vyrobce, cena,"+
-                  " poznamka, minimum, celkcena, ucetstav, fyzstav, rozmer, analucet, tdate, stredisko,"+
+            string commandString = "INSERT INTO karta ( poradi, nazev, jk, normacsn, normadin, vyrobce, cena," +
+                  " poznamka, minimum, celkcena, ucetstav, fyzstav, rozmer, analucet, tdate, stredisko," +
                   " druh, odpis) " +
                   "VALUES ( ? ,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
@@ -574,8 +574,8 @@ namespace Vydejna
             string commandStringSeq1 = "SELECT poradi FROM tabseq WHERE nazev = 'naradi'";
             string commandStringSeq2 = "UPDATE  tabseq set poradi = poradi +1 WHERE nazev = 'naradi'";
 
-            string commandString = "INSERT INTO naradi ( poradi, nazev, jk, normacsn, normadin, vyrobce, cena,"+
-                  " poznamka, minimum, celkcena, ucetstav, fyzstav, rozmer, analucet, tdate, stredisko, druh,"+
+            string commandString = "INSERT INTO naradi ( poradi, nazev, jk, normacsn, normadin, vyrobce, cena," +
+                  " poznamka, minimum, celkcena, ucetstav, fyzstav, rozmer, analucet, tdate, stredisko, druh," +
                   " odpis, ucetkscen, kdatum, kodd ) " +
                   "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
 
@@ -586,9 +586,9 @@ namespace Vydejna
                 OdbcDataReader seqReader = cmdSeq1.ExecuteReader();
                 seqReader.Read();
                 int poradi = seqReader.GetInt32(0);
-                seqReader.Close();              
-                
-                
+                seqReader.Close();
+
+
                 OdbcCommand cmd = new OdbcCommand(commandString, myDBConn as OdbcConnection);
 
                 OdbcParameter p0 = new OdbcParameter("p1", OdbcType.Int);
@@ -683,11 +683,11 @@ namespace Vydejna
                 OdbcDataReader seqReader = cmdSeq1.ExecuteReader();
                 seqReader.Read();
                 Int32 poradi = seqReader.GetInt32(0);
-                seqReader.Close();              
+                seqReader.Close();
 
                 OdbcCommand cmd = new OdbcCommand(commandString, myDBConn as OdbcConnection);
 
-                OdbcParameter p0 = new OdbcParameter("p0",OdbcType.Int);
+                OdbcParameter p0 = new OdbcParameter("p0", OdbcType.Int);
                 p0.Value = poradi;
                 OdbcParameter p1 = new OdbcParameter("p1", OdbcType.NChar);
                 p1.Value = DBjmeno;
@@ -910,7 +910,7 @@ namespace Vydejna
                                          int DBpocIvc, string DBstav, int DBporadi)
         {
 
-            string commandString = "INSERT INTO zmeny (parporadi, pomozjk, datum, poznamka, prijem, vydej, zustatek, zapkarta, vevcislo, pocivc, stav, poradi )" + 
+            string commandString = "INSERT INTO zmeny (parporadi, pomozjk, datum, poznamka, prijem, vydej, zustatek, zapkarta, vevcislo, pocivc, stav, poradi )" +
                   "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
 
 
@@ -974,8 +974,8 @@ namespace Vydejna
             string commandReadString1 = "SELECT MAX(poradi) as maxporadi from naradi";
             string commandString1 = "UPDATE  tabseq set poradi = ? WHERE nazev = 'naradi'";
 
-            string commandString2 = "INSERT INTO naradi ( poradi, nazev, jk, normacsn, normadin, vyrobce, cena,"+
-                  " poznamka, minimum, celkcena,  ucetstav, fyzstav, rozmer, analucet, tdate, stredisko, druh,"+
+            string commandString2 = "INSERT INTO naradi ( poradi, nazev, jk, normacsn, normadin, vyrobce, cena," +
+                  " poznamka, minimum, celkcena,  ucetstav, fyzstav, rozmer, analucet, tdate, stredisko, druh," +
                   " odpis, ucetkscen, kdatum, kodd ) " +
                   "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
 
@@ -1020,7 +1020,7 @@ namespace Vydejna
 
                     OdbcCommand cmd = new OdbcCommand(commandString2, myDBConn as OdbcConnection);
 
-                    cmd.Parameters.AddWithValue("@poradi", maxporadi).DbType=DbType.Int32;
+                    cmd.Parameters.AddWithValue("@poradi", maxporadi).DbType = DbType.Int32;
                     cmd.Parameters.AddWithValue("nazev", DBnazev);
                     cmd.Parameters.AddWithValue("@jk", DBJK);
                     cmd.Parameters.AddWithValue("@normacsn", DBnormacsn);
@@ -1075,7 +1075,7 @@ namespace Vydejna
 
 
         // pridani nove polozky do tabulky zmeny
-        public override Int32 addNewLineZmenyAndPrijmuto(Int32 DBporadi, string DBJK, DateTime DBdatum, Int32 DBprijem,  decimal DBcena, string DBpoznamka)
+        public override Int32 addNewLineZmenyAndPrijmuto(Int32 DBporadi, string DBJK, DateTime DBdatum, Int32 DBprijem, decimal DBcena, string DBpoznamka)
         {
             OdbcTransaction transaction = null;
 
@@ -1174,18 +1174,18 @@ namespace Vydejna
                     DBcena = Math.Round(DBcena, 2);
                     if ((ucetCenaKs == 0) && (celkCena == 0))
                     {
-                        ucetCenaKs = Math.Round(DBcena,2); // inicializace ucetni ceny za kus
+                        ucetCenaKs = Math.Round(DBcena, 2); // inicializace ucetni ceny za kus
                     }
-                    decimal celkCenaZvyseni = Math.Round((ucetCenaKs * DBprijem),2);
-                    decimal ucetcenaCelkNova = Math.Round((celkCena + celkCenaZvyseni),2);
-                         
+                    decimal celkCenaZvyseni = Math.Round((ucetCenaKs * DBprijem), 2);
+                    decimal ucetcenaCelkNova = Math.Round((celkCena + celkCenaZvyseni), 2);
+
                     if (prumerUcetCenaEnabled) // kdyz je pouzita prumerovana cen musime spocitat nove ucetni ceny
                     {
                         celkCenaZvyseni = DBcena * DBprijem;
                         ucetCenaKs = Math.Round(((ucetCenaKs * ucetstav) + celkCenaZvyseni) / (ucetstav + DBprijem), 2);
-                        ucetcenaCelkNova = Math.Round((ucetCenaKs * (DBprijem + ucetstav)),2);
+                        ucetcenaCelkNova = Math.Round((ucetCenaKs * (DBprijem + ucetstav)), 2);
                     }
-                    
+
 
                     OdbcCommand cmd1 = new OdbcCommand(commandString1, myDBConn as OdbcConnection);
 
@@ -1301,8 +1301,8 @@ namespace Vydejna
                 string commandReadString6 = "SELECT jmeno, prijmeni, odeleni, stredisko, pracoviste FROM osoby WHERE oscislo = ? ";
 
                 string commandString1 = "UPDATE naradi SET fyzstav = fyzstav + ? WHERE poradi = ? ";
-                
-                string commandString2 = "INSERT INTO zmeny (parporadi, pomozjk, datum, poznamka, prijem, vydej, zustatek, zapkarta, vevcislo, pocivc, stav, poradi )" +                    
+
+                string commandString2 = "INSERT INTO zmeny (parporadi, pomozjk, datum, poznamka, prijem, vydej, zustatek, zapkarta, vevcislo, pocivc, stav, poradi )" +
                     "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
 
                 string commandString3 = "UPDATE pujceno SET stavks = stavks - ? WHERE poradi = ? ";
@@ -1310,7 +1310,7 @@ namespace Vydejna
                 string commandString5 = "INSERT INTO vraceno ( poradi, jmeno, oscislo, dilna, pracoviste, vyrobek, nazev, jk, rozmer, pocetks, cena, datum, csn, krjmeno, celkcena, vevcislo, konto) " +
                       "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
                 string commandString6 = "UPDATE  tabseq set poradi = poradi +1 WHERE nazev = 'vraceno'";
-                
+
                 try
                 {
                     try
@@ -1488,16 +1488,16 @@ namespace Vydejna
                     OdbcCommand cmd2 = new OdbcCommand(commandString2, myDBConn as OdbcConnection);
 
                     cmd2.Parameters.AddWithValue("@parporadi", parPoradi).DbType = DbType.Int32;
-                    cmd2.Parameters.AddWithValue("@pomozjk",naradiJK);
-                    cmd2.Parameters.AddWithValue("@datum",DBdatum);
-                    cmd2.Parameters.AddWithValue("@poznamka",DBpoznamka);
+                    cmd2.Parameters.AddWithValue("@pomozjk", naradiJK);
+                    cmd2.Parameters.AddWithValue("@datum", DBdatum);
+                    cmd2.Parameters.AddWithValue("@poznamka", DBpoznamka);
                     cmd2.Parameters.AddWithValue("@prijem", DBks).DbType = DbType.Int32;
                     cmd2.Parameters.AddWithValue("@vydej", 0).DbType = DbType.Int32;
                     cmd2.Parameters.AddWithValue("@zustatek", zustatek + DBks).DbType = DbType.Int32;
-                    cmd2.Parameters.AddWithValue("@zapkarta",DBosCislo);
-                    cmd2.Parameters.AddWithValue("@vevcislo",zmenyVevcislo);
-                    cmd2.Parameters.AddWithValue("@pocivc",0);
-                    cmd2.Parameters.AddWithValue("@stav","R");
+                    cmd2.Parameters.AddWithValue("@zapkarta", DBosCislo);
+                    cmd2.Parameters.AddWithValue("@vevcislo", zmenyVevcislo);
+                    cmd2.Parameters.AddWithValue("@pocivc", 0);
+                    cmd2.Parameters.AddWithValue("@stav", "R");
                     cmd2.Parameters.AddWithValue("@poradi", newZmenyPoradi).DbType = DbType.Int32;
                     cmd2.Transaction = transaction;
                     errCode = cmd2.ExecuteNonQuery();
@@ -1513,7 +1513,7 @@ namespace Vydejna
                     }
                     else
                     {
-                       // tab pujceno smazani
+                        // tab pujceno smazani
                         OdbcCommand cmd4 = new OdbcCommand(commandString4, myDBConn as OdbcConnection);
                         cmd4.Parameters.AddWithValue("@poradi", DBporadi).DbType = DbType.Int32;
                         cmd4.Transaction = transaction;
@@ -1545,22 +1545,22 @@ namespace Vydejna
                     OdbcCommand cmd5 = new OdbcCommand(commandString5, myDBConn as OdbcConnection);
                     // "INSERT INTO vraceno ( poradi, jmeno, oscislo, dilna, pracoviste, vyrobek, nazev, jk, rozmer, pocetks, cena, datum, csn, krjmeno, celkcena, vevcislo, konto) "
                     cmd5.Parameters.AddWithValue("poradi", newZmenyPoradi).DbType = DbType.Int32;
-                    cmd5.Parameters.AddWithValue("jmeno",osobyPrijmeni);
-                    cmd5.Parameters.AddWithValue("oscislo",DBosCislo);
-                    cmd5.Parameters.AddWithValue("dilna",osobyStredisko);
-                    cmd5.Parameters.AddWithValue("pracoviste",osobyOddeleni);
-                    cmd5.Parameters.AddWithValue("vyrobek","");
-                    cmd5.Parameters.AddWithValue("nazev",naradiNazev);
-                    cmd5.Parameters.AddWithValue("jk",naradiJK);
-                    cmd5.Parameters.AddWithValue("rozmer",naradiRozmer);
+                    cmd5.Parameters.AddWithValue("jmeno", osobyPrijmeni);
+                    cmd5.Parameters.AddWithValue("oscislo", DBosCislo);
+                    cmd5.Parameters.AddWithValue("dilna", osobyStredisko);
+                    cmd5.Parameters.AddWithValue("pracoviste", osobyOddeleni);
+                    cmd5.Parameters.AddWithValue("vyrobek", "");
+                    cmd5.Parameters.AddWithValue("nazev", naradiNazev);
+                    cmd5.Parameters.AddWithValue("jk", naradiJK);
+                    cmd5.Parameters.AddWithValue("rozmer", naradiRozmer);
                     cmd5.Parameters.AddWithValue("pocetks", DBks).DbType = DbType.Int32;
                     cmd5.Parameters.AddWithValue("cena", naradiCena).DbType = DbType.Double;
-                    cmd5.Parameters.AddWithValue("datum",DBdatum);
-                    cmd5.Parameters.AddWithValue("csn",naradiCSN);
-                    cmd5.Parameters.AddWithValue("krjmeno",osobyJmeno);
+                    cmd5.Parameters.AddWithValue("datum", DBdatum);
+                    cmd5.Parameters.AddWithValue("csn", naradiCSN);
+                    cmd5.Parameters.AddWithValue("krjmeno", osobyJmeno);
                     cmd5.Parameters.AddWithValue("celkcena", naradiCelkCena).DbType = DbType.Double;
-                    cmd5.Parameters.AddWithValue("vevcislo",zmenyVevcislo);
-                    cmd5.Parameters.AddWithValue("konto","");
+                    cmd5.Parameters.AddWithValue("vevcislo", zmenyVevcislo);
+                    cmd5.Parameters.AddWithValue("konto", "");
                     cmd5.Transaction = transaction;
                     cmd5.ExecuteNonQuery();
 
@@ -2170,11 +2170,11 @@ namespace Vydejna
 
                     //  tab zmeny
                     OdbcCommand cmd2 = new OdbcCommand(commandString2, myDBConn as OdbcConnection);
-// "INSERT INTO zmeny (parporadi, pomozjk, datum, poznamka, prijem, vydej, zustatek, zapkarta, vevcislo, pocivc, stav, poradi )" +
+                    // "INSERT INTO zmeny (parporadi, pomozjk, datum, poznamka, prijem, vydej, zustatek, zapkarta, vevcislo, pocivc, stav, poradi )" +
                     cmd2.Parameters.AddWithValue("@parporadi", DBparPoradi).DbType = DbType.Int32;
-                    cmd2.Parameters.AddWithValue("@pomozjk",naradiJK );
-                    cmd2.Parameters.AddWithValue("@datum",DBdatum );
-                    cmd2.Parameters.AddWithValue("@poznamka",DBpoznamka );
+                    cmd2.Parameters.AddWithValue("@pomozjk", naradiJK);
+                    cmd2.Parameters.AddWithValue("@datum", DBdatum);
+                    cmd2.Parameters.AddWithValue("@poznamka", DBpoznamka);
                     cmd2.Parameters.AddWithValue("@prijem", 0).DbType = DbType.Int32;
                     cmd2.Parameters.AddWithValue("@vydej", DBks).DbType = DbType.Int32;
                     cmd2.Parameters.AddWithValue("@zustatek", zustatek - DBks).DbType = DbType.Int32;
@@ -2190,14 +2190,14 @@ namespace Vydejna
                     // poradi, oscislo, nporadi, zporadi, pjmeno, pprijmeni, pnazev, pjk, pdatum, pks, pcena, stavks
                     OdbcCommand cmd = new OdbcCommand(commandString3, myDBConn as OdbcConnection);
                     cmd.Parameters.AddWithValue("@poradi", pujcPoradi).DbType = DbType.Int32;
-                    cmd.Parameters.AddWithValue("@oscislo",DBosCislo);
+                    cmd.Parameters.AddWithValue("@oscislo", DBosCislo);
                     cmd.Parameters.AddWithValue("@nporadi", DBparPoradi).DbType = DbType.Int32;
                     cmd.Parameters.AddWithValue("@zporadi", poradi).DbType = DbType.Int32;
-                    cmd.Parameters.AddWithValue("@pjmeno",osobyJmeno);
-                    cmd.Parameters.AddWithValue("@pprijmeni",osobyPrijmeni);
-                    cmd.Parameters.AddWithValue("@pnazev",naradiNazev);
-                    cmd.Parameters.AddWithValue("@pjk",naradiJK);
-                    cmd.Parameters.AddWithValue("@pdatum",DBdatum );
+                    cmd.Parameters.AddWithValue("@pjmeno", osobyJmeno);
+                    cmd.Parameters.AddWithValue("@pprijmeni", osobyPrijmeni);
+                    cmd.Parameters.AddWithValue("@pnazev", naradiNazev);
+                    cmd.Parameters.AddWithValue("@pjk", naradiJK);
+                    cmd.Parameters.AddWithValue("@pdatum", DBdatum);
                     cmd.Parameters.AddWithValue("@pks", DBks).DbType = DbType.Int32;
                     cmd.Parameters.AddWithValue("@pcena", naradiCena).DbType = DbType.Double;
                     cmd.Parameters.AddWithValue("@stavks", DBks).DbType = DbType.Int32;
@@ -2366,7 +2366,8 @@ namespace Vydejna
                     try
                     {
                         transaction = (myDBConn as OdbcConnection).BeginTransaction(System.Data.IsolationLevel.ReadCommitted);
-                    } catch { }
+                    }
+                    catch { }
 
                     OdbcCommand cmd = new OdbcCommand(commandString2, myDBConn as OdbcConnection);
 
@@ -3261,7 +3262,7 @@ namespace Vydejna
                     {
                         zmenyPoradi = 0;
                         seqReader2.Close();
-                        MessageBox.Show("Neexistuje zmena stavu pro vypujcení. Poradi/Nazev:" + DBparPoradi.ToString() + " - " + DBnazev + " OSCislo: "+ DBosCislo + " - " + DBPrijmeni);
+                        MessageBox.Show("Neexistuje zmena stavu pro vypujcení. Poradi/Nazev:" + DBparPoradi.ToString() + " - " + DBnazev + " OSCislo: " + DBosCislo + " - " + DBPrijmeni);
                     }
 
                     OdbcCommand cmd = new OdbcCommand(commandString, myDBConn as OdbcConnection);
@@ -3310,7 +3311,7 @@ namespace Vydejna
                 }
                 catch
                 {
-                   MessageBox.Show("Chyba:" + DBparPoradi.ToString() + " - " + DBnazev + " OSCislo: "+ DBosCislo + " - " + DBPrijmeni);
+                    MessageBox.Show("Chyba:" + DBparPoradi.ToString() + " - " + DBnazev + " OSCislo: " + DBosCislo + " - " + DBPrijmeni);
                 }
             }
         }
@@ -3653,7 +3654,7 @@ namespace Vydejna
                 Int64 countRows = myReader.GetInt64(0);
                 myReader.Close();
                 return countRows;
-             }
+            }
             return -1;
         }
 
@@ -3765,8 +3766,8 @@ namespace Vydejna
                 string commandString1 = "INSERT INTO nastaveni (setid, permission, permission_hs, permission_hi, userid, datum) VALUES (?,?,\"\",0,?,?)";
                 string commandString2 = "UPDATE nastaveni set permission =?, userid =?, datum = ? where setid =?";
                 string stateCode;
-                if (state) stateCode="A";
-                else stateCode="N";
+                if (state) stateCode = "A";
+                else stateCode = "N";
 
                 Boolean useInsert = false;
 
@@ -3960,7 +3961,7 @@ namespace Vydejna
                             return -4; // Neexistuje spravna hodnota prijmu
                         }
 
-                        if (vydej !=  0)
+                        if (vydej != 0)
                         {
                             if (transaction != null)
                             {
@@ -4130,7 +4131,56 @@ namespace Vydejna
 
         public override Int32 correctNaradiZmeny(Int32 DBporadi, Int32 DBoldFyzstav, Int32 DBnewFyzStav, Int32 DBoldUcetStav, Int32 DBnewUcetStav, zmenyCorrectLine[] newZmeny)
         {
-            return -1;
+
+            OdbcTransaction transaction = null;
+
+            if (DBIsOpened())
+            {
+                string commandStringRead1a = "SELECT prijem, vydej, stav, parporadi, poradi FROM zmeny WHERE parporadi = ? AND poradi = (" +
+                    "select max(poradi) from zmeny where parporadi = ?)";
+                string commandStringRead2a = "SELECT fyzstav, ucetstav, ucetkscen, celkcena, cena  FROM naradi where poradi = ? ";
+                string commandStringRead3a = "SELECT permission FROM nastaveni WHERE setid = \'prumucetcena\'";
+                string commandString1a = "DELETE FROM zmeny where parporadi = ? AND poradi = ? ";
+                string commandString2a = "UPDATE naradi SET fyzstav = fyzstav - ?, ucetstav = ucetstav - ?, celkcena = celkcena - ?, ucetkscen = ?  WHERE poradi = ? ";
+
+                try
+                {
+                    try
+                    {
+                        transaction = (myDBConn as OdbcConnection).BeginTransaction(System.Data.IsolationLevel.ReadCommitted);
+                    }
+                    catch
+                    {
+                    }
+
+
+
+
+
+
+                    if (transaction != null)
+                    {
+                        (transaction as OdbcTransaction).Commit();
+                    }
+                    return 0;
+
+                }
+                catch (Exception)
+                {
+                    // doslo k chybe
+                    if (transaction != null)
+                    {
+                        (transaction as OdbcTransaction).Rollback();
+                    }
+                    return -1;
+                }
+
+            }
+            else
+            {
+                return -1;
+            }
+
         }
 
 
