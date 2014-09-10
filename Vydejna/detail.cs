@@ -497,7 +497,6 @@ namespace Vydejna
                                                                 ud.userHasAccessRights((Int32)permCode.NarEdFyStav),
                                                                 ud.userHasAccessRights((Int32)permCode.NarEdUcStav));
                 SkladovaKarta sklKarta = new SkladovaKarta(myDB, DBRow, poradi, new tableItemExistDelgStr(myDB.tableNaradiItemExist), myDataGridView.Font, sKartaState.edit,skladEditPerm);
-//                sklKarta.Font = myDataGridView.Font;
                 if (sklKarta.ShowDialog() == DialogResult.OK)
                 {
                     SkladovaKarta.messager mesenger = sklKarta.getMesseger();
@@ -720,14 +719,18 @@ namespace Vydejna
             if ((myDB != null) && (myDB.DBIsOpened()))
             {
                 Int32 poradi = findPoradiInRow(DBRow);
+                DBRow = myDB.getNaradiLine(poradi, DBRow); // aktualizujeme data
 
                 OpravaKarta opravKarta = new OpravaKarta(myDB, DBRow, poradi, myDataGridView.Font);
-//                OpravaKarta opravKarta = new OpravaKarta();
                 if (opravKarta.ShowDialog() == DialogResult.OK)
                 {
-                    myDB.correctNaradiZmeny(poradi, 1, opravKarta.fyzStav, 1, opravKarta.ucetStav, opravKarta.getZmenyTab());
+                    myDB.correctNaradiZmeny(poradi, opravKarta.oldFyzStav, opravKarta.fyzStav, opravKarta.oldUcetStav, opravKarta.ucetStav, opravKarta.getZmenyTab());
 
                 }
+                Hashtable newDBRow = null;
+                newDBRow = myDB.getNaradiLine(poradi, newDBRow);
+                reloadRow((myDataGridView.DataSource as DataTable), findIndex((myDataGridView.DataSource as DataTable), "poradi", poradi), newDBRow);
+
             }
         }
 

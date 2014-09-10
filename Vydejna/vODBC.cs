@@ -4127,6 +4127,13 @@ namespace Vydejna
             }
         }
 
+
+        public override Int32 correctNaradiZmeny(Int32 DBporadi, Int32 DBoldFyzstav, Int32 DBnewFyzStav, Int32 DBoldUcetStav, Int32 DBnewUcetStav, zmenyCorrectLine[] newZmeny)
+        {
+            return -1;
+        }
+
+
     }
 }
 

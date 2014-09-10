@@ -265,9 +265,23 @@ namespace Vydejna
             get { return Convert.ToInt32(numericUpDownFyzStav.Value); }
         }
 
+
+        public Int32 oldFyzStav
+        {
+            get { return Convert.ToInt32(labelFyzStav.Text); }
+        }
+
+
+
         public Int32 ucetStav
         {
             get { return Convert.ToInt32(numericUpDownUcetStav.Value); }
+        }
+
+
+        public Int32 oldUcetStav
+        {
+            get { return Convert.ToInt32(labelUcetStav.Text); }
         }
 
 
