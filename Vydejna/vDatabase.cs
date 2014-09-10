@@ -518,7 +518,7 @@ namespace Vydejna
         public virtual DataTable loadDataTableNaradiJednoduchy()
         {
             return loadDataTable("SELECT poradi, nazev, jk, rozmer,"
-                                     + " fyzstav, poznamka, cena from naradi WHERE fyzstav > 0 ORDER BY nazev, jk");
+                                     + " fyzstav, poznamka, cena from naradi ORDER BY nazev, jk");
         }
 
         public virtual DataTable loadDataPartTableNaradiNazev(string nazev)
@@ -868,8 +868,6 @@ namespace Vydejna
 
         public virtual Int32 correctNaradiZmeny(Int32 DBporadi, Int32 DBoldFyzstav, Int32 DBnewFyzStav, Int32 DBoldUcetStav, Int32 DBnewUcetStav, zmenyCorrectLine[] newZmeny)
         {
-
-
             return -1;
         }
 
