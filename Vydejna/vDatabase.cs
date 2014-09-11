@@ -120,14 +120,16 @@ namespace Vydejna
         public Int32 vydej;
         public Int32 zustatek;
         public string stavcod;
+        public Int32 novyZustatek;
 
-        public zmenyCorrectLine(Int32 poradi, Int32 prijem, Int32 vydej, Int32 zustatek, string stavcod)
+        public zmenyCorrectLine(Int32 poradi, Int32 prijem, Int32 vydej, Int32 zustatek, string stavcod, Int32 novyZustatek)
         {
             this.poradi = poradi;
             this.prijem = prijem;
             this.vydej = vydej;
             this.zustatek = zustatek;
             this.stavcod = stavcod;
+            this.novyZustatek = novyZustatek;
         }
 
     }
@@ -866,7 +868,7 @@ namespace Vydejna
         }
 
 
-        public virtual Int32 correctNaradiZmeny(Int32 DBporadi, Int32 DBoldFyzstav, Int32 DBnewFyzStav, Int32 DBoldUcetStav, Int32 DBnewUcetStav, zmenyCorrectLine[] newZmeny)
+        public virtual Int32 correctNaradiZmeny(Int32 DBparPoradi, Int32 DBoldFyzstav, Int32 DBnewFyzStav, Int32 DBoldUcetStav, Int32 DBnewUcetStav, zmenyCorrectLine[] newZmeny)
         {
             return -1;
         }

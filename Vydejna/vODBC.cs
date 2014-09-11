@@ -4129,19 +4129,26 @@ namespace Vydejna
         }
 
 
-        public override Int32 correctNaradiZmeny(Int32 DBporadi, Int32 DBoldFyzstav, Int32 DBnewFyzStav, Int32 DBoldUcetStav, Int32 DBnewUcetStav, zmenyCorrectLine[] newZmeny)
+        public override Int32 correctNaradiZmeny(Int32 DBparPoradi,  Int32 DBoldFyzstav, Int32 DBnewFyzStav, Int32 DBoldUcetStav, Int32 DBnewUcetStav, zmenyCorrectLine[] newZmeny)
         {
 
             OdbcTransaction transaction = null;
 
             if (DBIsOpened())
             {
-                string commandStringRead1a = "SELECT prijem, vydej, stav, parporadi, poradi FROM zmeny WHERE parporadi = ? AND poradi = (" +
-                    "select max(poradi) from zmeny where parporadi = ?)";
-                string commandStringRead2a = "SELECT fyzstav, ucetstav, ucetkscen, celkcena, cena  FROM naradi where poradi = ? ";
-                string commandStringRead3a = "SELECT permission FROM nastaveni WHERE setid = \'prumucetcena\'";
-                string commandString1a = "DELETE FROM zmeny where parporadi = ? AND poradi = ? ";
-                string commandString2a = "UPDATE naradi SET fyzstav = fyzstav - ?, ucetstav = ucetstav - ?, celkcena = celkcena - ?, ucetkscen = ?  WHERE poradi = ? ";
+                string commandStringRead1 = "SELECT count (*)eas countz, MAX(poradi) as maxz FROM zmeny WHERE parporadi = ?";
+                string commandStringRead2 = "SELECT prijem, vydej, zustatek, stav, poradi, * FROM zmeny zmeny WHERE parporadi = ?";
+                string commandStringRead3 = "SELECT fyzstav, ucetstav FROM naradi where poradi = ? ";
+
+                string commandString1 = "UPDATE zmeny set zustatek where parporadi = ? AND poradi = ? ";
+                string commandString2 = "UPDATE naradi SET fyzstav = ?, ucetstav = ? WHERE poradi = ? ";
+
+                Int32 newZmenyCount =  newZmeny.Length;
+                if (newZmenyCount == 0)
+                {
+                    return -2; //neni zadny zanam ve zmenach
+                }
+
 
                 try
                 {
@@ -4153,6 +4160,141 @@ namespace Vydejna
                     {
                     }
 
+
+                    OdbcCommand cmdr1 = new OdbcCommand(commandStringRead1, myDBConn as OdbcConnection);
+                    cmdr1.Parameters.AddWithValue("@parporadi", DBparPoradi).DbType = DbType.Int32;
+                    cmdr1.Transaction = transaction;
+                    OdbcDataReader seqReader1 = cmdr1.ExecuteReader();
+                    Int32 countz = 0;
+                    Int32 maxz = 0;
+
+                    if (seqReader1.Read() == true)
+                    {
+                        countz = seqReader1.GetInt32(seqReader1.GetOrdinal("countz"));
+                        maxz = seqReader1.GetInt32(seqReader1.GetOrdinal("maxz"));
+                        seqReader1.Close();
+
+                        if (countz != newZmenyCount)
+                        {
+                            if (transaction != null)
+                            {
+                                (transaction as OdbcTransaction).Rollback();
+                            }
+                            return -4; // Doslo ko zmenam v tabulce zmen - pocet
+                        }
+
+                        zmenyCorrectLine zcl = newZmeny[newZmenyCount - 1];
+                        if (zcl .poradi != maxz)
+                        {
+                            if (transaction != null)
+                            {
+                                (transaction as OdbcTransaction).Rollback();
+                            }
+                            return -5; // Doslo ko zmenam v tabulce zmen - poradi
+                        }
+
+
+
+                    }
+                    else
+                    {
+                        seqReader1.Close();
+                        // material neexistuje zrusime transakci a navratime chybu
+                        if (transaction != null)
+                        {
+                            (transaction as OdbcTransaction).Rollback();
+                        }
+                        return -3; // Neexistuje zaznam zmen
+                    }
+
+
+                    OdbcCommand cmdr2 = new OdbcCommand(commandStringRead2, myDBConn as OdbcConnection);
+                    cmdr2.Parameters.AddWithValue("@parporadi", DBparPoradi).DbType = DbType.Int32;
+                    cmdr2.Transaction = transaction;
+                    OdbcDataReader seqReader2 = cmdr2.ExecuteReader();
+
+                    Int32 i = 0;
+                    zmenyCorrectLine zcl2; ;
+
+                    while (seqReader2.Read())
+                    {
+                        zcl2 = newZmeny[i];
+                        if ((zcl2.poradi != seqReader2.GetInt32(seqReader2.GetOrdinal("poradi")))
+                            || (zcl2.prijem != seqReader2.GetInt32(seqReader2.GetOrdinal("prijem")))
+                            || (zcl2.vydej != seqReader2.GetInt32(seqReader2.GetOrdinal("vydej")))
+                            || (zcl2.zustatek != seqReader2.GetInt32(seqReader2.GetOrdinal("zustatek")))
+                            || (zcl2.stavcod != seqReader2.GetString(seqReader2.GetOrdinal("stav")))    )
+                        {
+                            seqReader2.Close();
+                            if (transaction != null)
+                            {
+                                (transaction as OdbcTransaction).Rollback();
+                            }
+                            return -6; // tabulka zmen stavu byla zmenena - jina instance programu
+                        }
+                        i++;
+                    }
+
+
+                    OdbcCommand cmdr3 = new OdbcCommand(commandStringRead3, myDBConn as OdbcConnection);
+                    cmdr3.Parameters.AddWithValue("@poradi", DBparPoradi).DbType = DbType.Int32;
+                    cmdr3.Transaction = transaction;
+                    OdbcDataReader seqReader3 = cmdr3.ExecuteReader();
+                    Int32 aktFyzStav = 0;
+                    Int32 aktUcetStav = 0;
+                    if (seqReader3.Read() == true)
+                    {
+                        aktFyzStav = seqReader1.GetInt32(seqReader1.GetOrdinal("fyzstav"));
+                        aktUcetStav = seqReader1.GetInt32(seqReader1.GetOrdinal("ucetstav"));
+                        seqReader3.Close();
+
+                        if ((DBoldFyzstav != aktFyzStav) || (DBoldUcetStav != aktUcetStav))
+                        {
+                            if (transaction != null)
+                            {
+                                (transaction as OdbcTransaction).Rollback();
+                            }
+                            return -8; // Zmena dat v tabulce materialu
+                        }
+
+                    }
+                    else
+                    {
+                        seqReader3.Close();
+                        // material neexistuje zrusime transakci a navratime chybu
+                        if (transaction != null)
+                        {
+                            (transaction as OdbcTransaction).Rollback();
+                        }
+                        return -7; // Neexistuje zaznam materialu
+                    }
+                    
+
+
+
+
+// opravime tabulku zmen
+                    for (i = 0; i < newZmenyCount; i++)
+                    {
+                        zcl2 = newZmeny[i];
+                        if (zcl2.zustatek != zcl2.novyZustatek)
+                        {
+                            // zapiseme data
+                        }
+                    }
+
+//opravime tabulku materialu
+                    if ((DBoldFyzstav != DBnewFyzStav) || (DBoldUcetStav != DBnewUcetStav))
+                    {
+//                        zapiseme data
+                        OdbcCommand cmd2 = new OdbcCommand(commandString2, myDBConn as OdbcConnection);
+                        cmd2.Parameters.AddWithValue("@fyzstav", DBnewFyzStav).DbType = DbType.Int32;
+                        cmd2.Parameters.AddWithValue("@ucetstav", DBnewUcetStav).DbType = DbType.Int32;
+                        cmd2.Parameters.AddWithValue("@poradi", DBparPoradi).DbType = DbType.Int32;
+                        cmd2.Transaction = transaction;
+                        cmd2.ExecuteNonQuery();
+
+                    }
 
 
 

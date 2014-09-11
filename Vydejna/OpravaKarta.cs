@@ -298,6 +298,7 @@ namespace Vydejna
                 newZmeny[i].vydej = Convert.ToInt32(newRow.Cells["vydej"].Value);
                 newZmeny[i].zustatek = Convert.ToInt32(newRow.Cells["zustatek"].Value);
                 newZmeny[i].stavcod = Convert.ToString(newRow.Cells["stavcod"].Value);
+                newZmeny[i].novyZustatek = Convert.ToInt32(newRow.Cells["novystav"].Value);
             }
             return newZmeny;
         }
