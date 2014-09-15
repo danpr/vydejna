@@ -722,10 +722,49 @@ namespace Vydejna
                 DBRow = myDB.getNaradiLine(poradi, DBRow); // aktualizujeme data
 
                 OpravaKarta opravKarta = new OpravaKarta(myDB, DBRow, poradi, myDataGridView.Font);
+
+
                 if (opravKarta.ShowDialog() == DialogResult.OK)
                 {
-                    myDB.correctNaradiZmeny(poradi, opravKarta.oldFyzStav, opravKarta.fyzStav, opravKarta.oldUcetStav, opravKarta.ucetStav, opravKarta.getZmenyTab());
+                   Int32 errCode = myDB.correctNaradiZmeny(poradi, opravKarta.oldFyzStav, opravKarta.fyzStav, opravKarta.oldUcetStav, opravKarta.ucetStav, opravKarta.getZmenyTab());
+                   if (errCode < 0)
+                   {
 
+                       if (errCode == -8)
+                       {
+                           MessageBox.Show("Lituji. Stavy materialz byly změněny - změna z jiného místa? Nemohu uskutečnit opravu.");
+                       }
+                       if (errCode == -7)
+                       {
+                           MessageBox.Show("Lituji. Toto nářadí neexistuje - změna z jiného místa? Nemohu uskutečnit opravu.");
+                       }
+                       if (errCode == -6)
+                       {
+                           MessageBox.Show("Lituji. Byly změněny operace s nařadím - změna z jiného místa? Nemohu uskutečnit opravu.");
+                       }
+                       if (errCode == -5)
+                       {
+                           MessageBox.Show("Lituji. Byla změněna poslení operace s nařadím - změna z jiného místa? Nemohu uskutečnit opravu.");
+                       }
+                       if (errCode == -4)
+                       {
+                           MessageBox.Show("Lituji. Byl změněn počet operaci s nařadím - změna z jiného místa? Nemohu uskutečnit opravu.");
+                       }
+                       if (errCode == -3)
+                       {
+                           MessageBox.Show("Lituji. S nařadím nebyla provedena žádná operace, Nemohu uskutečnit opravu.");
+                       }
+                       if (errCode == -2)
+                       {
+                           MessageBox.Show("Lituji. V tabulce změn nenížádná operace, Nemohu uskutečnit opravu.");
+                       }
+                       if (errCode == -1)
+                       {
+                           MessageBox.Show("Uskutečnění opravy dat se nezdařilo. Lituji.");
+                       }
+
+
+                   }
                 }
                 Hashtable newDBRow = null;
                 newDBRow = myDB.getNaradiLine(poradi, newDBRow);

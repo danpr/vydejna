@@ -867,6 +867,15 @@ namespace Vydejna
             return -1;
         }
 
+        // -1 obecna chyba
+        // -2 neni zadny zaznam v seznamu zmen predanych jako pole operaci
+        // -3 Neexistuje zaznam pro tento material v tabulce zmen
+        // -4 Doslo ko zmenam v tabulce zmen - pocet
+        // -5 Doslo ko zmenam v tabulce zmen - poradi
+        // -6 tabulka zmen stavu byla zmenena - jina instance programu
+        // -7 Neexistuje zaznam materialu
+        // -8 Zmena dat v tabulce materialu
+
 
         public virtual Int32 correctNaradiZmeny(Int32 DBparPoradi, Int32 DBoldFyzstav, Int32 DBnewFyzStav, Int32 DBoldUcetStav, Int32 DBnewUcetStav, zmenyCorrectLine[] newZmeny)
         {

@@ -44,7 +44,8 @@ namespace Vydejna
             loadZmenyItems();
             this.CancelButton = this.buttonCancel;
 
-            recountData();
+            // zmeny barev v datagiridview je nutno udelat az casti load protoze konstruktor pri zobrazeni nastavi standartni hodnoty
+            //recountData();
         }
 
         private void loadZmenyItems()
@@ -83,6 +84,10 @@ namespace Vydejna
                     DataColumnCollection dcc = dt.Columns;
                     dcc.Add("novystav", System.Type.GetType("System.Decimal"));
                     dataGridViewZmeny.Columns["novystav"].HeaderText = "Nový stav";
+
+                    dcc.Add("rozdil", System.Type.GetType("System.Decimal"));
+                    dataGridViewZmeny.Columns["rozdil"].HeaderText = "Rozdíl";
+
 
                     // nastavime na posledni radku
                     int counter = dataGridViewZmeny.Rows.Count - 1;
@@ -127,6 +132,7 @@ namespace Vydejna
 
             Int32 dtCount = (dataGridViewZmeny.DataSource as DataTable).Rows.Count;
             decimal novyZustatek = numericUpDownStartStav.Value;
+            decimal puvodniZustatek = numericUpDownStartStav.Value;
             for (Int32 i = 0; i < dtCount; i++)
             {
                 DataRow dr = (dataGridViewZmeny.DataSource as DataTable).Rows[i];
@@ -136,6 +142,9 @@ namespace Vydejna
                 novyZustatek = novyZustatek + prijem - vydej;
                 dr.SetField("novystav", novyZustatek);
 
+                dr.SetField("rozdil", puvodniZustatek + prijem - vydej - zustatek);
+
+                puvodniZustatek = zustatek;
             }
             setZmenyColor();
         }
@@ -301,6 +310,11 @@ namespace Vydejna
                 newZmeny[i].novyZustatek = Convert.ToInt32(newRow.Cells["novystav"].Value);
             }
             return newZmeny;
+        }
+
+        private void OpravaKarta_Load(object sender, EventArgs e)
+        {
+            recountData();
         }
 
     }

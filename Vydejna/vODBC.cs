@@ -4144,9 +4144,10 @@ namespace Vydejna
                 string commandString2 = "UPDATE naradi SET fyzstav = ?, ucetstav = ? WHERE poradi = ? ";
 
                 Int32 newZmenyCount =  newZmeny.Length;
+
                 if (newZmenyCount == 0)
                 {
-                    return -2; //neni zadny zanam ve zmenach
+                    return -2; //neni zadny zaznam ve zmenach
                 }
 
 
@@ -4269,10 +4270,6 @@ namespace Vydejna
                         return -7; // Neexistuje zaznam materialu
                     }
                     
-
-
-
-
 // opravime tabulku zmen
                     for (i = 0; i < newZmenyCount; i++)
                     {
@@ -4293,11 +4290,7 @@ namespace Vydejna
                         cmd2.Parameters.AddWithValue("@poradi", DBparPoradi).DbType = DbType.Int32;
                         cmd2.Transaction = transaction;
                         cmd2.ExecuteNonQuery();
-
                     }
-
-
-
 
 
                     if (transaction != null)

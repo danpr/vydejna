@@ -246,6 +246,7 @@
             this.Controls.Add(this.dataGridViewZmeny);
             this.Name = "OpravaKarta";
             this.Text = "OpravaKarta";
+            this.Load += new System.EventHandler(this.OpravaKarta_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewZmeny)).EndInit();
             this.groupBoxFyzStav.ResumeLayout(false);
             this.groupBoxFyzStav.PerformLayout();
