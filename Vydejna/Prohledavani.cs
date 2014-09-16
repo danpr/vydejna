@@ -607,11 +607,11 @@ namespace Vydejna
 
             loadComboBox(preferedColumn);
 
-            checkBoxFromStart.Checked = false;
-            checkBoxUpcase.Checked = false;
+            checkBoxFromStart.Checked = true;
+            checkBoxUpcase.Checked = true;
             checkBoxDiacritism.Checked = false;
 
-            checkBoxWildCard.Checked = true;
+            checkBoxWildCard.Checked = false;
             comboBoxRegex.SelectedIndex = 0;
 
             // nastavi hledani od prveho sloupce
