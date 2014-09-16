@@ -612,6 +612,7 @@ namespace Vydejna
             checkBoxDiacritism.Checked = false;
 
             checkBoxWildCard.Checked = false;
+            comboBoxRegex.Enabled = false;
             comboBoxRegex.SelectedIndex = 0;
 
             // nastavi hledani od prveho sloupce
