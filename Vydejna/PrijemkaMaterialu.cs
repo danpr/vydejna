@@ -66,6 +66,7 @@ namespace Vydejna
 
             AcceptButton = buttonOK;
             CancelButton = buttonCancel;
+
             boldFont = new Font(myFont, FontStyle.Bold);
             this.Font = myFont;
 

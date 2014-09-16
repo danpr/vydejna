@@ -17,6 +17,7 @@ namespace Vydejna
         private string formName = "CRCARD";
         private vDatabase myDB;
         private Int32 poradi;
+        private Font italicFont;
 
 
         public OpravaKarta(vDatabase myDataBase, Hashtable DBRow, Int32 poradi, Font myFont)
@@ -27,8 +28,11 @@ namespace Vydejna
 
             // jak menit meritko
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+
             parentFont = myFont;
 //            setFont(myFont);
+            italicFont = new Font(myFont, FontStyle.Italic);
+            this.Font = myFont;
 
             myDB = myDataBase;
 
@@ -229,13 +233,24 @@ namespace Vydejna
             {
                 if (row.Cells["zustatek"].Value != null && ( Convert.ToInt32( row.Cells["zustatek"].Value) !=  Convert.ToInt32( row.Cells["novystav"].Value )))
                 {
-                    row.DefaultCellStyle.BackColor = Color.Red;
+                    if ((row.Cells["rozdil"].Value != null) && (Convert.ToInt32(row.Cells["rozdil"].Value) != 0))
+                    {
+                        row.DefaultCellStyle.BackColor = Color.OrangeRed;
+                    }
+                    else
+                    {
+                        row.DefaultCellStyle.BackColor = Color.Red;
+                    }
                 }
                 else
                 {
                     row.DefaultCellStyle.BackColor = SystemColors.Window;
                 }
 
+                if ((row.Cells["rozdil"].Value != null) && (Convert.ToInt32(row.Cells["rozdil"].Value) != 0))
+                {
+                    row.DefaultCellStyle.Font = italicFont;
+                }
 
             }
         }

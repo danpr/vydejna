@@ -56,9 +56,9 @@
             // dataGridViewZmeny
             // 
             this.dataGridViewZmeny.AllowUserToAddRows = false;
-            this.dataGridViewZmeny.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridViewZmeny.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridViewZmeny.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewZmeny.Location = new System.Drawing.Point(22, 186);
             this.dataGridViewZmeny.MultiSelect = false;
@@ -244,6 +244,7 @@
             this.Controls.Add(this.groupBoxUcetSatv);
             this.Controls.Add(this.groupBoxFyzStav);
             this.Controls.Add(this.dataGridViewZmeny);
+            this.ForeColor = System.Drawing.SystemColors.ControlText;
             this.Name = "OpravaKarta";
             this.Text = "OpravaKarta";
             this.Load += new System.EventHandler(this.OpravaKarta_Load);
