@@ -4136,7 +4136,7 @@ namespace Vydejna
 
             if (DBIsOpened())
             {
-                string commandStringRead1 = "SELECT count (*)eas countz, MAX(poradi) as maxz FROM zmeny WHERE parporadi = ?";
+                string commandStringRead1 = "SELECT count (*) as countz, MAX(poradi) as maxz FROM zmeny WHERE parporadi = ?";
                 string commandStringRead2 = "SELECT prijem, vydej, zustatek, stav, poradi, * FROM zmeny zmeny WHERE parporadi = ?";
                 string commandStringRead3 = "SELECT fyzstav, ucetstav FROM naradi where poradi = ? ";
 
@@ -4245,8 +4245,8 @@ namespace Vydejna
                     Int32 aktUcetStav = 0;
                     if (seqReader3.Read() == true)
                     {
-                        aktFyzStav = seqReader1.GetInt32(seqReader1.GetOrdinal("fyzstav"));
-                        aktUcetStav = seqReader1.GetInt32(seqReader1.GetOrdinal("ucetstav"));
+                        aktFyzStav = seqReader3.GetInt32(seqReader3.GetOrdinal("fyzstav"));
+                        aktUcetStav = seqReader3.GetInt32(seqReader3.GetOrdinal("ucetstav"));
                         seqReader3.Close();
 
                         if ((DBoldFyzstav != aktFyzStav) || (DBoldUcetStav != aktUcetStav))

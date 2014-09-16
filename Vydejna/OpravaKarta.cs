@@ -321,7 +321,7 @@ namespace Vydejna
                 newZmeny[i].prijem = Convert.ToInt32(newRow.Cells["prijem"].Value);
                 newZmeny[i].vydej = Convert.ToInt32(newRow.Cells["vydej"].Value);
                 newZmeny[i].zustatek = Convert.ToInt32(newRow.Cells["zustatek"].Value);
-                newZmeny[i].stavcod = Convert.ToString(newRow.Cells["stavcod"].Value);
+                newZmeny[i].stavcod = Convert.ToString(newRow.Cells["stavkod"].Value);
                 newZmeny[i].novyZustatek = Convert.ToInt32(newRow.Cells["novystav"].Value);
             }
             return newZmeny;
