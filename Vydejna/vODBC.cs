@@ -4140,7 +4140,7 @@ namespace Vydejna
                 string commandStringRead2 = "SELECT prijem, vydej, zustatek, stav, poradi, * FROM zmeny zmeny WHERE parporadi = ?";
                 string commandStringRead3 = "SELECT fyzstav, ucetstav FROM naradi WHERE poradi = ? ";
 
-                string commandString1 = "UPDATE zmeny set zustatek where parporadi = ? AND poradi = ? ";
+                string commandString1 = "UPDATE zmeny set zustatek = ? where parporadi = ? AND poradi = ? ";
                 string commandString2 = "UPDATE naradi SET fyzstav = ?, ucetstav = ? WHERE poradi = ? ";
 
                 Int32 newZmenyCount =  newZmeny.Length;
@@ -4271,7 +4271,7 @@ namespace Vydejna
                     }
                     
 // opravime tabulku zmen
-                    for (Int32 ii = 0; i < newZmenyCount; ii++)
+                    for (Int32 ii = 0; ii < newZmenyCount; ii++)
                     {
                         zcl2 = newZmeny[ii];
                         if (zcl2.zustatek != zcl2.novyZustatek)
