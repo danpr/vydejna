@@ -4138,7 +4138,7 @@ namespace Vydejna
             {
                 string commandStringRead1 = "SELECT count (*) as countz, MAX(poradi) as maxz FROM zmeny WHERE parporadi = ?";
                 string commandStringRead2 = "SELECT prijem, vydej, zustatek, stav, poradi, * FROM zmeny zmeny WHERE parporadi = ?";
-                string commandStringRead3 = "SELECT fyzstav, ucetstav FROM naradi where poradi = ? ";
+                string commandStringRead3 = "SELECT fyzstav, ucetstav FROM naradi WHERE poradi = ? ";
 
                 string commandString1 = "UPDATE zmeny set zustatek where parporadi = ? AND poradi = ? ";
                 string commandString2 = "UPDATE naradi SET fyzstav = ?, ucetstav = ? WHERE poradi = ? ";
@@ -4271,12 +4271,18 @@ namespace Vydejna
                     }
                     
 // opravime tabulku zmen
-                    for (i = 0; i < newZmenyCount; i++)
+                    for (Int32 ii = 0; i < newZmenyCount; ii++)
                     {
-                        zcl2 = newZmeny[i];
+                        zcl2 = newZmeny[ii];
                         if (zcl2.zustatek != zcl2.novyZustatek)
                         {
                             // zapiseme data
+                            OdbcCommand cmd1 = new OdbcCommand(commandString1, myDBConn as OdbcConnection);
+                            cmd1.Parameters.AddWithValue("@zustatek", zcl2.novyZustatek).DbType = DbType.Int32;
+                            cmd1.Parameters.AddWithValue("@parporadi", DBparPoradi).DbType = DbType.Int32;
+                            cmd1.Parameters.AddWithValue("@poradi", zcl2.poradi).DbType = DbType.Int32;
+                            cmd1.Transaction = transaction;
+                            cmd1.ExecuteNonQuery();
                         }
                     }
 
