@@ -137,20 +137,34 @@ namespace Vydejna
             Int32 dtCount = (dataGridViewZmeny.DataSource as DataTable).Rows.Count;
             decimal novyZustatek = numericUpDownStartStav.Value;
             decimal puvodniZustatek = numericUpDownStartStav.Value;
+            decimal novyUcetStav = numericUpDownStartStav.Value;
+            decimal novyFyzStav = numericUpDownStartStav.Value;
             for (Int32 i = 0; i < dtCount; i++)
             {
                 DataRow dr = (dataGridViewZmeny.DataSource as DataTable).Rows[i];
                 Int32 prijem = Convert.ToInt32( dr["prijem"]);
                 Int32 vydej = Convert.ToInt32(dr["vydej"]);
                 Int32 zustatek = Convert.ToInt32(dr["zustatek"]);
+                string stavKod = Convert.ToString(dr["stavkod"]);
                 novyZustatek = novyZustatek + prijem - vydej;
-                dr.SetField("novystav", novyZustatek);
+                novyFyzStav = novyFyzStav + prijem - vydej;
+                // U - pujceno R - vraceno
+                if ((stavKod != "U") && (stavKod != "R"))
+                {
+                    novyUcetStav = novyUcetStav + prijem - vydej;
+                }
 
+                dr.SetField("novystav", novyZustatek);
                 dr.SetField("rozdil", puvodniZustatek + prijem - vydej - zustatek);
 
                 puvodniZustatek = zustatek;
             }
-            setZmenyColor();
+            if (dtCount > 0) // existuji zaznamy o zmenach
+            {
+                numericUpDownFyzStav.Value = novyFyzStav;
+                numericUpDownUcetStav.Value = novyUcetStav;
+                setZmenyColor();
+            }
         }
 
         private void numericUpDownStartStav_ValueChanged(object sender, EventArgs e)

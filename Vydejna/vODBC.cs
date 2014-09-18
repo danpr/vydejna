@@ -4139,7 +4139,6 @@ namespace Vydejna
                 string commandStringRead1 = "SELECT count (*) as countz, MAX(poradi) as maxz FROM zmeny WHERE parporadi = ?";
                 string commandStringRead2 = "SELECT prijem, vydej, zustatek, stav, poradi, * FROM zmeny zmeny WHERE parporadi = ?";
                 string commandStringRead3 = "SELECT fyzstav, ucetstav FROM naradi WHERE poradi = ? ";
-
                 string commandString1 = "UPDATE zmeny set zustatek = ? where parporadi = ? AND poradi = ? ";
                 string commandString2 = "UPDATE naradi SET fyzstav = ?, ucetstav = ? WHERE poradi = ? ";
 
@@ -4150,7 +4149,6 @@ namespace Vydejna
                     return -2; //neni zadny zaznam ve zmenach
                 }
 
-
                 try
                 {
                     try
@@ -4160,7 +4158,6 @@ namespace Vydejna
                     catch
                     {
                     }
-
 
                     OdbcCommand cmdr1 = new OdbcCommand(commandStringRead1, myDBConn as OdbcConnection);
                     cmdr1.Parameters.AddWithValue("@parporadi", DBparPoradi).DbType = DbType.Int32;
@@ -4193,9 +4190,6 @@ namespace Vydejna
                             }
                             return -5; // Doslo ko zmenam v tabulce zmen - poradi
                         }
-
-
-
                     }
                     else
                     {
@@ -4207,7 +4201,6 @@ namespace Vydejna
                         }
                         return -3; // Neexistuje zaznam zmen
                     }
-
 
                     OdbcCommand cmdr2 = new OdbcCommand(commandStringRead2, myDBConn as OdbcConnection);
                     cmdr2.Parameters.AddWithValue("@parporadi", DBparPoradi).DbType = DbType.Int32;
@@ -4257,7 +4250,6 @@ namespace Vydejna
                             }
                             return -8; // Zmena dat v tabulce materialu
                         }
-
                     }
                     else
                     {
@@ -4298,13 +4290,11 @@ namespace Vydejna
                         cmd2.ExecuteNonQuery();
                     }
 
-
                     if (transaction != null)
                     {
                         (transaction as OdbcTransaction).Commit();
                     }
                     return 0;
-
                 }
                 catch (Exception)
                 {
@@ -4315,7 +4305,6 @@ namespace Vydejna
                     }
                     return -1;
                 }
-
             }
             else
             {
