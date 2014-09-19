@@ -44,6 +44,10 @@
             this.labelJK = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.numericUpDownStartStav = new System.Windows.Forms.NumericUpDown();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.písmoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.vybratPísmoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.písmoAplikaceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewZmeny)).BeginInit();
             this.groupBoxFyzStav.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFyzStav)).BeginInit();
@@ -51,6 +55,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownUcetStav)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownStartStav)).BeginInit();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // dataGridViewZmeny
@@ -229,6 +234,39 @@
             this.numericUpDownStartStav.TabIndex = 15;
             this.numericUpDownStartStav.ValueChanged += new System.EventHandler(this.numericUpDownStartStav_ValueChanged);
             // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.písmoToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(746, 24);
+            this.menuStrip1.TabIndex = 28;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // písmoToolStripMenuItem
+            // 
+            this.písmoToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.vybratPísmoToolStripMenuItem,
+            this.písmoAplikaceToolStripMenuItem});
+            this.písmoToolStripMenuItem.Name = "písmoToolStripMenuItem";
+            this.písmoToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
+            this.písmoToolStripMenuItem.Text = "Písmo";
+            // 
+            // vybratPísmoToolStripMenuItem
+            // 
+            this.vybratPísmoToolStripMenuItem.Name = "vybratPísmoToolStripMenuItem";
+            this.vybratPísmoToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+            this.vybratPísmoToolStripMenuItem.Text = "Vybrat písmo";
+            this.vybratPísmoToolStripMenuItem.Click += new System.EventHandler(this.vybratPísmoToolStripMenuItem_Click);
+            // 
+            // písmoAplikaceToolStripMenuItem
+            // 
+            this.písmoAplikaceToolStripMenuItem.Name = "písmoAplikaceToolStripMenuItem";
+            this.písmoAplikaceToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+            this.písmoAplikaceToolStripMenuItem.Text = "Písmo aplikace";
+            this.písmoAplikaceToolStripMenuItem.Click += new System.EventHandler(this.písmoAplikaceToolStripMenuItem_Click);
+            // 
             // OpravaKarta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -245,10 +283,15 @@
             this.Controls.Add(this.groupBoxUcetSatv);
             this.Controls.Add(this.groupBoxFyzStav);
             this.Controls.Add(this.dataGridViewZmeny);
+            this.Controls.Add(this.menuStrip1);
             this.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.MainMenuStrip = this.menuStrip1;
             this.Name = "OpravaKarta";
             this.Text = "OpravaKarta";
             this.Load += new System.EventHandler(this.OpravaKarta_Load);
+            this.Shown += new System.EventHandler(this.OpravaKarta_Shown);
+            this.LocationChanged += new System.EventHandler(this.OpravaKarta_LocationChanged);
+            this.SizeChanged += new System.EventHandler(this.OpravaKarta_SizeChanged);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewZmeny)).EndInit();
             this.groupBoxFyzStav.ResumeLayout(false);
             this.groupBoxFyzStav.PerformLayout();
@@ -258,6 +301,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownUcetStav)).EndInit();
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownStartStav)).EndInit();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -281,5 +326,9 @@
         private System.Windows.Forms.Label labelUcetStav;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.NumericUpDown numericUpDownStartStav;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem písmoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem vybratPísmoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem písmoAplikaceToolStripMenuItem;
     }
 }

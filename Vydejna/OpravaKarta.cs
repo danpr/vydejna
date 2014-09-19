@@ -13,6 +13,9 @@ namespace Vydejna
     public partial class OpravaKarta : Form
     {
 
+        private enum evenStateEnum { enable, disable };
+        private evenStateEnum evenState = evenStateEnum.disable;
+
         private Font parentFont;
         private string formName = "CRCARD";
         private vDatabase myDB;
@@ -30,9 +33,9 @@ namespace Vydejna
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 
             parentFont = myFont;
-//            setFont(myFont);
+//          setFont(myFont);
             italicFont = new Font(myFont, FontStyle.Italic);
-            this.Font = myFont;
+//            this.Font = myFont;
 
             myDB = myDataBase;
 
@@ -343,8 +346,102 @@ namespace Vydejna
 
         private void OpravaKarta_Load(object sender, EventArgs e)
         {
+            setFont(parentFont);
+            setGeometry();
             recountData();
         }
+
+        private void setFont(Font myFont)
+        {
+            Font loadFont = ConfigReg.loadSettingFontX(formName);
+            if (loadFont != null)
+            {
+                this.Font = loadFont;
+            }
+            else
+            {
+                this.Font = myFont;
+            }
+        }
+
+        private void setAppFont()
+        {
+            this.Font = parentFont;
+            ConfigReg.deleteSettingFontX(formName);
+        }
+
+        private void chooseFont()
+        {
+            FontDialog fontDialog1 = new FontDialog();
+            fontDialog1.Font = this.Font;
+            if (fontDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                ConfigReg.saveSettingFontX(fontDialog1.Font, formName);
+                this.Font = fontDialog1.Font;
+            }
+        }
+
+        private void setGeometry()
+        {
+            Size size = ConfigReg.loadSettingWindowSize(formName);
+            if (!(size.IsEmpty)) this.Size = size;
+            Point location = ConfigReg.loadSettingWindowLocation(formName);
+
+            Int32 x = location.X;
+            Int32 y = location.Y;
+            if (x < 0) x = 0;
+            if (y < 0) y = 0;
+            if (x > (Screen.PrimaryScreen.Bounds.Width - 20)) x = Screen.PrimaryScreen.Bounds.Width - 20;
+            if (y > (Screen.PrimaryScreen.Bounds.Height - 20)) y = Screen.PrimaryScreen.Bounds.Height - 20;
+
+            if (!(location.IsEmpty))
+            {
+                StartPosition = FormStartPosition.Manual;
+                this.SetDesktopLocation(x, y);
+            }
+            else
+            {
+                StartPosition = FormStartPosition.WindowsDefaultLocation;
+            }
+
+        }
+
+        private void OpravaKarta_SizeChanged(object sender, EventArgs e)
+        {
+            if (evenState == evenStateEnum.enable)
+            {
+                if (!(this.Size.IsEmpty)) ConfigReg.saveSettingWindowLocationSize(formName, 0, 0, this.Size.Width, this.Size.Height);
+            }
+
+        }
+
+        private void OpravaKarta_LocationChanged(object sender, EventArgs e)
+        {
+            if (evenState == evenStateEnum.enable)
+            {
+                if (!(this.Location.IsEmpty)) ConfigReg.saveSettingWindowLocationSize(formName, this.Location.X, this.Location.Y, 0, 0);
+            }
+
+        }
+
+        private void OpravaKarta_Shown(object sender, EventArgs e)
+        {
+            evenState = evenStateEnum.enable;
+
+        }
+
+        private void vybratPísmoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            chooseFont();
+        }
+
+        private void písmoAplikaceToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            setAppFont();
+        }
+
+
+
 
     }
 }

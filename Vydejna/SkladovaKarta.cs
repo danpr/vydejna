@@ -137,9 +137,9 @@ namespace Vydejna
             setData(DBRow);
             loadZmenyItems();
             this.CancelButton = this.buttonCancel;
-            setFont(myFont);
-            setGeometry();
-            setColumnWidth();
+///            setFont(myFont);
+///            setGeometry();
+///            setColumnWidth();
 //            evenState = evenStateEnum.enable;
         }
 
@@ -157,14 +157,14 @@ namespace Vydejna
 
             this.CancelButton = this.buttonCancel;
             parentFont = myFont;
-            setFont(myFont);
+///            setFont(myFont);
 
             dataGridViewZmeny.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             setAddState();
 
-            setGeometry();
-            setColumnWidth();
-            evenState = evenStateEnum.enable;
+///            setGeometry();
+///            setColumnWidth();
+//            evenState = evenStateEnum.enable;
         }
 
         private void setFont(Font myFont)
@@ -888,6 +888,13 @@ namespace Vydejna
                 MessageBox.Show("Lituji. Není­ vybraná poslední­ řádka.");
             }
         }
+
+                private void SkladovaKarta_Load(object sender, EventArgs e)
+                {
+                    setFont(parentFont);
+                    setGeometry();
+                    setColumnWidth();
+                }
 
     
     }
