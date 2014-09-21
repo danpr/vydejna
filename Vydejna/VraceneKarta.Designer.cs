@@ -361,7 +361,7 @@
             this.písmoToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(621, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(629, 24);
             this.menuStrip1.TabIndex = 33;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -371,7 +371,7 @@
             this.toolStripMenuItem1,
             this.písmoAplikaceToolStripMenuItem});
             this.písmoToolStripMenuItem.Name = "písmoToolStripMenuItem";
-            this.písmoToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
+            this.písmoToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
             this.písmoToolStripMenuItem.Text = "Písmo";
             // 
             // toolStripMenuItem1
@@ -392,7 +392,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(621, 441);
+            this.ClientSize = new System.Drawing.Size(629, 445);
             this.Controls.Add(this.numericUpDownCena);
             this.Controls.Add(this.buttonOK);
             this.Controls.Add(this.buttonCancel);
@@ -429,6 +429,7 @@
             this.MinimumSize = new System.Drawing.Size(637, 479);
             this.Name = "VraceneKarta";
             this.Text = "Vracená karta";
+            this.Load += new System.EventHandler(this.VraceneKarta_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPocetKS)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCena)).EndInit();
             this.menuStrip1.ResumeLayout(false);

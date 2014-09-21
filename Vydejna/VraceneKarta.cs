@@ -79,7 +79,6 @@ namespace Vydejna
 
             AcceptButton = buttonOK;
             CancelButton = buttonCancel;
-            setFont(myFont);
         }
 
         public VraceneKarta(Hashtable DBRow, Font myFont)
@@ -90,7 +89,6 @@ namespace Vydejna
             setShowState();
             setData(DBRow);
             CancelButton = buttonCancel;
-            setFont(myFont);
         }
 
 
@@ -258,6 +256,11 @@ namespace Vydejna
         private void písmoAplikaceToolStripMenuItem_Click(object sender, EventArgs e)
         {
             setAppFont();
+        }
+
+        private void VraceneKarta_Load(object sender, EventArgs e)
+        {
+            setFont(parentFont);
         }
 
 

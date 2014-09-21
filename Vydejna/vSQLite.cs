@@ -2554,7 +2554,7 @@ namespace Vydejna
                 string commandReadString5 = "SELECT rtrim(nazev) as nazev, rtrim(jk) as jk, rtrim(rozmer) as rozmer, rtrim(normacsn) as normacsn, cena, celkcena, ucetstav  FROM naradi WHERE poradi = ? ";
                 string commandReadString6 = "SELECT jmeno, prijmeni, odeleni, stredisko, pracoviste FROM osoby WHERE oscislo = ? ";
                 ///------------
-                string commandReadString7 = "SELECT poradi FROM tabseq WHERE nazev = 'poskozeno'";
+//                string commandReadString7 = "SELECT poradi FROM tabseq WHERE nazev = 'poskozeno'";
                 string commandReadString7a = "SELECT MAX(poradi) FROM poskozeno";
 
                 string commandString1 = "UPDATE naradi SET ucetstav = ucetstav - ?, celkcena = celkcena - (ucetkscen * ?) WHERE poradi = ? ";
@@ -2569,7 +2569,7 @@ namespace Vydejna
                 string commandString6 = "UPDATE  tabseq set poradi = poradi +1 WHERE nazev = 'vraceno'";
                 ///--------------------------------
 
-                string commandString8 = "UPDATE  tabseq set poradi = poradi +1 WHERE nazev = 'poskozeno'";
+//                string commandString8 = "UPDATE  tabseq set poradi = poradi +1 WHERE nazev = 'poskozeno'";
                 string commandString8a = "UPDATE  tabseq set poradi = ? WHERE nazev = 'poskozeno'";
                 string commandString9 = "INSERT INTO poskozeno ( poradi, jmeno, oscislo, dilna, pracoviste, vyrobek, nazev, jk, rozmer, pocetks, cena, datum, csn, krjmeno, celkcena, vevcislo, konto) " +
                       "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
@@ -3189,14 +3189,14 @@ namespace Vydejna
                 string commandStringRead0 = "SELECT count(*) as countporadi from poskozeno";
                 string commandStringRead1 = "SELECT poradi, zustatek from zmeny where parporadi = ? ORDER BY poradi DESC";
                 string commandStringRead2 = "SELECT fyzstav, ucetstav, ucetkscen, rozmer, nazev, jk, normacsn FROM naradi where poradi = ? ";
-                string commandStringRead3 = "SELECT poradi FROM tabseq WHERE nazev = 'poskozeno'";
+//                string commandStringRead3 = "SELECT poradi FROM tabseq WHERE nazev = 'poskozeno'";
                 string commandStringRead3a = "SELECT MAX(poradi) FROM poskozeno";
 
 
                 string commandString1 = "UPDATE naradi set fyzstav = fyzstav - ?, ucetstav = ucetstav - ?, celkcena = celkcena - (ucetkscen * ?)  where poradi = ? ";
                 string commandString2 = "INSERT INTO zmeny (parporadi, pomozjk, datum, poznamka, prijem, vydej, zustatek, zapkarta, vevcislo, pocivc, stav, poradi )" +
                       "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
-                string commandString4 = "UPDATE  tabseq set poradi = poradi +1 WHERE nazev = 'poskozeno'";
+//                string commandString4 = "UPDATE  tabseq set poradi = poradi +1 WHERE nazev = 'poskozeno'";
                 string commandString4a = "UPDATE  tabseq set poradi = ? WHERE nazev = 'poskozeno'";
                 string commandString5 = "INSERT INTO poskozeno ( poradi, jmeno, oscislo, dilna, pracoviste, vyrobek, nazev, jk, rozmer, pocetks, cena, datum, csn, krjmeno, celkcena, vevcislo, konto) " +
                       "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
@@ -4098,6 +4098,189 @@ namespace Vydejna
         }
 
 
+        public override Int32 correctNaradiZmeny(Int32 DBparPoradi, Int32 DBoldFyzstav, Int32 DBnewFyzStav, Int32 DBoldUcetStav, Int32 DBnewUcetStav, zmenyCorrectLine[] newZmeny)
+        {
+
+            SQLiteTransaction transaction = null;
+
+            if (DBIsOpened())
+            {
+                string commandStringRead1 = "SELECT count (*) as countz, MAX(poradi) as maxz FROM zmeny WHERE parporadi = ?";
+                string commandStringRead2 = "SELECT prijem, vydej, zustatek, stav, poradi, * FROM zmeny zmeny WHERE parporadi = ?";
+                string commandStringRead3 = "SELECT fyzstav, ucetstav FROM naradi WHERE poradi = ? ";
+                string commandString1 = "UPDATE zmeny set zustatek = ? where parporadi = ? AND poradi = ? ";
+                string commandString2 = "UPDATE naradi SET fyzstav = ?, ucetstav = ? WHERE poradi = ? ";
+
+                Int32 newZmenyCount = newZmeny.Length;
+
+                if (newZmenyCount == 0)
+                {
+                    return -2; //neni zadny zaznam ve zmenach
+                }
+
+                try
+                {
+                    try
+                    {
+                        transaction = (myDBConn as SQLiteConnection).BeginTransaction(System.Data.IsolationLevel.ReadCommitted);
+                    }
+                    catch
+                    {
+                    }
+
+                    SQLiteCommand cmdr1 = new SQLiteCommand(commandStringRead1, myDBConn as SQLiteConnection);
+                    cmdr1.Parameters.AddWithValue("@parporadi", DBparPoradi).DbType = DbType.Int32;
+                    cmdr1.Transaction = transaction;
+                    SQLiteDataReader seqReader1 = cmdr1.ExecuteReader();
+                    Int32 countz = 0;
+                    Int32 maxz = 0;
+
+                    if (seqReader1.Read() == true)
+                    {
+                        countz = seqReader1.GetInt32(seqReader1.GetOrdinal("countz"));
+                        maxz = seqReader1.GetInt32(seqReader1.GetOrdinal("maxz"));
+                        seqReader1.Close();
+
+                        if (countz != newZmenyCount)
+                        {
+                            if (transaction != null)
+                            {
+                                (transaction as SQLiteTransaction).Rollback();
+                            }
+                            return -4; // Doslo ko zmenam v tabulce zmen - pocet
+                        }
+
+                        zmenyCorrectLine zcl = newZmeny[newZmenyCount - 1];
+                        if (zcl.poradi != maxz)
+                        {
+                            if (transaction != null)
+                            {
+                                (transaction as SQLiteTransaction).Rollback();
+                            }
+                            return -5; // Doslo ko zmenam v tabulce zmen - poradi
+                        }
+                    }
+                    else
+                    {
+                        seqReader1.Close();
+                        // material neexistuje zrusime transakci a navratime chybu
+                        if (transaction != null)
+                        {
+                            (transaction as SQLiteTransaction).Rollback();
+                        }
+                        return -3; // Neexistuje zaznam zmen
+                    }
+
+                    SQLiteCommand cmdr2 = new SQLiteCommand(commandStringRead2, myDBConn as SQLiteConnection);
+                    cmdr2.Parameters.AddWithValue("@parporadi", DBparPoradi).DbType = DbType.Int32;
+                    cmdr2.Transaction = transaction;
+                    SQLiteDataReader seqReader2 = cmdr2.ExecuteReader();
+
+                    Int32 i = 0;
+                    zmenyCorrectLine zcl2; ;
+
+                    while (seqReader2.Read())
+                    {
+                        zcl2 = newZmeny[i];
+                        if ((zcl2.poradi != seqReader2.GetInt32(seqReader2.GetOrdinal("poradi")))
+                            || (zcl2.prijem != seqReader2.GetInt32(seqReader2.GetOrdinal("prijem")))
+                            || (zcl2.vydej != seqReader2.GetInt32(seqReader2.GetOrdinal("vydej")))
+                            || (zcl2.zustatek != seqReader2.GetInt32(seqReader2.GetOrdinal("zustatek")))
+                            || (zcl2.stavcod != seqReader2.GetString(seqReader2.GetOrdinal("stav"))))
+                        {
+                            seqReader2.Close();
+                            if (transaction != null)
+                            {
+                                (transaction as SQLiteTransaction).Rollback();
+                            }
+                            return -6; // tabulka zmen stavu byla zmenena - jina instance programu
+                        }
+                        i++;
+                    }
+
+
+                    SQLiteCommand cmdr3 = new SQLiteCommand(commandStringRead3, myDBConn as SQLiteConnection);
+                    cmdr3.Parameters.AddWithValue("@poradi", DBparPoradi).DbType = DbType.Int32;
+                    cmdr3.Transaction = transaction;
+                    SQLiteDataReader seqReader3 = cmdr3.ExecuteReader();
+                    Int32 aktFyzStav = 0;
+                    Int32 aktUcetStav = 0;
+                    if (seqReader3.Read() == true)
+                    {
+                        aktFyzStav = seqReader3.GetInt32(seqReader3.GetOrdinal("fyzstav"));
+                        aktUcetStav = seqReader3.GetInt32(seqReader3.GetOrdinal("ucetstav"));
+                        seqReader3.Close();
+
+                        if ((DBoldFyzstav != aktFyzStav) || (DBoldUcetStav != aktUcetStav))
+                        {
+                            if (transaction != null)
+                            {
+                                (transaction as SQLiteTransaction).Rollback();
+                            }
+                            return -8; // Zmena dat v tabulce materialu
+                        }
+                    }
+                    else
+                    {
+                        seqReader3.Close();
+                        // material neexistuje zrusime transakci a navratime chybu
+                        if (transaction != null)
+                        {
+                            (transaction as SQLiteTransaction).Rollback();
+                        }
+                        return -7; // Neexistuje zaznam materialu
+                    }
+
+                    // opravime tabulku zmen
+                    for (Int32 ii = 0; ii < newZmenyCount; ii++)
+                    {
+                        zcl2 = newZmeny[ii];
+                        if (zcl2.zustatek != zcl2.novyZustatek)
+                        {
+                            // zapiseme data
+                            SQLiteCommand cmd1 = new SQLiteCommand(commandString1, myDBConn as SQLiteConnection);
+                            cmd1.Parameters.AddWithValue("@zustatek", zcl2.novyZustatek).DbType = DbType.Int32;
+                            cmd1.Parameters.AddWithValue("@parporadi", DBparPoradi).DbType = DbType.Int32;
+                            cmd1.Parameters.AddWithValue("@poradi", zcl2.poradi).DbType = DbType.Int32;
+                            cmd1.Transaction = transaction;
+                            cmd1.ExecuteNonQuery();
+                        }
+                    }
+
+                    //opravime tabulku materialu
+                    if ((DBoldFyzstav != DBnewFyzStav) || (DBoldUcetStav != DBnewUcetStav))
+                    {
+                        //                        zapiseme data
+                        SQLiteCommand cmd2 = new SQLiteCommand(commandString2, myDBConn as SQLiteConnection);
+                        cmd2.Parameters.AddWithValue("@fyzstav", DBnewFyzStav).DbType = DbType.Int32;
+                        cmd2.Parameters.AddWithValue("@ucetstav", DBnewUcetStav).DbType = DbType.Int32;
+                        cmd2.Parameters.AddWithValue("@poradi", DBparPoradi).DbType = DbType.Int32;
+                        cmd2.Transaction = transaction;
+                        cmd2.ExecuteNonQuery();
+                    }
+
+                    if (transaction != null)
+                    {
+                        (transaction as SQLiteTransaction).Commit();
+                    }
+                    return 0;
+                }
+                catch (Exception)
+                {
+                    // doslo k chybe
+                    if (transaction != null)
+                    {
+                        (transaction as SQLiteTransaction).Rollback();
+                    }
+                    return -1;
+                }
+            }
+            else
+            {
+                return -1;
+            }
+
+        }
 
 
 

@@ -268,6 +268,15 @@ namespace Vydejna
                 {
                     row.DefaultCellStyle.Font = italicFont;
                 }
+                else
+                {
+                    if ((row.DefaultCellStyle.Font != null) && (row.DefaultCellStyle.Font.Italic == true))
+                    {
+                        row.DefaultCellStyle.Font = parentFont;
+                    }
+                }
+
+
 
             }
         }
@@ -348,6 +357,7 @@ namespace Vydejna
         {
             setFont(parentFont);
             setGeometry();
+            setColumnWidth();
             recountData();
         }
 
@@ -406,6 +416,30 @@ namespace Vydejna
 
         }
 
+
+        public virtual void setColumnWidth()
+        {
+            Hashtable DBTableInfo = ConfigReg.loadSettingWindowTableColumnWidth(formName, "zmeny");
+            if (DBTableInfo != null)
+            {
+                Int32 columnWidth = 0;
+                for (Int32 i = 0; i < dataGridViewZmeny.Columns.Count; i++)
+                {
+                    string myColumnName = dataGridViewZmeny.Columns[i].Name;
+                    if (DBTableInfo.ContainsKey(myColumnName))
+                    {
+                        columnWidth = Convert.ToInt32(DBTableInfo[myColumnName]);
+                        try
+                        {
+                            dataGridViewZmeny.Columns[i].Width = columnWidth;
+                        }
+                        catch { }
+                    }
+                }
+            }
+        }
+
+
         private void OpravaKarta_SizeChanged(object sender, EventArgs e)
         {
             if (evenState == evenStateEnum.enable)
@@ -438,6 +472,22 @@ namespace Vydejna
         private void písmoAplikaceToolStripMenuItem_Click(object sender, EventArgs e)
         {
             setAppFont();
+        }
+
+        private void dataGridViewZmeny_ColumnDisplayIndexChanged(object sender, DataGridViewColumnEventArgs e)
+        {
+            if (evenState == evenStateEnum.enable)
+            {
+                ConfigReg.saveSettingWindowTableColumnIndex(formName, "zmeny", e.Column.Name, e.Column.DisplayIndex);
+            }
+        }
+
+        private void dataGridViewZmeny_ColumnWidthChanged(object sender, DataGridViewColumnEventArgs e)
+        {
+            if (evenState == evenStateEnum.enable)
+            {
+                ConfigReg.saveSettingWindowTableColumnWidth(formName, "zmeny", e.Column.Name, e.Column.Width);
+            }
         }
 
 

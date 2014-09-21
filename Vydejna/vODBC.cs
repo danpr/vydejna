@@ -1606,7 +1606,7 @@ namespace Vydejna
                 string commandReadString5 = "SELECT rtrim(nazev) as nazev, rtrim(jk) as jk, rtrim(rozmer) as rozmer, rtrim(normacsn) as normacsn, cena, celkcena, ucetstav  FROM naradi WHERE poradi = ? ";
                 string commandReadString6 = "SELECT jmeno, prijmeni, odeleni, stredisko, pracoviste FROM osoby WHERE oscislo = ? ";
                 ///------------
-                string commandReadString7 = "SELECT poradi FROM tabseq WHERE nazev = 'poskozeno'";
+//                string commandReadString7 = "SELECT poradi FROM tabseq WHERE nazev = 'poskozeno'";
                 string commandReadString7a = "SELECT MAX(poradi) FROM poskozeno";
 
                 string commandString1 = "UPDATE naradi SET ucetstav = ucetstav - ?, celkcena = celkcena - (ucetkscen * ?) WHERE poradi = ? ";
@@ -1622,7 +1622,7 @@ namespace Vydejna
 
                 ///--------------------------------
 
-                string commandString8 = "UPDATE  tabseq set poradi = poradi +1 WHERE nazev = 'poskozeno'";
+//                string commandString8 = "UPDATE  tabseq set poradi = poradi +1 WHERE nazev = 'poskozeno'";
                 string commandString8a = "UPDATE  tabseq set poradi = ? WHERE nazev = 'poskozeno'";
                 string commandString9 = "INSERT INTO poskozeno ( poradi, jmeno, oscislo, dilna, pracoviste, vyrobek, nazev, jk, rozmer, pocetks, cena, datum, csn, krjmeno, celkcena, vevcislo, konto) " +
                       "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
@@ -2575,14 +2575,14 @@ namespace Vydejna
                 string commandStringRead0 = "SELECT count(*) as countporadi from poskozeno";
                 string commandStringRead1 = "SELECT poradi, zustatek from zmeny where parporadi = ? ORDER BY poradi DESC";
                 string commandStringRead2 = "SELECT fyzstav, ucetstav, ucetkscen, rozmer, nazev, jk, normacsn FROM naradi where poradi = ? ";
-                string commandStringRead3 = "SELECT poradi FROM tabseq WHERE nazev = \'poskozeno\'";
+//                string commandStringRead3 = "SELECT poradi FROM tabseq WHERE nazev = \'poskozeno\'";
                 string commandStringRead3a = "SELECT MAX(poradi) FROM poskozeno";
 
 
                 string commandString1 = "UPDATE naradi set fyzstav = fyzstav - ?, ucetstav = ucetstav - ?, celkcena = celkcena - (ucetkscen * ?)  where poradi = ? ";
                 string commandString2 = "INSERT INTO zmeny (parporadi, pomozjk, datum, poznamka, prijem, vydej, zustatek, zapkarta, vevcislo, pocivc, stav, poradi )" +
                       "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
-                string commandString4 = "UPDATE  tabseq set poradi = poradi +1 WHERE nazev = 'poskozeno'";
+//                string commandString4 = "UPDATE  tabseq set poradi = poradi +1 WHERE nazev = 'poskozeno'";
                 string commandString4a = "UPDATE  tabseq set poradi = ? WHERE nazev = 'poskozeno'";
 
                 string commandString5 = "INSERT INTO poskozeno ( poradi, jmeno, oscislo, dilna, pracoviste, vyrobek, nazev, jk, rozmer, pocetks, cena, datum, csn, krjmeno, celkcena, vevcislo, konto) " +

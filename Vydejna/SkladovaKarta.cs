@@ -133,14 +133,9 @@ namespace Vydejna
                     setEditState();
                 }
             }
-
             setData(DBRow);
             loadZmenyItems();
             this.CancelButton = this.buttonCancel;
-///            setFont(myFont);
-///            setGeometry();
-///            setColumnWidth();
-//            evenState = evenStateEnum.enable;
         }
 
 
@@ -157,14 +152,9 @@ namespace Vydejna
 
             this.CancelButton = this.buttonCancel;
             parentFont = myFont;
-///            setFont(myFont);
 
             dataGridViewZmeny.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             setAddState();
-
-///            setGeometry();
-///            setColumnWidth();
-//            evenState = evenStateEnum.enable;
         }
 
         private void setFont(Font myFont)
