@@ -1616,5 +1616,16 @@ namespace Vydejna
         {
 
         }
+
+
+        private void ZamykaniStranekToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            myDB.ZamykaniStranek();
+        }
+
+        private void ZamykaniRadkuToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            myDB.ZamykaniRadek();
+        }
     }
 }

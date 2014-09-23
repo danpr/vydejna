@@ -219,6 +219,15 @@ namespace Vydejna
         }
 
 
+        public virtual void ZamykaniStranek()
+        {
+        }
+
+        public virtual void ZamykaniRadek()
+        {
+        }
+            
+
         public virtual void CreateTableUzivatele()
         {
         }
