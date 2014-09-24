@@ -219,12 +219,14 @@ namespace Vydejna
         }
 
 
-        public virtual void ZamykaniStranek()
+        public virtual Boolean ZamykaniStranek()
         {
+            return false;
         }
 
-        public virtual void ZamykaniRadek()
+        public virtual Boolean ZamykaniRadek()
         {
+            return false;
         }
             
 

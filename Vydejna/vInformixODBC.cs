@@ -74,7 +74,7 @@ namespace Vydejna
                     cmdOsoby.ExecuteNonQuery();
                     cmdZmeny.ExecuteNonQuery();
                     cmdPujceno.ExecuteNonQuery();
-                    MessageBox.Show("Tabulky byly smazány");
+                    MessageBox.Show("Tabulky byly smazány.");
                 }
                 catch (Exception ex)
                 {
@@ -90,5 +90,79 @@ namespace Vydejna
                 }
             }
         }
+        //ALTER TABLE gsvady LOCK MODE (ROW)   ALTER TABLE gsvady LOCK MODE (PAGE)
+
+
+        public override Boolean ZamykaniStranek()
+        {
+            return setStyleLockDB(true);
+        }
+
+        private Boolean setStyleLockDB ( Boolean page)
+        {
+            openDB();
+            if (DBIsOpened())
+            {
+                OdbcCommand cmdNaradi;
+                OdbcCommand cmdKarta;
+                OdbcCommand cmdVraceno;
+                OdbcCommand cmdPoskozeno;
+                OdbcCommand cmdOsoby;
+                OdbcCommand cmdZmeny;
+                OdbcCommand cmdPujceno;
+                if (page == true)
+                {
+                    cmdNaradi = new OdbcCommand("ALTER TABLE naradi LOCK MODE (PAGE)", myDBConn as OdbcConnection);
+                    cmdKarta = new OdbcCommand("ALTER TABLE karta LOCK MODE (PAGE)", myDBConn as OdbcConnection);
+                    cmdVraceno = new OdbcCommand("ALTER TABLE vraceno LOCK MODE (PAGE)", myDBConn as OdbcConnection);
+                    cmdPoskozeno = new OdbcCommand("ALTER TABLE poskozeno LOCK MODE (PAGE)", myDBConn as OdbcConnection);
+                    cmdOsoby = new OdbcCommand("ALTER TABLE osoby LOCK MODE (PAGE)", myDBConn as OdbcConnection);
+                    cmdZmeny = new OdbcCommand("ALTER TABLE zmeny LOCK MODE (PAGE)", myDBConn as OdbcConnection);
+                    cmdPujceno = new OdbcCommand("ALTER TABLE pujceno LOCK MODE (PAGE)", myDBConn as OdbcConnection);
+                }
+                else
+                {
+                    cmdNaradi = new OdbcCommand("ALTER TABLE naradi LOCK MODE (ROW)", myDBConn as OdbcConnection);
+                    cmdKarta = new OdbcCommand("ALTER TABLE karta LOCK MODE (ROW)", myDBConn as OdbcConnection);
+                    cmdVraceno = new OdbcCommand("ALTER TABLE vraceno LOCK MODE (ROW)", myDBConn as OdbcConnection);
+                    cmdPoskozeno = new OdbcCommand("ALTER TABLE poskozeno LOCK MODE (ROW)", myDBConn as OdbcConnection);
+                    cmdOsoby = new OdbcCommand("ALTER TABLE osoby LOCK MODE (ROW)", myDBConn as OdbcConnection);
+                    cmdZmeny = new OdbcCommand("ALTER TABLE zmeny LOCK MODE (ROW)", myDBConn as OdbcConnection);
+                    cmdPujceno = new OdbcCommand("ALTER TABLE pujceno LOCK MODE (ROW)", myDBConn as OdbcConnection);
+                }
+
+                try
+                {
+                    cmdNaradi.ExecuteNonQuery();
+                    cmdKarta.ExecuteNonQuery();
+                    cmdVraceno.ExecuteNonQuery();
+                    cmdPoskozeno.ExecuteNonQuery();
+                    cmdOsoby.ExecuteNonQuery();
+                    cmdZmeny.ExecuteNonQuery();
+                    cmdPujceno.ExecuteNonQuery();
+                    MessageBox.Show("Nastavení zamku bylo změněno.");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                finally
+                {
+                    cmdOsoby.Dispose();
+                    cmdPoskozeno.Dispose();
+                    cmdVraceno.Dispose();
+                    cmdKarta.Dispose();
+                    cmdNaradi.Dispose();
+                }
+            }
+            return true;
+        }
+
+        public override Boolean ZamykaniRadek()
+        {
+            return setStyleLockDB(false);
+        }
+
+
     }
 }

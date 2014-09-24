@@ -1620,12 +1620,46 @@ namespace Vydejna
 
         private void ZamykaniStranekToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            myDB.ZamykaniStranek();
+            UzivatelData ud = UzivatelData.makeInstance();
+            if (ud.userIsAdminWM())
+            {
+                vDatabase localDB = OpenDataBaseHandle(false);
+                localDB.openDB();
+                if (localDB.DBIsOpened())
+                {
+                    if (!localDB.ZamykaniStranek())
+                        MessageBox.Show("Volba zamykání není podporovaná");
+
+                    localDB.closeDB();
+                    myDB = OpenDataBaseHandle();
+                    myDB.openDB();
+                    setStateChangeEvent(myDB);
+                }
+            }
         }
 
         private void ZamykaniRadkuToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            myDB.ZamykaniRadek();
+            UzivatelData ud = UzivatelData.makeInstance();
+            if (ud.userIsAdminWM())
+            {
+                vDatabase localDB = OpenDataBaseHandle(false);
+                localDB.openDB();
+                if (localDB.DBIsOpened())
+                {
+                    if (!localDB.ZamykaniRadek())
+                        MessageBox.Show("Volba zamykání není podporovaná");
+
+                    localDB.closeDB();
+                    myDB = OpenDataBaseHandle();
+                    myDB.openDB();
+                    setStateChangeEvent(myDB);
+                }
+            }
         }
+
+
+
+
     }
 }

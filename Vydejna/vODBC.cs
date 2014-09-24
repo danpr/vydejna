@@ -425,6 +425,18 @@ namespace Vydejna
         }
 
 
+
+        public override Boolean ZamykaniStranek()
+        {
+            return false;
+        }
+
+        public override Boolean ZamykaniRadek()
+        {
+            return false;
+        }
+
+
         public override void CreateTableUzivatele()
         {
             if (DBIsOpened())
