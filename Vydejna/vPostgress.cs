@@ -133,6 +133,29 @@ namespace Vydejna
             return loadDataTable("select nazev, csn, jk, datum, pocetks, round(cena::numeric ,3) as cena, round((cena *pocetks)::numeric,3) as celkcena  from poskozeno where datum >= ? and datum <= ? and vyrobek = ?  order by datum", dateFrom, dateTo, vyrobek);
         }
 
+        public override Int32 VycisteniTabulek()
+        {
+            Int32  returnCode = 0;
+            openDB();
+            if (DBIsOpened())
+            {
+                OdbcCommand cmdVacuum = new OdbcCommand("VACUUM", myDBConn as OdbcConnection);
+                try
+                {
+                    cmdVacuum.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    returnCode = -2; // operace se nezdarila
+                    MessageBox.Show(ex.Message);
+                }
+                finally
+                {
+                    cmdVacuum.Dispose();
+                }
+            }
+            return returnCode;
+        }
 
 
     }

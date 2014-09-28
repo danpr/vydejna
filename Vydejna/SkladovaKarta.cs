@@ -277,7 +277,9 @@ namespace Vydejna
             cenaKs = Convert.ToDecimal(DBRow["cena"]);
             numericUpDownCenaKs.Value = Convert.ToDecimal(DBRow["cena"]);
             numericUpDownUcetCenaKs.Value = Convert.ToDecimal(DBRow["ucetkscen"]);
+            
             numericUpDownUcetCena.Value = Convert.ToDecimal(DBRow["celkcena"]); //celkova cena
+ 
             numericUpDownMinStav.Value = Convert.ToInt32(DBRow["minimum"]);
             textBoxPoznamka.Text = Convert.ToString(DBRow["poznamka"]);
         }

@@ -453,6 +453,31 @@ namespace Vydejna
         }
 
 
+        public override Int32 VycisteniTabulek()
+        {
+            Int32 returnCode = 0;
+      //      openDB();
+            if (DBIsOpened())
+            {
+                SQLiteCommand cmdVacuum = new SQLiteCommand("VACUUM", myDBConn as SQLiteConnection);
+                try
+                {
+                    cmdVacuum.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    returnCode = -2; // operace se nezdarila
+                    MessageBox.Show(ex.Message);
+                }
+                finally
+                {
+                    cmdVacuum.Dispose();
+                }
+            }
+            return returnCode;
+        }
+
+
         public override void CreateTableUzivatele()
         {
             if (DBIsOpened())

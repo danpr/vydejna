@@ -1500,7 +1500,6 @@ namespace Vydejna
 
         private void ukončeníProgramuToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Close();
         }
 
         private void ConMenuPrintItem(object sender, EventArgs e)
@@ -1656,6 +1655,45 @@ namespace Vydejna
                     setStateChangeEvent(myDB);
                 }
             }
+        }
+
+        private void vyčistěníToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            UzivatelData ud = UzivatelData.makeInstance();
+            if (ud.userIsAdminWM())
+            {
+                if (myDB.DBIsOpened())
+                {
+                    Int32 errCode = myDB.VycisteniTabulek();
+                    if (errCode < 0)
+                        if (errCode == -1)
+                        {
+                            MessageBox.Show("Vyčistěni tabulek není podporováno.");
+                        }
+                        else
+                        {
+                            MessageBox.Show("Vyčistěni tabulek se nezdařilo.");
+                        }
+                    else
+                    {
+                        MessageBox.Show("Tabulky byly vyčistěny.");
+                    }
+
+                    setStateChangeEvent(myDB);
+                }
+            }
+
+        }
+
+        private void ukončeníProgramuToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void oProgramuToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AboutBox info = new AboutBox();
+            info.ShowDialog();
         }
 
 

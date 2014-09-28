@@ -228,7 +228,13 @@ namespace Vydejna
         {
             return false;
         }
-            
+
+        public virtual Int32 VycisteniTabulek()
+        {
+            return -1;
+        }
+
+
 
         public virtual void CreateTableUzivatele()
         {

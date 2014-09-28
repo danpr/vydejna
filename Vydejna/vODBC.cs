@@ -437,6 +437,13 @@ namespace Vydejna
         }
 
 
+        public override Int32 VycisteniTabulek()
+        {
+            return -1;
+        }
+
+
+
         public override void CreateTableUzivatele()
         {
             if (DBIsOpened())
