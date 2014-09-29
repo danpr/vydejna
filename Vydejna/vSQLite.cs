@@ -3226,6 +3226,8 @@ namespace Vydejna
                 string commandString5 = "INSERT INTO poskozeno ( poradi, jmeno, oscislo, dilna, pracoviste, vyrobek, nazev, jk, rozmer, pocetks, cena, datum, csn, krjmeno, celkcena, vevcislo, konto) " +
                       "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
 
+                string commandString6 = "UPDATE naradi set celkcena = 0 where poradi = ? AND celkcena < 0";
+
 
                 try
                 {
@@ -3339,8 +3341,15 @@ namespace Vydejna
                         cmd1.Transaction = transaction;
                         cmd1.ExecuteNonQuery();
 
-                        SQLiteCommand cmd2 = new SQLiteCommand(commandString2, myDBConn as SQLiteConnection);
+                        // opravi pripadne zaporny stav celkove ceny
+                        SQLiteCommand cmd6 = new SQLiteCommand(commandString6, myDBConn as SQLiteConnection);
+                        cmd6.Parameters.AddWithValue("@poradi", DBporadi).DbType = DbType.Int32;
+                        cmd6.Transaction = transaction;
+                        cmd6.ExecuteNonQuery();
 
+
+
+                        SQLiteCommand cmd2 = new SQLiteCommand(commandString2, myDBConn as SQLiteConnection);
                         cmd2.Parameters.AddWithValue("@parporadi", DBporadi).DbType = DbType.Int32;
                         cmd2.Parameters.AddWithValue("@pomozjk", jk);
                         cmd2.Parameters.AddWithValue("@datum", DBdatum);

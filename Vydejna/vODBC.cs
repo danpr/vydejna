@@ -2607,6 +2607,8 @@ namespace Vydejna
                 string commandString5 = "INSERT INTO poskozeno ( poradi, jmeno, oscislo, dilna, pracoviste, vyrobek, nazev, jk, rozmer, pocetks, cena, datum, csn, krjmeno, celkcena, vevcislo, konto) " +
                       "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
 
+                string commandString6 = "UPDATE naradi set celkcena = 0 where poradi = ? AND celkcena < 0";
+
 
                 try
                 {
@@ -2719,6 +2721,13 @@ namespace Vydejna
                         cmd1.Parameters.AddWithValue("@poradi", DBporadi).DbType = DbType.Int32;
                         cmd1.Transaction = transaction;
                         cmd1.ExecuteNonQuery();
+
+                        // opravi pripadne zaporny stav celkove ceny
+                        OdbcCommand cmd6 = new OdbcCommand(commandString6, myDBConn as OdbcConnection);
+                        cmd6.Parameters.AddWithValue("@poradi", DBporadi).DbType = DbType.Int32;
+                        cmd6.Transaction = transaction;
+                        cmd6.ExecuteNonQuery();
+
 
                         OdbcCommand cmd2 = new OdbcCommand(commandString2, myDBConn as OdbcConnection);
 
