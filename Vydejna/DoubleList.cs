@@ -63,8 +63,8 @@ namespace Vydejna
         {
             if (listBox1.SelectedItems != null)
             {
-                listBox2.Items.Add(listBox1.SelectedItems);
-                listBox1.Items.Remove(listBox1.SelectedItems);
+                listBox2.Items.Add(listBox1.SelectedItem.ToString());
+                listBox1.Items.RemoveAt(listBox1.SelectedIndex);
             }
         }
 
@@ -72,8 +72,11 @@ namespace Vydejna
         {
             if (listBox2.SelectedItem != null)
             {
-                listBox1.Items.Add(listBox2.SelectedItem);
-                listBox2.Items.Remove(listBox2.SelectedItems);
+                if (listBox2.Items.Count > 1)
+                {
+                    listBox1.Items.Add(listBox2.SelectedItem.ToString());
+                    listBox2.Items.RemoveAt(listBox2.SelectedIndex);
+                }
             }
         }
 
