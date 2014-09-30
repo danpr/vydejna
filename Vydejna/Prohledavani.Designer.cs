@@ -151,6 +151,7 @@
             this.textBoxString.Size = new System.Drawing.Size(245, 20);
             this.textBoxString.TabIndex = 0;
             this.textBoxString.TextChanged += new System.EventHandler(this.textBoxString_TextChanged);
+            this.textBoxString.DoubleClick += new System.EventHandler(this.textBoxString_DoubleClick);
             // 
             // checkBoxUpcase
             // 

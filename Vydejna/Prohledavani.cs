@@ -620,6 +620,42 @@ namespace Vydejna
             setFirstFromCharChecker();
         }
 
+        private void textBoxString_DoubleClick(object sender, EventArgs e)
+        {
+            nastavProhledavanePrvky();
+        }
+
+        private void nastavProhledavanePrvky()
+        {
+
+            List<String> mainStringList = new List<String>();
+            List<String> selectStringList = new List<String>();
+
+
+            mainStringList.Clear();
+            for (int i = 0; i < myDataGridView.ColumnCount; i++)
+            {
+                if ((myDataGridView.Columns[i].Visible))
+                {
+                    mainStringList.Add( myDataGridView.Columns[i].Name);
+                }
+            }
+
+
+            selectStringList.Clear();
+            for (Int32 i = 0; i < comboBoxColumns.Items.Count; i++)
+            {
+                ColumnInfo myColumnInfo = (ColumnInfo)comboBoxColumnInfo[i];
+                string name = Convert.ToString(myColumnInfo.name);
+
+                selectStringList.Add(name);
+            }
+
+
+            DoubleList prohledavanePrvky = new DoubleList(mainStringList, selectStringList);
+            prohledavanePrvky.ShowDialog();
+
+        }
 
     }
 }

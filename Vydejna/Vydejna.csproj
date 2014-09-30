@@ -73,6 +73,12 @@
     <Compile Include="ConfigReg.cs" />
     <Compile Include="dbfPrepare.cs" />
     <Compile Include="detail.cs" />
+    <Compile Include="DoubleList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DoubleList.Designer.cs">
+      <DependentUpon>DoubleList.cs</DependentUpon>
+    </Compile>
     <Compile Include="ISestava1.cs" />
     <Compile Include="Interface2.cs" />
     <Compile Include="NastaveniDB.cs">
@@ -236,6 +242,9 @@
     </Compile>
     <EmbeddedResource Include="AboutBox.resx">
       <DependentUpon>AboutBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DoubleList.resx">
+      <DependentUpon>DoubleList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
