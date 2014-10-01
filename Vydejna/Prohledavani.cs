@@ -92,19 +92,6 @@ namespace Vydejna
             // nastavi standartni hodnoty pro hledani
             setDefaultSearch();
 
-//            textBoxString.Enabled = false;
-//            comboBoxNumeric.Enabled = false;
-//            numericUpDownNumeric.Enabled = false;
-//            comboBoxDate.Enabled = false;
-//            dateTimePickerDate.Enabled = false;
-
-//            loadComboBox(preferedColumn);
-
-//            checkBoxWildCard.Checked = true;
-//            comboBoxRegex.SelectedIndex = 0;
-//            setFirstFromCharChecker();
-
-
             ConfigReg.TableSearch myTableSearch = ConfigReg.loadSettingSearch(windowName, windowTableDesc);
 
             if (myTableSearch != null)
@@ -632,16 +619,6 @@ namespace Vydejna
             List<String> selectStringList = new List<String>();
 
 
-            mainStringList.Clear();
-            for (int i = 0; i < myDataGridView.ColumnCount; i++)
-            {
-                if ((myDataGridView.Columns[i].Visible))
-                {
-                    mainStringList.Add( myDataGridView.Columns[i].Name);
-                }
-            }
-
-
             selectStringList.Clear();
             for (Int32 i = 0; i < comboBoxColumns.Items.Count; i++)
             {
@@ -651,9 +628,28 @@ namespace Vydejna
                 selectStringList.Add(name);
             }
 
+            mainStringList.Clear();
+            for (int i = 0; i < myDataGridView.ColumnCount; i++)
+            {
+                if ((myDataGridView.Columns[i].Visible))
+                {
+                    string name = myDataGridView.Columns[i].Name;
+                    if (selectStringList.IndexOf(name) == -1)
+                    {
+                        mainStringList.Add(name);
+                    }
+                }
+            }
+
+
 
             DoubleList prohledavanePrvky = new DoubleList(mainStringList, selectStringList);
-            prohledavanePrvky.ShowDialog();
+            if (prohledavanePrvky.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                List<String> selectedItems = prohledavanePrvky.getSelectedItems();
+
+
+            }
 
         }
 

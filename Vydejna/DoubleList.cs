@@ -15,8 +15,8 @@ namespace Vydejna
         public DoubleList(List<String> mainStringList, List<String> selectStringList)
         {
             InitializeComponent();
-            loadListBox(listBox2, null, selectStringList);
-            loadListBox(listBox1, listBox2, mainStringList);
+            loadListBox(listBox2, selectStringList);
+            loadListBox(listBox1, mainStringList);
         }
 
         private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
@@ -35,27 +35,14 @@ namespace Vydejna
         }
 
 
-        private void loadListBox(ListBox lb, ListBox lbChild,  List<String> ls)
+        private void loadListBox(ListBox lb, List<String> ls)
         {
             if (lb != null)
             {
                 foreach (string name in ls)
                 {
-                    if (lbChild == null)
-                    {
                         lb.Items.Add(name);
-                    }
-                    else
-                    {
-                        Int32 lbIndex = lbChild.Items.IndexOf(name);
-                        if (lbChild.Items.IndexOf(name) == -1)
-                        {
-                            lb.Items.Add(name);
-                        }
-                    }
                 }
-
-
             }
         }
 
@@ -80,8 +67,16 @@ namespace Vydejna
             }
         }
 
-     
 
+        public List<String> getSelectedItems()
+        {
+            List<String> selectedItems = new List<String>();
+            foreach (string name in listBox2.Items)
+            {
+                selectedItems.Add(name);
+            }
+            return selectedItems;
+        }
         
     }
 }
