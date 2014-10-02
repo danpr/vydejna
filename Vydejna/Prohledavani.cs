@@ -54,11 +54,13 @@ namespace Vydejna
         {
             public string varColumnType;
             public string name;
+            public string description;
 
-            public ColumnInfo (string varColumnType, string name)
+            public ColumnInfo (string varColumnType, string name, string description)
             {
             this.varColumnType = varColumnType;
             this.name = name;
+            this.description = description;
             }
         }
 
@@ -135,7 +137,7 @@ namespace Vydejna
                    {
                        ns = "Numeric";
                    }
-                   ColumnInfo myColumnInfo = new ColumnInfo(ns, myDataGridView.Columns[i].Name);
+                   ColumnInfo myColumnInfo = new ColumnInfo(ns, myDataGridView.Columns[i].Name, myDataGridView.Columns[i].HeaderText.ToString());
                    comboBoxColumns.Items.Add(myDataGridView.Columns[i].HeaderText.ToString());
                    comboBoxColumnInfo.Add(myColumnInfo);
                }
@@ -650,6 +652,25 @@ namespace Vydejna
 
 
             }
+
+        }
+
+
+        private void loadComboBoxColumns( List<String> selectedColumns)
+        {
+            foreach (ColumnInfo column in comboBoxColumnInfo)
+            {
+                string name = column.name;
+
+                if (selectedColumns.IndexOf(column.name) != -1)
+                {
+
+                }
+
+
+
+            }
+
 
         }
 
