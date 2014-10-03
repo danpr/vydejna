@@ -123,7 +123,7 @@ namespace Vydejna
             CancelButton = buttonCancel;
         }
 
-        private void loadComboBox(string preferedColumn)
+        private void loadComboBox()
         {
             DataTable mdt = (DataTable)myDataGridView.DataSource;
 
@@ -141,19 +141,6 @@ namespace Vydejna
                    comboBoxColumns.Items.Add(myDataGridView.Columns[i].HeaderText.ToString());
                    comboBoxColumnInfo.Add(myColumnInfo);
                }
-            }
-            if (comboBoxColumns.Items.Count > 0)
-            {
-                Int32 cisloSloupce = najdiCisloSloupce(preferedColumn);
-                if (cisloSloupce == -1)
-                {
-                comboBoxColumns.SelectedIndex = 0;
-                }
-                else
-                {
-                    comboBoxColumns.SelectedIndex = cisloSloupce;
-                }
-
             }
         }
 
@@ -476,6 +463,27 @@ namespace Vydejna
             return -1;
         }
 
+
+        private void setPreferedColumnInComboBox( string preferedColumn)
+        {
+            if (comboBoxColumns.Items.Count > 0)
+            {
+                Int32 cisloSloupce = najdiCisloSloupce(preferedColumn);
+                if (cisloSloupce == -1)
+                {
+                    comboBoxColumns.SelectedIndex = 0;
+                }
+                else
+                {
+                    comboBoxColumns.SelectedIndex = cisloSloupce;
+                }
+
+            }
+
+        }
+
+
+
         private void Prohledavani_Shown(object sender, EventArgs e)
         {
 
@@ -594,7 +602,8 @@ namespace Vydejna
             comboBoxDate.Enabled = false;
             dateTimePickerDate.Enabled = false;
 
-            loadComboBox(preferedColumn);
+            loadComboBox();
+            setPreferedColumnInComboBox(preferedColumn);
 
             checkBoxFromStart.Checked = true;
             checkBoxUpcase.Checked = true;
@@ -648,9 +657,11 @@ namespace Vydejna
             DoubleList prohledavanePrvky = new DoubleList(mainStringList, selectStringList);
             if (prohledavanePrvky.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
+                string selectedItem = comboBoxColumns.Text;
                 List<String> selectedItems = prohledavanePrvky.getSelectedItems();
 
-
+                loadComboBoxColumns(selectedItems);
+                setPreferedColumnInComboBox(selectedItem);
             }
 
         }
@@ -658,20 +669,14 @@ namespace Vydejna
 
         private void loadComboBoxColumns( List<String> selectedColumns)
         {
+            comboBoxColumns.Items.Clear();
             foreach (ColumnInfo column in comboBoxColumnInfo)
             {
-                string name = column.name;
-
                 if (selectedColumns.IndexOf(column.name) != -1)
                 {
-
+                    comboBoxColumns.Items.Add(column.description);
                 }
-
-
-
             }
-
-
         }
 
     }
