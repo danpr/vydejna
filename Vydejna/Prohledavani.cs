@@ -66,7 +66,7 @@ namespace Vydejna
 
 
         private DataGridView myDataGridView;
-        private ArrayList comboBoxColumnInfo;
+        private ArrayList columnInfos;
         private string preferedColumn;
         private string windowName;
         private string windowTableDesc;
@@ -84,10 +84,9 @@ namespace Vydejna
             this.windowName = windowName;
             this.windowTableDesc = windowTableDesc;
 
-
             FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
 
-            comboBoxColumnInfo = new ArrayList();
+            columnInfos = new ArrayList();
 
             this.myDataGridView = myDataGridView;
 
@@ -99,9 +98,9 @@ namespace Vydejna
             if (myTableSearch != null)
             {
                 string fieldName = myTableSearch.columnName;
-                for (Int32 i = 0; i < comboBoxColumnInfo.Count; i++)
+                for (Int32 i= 0; i < comboBoxColumns.Items.Count; i++)
                 {
-                    if (((ColumnInfo)comboBoxColumnInfo[i]).name == fieldName)
+                    if (ColumnInfosDesc2Name( comboBoxColumns.Items[i].ToString()) == fieldName)
                     {
                         comboBoxColumns.SelectedIndex = i;
                         break;
@@ -123,6 +122,65 @@ namespace Vydejna
             CancelButton = buttonCancel;
         }
 
+
+        private Int32 ColumnInfosIndexOfDescription(string description)
+        {
+            Int32 returnValue = -1;
+            if (columnInfos.Count > 0)
+            {
+                for (Int32 i = 0; i < columnInfos.Count; i++)
+                {
+
+                    if (((ColumnInfo)columnInfos[i]).description == description)
+                    {
+                        returnValue = i;
+                        break;
+                    }
+                }
+            }
+            return returnValue;
+        }
+
+
+        private string ColumnInfosName2Desc(string name)
+        {
+            string returnValue = "";
+            if (columnInfos.Count > 0)
+            {
+                for (Int32 i = 0; i < columnInfos.Count; i++)
+                {
+
+                    if (((ColumnInfo)columnInfos[i]).name == name)
+                    {
+                        returnValue = ((ColumnInfo)columnInfos[i]).description;
+                        break;
+                    }
+                }
+            }
+            return returnValue;
+        }
+
+        private string ColumnInfosDesc2Name(string desc)
+        {
+            string returnValue = "";
+            if (columnInfos.Count > 0)
+            {
+                for (Int32 i = 0; i < columnInfos.Count; i++)
+                {
+
+                    if (((ColumnInfo)columnInfos[i]).description == desc)
+                    {
+                        returnValue = ((ColumnInfo)columnInfos[i]).name;
+                        break;
+                    }
+                }
+            }
+            return returnValue;
+
+
+
+        }
+
         private void loadComboBox()
         {
             DataTable mdt = (DataTable)myDataGridView.DataSource;
@@ -139,7 +197,7 @@ namespace Vydejna
                    }
                    ColumnInfo myColumnInfo = new ColumnInfo(ns, myDataGridView.Columns[i].Name, myDataGridView.Columns[i].HeaderText.ToString());
                    comboBoxColumns.Items.Add(myDataGridView.Columns[i].HeaderText.ToString());
-                   comboBoxColumnInfo.Add(myColumnInfo);
+                   columnInfos.Add(myColumnInfo);
                }
             }
         }
@@ -152,7 +210,12 @@ namespace Vydejna
                 settingChanged = true;
                 buttonOK.Enabled = true;
                 textBoxString.Enabled = false;
-                ColumnInfo myColumnInfo = (ColumnInfo)comboBoxColumnInfo[comboBoxColumns.SelectedIndex];
+
+                string description = comboBoxColumns.Text;
+                Int32 columnInfoIndex = ColumnInfosIndexOfDescription(description);
+
+                ColumnInfo myColumnInfo = (ColumnInfo)columnInfos[columnInfoIndex];
+//                ColumnInfo myColumnInfo = (ColumnInfo)comboBoxColumnInfo[comboBoxColumns.SelectedIndex];
                 string myType = Convert.ToString(myColumnInfo.varColumnType);
 
                 textBoxString.Enabled = false;
@@ -208,11 +271,11 @@ namespace Vydejna
 
         if ((comboBoxColumns.SelectedIndex > -1) && (buttonOK.Enabled))
             {
-                ColumnInfo myColumnInfo = (ColumnInfo)comboBoxColumnInfo[comboBoxColumns.SelectedIndex];
+                ColumnInfo myColumnInfo = (ColumnInfo)columnInfos[comboBoxColumns.SelectedIndex];
                 string myType = Convert.ToString(myColumnInfo.varColumnType);
 
                 Boolean lineIsFound = false;
-                string columnName = ((ColumnInfo)comboBoxColumnInfo[comboBoxColumns.SelectedIndex]).name;
+                string columnName = ((ColumnInfo)columnInfos[comboBoxColumns.SelectedIndex]).name;
                 
                 Int32 testingRow = 0;
                 Regex regex = null;
@@ -419,7 +482,19 @@ namespace Vydejna
             checkBoxFromStart.Checked = false;
             if (settingChanged)
             {
-                ConfigReg.saveSettingSearch(new ConfigReg.TableSearch(windowName, windowTableDesc, ((ColumnInfo)comboBoxColumnInfo[comboBoxColumns.SelectedIndex]).name, checkBoxFromFirstChar.Checked, checkBoxUpcase.Checked, checkBoxDiacritism.Checked, checkBoxWildCard.Checked, comboBoxRegex.SelectedIndex));
+                List<string> selectedColumns = null;
+                string desc = comboBoxColumns.SelectedText;
+                   desc = comboBoxColumns.Text;
+                string name = ColumnInfosDesc2Name(desc);
+                ConfigReg.saveSettingSearch
+                    (new ConfigReg.TableSearch
+                        (windowName, // okno
+                        windowTableDesc,  // kod tabulky v okne
+                        selectedColumns,
+                        name, // jmeno polozky 
+                        checkBoxFromFirstChar.Checked, checkBoxUpcase.Checked,
+                        checkBoxDiacritism.Checked, checkBoxWildCard.Checked, 
+                        comboBoxRegex.SelectedIndex));
                 settingChanged = false;
             }
 
@@ -452,9 +527,9 @@ namespace Vydejna
 
         private int najdiCisloSloupce(string jmeno)
         {
-            for (Int32 i = 0; i < comboBoxColumnInfo.Count; i++ )
+            for (Int32 i = 0; i < columnInfos.Count; i++ )
             {
-                ColumnInfo ci = (ColumnInfo)comboBoxColumnInfo[i];
+                ColumnInfo ci = (ColumnInfo)columnInfos[i];
                 if (ci.name == jmeno)
                 {
                     return i;
@@ -492,7 +567,7 @@ namespace Vydejna
             if ((preferedColumn != null) && (preferedColumn.Trim() != ""))
             {
                 groupBox1.Focus();
-                ColumnInfo myColumnInfo = (ColumnInfo)comboBoxColumnInfo[comboBoxColumns.SelectedIndex];
+                ColumnInfo myColumnInfo = (ColumnInfo)columnInfos[comboBoxColumns.SelectedIndex];
                 string myType = Convert.ToString(myColumnInfo.varColumnType);
                 switch (myType)
                 {
@@ -633,10 +708,13 @@ namespace Vydejna
             selectStringList.Clear();
             for (Int32 i = 0; i < comboBoxColumns.Items.Count; i++)
             {
-                ColumnInfo myColumnInfo = (ColumnInfo)comboBoxColumnInfo[i];
-                string name = Convert.ToString(myColumnInfo.name);
 
-                selectStringList.Add(name);
+
+                //ColumnInfo myColumnInfo = (ColumnInfo)columnInfos[i];
+                //string description = Convert.ToString(myColumnInfo.description);
+                string description = Convert.ToString(comboBoxColumns.Items[i]);
+
+                selectStringList.Add(description);
             }
 
             mainStringList.Clear();
@@ -645,9 +723,13 @@ namespace Vydejna
                 if ((myDataGridView.Columns[i].Visible))
                 {
                     string name = myDataGridView.Columns[i].Name;
-                    if (selectStringList.IndexOf(name) == -1)
+                    if (name != "")
                     {
-                        mainStringList.Add(name);
+                        string description = ColumnInfosName2Desc(name);
+                        if (selectStringList.IndexOf(description) == -1)
+                        {
+                            mainStringList.Add(description);
+                        }
                     }
                 }
             }
@@ -670,9 +752,9 @@ namespace Vydejna
         private void loadComboBoxColumns( List<String> selectedColumns)
         {
             comboBoxColumns.Items.Clear();
-            foreach (ColumnInfo column in comboBoxColumnInfo)
+            foreach (ColumnInfo column in columnInfos)
             {
-                if (selectedColumns.IndexOf(column.name) != -1)
+                if (selectedColumns.IndexOf(column.description) != -1)
                 {
                     comboBoxColumns.Items.Add(column.description);
                 }

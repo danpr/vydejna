@@ -23,11 +23,13 @@ namespace Vydejna
             public Boolean diacritcs;
             public bool use;
             public int useType;
+            List<string> selectedColumns;
 
-            public TableSearch(string windowName, string windowTableDesc, string columnName, Boolean searchFromFirstColumn, Boolean noCaseSensitive, Boolean diacritcs, bool use, int useType)
+            public TableSearch(string windowName, string windowTableDesc, List<string> selectedColumns, string columnName, Boolean searchFromFirstColumn, Boolean noCaseSensitive, Boolean diacritcs, bool use, int useType)
             {
                 this.windowName = windowName;
                 this.windowTableDesc = windowTableDesc;
+                this.selectedColumns = selectedColumns;
                 this.columnName = columnName;
                 this.searchFromFirstColumn = searchFromFirstColumn;
                 this.noCaseSensitive = noCaseSensitive;
@@ -308,7 +310,8 @@ namespace Vydejna
                 {
                     return null;
                 }
-                mySearch = new TableSearch(windowName, WindowTableDesc, columnName, searchFromFirstColumn, noCaseSensitive, diacritcs, use, useType);
+                List<string> selectedItems = null;
+                mySearch = new TableSearch(windowName, WindowTableDesc, selectedItems, columnName, searchFromFirstColumn, noCaseSensitive, diacritcs, use, useType);
                 return mySearch;
             }
 
