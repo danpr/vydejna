@@ -482,16 +482,22 @@ namespace Vydejna
             checkBoxFromStart.Checked = false;
             if (settingChanged)
             {
-                List<string> selectedColumns = null;
-                string desc = comboBoxColumns.SelectedText;
-                   desc = comboBoxColumns.Text;
-                string name = ColumnInfosDesc2Name(desc);
+                List<string> selectedColumns = new List<string>();
+
+                for (Int32 i = 0; i < comboBoxColumns.Items.Count; i++)
+                {
+                    selectedColumns.Add(ColumnInfosDesc2Name(comboBoxColumns.Items[i].ToString()));
+                }
+
+
+                string hhdesc = comboBoxColumns.Text;
+                string hhname = ColumnInfosDesc2Name(hhdesc);
                 ConfigReg.saveSettingSearch
                     (new ConfigReg.TableSearch
                         (windowName, // okno
                         windowTableDesc,  // kod tabulky v okne
                         selectedColumns,
-                        name, // jmeno polozky 
+                        hhname, // jmeno polozky 
                         checkBoxFromFirstChar.Checked, checkBoxUpcase.Checked,
                         checkBoxDiacritism.Checked, checkBoxWildCard.Checked, 
                         comboBoxRegex.SelectedIndex));

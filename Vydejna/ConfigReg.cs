@@ -23,7 +23,7 @@ namespace Vydejna
             public Boolean diacritcs;
             public bool use;
             public int useType;
-            List<string> selectedColumns;
+            public List<string> selectedColumns;
 
             public TableSearch(string windowName, string windowTableDesc, List<string> selectedColumns, string columnName, Boolean searchFromFirstColumn, Boolean noCaseSensitive, Boolean diacritcs, bool use, int useType)
             {
@@ -324,6 +324,7 @@ namespace Vydejna
             string typeWindowName = mySearch.windowTableDesc;
             if (windowName.Trim() == "") typeWindowName = "";
 
+            List<string> selectedColumns = mySearch.selectedColumns;
 
             RegistryKey rkey = null;
 
@@ -334,8 +335,6 @@ namespace Vydejna
 
             if (rkey == null)
             {
-
-
                 if (windowName.Trim() != "")
                 {
                     rkey = Registry.CurrentUser.OpenSubKey("SOFTWARE\\CS\\SEARCH\\" + windowName, true);
@@ -361,14 +360,12 @@ namespace Vydejna
                         rkey.CreateSubKey(windowName);
                         rkey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\\CS\\SEARCH\\" + windowName, true);
                     }
-
                 }
 
                 if ((windowName.Trim() != "") && (typeWindowName.Trim() != ""))
                 {
                     if (rkey != null)
                     {
-
                         rkey.CreateSubKey(typeWindowName);
                         rkey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\\CS\\SEARCH\\" + windowName + "\\" + typeWindowName, true);
                     }
@@ -385,6 +382,32 @@ namespace Vydejna
                 rkey.SetValue("UseDiacritics", mySearch.diacritcs);
                 rkey.SetValue("UseWildCart", mySearch.use);
                 rkey.SetValue("WildCardType", mySearch.useType);
+
+                RegistryKey rkeyPar = rkey;
+                rkey = Registry.CurrentUser.OpenSubKey("SOFTWARE\\CS\\SEARCH\\" + windowName + "\\" + typeWindowName +"\\selectedColumns", true);
+                if (rkey == null)
+                {
+                    rkeyPar.CreateSubKey("selectedColumns");
+                    rkey = Registry.CurrentUser.OpenSubKey("SOFTWARE\\CS\\SEARCH\\" + windowName + "\\" + typeWindowName + "\\selectedColumns", true);
+                }
+                if (rkey != null)
+                {
+                    string[] columns = rkey.GetSubKeyNames();
+                    foreach (string column in columns)
+                    {
+                        rkey.DeleteSubKey(column);
+                    }
+                    if (selectedColumns != null)
+                    {
+                        Int32 i = 0;
+                        foreach (string column in selectedColumns)
+                        {
+                            rkey.SetValue(i.ToString(), column);
+                            i++;
+                        }
+                    }
+                }
+
             }
         }
 
