@@ -330,49 +330,57 @@ namespace Vydejna
 
             if ((windowName.Trim() != "") && (typeWindowName.Trim() != ""))
             {
-                rkey = Registry.CurrentUser.OpenSubKey("SOFTWARE\\CS\\SEARCH\\" + windowName + "\\" + typeWindowName, true);
+                rkey = Registry.CurrentUser.CreateSubKey("SOFTWARE\\CS\\SEARCH\\" + windowName + "\\" + typeWindowName);
             }
 
-            if (rkey == null)
-            {
-                if (windowName.Trim() != "")
-                {
-                    rkey = Registry.CurrentUser.OpenSubKey("SOFTWARE\\CS\\SEARCH\\" + windowName, true);
-                }
-
-                if (rkey == null)
-                {
-                    rkey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\CS\SEARCH", true);
-                    if (rkey == null)
-                    {
-                        rkey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\CS", true);
-                        if (rkey == null)
-                        {
-                            rkey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE", true);
-                            rkey.CreateSubKey("CS");
-                            rkey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\CS", true);
-                        }
-                        rkey.CreateSubKey("SEARCH");
-                        rkey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\CS\SEARCH", true);
-                    }
-                    if (typeWindowName.Trim() != "")
-                    {
-                        rkey.CreateSubKey(windowName);
-                        rkey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\\CS\\SEARCH\\" + windowName, true);
-                    }
-                }
-
-                if ((windowName.Trim() != "") && (typeWindowName.Trim() != ""))
-                {
-                    if (rkey != null)
-                    {
-                        rkey.CreateSubKey(typeWindowName);
-                        rkey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\\CS\\SEARCH\\" + windowName + "\\" + typeWindowName, true);
-                    }
-                }
 
 
-            }
+
+//            if ((windowName.Trim() != "") && (typeWindowName.Trim() != ""))
+//            {
+//                rkey = Registry.CurrentUser.OpenSubKey("SOFTWARE\\CS\\SEARCH\\" + windowName + "\\" + typeWindowName, true);
+//            }
+
+//            if (rkey == null)
+//            {
+//                if (windowName.Trim() != "")
+//                {
+//                    rkey = Registry.CurrentUser.OpenSubKey("SOFTWARE\\CS\\SEARCH\\" + windowName, true);
+//                }
+
+//                if (rkey == null)
+//                {
+//                    rkey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\CS\SEARCH", true);
+//                    if (rkey == null)
+//                    {
+//                        rkey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\CS", true);
+//                        if (rkey == null)
+//                        {
+//                            rkey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE", true);
+//                            rkey.CreateSubKey("CS");
+//                            rkey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\CS", true);
+//                        }
+//                        rkey.CreateSubKey("SEARCH");
+//                        rkey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\CS\SEARCH", true);
+//                    }
+//                    if (typeWindowName.Trim() != "")
+//                    {
+//                        rkey.CreateSubKey(windowName);
+//                        rkey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\\CS\\SEARCH\\" + windowName, true);
+//                    }
+//                }
+
+//                if ((windowName.Trim() != "") && (typeWindowName.Trim() != ""))
+//                {
+//                    if (rkey != null)
+//                    {
+//                        rkey.CreateSubKey(typeWindowName);
+//                        rkey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\\CS\\SEARCH\\" + windowName + "\\" + typeWindowName, true);
+//                    }
+//                }
+
+
+//            }
             // zapis polozky
             if (rkey != null)
             {
