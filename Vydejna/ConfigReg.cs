@@ -311,6 +311,24 @@ namespace Vydejna
                     return null;
                 }
                 List<string> selectedItems = null;
+                rkey = Registry.CurrentUser.OpenSubKey(stringKey+"\\selectedColumns", true);
+                if (rkey != null)
+                {
+                    try
+                    {
+
+                        foreach (string name in rkey.GetValueNames())
+                        {
+                            if (selectedItems == null)
+                            {
+                                selectedItems = new List<string>();
+                            }
+                            selectedItems.Add(rkey.GetValue(name).ToString());
+                        }
+                    }
+                    catch { }
+                }
+
                 mySearch = new TableSearch(windowName, WindowTableDesc, selectedItems, columnName, searchFromFirstColumn, noCaseSensitive, diacritcs, use, useType);
                 return mySearch;
             }
