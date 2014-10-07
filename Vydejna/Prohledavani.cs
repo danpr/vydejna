@@ -91,29 +91,9 @@ namespace Vydejna
             this.myDataGridView = myDataGridView;
 
             // nastavi standartni hodnoty pro hledani
+
             setDefaultSearch();
-
-            ConfigReg.TableSearch myTableSearch = ConfigReg.loadSettingSearch(windowName, windowTableDesc);
-
-            if (myTableSearch != null)
-            {
-                string fieldName = myTableSearch.columnName;
-                for (Int32 i= 0; i < comboBoxColumns.Items.Count; i++)
-                {
-                    if (ColumnInfosDesc2Name( comboBoxColumns.Items[i].ToString()) == fieldName)
-                    {
-                        comboBoxColumns.SelectedIndex = i;
-                        break;
-                    }
-                }
-
-
-                checkBoxFromFirstChar.Checked = myTableSearch.searchFromFirstColumn;
-                checkBoxUpcase.Checked = myTableSearch.noCaseSensitive;
-                checkBoxDiacritism.Checked = myTableSearch.diacritcs;
-                checkBoxWildCard.Checked = myTableSearch.use;
-                comboBoxRegex.SelectedIndex = myTableSearch.useType;
-            }
+            loadsetting();
 
             buttonOK.Enabled = false;
             if (comboBoxNumeric.Items.Count > 0) comboBoxNumeric.SelectedIndex = 0;
@@ -122,6 +102,30 @@ namespace Vydejna
             CancelButton = buttonCancel;
         }
 
+
+
+        private void loadsetting()
+        {
+            ConfigReg.TableSearch myTableSearch = ConfigReg.loadSettingSearch(windowName, windowTableDesc);
+
+            if (myTableSearch != null)
+            {
+                string fieldName = myTableSearch.columnName;
+                for (Int32 i = 0; i < comboBoxColumns.Items.Count; i++)
+                {
+                    if (ColumnInfosDesc2Name(comboBoxColumns.Items[i].ToString()) == fieldName)
+                    {
+                        comboBoxColumns.SelectedIndex = i;
+                        break;
+                    }
+                }
+                checkBoxFromFirstChar.Checked = myTableSearch.searchFromFirstColumn;
+                checkBoxUpcase.Checked = myTableSearch.noCaseSensitive;
+                checkBoxDiacritism.Checked = myTableSearch.diacritcs;
+                checkBoxWildCard.Checked = myTableSearch.use;
+                comboBoxRegex.SelectedIndex = myTableSearch.useType;
+            }
+        }
 
         private Int32 ColumnInfosIndexOfDescription(string description)
         {
@@ -181,26 +185,49 @@ namespace Vydejna
 
         }
 
-        private void loadComboBox()
+        private void loadColumnInfos()
         {
             DataTable mdt = (DataTable)myDataGridView.DataSource;
 
-            comboBoxColumns.Items.Clear();
-            for (int i = 0; i < myDataGridView.ColumnCount; i++ )
+//            comboBoxColumns.Items.Clear();
+            for (int i = 0; i < myDataGridView.ColumnCount; i++)
             {
-               if ((myDataGridView.Columns[i].Visible))
-               {
-                   string ns = mdt.Columns[i].DataType.ToString().Substring(mdt.Columns[i].DataType.ToString().IndexOf(".") + 1);
-                   if ((ns == "Int64") || (ns == "Int32") || (ns == "Int16") || (ns == "Double"))
-                   {
-                       ns = "Numeric";
-                   }
-                   ColumnInfo myColumnInfo = new ColumnInfo(ns, myDataGridView.Columns[i].Name, myDataGridView.Columns[i].HeaderText.ToString());
-                   comboBoxColumns.Items.Add(myDataGridView.Columns[i].HeaderText.ToString());
-                   columnInfos.Add(myColumnInfo);
-               }
+                if ((myDataGridView.Columns[i].Visible))
+                {
+                    string ns = mdt.Columns[i].DataType.ToString().Substring(mdt.Columns[i].DataType.ToString().IndexOf(".") + 1);
+                    if ((ns == "Int64") || (ns == "Int32") || (ns == "Int16") || (ns == "Double"))
+                    {
+                        ns = "Numeric";
+                    }
+                    ColumnInfo myColumnInfo = new ColumnInfo(ns, myDataGridView.Columns[i].Name, myDataGridView.Columns[i].HeaderText.ToString());
+//                    comboBoxColumns.Items.Add(myDataGridView.Columns[i].HeaderText.ToString());
+                    columnInfos.Add(myColumnInfo);
+                }
             }
         }
+
+        private void loadComboBox(List<string> selectedItems)
+        {
+            comboBoxColumns.Items.Clear();
+
+            for (Int32 i = 0; i < columnInfos.Count; i++)
+            {
+                if ((selectedItems == null) || (selectedItems.Count == 0))
+                {
+                    comboBoxColumns.Items.Add(((ColumnInfo)columnInfos[i]).description);
+
+                }
+                else
+                {
+                    string desc = ColumnInfosName2Desc(((ColumnInfo)columnInfos[i]).name);
+                    if (desc != "")
+                    {
+                        comboBoxColumns.Items.Add(desc);
+                    }
+                }
+            }
+        }
+
 
         private void comboBoxColumns_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -683,9 +710,6 @@ namespace Vydejna
             comboBoxDate.Enabled = false;
             dateTimePickerDate.Enabled = false;
 
-            loadComboBox();
-            setPreferedColumnInComboBox(preferedColumn);
-
             checkBoxFromStart.Checked = true;
             checkBoxUpcase.Checked = true;
             checkBoxDiacritism.Checked = false;
@@ -697,6 +721,16 @@ namespace Vydejna
             // nastavi hledani od prveho sloupce
             // v zavislosti od nastaveno zpusobu hledani
             setFirstFromCharChecker();
+
+            loadColumnInfos();
+            setComboBox();
+        }
+
+
+        private void setComboBox()
+        {
+            loadComboBox(null);
+            setPreferedColumnInComboBox(preferedColumn);
         }
 
         private void textBoxString_DoubleClick(object sender, EventArgs e)
