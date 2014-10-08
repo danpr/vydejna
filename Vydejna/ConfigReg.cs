@@ -418,10 +418,10 @@ namespace Vydejna
                 }
                 if (rkey != null)
                 {
-                    string[] columns = rkey.GetSubKeyNames();
+                    string[] columns = rkey.GetValueNames();
                     foreach (string column in columns)
                     {
-                        rkey.DeleteSubKey(column);
+                        rkey.DeleteValue(column);// DeleteSubKey(column);
                     }
                     if (selectedColumns != null)
                     {

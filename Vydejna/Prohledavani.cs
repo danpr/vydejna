@@ -92,6 +92,8 @@ namespace Vydejna
 
             // nastavi standartni hodnoty pro hledani
 
+            loadColumnInfos();  // naplni tabulku columnInfos informacemi o sloupcich
+
             setDefaultSearch();
             loadsetting();
 
@@ -107,6 +109,8 @@ namespace Vydejna
         private void loadsetting()
         {
             ConfigReg.TableSearch myTableSearch = ConfigReg.loadSettingSearch(windowName, windowTableDesc);
+
+            loadComboBox(myTableSearch.selectedColumns);
 
             if (myTableSearch != null)
             {
@@ -215,14 +219,16 @@ namespace Vydejna
                 if ((selectedItems == null) || (selectedItems.Count == 0))
                 {
                     comboBoxColumns.Items.Add(((ColumnInfo)columnInfos[i]).description);
-
                 }
                 else
                 {
-                    string desc = ColumnInfosName2Desc(((ColumnInfo)columnInfos[i]).name);
-                    if (desc != "")
+                    if (selectedItems.Contains(((ColumnInfo)columnInfos[i]).name))
                     {
-                        comboBoxColumns.Items.Add(desc);
+                        string desc = ColumnInfosName2Desc(((ColumnInfo)columnInfos[i]).name);
+                        if (desc != "")
+                        {
+                            comboBoxColumns.Items.Add(desc);
+                        }
                     }
                 }
             }
@@ -517,14 +523,14 @@ namespace Vydejna
                 }
 
 
-                string hhdesc = comboBoxColumns.Text;
-                string hhname = ColumnInfosDesc2Name(hhdesc);
+                string desc = comboBoxColumns.Text;
+                string name = ColumnInfosDesc2Name(desc);
                 ConfigReg.saveSettingSearch
                     (new ConfigReg.TableSearch
                         (windowName, // okno
                         windowTableDesc,  // kod tabulky v okne
                         selectedColumns,
-                        hhname, // jmeno polozky 
+                        name, // jmeno polozky 
                         checkBoxFromFirstChar.Checked, checkBoxUpcase.Checked,
                         checkBoxDiacritism.Checked, checkBoxWildCard.Checked, 
                         comboBoxRegex.SelectedIndex));
@@ -722,14 +728,13 @@ namespace Vydejna
             // v zavislosti od nastaveno zpusobu hledani
             setFirstFromCharChecker();
 
-            loadColumnInfos();
-            setComboBox();
+            setComboBox(null);
         }
 
 
-        private void setComboBox()
+        private void setComboBox(List<string> selectedItems)
         {
-            loadComboBox(null);
+            loadComboBox(selectedItems);
             setPreferedColumnInComboBox(preferedColumn);
         }
 
