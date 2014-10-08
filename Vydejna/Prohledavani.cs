@@ -95,7 +95,7 @@ namespace Vydejna
             loadColumnInfos();  // naplni tabulku columnInfos informacemi o sloupcich
 
             setDefaultSearch();
-            loadsetting();
+            loadSettingSearch();
 
             buttonOK.Enabled = false;
             if (comboBoxNumeric.Items.Count > 0) comboBoxNumeric.SelectedIndex = 0;
@@ -106,7 +106,7 @@ namespace Vydejna
 
 
 
-        private void loadsetting()
+        private void loadSettingSearch()
         {
             ConfigReg.TableSearch myTableSearch = ConfigReg.loadSettingSearch(windowName, windowTableDesc);
 
@@ -114,20 +114,19 @@ namespace Vydejna
 
             if (myTableSearch != null)
             {
-                string fieldName = myTableSearch.columnName;
-                for (Int32 i = 0; i < comboBoxColumns.Items.Count; i++)
-                {
-                    if (ColumnInfosDesc2Name(comboBoxColumns.Items[i].ToString()) == fieldName)
-                    {
-                        comboBoxColumns.SelectedIndex = i;
-                        break;
-                    }
-                }
+                string selectedColumnName = myTableSearch.columnName;
+
                 checkBoxFromFirstChar.Checked = myTableSearch.searchFromFirstColumn;
                 checkBoxUpcase.Checked = myTableSearch.noCaseSensitive;
                 checkBoxDiacritism.Checked = myTableSearch.diacritcs;
                 checkBoxWildCard.Checked = myTableSearch.use;
                 comboBoxRegex.SelectedIndex = myTableSearch.useType;
+
+                if (!(setColumnInComboBoxByDesc(ColumnInfosName2Desc(selectedColumnName))))
+                {
+                    setColumnInComboBoxByDesc(ColumnInfosName2Desc(preferedColumn));
+                }
+
             }
         }
 
@@ -193,7 +192,6 @@ namespace Vydejna
         {
             DataTable mdt = (DataTable)myDataGridView.DataSource;
 
-//            comboBoxColumns.Items.Clear();
             for (int i = 0; i < myDataGridView.ColumnCount; i++)
             {
                 if ((myDataGridView.Columns[i].Visible))
@@ -204,11 +202,11 @@ namespace Vydejna
                         ns = "Numeric";
                     }
                     ColumnInfo myColumnInfo = new ColumnInfo(ns, myDataGridView.Columns[i].Name, myDataGridView.Columns[i].HeaderText.ToString());
-//                    comboBoxColumns.Items.Add(myDataGridView.Columns[i].HeaderText.ToString());
                     columnInfos.Add(myColumnInfo);
                 }
             }
         }
+
 
         private void loadComboBox(List<string> selectedItems)
         {
@@ -556,47 +554,36 @@ namespace Vydejna
             }
         }
 
-//        private void Prohledavani_KeyPress(object sender, KeyPressEventArgs e)
-//        {
-//            if (e.KeyChar == '1')
-//            {
-//                Close();
-//            }
-//        }
 
-        private int najdiCisloSloupce(string jmeno)
+        private Int32 getOrdNumInComboBox(string desc)
         {
-            for (Int32 i = 0; i < columnInfos.Count; i++ )
+            for (Int32 i = 0; i < comboBoxColumns.Items.Count; i++ )
             {
-                ColumnInfo ci = (ColumnInfo)columnInfos[i];
-                if (ci.name == jmeno)
-                {
-                    return i;
-                }
+                if (comboBoxColumns.Items[i].ToString() == desc) return i;
             }
+
             return -1;
         }
 
 
-        private void setPreferedColumnInComboBox( string preferedColumn)
+        private Boolean setColumnInComboBoxByDesc(string desc)
         {
             if (comboBoxColumns.Items.Count > 0)
             {
-                Int32 cisloSloupce = najdiCisloSloupce(preferedColumn);
+                Int32 cisloSloupce = getOrdNumInComboBox(desc);
                 if (cisloSloupce == -1)
                 {
                     comboBoxColumns.SelectedIndex = 0;
+                    return false;
                 }
                 else
                 {
                     comboBoxColumns.SelectedIndex = cisloSloupce;
+                    return true;
                 }
-
             }
-
+            else return false;
         }
-
-
 
         private void Prohledavani_Shown(object sender, EventArgs e)
         {
@@ -728,15 +715,10 @@ namespace Vydejna
             // v zavislosti od nastaveno zpusobu hledani
             setFirstFromCharChecker();
 
-            setComboBox(null);
+            loadComboBox(null);
+            setColumnInComboBoxByDesc(ColumnInfosName2Desc(preferedColumn));
         }
 
-
-        private void setComboBox(List<string> selectedItems)
-        {
-            loadComboBox(selectedItems);
-            setPreferedColumnInComboBox(preferedColumn);
-        }
 
         private void textBoxString_DoubleClick(object sender, EventArgs e)
         {
@@ -745,16 +727,12 @@ namespace Vydejna
 
         private void nastavProhledavanePrvky()
         {
-
             List<String> mainStringList = new List<String>();
             List<String> selectStringList = new List<String>();
-
 
             selectStringList.Clear();
             for (Int32 i = 0; i < comboBoxColumns.Items.Count; i++)
             {
-
-
                 //ColumnInfo myColumnInfo = (ColumnInfo)columnInfos[i];
                 //string description = Convert.ToString(myColumnInfo.description);
                 string description = Convert.ToString(comboBoxColumns.Items[i]);
@@ -778,19 +756,19 @@ namespace Vydejna
                     }
                 }
             }
-
-
-
             DoubleList prohledavanePrvky = new DoubleList(mainStringList, selectStringList);
             if (prohledavanePrvky.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 string selectedItem = comboBoxColumns.Text;
                 List<String> selectedItems = prohledavanePrvky.getSelectedItems();
 
+                string oldSelectedName = ColumnInfosDesc2Name(comboBoxColumns.Text);
                 loadComboBoxColumns(selectedItems);
-                setPreferedColumnInComboBox(selectedItem);
+                if (!(setColumnInComboBoxByDesc(ColumnInfosName2Desc(oldSelectedName))))
+                {
+                    setColumnInComboBoxByDesc(ColumnInfosName2Desc(preferedColumn));
+                }
             }
-
         }
 
 
