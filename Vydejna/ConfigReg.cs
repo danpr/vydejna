@@ -394,6 +394,45 @@ namespace Vydejna
 
 
 
+        public static void saveColumnsSearch(string windowName, string typeWindowName, List<string> selectedColumns)
+        {
+            if (windowName.Trim() != "")
+            {
+
+                RegistryKey rkey = null;
+                string klic1 = "";
+                if (typeWindowName != "")
+                {
+                    klic1 = "SOFTWARE\\CS\\SEARCH\\" + windowName + "\\" + typeWindowName + "\\selectedColumns";
+                }
+                else
+                {
+                    klic1 = "SOFTWARE\\CS\\SEARCH\\" + windowName + "\\selectedColumns";
+                }
+                rkey = Registry.CurrentUser.CreateSubKey(klic1);
+
+                // zapis polozky
+                if (rkey != null)
+                {
+                    string[] columns = rkey.GetValueNames();
+                    foreach (string column in columns)
+                    {
+                        rkey.DeleteValue(column);// DeleteSubKey(column);
+                    }
+                    if (selectedColumns != null)
+                    {
+                        Int32 i = 0;
+                        foreach (string column in selectedColumns)
+                        {
+                            rkey.SetValue(i.ToString(), column);
+                            i++;
+                        }
+                    }
+                }
+            }
+        }
+
+
 
         public static string loadSettingLastUser()
         {

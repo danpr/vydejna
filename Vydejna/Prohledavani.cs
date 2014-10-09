@@ -110,10 +110,9 @@ namespace Vydejna
         {
             ConfigReg.TableSearch myTableSearch = ConfigReg.loadSettingSearch(windowName, windowTableDesc);
 
-            loadComboBox(myTableSearch.selectedColumns);
-
             if (myTableSearch != null)
             {
+                loadComboBox(myTableSearch.selectedColumns);
                 string selectedColumnName = myTableSearch.columnName;
 
                 checkBoxFromFirstChar.Checked = myTableSearch.searchFromFirstColumn;
@@ -210,6 +209,7 @@ namespace Vydejna
 
         private void loadComboBox(List<string> selectedItems)
         {
+            // jestlize je  selected index null natahne se vse
             comboBoxColumns.Items.Clear();
 
             for (Int32 i = 0; i < columnInfos.Count; i++)
@@ -589,26 +589,29 @@ namespace Vydejna
         {
 
             checkBoxFromStart.Checked = true;
-            
-            if ((preferedColumn != null) && (preferedColumn.Trim() != ""))
-            {
-                groupBox1.Focus();
-                ColumnInfo myColumnInfo = (ColumnInfo)columnInfos[comboBoxColumns.SelectedIndex];
-                string myType = Convert.ToString(myColumnInfo.varColumnType);
-                switch (myType)
+
+//            if ((preferedColumn != null) && (preferedColumn.Trim() != ""))
+                if (comboBoxColumns.SelectedIndex != -1)
                 {
-                    case "String":
-                        textBoxString.Focus();
-                        break;
-                    case "Numeric":
-                        comboBoxNumeric.Focus();
-                        break;
-                    case "DateTime":
-                        comboBoxDate.Focus();
-                        break;
+                groupBox1.Focus();
+                if (comboBoxColumns.SelectedIndex != -1)
+                {
+                    ColumnInfo myColumnInfo = (ColumnInfo)columnInfos[comboBoxColumns.SelectedIndex];
+                    string myType = Convert.ToString(myColumnInfo.varColumnType);
+                    switch (myType)
+                    {
+                        case "String":
+                            textBoxString.Focus();
+                            break;
+                        case "Numeric":
+                            comboBoxNumeric.Focus();
+                            break;
+                        case "DateTime":
+                            comboBoxDate.Focus();
+                            break;
+                    }
                 }
             }
-
         }
 
         public static string RemoveDiacritics(String s)
@@ -768,6 +771,7 @@ namespace Vydejna
                 {
                     setColumnInComboBoxByDesc(ColumnInfosName2Desc(preferedColumn));
                 }
+                ConfigReg.saveColumnsSearch(windowName, windowTableDesc, selectedItems);
             }
         }
 
