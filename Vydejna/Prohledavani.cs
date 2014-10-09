@@ -722,7 +722,7 @@ namespace Vydejna
 
         private void textBoxString_DoubleClick(object sender, EventArgs e)
         {
-            nastavProhledavanePrvky();
+//            nastavProhledavanePrvky();
         }
 
         private void nastavProhledavanePrvky()
@@ -782,6 +782,11 @@ namespace Vydejna
                     comboBoxColumns.Items.Add(column.description);
                 }
             }
+        }
+
+        private void nastaveníProhledávanýchSloupcůToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            nastavProhledavanePrvky();
         }
 
     }

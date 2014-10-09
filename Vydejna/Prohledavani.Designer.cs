@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.comboBoxColumns = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.buttonCancel = new System.Windows.Forms.Button();
@@ -45,12 +46,16 @@
             this.checkBoxWildCard = new System.Windows.Forms.CheckBox();
             this.comboBoxRegex = new System.Windows.Forms.ComboBox();
             this.buttonDefault = new System.Windows.Forms.Button();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.nastaveníProhledávanýchSloupcůToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNumeric)).BeginInit();
+            this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // comboBoxColumns
             // 
+            this.comboBoxColumns.ContextMenuStrip = this.contextMenuStrip1;
             this.comboBoxColumns.FormattingEnabled = true;
             this.comboBoxColumns.Location = new System.Drawing.Point(146, 12);
             this.comboBoxColumns.Name = "comboBoxColumns";
@@ -233,6 +238,20 @@
             this.buttonDefault.UseVisualStyleBackColor = true;
             this.buttonDefault.Click += new System.EventHandler(this.buttonDefault_Click);
             // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.nastaveníProhledávanýchSloupcůToolStripMenuItem});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(260, 48);
+            // 
+            // nastaveníProhledávanýchSloupcůToolStripMenuItem
+            // 
+            this.nastaveníProhledávanýchSloupcůToolStripMenuItem.Name = "nastaveníProhledávanýchSloupcůToolStripMenuItem";
+            this.nastaveníProhledávanýchSloupcůToolStripMenuItem.Size = new System.Drawing.Size(259, 22);
+            this.nastaveníProhledávanýchSloupcůToolStripMenuItem.Text = "Nastavení prohledávaných sloupců";
+            this.nastaveníProhledávanýchSloupcůToolStripMenuItem.Click += new System.EventHandler(this.nastaveníProhledávanýchSloupcůToolStripMenuItem_Click);
+            // 
             // Prohledavani
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -257,6 +276,7 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNumeric)).EndInit();
+            this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -281,5 +301,7 @@
         private System.Windows.Forms.CheckBox checkBoxWildCard;
         private System.Windows.Forms.ComboBox comboBoxRegex;
         private System.Windows.Forms.Button buttonDefault;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem nastaveníProhledávanýchSloupcůToolStripMenuItem;
     }
 }
