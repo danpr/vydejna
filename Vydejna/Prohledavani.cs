@@ -94,8 +94,10 @@ namespace Vydejna
 
             loadColumnInfos();  // naplni tabulku columnInfos informacemi o sloupcich
 
-            setDefaultSearch();
-            loadSettingSearch();
+            if (!(loadSettingSearch()))
+            {
+                setDefaultSearch();
+            }
 
             buttonOK.Enabled = false;
             if (comboBoxNumeric.Items.Count > 0) comboBoxNumeric.SelectedIndex = 0;
@@ -106,7 +108,7 @@ namespace Vydejna
 
 
 
-        private void loadSettingSearch()
+        private bool loadSettingSearch()
         {
             ConfigReg.TableSearch myTableSearch = ConfigReg.loadSettingSearch(windowName, windowTableDesc);
 
@@ -125,9 +127,36 @@ namespace Vydejna
                 {
                     setColumnInComboBoxByDesc(ColumnInfosName2Desc(preferedColumn));
                 }
-
+                return true;
             }
+            else return false;
         }
+
+        private void setDefaultSearch()
+        {
+            textBoxString.Enabled = false;
+            comboBoxNumeric.Enabled = false;
+            numericUpDownNumeric.Enabled = false;
+            comboBoxDate.Enabled = false;
+            dateTimePickerDate.Enabled = false;
+
+            checkBoxFromStart.Checked = true;
+            checkBoxUpcase.Checked = true;
+            checkBoxDiacritism.Checked = false;
+
+            checkBoxWildCard.Checked = false;
+            comboBoxRegex.Enabled = false;
+            comboBoxRegex.SelectedIndex = -1;
+
+            // nastavi hledani od prveho sloupce
+            // v zavislosti od nastaveno zpusobu hledani
+            enableFirstFromCharChecker();
+
+            loadComboBox(null);
+            setColumnInComboBoxByDesc(ColumnInfosName2Desc(preferedColumn));
+        }
+
+
 
         private Int32 ColumnInfosIndexOfDescription(string description)
         {
@@ -230,6 +259,13 @@ namespace Vydejna
                     }
                 }
             }
+            if ((comboBoxColumns.Items.Count == 0) && (selectedItems.Count > 0))
+            {
+                for (Int32 i = 0; i < columnInfos.Count; i++)
+                {
+                    comboBoxColumns.Items.Add(((ColumnInfo)columnInfos[i]).description);
+                }
+            }
         }
 
 
@@ -271,7 +307,7 @@ namespace Vydejna
                         comboBoxRegex.Enabled = true;
                         checkBoxDiacritism.Enabled = true;
 
-                        setFirstFromCharChecker();
+                        enableFirstFromCharChecker();
                         if (textBoxString.Text.Trim() == "")
                         {
                             buttonOK.Enabled = false;
@@ -289,7 +325,6 @@ namespace Vydejna
                         comboBoxDate.Focus();
                         break;
                 }
-
             }
             else
             {
@@ -573,7 +608,7 @@ namespace Vydejna
                 Int32 cisloSloupce = getOrdNumInComboBox(desc);
                 if (cisloSloupce == -1)
                 {
-                    comboBoxColumns.SelectedIndex = 0;
+                    comboBoxColumns.SelectedIndex = -1;
                     return false;
                 }
                 else
@@ -582,7 +617,11 @@ namespace Vydejna
                     return true;
                 }
             }
-            else return false;
+            else
+            {
+                comboBoxColumns.SelectedIndex = -1;
+                return false;
+            }
         }
 
         private void Prohledavani_Shown(object sender, EventArgs e)
@@ -635,7 +674,7 @@ namespace Vydejna
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             settingChanged = true;
-            setFirstFromCharChecker();
+            enableFirstFromCharChecker();
         }
 
         private void checkBoxWildCard_CheckedChanged(object sender, EventArgs e)
@@ -644,20 +683,21 @@ namespace Vydejna
             if (checkBoxWildCard.Checked )
             {
                 comboBoxRegex.Enabled = true;
+                if ((comboBoxRegex.SelectedIndex == -1) && (comboBoxRegex.Items.Count > 0)) comboBoxRegex.SelectedIndex = 0;
             }
             else
             {
                 comboBoxRegex.Enabled = false;
+                comboBoxRegex.SelectedIndex = -1;
             }
-            setFirstFromCharChecker();
+            enableFirstFromCharChecker();
 
         }
 
-        private void setFirstFromCharChecker()
+        private void enableFirstFromCharChecker()
         {
             if (checkBoxWildCard.Checked)
             {
-
                 if (comboBoxRegex.SelectedIndex == 0)
                 {
                     checkBoxFromFirstChar.Enabled = true;
@@ -698,29 +738,6 @@ namespace Vydejna
             setDefaultSearch();
         }
 
-        private void setDefaultSearch()
-        {
-            textBoxString.Enabled = false;
-            comboBoxNumeric.Enabled = false;
-            numericUpDownNumeric.Enabled = false;
-            comboBoxDate.Enabled = false;
-            dateTimePickerDate.Enabled = false;
-
-            checkBoxFromStart.Checked = true;
-            checkBoxUpcase.Checked = true;
-            checkBoxDiacritism.Checked = false;
-
-            checkBoxWildCard.Checked = false;
-            comboBoxRegex.Enabled = false;
-            comboBoxRegex.SelectedIndex = 0;
-
-            // nastavi hledani od prveho sloupce
-            // v zavislosti od nastaveno zpusobu hledani
-            setFirstFromCharChecker();
-
-            loadComboBox(null);
-            setColumnInComboBoxByDesc(ColumnInfosName2Desc(preferedColumn));
-        }
 
 
         private void textBoxString_DoubleClick(object sender, EventArgs e)
