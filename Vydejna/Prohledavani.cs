@@ -97,6 +97,13 @@ namespace Vydejna
             if (!(loadSettingSearch()))
             {
                 setDefaultSearch();
+                // zkontrolujeme zda nemame jen zaznan a zmenach sloupcu
+                List<string> selectedColumns = ConfigReg.loadColumnsSearch(windowName, windowTableDesc);
+                if (selectedColumns != null)
+                {
+                    loadComboBox(selectedColumns);
+                    setColumnInComboBoxByDesc(ColumnInfosName2Desc(preferedColumn));
+                }
             }
 
             buttonOK.Enabled = false;
@@ -282,7 +289,6 @@ namespace Vydejna
                 Int32 columnInfoIndex = ColumnInfosIndexOfDescription(description);
 
                 ColumnInfo myColumnInfo = (ColumnInfo)columnInfos[columnInfoIndex];
-//                ColumnInfo myColumnInfo = (ColumnInfo)comboBoxColumnInfo[comboBoxColumns.SelectedIndex];
                 string myType = Convert.ToString(myColumnInfo.varColumnType);
 
                 textBoxString.Enabled = false;
@@ -293,8 +299,12 @@ namespace Vydejna
                 checkBoxDiacritism.Enabled = false;
                 checkBoxUpcase.Enabled = false;
                 checkBoxFromFirstChar.Enabled = false;
+                
                 checkBoxWildCard.Enabled = false;
-                comboBoxRegex.Enabled = false;
+                // je nastaveno zavolanim udalosti po zmene checkBoxWildCard
+//                comboBoxRegex.SelectedIndex = -1;
+//                comboBoxRegex.Enabled = false;
+
 
                 groupBox1.Focus();
                 switch (myType)
@@ -304,7 +314,7 @@ namespace Vydejna
                         checkBoxUpcase.Enabled = true;
                         checkBoxFromFirstChar.Enabled = true;
                         checkBoxWildCard.Enabled = true;
-                        comboBoxRegex.Enabled = true;
+//                        comboBoxRegex.Enabled = true;
                         checkBoxDiacritism.Enabled = true;
 
                         enableFirstFromCharChecker();
@@ -325,6 +335,7 @@ namespace Vydejna
                         comboBoxDate.Focus();
                         break;
                 }
+
             }
             else
             {
@@ -680,18 +691,8 @@ namespace Vydejna
         private void checkBoxWildCard_CheckedChanged(object sender, EventArgs e)
         {
             settingChanged = true;
-            if (checkBoxWildCard.Checked )
-            {
-                comboBoxRegex.Enabled = true;
-                if ((comboBoxRegex.SelectedIndex == -1) && (comboBoxRegex.Items.Count > 0)) comboBoxRegex.SelectedIndex = 0;
-            }
-            else
-            {
-                comboBoxRegex.Enabled = false;
-                comboBoxRegex.SelectedIndex = -1;
-            }
+            checkBoxWildCarsChangeStatus();
             enableFirstFromCharChecker();
-
         }
 
         private void enableFirstFromCharChecker()
@@ -780,15 +781,25 @@ namespace Vydejna
             if (prohledavanePrvky.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 string selectedItem = comboBoxColumns.Text;
-                List<String> selectedItems = prohledavanePrvky.getSelectedItems();
+                List<String> selectedItemsDesc = prohledavanePrvky.getSelectedItems();
+                List<String> selectedItemsName = new List<string>();
+
+                foreach (string desc in selectedItemsDesc)
+                {
+                    string name = ColumnInfosDesc2Name(desc);
+                    if (name.Trim() != "")
+                    {
+                        selectedItemsName.Add(name);
+                    }
+                }
 
                 string oldSelectedName = ColumnInfosDesc2Name(comboBoxColumns.Text);
-                loadComboBoxColumns(selectedItems);
+                loadComboBoxColumns(selectedItemsDesc);
                 if (!(setColumnInComboBoxByDesc(ColumnInfosName2Desc(oldSelectedName))))
                 {
                     setColumnInComboBoxByDesc(ColumnInfosName2Desc(preferedColumn));
                 }
-                ConfigReg.saveColumnsSearch(windowName, windowTableDesc, selectedItems);
+                ConfigReg.saveColumnsSearch(windowName, windowTableDesc, selectedItemsName);
             }
         }
 
@@ -810,5 +821,31 @@ namespace Vydejna
             nastavProhledavanePrvky();
         }
 
+        private void checkBoxWildCard_EnabledChanged(object sender, EventArgs e)
+        {
+            checkBoxWildCarsChangeStatus();
+        }
+
+
+        private void checkBoxWildCarsChangeStatus()
+        {
+            if ((checkBoxWildCard.Enabled) && (checkBoxWildCard.Checked))
+            {
+                comboBoxRegex.Enabled = true;
+                if ((comboBoxRegex.SelectedIndex == -1) && (comboBoxRegex.Items.Count > 0))
+                {
+                    comboBoxRegex.SelectedIndex = 0;
+                }
+            }
+            else
+            {
+                comboBoxRegex.Enabled = false;
+                if (comboBoxRegex.Items.Count == 0)
+                {
+                    comboBoxRegex.SelectedIndex = -1;
+                }
+            }
+
+        }
     }
 }

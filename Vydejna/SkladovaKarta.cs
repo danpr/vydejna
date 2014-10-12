@@ -144,7 +144,9 @@ namespace Vydejna
             InitializeComponent();
 
             // jak menit meritko
+            AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+           
 
             myDB = myDataBase;
             this.state = sKartaState.add;

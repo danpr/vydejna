@@ -268,6 +268,46 @@ namespace Vydejna
         }
 
 
+        public static List<string> loadColumnsSearch(string windowName, string WindowTableDesc)
+        {
+            string stringKey;
+            if (windowName.Trim() == "")
+            {
+                return null;
+            }
+            else
+            {
+                if (WindowTableDesc.Trim() == "")
+                {
+                    stringKey = "SOFTWARE\\CS\\SEARCH\\" + windowName + "\\selectedColumns";
+                }
+                else
+                {
+                    stringKey = "SOFTWARE\\CS\\SEARCH\\" + windowName + "\\" + WindowTableDesc + "\\selectedColumns";
+                }
+            }
+            List<string> selectedItems = null;
+            RegistryKey rkey = Registry.CurrentUser.OpenSubKey(stringKey);
+            if (rkey != null)
+            {
+                try
+                {
+                    foreach (string name in rkey.GetValueNames())
+                    {
+                        if (selectedItems == null)
+                        {
+                            selectedItems = new List<string>();
+                        }
+                        selectedItems.Add(rkey.GetValue(name).ToString());
+                    }
+                }
+                catch { }
+            }
+            if (selectedItems.Count == 0) return null;
+            else return selectedItems;
+        }
+
+
         public static TableSearch loadSettingSearch(string windowName, string WindowTableDesc)
         {
             string stringKey = "";
@@ -288,7 +328,7 @@ namespace Vydejna
 
             }
 
-            RegistryKey rkey = Registry.CurrentUser.OpenSubKey(stringKey, true);
+            RegistryKey rkey = Registry.CurrentUser.OpenSubKey(stringKey);
 
             TableSearch mySearch = null;
             string columnName;
@@ -297,6 +337,7 @@ namespace Vydejna
 
             if (rkey != null)
             {
+
                 try
                 {
                     columnName = rkey.GetValue("ColumnName").ToString();
@@ -310,6 +351,7 @@ namespace Vydejna
                 {
                     return null;
                 }
+
                 List<string> selectedItems = null;
                 rkey = Registry.CurrentUser.OpenSubKey(stringKey+"\\selectedColumns", true);
                 if (rkey != null)
@@ -328,11 +370,9 @@ namespace Vydejna
                     }
                     catch { }
                 }
-
                 mySearch = new TableSearch(windowName, WindowTableDesc, selectedItems, columnName, searchFromFirstColumn, noCaseSensitive, diacritcs, use, useType);
                 return mySearch;
             }
-
             return null;
         }
 
