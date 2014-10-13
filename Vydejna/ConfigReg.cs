@@ -286,7 +286,7 @@ namespace Vydejna
                     stringKey = "SOFTWARE\\CS\\SEARCH\\" + windowName + "\\" + WindowTableDesc + "\\selectedColumns";
                 }
             }
-            List<string> selectedItems = null;
+            List<string> selectedItems = new List<string>();
             RegistryKey rkey = Registry.CurrentUser.OpenSubKey(stringKey);
             if (rkey != null)
             {
@@ -303,7 +303,7 @@ namespace Vydejna
                 }
                 catch { }
             }
-            if (selectedItems.Count == 0) return null;
+            if ((selectedItems == null) || (selectedItems.Count == 0)) return null;
             else return selectedItems;
         }
 
@@ -408,26 +408,26 @@ namespace Vydejna
                     rkey.SetValue("UseWildCart", mySearch.use);
                     rkey.SetValue("WildCardType", mySearch.useType);
 
-                    RegistryKey rkeyPar = rkey;
-                    string klic2 = klic1 + "\\selectedColumns";
-                    rkey = Registry.CurrentUser.CreateSubKey(klic2);
-                    if (rkey != null)
-                    {
-                        string[] columns = rkey.GetValueNames();
-                        foreach (string column in columns)
-                        {
-                            rkey.DeleteValue(column);// DeleteSubKey(column);
-                        }
-                        if (selectedColumns != null)
-                        {
-                            Int32 i = 0;
-                            foreach (string column in selectedColumns)
-                            {
-                                rkey.SetValue(i.ToString(), column);
-                                i++;
-                            }
-                        }
-                    }
+//                    RegistryKey rkeyPar = rkey;
+//                    string klic2 = klic1 + "\\selectedColumns";
+//                    rkey = Registry.CurrentUser.CreateSubKey(klic2);
+//                    if (rkey != null)
+//                    {
+//                        string[] columns = rkey.GetValueNames();
+//                        foreach (string column in columns)
+//                        {
+//                            rkey.DeleteValue(column);// DeleteSubKey(column);
+//                        }
+//                        if (selectedColumns != null)
+//                        {
+//                            Int32 i = 0;
+//                            foreach (string column in selectedColumns)
+//                            {
+//                                rkey.SetValue(i.ToString(), column);
+//                                i++;
+//                            }
+//                        }
+//                    }
                 }
             }
         }
