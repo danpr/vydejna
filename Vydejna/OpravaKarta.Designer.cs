@@ -61,9 +61,9 @@
             // dataGridViewZmeny
             // 
             this.dataGridViewZmeny.AllowUserToAddRows = false;
-            this.dataGridViewZmeny.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridViewZmeny.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridViewZmeny.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewZmeny.Location = new System.Drawing.Point(22, 186);
             this.dataGridViewZmeny.MultiSelect = false;
@@ -165,6 +165,7 @@
             this.buttonOK.TabIndex = 21;
             this.buttonOK.Text = "Budiž";
             this.buttonOK.UseVisualStyleBackColor = true;
+            this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
             // 
             // buttonRetry
             // 
@@ -252,7 +253,7 @@
             this.vybratPísmoToolStripMenuItem,
             this.písmoAplikaceToolStripMenuItem});
             this.písmoToolStripMenuItem.Name = "písmoToolStripMenuItem";
-            this.písmoToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
+            this.písmoToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
             this.písmoToolStripMenuItem.Text = "Písmo";
             // 
             // vybratPísmoToolStripMenuItem

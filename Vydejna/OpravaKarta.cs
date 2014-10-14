@@ -164,6 +164,16 @@ namespace Vydejna
             }
             if (dtCount > 0) // existuji zaznamy o zmenach
             {
+                if (novyFyzStav < 0)
+                {
+                    numericUpDownFyzStav.Minimum = novyFyzStav;
+                    MessageBox.Show("Pozor FYZICKÝ stav je menši než nula je potřeba opravit hodnoty stavů.");
+                }
+                if (novyUcetStav < 0)
+                {
+                    numericUpDownUcetStav.Minimum = novyUcetStav;
+                    MessageBox.Show("Pozor ÚČETNÍ stav je menši než nula je potřeba opravit hodnoty stavů.");
+                }
                 numericUpDownFyzStav.Value = novyFyzStav;
                 numericUpDownUcetStav.Value = novyUcetStav;
                 setZmenyColor();
@@ -488,6 +498,20 @@ namespace Vydejna
             {
                 ConfigReg.saveSettingWindowTableColumnWidth(formName, "zmeny", e.Column.Name, e.Column.Width);
             }
+        }
+
+        private void buttonOK_Click(object sender, EventArgs e)
+        {
+            if ((numericUpDownUcetStav.Value < 0) || (numericUpDownFyzStav.Value < 0))
+            {
+                MessageBox.Show("Fyzický a účetní stav musí být nezáporné hodnoty.");
+                buttonOK.DialogResult = System.Windows.Forms.DialogResult.None;
+            }
+            else
+            {
+                buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
+            }
+
         }
 
 
