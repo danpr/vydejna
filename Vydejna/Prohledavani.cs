@@ -348,12 +348,12 @@ namespace Vydejna
 
         if ((comboBoxColumns.SelectedIndex > -1) && (buttonOK.Enabled))
             {
-                ColumnInfo myColumnInfo = (ColumnInfo)columnInfos[comboBoxColumns.SelectedIndex];
+                ColumnInfo myColumnInfo = (ColumnInfo)columnInfos[ColumnInfosIndexOfDescription(comboBoxColumns.SelectedItem.ToString())];
                 string myType = Convert.ToString(myColumnInfo.varColumnType);
 
                 Boolean lineIsFound = false;
-                string columnName = ((ColumnInfo)columnInfos[comboBoxColumns.SelectedIndex]).name;
-                
+                string columnName = myColumnInfo.name;
+              
                 Int32 testingRow = 0;
                 Regex regex = null;
                 string substring="";
