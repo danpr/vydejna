@@ -15,6 +15,9 @@ namespace Vydejna
         public DoubleList(List<String> mainStringList, List<String> selectStringList)
         {
             InitializeComponent();
+            this.CancelButton = this.buttonCancel;
+            this.AcceptButton = this.buttonOK;
+
             loadListBox(listBox2, selectStringList);
             loadListBox(listBox1, mainStringList);
         }
