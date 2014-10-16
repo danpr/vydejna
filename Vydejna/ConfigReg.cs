@@ -159,14 +159,14 @@ namespace Vydejna
 
 
 
-        public static Font loadSettingFontX( string name)
+        public static Font loadSettingFontX(string name)
         {
             string stringKey = "SOFTWARE\\CS\\FONT";
             if (name.Trim() != "")
             {
                 stringKey = "SOFTWARE\\CS\\FONT\\" + name;
             }
-            
+
 
             RegistryKey rkey = null;
 
@@ -221,7 +221,7 @@ namespace Vydejna
                 {
                     rkey.DeleteSubKeyTree(name);
                 }
-                catch {}
+                catch { }
             }
         }
 
@@ -229,39 +229,13 @@ namespace Vydejna
 
         public static void saveSettingFontX(Font myFont, string name)
         {
-            string stringKey = "SOFTWARE\\CS\\FONT\\" + name;
+            string stringKey = "SOFTWARE\\CS\\FONT\\" + name; // zakldni font programu ma name == ""
             RegistryKey rkey = null;
+            rkey = Registry.CurrentUser.CreateSubKey(stringKey);
 
-            if (name.Trim() != "")
-            {
-                rkey = Registry.CurrentUser.OpenSubKey(stringKey, true);
-            }
-            if (rkey == null)
-            {
-                rkey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\CS\FONT", true);
-                if (rkey == null)
-                {
-                    rkey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\CS", true);
-                    if (rkey == null)
-                    {
-                        rkey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE", true);
-                        rkey.CreateSubKey("CS");
-                        rkey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\CS", true);
-                    }
-                    rkey.CreateSubKey("FONT");
-                    rkey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\CS\FONT", true);
-                    if (name.Trim() != "")
-                    {
-                        rkey = Registry.CurrentUser.OpenSubKey(stringKey, true);
-                    }
-                }
-                if (name.Trim() != "")
-                {
-                    rkey.CreateSubKey(name);
-                    rkey = Registry.CurrentUser.OpenSubKey(stringKey, true);
-                }
-            }
             // zapis polozky
+            if (rkey == null) return;
+
             rkey.SetValue("Name", myFont.FontFamily.Name);
             rkey.SetValue("Size", myFont.Size);
             rkey.SetValue("Style", (Int32)myFont.Style);
@@ -341,7 +315,7 @@ namespace Vydejna
                 try
                 {
                     columnName = rkey.GetValue("ColumnName").ToString();
-                    searchFromFirstColumn = Convert.ToBoolean( rkey.GetValue("FromFirstColumn"));
+                    searchFromFirstColumn = Convert.ToBoolean(rkey.GetValue("FromFirstColumn"));
                     noCaseSensitive = Convert.ToBoolean(rkey.GetValue("NoCaseSensitive"));
                     diacritcs = Convert.ToBoolean(rkey.GetValue("UseDiacritics"));
                     use = Convert.ToBoolean(rkey.GetValue("UseWildCart"));
@@ -353,7 +327,7 @@ namespace Vydejna
                 }
 
                 List<string> selectedItems = null;
-                rkey = Registry.CurrentUser.OpenSubKey(stringKey+"\\selectedColumns", true);
+                rkey = Registry.CurrentUser.OpenSubKey(stringKey + "\\selectedColumns", true);
                 if (rkey != null)
                 {
                     try
@@ -396,7 +370,7 @@ namespace Vydejna
                     klic1 = "SOFTWARE\\CS\\SEARCH\\" + windowName;
                 }
 
-                    rkey = Registry.CurrentUser.CreateSubKey(klic1);
+                rkey = Registry.CurrentUser.CreateSubKey(klic1);
 
                 // zapis polozky
                 if (rkey != null)
@@ -408,26 +382,6 @@ namespace Vydejna
                     rkey.SetValue("UseWildCart", mySearch.use);
                     rkey.SetValue("WildCardType", mySearch.useType);
 
-//                    RegistryKey rkeyPar = rkey;
-//                    string klic2 = klic1 + "\\selectedColumns";
-//                    rkey = Registry.CurrentUser.CreateSubKey(klic2);
-//                    if (rkey != null)
-//                    {
-//                        string[] columns = rkey.GetValueNames();
-//                        foreach (string column in columns)
-//                        {
-//                            rkey.DeleteValue(column);// DeleteSubKey(column);
-//                        }
-//                        if (selectedColumns != null)
-//                        {
-//                            Int32 i = 0;
-//                            foreach (string column in selectedColumns)
-//                            {
-//                                rkey.SetValue(i.ToString(), column);
-//                                i++;
-//                            }
-//                        }
-//                    }
                 }
             }
         }
@@ -566,25 +520,9 @@ namespace Vydejna
         {
             string stringKlic = "SOFTWARE\\CS\\WINDOWS\\" + name;
             RegistryKey rKey;
-            rKey = Registry.CurrentUser.OpenSubKey(stringKlic, true);
-            if (rKey == null)
-            {
-                rKey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\CS\WINDOWS", true);
-                if (rKey == null)
-                {
-                    rKey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\CS", true);
-                    if (rKey == null)
-                    {
-                        rKey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE", true);
-                        rKey.CreateSubKey("CS");
-                    }
-                    rKey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\CS", true);
-                    rKey.CreateSubKey("WINDOWS");
-                }
-                rKey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\CS\WINDOWS", true);
-                rKey.CreateSubKey(name);
-                rKey = Registry.CurrentUser.OpenSubKey(stringKlic, true);
-            }
+
+            rKey = Registry.CurrentUser.CreateSubKey(stringKlic);
+
             // zapis polozky
             if (rKey == null) return;
             if ((x != 0) && (y != 0))
@@ -613,17 +551,18 @@ namespace Vydejna
 
                     foreach (string name in klic.GetValueNames())
                     {
-                        DBTableItems.Add (name,klic.GetValue(name));
+                        DBTableItems.Add(name, klic.GetValue(name));
                     }
                 }
             }
             return DBTableItems;
         }
 
+
         public static Hashtable loadSettingWindowTableColumnWidth(string nameWin, string nameTab)
         {
-           string stringKlic = "SOFTWARE\\CS\\WINDOWS\\" + nameWin + "\\" + nameTab + "\\COLUMNS\\WIDTH";
-           return loadSettingWindowTableColumn(nameWin, nameTab, stringKlic);    
+            string stringKlic = "SOFTWARE\\CS\\WINDOWS\\" + nameWin + "\\" + nameTab + "\\COLUMNS\\WIDTH";
+            return loadSettingWindowTableColumn(nameWin, nameTab, stringKlic);
         }
 
 
@@ -637,51 +576,18 @@ namespace Vydejna
 
         public static void saveSettingWindowTableColumnWidth(string nameWin, string nameTab, string nameCol, Int32 width)
         {
-            string stringKlic1 = "SOFTWARE\\CS\\WINDOWS\\" + nameWin + "\\" + nameTab + "\\COLUMNS\\WIDTH";
-            string stringKlic2 = "SOFTWARE\\CS\\WINDOWS\\" + nameWin + "\\" + nameTab + "\\COLUMNS";
-            string stringKlic3 = "SOFTWARE\\CS\\WINDOWS\\" + nameWin + "\\" + nameTab;
-            string stringKlic4 = "SOFTWARE\\CS\\WINDOWS\\" + nameWin;
-            RegistryKey rKey;
-            rKey = Registry.CurrentUser.OpenSubKey(stringKlic1, true);
-            if (rKey == null)
+            if (nameTab == "")
             {
-                rKey = Registry.CurrentUser.OpenSubKey(stringKlic2, true);
-                if (rKey == null)
-                {
-                    rKey = Registry.CurrentUser.OpenSubKey(stringKlic3, true);
-                    if (rKey == null)
-                    {
-                        rKey = Registry.CurrentUser.OpenSubKey(stringKlic4, true);
-                        if (rKey == null)
-                        {
-                            rKey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\CS\WINDOWS", true);
-                            if (rKey == null)
-                            {
-                                rKey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\CS", true);
-                                if (rKey == null)
-                                {
-                                    rKey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE", true);
-                                    rKey.CreateSubKey("CS");
-                                }
-                                rKey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\CS", true);
-                                rKey.CreateSubKey("WINDOWS");
-                            }
-                            rKey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\CS\WINDOWS", true);
-                            rKey.CreateSubKey(nameWin);
-                        }
-                        rKey = Registry.CurrentUser.OpenSubKey(stringKlic4, true);
-                        rKey.CreateSubKey(nameTab);
-                    }
-                    rKey = Registry.CurrentUser.OpenSubKey(stringKlic3, true);
-                    rKey.CreateSubKey("COLUMNS");
-                }
-                rKey = Registry.CurrentUser.OpenSubKey(stringKlic2, true);
-                rKey.CreateSubKey("WIDTH");
-                rKey = Registry.CurrentUser.OpenSubKey(stringKlic1, true);
+                return;
             }
+
+            string stringKlic1 = "SOFTWARE\\CS\\WINDOWS\\" + nameWin + "\\" + nameTab + "\\COLUMNS\\WIDTH";
+            RegistryKey rKey;
+            rKey = Registry.CurrentUser.CreateSubKey(stringKlic1);
+
             // zapis polozky
             if (rKey == null) return;
-                rKey.SetValue(nameCol, width);
+            rKey.SetValue(nameCol, width);
         }
 
         public static void saveSettingWindowTableColumnIndex(string nameWin, string nameTab, string nameCol, Int32 index)
@@ -690,48 +596,11 @@ namespace Vydejna
             {
                 return;
             }
+
             string stringKlic1 = "SOFTWARE\\CS\\WINDOWS\\" + nameWin + "\\" + nameTab + "\\COLUMNS\\INDEX";
-            string stringKlic2 = "SOFTWARE\\CS\\WINDOWS\\" + nameWin + "\\" + nameTab + "\\COLUMNS";
-            string stringKlic3 = "SOFTWARE\\CS\\WINDOWS\\" + nameWin + "\\" + nameTab;
-            string stringKlic4 = "SOFTWARE\\CS\\WINDOWS\\" + nameWin;
             RegistryKey rKey;
-            rKey = Registry.CurrentUser.OpenSubKey(stringKlic1, true);
-            if (rKey == null)
-            {
-                rKey = Registry.CurrentUser.OpenSubKey(stringKlic2, true);
-                if (rKey == null)
-                {
-                    rKey = Registry.CurrentUser.OpenSubKey(stringKlic3, true);
-                    if (rKey == null)
-                    {
-                        rKey = Registry.CurrentUser.OpenSubKey(stringKlic4, true);
-                        if (rKey == null)
-                        {
-                            rKey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\CS\WINDOWS", true);
-                            if (rKey == null)
-                            {
-                                rKey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\CS", true);
-                                if (rKey == null)
-                                {
-                                    rKey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE", true);
-                                    rKey.CreateSubKey("CS");
-                                }
-                                rKey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\CS", true);
-                                rKey.CreateSubKey("WINDOWS");
-                            }
-                            rKey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\CS\WINDOWS", true);
-                            rKey.CreateSubKey(nameWin);
-                        }
-                        rKey = Registry.CurrentUser.OpenSubKey(stringKlic4, true);
-                        rKey.CreateSubKey(nameTab);
-                    }
-                    rKey = Registry.CurrentUser.OpenSubKey(stringKlic3, true);
-                    rKey.CreateSubKey("COLUMNS");
-                }
-                rKey = Registry.CurrentUser.OpenSubKey(stringKlic2, true);
-                rKey.CreateSubKey("INDEX");
-                rKey = Registry.CurrentUser.OpenSubKey(stringKlic1, true);
-            }
+            rKey = Registry.CurrentUser.CreateSubKey(stringKlic1);
+
             // zapis polozky
             if (rKey == null) return;
             rKey.SetValue(nameCol, index);
