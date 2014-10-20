@@ -1006,6 +1006,37 @@ namespace Vydejna
             }
         }
 
+
+
+        public override void zrusKartu(Hashtable DBRow)
+        {
+            if (MessageBox.Show("Opravdu chcete zrušit záznam o poškození nářadí ?", "Zrušení záznamu", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                // zrusime kartu
+                Int32 poradi = Convert.ToInt32(DBRow["poradi"]);
+
+////                if (myDB.deleteLineKaret(poradi))
+////                {
+////                    removeViewSelectedRow(poradi);
+
+                    //                    // smazeme z obrazovky
+                    //                    // je potreba najit index v datove tabulce - po trideni neni schodny s indexem ve view
+                    //                    Int32 dataRowIndex = findIndex((myDataGridView.DataSource as DataTable),"poradi",poradi);
+                    //                    if (dataRowIndex != -1)
+                    //                    {
+                    //                        // smazeme radku
+                    //                        (myDataGridView.DataSource as DataTable).Rows.RemoveAt(dataRowIndex);
+                    //                    }
+////                }
+////                else
+////                {
+////                    MessageBox.Show("Zrušení karty se nezdařilo.");
+////                }
+            }
+        }
+
+
+
         public override string preferovanySloupec()
         {
             return "nazev";

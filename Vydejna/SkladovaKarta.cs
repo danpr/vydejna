@@ -100,6 +100,11 @@ namespace Vydejna
         public SkladovaKarta(vDatabase myDataBase, Hashtable DBRow, Int32 poradi, tableItemExistDelgStr testExistItem, Font myFont, sKartaState state = sKartaState.show, permissonsData readOnlyPermission = null)
         {
             InitializeComponent();
+//            this.HScroll = true;
+//            this.VScroll = true;
+//            this.VerticalScroll.Visible = true;
+//            this.HorizontalScroll.Visible = true;
+
             this.state = state;
             this.testExistItem = testExistItem;
             this.poradi = poradi;
@@ -142,6 +147,10 @@ namespace Vydejna
         public SkladovaKarta(vDatabase myDataBase, tableItemExistDelgStr testExistItem, Font myFont)
         {
             InitializeComponent();
+//            this.HScroll = true;
+//            this.VScroll = true;
+//            this.VerticalScroll.Visible = true;
+//            this.HorizontalScroll.Visible = true;
 
             // jak menit meritko
             AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
