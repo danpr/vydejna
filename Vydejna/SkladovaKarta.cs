@@ -278,13 +278,27 @@ namespace Vydejna
             textBoxNazev.Text = Convert.ToString(DBRow["nazev"]);
             textBoxJK.Text = Convert.ToString(DBRow["jk"]);
             oldJK = textBoxJK.Text;
+
+            if (Convert.ToInt32(DBRow["ucetstav"]) < 0)
+            {
+                numericUpDownUcetStav.Minimum = Convert.ToInt32(DBRow["ucetstav"]);
+                MessageBox.Show("Pozor ÚČETNÍ stav je menši než nula je potřeba opravit hodnoty stavů.");
+            }
             numericUpDownUcetStav.Value = Convert.ToInt32(DBRow["ucetstav"]);
+
             textBoxUcet.Text = Convert.ToString(DBRow["analucet"]);
             textBoxCSN.Text = Convert.ToString(DBRow["normacsn"]);
             textBoxDIN.Text = Convert.ToString(DBRow["normadin"]);
             textBoxVyrobce.Text = Convert.ToString(DBRow["vyrobce"]);
             textBoxRozmer.Text = Convert.ToString(DBRow["rozmer"]);
-            numericUpDownFyzStav.Value  = Convert.ToDecimal(DBRow["fyzstav"]);
+
+            if (Convert.ToInt32(DBRow["fyzstav"]) < 0)
+            {
+                numericUpDownFyzStav.Minimum = Convert.ToInt32(DBRow["fyzstav"]);
+                MessageBox.Show("Pozor FYZICKÝ stav je menši než nula je potřeba opravit hodnoty stavů.");
+            }
+            numericUpDownFyzStav.Value = Convert.ToDecimal(DBRow["fyzstav"]);
+
             cenaKs = Convert.ToDecimal(DBRow["cena"]);
             numericUpDownCenaKs.Value = Convert.ToDecimal(DBRow["cena"]);
             numericUpDownUcetCenaKs.Value = Convert.ToDecimal(DBRow["ucetkscen"]);
