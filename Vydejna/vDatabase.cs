@@ -352,6 +352,13 @@ namespace Vydejna
             return false;
         }
 
+
+        public virtual Boolean deleteLinePoskozene(Int32 poradi)
+        {
+            return false;
+        }
+
+
         public virtual Boolean addNewLinePoskozene(string DBkrjmeno, string DBjmeno, string DBosCislo, string DBdilna,
                                          string DBprovoz, string DBnazev, string DBJK, long DBpocetKS,
                                          string DBrozmer, string DBCSN, decimal DBcena,

@@ -2909,6 +2909,53 @@ namespace Vydejna
         }
 
 
+        public override Boolean deleteLinePoskozene(Int32 poradi)
+        {
+            OdbcTransaction transaction = null;
+
+            if (DBIsOpened())
+            {
+                string commandString1 = "DELETE FROM poskozeno WHERE poradi = ? ";
+
+                try
+                {
+                    try
+                    {
+                        transaction = (myDBConn as OdbcConnection).BeginTransaction(System.Data.IsolationLevel.ReadCommitted);
+                    }
+                    catch
+                    {
+                    }
+
+                    //zrusime
+                    OdbcCommand cmd1 = new OdbcCommand(commandString1, myDBConn as OdbcConnection);
+                    cmd1.Parameters.AddWithValue("@poradi", poradi).DbType = DbType.Int32;
+//                    OdbcParameter p1 = new OdbcParameter("p1", OdbcType.Int);
+//                    p1.Value = poradi;
+//                    cmd1.Parameters.Add(p1);
+                    cmd1.Transaction = transaction;
+                    cmd1.ExecuteNonQuery();
+
+                    if (transaction != null)
+                    {
+                        (transaction as OdbcTransaction).Commit();
+                    }
+                }
+                catch (Exception)
+                {
+                    // doslo k chybe
+                    if (transaction != null)
+                    {
+                        (transaction as OdbcTransaction).Rollback();
+                    }
+                    return false;  // chyba
+                }
+                return true;  // ok
+            }
+            return false;  // database neni otevrena
+        }
+
+
 
         public override Boolean editNewLineVracene(Int32 poradi, string DBkrjmeno, string DBjmeno, string DBosCislo, string DBdilna,
                                  string DBprovoz, string DBnazev, string DBJK, long DBpocetKS,

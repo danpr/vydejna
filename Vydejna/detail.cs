@@ -160,6 +160,10 @@ namespace Vydejna
             }
         }
 
+/// <summary>
+/// Odstrani polozku z datove tabulky a z pohledu
+/// </summary>
+/// <param name="poradi">Ukazatel na zaznam v databazi</param>
 
          public void removeViewSelectedRow(Int32 poradi)
         {
@@ -167,9 +171,7 @@ namespace Vydejna
             if (counter > 0)
             {
                 counter--; // ukazuje na posledni prvek
-
                 Int32 dataRowIndex = detail.findIndex(myDataGridView.DataSource as DataTable, "poradi", poradi);
-
                 Int32 nextIndexAfterSelected = myDataGridView.SelectedRows[0].Index;
 
                 (myDataGridView.DataSource as DataTable).Rows.RemoveAt(dataRowIndex);
@@ -879,18 +881,9 @@ namespace Vydejna
                 // zrusime kartu
                 Int32 poradi = Convert.ToInt32(DBRow["poradi"]);
 
-                if (myDB.deleteLineKaret(poradi))
+                if (myDB.deleteLinePoskozene(poradi))
                 {
                     removeViewSelectedRow(poradi);
-
-//                    // smazeme z obrazovky
-//                    // je potreba najit index v datove tabulce - po trideni neni schodny s indexem ve view
-//                    Int32 dataRowIndex = findIndex((myDataGridView.DataSource as DataTable),"poradi",poradi);
-//                    if (dataRowIndex != -1)
-//                    {
-//                        // smazeme radku
-//                        (myDataGridView.DataSource as DataTable).Rows.RemoveAt(dataRowIndex);
-//                    }
                 }
                 else
                 {
@@ -1012,27 +1005,22 @@ namespace Vydejna
         {
             if (MessageBox.Show("Opravdu chcete zrušit záznam o poškození nářadí ?", "Zrušení záznamu", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                // zrusime kartu
-                Int32 poradi = Convert.ToInt32(DBRow["poradi"]);
+                if (MessageBox.Show("Jste si opravdu jisti, že chcete zrušit záznam o poškození nářadí ?", "Zrušení záznamu", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    // zrusime kartu
+                    Int32 poradi = Convert.ToInt32(DBRow["poradi"]);
 
-////                if (myDB.deleteLineKaret(poradi))
-////                {
-////                    removeViewSelectedRow(poradi);
-
-                    //                    // smazeme z obrazovky
-                    //                    // je potreba najit index v datove tabulce - po trideni neni schodny s indexem ve view
-                    //                    Int32 dataRowIndex = findIndex((myDataGridView.DataSource as DataTable),"poradi",poradi);
-                    //                    if (dataRowIndex != -1)
-                    //                    {
-                    //                        // smazeme radku
-                    //                        (myDataGridView.DataSource as DataTable).Rows.RemoveAt(dataRowIndex);
-                    //                    }
-////                }
-////                else
-////                {
-////                    MessageBox.Show("Zrušení karty se nezdařilo.");
-////                }
+                    if (myDB.deleteLinePoskozene(poradi))
+                    {
+                        removeViewSelectedRow(poradi);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Zrušení zaznamu o poškození se nezdařilo.");
+                    }
+                }
             }
+
         }
 
 
