@@ -1648,6 +1648,51 @@ namespace Vydejna
         }
 
 
+
+        public override Boolean deleteLinePoskozene(Int32 poradi)
+        {
+            SQLiteTransaction transaction = null;
+
+            if (DBIsOpened())
+            {
+                string commandString1 = "DELETE FROM poskozeno WHERE poradi = ? ";
+
+                try
+                {
+                    try
+                    {
+                        transaction = (myDBConn as SQLiteConnection).BeginTransaction(System.Data.IsolationLevel.ReadCommitted);
+                    }
+                    catch
+                    {
+                    }
+
+                    //zrusime
+                    SQLiteCommand cmd1 = new SQLiteCommand(commandString1, myDBConn as SQLiteConnection);
+                    cmd1.Parameters.AddWithValue("@poradi", poradi).DbType = DbType.Int32;
+                    cmd1.Transaction = transaction;
+                    cmd1.ExecuteNonQuery();
+
+                    if (transaction != null)
+                    {
+                        (transaction as SQLiteTransaction).Commit();
+                    }
+                }
+                catch (Exception)
+                {
+                    // doslo k chybe
+                    if (transaction != null)
+                    {
+                        (transaction as SQLiteTransaction).Rollback();
+                    }
+                    return false;  // chyba
+                }
+                return true;  // ok
+            }
+            return false;  // database neni otevrena
+        }
+
+
         public override Boolean editNewLineVracene(Int32 poradi, string DBkrjmeno, string DBjmeno, string DBosCislo, string DBdilna,
                                  string DBprovoz, string DBnazev, string DBJK, long DBpocetKS,
                                  string DBrozmer, string DBCSN, decimal DBcena,
@@ -1739,6 +1784,48 @@ namespace Vydejna
         }
 
 
+        public override Boolean deleteLineVracene(Int32 poradi)
+        {
+            SQLiteTransaction transaction = null;
+
+            if (DBIsOpened())
+            {
+                string commandString1 = "DELETE FROM vraceno WHERE poradi = ? ";
+
+                try
+                {
+                    try
+                    {
+                        transaction = (myDBConn as SQLiteConnection).BeginTransaction(System.Data.IsolationLevel.ReadCommitted);
+                    }
+                    catch
+                    {
+                    }
+
+                    //zrusime
+                    SQLiteCommand cmd1 = new SQLiteCommand(commandString1, myDBConn as SQLiteConnection);
+                    cmd1.Parameters.AddWithValue("@poradi", poradi).DbType = DbType.Int32;
+                    cmd1.Transaction = transaction;
+                    cmd1.ExecuteNonQuery();
+
+                    if (transaction != null)
+                    {
+                        (transaction as SQLiteTransaction).Commit();
+                    }
+                }
+                catch (Exception)
+                {
+                    // doslo k chybe
+                    if (transaction != null)
+                    {
+                        (transaction as SQLiteTransaction).Rollback();
+                    }
+                    return false;  // chyba
+                }
+                return true;  // ok
+            }
+            return false;  // database neni otevrena
+        }
 
 
         public override Boolean editNewLineKaret(Int32 poradi, string DBnazev, string DBJK, string DBnormacsn, string DBnormadin,

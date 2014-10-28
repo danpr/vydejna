@@ -1116,6 +1116,30 @@ namespace Vydejna
             }
         }
 
+
+        public override void zrusKartu(Hashtable DBRow)
+        {
+            if (MessageBox.Show("Opravdu chcete zrušit záznam o vráceném nářadí ?", "Zrušení záznamu", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                if (MessageBox.Show("Jste si opravdu jisti, že chcete zrušit záznam o vráceném nářadí ?", "Zrušení záznamu", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    // zrusime kartu
+                    Int32 poradi = Convert.ToInt32(DBRow["poradi"]);
+
+                    if (myDB.deleteLineVracene(poradi))
+                    {
+                        removeViewSelectedRow(poradi);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Zrušení zaznamu o vrácení se nezdařilo.");
+                    }
+                }
+            }
+
+        }
+
+
         public override string preferovanySloupec()
         {
             return "nazev";

@@ -34,11 +34,11 @@ using System.Windows.Forms;
 // poznamka   DBpoznamka  Poznamka       textBoxPoznamka
 // minimum    DBminstav   Minimální stav numericUpDownMinStav
 // celkcena   DBcelkcena  Celková cena   numericUpDownUcetCena
-// adrdir     DBadresa
-// movsoub    DBmov
-// badrdir    DBbadresa
-// bmovsoub   DBbmov
-// cntrcode   DBctrl                                              (cntrcode)
+// adrdir     DBadresa    //nepouzito
+// movsoub    DBmov       //nepouzito
+// badrdir    DBbadresa   //nepouzito
+// bmovsoub   DBbmov      //nepouzito
+// cntrcode   DBctrl      //nepouzito      (cntrcode)
 // ucetstav   DBucetstav  KS/výdejna     numericUpDownUcetStav
 // fyzstav    DBfyzstav   Fyzický stav
 // rozmer     DBrozmer                   textBoxRozmer
@@ -376,6 +376,13 @@ namespace Vydejna
         {
             return false;
         }
+
+
+        public virtual Boolean deleteLineVracene(Int32 poradi)
+        {
+            return false;
+        }
+
 
 
         public virtual Boolean moveNaradiToNewKaret(Int32 DBporadi)
