@@ -80,7 +80,7 @@
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 19;
-            this.buttonCancel.Text = "Zrušit";
+            this.buttonCancel.Text = "Bez výběru";
             this.buttonCancel.UseVisualStyleBackColor = true;
             // 
             // buttonOK
