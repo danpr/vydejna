@@ -63,7 +63,7 @@
             this.labelStav = new System.Windows.Forms.Label();
             this.labelCena = new System.Windows.Forms.Label();
             this.labelCelkCena = new System.Windows.Forms.Label();
-            this.textBoxPoznamka = new System.Windows.Forms.TextBox();
+            this.comboBoxPoznamka = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMnozstvi)).BeginInit();
             this.SuspendLayout();
@@ -292,7 +292,7 @@
             this.buttonCancel.Location = new System.Drawing.Point(8, 368);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
-            this.buttonCancel.TabIndex = 6;
+            this.buttonCancel.TabIndex = 7;
             this.buttonCancel.Text = "Zrušit";
             this.buttonCancel.UseVisualStyleBackColor = true;
             // 
@@ -302,7 +302,7 @@
             this.buttonOK.Location = new System.Drawing.Point(516, 368);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
-            this.buttonOK.TabIndex = 5;
+            this.buttonOK.TabIndex = 6;
             this.buttonOK.Text = "Budiž";
             this.buttonOK.UseVisualStyleBackColor = true;
             this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
@@ -393,21 +393,20 @@
             this.labelCelkCena.TabIndex = 35;
             this.labelCelkCena.Text = "label18";
             // 
-            // textBoxPoznamka
+            // comboBoxPoznamka
             // 
-            this.textBoxPoznamka.Location = new System.Drawing.Point(139, 342);
-            this.textBoxPoznamka.MaxLength = 22;
-            this.textBoxPoznamka.Name = "textBoxPoznamka";
-            this.textBoxPoznamka.Size = new System.Drawing.Size(452, 20);
-            this.textBoxPoznamka.TabIndex = 36;
-            this.textBoxPoznamka.Text = "Poškozeno";
+            this.comboBoxPoznamka.FormattingEnabled = true;
+            this.comboBoxPoznamka.Location = new System.Drawing.Point(139, 342);
+            this.comboBoxPoznamka.Name = "comboBoxPoznamka";
+            this.comboBoxPoznamka.Size = new System.Drawing.Size(452, 21);
+            this.comboBoxPoznamka.TabIndex = 5;
             // 
             // Poskozenka
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(603, 403);
-            this.Controls.Add(this.textBoxPoznamka);
+            this.Controls.Add(this.comboBoxPoznamka);
             this.Controls.Add(this.labelCelkCena);
             this.Controls.Add(this.labelCena);
             this.Controls.Add(this.labelStav);
@@ -479,6 +478,6 @@
         private System.Windows.Forms.Label labelJmeno;
         private System.Windows.Forms.Label labelProvoz;
         private System.Windows.Forms.Label labelStredisko;
-        private System.Windows.Forms.TextBox textBoxPoznamka;
+        private System.Windows.Forms.ComboBox comboBoxPoznamka;
     }
 }

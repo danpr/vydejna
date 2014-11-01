@@ -80,13 +80,14 @@ namespace Vydejna
             if (DBRow.ContainsKey("nazev")) labelNazev.Text = Convert.ToString(DBRow["nazev"]);
             if (DBRow.ContainsKey("jk")) labelJK.Text = Convert.ToString(DBRow["jk"]);
             if (DBRow.ContainsKey("rozmer")) labelRozmer.Text = Convert.ToString(DBRow["rozmer"]);
-            if (DBRow.ContainsKey("poznamka")) textBoxPoznamka.Text = Convert.ToString(DBRow["poznamka"]);
             labelStav.Text = Convert.ToString(DBRow["fyzstav"])+ " / "+Convert.ToString(DBRow["ucetstav"]);
             labelCena.Text = Convert.ToString(DBRow["cena"]);
             labelCelkCena.Text = Convert.ToString(DBRow["celkcena"]);
 
             numericUpDownMnozstvi.Maximum = Convert.ToInt32(DBRow["fyzstav"]);
             textBoxOsCislo.Focus();
+
+            comboBoxPoznamka.Items.Add("Poškozeno");
 
             if (pujceneNaradi)
             {
@@ -98,7 +99,8 @@ namespace Vydejna
                   buttonChoosePerson.Enabled = false;
                   label13.Text = "Zapůjčeno nyní / celkem :";
                   labelStav.Text = Convert.ToString(DBRow["stavks"]) + " / " + Convert.ToString(celkPujc);
-                  textBoxPoznamka.Text = "Vráceno a poškozeno";
+                  comboBoxPoznamka.Items.Add("Vráceno a poškozeno");
+                  comboBoxPoznamka.SelectedIndex = 1;
                   if (Convert.ToInt32(DBRow["stavks"]) < celkPujc)
                   {
                       numericUpDownMnozstvi.Maximum = Convert.ToInt32(DBRow["stavks"]);
@@ -108,10 +110,18 @@ namespace Vydejna
                       numericUpDownMnozstvi.Maximum = celkPujc;
                   }
                   choosePerson();
-                     
                   textBoxCisZak.Focus();
                 }
+            }
+            else comboBoxPoznamka.SelectedIndex = 0;
 
+            if (DBRow.ContainsKey("poznamka"))
+            {
+                string poznamka = Convert.ToString(DBRow["poznamka"]);
+                if (poznamka != "")
+                {
+                    comboBoxPoznamka.Items.Add(poznamka);
+                }
             }
 
             boldFont = new Font(myFont, FontStyle.Bold);
@@ -131,7 +141,7 @@ namespace Vydejna
 
         public messager getMesseger()
         {
-            messager prepravka = new messager(parentPoradi, labelJK.Text, Convert.ToInt32(numericUpDownMnozstvi.Value), dateTimePickerDatum.Value, textBoxPoznamka.Text,textBoxOsCislo.Text,
+            messager prepravka = new messager(parentPoradi, labelJK.Text, Convert.ToInt32(numericUpDownMnozstvi.Value), dateTimePickerDatum.Value, comboBoxPoznamka.Text, textBoxOsCislo.Text,
                                               labelJmeno.Text, labelPrijmeni.Text, labelStredisko.Text, labelProvoz.Text, labelRozmer.Text, textBoxKonto.Text, cena, celkCena, textBoxCisZak.Text);
             return prepravka;
 
