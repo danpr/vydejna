@@ -33,6 +33,25 @@ po pøidání materialu pøida uèetní a fyzický stav o stejnou hodnotu
 Uèetní stav je stav na výdejnì a to co je vypùjèeno
 Fyzický stav je stav na výdejnì
 
+----------- Databaze -----------
+
+-----  Urovne transakci -----------
+
+
+    READ UNCOMMITED  – mùže nastat špinavé ètení, neopakovatelné ètení, a výskyt fantomù.
+    READ COMMITTED  – nemùže nastat špinavé ètení, mùže nastat neopakovatelné ètení, a výskyt fantomù.
+    REPEATABLE READ  – nemùže nastat špinavé ètení, neopakovatelné ètení, mohou se vyskytnout fantomy.
+    SERIALIZABLE  – nemùže nastat špinavé ètení, neopakovatelné ètení, a výskyt fantomù
+
+      ANSi SQL            Postgresql        Informix                            MySQL
+                                         SET TRANSACTION  (SET ISOLATION)
+    READ UNCOMMITED    READ COMMITTED    READ UNCOMMITED  (DIRTY READ)        READ COMMITTED
+    READ COMMITTED     READ COMMITTED    READ COMMITTED   (COMMITTED READ)    READ COMMITTED
+    REPEATABLE READ    SERIALIZABLE      SERIALIZABLE     (REPEATABLE READ)   REPEATABLE READ
+    SERIALIZABLE       SERIALIZABLE      SERIALIZABLE     (REPEATABLE READ)   SERIALIZABLE
+
+
+
 
 -------------------------------
 git clone git@github.com:danpr/vydejna
