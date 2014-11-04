@@ -111,6 +111,7 @@ namespace Vydejna
             {
                 newDBRow = new Hashtable();
             }
+
             if (dataGridView1.SelectedRows.Count > 0)
             {
                 DataGridViewRow myRow = dataGridView1.SelectedRows[0];

@@ -21,6 +21,8 @@ namespace Vydejna
 
         private string formName = "MCARD";
 
+        private Hashtable initDBRow;
+
         public class permissonsData
         {
             public readonly Boolean nazev;
@@ -105,6 +107,7 @@ namespace Vydejna
 //            this.VerticalScroll.Visible = true;
 //            this.HorizontalScroll.Visible = true;
 
+            initDBRow = DBRow;
             this.state = state;
             this.testExistItem = testExistItem;
             this.poradi = poradi;
@@ -131,6 +134,7 @@ namespace Vydejna
                 // edit + add
                 if (state == sKartaState.add)
                 {
+                    buttonTisk.Hide();
                     setAddState();
                 }
                 else
@@ -152,6 +156,8 @@ namespace Vydejna
 //            this.VerticalScroll.Visible = true;
 //            this.HorizontalScroll.Visible = true;
 
+            initDBRow = null;
+
             // jak menit meritko
             AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -164,6 +170,7 @@ namespace Vydejna
             this.CancelButton = this.buttonCancel;
             parentFont = myFont;
 
+            buttonTisk.Hide();
             dataGridViewZmeny.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             setAddState();
         }
@@ -911,6 +918,16 @@ namespace Vydejna
                     setFont(parentFont);
                     setGeometry();
                     setColumnWidth();
+                }
+
+
+                private void buttonTisk_Click(object sender, EventArgs e)
+                {
+                    if (initDBRow != null)
+                    {
+                        TiskNaradi myTisk = new TiskNaradi(myDB, initDBRow);
+                    }
+
                 }
 
     
