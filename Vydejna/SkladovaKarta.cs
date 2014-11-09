@@ -34,6 +34,7 @@ namespace Vydejna
             public readonly Boolean fyzStav;
             public readonly Boolean ucetStav;
 
+            // ktere polozky muze opravit opravit
             public permissonsData(Boolean nazev, Boolean jk, Boolean cenaKs, Boolean ucetCenaKs, Boolean ucetCena, Boolean minimum, Boolean fyzStav, Boolean ucetStav)
             {
                 this.nazev = nazev;
@@ -97,9 +98,10 @@ namespace Vydejna
         private string oldJK;
         private permissonsData readOnlyPermission;
         private Font parentFont;
+        private Boolean printAllowed;
 
 
-        public SkladovaKarta(vDatabase myDataBase, Hashtable DBRow, Int32 poradi, tableItemExistDelgStr testExistItem, Font myFont, sKartaState state = sKartaState.show, permissonsData readOnlyPermission = null)
+        public SkladovaKarta(vDatabase myDataBase, Hashtable DBRow, Int32 poradi, tableItemExistDelgStr testExistItem, Font myFont, Boolean PrintAllowed, sKartaState state = sKartaState.show, permissonsData readOnlyPermission = null)
         {
             InitializeComponent();
 //            this.HScroll = true;
@@ -112,6 +114,7 @@ namespace Vydejna
             this.testExistItem = testExistItem;
             this.poradi = poradi;
             this.readOnlyPermission = readOnlyPermission;
+            this.printAllowed = PrintAllowed;
             parentFont = myFont;
             myDB = myDataBase;
 
@@ -134,7 +137,7 @@ namespace Vydejna
                 // edit + add
                 if (state == sKartaState.add)
                 {
-                    buttonTisk.Hide();
+//                    buttonTisk.Hide();
                     setAddState();
                 }
                 else
@@ -170,7 +173,7 @@ namespace Vydejna
             this.CancelButton = this.buttonCancel;
             parentFont = myFont;
 
-            buttonTisk.Hide();
+//            buttonTisk.Hide();
             dataGridViewZmeny.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             setAddState();
         }
@@ -438,6 +441,9 @@ namespace Vydejna
 
             buttonCopy.Visible = true;
             buttonCopy.Enabled = true;
+
+            buttonTisk.Visible = false;
+            buttonTisk.Enabled = false;
         }
 
 
@@ -925,7 +931,12 @@ namespace Vydejna
                 {
                     if (initDBRow != null)
                     {
-                        TiskNaradi myTisk = new TiskNaradi(myDB, initDBRow);
+//                        UzivatelData ud = UzivatelData.makeInstance();
+//                        if (ud.userHasAccessRightsWM(karta.myPermissions.printEnableCode))
+                        if (printAllowed)
+                        {
+                            TiskNaradi myTisk = new TiskNaradi(myDB, initDBRow);
+                        }
                     }
 
                 }

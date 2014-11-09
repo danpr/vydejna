@@ -12,7 +12,8 @@ namespace Vydejna
     enum permCode
     {
       All = 0,  Nar = 1, NarAdd, NarEd, NarEdM, NarEdNaz, NarEdJK, NarEdCenaKs, NarEdUcCenaKs, NarEdUcCena, NarEdMin, NarEdFyStav, NarEdUcStav, NarDel, NarPrint, NarPrijem, NarPosk, NarOprO,
-    ZNar, ZNarEd, ZNarDel, PNar, PNarEd, PNarDel, VNar, VNarEd, VNarDel, Prac, PracAdd, PracEd, PracDel, PracPrint, PracZapN, PracVracN, PassSet, NarDelPrij, NarOprData  };
+      ZNar, ZNarEd, ZNarDel, PNar, PNarEd, PNarDel, VNar, VNarEd, VNarDel, Prac, PracAdd, PracEd, PracDel, PracPrint, PracZapN, PracVracN, PassSet, NarDelPrij, NarOprData, ZNarPrint
+    };
     
        public class permStruct
        {
@@ -72,6 +73,8 @@ namespace Vydejna
             permList.Add(new permStruct(0, (Int32)permCode.ZNar, "Zrušené karty"));
             permList.Add(new permStruct((Int32)permCode.ZNar, (Int32)permCode.ZNarEd, "Opravení položky"));
             permList.Add(new permStruct((Int32)permCode.ZNar, (Int32)permCode.ZNarDel, "Smazání položky"));
+            permList.Add(new permStruct((Int32)permCode.ZNar, (Int32)permCode.ZNarPrint, "Tisk položky"));
+
             permList.Add(new permStruct(0, (Int32)permCode.PNar, "Poškozené nářadí"));
             permList.Add(new permStruct((Int32)permCode.PNar, (Int32)permCode.PNarEd, "Opravení položky"));
             permList.Add(new permStruct((Int32)permCode.PNar, (Int32)permCode.PNarDel, "Smazání položky"));

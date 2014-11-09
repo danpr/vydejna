@@ -375,7 +375,7 @@ namespace Vydejna
                     {
                         Hashtable infoDBRow = myDB.getNaradiLine(nporadi, null);
 
-                        SkladovaKarta sklKarta = new SkladovaKarta(myDB, infoDBRow, nporadi, new tableItemExistDelgStr(myDB.tableNaradiItemExist), parentFont);
+                        SkladovaKarta sklKarta = new SkladovaKarta(myDB, infoDBRow, nporadi, new tableItemExistDelgStr(myDB.tableNaradiItemExist), parentFont,false);
 //                        sklKarta.Font = parentFont
                         sklKarta.setWinName("Skladová karta");
                         sklKarta.ShowDialog();

@@ -10,7 +10,7 @@ using System.Data;
 
 namespace Vydejna
 {
-    abstract class detail
+    public abstract class detail
     {
 
        public class codeOfPermissions
@@ -48,7 +48,6 @@ namespace Vydejna
         }
 
         public codeOfPermissions myPermissions;
-
         public vDatabase myDB;
         public DataGridView myDataGridView;
         private Prohledavani searchWindow;
@@ -411,7 +410,8 @@ namespace Vydejna
                 {
                     DBRow = myDB.getNaradiLine(poradi, DBRow);
 
-                    SkladovaKarta sklKarta = new SkladovaKarta(myDB, DBRow, findPoradiInRow(DBRow), new tableItemExistDelgStr(myDB.tableNaradiItemExist),myDataGridView.Font);
+                    UzivatelData ud = UzivatelData.makeInstance();
+                    SkladovaKarta sklKarta = new SkladovaKarta(myDB, DBRow, findPoradiInRow(DBRow), new tableItemExistDelgStr(myDB.tableNaradiItemExist), myDataGridView.Font, ud.userHasAccessRightsWM(this.myPermissions.printEnableCode));
                     sklKarta.setWinName("Skladová karta");
 //                    sklKarta.Font = myDataGridView.Font;
                     sklKarta.ShowDialog();
@@ -498,7 +498,7 @@ namespace Vydejna
                                                                 ud.userHasAccessRights((Int32)permCode.NarEdMin),
                                                                 ud.userHasAccessRights((Int32)permCode.NarEdFyStav),
                                                                 ud.userHasAccessRights((Int32)permCode.NarEdUcStav));
-                SkladovaKarta sklKarta = new SkladovaKarta(myDB, DBRow, poradi, new tableItemExistDelgStr(myDB.tableNaradiItemExist), myDataGridView.Font, sKartaState.edit,skladEditPerm);
+                SkladovaKarta sklKarta = new SkladovaKarta(myDB, DBRow, poradi, new tableItemExistDelgStr(myDB.tableNaradiItemExist), myDataGridView.Font, ud.userHasAccessRightsWM(this.myPermissions.printEnableCode), sKartaState.edit,skladEditPerm);
                 if (sklKarta.ShowDialog() == DialogResult.OK)
                 {
                     SkladovaKarta.messager mesenger = sklKarta.getMesseger();
@@ -799,6 +799,7 @@ namespace Vydejna
             myPermissions.showEnableCode = (Int32)permCode.ZNar;
             myPermissions.editEnableCode = (Int32)permCode.ZNarEd;
             myPermissions.deleteEnableCode = (Int32)permCode.ZNarDel;
+            myPermissions.printEnableCode = (Int32)permCode.ZNarPrint;
         }
 
         public override void zobrazKartu(Hashtable DBRow)
@@ -808,7 +809,9 @@ namespace Vydejna
 
                 Int32 poradi = findPoradiInRow(DBRow);
                 DBRow = myDB.getZrusenoLine(poradi, DBRow);
-                SkladovaKarta sklKarta = new SkladovaKarta(myDB, DBRow, findPoradiInRow(DBRow), new tableItemExistDelgStr(myDB.tableZrusenoItemExist),myDataGridView.Font);
+
+                UzivatelData ud = UzivatelData.makeInstance();
+                SkladovaKarta sklKarta = new SkladovaKarta(myDB, DBRow, findPoradiInRow(DBRow), new tableItemExistDelgStr(myDB.tableZrusenoItemExist), myDataGridView.Font, ud.userHasAccessRightsWM(this.myPermissions.printEnableCode));
 //                sklKarta.Font = myDataGridView.Font;
                 sklKarta.setWinName("Zrušená karta");
                 sklKarta.ShowDialog();
@@ -821,9 +824,10 @@ namespace Vydejna
         {
             if ((myDB != null) && (myDB.DBIsOpened()))
             {
+                UzivatelData ud = UzivatelData.makeInstance();
                 Int32 poradi = findPoradiInRow(DBRow);
                 DBRow = myDB.getZrusenoLine(poradi, DBRow);
-                SkladovaKarta sklKarta = new SkladovaKarta(myDB, DBRow, findPoradiInRow(DBRow), new tableItemExistDelgStr(myDB.tableZrusenoItemExist), myDataGridView.Font, sKartaState.edit);
+                SkladovaKarta sklKarta = new SkladovaKarta(myDB, DBRow, findPoradiInRow(DBRow), new tableItemExistDelgStr(myDB.tableZrusenoItemExist), myDataGridView.Font, ud.userHasAccessRightsWM(this.myPermissions.printEnableCode), sKartaState.edit);
 //                sklKarta.Font =C;
                 sklKarta.setWinName("Zrušená karta");
                 if (sklKarta.ShowDialog() == DialogResult.OK)
@@ -891,6 +895,13 @@ namespace Vydejna
                 }
             }
         }
+
+
+        public override void vytiskniKartu(Hashtable DBRow)
+        {
+            TiskNaradi myTisk = new TiskNaradi(myDB, DBRow);
+        }
+
 
         public override string preferovanySloupec()
         {

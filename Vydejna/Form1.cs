@@ -777,7 +777,7 @@ namespace Vydejna
                 loadZrusenychItems();
                 karta = new detailZruseno(myDB, dataGridView1);
                 evenState = evenStateEnum.enable;
-                contextMenuEnable(false);
+                contextMenuEnable(false,false,false,false,false,true);
                 labelView.Text = "Archív zrušených karet";
             }
         }
