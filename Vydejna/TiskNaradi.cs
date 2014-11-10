@@ -14,6 +14,8 @@ namespace Vydejna
     {
         const Int32 hightRow = 7;
 
+        protected Font tiskFontWM = new Font("Verdana", 100);
+
         public TiskNaradi(vDatabase myDB, Hashtable DBRow)
             : base(myDB, DBRow)
         {
@@ -26,6 +28,12 @@ namespace Vydejna
         protected override void printHeader(PrintPageEventArgs e)
         {
             e.Graphics.PageUnit = GraphicsUnit.Millimeter;
+
+            // vodotisk
+            e.Graphics.RotateTransform(-55f);
+            e.Graphics.DrawString("Zrušené nářadí", tiskFontWM, Brushes.LightSlateGray, new PointF(-205, 155));
+            e.Graphics.RotateTransform(55f);
+
 
             e.Graphics.DrawString("Strana :", tiskFont9, Brushes.Black, new PointF(5, 7));
             e.Graphics.DrawString("Datum :", tiskFont9, Brushes.Black, new PointF(168, 7));
@@ -91,6 +99,7 @@ namespace Vydejna
 
            e.Graphics.DrawRectangle(Pens.Black,new Rectangle(5,15,195,57));
            e.Graphics.DrawLine(Pens.Black, new Point(5, 83), new Point(200, 83));
+
         }
 
 
