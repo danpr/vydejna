@@ -411,7 +411,7 @@ namespace Vydejna
                     DBRow = myDB.getNaradiLine(poradi, DBRow);
 
                     UzivatelData ud = UzivatelData.makeInstance();
-                    SkladovaKarta sklKarta = new SkladovaKarta(myDB, DBRow, findPoradiInRow(DBRow), new tableItemExistDelgStr(myDB.tableNaradiItemExist), myDataGridView.Font, ud.userHasAccessRightsWM(this.myPermissions.printEnableCode));
+                    SkladovaKarta sklKarta = new SkladovaKarta(myDB, DBRow, findPoradiInRow(DBRow), new tableItemExistDelgStr(myDB.tableNaradiItemExist), myDataGridView.Font, true);
                     sklKarta.setWinName("Skladová karta");
 //                    sklKarta.Font = myDataGridView.Font;
                     sklKarta.ShowDialog();
@@ -498,7 +498,7 @@ namespace Vydejna
                                                                 ud.userHasAccessRights((Int32)permCode.NarEdMin),
                                                                 ud.userHasAccessRights((Int32)permCode.NarEdFyStav),
                                                                 ud.userHasAccessRights((Int32)permCode.NarEdUcStav));
-                SkladovaKarta sklKarta = new SkladovaKarta(myDB, DBRow, poradi, new tableItemExistDelgStr(myDB.tableNaradiItemExist), myDataGridView.Font, ud.userHasAccessRightsWM(this.myPermissions.printEnableCode), sKartaState.edit,skladEditPerm);
+                SkladovaKarta sklKarta = new SkladovaKarta(myDB, DBRow, poradi, new tableItemExistDelgStr(myDB.tableNaradiItemExist), myDataGridView.Font, true, sKartaState.edit,skladEditPerm);
                 if (sklKarta.ShowDialog() == DialogResult.OK)
                 {
                     SkladovaKarta.messager mesenger = sklKarta.getMesseger();
@@ -811,7 +811,7 @@ namespace Vydejna
                 DBRow = myDB.getZrusenoLine(poradi, DBRow);
 
                 UzivatelData ud = UzivatelData.makeInstance();
-                SkladovaKarta sklKarta = new SkladovaKarta(myDB, DBRow, findPoradiInRow(DBRow), new tableItemExistDelgStr(myDB.tableZrusenoItemExist), myDataGridView.Font, ud.userHasAccessRightsWM(this.myPermissions.printEnableCode));
+                SkladovaKarta sklKarta = new SkladovaKarta(myDB, DBRow, findPoradiInRow(DBRow), new tableItemExistDelgStr(myDB.tableZrusenoItemExist), myDataGridView.Font,false);
 //                sklKarta.Font = myDataGridView.Font;
                 sklKarta.setWinName("Zrušená karta");
                 sklKarta.ShowDialog();
@@ -827,7 +827,7 @@ namespace Vydejna
                 UzivatelData ud = UzivatelData.makeInstance();
                 Int32 poradi = findPoradiInRow(DBRow);
                 DBRow = myDB.getZrusenoLine(poradi, DBRow);
-                SkladovaKarta sklKarta = new SkladovaKarta(myDB, DBRow, findPoradiInRow(DBRow), new tableItemExistDelgStr(myDB.tableZrusenoItemExist), myDataGridView.Font, ud.userHasAccessRightsWM(this.myPermissions.printEnableCode), sKartaState.edit);
+                SkladovaKarta sklKarta = new SkladovaKarta(myDB, DBRow, findPoradiInRow(DBRow), new tableItemExistDelgStr(myDB.tableZrusenoItemExist), myDataGridView.Font, false, sKartaState.edit);
 //                sklKarta.Font =C;
                 sklKarta.setWinName("Zrušená karta");
                 if (sklKarta.ShowDialog() == DialogResult.OK)
@@ -899,7 +899,7 @@ namespace Vydejna
 
         public override void vytiskniKartu(Hashtable DBRow)
         {
-            TiskNaradi myTisk = new TiskNaradi(myDB, DBRow);
+            TiskNaradi myTisk = new TiskNaradi(myDB, DBRow,true);
         }
 
 

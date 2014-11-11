@@ -15,11 +15,13 @@ namespace Vydejna
         const Int32 hightRow = 7;
 
         protected Font tiskFontWM = new Font("Verdana", 100);
+        protected Boolean useWaterMark;
 
-        public TiskNaradi(vDatabase myDB, Hashtable DBRow)
+        public TiskNaradi(vDatabase myDB, Hashtable DBRow, Boolean useWaterMark = false)
             : base(myDB, DBRow)
         {
             RowsOnPage = 29;
+            this.useWaterMark = useWaterMark;
             //            setPreview();
             setPrint(); // aktivuje tisk
         }
@@ -30,10 +32,12 @@ namespace Vydejna
             e.Graphics.PageUnit = GraphicsUnit.Millimeter;
 
             // vodotisk
-            e.Graphics.RotateTransform(-55f);
-            e.Graphics.DrawString("Zrušené nářadí", tiskFontWM, Brushes.LightSlateGray, new PointF(-205, 155));
-            e.Graphics.RotateTransform(55f);
-
+            if (useWaterMark)
+            {
+                e.Graphics.RotateTransform(-55f);
+                e.Graphics.DrawString("Zrušené nářadí", tiskFontWM, Brushes.LightGray, new PointF(-205, 150));
+                e.Graphics.RotateTransform(55f);
+            }
 
             e.Graphics.DrawString("Strana :", tiskFont9, Brushes.Black, new PointF(5, 7));
             e.Graphics.DrawString("Datum :", tiskFont9, Brushes.Black, new PointF(168, 7));

@@ -98,10 +98,10 @@ namespace Vydejna
         private string oldJK;
         private permissonsData readOnlyPermission;
         private Font parentFont;
-        private Boolean printAllowed;
+        private Boolean liveCard;
 
 
-        public SkladovaKarta(vDatabase myDataBase, Hashtable DBRow, Int32 poradi, tableItemExistDelgStr testExistItem, Font myFont, Boolean PrintAllowed, sKartaState state = sKartaState.show, permissonsData readOnlyPermission = null)
+        public SkladovaKarta(vDatabase myDataBase, Hashtable DBRow, Int32 poradi, tableItemExistDelgStr testExistItem, Font myFont, Boolean liveCard, sKartaState state = sKartaState.show, permissonsData readOnlyPermission = null)
         {
             InitializeComponent();
 //            this.HScroll = true;
@@ -114,7 +114,7 @@ namespace Vydejna
             this.testExistItem = testExistItem;
             this.poradi = poradi;
             this.readOnlyPermission = readOnlyPermission;
-            this.printAllowed = PrintAllowed;
+            this.liveCard = liveCard;
             parentFont = myFont;
             myDB = myDataBase;
 
@@ -169,7 +169,7 @@ namespace Vydejna
             myDB = myDataBase;
             this.state = sKartaState.add;
             this.testExistItem = testExistItem;
-
+            this.liveCard = true;
             this.CancelButton = this.buttonCancel;
             parentFont = myFont;
 
@@ -931,12 +931,22 @@ namespace Vydejna
                 {
                     if (initDBRow != null)
                     {
-//                        UzivatelData ud = UzivatelData.makeInstance();
-//                        if (ud.userHasAccessRightsWM(karta.myPermissions.printEnableCode))
-                        if (printAllowed)
+                        UzivatelData ud = UzivatelData.makeInstance();
+                        if (liveCard)
                         {
-                            TiskNaradi myTisk = new TiskNaradi(myDB, initDBRow);
+                            if (ud.userHasAccessRightsWM((Int32)permCode.NarPrint))
+                            {
+                            TiskNaradi myTisk = new TiskNaradi(myDB, initDBRow, false);
+                            }
                         }
+                        else
+                        {
+                            if (ud.userHasAccessRightsWM((Int32)permCode.ZNarPrint))
+                            {
+                                TiskNaradi myTisk = new TiskNaradi(myDB, initDBRow, true);
+                            }
+                        }
+
                     }
 
                 }
