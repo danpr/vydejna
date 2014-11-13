@@ -59,11 +59,13 @@ namespace Vydejna
         private vDatabase myDB;
         private uKartaState state;
         private Font parentFont;
+        private Hashtable initDBRow;
 
         public PracovniciKarta(Hashtable DBRow, vDatabase myDataBase, Font myFont, uKartaState state = uKartaState.show)
         {
             InitializeComponent();
             this.state = state;
+            initDBRow = DBRow;
             parentFont = myFont;
             myDB = myDataBase;
             if (state == uKartaState.show)
@@ -282,6 +284,19 @@ namespace Vydejna
         private void písmoAplikaceToolStripMenuItem_Click(object sender, EventArgs e)
         {
             setAppFont();
+        }
+
+        private void buttonTisk_Click(object sender, EventArgs e)
+        {
+            // tisk dat
+            if (initDBRow != null)
+            {
+                UzivatelData ud = UzivatelData.makeInstance();
+                if (ud.userHasAccessRightsWM((Int32)permCode.PracPrint))
+                {
+                    TiskVypujcky myTisk = new TiskVypujcky(myDB, initDBRow);
+                }
+            }
         }
 
 

@@ -56,6 +56,7 @@
             this.písmoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.vybratPísmoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.písmoAplikaceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.buttonTisk = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewZmeny)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -300,11 +301,23 @@
             this.písmoAplikaceToolStripMenuItem.Text = "Písmo aplikace";
             this.písmoAplikaceToolStripMenuItem.Click += new System.EventHandler(this.písmoAplikaceToolStripMenuItem_Click);
             // 
+            // buttonTisk
+            // 
+            this.buttonTisk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonTisk.Location = new System.Drawing.Point(113, 356);
+            this.buttonTisk.Name = "buttonTisk";
+            this.buttonTisk.Size = new System.Drawing.Size(75, 23);
+            this.buttonTisk.TabIndex = 39;
+            this.buttonTisk.Text = "Tisk";
+            this.buttonTisk.UseVisualStyleBackColor = true;
+            this.buttonTisk.Click += new System.EventHandler(this.buttonTisk_Click);
+            // 
             // ZapujceneNaradiKarta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(619, 393);
+            this.Controls.Add(this.buttonTisk);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.labelCisZnamky);
             this.Controls.Add(this.labelPracoviste);
@@ -367,5 +380,6 @@
         private System.Windows.Forms.ToolStripMenuItem písmoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem vybratPísmoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem písmoAplikaceToolStripMenuItem;
+        private System.Windows.Forms.Button buttonTisk;
     }
 }

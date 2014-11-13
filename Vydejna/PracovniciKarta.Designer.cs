@@ -60,6 +60,7 @@
             this.písmoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.vybratPísmoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.písmoAplikaceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.buttonTisk = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -350,11 +351,23 @@
             this.písmoAplikaceToolStripMenuItem.Text = "Písmo aplikace";
             this.písmoAplikaceToolStripMenuItem.Click += new System.EventHandler(this.písmoAplikaceToolStripMenuItem_Click);
             // 
+            // buttonTisk
+            // 
+            this.buttonTisk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonTisk.Location = new System.Drawing.Point(104, 391);
+            this.buttonTisk.Name = "buttonTisk";
+            this.buttonTisk.Size = new System.Drawing.Size(75, 23);
+            this.buttonTisk.TabIndex = 30;
+            this.buttonTisk.Text = "Tisk";
+            this.buttonTisk.UseVisualStyleBackColor = true;
+            this.buttonTisk.Click += new System.EventHandler(this.buttonTisk_Click);
+            // 
             // PracovniciKarta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(605, 426);
+            this.Controls.Add(this.buttonTisk);
             this.Controls.Add(this.buttonOK);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.textBoxPoznamka);
@@ -386,7 +399,7 @@
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "PracovniciKarta";
-            this.Text = "PracovniciKarta";
+            this.Text = "Karta pracovníka";
             this.Activated += new System.EventHandler(this.PracovniciKarta_Activated);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -429,5 +442,6 @@
         private System.Windows.Forms.ToolStripMenuItem písmoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem vybratPísmoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem písmoAplikaceToolStripMenuItem;
+        private System.Windows.Forms.Button buttonTisk;
     }
 }

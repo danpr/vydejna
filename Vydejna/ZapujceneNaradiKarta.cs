@@ -19,9 +19,7 @@ namespace Vydejna
         Hashtable osobyDBRow;
         private string osCislo;
         private Font parentFont;
-
         private enum evenStateEnum { enable, disable };
-
         private evenStateEnum evenState = evenStateEnum.disable;
 
 
@@ -73,7 +71,7 @@ namespace Vydejna
 
             setColumnWidth();
 
-        //    evenState = evenStateEnum.enable;
+            //    evenState = evenStateEnum.enable;
         }
 
         private void setFont(Font myFont)
@@ -113,14 +111,14 @@ namespace Vydejna
         }
 
 
-        private void viewZmenyRemoveSelectedRow(Int32 poradi )
+        private void viewZmenyRemoveSelectedRow(Int32 poradi)
         {
             Int32 counter = dataGridViewZmeny.Rows.Count;
             if (counter > 0)
             {
                 counter--; // ukazuje na posledni prvek
 
-                Int32 dataRowIndex =  detail.findIndex(dataGridViewZmeny.DataSource as DataTable, "poradi", poradi);
+                Int32 dataRowIndex = detail.findIndex(dataGridViewZmeny.DataSource as DataTable, "poradi", poradi);
 
                 Int32 nextIndexAfterSelected = dataGridViewZmeny.SelectedRows[0].Index;
                 (dataGridViewZmeny.DataSource as DataTable).Rows.RemoveAt(dataRowIndex);
@@ -224,7 +222,7 @@ namespace Vydejna
                             {
                                 SeznamNaradiJednoduchy.messager myMesenger = seznamNar.getMesseger();
                                 ZapujceniNaradi zapujcNaradi = new ZapujceniNaradi(osobyDBRow, myMesenger.nazev, myMesenger.jk, myMesenger.fyzStav, parentFont);
-//                                zapujcNaradi.Font = parentFont
+                                //                                zapujcNaradi.Font = parentFont
                                 if (zapujcNaradi.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                                 {
                                     // pridame zapujcene naradi
@@ -375,8 +373,8 @@ namespace Vydejna
                     {
                         Hashtable infoDBRow = myDB.getNaradiLine(nporadi, null);
 
-                        SkladovaKarta sklKarta = new SkladovaKarta(myDB, infoDBRow, nporadi, new tableItemExistDelgStr(myDB.tableNaradiItemExist), parentFont,false);
-//                        sklKarta.Font = parentFont
+                        SkladovaKarta sklKarta = new SkladovaKarta(myDB, infoDBRow, nporadi, new tableItemExistDelgStr(myDB.tableNaradiItemExist), parentFont, false);
+                        //                        sklKarta.Font = parentFont
                         sklKarta.setWinName("Skladová karta");
                         sklKarta.ShowDialog();
                     }
@@ -395,7 +393,7 @@ namespace Vydejna
                 Hashtable vypujcDBRow = myDB.getPujcenoLine(poradi, null);
                 if (vypujcDBRow != null)
                 {
-//                    vypujcDBRow.Add("oscislo", labelOsCislo.Text);
+                    //                    vypujcDBRow.Add("oscislo", labelOsCislo.Text);
                     Int32 nporadi = -1;
                     if (vypujcDBRow.Contains("nporadi"))
                     {
@@ -430,7 +428,7 @@ namespace Vydejna
 
 
                         ZapujceneNaradiInfo zapNarInfo = new ZapujceneNaradiInfo(vypujcDBRow, parentFont);
-//                        zapNarInfo.Font = parentFont
+                        //                        zapNarInfo.Font = parentFont
                         zapNarInfo.ShowDialog();
 
 
@@ -554,7 +552,7 @@ namespace Vydejna
             if (DBTableInfo != null)
             {
                 Int32 columnWidth = 0;
-                for (Int32 i = 0; i < dataGridViewZmeny.Columns.Count;i++)
+                for (Int32 i = 0; i < dataGridViewZmeny.Columns.Count; i++)
                 {
                     string myColumnName = dataGridViewZmeny.Columns[i].Name;
                     if (DBTableInfo.ContainsKey(myColumnName))
@@ -618,6 +616,19 @@ namespace Vydejna
         private void písmoAplikaceToolStripMenuItem_Click(object sender, EventArgs e)
         {
             setAppFont();
+        }
+
+        private void buttonTisk_Click(object sender, EventArgs e)
+        {
+            if (osobyDBRow != null)
+            {
+                UzivatelData ud = UzivatelData.makeInstance();
+                if (ud.userHasAccessRightsWM((Int32)permCode.PracPrint))
+                {
+                    TiskVypujcky myTisk = new TiskVypujcky(myDB, osobyDBRow);
+                }
+            }
+
         }
     }
 }
