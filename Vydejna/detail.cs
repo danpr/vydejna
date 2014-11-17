@@ -1329,6 +1329,57 @@ namespace Vydejna
         }
 
 
+        public override void zrusKartu(Hashtable DBRow)
+        {
+            string osCislo = findOsCisloInRow(DBRow);
+            if (osCislo.Trim() != "")
+            {
+                if (myDB.tablePujcenoExistOnOsCislo(osCislo))
+                {
+                    if (myDB.tablePoskozenoItemExistOnOsCislo(osCislo))
+                    {
+
+                        if (myDB.tablePujcenoExistOnOsCislo(osCislo))
+                        {
+                            if (MessageBox.Show("Opravdu chcete zrušit kartu pracovníka ?", "Zrušení karty", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                            {
+
+                            
+                            }
+
+                        }
+                        else
+                        {
+                            MessageBox.Show("Pracovník má záznam v seznamu pujčeného nářadí, nelze jej zrušit.");
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Pracovník má záznam v seznamu poškozeného nářadí, nelze jej zrušit.");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Pracovník má výpůjčeno nářadí, nelze jej zrušit.");
+                }
+
+            }
+
+                // zrusime kartu
+//                Int32 poradi = Convert.ToInt32(DBRow["poradi"]);
+
+//                if (myDB.deleteLinePoskozene(poradi))
+//                {
+//                    removeViewSelectedRow(poradi);
+//                }
+//                else
+//                {
+ //                   MessageBox.Show("Zrušení karty se nezdařilo.");
+ //               }
+        }
+
+
+
         public override string preferovanySloupec()
         {
             return "prijmeni";

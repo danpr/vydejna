@@ -698,17 +698,35 @@ namespace Vydejna
             return tableItemExist("select count(*) as countOC from vraceno where poradi = ?", oc);
         }
 
+        public virtual Boolean tableVracenoItemExistOnOsCislo(string oc)
+        {
+            return tableItemExist("select count(*) as countOC from vraceno where oscislo = ?", oc);
+        }
+
 
         public virtual Boolean tablePoskozenoItemExist(Int32 oc)
         {
             return tableItemExist("select count(*) as countOC from poskozeno where poradi = ?", oc);
         }
 
+        public virtual Boolean tablePoskozenoItemExistOnOsCislo(string oc)
+        {
+            return tableItemExist("select count(*) as countOC from poskozeno where oscislo = ?", oc);
+        }
+
+
         public virtual Boolean tablePujcenoExistOnNPoradi (Int32 oc)
         {
             return tableItemExist("select count(*) as countOC from pujceno where nporadi = ?", oc);
 
         }
+
+        public virtual Boolean tablePujcenoExistOnOsCislo(string oc)
+        {
+            return tableItemExist("select count(*) as countOC from pujceno where oscislo = ?", oc);
+
+        }
+
 
         public virtual Boolean tableUzivateleAdminExist()
         {
