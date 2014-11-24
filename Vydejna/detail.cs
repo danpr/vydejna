@@ -1334,19 +1334,31 @@ namespace Vydejna
             string osCislo = findOsCisloInRow(DBRow);
             if (osCislo.Trim() != "")
             {
-                if (myDB.tablePujcenoExistOnOsCislo(osCislo))
+                if (!(myDB.tablePujcenoExistOnOsCislo(osCislo))) // hlavni tabulka zaznam o vypujce
                 {
-                    if (myDB.tablePoskozenoItemExistOnOsCislo(osCislo))
+                    if (!(myDB.tablePoskozenoItemExistOnOsCislo(osCislo)))
                     {
-
-                        if (myDB.tablePujcenoExistOnOsCislo(osCislo))
+                        if (!(myDB.tableVracenoItemExistOnOsCislo(osCislo)))
                         {
                             if (MessageBox.Show("Opravdu chcete zrušit kartu pracovníka ?", "Zrušení karty", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                             {
 
-                            
-                            }
+                              Int32 errorCode = myDB.deleteLineOsoby(osCislo);
+                              if (errorCode == 0  )
+                              {
+                                  // je potreba najit index v datove tabulce - po trideni neni schodny s indexem ve view
 
+//                                  Int32 dataRowIndex = findIndex((myDataGridView.DataSource as DataTable), "oscislo", mesenger.oscislo);
+
+//                                  if (dataRowIndex != -1)
+//                                  {
+//                                  }
+                              }
+                              else
+                              {
+                                  MessageBox.Show("Smazání karty pracovníka se nezdařilo.");
+                              }
+                            }
                         }
                         else
                         {
@@ -1362,20 +1374,7 @@ namespace Vydejna
                 {
                     MessageBox.Show("Pracovník má výpůjčeno nářadí, nelze jej zrušit.");
                 }
-
             }
-
-                // zrusime kartu
-//                Int32 poradi = Convert.ToInt32(DBRow["poradi"]);
-
-//                if (myDB.deleteLinePoskozene(poradi))
-//                {
-//                    removeViewSelectedRow(poradi);
-//                }
-//                else
-//                {
- //                   MessageBox.Show("Zrušení karty se nezdařilo.");
- //               }
         }
 
 

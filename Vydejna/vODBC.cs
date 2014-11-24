@@ -3329,6 +3329,145 @@ namespace Vydejna
         }
 
 
+//            return -1;  database neni pripojena
+//            return -2;  // chyba databaze
+//            return -3; // pracovnik ma pujceno naradi
+
+        public override Int32 deleteLineOsoby(string DBosCislo)
+        {
+            OdbcTransaction transaction = null;
+
+            if (DBIsOpened())
+            {
+                string commandStringRead0 = "select count(*) as countOC from pujceno where oscislo = ?";
+                string commandStringRead1 = "select count(*) as countOC from poskozeno where oscislo = ?";
+                string commandStringRead2 = "select count(*) as countOC from vraceno where oscislo = ?";
+
+                string commandString0 = "DELETE from osoby where oscislo = ? ";
+                try
+                {
+                    try
+                    {
+                        transaction = (myDBConn as OdbcConnection).BeginTransaction(System.Data.IsolationLevel.ReadCommitted);
+                    }
+                    catch
+                    {
+                    }
+
+
+                    OdbcCommand cmdr0 = new OdbcCommand(commandStringRead0, myDBConn as OdbcConnection);
+                    cmdr0.Parameters.AddWithValue("@oscislo", DBosCislo).DbType = DbType.String;
+                    cmdr0.Transaction = transaction;
+                    OdbcDataReader myReader0 = cmdr0.ExecuteReader();
+                    if (myReader0.Read() == true)
+                    {
+                        Int32 countOC = myReader0.GetInt32(myReader0.GetOrdinal("countOC"));
+                        myReader0.Close();
+                        if (countOC > 0)
+                        {
+                            if (transaction != null)
+                            {
+                                (transaction as OdbcTransaction).Rollback();
+                            }
+                            return -3; // pujceno
+                        }
+                    }
+                    else
+                    {
+                        if (transaction != null)
+                        {
+                            (transaction as OdbcTransaction).Rollback();
+                        }
+                        myReader0.Close();
+                        return -2;  // chyba databaze
+                    }
+
+
+                    OdbcCommand cmdr1 = new OdbcCommand(commandStringRead1, myDBConn as OdbcConnection);
+                    cmdr1.Parameters.AddWithValue("@oscislo", DBosCislo).DbType = DbType.String;
+                    cmdr1.Transaction = transaction;
+                    OdbcDataReader myReader1 = cmdr1.ExecuteReader();
+                    if (myReader1.Read() == true)
+                    {
+                        Int32 countOC = myReader1.GetInt32(myReader1.GetOrdinal("countOC"));
+                        myReader1.Close();
+                        if (countOC > 0)
+                        {
+                            if (transaction != null)
+                            {
+                                (transaction as OdbcTransaction).Rollback();
+                            }
+                            return -4; // poskozeno
+                        }
+                    }
+                    else
+                    {
+                        if (transaction != null)
+                        {
+                            (transaction as OdbcTransaction).Rollback();
+                        }
+                        myReader1.Close();
+                        return -2;  // chyba databaze
+                    }
+
+                    OdbcCommand cmdr2 = new OdbcCommand(commandStringRead2, myDBConn as OdbcConnection);
+                    cmdr2.Parameters.AddWithValue("@oscislo", DBosCislo).DbType = DbType.String;
+                    cmdr2.Transaction = transaction;
+                    OdbcDataReader myReader2 = cmdr2.ExecuteReader();
+                    if (myReader2.Read() == true)
+                    {
+                        Int32 countOC = myReader2.GetInt32(myReader2.GetOrdinal("countOC"));
+                        myReader2.Close();
+                        if (countOC > 0)
+                        {
+                            if (transaction != null)
+                            {
+                                (transaction as OdbcTransaction).Rollback();
+                            }
+                            return -5; // vraceno
+                        }
+                    }
+                    else
+                    {
+                        if (transaction != null)
+                        {
+                            (transaction as OdbcTransaction).Rollback();
+                        }
+                        myReader2.Close();
+                        return -2;  // chyba databaze
+                    }
+
+                    OdbcCommand cmd0 = new OdbcCommand(commandString0, myDBConn as OdbcConnection);
+                    cmd0.Parameters.AddWithValue("@oscislo", DBosCislo).DbType = DbType.String;
+                    cmd0.Transaction = transaction;
+                    cmd0.ExecuteNonQuery();
+                    if (transaction != null)
+                    {
+                        (transaction as OdbcTransaction).Commit();
+                    }
+                    return 0;
+
+
+
+                }
+                catch (Exception)
+                {
+                    // doslo k chybe
+                    if (transaction != null)
+                    {
+                        (transaction as OdbcTransaction).Rollback();
+                    }
+                    return -1;  // chyba
+                }
+                return 0;  // ok
+
+            } // open db
+            return -1; // database neni pripojena
+        }
+        
+
+
+
         public override void addLinePujceno(int DBparPoradi, string DBosCislo, DateTime DBdatum, int DBks,
                                          string DBjmeno, string DBPrijmeni, string DBnazev, string DBjk,
                                          double DBcena, int DBzmPoradi)

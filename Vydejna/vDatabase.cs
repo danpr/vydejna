@@ -468,6 +468,13 @@ namespace Vydejna
         }
 
 
+        public virtual Int32 deleteLineOsoby(string DBosCislo)
+        {
+            return -1;
+        }
+
+
+
         public virtual Int32 addNewLineUzivatele(string DBuserid, string DBpasswdHash, string DBjmeno, string DBprijmeni, string DBpermission,
                                Boolean admin)
         {
