@@ -3329,6 +3329,9 @@ namespace Vydejna
         }
 
 
+//delegat pro lambda vyraz v deleteLineOsoby
+        public delegate int countRecordsD(string osCislo, string commandString, Int32 retCode);
+
 //            return -1;  database neni pripojena
 //            return -2;  // chyba databaze
 //            return -3; // pracovnik ma pujceno naradi
@@ -3339,9 +3342,34 @@ namespace Vydejna
 
             if (DBIsOpened())
             {
-                string commandStringRead0 = "select count(*) as countOC from pujceno where oscislo = ?";
-                string commandStringRead1 = "select count(*) as countOC from poskozeno where oscislo = ?";
-                string commandStringRead2 = "select count(*) as countOC from vraceno where oscislo = ?";
+                countRecordsD countRecord = (osCislo, commandString, retcode) =>
+                    {
+                        OdbcCommand cmdd = new OdbcCommand(commandString, myDBConn as OdbcConnection);
+                        cmdd.Parameters.AddWithValue("@oscislo", osCislo).DbType = DbType.String;
+                        cmdd.Transaction = transaction;
+                        OdbcDataReader myReaderD = cmdd.ExecuteReader();
+                        if (myReaderD.Read() == true)
+                        {
+                            Int32 countOC = myReaderD.GetInt32(myReaderD.GetOrdinal("countOC"));
+                            myReaderD.Close();
+                            if (countOC > 0)
+                            {
+                                if (transaction != null) (transaction as OdbcTransaction).Rollback();
+                                return retcode; // pujceno
+                            }
+                            else return 0;
+                        }
+                        else
+                        {
+                            myReaderD.Close();
+                            if (transaction != null) (transaction as OdbcTransaction).Rollback();
+                            return -2;  // chyba databaze
+                        }
+                    };
+
+                string commandStringRead0 = "SELECT count(*) AS countOC FROM poskozeno where oscislo = ? FOR UPDATE";
+                string commandStringRead1 = "SELECT count(*) AS countOC FROM pujceno where oscislo = ?";
+                string commandStringRead2 = "SELECT count(*) AS countOC FROM vraceno where oscislo = ?";
 
                 string commandString0 = "DELETE from osoby where oscislo = ? ";
                 try
@@ -3355,86 +3383,22 @@ namespace Vydejna
                     }
 
 
-                    OdbcCommand cmdr0 = new OdbcCommand(commandStringRead0, myDBConn as OdbcConnection);
-                    cmdr0.Parameters.AddWithValue("@oscislo", DBosCislo).DbType = DbType.String;
-                    cmdr0.Transaction = transaction;
-                    OdbcDataReader myReader0 = cmdr0.ExecuteReader();
-                    if (myReader0.Read() == true)
+                    int errCode = countRecord(DBosCislo, commandStringRead0,-3);  //pujceno
+                    if (errCode < 0)
                     {
-                        Int32 countOC = myReader0.GetInt32(myReader0.GetOrdinal("countOC"));
-                        myReader0.Close();
-                        if (countOC > 0)
-                        {
-                            if (transaction != null)
-                            {
-                                (transaction as OdbcTransaction).Rollback();
-                            }
-                            return -3; // pujceno
-                        }
-                    }
-                    else
-                    {
-                        if (transaction != null)
-                        {
-                            (transaction as OdbcTransaction).Rollback();
-                        }
-                        myReader0.Close();
-                        return -2;  // chyba databaze
+                        return errCode;
                     }
 
-
-                    OdbcCommand cmdr1 = new OdbcCommand(commandStringRead1, myDBConn as OdbcConnection);
-                    cmdr1.Parameters.AddWithValue("@oscislo", DBosCislo).DbType = DbType.String;
-                    cmdr1.Transaction = transaction;
-                    OdbcDataReader myReader1 = cmdr1.ExecuteReader();
-                    if (myReader1.Read() == true)
+                    errCode = countRecord(DBosCislo, commandStringRead1,-4);  //poskozeno
+                    if (errCode < 0)
                     {
-                        Int32 countOC = myReader1.GetInt32(myReader1.GetOrdinal("countOC"));
-                        myReader1.Close();
-                        if (countOC > 0)
-                        {
-                            if (transaction != null)
-                            {
-                                (transaction as OdbcTransaction).Rollback();
-                            }
-                            return -4; // poskozeno
-                        }
-                    }
-                    else
-                    {
-                        if (transaction != null)
-                        {
-                            (transaction as OdbcTransaction).Rollback();
-                        }
-                        myReader1.Close();
-                        return -2;  // chyba databaze
+                        return errCode;
                     }
 
-                    OdbcCommand cmdr2 = new OdbcCommand(commandStringRead2, myDBConn as OdbcConnection);
-                    cmdr2.Parameters.AddWithValue("@oscislo", DBosCislo).DbType = DbType.String;
-                    cmdr2.Transaction = transaction;
-                    OdbcDataReader myReader2 = cmdr2.ExecuteReader();
-                    if (myReader2.Read() == true)
+                    errCode = countRecord(DBosCislo, commandStringRead2,-5); // vraceno
+                    if (errCode < 0)
                     {
-                        Int32 countOC = myReader2.GetInt32(myReader2.GetOrdinal("countOC"));
-                        myReader2.Close();
-                        if (countOC > 0)
-                        {
-                            if (transaction != null)
-                            {
-                                (transaction as OdbcTransaction).Rollback();
-                            }
-                            return -5; // vraceno
-                        }
-                    }
-                    else
-                    {
-                        if (transaction != null)
-                        {
-                            (transaction as OdbcTransaction).Rollback();
-                        }
-                        myReader2.Close();
-                        return -2;  // chyba databaze
+                        return errCode;
                     }
 
                     OdbcCommand cmd0 = new OdbcCommand(commandString0, myDBConn as OdbcConnection);
@@ -3446,9 +3410,6 @@ namespace Vydejna
                         (transaction as OdbcTransaction).Commit();
                     }
                     return 0;
-
-
-
                 }
                 catch (Exception)
                 {
