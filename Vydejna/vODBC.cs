@@ -3335,6 +3335,10 @@ namespace Vydejna
 //            return -1;  database neni pripojena
 //            return -2;  // chyba databaze
 //            return -3; // pracovnik ma pujceno naradi
+//            return -4; // pracovnik ma zaznam na poskozeno
+//            return -5; // pracovnik ma zaznam na vraceno
+//            return -6; // pracovnik neexistuje
+
 
         public override Int32 deleteLineOsoby(string DBosCislo)
         {
@@ -3367,9 +3371,10 @@ namespace Vydejna
                         }
                     };
 
-                string commandStringRead0 = "SELECT count(*) AS countOC FROM poskozeno where oscislo = ? FOR UPDATE";
-                string commandStringRead1 = "SELECT count(*) AS countOC FROM pujceno where oscislo = ?";
-                string commandStringRead2 = "SELECT count(*) AS countOC FROM vraceno where oscislo = ?";
+                string commandStringRead0 = "SELECT count(*) AS countOC FROM osoby where oscislo = ? FOR UPDATE";
+                string commandStringRead1 = "SELECT count(*) AS countOC FROM poskozeno where oscislo = ?";
+                string commandStringRead2 = "SELECT count(*) AS countOC FROM pujceno where oscislo = ?";
+                string commandStringRead3 = "SELECT count(*) AS countOC FROM vraceno where oscislo = ?";
 
                 string commandString0 = "DELETE from osoby where oscislo = ? ";
                 try
@@ -3382,20 +3387,41 @@ namespace Vydejna
                     {
                     }
 
+// zablokujeme tabulku osoby
+                    OdbcCommand cmdr = new OdbcCommand(commandStringRead0, myDBConn as OdbcConnection);
+                    cmdr.Parameters.AddWithValue("@oscislo", DBosCislo).DbType = DbType.String;
+                    cmdr.Transaction = transaction;
+                    OdbcDataReader myReaderR = cmdr.ExecuteReader();
+                    if (myReaderR.Read() == true)
+                    {
+                        Int32 countOC = myReaderR.GetInt32(myReaderR.GetOrdinal("countOC"));
+                        myReaderR.Close();
+                        if (countOC == 0)
+                        {
+                            if (transaction != null) (transaction as OdbcTransaction).Rollback();
+                            return -6; //  uzivatel neexistuje
+                        }
+                    }
+                    else
+                    {
+                        myReaderR.Close();
+                        if (transaction != null) (transaction as OdbcTransaction).Rollback();
+                        return -2;  // chyba databaze
+                    }
 
-                    int errCode = countRecord(DBosCislo, commandStringRead0,-3);  //pujceno
+                    int errCode = countRecord(DBosCislo, commandStringRead1,-3);  //pujceno
                     if (errCode < 0)
                     {
                         return errCode;
                     }
 
-                    errCode = countRecord(DBosCislo, commandStringRead1,-4);  //poskozeno
+                    errCode = countRecord(DBosCislo, commandStringRead2,-4);  //poskozeno
                     if (errCode < 0)
                     {
                         return errCode;
                     }
 
-                    errCode = countRecord(DBosCislo, commandStringRead2,-5); // vraceno
+                    errCode = countRecord(DBosCislo, commandStringRead3,-5); // vraceno
                     if (errCode < 0)
                     {
                         return errCode;
