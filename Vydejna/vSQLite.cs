@@ -2055,6 +2055,132 @@ namespace Vydejna
         }
 
 
+
+
+        //delegat pro lambda vyraz v deleteLineOsoby
+        public delegate int countRecordsD(string osCislo, string commandString, Int32 retCode);
+
+        //            return -1;  database neni pripojena
+        //            return -2;  // chyba databaze
+        //            return -3; // pracovnik ma pujceno naradi
+        //            return -4; // pracovnik ma zaznam na poskozeno
+        //            return -5; // pracovnik ma zaznam na vraceno
+
+        public override Int32 deleteLineOsoby(string DBosCislo)
+        {
+            SQLiteTransaction transaction = null;
+
+            if (DBIsOpened())
+            {
+                countRecordsD countRecord = (osCislo, commandString, retcode) =>
+                {
+                    SQLiteCommand cmdd = new SQLiteCommand(commandString, myDBConn as SQLiteConnection);
+                    cmdd.Parameters.AddWithValue("@oscislo", osCislo).DbType = DbType.String;
+                    cmdd.Transaction = transaction;
+                    SQLiteDataReader myReaderD = cmdd.ExecuteReader();
+                    if (myReaderD.Read() == true)
+                    {
+                        Int32 countOC = myReaderD.GetInt32(myReaderD.GetOrdinal("countOC"));
+                        myReaderD.Close();
+                        if (countOC > 0)
+                        {
+                            if (transaction != null) (transaction as SQLiteTransaction).Rollback();
+                            return retcode; // pujceno
+                        }
+                        else return 0;
+                    }
+                    else
+                    {
+                        myReaderD.Close();
+                        if (transaction != null) (transaction as SQLiteTransaction).Rollback();
+                        return -2;  // chyba databaze
+                    }
+                };
+
+                // nepouzivame for update protoze v SQLite neexistuje - SQLite pouziva srializaci transakci
+                string commandStringRead0 = "SELECT count(*) AS countOC FROM osoby where oscislo = ?";
+                string commandStringRead1 = "SELECT count(*) AS countOC FROM poskozeno where oscislo = ?";
+                string commandStringRead2 = "SELECT count(*) AS countOC FROM pujceno where oscislo = ?";
+                string commandStringRead3 = "SELECT count(*) AS countOC FROM vraceno where oscislo = ?";
+
+                string commandString0 = "DELETE from osoby where oscislo = ? ";
+                try
+                {
+                    try
+                    {
+                        transaction = (myDBConn as SQLiteConnection).BeginTransaction(System.Data.IsolationLevel.ReadCommitted);
+                    }
+                    catch
+                    {
+                    }
+
+                    SQLiteCommand cmdr = new SQLiteCommand(commandStringRead0, myDBConn as SQLiteConnection);
+                    cmdr.Parameters.AddWithValue("@oscislo", DBosCislo).DbType = DbType.String;
+                    cmdr.Transaction = transaction;
+                    SQLiteDataReader myReaderR = cmdr.ExecuteReader();
+                    if (myReaderR.Read() == true)
+                    {
+                        Int32 countOC = myReaderR.GetInt32(myReaderR.GetOrdinal("countOC"));
+                        myReaderR.Close();
+                        if (countOC == 0)
+                        {
+                            if (transaction != null) (transaction as SQLiteTransaction).Rollback();
+                            return -6; //  uzivatel neexistuje
+                        }
+                    }
+                    else
+                    {
+                        myReaderR.Close();
+                        if (transaction != null) (transaction as SQLiteTransaction).Rollback();
+                        return -2;  // chyba databaze
+                    }
+
+
+                    int errCode = countRecord(DBosCislo, commandStringRead1, -3);  //pujceno
+                    if (errCode < 0)
+                    {
+                        return errCode;
+                    }
+
+                    errCode = countRecord(DBosCislo, commandStringRead2, -4);  //poskozeno
+                    if (errCode < 0)
+                    {
+                        return errCode;
+                    }
+
+                    errCode = countRecord(DBosCislo, commandStringRead3, -5); // vraceno
+                    if (errCode < 0)
+                    {
+                        return errCode;
+                    }
+
+                    SQLiteCommand cmd0 = new SQLiteCommand(commandString0, myDBConn as SQLiteConnection);
+                    cmd0.Parameters.AddWithValue("@oscislo", DBosCislo).DbType = DbType.String;
+                    cmd0.Transaction = transaction;
+                    cmd0.ExecuteNonQuery();
+                    if (transaction != null)
+                    {
+                        (transaction as SQLiteTransaction).Commit();
+                    }
+                    return 0;
+                }
+                catch (Exception)
+                {
+                    // doslo k chybe
+                    if (transaction != null)
+                    {
+                        (transaction as SQLiteTransaction).Rollback();
+                    }
+                    return -1;  // chyba
+                }
+                return 0;  // ok
+
+            } // open db
+            return -1; // database neni pripojena
+        }
+
+
+
         public override Boolean moveNaradiToNewKaret(Int32 DBporadi)
         {
             SQLiteTransaction transaction = null;
