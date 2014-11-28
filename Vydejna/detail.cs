@@ -188,6 +188,34 @@ namespace Vydejna
 
         }
 
+         /// <summary>
+         /// Odstrani polozku z datove tabulky a z pohledu
+         /// </summary>
+         /// <param name="poradi">Osobni cislo uyivatele</param>
+
+         public void removeViewSelectedRow(string osCislo)
+         {
+             Int32 counter = myDataGridView.Rows.Count;
+             if (counter > 0)
+             {
+                 counter--; // ukazuje na posledni prvek
+                 Int32 dataRowIndex = detail.findIndex(myDataGridView.DataSource as DataTable, "oscislo", osCislo);
+                 Int32 nextIndexAfterSelected = myDataGridView.SelectedRows[0].Index;
+
+                 (myDataGridView.DataSource as DataTable).Rows.RemoveAt(dataRowIndex);
+                 counter--; // ukazatel na posledni ... -1 neni zadna
+
+                 if (counter > -1) // neni zadna dalsi polozka
+                 {
+                     if (nextIndexAfterSelected > counter) nextIndexAfterSelected = counter;
+                     myDataGridView.FirstDisplayedScrollingRowIndex = myDataGridView.Rows[nextIndexAfterSelected].Index;
+                     myDataGridView.Refresh();
+                     myDataGridView.CurrentCell = myDataGridView.Rows[nextIndexAfterSelected].Cells[1];
+                     myDataGridView.Rows[nextIndexAfterSelected].Selected = true;
+                 }
+             }
+
+         }
 
         //-------------------------------------- virtualni metody -------------------//
 
@@ -1343,21 +1371,32 @@ namespace Vydejna
                             if (MessageBox.Show("Opravdu chcete zrušit kartu pracovníka ?", "Zrušení karty", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                             {
 
-                              Int32 errorCode = myDB.deleteLineOsoby(osCislo);
-                              if (errorCode == 0  )
-                              {
-                                  // je potreba najit index v datove tabulce - po trideni neni schodny s indexem ve view
-
-//                                  Int32 dataRowIndex = findIndex((myDataGridView.DataSource as DataTable), "oscislo", mesenger.oscislo);
-
-//                                  if (dataRowIndex != -1)
-//                                  {
-//                                  }
-                              }
-                              else
-                              {
-                                  MessageBox.Show("Smazání karty pracovníka se nezdařilo.");
-                              }
+                                Int32 errorCode = myDB.deleteLineOsoby(osCislo);
+                                if (errorCode == 0)
+                                {
+                                    removeViewSelectedRow(osCislo);
+                                }
+                                else
+                                {
+                                    switch (errorCode)
+                                    {
+                                        case -1: MessageBox.Show("Databaze není připojena.");
+                                            break;
+                                        case -2: MessageBox.Show("Chyba databaze.");
+                                            break;
+                                        case -3: MessageBox.Show("Pracovník má záznam v seznamu pujčeného nářadí, nelze jej zrušit.");
+                                            break;
+                                        case -4: MessageBox.Show("Pracovník má záznam v seznamu poškozeného nářadí, nelze jej zrušit.");
+                                            break;
+                                        case -5: MessageBox.Show("Pracovník má výpůjčeno nářadí, nelze jej zrušit.");
+                                            break;
+                                        case -6: MessageBox.Show("Pracovník již neexistuje, nelze jej proto zrušit.");
+                                            break;
+                                        default:
+                                            MessageBox.Show("Smazání karty pracovníka se nezdařilo.");
+                                            break;
+                                    }
+                                }
                             }
                         }
                         else
