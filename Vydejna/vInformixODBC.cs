@@ -163,6 +163,41 @@ namespace Vydejna
             return setStyleLockDB(false);
         }
 
+        public override void CreateIndexes()
+        {
+            openDB();
+            if (DBIsOpened())
+            {
+                string commandStringIn1 = "CREATE UNIQUE INDEX naradiPorIN ON naradi (poradi) ONLINE";
+                string commandStringIn2 = "CREATE UNIQUE INDEX  kartaPorIN ON karta (poradi) ONLINE";
+                string commandStringIn3 = "CREATE UNIQUE INDEX  vracenoPorIN ON vraceno (poradi) ONLINE";
+                string commandStringIn4 = "CREATE UNIQUE INDEX  poskozenoPorIN ON poskozeno (poradi) ONLINE";
+                string commandStringIn5 = "CREATE UNIQUE INDEX  osobyPorIN ON osoby (oscislo) ONLINE";
+                string commandStringIn6 = "CREATE UNIQUE INDEX  zmenyPorIN ON zmeny(parporadi,poradi) ONLINE";
+                string commandStringIn7 = "CREATE UNIQUE INDEX  pujcenoPorIN ON (poradi) ONLINE";
+                string[] commandStrings = new String[7] {commandStringIn1, commandStringIn2, commandStringIn3,
+                         commandStringIn4, commandStringIn5, commandStringIn6, commandStringIn7};
+                Int32 indexErrCount = 0;
+                foreach (string commandStringIn in commandStrings)
+                {
+                    OdbcCommand cmdIndex = new OdbcCommand(commandStringIn, myDBConn as OdbcConnection);
+                    try
+                    {
+                        cmdIndex.ExecuteNonQuery();
+                    }
+                    catch (Exception)
+                    {
+                        indexErrCount++;
+                    }
+                    finally
+                    {
+                        cmdIndex.Dispose();
+                    }
+                }
+            }
+        }
+
+
 
     }
 }
