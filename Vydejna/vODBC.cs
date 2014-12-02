@@ -3371,7 +3371,7 @@ namespace Vydejna
                         }
                     };
 
-                string commandStringRead0 = "SELECT count(*) AS countOC FROM osoby where oscislo = ? FOR UPDATE";
+                string commandStringRead0 = "SELECT oscislo FROM osoby where oscislo = ? FOR UPDATE";
                 string commandStringRead1 = "SELECT count(*) AS countOC FROM poskozeno where oscislo = ?";
                 string commandStringRead2 = "SELECT count(*) AS countOC FROM pujceno where oscislo = ?";
                 string commandStringRead3 = "SELECT count(*) AS countOC FROM vraceno where oscislo = ?";
@@ -3392,21 +3392,15 @@ namespace Vydejna
                     cmdr.Parameters.AddWithValue("@oscislo", DBosCislo).DbType = DbType.String;
                     cmdr.Transaction = transaction;
                     OdbcDataReader myReaderR = cmdr.ExecuteReader();
-                    if (myReaderR.Read() == true)
+                    if (myReaderR.Read() != true)
                     {
-                        Int32 countOC = myReaderR.GetInt32(myReaderR.GetOrdinal("countOC"));
                         myReaderR.Close();
-                        if (countOC == 0)
-                        {
-                            if (transaction != null) (transaction as OdbcTransaction).Rollback();
-                            return -6; //  uzivatel neexistuje
-                        }
+                        if (transaction != null) (transaction as OdbcTransaction).Rollback();
+                        return -6; //  uzivatel neexistuje
                     }
                     else
                     {
                         myReaderR.Close();
-                        if (transaction != null) (transaction as OdbcTransaction).Rollback();
-                        return -2;  // chyba databaze
                     }
 
                     int errCode = countRecord(DBosCislo, commandStringRead1,-3);  //pujceno
