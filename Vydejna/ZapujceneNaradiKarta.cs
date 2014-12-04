@@ -229,8 +229,17 @@ namespace Vydejna
                                     int pujcPoradi;
                                     if ((pujcPoradi = myDB.addNewLineZmenyAndPujceno(myMesenger.poradi, zapujcNaradi.getDatum(), zapujcNaradi.getKs(), zapujcNaradi.getPoznamka(), zapujcNaradi.getVevCislo(), osCislo)) < 0)
                                     {
-                                        if (pujcPoradi == -2) MessageBox.Show("Není možno vypůjčit více kusů než je stav na výdejně. Lituji.");
-                                        else MessageBox.Show("Vypůjčeni nářadi se nezdařilo. Lituji.");
+                                        switch (pujcPoradi)
+                                        {
+                                            case -4: MessageBox.Show("Není možno vypůjčit více kusů než je stav na výdejně. Lituji.");
+                                                break;
+                                            case -3: MessageBox.Show("Nařadí na výdejně neexistuje. Lituji.");
+                                                break;
+                                            case -2: MessageBox.Show("Uživatel neexistuje. Lituji.");
+                                                break;
+                                            default: MessageBox.Show("Vypůjčeni nářadi se nezdařilo. Lituji."); ;
+                                                break;
+                                        }
                                     }
                                     else
                                     {

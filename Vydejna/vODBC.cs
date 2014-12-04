@@ -2033,15 +2033,18 @@ namespace Vydejna
         }
 
 
-
+// -4  pokus o vypujceni vice kusu nez existuje
+// -2 uzivatel neexistuje
+// -3 naradi neexistuje
         public override Int32 addNewLineZmenyAndPujceno(Int32 DBparPoradi, DateTime DBdatum, Int32 DBks, string DBpoznamka, string DBvevCislo, string DBosCislo)
         {
             OdbcTransaction transaction = null;
 
             if (DBIsOpened())
             {
+                string commandReadString0 = "SELECT oscislo from osoby where oscislo = ? FOR UPDATE";  // nesmi byt odstranen
                 string commandReadString1 = "SELECT poradi, zustatek from zmeny where parporadi = ? ORDER BY poradi DESC";
-                string commandReadString2 = "SELECT fyzstav from naradi where poradi = ? ";
+                string commandReadString2 = "SELECT fyzstav from naradi where poradi = ? FOR UPDATE"; // zablokovany zmeny 
                 string commandReadString3 = "SELECT poradi FROM tabseq WHERE nazev = 'pujceno'";
 
                 string commandReadString5 = "SELECT rtrim(nazev) as nazev, rtrim(jk) as jk, cena  FROM naradi WHERE poradi = ? ";
@@ -2068,6 +2071,23 @@ namespace Vydejna
                     {
                     }
 
+
+                    OdbcCommand cmdr0 = new OdbcCommand(commandReadString0, myDBConn as OdbcConnection);
+                    cmdr0.Parameters.AddWithValue("@oscislo", DBosCislo).DbType = DbType.String;
+                    cmdr0.Transaction = transaction;
+                    OdbcDataReader seqReader0 = cmdr0.ExecuteReader();
+                    if (seqReader0.Read() != true)
+                    {
+                        //uzivatel neexistuje
+                        seqReader0.Close();
+                        if (transaction != null)
+                        {
+                            (transaction as OdbcTransaction).Rollback();
+                        }
+                        return -2;
+                    }
+
+
                     OdbcCommand cmdr2 = new OdbcCommand(commandReadString2, myDBConn as OdbcConnection);
                     cmdr2.Parameters.AddWithValue("@poradi", DBparPoradi).DbType = DbType.Int32;
                     cmdr2.Transaction = transaction;
@@ -2086,7 +2106,7 @@ namespace Vydejna
                         {
                             (transaction as OdbcTransaction).Rollback();
                         }
-                        return -1;
+                        return -3;
                     }
 
                     if (fyzstav < DBks)
@@ -2097,7 +2117,7 @@ namespace Vydejna
                         {
                             (transaction as OdbcTransaction).Rollback();
                         }
-                        return -2;
+                        return -4;
                     }
                     seqReader2.Close();
 

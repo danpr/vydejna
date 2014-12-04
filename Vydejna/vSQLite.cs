@@ -3197,13 +3197,16 @@ namespace Vydejna
             return -1;
         }
 
-
+// -4  pokus o vypujceni vice kusu nez existuje
+// -2 uzivatel neexistuje
+// -3 naradi neexistuje
         public override Int32 addNewLineZmenyAndPujceno(Int32 DBparPoradi, DateTime DBdatum, Int32 DBks, string DBpoznamka, string DBvevCislo, string DBosCislo)
         {
             SQLiteTransaction transaction = null;
 
             if (DBIsOpened())
             {
+                string commandReadString0 = "SELECT oscislo from osoby where oscislo = ?";  // nesmi byt odstranen
                 string commandReadString1 = "SELECT poradi, zustatek from zmeny where parporadi = ? ORDER BY poradi DESC";
                 string commandReadString2 = "SELECT fyzstav from naradi where poradi = ? ";
                 string commandReadString3 = "SELECT poradi FROM tabseq WHERE nazev = 'pujceno'";
@@ -3231,6 +3234,21 @@ namespace Vydejna
                     {
                     }
 
+                    SQLiteCommand cmdr0 = new SQLiteCommand(commandReadString0, myDBConn as SQLiteConnection);
+                    cmdr0.Parameters.AddWithValue("@oscislo", DBosCislo).DbType = DbType.String;
+                    cmdr0.Transaction = transaction;
+                    SQLiteDataReader seqReader0 = cmdr0.ExecuteReader();
+                    if (seqReader0.Read() != true)
+                    {
+                        //uzivatel neexistuje
+                        seqReader0.Close();
+                        if (transaction != null)
+                        {
+                            (transaction as SQLiteTransaction).Rollback();
+                        }
+                        return -2;
+                    }
+
                     SQLiteCommand cmdr2 = new SQLiteCommand(commandReadString2, myDBConn as SQLiteConnection);
                     cmdr2.Parameters.AddWithValue("@poradi", DBparPoradi).DbType = DbType.Int32;
                     cmdr2.Transaction = transaction;
@@ -3249,7 +3267,7 @@ namespace Vydejna
                         {
                             (transaction as SQLiteTransaction).Rollback();
                         }
-                        return -1;
+                        return -3;
                     }
 
                     if (fyzstav < DBks)
@@ -3260,7 +3278,7 @@ namespace Vydejna
                         {
                             (transaction as SQLiteTransaction).Rollback();
                         }
-                        return -2;
+                        return -4;
                     }
                     seqReader2.Close();
 
