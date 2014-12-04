@@ -68,6 +68,7 @@ namespace Vydejna
             dataGridView1.DataSource = null;
 
             dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.DisplayedCellsExceptHeaders;
+            
             DBRow = new Hashtable();
 
             if (nastaveniDB.codeDB != (int)kodDB.dbNone)
@@ -188,6 +189,7 @@ namespace Vydejna
                     dataGridView1.Columns["poradi"].Visible = false;   // poradi nezobrazujeme
 
                     dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
                 }
                 catch (Exception)
                 {
@@ -419,8 +421,8 @@ namespace Vydejna
                     dataGridView1.Columns["telhome"].HeaderText = "Tel. domů";
                     dataGridView1.Columns["telzam"].HeaderText = "Tel. zaměst.";
                     dataGridView1.Columns["poznamka"].HeaderText = "Poznamka";
-                    dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
+                    dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
                 }
                 catch (Exception)
@@ -1443,11 +1445,6 @@ namespace Vydejna
         private void Vydejna_LocationChanged(object sender, EventArgs e)
         {
             if (!(this.Location.IsEmpty)) ConfigReg.saveSettingWindowLocationSize("MAIN", this.Location.X, this.Location.Y, 0, 0);
-        }
-
-        private void Vydejna_Shown(object sender, EventArgs e)
-        {
-            //           evenState = evenStateEnum.enable;
         }
 
 

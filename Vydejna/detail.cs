@@ -318,18 +318,27 @@ namespace Vydejna
            Hashtable DBTableInfo = ConfigReg.loadSettingWindowTableColumnWidth("MAIN", this.jmenoTabulky());
            if (DBTableInfo != null)
            {
-               for (Int32 i = 0; i < myDataGridView.Columns.Count; i++)
-               {
+
+//               for (Int32 i = 0; i < myDataGridView.Columns.Count; i++)
+               for (Int32 i = myDataGridView.Columns.Count-1; i > -1; i--)
+                   {
                    string myColumnName = myDataGridView.Columns[i].Name;
                    if (DBTableInfo.ContainsKey(myColumnName))
                    {
                        try
                        {
                            myDataGridView.Columns[i].Width = Convert.ToInt32(DBTableInfo[myColumnName]);
+                           myDataGridView.Columns[i].MinimumWidth = Convert.ToInt32(DBTableInfo[myColumnName]);
                        }
                        catch { }
                    }
                }
+               for (Int32 i = 0; i < myDataGridView.Columns.Count; i++)
+               {
+                   myDataGridView.Columns[i].MinimumWidth = 10;
+               }
+
+
            }
         }
 

@@ -686,7 +686,6 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Výdejna";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Vydejna_FormClosing);
-            this.Shown += new System.EventHandler(this.Vydejna_Shown);
             this.LocationChanged += new System.EventHandler(this.Vydejna_LocationChanged);
             this.SizeChanged += new System.EventHandler(this.Vydejna_SizeChanged);
             this.menuStrip1.ResumeLayout(false);
