@@ -319,8 +319,8 @@ namespace Vydejna
            if (DBTableInfo != null)
            {
 
-//               for (Int32 i = 0; i < myDataGridView.Columns.Count; i++)
-               for (Int32 i = myDataGridView.Columns.Count-1; i > -1; i--)
+               for (Int32 i = 0; i < myDataGridView.Columns.Count; i++)
+//               for (Int32 i = myDataGridView.Columns.Count-1; i > -1; i--)
                    {
                    string myColumnName = myDataGridView.Columns[i].Name;
                    if (DBTableInfo.ContainsKey(myColumnName))

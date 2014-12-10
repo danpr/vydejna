@@ -737,7 +737,8 @@ namespace Vydejna
             if (DBTableInfo != null)
             {
                 Int32 columnWidth = 0;
-                for (Int32 i = 0; i < dataGridViewZmeny.Columns.Count; i++)
+                  for (Int32 i = 0; i < dataGridViewZmeny.Columns.Count; i++)
+//                for (Int32 i = dataGridViewZmeny.Columns.Count - 1; i > -1; i--)
                 {
                     string myColumnName = dataGridViewZmeny.Columns[i].Name;
                     if (DBTableInfo.ContainsKey(myColumnName))
@@ -746,8 +747,16 @@ namespace Vydejna
                         try
                         {
                             dataGridViewZmeny.Columns[i].Width = columnWidth;
-                        }
+                            dataGridViewZmeny.Columns[i].MinimumWidth = Convert.ToInt32(DBTableInfo[myColumnName]);
+                         }
                         catch { }
+                    }
+                }
+                for (Int32 i = 0; i < dataGridViewZmeny.Columns.Count; i++)
+                {
+                    if (dataGridViewZmeny.Columns[i].Visible)
+                    {
+                        dataGridViewZmeny.Columns[i].MinimumWidth = 10;
                     }
                 }
             }
