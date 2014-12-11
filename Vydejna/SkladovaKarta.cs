@@ -358,6 +358,7 @@ namespace Vydejna
 
                     dataGridViewZmeny.Columns["poradi"].Visible = false;
                     dataGridViewZmeny.Columns["vevcislo"].Visible = false;
+                    dataGridViewZmeny.Columns["stavkod"].Visible = false;
 
                     dataGridViewZmeny.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
 

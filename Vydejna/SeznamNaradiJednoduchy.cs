@@ -208,10 +208,23 @@ namespace Vydejna
                     string myColumnName = myColumn.Name;
                     if (DBTableInfo.ContainsKey(myColumnName))
                     {
-                        myColumn.Width = Convert.ToInt32(DBTableInfo[myColumnName]);
+                        try
+                        {
+                            myColumn.Width = Convert.ToInt32(DBTableInfo[myColumnName]);
+                            myColumn.MinimumWidth = Convert.ToInt32(DBTableInfo[myColumnName]);
+                        }
+                        catch { }
                     }
-
                 }
+                foreach (DataGridViewColumn myColumn in dataGridView1.Columns)
+                {
+                    if (myColumn.Visible)
+                    {
+                        myColumn.MinimumWidth = 10;
+                    }
+                }
+
+
             }
         }
 

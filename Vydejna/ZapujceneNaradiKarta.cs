@@ -570,10 +570,19 @@ namespace Vydejna
                         try
                         {
                             dataGridViewZmeny.Columns[i].Width = columnWidth;
+                            dataGridViewZmeny.Columns[i].MinimumWidth = Convert.ToInt32(DBTableInfo[myColumnName]);
                         }
                         catch { }
                     }
                 }
+                for (Int32 i = 0; i < dataGridViewZmeny.Columns.Count; i++)
+                {
+                    if (dataGridViewZmeny.Columns[i].Visible)
+                    {
+                        dataGridViewZmeny.Columns[i].MinimumWidth = 10;
+                    }
+                }
+
             }
         }
 

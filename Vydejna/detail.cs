@@ -100,7 +100,7 @@ namespace Vydejna
 
 
 /// <summary>
-/// Najde v datove tabulce cislo radku jejiz sloupec name ma hodnotu value
+/// Najde v datove tabulce cislo radku jejiz sloupec NAME ma hodnotu value
 /// </summary>
 /// <param name="myDT">Datova tabulka</param>
 /// <param name="name">Jmeno prohledavaneho sloupce</param>
