@@ -34,8 +34,8 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.textBoxPrijmeni = new System.Windows.Forms.TextBox();
             this.textBoxJmeno = new System.Windows.Forms.TextBox();
+            this.textBoxPrijmeni = new System.Windows.Forms.TextBox();
             this.textBoxUlice = new System.Windows.Forms.TextBox();
             this.textBoxMesto = new System.Windows.Forms.TextBox();
             this.textBoxPSC = new System.Windows.Forms.TextBox();
@@ -118,23 +118,23 @@
             this.label6.TabIndex = 5;
             this.label6.Text = "Tel. domů :";
             // 
-            // textBoxPrijmeni
-            // 
-            this.textBoxPrijmeni.Location = new System.Drawing.Point(79, 43);
-            this.textBoxPrijmeni.MaxLength = 15;
-            this.textBoxPrijmeni.Name = "textBoxPrijmeni";
-            this.textBoxPrijmeni.ReadOnly = true;
-            this.textBoxPrijmeni.Size = new System.Drawing.Size(149, 20);
-            this.textBoxPrijmeni.TabIndex = 6;
-            // 
             // textBoxJmeno
             // 
-            this.textBoxJmeno.Location = new System.Drawing.Point(366, 43);
+            this.textBoxJmeno.Location = new System.Drawing.Point(79, 43);
             this.textBoxJmeno.MaxLength = 15;
             this.textBoxJmeno.Name = "textBoxJmeno";
             this.textBoxJmeno.ReadOnly = true;
             this.textBoxJmeno.Size = new System.Drawing.Size(149, 20);
-            this.textBoxJmeno.TabIndex = 7;
+            this.textBoxJmeno.TabIndex = 6;
+            // 
+            // textBoxPrijmeni
+            // 
+            this.textBoxPrijmeni.Location = new System.Drawing.Point(366, 43);
+            this.textBoxPrijmeni.MaxLength = 15;
+            this.textBoxPrijmeni.Name = "textBoxPrijmeni";
+            this.textBoxPrijmeni.ReadOnly = true;
+            this.textBoxPrijmeni.Size = new System.Drawing.Size(149, 20);
+            this.textBoxPrijmeni.TabIndex = 7;
             // 
             // textBoxUlice
             // 
@@ -388,8 +388,8 @@
             this.Controls.Add(this.textBoxPSC);
             this.Controls.Add(this.textBoxMesto);
             this.Controls.Add(this.textBoxUlice);
-            this.Controls.Add(this.textBoxJmeno);
             this.Controls.Add(this.textBoxPrijmeni);
+            this.Controls.Add(this.textBoxJmeno);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
@@ -416,8 +416,8 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox textBoxPrijmeni;
         private System.Windows.Forms.TextBox textBoxJmeno;
+        private System.Windows.Forms.TextBox textBoxPrijmeni;
         private System.Windows.Forms.TextBox textBoxUlice;
         private System.Windows.Forms.TextBox textBoxMesto;
         private System.Windows.Forms.TextBox textBoxPSC;

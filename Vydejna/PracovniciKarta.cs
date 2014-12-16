@@ -148,8 +148,8 @@ namespace Vydejna
 
         public void setData(Hashtable DBRow)
         {
-            textBoxPrijmeni.Text = Convert.ToString(DBRow["prijmeni"]);
             textBoxJmeno.Text = Convert.ToString(DBRow["jmeno"]);
+            textBoxPrijmeni.Text = Convert.ToString(DBRow["prijmeni"]);
             textBoxUlice.Text = Convert.ToString(DBRow["ulice"]);
             textBoxMesto.Text = Convert.ToString(DBRow["mesto"]);
             textBoxPSC.Text = Convert.ToString(DBRow["psc"]);
@@ -168,8 +168,8 @@ namespace Vydejna
 
         private void setShowState()
         {
-            textBoxPrijmeni.BackColor = System.Drawing.SystemColors.Window;
-            textBoxJmeno.BackColor = System.Drawing.SystemColors.Window; ;
+            textBoxJmeno.BackColor = System.Drawing.SystemColors.Window;
+            textBoxPrijmeni.BackColor = System.Drawing.SystemColors.Window; ;
             textBoxUlice.BackColor = System.Drawing.SystemColors.Window;
             textBoxMesto.BackColor = System.Drawing.SystemColors.Window;
             textBoxPSC.BackColor = System.Drawing.SystemColors.Window;
@@ -198,8 +198,8 @@ namespace Vydejna
 
         private void setAddState()
         {
-            textBoxPrijmeni.ReadOnly = false;
             textBoxJmeno.ReadOnly = false;
+            textBoxPrijmeni.ReadOnly = false;
             textBoxUlice.ReadOnly = false;
             textBoxMesto.ReadOnly = false;
             textBoxPSC.ReadOnly = false;
@@ -228,13 +228,13 @@ namespace Vydejna
 
         private void PracovniciKarta_Activated(object sender, EventArgs e)
         {
-            textBoxPrijmeni.Focus();
+            textBoxJmeno.Focus();
         }
 
         private void buttonOK_Click(object sender, EventArgs e)
         {
             // stisknuti tlacitka OK
-            if ((textBoxOsCislo.Text.Trim() == "") || ((textBoxJmeno.Text.Trim() == "") && (textBoxPrijmeni.Text.Trim() == "")) ||
+            if ((textBoxOsCislo.Text.Trim() == "") || ((textBoxPrijmeni.Text.Trim() == "") && (textBoxJmeno.Text.Trim() == "")) ||
                 (textBoxStredisko.Text.Trim() == ""))
             {
                 MessageBox.Show("Je nutno vyplnit Osobní čislo, Středisko a Přijmení nebo Jméno.");
