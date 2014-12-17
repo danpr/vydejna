@@ -1632,7 +1632,8 @@ namespace Vydejna
                 string commandReadString1 = "SELECT rtrim(vevcislo) as vevcislo FROM zmeny WHERE poradi = ? AND parporadi = ? ";
                 string commandReadString2 = "SELECT nporadi, zporadi, stavks FROM pujceno WHERE poradi = ? ";
                 string commandReadString3 = "SELECT poradi, zustatek from zmeny where parporadi = ? ORDER BY poradi DESC";
-                string commandReadString4 = "SELECT poradi FROM tabseq WHERE nazev = 'vraceno'";
+//                string commandReadString4 = "SELECT poradi FROM tabseq WHERE nazev = 'vraceno'";
+                string commandReadString4a = "SELECT MAX(poradi) FROM vraceno";
                 string commandReadString5 = "SELECT rtrim(nazev) as nazev, rtrim(jk) as jk, rtrim(rozmer) as rozmer, rtrim(normacsn) as normacsn, cena, celkcena, ucetstav  FROM naradi WHERE poradi = ? ";
                 string commandReadString6 = "SELECT jmeno, prijmeni, odeleni, stredisko, pracoviste FROM osoby WHERE oscislo = ? ";
                 ///------------
@@ -1648,9 +1649,8 @@ namespace Vydejna
                 string commandString4 = "DELETE FROM pujceno WHERE poradi = ? ";
                 string commandString5 = "INSERT INTO vraceno ( poradi, jmeno, oscislo, dilna, pracoviste, vyrobek, nazev, jk, rozmer, pocetks, cena, datum, csn, krjmeno, celkcena, vevcislo, konto) " +
                       "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
-                string commandString6 = "UPDATE  tabseq set poradi = poradi +1 WHERE nazev = 'vraceno'";
-
-                ///--------------------------------
+//                string commandString6 = "UPDATE  tabseq set poradi = poradi +1 WHERE nazev = 'vraceno'";
+                string commandString6a = "UPDATE  tabseq set poradi = ? WHERE nazev = 'vraceno'";
 
 //                string commandString8 = "UPDATE  tabseq set poradi = poradi +1 WHERE nazev = 'poskozeno'";
                 string commandString8a = "UPDATE  tabseq set poradi = ? WHERE nazev = 'poskozeno'";
@@ -1841,12 +1841,13 @@ namespace Vydejna
                     Int32 newVracenoPoradi;
                     // cislo poradi pro novy zaznam
 
-                    OdbcCommand cmdr4 = new OdbcCommand(commandReadString4, myDBConn as OdbcConnection);
+                    OdbcCommand cmdr4 = new OdbcCommand(commandReadString4a, myDBConn as OdbcConnection);
                     cmdr4.Transaction = transaction;
                     OdbcDataReader vracNewPoradiReader = cmdr4.ExecuteReader();
                     if (vracNewPoradiReader.Read() == true)
                     {
-                        newVracenoPoradi = vracNewPoradiReader.GetInt32(vracNewPoradiReader.GetOrdinal("poradi")) + 1;
+//                        newVracenoPoradi = vracNewPoradiReader.GetInt32(vracNewPoradiReader.GetOrdinal("poradi")) + 1;
+                        newVracenoPoradi = vracNewPoradiReader.GetInt32(0) + 1;
                     }
                     else
                     {
@@ -1974,7 +1975,8 @@ namespace Vydejna
                     cmd5.Transaction = transaction;
                     cmd5.ExecuteNonQuery();
 
-                    OdbcCommand cmd6 = new OdbcCommand(commandString6, myDBConn as OdbcConnection);
+                    OdbcCommand cmd6 = new OdbcCommand(commandString6a, myDBConn as OdbcConnection);
+                    cmd6.Parameters.AddWithValue("@poradi", newVracenoPoradi + 1).DbType = DbType.Int32;
                     cmd6.Transaction = transaction;
                     cmd6.ExecuteNonQuery();
 
