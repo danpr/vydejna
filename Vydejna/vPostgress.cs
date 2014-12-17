@@ -157,6 +157,11 @@ namespace Vydejna
             return returnCode;
         }
 
+        public override string getDBTypAndName()
+        {
+            return string.Format("{0}  \"{1}:POSTGRESSQL-ODBC\"", dBName, dBServerAddress);
+        }
+
 
     }
 }

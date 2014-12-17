@@ -486,6 +486,12 @@ namespace Vydejna
         }
 
 
+        public override string getDBTypAndName()
+        {
+            return string.Format("{0}  \"{1}:ODBC\"", dBName, dBServerAddress);
+        }
+
+
 
 
         public override Int32 addLineKaret(string DBnazev, string DBJK, string DBnormacsn, string DBnormadin,

@@ -197,6 +197,10 @@ namespace Vydejna
             }
         }
 
+        public override string getDBTypAndName()
+        {
+            return string.Format("{0}  \"{1}:INFORMIX-ODBC\"", dBName, dBServerAddress);
+        }
 
 
     }

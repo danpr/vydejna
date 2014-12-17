@@ -261,6 +261,12 @@ namespace Vydejna
         {
         }
 
+        public virtual string getDBTypAndName()
+        {
+            return "Žádna database není vybrána";
+        }
+
+
         public virtual Int32 addLineKaret(string DBnazev,string DBJK, string DBnormacsn, string DBnormadin,
                                          string DBvyrobce, double DBcena, string DBpoznamka, int DBminstav, 
                                          double DBcelkcena, int DBucetstav, int DBfyzstav, 

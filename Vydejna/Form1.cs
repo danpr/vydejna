@@ -27,6 +27,8 @@ namespace Vydejna
         private detail karta;
         private Hashtable DBRow;
         private parametryDB nastaveniDB;
+        private ToolTip dbToolTip;
+
 
         public Vydejna()
         {
@@ -41,6 +43,10 @@ namespace Vydejna
             labelView.Font = new Font(labelView.Font, FontStyle.Bold);
             labelUser.Text = "";
             labelDate.Text = "";
+
+
+            dbToolTip = new ToolTip();
+            dbToolTip.SetToolTip(labelStateConnection, "");
 
             myDB = null;
 
@@ -76,6 +82,8 @@ namespace Vydejna
                 myDB = OpenDataBaseHandle();
                 myDB.openDB();
                 setStateChangeEvent(myDB);
+                dbToolTip.SetToolTip(labelStateConnection, myDB.getDBTypAndName());
+
             }
 
             if ((myDB != null) && (myDB.DBIsOpened()))
@@ -885,6 +893,7 @@ namespace Vydejna
                     myDB = OpenDataBaseHandle();
                     myDB.openDB();
                     setStateChangeEvent(myDB);
+                    dbToolTip.SetToolTip(labelStateConnection, myDB.getDBTypAndName());
                     if (myDB.DBIsOpened())
                     {
                         usersTest();

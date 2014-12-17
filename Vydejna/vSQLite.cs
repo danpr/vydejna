@@ -545,6 +545,10 @@ namespace Vydejna
         }
 
 
+        public override string getDBTypAndName()
+        {
+            return string.Format("{0}  \"SQLite\"", dBName);
+        }
 
 
 
