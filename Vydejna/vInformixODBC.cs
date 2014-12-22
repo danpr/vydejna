@@ -174,7 +174,7 @@ namespace Vydejna
                 string commandStringIn4 = "CREATE UNIQUE INDEX  poskozenoPorIN ON poskozeno (poradi) ONLINE";
                 string commandStringIn5 = "CREATE UNIQUE INDEX  osobyPorIN ON osoby (oscislo) ONLINE";
                 string commandStringIn6 = "CREATE UNIQUE INDEX  zmenyPorIN ON zmeny(parporadi,poradi) ONLINE";
-                string commandStringIn7 = "CREATE UNIQUE INDEX  pujcenoPorIN ON (poradi) ONLINE";
+                string commandStringIn7 = "CREATE UNIQUE INDEX  pujcenoPorIN ON pujceno (poradi) ONLINE";
                 string[] commandStrings = new String[7] {commandStringIn1, commandStringIn2, commandStringIn3,
                          commandStringIn4, commandStringIn5, commandStringIn6, commandStringIn7};
                 Int32 indexErrCount = 0;
