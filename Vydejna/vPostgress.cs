@@ -139,10 +139,20 @@ namespace Vydejna
             openDB();
             if (DBIsOpened())
             {
-                OdbcCommand cmdVacuum = new OdbcCommand("VACUUM", myDBConn as OdbcConnection);
+                OdbcCommand cmdVacuum = new OdbcCommand("VACUUM FULL", myDBConn as OdbcConnection);
+                OdbcCommand cmdAnalyze = new OdbcCommand("ANALYZE", myDBConn as OdbcConnection);
+                OdbcCommand cmdReindexN = new OdbcCommand("REINDEX TABLE naradi", myDBConn as OdbcConnection);
+                OdbcCommand cmdReindexZ = new OdbcCommand("REINDEX TABLE zmeny", myDBConn as OdbcConnection);
+                OdbcCommand cmdReindexP = new OdbcCommand("REINDEX TABLE pujceno", myDBConn as OdbcConnection);
+                OdbcCommand cmdReindexO = new OdbcCommand("REINDEX TABLE osoby", myDBConn as OdbcConnection);
                 try
                 {
                     cmdVacuum.ExecuteNonQuery();
+                    cmdAnalyze.ExecuteNonQuery();
+                    cmdReindexN.ExecuteNonQuery();
+                    cmdReindexZ.ExecuteNonQuery();
+                    cmdReindexP.ExecuteNonQuery();
+                    cmdReindexO.ExecuteNonQuery();
                 }
                 catch (Exception ex)
                 {
@@ -151,6 +161,11 @@ namespace Vydejna
                 }
                 finally
                 {
+                    cmdReindexO.Dispose();
+                    cmdReindexP.Dispose();
+                    cmdReindexZ.Dispose();
+                    cmdReindexN.Dispose();
+                    cmdAnalyze.Dispose();
                     cmdVacuum.Dispose();
                 }
             }
