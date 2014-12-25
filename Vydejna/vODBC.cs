@@ -2058,7 +2058,8 @@ namespace Vydejna
                 string commandReadString0 = "SELECT oscislo from osoby where oscislo = ? FOR UPDATE";  // nesmi byt odstranen
                 string commandReadString1 = "SELECT poradi, zustatek from zmeny where parporadi = ? ORDER BY poradi DESC";
                 string commandReadString2 = "SELECT fyzstav from naradi where poradi = ? FOR UPDATE"; // zablokovany zmeny 
-                string commandReadString3 = "SELECT poradi FROM tabseq WHERE nazev = 'pujceno'";
+//                string commandReadString3 = "SELECT poradi FROM tabseq WHERE nazev = 'pujceno'";
+                string commandReadString3a = "SELECT MAX(poradi) FROM pujceno";
 
                 string commandReadString5 = "SELECT rtrim(nazev) as nazev, rtrim(jk) as jk, cena  FROM naradi WHERE poradi = ? ";
                 string commandReadString6 = "SELECT jmeno, prijmeni FROM osoby WHERE oscislo = ? ";
@@ -2071,7 +2072,8 @@ namespace Vydejna
                 string commandString3 = "INSERT INTO pujceno ( poradi, oscislo, nporadi, zporadi, pjmeno, pprijmeni, pnazev, pjk, pdatum, pks, pcena, stavks )" +
                       "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
 
-                string commandString4 = "UPDATE  tabseq set poradi = poradi +1 WHERE nazev = 'pujceno'";
+//                string commandString4 = "UPDATE  tabseq set poradi = poradi +1 WHERE nazev = 'pujceno'";
+                string commandString4a = "UPDATE  tabseq set poradi = ? WHERE nazev = 'pujceno'";
 
                 Int32 pujcPoradi = 0;
                 try
@@ -2205,11 +2207,23 @@ namespace Vydejna
 
 
                     // zjisti poradi pro pujceno
-                    OdbcCommand cmdSeq2 = new OdbcCommand(commandReadString3, myDBConn as OdbcConnection);
+                    OdbcCommand cmdSeq2 = new OdbcCommand(commandReadString3a, myDBConn as OdbcConnection);
                     cmdSeq2.Transaction = transaction;
                     OdbcDataReader seqReader3 = cmdSeq2.ExecuteReader();
-                    seqReader3.Read();
-                    pujcPoradi = seqReader3.GetInt32(0);
+                    if (seqReader3.Read() == true)
+                    {
+                        //                    pujcPoradi = seqReader3.GetInt32(0);
+                        pujcPoradi = seqReader3.GetInt32(0) + 1;
+                    }
+                    else
+                    {
+                        seqReader3.Close();
+                        if (transaction != null)
+                        {
+                            (transaction as OdbcTransaction).Rollback();
+                        }
+                        return -1;
+                    }
                     seqReader3.Close();
 
                     // tab naradi
@@ -2257,7 +2271,8 @@ namespace Vydejna
                     cmd.Transaction = transaction;
                     cmd.ExecuteNonQuery();
 
-                    OdbcCommand cmdSeq3 = new OdbcCommand(commandString4, myDBConn as OdbcConnection);
+                    OdbcCommand cmdSeq3 = new OdbcCommand(commandString4a, myDBConn as OdbcConnection);
+                    cmdSeq3.Parameters.AddWithValue("@poradi", pujcPoradi + 1).DbType = DbType.Int32;
                     cmdSeq3.Transaction = transaction;
                     cmdSeq3.ExecuteNonQuery();
 
@@ -2265,7 +2280,6 @@ namespace Vydejna
                     {
                         (transaction as OdbcTransaction).Commit();
                     }
-
                 }
                 catch (Exception)
                 {
