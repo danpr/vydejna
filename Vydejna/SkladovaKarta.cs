@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace Vydejna
 {
-   public enum sKartaState { show , add, edit };
+   public enum sKartaState { show , add, edit, showOnly };
 
     public partial class SkladovaKarta : Form
     {
@@ -34,7 +34,7 @@ namespace Vydejna
             public readonly Boolean fyzStav;
             public readonly Boolean ucetStav;
 
-            // ktere polozky muze opravit opravit
+            // ktere polozky muze opravit
             public permissonsData(Boolean nazev, Boolean jk, Boolean cenaKs, Boolean ucetCenaKs, Boolean ucetCena, Boolean minimum, Boolean fyzStav, Boolean ucetStav)
             {
                 this.nazev = nazev;
@@ -98,6 +98,9 @@ namespace Vydejna
         private string oldJK;
         private permissonsData readOnlyPermission;
         private Font parentFont;
+        /// <summary>
+        /// liveCard urcuje zda se bude zobrazovat zive/aktivni karty, nebo karty zrusene
+        /// </summary>
         private Boolean liveCard;
 
 
@@ -128,23 +131,51 @@ namespace Vydejna
 
             listBoxNazev.Hide();
 
-            if (state == sKartaState.show)
+            switch (state)
             {
-                setShowState();
-            }
-            else
-            {
-                // edit + add
-                if (state == sKartaState.add)
-                {
-//                    buttonTisk.Hide();
+                case sKartaState.show:
+                    setShowState();
+                    break;
+                case sKartaState.showOnly:
+                    setShowState();
+                    contextMenuStripZmeny.Enabled = false;
+                    dataGridViewZmeny.ContextMenuStrip = null;
+                    break;
+                case sKartaState.add:
                     setAddState();
-                }
-                else
-                {
+                    break;
+                case sKartaState.edit:
                     setEditState();
-                }
+                    break;
+                default:
+                    setShowState();
+                    break;
             }
+
+
+
+
+//            if ((state == sKartaState.show) || (state == sKartaState.showOnly))
+//            {
+//                setShowState();
+//                if ( state == sKartaState.showOnly)
+//                {
+//                    contextMenuStripZmeny.Enabled = false;
+//                }
+//            }
+//            else
+//            {
+//                // edit + add
+//                if (state == sKartaState.add)
+//                {
+//                    setAddState();
+//                }
+//                else
+//                {
+//                    setEditState();
+//                }
+//            }
+
             setData(DBRow);
             loadZmenyItems();
             this.CancelButton = this.buttonCancel;

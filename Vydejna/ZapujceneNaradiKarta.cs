@@ -382,7 +382,7 @@ namespace Vydejna
                     {
                         Hashtable infoDBRow = myDB.getNaradiLine(nporadi, null);
 
-                        SkladovaKarta sklKarta = new SkladovaKarta(myDB, infoDBRow, nporadi, new tableItemExistDelgStr(myDB.tableNaradiItemExist), parentFont, false);
+                        SkladovaKarta sklKarta = new SkladovaKarta(myDB, infoDBRow, nporadi, new tableItemExistDelgStr(myDB.tableNaradiItemExist), parentFont, false,sKartaState.showOnly);
                         //                        sklKarta.Font = parentFont
                         sklKarta.setWinName("Skladová karta");
                         sklKarta.ShowDialog();
@@ -646,6 +646,11 @@ namespace Vydejna
                     TiskVypujcky myTisk = new TiskVypujcky(myDB, osobyDBRow);
                 }
             }
+
+        }
+
+        private void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
+        {
 
         }
     }
