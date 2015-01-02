@@ -190,13 +190,21 @@ namespace Vydejna
 
         private void setEditState()
         {
-            setAddState();
+            setAddEditState();
             textBoxOsCislo.ReadOnly = true;
             textBoxOsCislo.Enabled = false;
         }
 
 
         private void setAddState()
+        {
+            setAddEditState();
+            buttonTisk.Visible = false;
+            buttonTisk.Enabled = false;
+        }
+
+
+        private void setAddEditState()
         {
             textBoxJmeno.ReadOnly = false;
             textBoxPrijmeni.ReadOnly = false;
@@ -213,9 +221,7 @@ namespace Vydejna
             textBoxPoznamka.ReadOnly = false;
             buttonOK.Visible = true;
             buttonOK.Enabled = true;
-
         }
-
 
         public messager getMesseger()
         {
