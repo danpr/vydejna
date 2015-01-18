@@ -71,6 +71,7 @@
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.písmoAplikaceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonTisk = new System.Windows.Forms.Button();
+            this.zrušeníPoškozenkyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMinStav)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownUcetStav)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewZmeny)).BeginInit();
@@ -321,8 +322,8 @@
             // 
             // textBoxPoznamka
             // 
-            this.textBoxPoznamka.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxPoznamka.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxPoznamka.Location = new System.Drawing.Point(98, 264);
             this.textBoxPoznamka.MaxLength = 60;
             this.textBoxPoznamka.Name = "textBoxPoznamka";
@@ -333,9 +334,9 @@
             // dataGridViewZmeny
             // 
             this.dataGridViewZmeny.AllowUserToAddRows = false;
-            this.dataGridViewZmeny.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridViewZmeny.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridViewZmeny.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewZmeny.ContextMenuStrip = this.contextMenuStripZmeny;
             this.dataGridViewZmeny.Location = new System.Drawing.Point(98, 302);
@@ -352,29 +353,30 @@
             this.contextMenuStripZmeny.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.opravaÚdajuToolStripMenuItem,
             this.zapujcenoNaKartuToolStripMenuItem,
-            this.zrušeníPříjmuToolStripMenuItem});
+            this.zrušeníPříjmuToolStripMenuItem,
+            this.zrušeníPoškozenkyToolStripMenuItem});
             this.contextMenuStripZmeny.Name = "contextMenuStripZmeny";
-            this.contextMenuStripZmeny.Size = new System.Drawing.Size(177, 70);
+            this.contextMenuStripZmeny.Size = new System.Drawing.Size(180, 114);
             this.contextMenuStripZmeny.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripZmeny_Opening);
             // 
             // opravaÚdajuToolStripMenuItem
             // 
             this.opravaÚdajuToolStripMenuItem.Name = "opravaÚdajuToolStripMenuItem";
-            this.opravaÚdajuToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
+            this.opravaÚdajuToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
             this.opravaÚdajuToolStripMenuItem.Text = "Oprava údaju";
             this.opravaÚdajuToolStripMenuItem.Click += new System.EventHandler(this.ContextMenu_opravaUdaju);
             // 
             // zapujcenoNaKartuToolStripMenuItem
             // 
             this.zapujcenoNaKartuToolStripMenuItem.Name = "zapujcenoNaKartuToolStripMenuItem";
-            this.zapujcenoNaKartuToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
+            this.zapujcenoNaKartuToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
             this.zapujcenoNaKartuToolStripMenuItem.Text = "Zapujceno na kartu";
             this.zapujcenoNaKartuToolStripMenuItem.Click += new System.EventHandler(this.contextMenu_ZapujcenoNaKartu);
             // 
             // zrušeníPříjmuToolStripMenuItem
             // 
             this.zrušeníPříjmuToolStripMenuItem.Name = "zrušeníPříjmuToolStripMenuItem";
-            this.zrušeníPříjmuToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
+            this.zrušeníPříjmuToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
             this.zrušeníPříjmuToolStripMenuItem.Text = "Zrušení příjmu";
             this.zrušeníPříjmuToolStripMenuItem.Click += new System.EventHandler(this.ContextMenu_zruseníPrijmu);
             // 
@@ -490,8 +492,8 @@
             // 
             // listBoxNazev
             // 
-            this.listBoxNazev.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listBoxNazev.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.listBoxNazev.Enabled = false;
             this.listBoxNazev.FormattingEnabled = true;
             this.listBoxNazev.Location = new System.Drawing.Point(436, 32);
@@ -528,7 +530,7 @@
             this.toolStripMenuItem1,
             this.písmoAplikaceToolStripMenuItem});
             this.p9smoToolStripMenuItem.Name = "p9smoToolStripMenuItem";
-            this.p9smoToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
+            this.p9smoToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
             this.p9smoToolStripMenuItem.Text = "Písmo";
             this.p9smoToolStripMenuItem.Click += new System.EventHandler(this.p9smoToolStripMenuItem_Click);
             // 
@@ -556,6 +558,13 @@
             this.buttonTisk.Text = "Tisk";
             this.buttonTisk.UseVisualStyleBackColor = true;
             this.buttonTisk.Click += new System.EventHandler(this.buttonTisk_Click);
+            // 
+            // zrušeníPoškozenkyToolStripMenuItem
+            // 
+            this.zrušeníPoškozenkyToolStripMenuItem.Name = "zrušeníPoškozenkyToolStripMenuItem";
+            this.zrušeníPoškozenkyToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
+            this.zrušeníPoškozenkyToolStripMenuItem.Text = "Zrušení poškozenky";
+            this.zrušeníPoškozenkyToolStripMenuItem.Click += new System.EventHandler(this.zrušeníPoškozenkyToolStripMenuItem_Click);
             // 
             // SkladovaKarta
             // 
@@ -666,5 +675,6 @@
         private System.Windows.Forms.ToolStripMenuItem písmoAplikaceToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem zrušeníPříjmuToolStripMenuItem;
         private System.Windows.Forms.Button buttonTisk;
+        private System.Windows.Forms.ToolStripMenuItem zrušeníPoškozenkyToolStripMenuItem;
     }
 }

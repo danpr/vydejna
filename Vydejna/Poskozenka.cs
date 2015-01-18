@@ -253,6 +253,15 @@ namespace Vydejna
             }
 
         }
+
+        private void numericUpDownMnozstvi_Leave(object sender, EventArgs e)
+        {
+//            decimal mn = numericUpDownMnozstvi.Value;
+//            if (numericUpDownMnozstvi.Maximum < mn)
+//            {
+//                numericUpDownMnozstvi.Focus();
+//            }
+        }
    
    
 

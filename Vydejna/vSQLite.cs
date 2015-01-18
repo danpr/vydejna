@@ -3972,31 +3972,56 @@ namespace Vydejna
         {
             if (DBIsOpened())
             {
-                SQLiteCommand cmdr0 = new SQLiteCommand(DBSelect, myDBConn as SQLiteConnection);
-                SQLiteDataReader myReader = cmdr0.ExecuteReader();
+                SQLiteTransaction transaction = null;
 
-                if (myReader.Read())
+                try
                 {
-                    for (int i = 0; i < myReader.FieldCount; i++)
+                    try
                     {
-                        if (DBRow.ContainsKey(myReader.GetName(i)))
-                        {
-                            DBRow.Remove(myReader.GetName(i));
-                        }
-                        DBRow.Add(myReader.GetName(i), myReader.GetValue(i));
+                        transaction = (myDBConn as SQLiteConnection).BeginTransaction(System.Data.IsolationLevel.ReadCommitted);
+                    }
+                    catch
+                    {
                     }
 
-                    myReader.Close();
-                    return DBRow;
-                }
-                else
-                {
 
-                    myReader.Close();
-                    return null;
+                    SQLiteCommand cmdr0 = new SQLiteCommand(DBSelect, myDBConn as SQLiteConnection);
+                    cmdr0.Transaction = transaction;
+                    SQLiteDataReader myReader = cmdr0.ExecuteReader();
+
+                    if (myReader.Read())
+                    {
+                        for (int i = 0; i < myReader.FieldCount; i++)
+                        {
+                            if (DBRow.ContainsKey(myReader.GetName(i)))
+                            {
+                                DBRow.Remove(myReader.GetName(i));
+                            }
+                            DBRow.Add(myReader.GetName(i), myReader.GetValue(i));
+                        }
+                        myReader.Close();
+                        if (transaction != null)
+                        {
+                            (transaction as SQLiteTransaction).Commit();
+                        }
+                        return DBRow;
+                    }
+                    else
+                    {
+                        myReader.Close();
+                        return null;
+                    }
+                }
+                catch (Exception)
+                {
+                    // doslo k chybe
+                    if (transaction != null)
+                    {
+                        (transaction as SQLiteTransaction).Rollback();
+                    }
+                    return null;  // chyba
                 }
             }
-
             else return null;
         }
 

@@ -331,6 +331,7 @@
             this.numericUpDownMnozstvi.Size = new System.Drawing.Size(120, 20);
             this.numericUpDownMnozstvi.TabIndex = 3;
             this.numericUpDownMnozstvi.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
+            this.numericUpDownMnozstvi.Leave += new System.EventHandler(this.numericUpDownMnozstvi_Leave);
             // 
             // dateTimePickerDatum
             // 

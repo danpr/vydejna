@@ -12,7 +12,7 @@ namespace Vydejna
     enum permCode
     {
       All = 0,  Nar = 1, NarAdd, NarEd, NarEdM, NarEdNaz, NarEdJK, NarEdCenaKs, NarEdUcCenaKs, NarEdUcCena, NarEdMin, NarEdFyStav, NarEdUcStav, NarDel, NarPrint, NarPrijem, NarPosk, NarOprO,
-      ZNar, ZNarEd, ZNarDel, PNar, PNarEd, PNarDel, VNar, VNarEd, VNarDel, Prac, PracAdd, PracEd, PracDel, PracPrint, PracZapN, PracVracN, PassSet, NarDelPrij, NarOprData, ZNarPrint
+      ZNar, ZNarEd, ZNarDel, PNar, PNarEd, PNarDel, VNar, VNarEd, VNarDel, Prac, PracAdd, PracEd, PracDel, PracPrint, PracZapN, PracVracN, PassSet, NarDelPrij, NarOprData, ZNarPrint, NarDelPosk
     };
     
        public class permStruct
@@ -68,6 +68,8 @@ namespace Vydejna
             permList.Add(new permStruct((Int32)permCode.Nar, (Int32)permCode.NarOprO, "Opravit ůčet. operaci"));
 
             permList.Add(new permStruct((Int32)permCode.Nar, (Int32)permCode.NarDelPrij, "Zrušit posledni příjem"));
+            permList.Add(new permStruct((Int32)permCode.Nar, (Int32)permCode.NarDelPosk, "Zrušit posledni poškozenku"));
+
             permList.Add(new permStruct((Int32)permCode.Nar, (Int32)permCode.NarOprData, "Opravit data"));
 
             permList.Add(new permStruct(0, (Int32)permCode.ZNar, "Zrušené karty"));
@@ -120,9 +122,13 @@ namespace Vydejna
             }
 
             Hashtable DBRow = myDataBase.getUzivateleLine(userid, null);
-            if (DBRow.ContainsKey("password"))
+            if (DBRow != null)
             {
-                return Convert.ToString( DBRow["password"]).Trim();
+                if (DBRow.ContainsKey("password"))
+                {
+                    return Convert.ToString(DBRow["password"]).Trim();
+                }
+                else return null;
             }
             else return null;
         }

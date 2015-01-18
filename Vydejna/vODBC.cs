@@ -3965,30 +3965,59 @@ namespace Vydejna
         {
             if (DBIsOpened())
             {
-                OdbcCommand cmdr0 = new OdbcCommand(DBSelect, myDBConn as OdbcConnection);
-                OdbcDataReader myReader = cmdr0.ExecuteReader();
 
-                if (myReader.Read())
+                OdbcTransaction transaction = null;
+
+                try
                 {
-                    //                    Int32 countporadi = myReader.GetInt32(0);
-
-                    for (int i = 0; i < myReader.FieldCount; i++)
+                    try
                     {
-
-                        if (DBRow.ContainsKey(myReader.GetName(i)))
-                        {
-                            DBRow.Remove(myReader.GetName(i));
-                        }
-                        DBRow.Add(myReader.GetName(i), myReader.GetValue(i));
+                        transaction = (myDBConn as OdbcConnection).BeginTransaction(System.Data.IsolationLevel.ReadCommitted);
                     }
-                    myReader.Close();
-                    return DBRow;
+                    catch
+                    {
+                    }
+
+                    OdbcCommand cmdr0 = new OdbcCommand(DBSelect, myDBConn as OdbcConnection);
+                    cmdr0.Transaction = transaction;
+                    OdbcDataReader myReader = cmdr0.ExecuteReader();
+
+                    if (myReader.Read())
+                    {
+                        for (int i = 0; i < myReader.FieldCount; i++)
+                        {
+
+                            if (DBRow.ContainsKey(myReader.GetName(i)))
+                            {
+                                DBRow.Remove(myReader.GetName(i));
+                            }
+                            DBRow.Add(myReader.GetName(i), myReader.GetValue(i));
+                        }
+                        myReader.Close();
+                        if (transaction != null)
+                        {
+                            (transaction as OdbcTransaction).Commit();
+                        }
+                        return DBRow;
+                    }
+                    else
+                    {
+                        myReader.Close();
+                        return null;
+                    }
+
                 }
-                else
+                catch (Exception)
                 {
-                    myReader.Close();
-                    return null;
+                    // doslo k chybe
+                    if (transaction != null)
+                    {
+                        (transaction as OdbcTransaction).Rollback();
+                    }
+                    return null;  // chyba
                 }
+
+
             }
             else return null;
         }
@@ -4172,6 +4201,164 @@ namespace Vydejna
                 return false;
             }
         }
+
+
+        public override Int32 deleteLastPoskozeni(Int32 DBnaradiPoradi, Int32 DBzmenyPoradi, Int32 DBvydej)
+        {
+            OdbcTransaction transaction = null;
+
+            if (DBIsOpened())
+            {
+                string commandStringRead1 = "SELECT prijem, vydej, stav, parporadi, poradi FROM zmeny WHERE parporadi = ? AND poradi = (" +
+                    "select max(poradi) from zmeny where parporadi = ?)";
+                string commandStringRead2 = "SELECT fyzstav, ucetstav, ucetkscen, celkcena, cena  FROM naradi where poradi = ? ";
+                string commandStringRead3 = "SELECT permission FROM nastaveni WHERE setid = \'prumucetcena\'";
+                string commandString1 = "DELETE FROM zmeny where parporadi = ? AND poradi = ? ";
+                string commandString2 = "UPDATE naradi SET fyzstav = fyzstav - ?, ucetstav = ucetstav - ?, celkcena = celkcena - ?, ucetkscen = ?  WHERE poradi = ? ";
+
+                try
+                {
+                    try
+                    {
+                        transaction = (myDBConn as OdbcConnection).BeginTransaction(System.Data.IsolationLevel.ReadCommitted);
+                    }
+                    catch
+                    {
+                    }
+
+                    OdbcCommand cmdr1 = new OdbcCommand(commandStringRead1, myDBConn as OdbcConnection);
+                    cmdr1.Parameters.AddWithValue("@poradi", DBnaradiPoradi).DbType = DbType.Int32;
+                    cmdr1.Parameters.AddWithValue("@poradi", DBnaradiPoradi).DbType = DbType.Int32;
+                    cmdr1.Transaction = transaction;
+                    OdbcDataReader seqReader1 = cmdr1.ExecuteReader();
+                    Int32 prijem = 0;
+                    Int32 vydej = 0;
+                    string stav = "";
+                    Int32 zmenyPoradi = 0;
+                    Int32 naradiPoradi = 0;
+
+                    if (seqReader1.Read() == true)
+                    {
+                        prijem = seqReader1.GetInt32(seqReader1.GetOrdinal("prijem"));
+                        vydej = seqReader1.GetInt32(seqReader1.GetOrdinal("vydej"));
+                        stav = seqReader1.GetString(seqReader1.GetOrdinal("stav"));
+                        zmenyPoradi = seqReader1.GetInt32(seqReader1.GetOrdinal("poradi"));
+                        naradiPoradi = seqReader1.GetInt32(seqReader1.GetOrdinal("parporadi"));
+                        seqReader1.Close();
+
+                        if (zmenyPoradi != DBzmenyPoradi)
+                        {
+                            if (transaction != null)
+                            {
+                                (transaction as OdbcTransaction).Rollback();
+                            }
+                            return -9; // Zaznam o zmene neexistuje - zmena z jineho mista
+                        }
+
+                        if (stav != "O")
+                        {
+                            if (transaction != null)
+                            {
+                                (transaction as OdbcTransaction).Rollback();
+                            }
+                            return -3; // Posledni zaznam neni poskozeni
+                        }
+
+
+                        if (vydej <= 0)
+                        {
+                            if (transaction != null)
+                            {
+                                (transaction as OdbcTransaction).Rollback();
+                            }
+                            return -4; // Neexistuje spravna hodnota vydeje
+                        }
+
+                        if (prijem != 0)
+                        {
+                            if (transaction != null)
+                            {
+                                (transaction as OdbcTransaction).Rollback();
+                            }
+                            return -5; // Prijem musi byt nulovy
+                        }
+
+                    }
+                    else
+                    {
+                        seqReader1.Close();
+                        // material neexistuje zrusime transakci a navratime chybu
+                        if (transaction != null)
+                        {
+                            (transaction as OdbcTransaction).Rollback();
+                        }
+                        return -2; // Zaznam nexistuje
+                    }
+
+                    // test opravy prijmu
+
+                    if (DBvydej != vydej)
+                    {
+                        if (transaction != null)
+                        {
+                            (transaction as OdbcTransaction).Rollback();
+                        }
+                        return -8; // Nesouhlasi velikost vydeje
+                    }
+
+                    // test tabulky naradi
+                    Int32 fyzstav = 0;
+                    Int32 ucetstav = 0;
+                    double ucetkscen = 0;
+                    double celkcena = 0;
+                    double cena = 0;
+
+
+                    OdbcCommand cmdr2 = new OdbcCommand(commandStringRead2, myDBConn as OdbcConnection);
+                    cmdr2.Parameters.AddWithValue("@poradi", DBnaradiPoradi).DbType = DbType.Int32;
+                    cmdr2.Transaction = transaction;
+                    OdbcDataReader seqReader2 = cmdr2.ExecuteReader();
+                    if (seqReader2.Read() == true)
+                    {
+                        fyzstav = seqReader2.GetInt32(seqReader2.GetOrdinal("fyzstav"));
+                        ucetstav = seqReader2.GetInt32(seqReader2.GetOrdinal("ucetstav"));
+                        ucetkscen = seqReader2.GetDouble(seqReader2.GetOrdinal("ucetkscen"));
+                        celkcena = seqReader2.GetDouble(seqReader2.GetOrdinal("celkcena"));
+                        cena = seqReader2.GetDouble(seqReader2.GetOrdinal("cena"));
+                        seqReader2.Close();
+                    }
+                    else
+                    {
+                        seqReader2.Close();
+                        // material neexistuje zrusime transakci a navratime chybu
+                        if (transaction != null)
+                        {
+                            (transaction as OdbcTransaction).Rollback();
+                        }
+                        return -6; // Zaznam nexistuje
+                    }
+
+
+                    return 0;
+
+                }
+                catch (Exception)
+                {
+                    // doslo k chybe
+                    if (transaction != null)
+                    {
+                        (transaction as OdbcTransaction).Rollback();
+                    }
+                    return -1;
+                }
+
+            }
+            else
+            {
+                return -1;
+            }
+        }
+
 
         public override Int32 deleteLastPrijem(Int32 DBnaradiPoradi, Int32 DBzmenyPoradi, Int32 DBprijem)
         {
