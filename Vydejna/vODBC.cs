@@ -4209,12 +4209,16 @@ namespace Vydejna
 
             if (DBIsOpened())
             {
-                string commandStringRead1 = "SELECT prijem, vydej, stav, parporadi, poradi FROM zmeny WHERE parporadi = ? AND poradi = (" +
+                string commandStringRead1 = "SELECT prijem, vydej, stav, parporadi, poradi, datum FROM zmeny WHERE parporadi = ? AND poradi = (" +
                     "select max(poradi) from zmeny where parporadi = ?)";
-                string commandStringRead2 = "SELECT fyzstav, ucetstav, ucetkscen, celkcena, cena  FROM naradi where poradi = ? ";
-                string commandStringRead3 = "SELECT permission FROM nastaveni WHERE setid = \'prumucetcena\'";
+                string commandStringRead2 = "SELECT fyzstav, ucetstav, ucetkscen, celkcena, cena, jk  FROM naradi where poradi = ? ";
+//                string commandStringRead3 = "SELECT permission FROM nastaveni WHERE setid = \'prumucetcena\'";
+                string commandStringRead4 = "SELECT poradi FROM poskozeno WHERE jk = ? AND pocetks = ? AND datum = ?";
+
+
                 string commandString1 = "DELETE FROM zmeny where parporadi = ? AND poradi = ? ";
-                string commandString2 = "UPDATE naradi SET fyzstav = fyzstav - ?, ucetstav = ucetstav - ?, celkcena = celkcena - ?, ucetkscen = ?  WHERE poradi = ? ";
+                string commandString2 = "UPDATE naradi SET fyzstav = fyzstav + ?, ucetstav = ucetstav + ?  WHERE poradi = ? ";
+                string commandString3 = "DELETE FROM poskozeno where poradi = ? ";
 
                 try
                 {
@@ -4236,6 +4240,7 @@ namespace Vydejna
                     string stav = "";
                     Int32 zmenyPoradi = 0;
                     Int32 naradiPoradi = 0;
+                    DateTime datum = DateTime.MinValue;
 
                     if (seqReader1.Read() == true)
                     {
@@ -4244,6 +4249,7 @@ namespace Vydejna
                         stav = seqReader1.GetString(seqReader1.GetOrdinal("stav"));
                         zmenyPoradi = seqReader1.GetInt32(seqReader1.GetOrdinal("poradi"));
                         naradiPoradi = seqReader1.GetInt32(seqReader1.GetOrdinal("parporadi"));
+                        datum = seqReader1.GetDate(seqReader1.GetOrdinal("datum"));
                         seqReader1.Close();
 
                         if (zmenyPoradi != DBzmenyPoradi)
@@ -4312,6 +4318,7 @@ namespace Vydejna
                     double ucetkscen = 0;
                     double celkcena = 0;
                     double cena = 0;
+                    string jk;
 
 
                     OdbcCommand cmdr2 = new OdbcCommand(commandStringRead2, myDBConn as OdbcConnection);
@@ -4325,6 +4332,7 @@ namespace Vydejna
                         ucetkscen = seqReader2.GetDouble(seqReader2.GetOrdinal("ucetkscen"));
                         celkcena = seqReader2.GetDouble(seqReader2.GetOrdinal("celkcena"));
                         cena = seqReader2.GetDouble(seqReader2.GetOrdinal("cena"));
+                        jk = seqReader2.GetString(seqReader2.GetOrdinal("jk"));
                         seqReader2.Close();
                     }
                     else
@@ -4338,9 +4346,63 @@ namespace Vydejna
                         return -6; // Zaznam nexistuje
                     }
 
+                    OdbcCommand cmdr4 = new OdbcCommand(commandStringRead4, myDBConn as OdbcConnection);
+                    cmdr4.Parameters.AddWithValue("@jk",jk ).DbType = DbType.String;
+                    cmdr4.Parameters.AddWithValue("@pocetks", DBvydej ).DbType = DbType.Int32;
+                    cmdr4.Parameters.AddWithValue("@datum", datum).DbType = DbType.Date;
+                    cmdr4.Transaction = transaction;
+                    OdbcDataReader myReader4 = cmdr4.ExecuteReader();
+                    Int32 poskozenoPoradi;
+                    
+                    if (myReader4.Read() == true)
+                    {
+                        poskozenoPoradi = myReader4.GetInt32(myReader4.GetOrdinal("poradi"));
+                        if (myReader4.Read() == true)
+                        {
+                            myReader4.Close();
+                            //existuje dalsi zaznam - nejednoznacnost
+                            if (transaction != null)
+                            {
+                                (transaction as OdbcTransaction).Rollback();
+                            }
+                            return -11;
+                        }
+                        myReader4.Close();
+                    }
+                    else
+                    {
+                        // radka neexistuje
+                        myReader4.Close();
+                        if (transaction != null)
+                        {
+                            (transaction as OdbcTransaction).Rollback();
+                        }
+                        return -10; // Zaznam nexistuje
+                    }
 
+                    OdbcCommand cmd1 = new OdbcCommand(commandString1, myDBConn as OdbcConnection);
+                    cmd1.Parameters.AddWithValue("@parporadi", DBnaradiPoradi).DbType = DbType.Int32;
+                    cmd1.Parameters.AddWithValue("@poradi", DBzmenyPoradi).DbType = DbType.Int32;
+                    cmd1.Transaction = transaction;
+                    cmd1.ExecuteNonQuery();
+
+                    OdbcCommand cmd3 = new OdbcCommand(commandString3, myDBConn as OdbcConnection);
+                    cmd3.Parameters.AddWithValue("@poradi", zmenyPoradi).DbType = DbType.Int32;
+                    cmd3.Transaction = transaction;
+                    cmd3.ExecuteNonQuery();
+
+                    OdbcCommand cmd2 = new OdbcCommand(commandString2, myDBConn as OdbcConnection);
+                    cmd2.Parameters.AddWithValue("@fyzstav", DBvydej).DbType = DbType.Double;
+                    cmd2.Parameters.AddWithValue("@ucetstav", DBvydej).DbType = DbType.Double;
+                    cmd2.Parameters.AddWithValue("@poradi", DBnaradiPoradi).DbType = DbType.Int32;
+                    cmd2.Transaction = transaction;
+                    cmd2.ExecuteNonQuery();
+
+                    if (transaction != null)
+                    {
+                        (transaction as OdbcTransaction).Commit();
+                    }
                     return 0;
-
                 }
                 catch (Exception)
                 {

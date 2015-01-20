@@ -932,13 +932,15 @@ namespace Vydejna
 
         // -1 obecna chyba
         // -2 neexistuje zaznam v tabulce zmeny
-        // -3 posledni zaznam neni poskoyenka
+        // -3 posledni zaznam neni poskozenka
         // -4 neexistuje spravna hodnota poskozeni prijem neni kladny
         // -5 Prijem musi byt nulovy
         //              -7 ucetni nebo fyz stav stav nesmi byt mensi nez prijem
         // -6 neexistuje zaznam v tabulce naradi
         // -8; Nesouhlasi velikost vydeje - zmena z jeneho mista
         // -9 Zaznam o zmene neexistuje - zmena z jineho mista
+        // -10 zaznam poskozenky v seznamu poskozeneho naradi neexistuje
+        // -11 nejednoznacny zaznam v seznamu poskozeneho naradi - vice zaznamu
         public virtual Int32 deleteLastPoskozeni(Int32 DBnaradiPoradi, Int32 DBzmenyPoradi, Int32 DBvydej)
         {
             return -1;

@@ -1013,6 +1013,14 @@ namespace Vydejna
 //                                    Int32 errCode = -9;
                                     if (errCode < 0)
                                     {
+                                        if (errCode == -11)
+                                        {
+                                            MessageBox.Show("Zaznam v seznamu poskozeneho nářadí neexistuje. Chybná data?.");
+                                        }
+                                        if (errCode == -10)
+                                        {
+                                            MessageBox.Show("V seznamu poškozeného nářadí existuje více záznamu, není jednoznačný záznam.");
+                                        }
                                         if (errCode == -9)
                                         {
                                             MessageBox.Show("Záznam o změně neexistuje  - změna z jiného místa ?.");
@@ -1020,10 +1028,6 @@ namespace Vydejna
                                         if (errCode == -8)
                                         {
                                             MessageBox.Show("Nesouhlasí velikost příjmu - změna z jiného místa ?.");
-                                        }
-                                        if (errCode == -7)
-                                        {
-                                            MessageBox.Show("Účetní nebo fyzický stav nesmí být menší než příjem.");
                                         }
                                         if (errCode == -6)
                                         {
@@ -1074,7 +1078,7 @@ namespace Vydejna
                         }
                         else
                         {
-                            MessageBox.Show("Lituji. Poslední­ operace není POŠKOZENÍ.");
+                            MessageBox.Show("Lituji. Poslední­ operace není POŠKOZENÍ nářadí.");
                         }
                     }
                     else
