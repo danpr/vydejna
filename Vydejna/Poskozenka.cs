@@ -105,11 +105,17 @@ namespace Vydejna
                   comboBoxPoznamka.SelectedIndex = 1;
                   if (Convert.ToInt32(DBRow["stavks"]) < celkPujc)
                   {
-                      numericUpDownMnozstvi.Maximum = Convert.ToInt32(DBRow["stavks"]);
+                      //numericUpDownMnozstvi.Maximum = Convert.ToInt32(DBRow["stavks"]);
+                      maximumMnozstvi = Convert.ToInt32(DBRow["stavks"]);
                   }
                   else
                   {
-                      numericUpDownMnozstvi.Maximum = celkPujc;
+//                      numericUpDownMnozstvi.Maximum = celkPujc;
+                      maximumMnozstvi = celkPujc;
+                  }
+                  if (numericUpDownMnozstvi.Value > maximumMnozstvi)
+                  {
+                      numericUpDownMnozstvi.Value = maximumMnozstvi;
                   }
                   choosePerson();
                   textBoxCisZak.Focus();
@@ -210,6 +216,7 @@ namespace Vydejna
                 numericUpDownMnozstvi.Value = maximumMnozstvi;
                 numericUpDownMnozstvi.Focus();
                 System.Media.SystemSounds.Beep.Play();
+                MessageBox.Show("Poškozené množství je příliš veliké. Maximálně je možno odepsat "+Convert.ToString(maximumMnozstvi)+" ks(ů).");
             }
         }
 

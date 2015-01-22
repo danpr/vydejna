@@ -51,11 +51,11 @@
             this.labelFyzStav = new System.Windows.Forms.Label();
             this.textBoxPoznamka = new System.Windows.Forms.TextBox();
             this.dateTimePickerDatum = new System.Windows.Forms.DateTimePicker();
-            this.numericUpDownKs = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownMnozstvi = new System.Windows.Forms.NumericUpDown();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label12 = new System.Windows.Forms.Label();
             this.textBoxVevCislo = new System.Windows.Forms.TextBox();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownKs)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMnozstvi)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -129,7 +129,7 @@
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(110, 13);
             this.label5.TabIndex = 26;
-            this.label5.Text = "Zapujčené množství :";
+            this.label5.Text = "Zapůjčené množství :";
             // 
             // label6
             // 
@@ -267,13 +267,13 @@
             this.dateTimePickerDatum.Size = new System.Drawing.Size(146, 20);
             this.dateTimePickerDatum.TabIndex = 42;
             // 
-            // numericUpDownKs
+            // numericUpDownMnozstvi
             // 
-            this.numericUpDownKs.Location = new System.Drawing.Point(145, 188);
-            this.numericUpDownKs.Name = "numericUpDownKs";
-            this.numericUpDownKs.Size = new System.Drawing.Size(73, 20);
-            this.numericUpDownKs.TabIndex = 43;
-            this.numericUpDownKs.ValueChanged += new System.EventHandler(this.numericUpDownKs_ValueChanged);
+            this.numericUpDownMnozstvi.Location = new System.Drawing.Point(145, 188);
+            this.numericUpDownMnozstvi.Name = "numericUpDownMnozstvi";
+            this.numericUpDownMnozstvi.Size = new System.Drawing.Size(73, 20);
+            this.numericUpDownMnozstvi.TabIndex = 43;
+            this.numericUpDownMnozstvi.ValueChanged += new System.EventHandler(this.numericUpDownKs_ValueChanged);
             // 
             // groupBox1
             // 
@@ -319,7 +319,7 @@
             this.Controls.Add(this.textBoxVevCislo);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.numericUpDownKs);
+            this.Controls.Add(this.numericUpDownMnozstvi);
             this.Controls.Add(this.dateTimePickerDatum);
             this.Controls.Add(this.textBoxPoznamka);
             this.Controls.Add(this.labelFyzStav);
@@ -335,7 +335,7 @@
             this.Controls.Add(this.label3);
             this.Name = "ZapujceniNaradi";
             this.Text = "Zapůjčení nářadí";
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownKs)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMnozstvi)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
@@ -368,7 +368,7 @@
         private System.Windows.Forms.Label labelFyzStav;
         private System.Windows.Forms.TextBox textBoxPoznamka;
         private System.Windows.Forms.DateTimePicker dateTimePickerDatum;
-        private System.Windows.Forms.NumericUpDown numericUpDownKs;
+        private System.Windows.Forms.NumericUpDown numericUpDownMnozstvi;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.TextBox textBoxVevCislo;

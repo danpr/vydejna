@@ -12,6 +12,8 @@ namespace Vydejna
 {
     public partial class ZapujceniNaradi : Form
     {
+        private Int32 maximumMnozstvi = 0;
+
         public ZapujceniNaradi(Hashtable DBRow, string nazev, string JK , Int32 fyzStav, Font myFont)
         {
             InitializeComponent();
@@ -30,7 +32,8 @@ namespace Vydejna
 
             textBoxVevCislo.Text = "";
 
-            numericUpDownKs.Maximum = fyzStav;
+//            numericUpDownKs.Maximum = fyzStav;
+            maximumMnozstvi = fyzStav;
             textBoxPoznamka.Text = "Zapůjčeno";
 
             AcceptButton = buttonOK;
@@ -40,11 +43,11 @@ namespace Vydejna
 
         private void numericUpDownKs_ValueChanged(object sender, EventArgs e)
         {
-            if ((numericUpDownKs.Value > 0))
+            testMaximalnihoMnozstvi();
+            if ((numericUpDownMnozstvi.Value > 0))
             {
                 buttonOK.Enabled = true;
             }
-
             else
             {
                 buttonOK.Enabled = false;
@@ -52,9 +55,23 @@ namespace Vydejna
 
         }
 
+
+        private void testMaximalnihoMnozstvi()
+        {
+            if (numericUpDownMnozstvi.Value > maximumMnozstvi)
+            {
+                numericUpDownMnozstvi.Value = maximumMnozstvi;
+                numericUpDownMnozstvi.Focus();
+                System.Media.SystemSounds.Beep.Play();
+                MessageBox.Show("Poškozené množství je příliš veliké. Maximálně je možno vypůjčit " + Convert.ToString(maximumMnozstvi) + " ks(ů).");
+            }
+        }
+
+
+
         private void buttonOK_Click(object sender, EventArgs e)
         {
-            if (numericUpDownKs.Value > 0)
+            if (numericUpDownMnozstvi.Value > 0)
             {
                 buttonOK.DialogResult = DialogResult.OK;
                 this.DialogResult = DialogResult.OK;
@@ -69,7 +86,7 @@ namespace Vydejna
 
         public Int32 getKs()
         {
-            return Convert.ToInt32( numericUpDownKs.Value);
+            return Convert.ToInt32( numericUpDownMnozstvi.Value);
         }
 
 
