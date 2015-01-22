@@ -4211,7 +4211,7 @@ namespace Vydejna
             {
                 string commandStringRead1 = "SELECT prijem, vydej, stav, parporadi, poradi, datum FROM zmeny WHERE parporadi = ? AND poradi = (" +
                     "select max(poradi) from zmeny where parporadi = ?)";
-                string commandStringRead2 = "SELECT fyzstav, ucetstav, ucetkscen, celkcena, cena, jk  FROM naradi where poradi = ? ";
+                string commandStringRead2 = "SELECT fyzstav, ucetstav, ucetkscen, celkcena, cena, jk  FROM naradi where poradi = ? FOR UPDATE";
 //                string commandStringRead3 = "SELECT permission FROM nastaveni WHERE setid = \'prumucetcena\'";
                 string commandStringRead4 = "SELECT poradi FROM poskozeno WHERE jk = ? AND pocetks = ? AND datum = ?";
 
@@ -4229,6 +4229,41 @@ namespace Vydejna
                     catch
                     {
                     }
+
+                    // test tabulky naradi
+                    Int32 fyzstav = 0;
+                    Int32 ucetstav = 0;
+                    double ucetkscen = 0;
+                    double celkcena = 0;
+                    double cena = 0;
+                    string jk;
+
+
+                    OdbcCommand cmdr2 = new OdbcCommand(commandStringRead2, myDBConn as OdbcConnection);
+                    cmdr2.Parameters.AddWithValue("@poradi", DBnaradiPoradi).DbType = DbType.Int32;
+                    cmdr2.Transaction = transaction;
+                    OdbcDataReader seqReader2 = cmdr2.ExecuteReader();
+                    if (seqReader2.Read() == true)
+                    {
+                        fyzstav = seqReader2.GetInt32(seqReader2.GetOrdinal("fyzstav"));
+                        ucetstav = seqReader2.GetInt32(seqReader2.GetOrdinal("ucetstav"));
+                        ucetkscen = seqReader2.GetDouble(seqReader2.GetOrdinal("ucetkscen"));
+                        celkcena = seqReader2.GetDouble(seqReader2.GetOrdinal("celkcena"));
+                        cena = seqReader2.GetDouble(seqReader2.GetOrdinal("cena"));
+                        jk = seqReader2.GetString(seqReader2.GetOrdinal("jk"));
+                        seqReader2.Close();
+                    }
+                    else
+                    {
+                        seqReader2.Close();
+                        // material neexistuje zrusime transakci a navratime chybu
+                        if (transaction != null)
+                        {
+                            (transaction as OdbcTransaction).Rollback();
+                        }
+                        return -6; // Zaznam nexistuje
+                    }
+
 
                     OdbcCommand cmdr1 = new OdbcCommand(commandStringRead1, myDBConn as OdbcConnection);
                     cmdr1.Parameters.AddWithValue("@poradi", DBnaradiPoradi).DbType = DbType.Int32;
@@ -4312,39 +4347,6 @@ namespace Vydejna
                         return -8; // Nesouhlasi velikost vydeje
                     }
 
-                    // test tabulky naradi
-                    Int32 fyzstav = 0;
-                    Int32 ucetstav = 0;
-                    double ucetkscen = 0;
-                    double celkcena = 0;
-                    double cena = 0;
-                    string jk;
-
-
-                    OdbcCommand cmdr2 = new OdbcCommand(commandStringRead2, myDBConn as OdbcConnection);
-                    cmdr2.Parameters.AddWithValue("@poradi", DBnaradiPoradi).DbType = DbType.Int32;
-                    cmdr2.Transaction = transaction;
-                    OdbcDataReader seqReader2 = cmdr2.ExecuteReader();
-                    if (seqReader2.Read() == true)
-                    {
-                        fyzstav = seqReader2.GetInt32(seqReader2.GetOrdinal("fyzstav"));
-                        ucetstav = seqReader2.GetInt32(seqReader2.GetOrdinal("ucetstav"));
-                        ucetkscen = seqReader2.GetDouble(seqReader2.GetOrdinal("ucetkscen"));
-                        celkcena = seqReader2.GetDouble(seqReader2.GetOrdinal("celkcena"));
-                        cena = seqReader2.GetDouble(seqReader2.GetOrdinal("cena"));
-                        jk = seqReader2.GetString(seqReader2.GetOrdinal("jk"));
-                        seqReader2.Close();
-                    }
-                    else
-                    {
-                        seqReader2.Close();
-                        // material neexistuje zrusime transakci a navratime chybu
-                        if (transaction != null)
-                        {
-                            (transaction as OdbcTransaction).Rollback();
-                        }
-                        return -6; // Zaznam nexistuje
-                    }
 
                     OdbcCommand cmdr4 = new OdbcCommand(commandStringRead4, myDBConn as OdbcConnection);
                     cmdr4.Parameters.AddWithValue("@jk",jk ).DbType = DbType.String;
@@ -4430,7 +4432,7 @@ namespace Vydejna
             {
                 string commandStringRead1 = "SELECT prijem, vydej, stav, parporadi, poradi FROM zmeny WHERE parporadi = ? AND poradi = (" +
                     "select max(poradi) from zmeny where parporadi = ?)";
-                string commandStringRead2 = "SELECT fyzstav, ucetstav, ucetkscen, celkcena, cena  FROM naradi where poradi = ? ";
+                string commandStringRead2 = "SELECT fyzstav, ucetstav, ucetkscen, celkcena, cena  FROM naradi where poradi = ? FOR UPDATE";
                 string commandStringRead3 = "SELECT permission FROM nastaveni WHERE setid = \'prumucetcena\'";
                 string commandString1 = "DELETE FROM zmeny where parporadi = ? AND poradi = ? ";
                 string commandString2 = "UPDATE naradi SET fyzstav = fyzstav - ?, ucetstav = ucetstav - ?, celkcena = celkcena - ?, ucetkscen = ?  WHERE poradi = ? ";
@@ -4444,6 +4446,39 @@ namespace Vydejna
                     catch
                     {
                     }
+
+                    // test tabulky naradi
+                    Int32 fyzstav = 0;
+                    Int32 ucetstav = 0;
+                    double ucetkscen = 0;
+                    double celkcena = 0;
+                    double cena = 0;
+
+
+                    OdbcCommand cmdr2 = new OdbcCommand(commandStringRead2, myDBConn as OdbcConnection);
+                    cmdr2.Parameters.AddWithValue("@poradi", DBnaradiPoradi).DbType = DbType.Int32;
+                    cmdr2.Transaction = transaction;
+                    OdbcDataReader seqReader2 = cmdr2.ExecuteReader();
+                    if (seqReader2.Read() == true)
+                    {
+                        fyzstav = seqReader2.GetInt32(seqReader2.GetOrdinal("fyzstav"));
+                        ucetstav = seqReader2.GetInt32(seqReader2.GetOrdinal("ucetstav"));
+                        ucetkscen = seqReader2.GetDouble(seqReader2.GetOrdinal("ucetkscen"));
+                        celkcena = seqReader2.GetDouble(seqReader2.GetOrdinal("celkcena"));
+                        cena = seqReader2.GetDouble(seqReader2.GetOrdinal("cena"));
+                        seqReader2.Close();
+                    }
+                    else
+                    {
+                        seqReader2.Close();
+                        // material neexistuje zrusime transakci a navratime chybu
+                        if (transaction != null)
+                        {
+                            (transaction as OdbcTransaction).Rollback();
+                        }
+                        return -6; // Zaznam nexistuje
+                    }
+
 
                     OdbcCommand cmdr1 = new OdbcCommand(commandStringRead1, myDBConn as OdbcConnection);
                     cmdr1.Parameters.AddWithValue("@poradi", DBnaradiPoradi).DbType = DbType.Int32;
@@ -4523,38 +4558,6 @@ namespace Vydejna
                             (transaction as OdbcTransaction).Rollback();
                         }
                         return -8; // Nesouhlasi velikost prijmu
-                    }
-
-                    // test tabulky naradi
-                    Int32 fyzstav = 0;
-                    Int32 ucetstav = 0;
-                    double ucetkscen = 0;
-                    double celkcena = 0;
-                    double cena = 0;
-
-
-                    OdbcCommand cmdr2 = new OdbcCommand(commandStringRead2, myDBConn as OdbcConnection);
-                    cmdr2.Parameters.AddWithValue("@poradi", DBnaradiPoradi).DbType = DbType.Int32;
-                    cmdr2.Transaction = transaction;
-                    OdbcDataReader seqReader2 = cmdr2.ExecuteReader();
-                    if (seqReader2.Read() == true)
-                    {
-                        fyzstav = seqReader2.GetInt32(seqReader2.GetOrdinal("fyzstav"));
-                        ucetstav = seqReader2.GetInt32(seqReader2.GetOrdinal("ucetstav"));
-                        ucetkscen = seqReader2.GetDouble(seqReader2.GetOrdinal("ucetkscen"));
-                        celkcena = seqReader2.GetDouble(seqReader2.GetOrdinal("celkcena"));
-                        cena = seqReader2.GetDouble(seqReader2.GetOrdinal("cena"));
-                        seqReader2.Close();
-                    }
-                    else
-                    {
-                        seqReader2.Close();
-                        // material neexistuje zrusime transakci a navratime chybu
-                        if (transaction != null)
-                        {
-                            (transaction as OdbcTransaction).Rollback();
-                        }
-                        return -6; // Zaznam nexistuje
                     }
 
 
