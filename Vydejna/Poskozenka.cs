@@ -58,6 +58,7 @@ namespace Vydejna
         private double cena;
         private double celkCena;
         private Font boldFont;
+        private Int32 maximumMnozstvi = 0;
 
 
         public Poskozenka(Hashtable DBRow, vDatabase myDataBase, Font myFont, Boolean pujceneNaradi = false)
@@ -84,7 +85,8 @@ namespace Vydejna
             labelCena.Text = Convert.ToString(DBRow["cena"]);
             labelCelkCena.Text = Convert.ToString(DBRow["celkcena"]);
 
-            numericUpDownMnozstvi.Maximum = Convert.ToInt32(DBRow["fyzstav"]);
+//            numericUpDownMnozstvi.Maximum = Convert.ToInt32(DBRow["fyzstav"]);
+            maximumMnozstvi = Convert.ToInt32(DBRow["fyzstav"]); ;
             textBoxOsCislo.Focus();
 
             comboBoxPoznamka.Items.Add("Poškozeno");
@@ -183,6 +185,7 @@ namespace Vydejna
 
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
+            testMaximalnihoMnozstvi();
             testKompletnosti();
         }
 
@@ -199,6 +202,17 @@ namespace Vydejna
                 buttonOK.Enabled = false;
             }
         }
+
+        private void testMaximalnihoMnozstvi()
+        {
+            if (numericUpDownMnozstvi.Value > maximumMnozstvi)
+            {
+                numericUpDownMnozstvi.Value = maximumMnozstvi;
+                numericUpDownMnozstvi.Focus();
+                System.Media.SystemSounds.Beep.Play();
+            }
+        }
+
 
         private void buttonChoosePerson_Click(object sender, EventArgs e)
         {
@@ -256,11 +270,7 @@ namespace Vydejna
 
         private void numericUpDownMnozstvi_Leave(object sender, EventArgs e)
         {
-//            decimal mn = numericUpDownMnozstvi.Value;
-//            if (numericUpDownMnozstvi.Maximum < mn)
-//            {
-//                numericUpDownMnozstvi.Focus();
-//            }
+//            testMaximalnihoMnozstvi();
         }
    
    
