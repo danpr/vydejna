@@ -4176,6 +4176,234 @@ namespace Vydejna
             }
         }
 
+
+
+        public override Int32 deleteLastPoskozeni(Int32 DBnaradiPoradi, Int32 DBzmenyPoradi, Int32 DBvydej)
+        {
+            SQLiteTransaction transaction = null;
+
+            if (DBIsOpened())
+            {
+                string commandStringRead1 = "SELECT prijem, vydej, stav, zapkarta, parporadi, poradi, datum FROM zmeny WHERE parporadi = ? AND poradi = (" +
+                    "select max(poradi) from zmeny where parporadi = ?)";
+                string commandStringRead2 = "SELECT fyzstav, ucetstav, ucetkscen, celkcena, cena, jk  FROM naradi where poradi = ?";
+                //                string commandStringRead3 = "SELECT permission FROM nastaveni WHERE setid = \'prumucetcena\'";
+                string commandStringRead4 = "SELECT poradi FROM poskozeno WHERE jk = ? AND pocetks = ? AND datum = ? AND oscislo = ?";
+
+
+                string commandString1 = "DELETE FROM zmeny where parporadi = ? AND poradi = ? ";
+                string commandString2 = "UPDATE naradi SET fyzstav = fyzstav + ?, ucetstav = ucetstav + ?  WHERE poradi = ? ";
+                string commandString3 = "DELETE FROM poskozeno where poradi = ? ";
+
+                try
+                {
+                    try
+                    {
+                        transaction = (myDBConn as SQLiteConnection).BeginTransaction(System.Data.IsolationLevel.ReadCommitted);
+                    }
+                    catch
+                    {
+                    }
+
+                    // test tabulky naradi
+                    Int32 fyzstav = 0;
+                    Int32 ucetstav = 0;
+                    double ucetkscen = 0;
+                    double celkcena = 0;
+                    double cena = 0;
+                    string jk;
+
+
+                    SQLiteCommand cmdr2 = new SQLiteCommand(commandStringRead2, myDBConn as SQLiteConnection);
+                    cmdr2.Parameters.AddWithValue("@poradi", DBnaradiPoradi).DbType = DbType.Int32;
+                    cmdr2.Transaction = transaction;
+                    SQLiteDataReader seqReader2 = cmdr2.ExecuteReader();
+                    if (seqReader2.Read() == true)
+                    {
+                        fyzstav = seqReader2.GetInt32(seqReader2.GetOrdinal("fyzstav"));
+                        ucetstav = seqReader2.GetInt32(seqReader2.GetOrdinal("ucetstav"));
+                        ucetkscen = seqReader2.GetDouble(seqReader2.GetOrdinal("ucetkscen"));
+                        celkcena = seqReader2.GetDouble(seqReader2.GetOrdinal("celkcena"));
+                        cena = seqReader2.GetDouble(seqReader2.GetOrdinal("cena"));
+                        jk = seqReader2.GetString(seqReader2.GetOrdinal("jk"));
+                        seqReader2.Close();
+                    }
+                    else
+                    {
+                        seqReader2.Close();
+                        // material neexistuje zrusime transakci a navratime chybu
+                        if (transaction != null)
+                        {
+                            (transaction as SQLiteTransaction).Rollback();
+                        }
+                        return -6; // Zaznam nexistuje
+                    }
+
+
+                    SQLiteCommand cmdr1 = new SQLiteCommand(commandStringRead1, myDBConn as SQLiteConnection);
+                    cmdr1.Parameters.AddWithValue("@poradi", DBnaradiPoradi).DbType = DbType.Int32;
+                    cmdr1.Parameters.AddWithValue("@poradi", DBnaradiPoradi).DbType = DbType.Int32;
+                    cmdr1.Transaction = transaction;
+                    SQLiteDataReader seqReader1 = cmdr1.ExecuteReader();
+                    Int32 prijem = 0;
+                    Int32 vydej = 0;
+                    string stav = "";
+                    string oscislo = "";
+                    Int32 zmenyPoradi = 0;
+                    Int32 naradiPoradi = 0;
+                    DateTime datum = DateTime.MinValue;
+
+                    if (seqReader1.Read() == true)
+                    {
+                        prijem = seqReader1.GetInt32(seqReader1.GetOrdinal("prijem"));
+                        vydej = seqReader1.GetInt32(seqReader1.GetOrdinal("vydej"));
+                        stav = seqReader1.GetString(seqReader1.GetOrdinal("stav"));
+                        zmenyPoradi = seqReader1.GetInt32(seqReader1.GetOrdinal("poradi"));
+                        naradiPoradi = seqReader1.GetInt32(seqReader1.GetOrdinal("parporadi"));
+                        datum = (seqReader1.GetDateTime(seqReader1.GetOrdinal("datum"))).Date;
+                        oscislo = seqReader1.GetString(seqReader1.GetOrdinal("zapkarta"));
+                        seqReader1.Close();
+
+                        if (zmenyPoradi != DBzmenyPoradi)
+                        {
+                            if (transaction != null)
+                            {
+                                (transaction as SQLiteTransaction).Rollback();
+                            }
+                            return -9; // Zaznam o zmene neexistuje - zmena z jineho mista
+                        }
+
+                        if (stav != "O")
+                        {
+                            if (transaction != null)
+                            {
+                                (transaction as SQLiteTransaction).Rollback();
+                            }
+                            return -3; // Posledni zaznam neni poskozeni
+                        }
+
+
+                        if (vydej <= 0)
+                        {
+                            if (transaction != null)
+                            {
+                                (transaction as SQLiteTransaction).Rollback();
+                            }
+                            return -4; // Neexistuje spravna hodnota vydeje
+                        }
+
+                        if (prijem != 0)
+                        {
+                            if (transaction != null)
+                            {
+                                (transaction as SQLiteTransaction).Rollback();
+                            }
+                            return -5; // Prijem musi byt nulovy
+                        }
+
+                    }
+                    else
+                    {
+                        seqReader1.Close();
+                        // material neexistuje zrusime transakci a navratime chybu
+                        if (transaction != null)
+                        {
+                            (transaction as SQLiteTransaction).Rollback();
+                        }
+                        return -2; // Zaznam nexistuje
+                    }
+
+                    // test opravy prijmu
+
+                    if (DBvydej != vydej)
+                    {
+                        if (transaction != null)
+                        {
+                            (transaction as SQLiteTransaction).Rollback();
+                        }
+                        return -8; // Nesouhlasi velikost vydeje
+                    }
+
+
+                    SQLiteCommand cmdr4 = new SQLiteCommand(commandStringRead4, myDBConn as SQLiteConnection);
+                    cmdr4.Parameters.AddWithValue("@jk", jk).DbType = DbType.String;
+                    cmdr4.Parameters.AddWithValue("@pocetks", DBvydej).DbType = DbType.Int32;
+                    cmdr4.Parameters.AddWithValue("@datum", datum).DbType = DbType.Date;
+                    cmdr4.Parameters.AddWithValue("@oscislo", oscislo).DbType = DbType.String;
+                    cmdr4.Transaction = transaction;
+                    SQLiteDataReader myReader4 = cmdr4.ExecuteReader();
+                    Int32 poskozenoPoradi;
+
+                    if (myReader4.Read() == true)
+                    {
+                        poskozenoPoradi = myReader4.GetInt32(myReader4.GetOrdinal("poradi"));
+                        if (myReader4.Read() == true)
+                        {
+                            myReader4.Close();
+                            //existuje dalsi zaznam - nejednoznacnost
+                            if (transaction != null)
+                            {
+                                (transaction as SQLiteTransaction).Rollback();
+                            }
+                            return -11;
+                        }
+                        myReader4.Close();
+                    }
+                    else
+                    {
+                        // radka neexistuje
+                        myReader4.Close();
+                        if (transaction != null)
+                        {
+                            (transaction as SQLiteTransaction).Rollback();
+                        }
+                        return -10; // Zaznam nexistuje
+                    }
+
+                    SQLiteCommand cmd1 = new SQLiteCommand(commandString1, myDBConn as SQLiteConnection);
+                    cmd1.Parameters.AddWithValue("@parporadi", DBnaradiPoradi).DbType = DbType.Int32;
+                    cmd1.Parameters.AddWithValue("@poradi", DBzmenyPoradi).DbType = DbType.Int32;
+                    cmd1.Transaction = transaction;
+                    cmd1.ExecuteNonQuery();
+
+                    SQLiteCommand cmd3 = new SQLiteCommand(commandString3, myDBConn as SQLiteConnection);
+                    cmd3.Parameters.AddWithValue("@poradi", zmenyPoradi).DbType = DbType.Int32;
+                    cmd3.Transaction = transaction;
+                    cmd3.ExecuteNonQuery();
+
+                    SQLiteCommand cmd2 = new SQLiteCommand(commandString2, myDBConn as SQLiteConnection);
+                    cmd2.Parameters.AddWithValue("@fyzstav", DBvydej).DbType = DbType.Double;
+                    cmd2.Parameters.AddWithValue("@ucetstav", DBvydej).DbType = DbType.Double;
+                    cmd2.Parameters.AddWithValue("@poradi", DBnaradiPoradi).DbType = DbType.Int32;
+                    cmd2.Transaction = transaction;
+                    cmd2.ExecuteNonQuery();
+
+                    if (transaction != null)
+                    {
+                        (transaction as SQLiteTransaction).Commit();
+                    }
+                    return 0;
+                }
+                catch (Exception)
+                {
+                    // doslo k chybe
+                    if (transaction != null)
+                    {
+                        (transaction as SQLiteTransaction).Rollback();
+                    }
+                    return -1;
+                }
+
+            }
+            else
+            {
+                return -1;
+            }
+        }
+
+
+
+
         public override Int32 deleteLastPrijem(Int32 DBnaradiPoradi, Int32 DBzmenyPoradi, Int32 DBprijem)
         {
             SQLiteTransaction transaction = null;

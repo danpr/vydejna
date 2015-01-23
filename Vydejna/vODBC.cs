@@ -4213,7 +4213,7 @@ namespace Vydejna
                     "select max(poradi) from zmeny where parporadi = ?)";
                 string commandStringRead2 = "SELECT fyzstav, ucetstav, ucetkscen, celkcena, cena, jk  FROM naradi where poradi = ? FOR UPDATE";
 //                string commandStringRead3 = "SELECT permission FROM nastaveni WHERE setid = \'prumucetcena\'";
-                string commandStringRead4 = "SELECT poradi FROM poskozeno WHERE jk = ? AND pocetks = ? AND datum = ? AND oscislo = oscislo";
+                string commandStringRead4 = "SELECT poradi FROM poskozeno WHERE jk = ? AND pocetks = ? AND datum = ? AND oscislo = ?";
 
 
                 string commandString1 = "DELETE FROM zmeny where parporadi = ? AND poradi = ? ";
