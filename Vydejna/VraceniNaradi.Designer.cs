@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.numericUpDownKs = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownMnozstvi = new System.Windows.Forms.NumericUpDown();
             this.dateTimePickerDatum = new System.Windows.Forms.DateTimePicker();
             this.textBoxPoznamka = new System.Windows.Forms.TextBox();
             this.labelVypujceno = new System.Windows.Forms.Label();
@@ -55,17 +55,17 @@
             this.labelProvoz = new System.Windows.Forms.Label();
             this.labelPrijmeni = new System.Windows.Forms.Label();
             this.labelStredisko = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownKs)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMnozstvi)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // numericUpDownKs
+            // numericUpDownMnozstvi
             // 
-            this.numericUpDownKs.Location = new System.Drawing.Point(173, 230);
-            this.numericUpDownKs.Name = "numericUpDownKs";
-            this.numericUpDownKs.Size = new System.Drawing.Size(73, 20);
-            this.numericUpDownKs.TabIndex = 57;
-            this.numericUpDownKs.ValueChanged += new System.EventHandler(this.numericUpDownKs_ValueChanged);
+            this.numericUpDownMnozstvi.Location = new System.Drawing.Point(173, 230);
+            this.numericUpDownMnozstvi.Name = "numericUpDownMnozstvi";
+            this.numericUpDownMnozstvi.Size = new System.Drawing.Size(73, 20);
+            this.numericUpDownMnozstvi.TabIndex = 57;
+            this.numericUpDownMnozstvi.ValueChanged += new System.EventHandler(this.numericUpDownKs_ValueChanged);
             // 
             // dateTimePickerDatum
             // 
@@ -320,7 +320,7 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.labelIEvCislo);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.numericUpDownKs);
+            this.Controls.Add(this.numericUpDownMnozstvi);
             this.Controls.Add(this.dateTimePickerDatum);
             this.Controls.Add(this.textBoxPoznamka);
             this.Controls.Add(this.labelVypujceno);
@@ -336,7 +336,7 @@
             this.Controls.Add(this.label3);
             this.Name = "VraceniNaradi";
             this.Text = "VraceniNaradi";
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownKs)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMnozstvi)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
@@ -346,7 +346,7 @@
 
         #endregion
 
-        private System.Windows.Forms.NumericUpDown numericUpDownKs;
+        private System.Windows.Forms.NumericUpDown numericUpDownMnozstvi;
         private System.Windows.Forms.DateTimePicker dateTimePickerDatum;
         private System.Windows.Forms.TextBox textBoxPoznamka;
         private System.Windows.Forms.Label labelVypujceno;

@@ -12,6 +12,8 @@ namespace Vydejna
 {
     public partial class VraceniNaradi : Form
     {
+        private Int32 maximumMnozstvi = 0;
+
         public VraceniNaradi(Hashtable DBRow)
         {
             InitializeComponent();
@@ -27,7 +29,9 @@ namespace Vydejna
             labelIEvCislo.Text = Convert.ToString(DBRow["vevcislo"]);
             labelJK.Text = Convert.ToString(DBRow["jk"]);
             labelVypujceno.Text = Convert.ToString(DBRow["stavks"]);
-            numericUpDownKs.Maximum = Convert.ToInt32(DBRow["stavks"]);
+
+//            numericUpDownMnozstvi.Maximum = Convert.ToInt32(DBRow["stavks"]);
+            maximumMnozstvi = Convert.ToInt32(DBRow["stavks"]); ;
             textBoxPoznamka.Text = "Vráceno";
 
             AcceptButton = buttonOK;
@@ -36,7 +40,7 @@ namespace Vydejna
 
         private void buttonOK_Click(object sender, EventArgs e)
         {
-            if (numericUpDownKs.Value > 0)
+            if (numericUpDownMnozstvi.Value > 0)
             {
                 buttonOK.DialogResult = DialogResult.OK;
                 this.DialogResult = DialogResult.OK;
@@ -51,20 +55,35 @@ namespace Vydejna
 
         private void numericUpDownKs_ValueChanged(object sender, EventArgs e)
         {
-            if ((numericUpDownKs.Value > 0))
+            testMaximalnihoMnozstvi();
+            if ((numericUpDownMnozstvi.Value > 0))
             {
                 buttonOK.Enabled = true;
             }
-
             else
             {
                 buttonOK.Enabled = false;
             }
         }
 
+
+        private void testMaximalnihoMnozstvi()
+        {
+            if (numericUpDownMnozstvi.Value > maximumMnozstvi)
+            {
+                numericUpDownMnozstvi.Value = maximumMnozstvi;
+                numericUpDownMnozstvi.Focus();
+                System.Media.SystemSounds.Beep.Play();
+                MessageBox.Show("Vrácené množství je příliš veliké. Maximálně je možno vrátit " + Convert.ToString(maximumMnozstvi) + " ks(ů).");
+            }
+        }
+
+
+
+
         public Int32 getKs()
         {
-            return Convert.ToInt32(numericUpDownKs.Value);
+            return Convert.ToInt32(numericUpDownMnozstvi.Value);
         }
 
 
