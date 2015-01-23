@@ -1006,11 +1006,11 @@ namespace Vydejna
                                     {
                                         if (errCode == -11)
                                         {
-                                            MessageBox.Show("Zaznam v seznamu poskozeneho nářadí neexistuje. Chybná data?.");
+                                            MessageBox.Show("V seznamu poškozeného nářadí existuje více záznamu, není jednoznačný záznam.");
                                         }
                                         if (errCode == -10)
                                         {
-                                            MessageBox.Show("V seznamu poškozeného nářadí existuje více záznamu, není jednoznačný záznam.");
+                                            MessageBox.Show("Zaznam v seznamu poskozeneho nářadí neexistuje. Chybná data?.");
                                         }
                                         if (errCode == -9)
                                         {

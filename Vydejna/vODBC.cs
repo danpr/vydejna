@@ -4209,11 +4209,11 @@ namespace Vydejna
 
             if (DBIsOpened())
             {
-                string commandStringRead1 = "SELECT prijem, vydej, stav, parporadi, poradi, datum FROM zmeny WHERE parporadi = ? AND poradi = (" +
+                string commandStringRead1 = "SELECT prijem, vydej, stav, zapkarta, parporadi, poradi, datum FROM zmeny WHERE parporadi = ? AND poradi = (" +
                     "select max(poradi) from zmeny where parporadi = ?)";
                 string commandStringRead2 = "SELECT fyzstav, ucetstav, ucetkscen, celkcena, cena, jk  FROM naradi where poradi = ? FOR UPDATE";
 //                string commandStringRead3 = "SELECT permission FROM nastaveni WHERE setid = \'prumucetcena\'";
-                string commandStringRead4 = "SELECT poradi FROM poskozeno WHERE jk = ? AND pocetks = ? AND datum = ?";
+                string commandStringRead4 = "SELECT poradi FROM poskozeno WHERE jk = ? AND pocetks = ? AND datum = ? AND oscislo = oscislo";
 
 
                 string commandString1 = "DELETE FROM zmeny where parporadi = ? AND poradi = ? ";
@@ -4273,6 +4273,7 @@ namespace Vydejna
                     Int32 prijem = 0;
                     Int32 vydej = 0;
                     string stav = "";
+                    string oscislo = "";
                     Int32 zmenyPoradi = 0;
                     Int32 naradiPoradi = 0;
                     DateTime datum = DateTime.MinValue;
@@ -4285,6 +4286,7 @@ namespace Vydejna
                         zmenyPoradi = seqReader1.GetInt32(seqReader1.GetOrdinal("poradi"));
                         naradiPoradi = seqReader1.GetInt32(seqReader1.GetOrdinal("parporadi"));
                         datum = seqReader1.GetDate(seqReader1.GetOrdinal("datum"));
+                        oscislo = seqReader1.GetString(seqReader1.GetOrdinal("zapkarta"));
                         seqReader1.Close();
 
                         if (zmenyPoradi != DBzmenyPoradi)
@@ -4352,6 +4354,7 @@ namespace Vydejna
                     cmdr4.Parameters.AddWithValue("@jk",jk ).DbType = DbType.String;
                     cmdr4.Parameters.AddWithValue("@pocetks", DBvydej ).DbType = DbType.Int32;
                     cmdr4.Parameters.AddWithValue("@datum", datum).DbType = DbType.Date;
+                    cmdr4.Parameters.AddWithValue("@oscislo", oscislo).DbType = DbType.String;
                     cmdr4.Transaction = transaction;
                     OdbcDataReader myReader4 = cmdr4.ExecuteReader();
                     Int32 poskozenoPoradi;
