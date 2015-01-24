@@ -1373,10 +1373,10 @@ namespace Vydejna
             {
                 if (!(myDB.tablePujcenoExistOnOsCislo(osCislo))) // hlavni tabulka zaznam o vypujce
                 {
-                    if (!(myDB.tablePoskozenoItemExistOnOsCislo(osCislo)))
-                    {
-                        if (!(myDB.tableVracenoItemExistOnOsCislo(osCislo)))
-                        {
+//                    if (!(myDB.tablePoskozenoItemExistOnOsCislo(osCislo)))
+//                    {
+//                        if (!(myDB.tableVracenoItemExistOnOsCislo(osCislo)))
+//                        {
                             if (MessageBox.Show("Opravdu chcete zrušit kartu pracovníka ?", "Zrušení karty", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                             {
 
@@ -1407,16 +1407,16 @@ namespace Vydejna
                                     }
                                 }
                             }
-                        }
-                        else
-                        {
-                            MessageBox.Show("Pracovník má záznam v seznamu pujčeného nářadí, nelze jej zrušit.");
-                        }
-                    }
-                    else
-                    {
-                        MessageBox.Show("Pracovník má záznam v seznamu poškozeného nářadí, nelze jej zrušit.");
-                    }
+//                        }
+//                        else
+//                        {
+//                            MessageBox.Show("Pracovník má záznam v seznamu pujčeného nářadí, nelze jej zrušit.");
+//                        }
+//                    }
+//                    else
+//                    {
+//                        MessageBox.Show("Pracovník má záznam v seznamu poškozeného nářadí, nelze jej zrušit.");
+//                    }
                 }
                 else
                 {

@@ -2139,12 +2139,12 @@ namespace Vydejna
                         return -2;  // chyba databaze
                     }
 
-
-                    int errCode = countRecord(DBosCislo, commandStringRead1, -3);  //pujceno
-                    if (errCode < 0)
-                    {
-                        return errCode;
-                    }
+                    Int32 errCode;
+//                    int errCode = countRecord(DBosCislo, commandStringRead1, -3);  //pujceno
+//                    if (errCode < 0)
+//                    {
+//                        return errCode;
+//                    }
 
                     errCode = countRecord(DBosCislo, commandStringRead2, -4);  //poskozeno
                     if (errCode < 0)
@@ -2152,11 +2152,11 @@ namespace Vydejna
                         return errCode;
                     }
 
-                    errCode = countRecord(DBosCislo, commandStringRead3, -5); // vraceno
-                    if (errCode < 0)
-                    {
-                        return errCode;
-                    }
+//                    errCode = countRecord(DBosCislo, commandStringRead3, -5); // vraceno
+//                    if (errCode < 0)
+//                    {
+//                        return errCode;
+//                    }
 
                     SQLiteCommand cmd0 = new SQLiteCommand(commandString0, myDBConn as SQLiteConnection);
                     cmd0.Parameters.AddWithValue("@oscislo", DBosCislo).DbType = DbType.String;

@@ -3382,11 +3382,9 @@ namespace Vydejna
 //            return -1;  database neni pripojena
 //            return -2;  // chyba databaze
 //            return -3; // pracovnik ma pujceno naradi
-//            return -4; // pracovnik ma zaznam na poskozeno
+//            return -4; // pracovnik ma zaznam v seynamu poskozeneho naradi
 //            return -5; // pracovnik ma zaznam na vraceno
 //            return -6; // pracovnik neexistuje
-
-
         public override Int32 deleteLineOsoby(string DBosCislo)
         {
             OdbcTransaction transaction = null;
@@ -3449,24 +3447,25 @@ namespace Vydejna
                     {
                         myReaderR.Close();
                     }
+                    Int32 errCode;
 
-                    int errCode = countRecord(DBosCislo, commandStringRead1,-3);  //pujceno
+//                    errCode = countRecord(DBosCislo, commandStringRead1,-3);  //poskozeno
+//                    if (errCode < 0)
+//                    {
+//                        return errCode;
+//                    }
+
+                    errCode = countRecord(DBosCislo, commandStringRead2,-4);  //pujceno
                     if (errCode < 0)
                     {
                         return errCode;
                     }
 
-                    errCode = countRecord(DBosCislo, commandStringRead2,-4);  //poskozeno
-                    if (errCode < 0)
-                    {
-                        return errCode;
-                    }
-
-                    errCode = countRecord(DBosCislo, commandStringRead3,-5); // vraceno
-                    if (errCode < 0)
-                    {
-                        return errCode;
-                    }
+//                    errCode = countRecord(DBosCislo, commandStringRead3,-5); // vraceno
+//                    if (errCode < 0)
+//                    {
+//                        return errCode;
+//                    }
 
                     OdbcCommand cmd0 = new OdbcCommand(commandString0, myDBConn as OdbcConnection);
                     cmd0.Parameters.AddWithValue("@oscislo", DBosCislo).DbType = DbType.String;
