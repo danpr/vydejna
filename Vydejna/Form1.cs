@@ -1708,8 +1708,20 @@ namespace Vydejna
         {
             if (e.RowIndex == -1)
             {
-//                customerID = customersDataGridView.SelectedRows[0].Cells["customerIDColumn"].Value.ToString();
+ 	            DataGridViewRow dgvr = dataGridView1.SelectedRows[0];
+                if (dgvr != null)
+                {
+//                    Int32 dataRowIndex1 = dgvr.Index;
+                    DataRow row = ((DataRowView)dgvr.DataBoundItem).Row;
 
+                    DataTable dt = (DataTable)dataGridView1.DataSource;
+                    if (dt != null)
+                    {
+                        DataRowCollection drc = dt.Rows;
+                        Int32 dataRowIndex2 = drc.IndexOf(row);
+                        
+                    }
+                }
             }
         }
 
