@@ -1704,6 +1704,16 @@ namespace Vydejna
         }
 
 
+        private void dataGridView1_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.RowIndex == -1)
+            {
+//                customerID = customersDataGridView.SelectedRows[0].Cells["customerIDColumn"].Value.ToString();
+
+            }
+        }
+
+
 
 
     }
