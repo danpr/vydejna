@@ -28,7 +28,7 @@ namespace Vydejna
         private Hashtable DBRow;
         private parametryDB nastaveniDB;
         private ToolTip dbToolTip;
-
+        private Int32 dataRowSearchSelectedIndex = -1;
 
         public Vydejna()
         {
@@ -1706,23 +1706,37 @@ namespace Vydejna
 
         private void dataGridView1_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
         {
+            dataRowSearchSelectedIndex = -1;
             if (e.RowIndex == -1)
             {
- 	            DataGridViewRow dgvr = dataGridView1.SelectedRows[0];
+                DataGridViewRow dgvr = dataGridView1.SelectedRows[0];
                 if (dgvr != null)
                 {
-//                    Int32 dataRowIndex1 = dgvr.Index;
-                    DataRow row = ((DataRowView)dgvr.DataBoundItem).Row;
-
-                    DataTable dt = (DataTable)dataGridView1.DataSource;
-                    if (dt != null)
+                    if ((DataTable)dataGridView1.DataSource != null)
                     {
+                        DataRow row = ((DataRowView)dgvr.DataBoundItem).Row;
+                        DataTable dt = (DataTable)dataGridView1.DataSource;
                         DataRowCollection drc = dt.Rows;
-                        Int32 dataRowIndex2 = drc.IndexOf(row);
-                        
+                        dataRowSearchSelectedIndex = drc.IndexOf(row);
                     }
                 }
             }
+        }
+
+        private void dataGridView1_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            //trideni ukonceno
+            if ((dataRowSearchSelectedIndex != -1) && e.ListChangedType == ListChangedType.Reset)
+            {
+//                int row = customersBindingSource.Find("Customer ID", customerID);
+//                customersDataGridView.BeginInvoke((MethodInvoker)delegate()
+//                {
+//                    customersDataGridView.Rows[row].Selected = true;
+//                    customersDataGridView.CurrentCell = customersDataGridView[0, row];
+//                });
+            }
+
+
         }
 
 

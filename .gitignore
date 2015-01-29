@@ -1,6 +1,10 @@
 Vydejna/obj/x86/Debug/*.cache
 Vydejna/obj/x86/Debug/*.tlog
 
+
+Vydejna/obj/x86/Release/*.cache
+Vydejna/obj/x86/Release/*.tlog
+
 #OS junk files
 [Tt]humbs.db
 *.DS_Store
