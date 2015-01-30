@@ -144,6 +144,28 @@ namespace Vydejna
         }
 
 
+        /// <summary>
+        /// Najde v datove tabulce cislo radku 
+        /// </summary>
+        /// <param name="myDT">Datova tabulka</param>
+        /// <param name="dgvr">Hledany radek</param>
+        /// <returns></returns>
+        public static Int32 findIndex(DataTable myDT, DataGridViewRow dgvr)
+        {
+            if (dgvr != null)
+            {
+                if (myDT != null)
+                {
+                    DataRow row = ((DataRowView)dgvr.DataBoundItem).Row;
+                    DataRowCollection drc = myDT.Rows;
+                    return drc.IndexOf(row);
+                }
+            }
+            return -1;
+        }
+
+
+
         public void reloadRow (DataTable myDT, Int32 index, Hashtable DBRow)
         {
             if ((myDT != null) && (index != -1) && (DBRow != null))

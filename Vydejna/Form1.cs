@@ -1712,13 +1712,8 @@ namespace Vydejna
                 DataGridViewRow dgvr = dataGridView1.SelectedRows[0];
                 if (dgvr != null)
                 {
-                    if ((DataTable)dataGridView1.DataSource != null)
-                    {
-                        DataRow row = ((DataRowView)dgvr.DataBoundItem).Row;
-                        DataTable dt = (DataTable)dataGridView1.DataSource;
-                        DataRowCollection drc = dt.Rows;                        
-                        dataRowSearchSelectedIndex = drc.IndexOf(row);
-                    }
+                    DataTable dt = (DataTable)dataGridView1.DataSource;
+                    dataRowSearchSelectedIndex = detail.findIndex(dt, dgvr);
                 }
             }
         }
