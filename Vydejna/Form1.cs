@@ -74,7 +74,7 @@ namespace Vydejna
             dataGridView1.DataSource = null;
 
             dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.DisplayedCellsExceptHeaders;
-            
+
             DBRow = new Hashtable();
 
             if (nastaveniDB.codeDB != (int)kodDB.dbNone)
@@ -292,7 +292,7 @@ namespace Vydejna
                         dataGridView1.DataSource = myDB.loadDataTablePoskozeno();
                     }
 
-                    
+
                     dataGridView1.RowHeadersVisible = false;
 
                     dataGridView1.Columns["poradi"].HeaderText = "Pořadí";
@@ -355,7 +355,7 @@ namespace Vydejna
                     if (dateChooseResult == System.Windows.Forms.DialogResult.OK)
                     {
                         setDateLabel(dateFrom, dateTo);
-                        dataGridView1.DataSource = myDB.loadDataTableVracenoDate(dateFrom,dateTo);
+                        dataGridView1.DataSource = myDB.loadDataTableVracenoDate(dateFrom, dateTo);
                     }
                     else
                     {
@@ -364,7 +364,7 @@ namespace Vydejna
                     }
 
 
-//                    dataGridView1.DataSource = myDB.loadDataTableVraceno();
+                    //                    dataGridView1.DataSource = myDB.loadDataTableVraceno();
                     dataGridView1.RowHeadersVisible = false;
 
                     dataGridView1.Columns["poradi"].HeaderText = "Pořadí";
@@ -787,7 +787,7 @@ namespace Vydejna
                 loadZrusenychItems();
                 karta = new detailZruseno(myDB, dataGridView1);
                 evenState = evenStateEnum.enable;
-                contextMenuEnable(false,false,false,false,false,true);
+                contextMenuEnable(false, false, false, false, false, true);
                 labelView.Text = "Archív zrušených karet";
             }
         }
@@ -1406,7 +1406,7 @@ namespace Vydejna
             fontDialog1.Font = dataGridView1.Font;
             if (fontDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                ConfigReg.saveSettingFontX(fontDialog1.Font,"");
+                ConfigReg.saveSettingFontX(fontDialog1.Font, "");
                 dataGridView1.Font = fontDialog1.Font;
             }
         }
@@ -1586,9 +1586,9 @@ namespace Vydejna
         {
             if (myDB.DBIsOpened())
             {
-            UzivatelData ud = UzivatelData.makeInstance();
-            myDB.enablePrumerUcetCena(!(MenuItemUcetCena.Checked), ud.userID);
-            MenuItemUcetCena.Checked = myDB.getEnablePrumerUcetCena();
+                UzivatelData ud = UzivatelData.makeInstance();
+                myDB.enablePrumerUcetCena(!(MenuItemUcetCena.Checked), ud.userID);
+                MenuItemUcetCena.Checked = myDB.getEnablePrumerUcetCena();
             }
 
 
@@ -1716,7 +1716,7 @@ namespace Vydejna
                     {
                         DataRow row = ((DataRowView)dgvr.DataBoundItem).Row;
                         DataTable dt = (DataTable)dataGridView1.DataSource;
-                        DataRowCollection drc = dt.Rows;
+                        DataRowCollection drc = dt.Rows;                        
                         dataRowSearchSelectedIndex = drc.IndexOf(row);
                     }
                 }
@@ -1728,18 +1728,38 @@ namespace Vydejna
             //trideni ukonceno
             if ((dataRowSearchSelectedIndex != -1) && e.ListChangedType == ListChangedType.Reset)
             {
-//                int row = customersBindingSource.Find("Customer ID", customerID);
-//                customersDataGridView.BeginInvoke((MethodInvoker)delegate()
-//                {
-//                    customersDataGridView.Rows[row].Selected = true;
-//                    customersDataGridView.CurrentCell = customersDataGridView[0, row];
-//                });
+                if (dataRowSearchSelectedIndex != -1)
+                {
+                    if (dataGridView1.SelectedRows.Count > 0)
+                    {
+                        DataGridViewRow dgvr = dataGridView1.SelectedRows[0];
+                        if (dgvr != null)
+                        {
+                            Int32 indexDGV = dgvr.Index;
+                            dataGridView1.Rows[indexDGV].Selected = false;
+                        }
+                    }
+                    DataTable dt = (DataTable)dataGridView1.DataSource;
+                    DataRow dr = dt.Rows[dataRowSearchSelectedIndex];
+
+                    foreach (DataGridViewRow dgvr in this.dataGridView1.Rows)
+                    {
+                        Int32 indexDgw = dgvr.Index;
+                        DataRow row = ((DataRowView)dgvr.DataBoundItem).Row;
+                        DataRowCollection drc = dt.Rows;
+                        if (dataRowSearchSelectedIndex == drc.IndexOf(row))
+                        {
+                            // nase radka
+                            dataGridView1.BeginInvoke((MethodInvoker)delegate()
+                             {
+                                 dataGridView1.Rows[indexDgw].Selected = true;
+                                 dataGridView1.CurrentCell = dataGridView1[1, indexDgw];
+                             });
+                        }
+                    }
+                }
             }
-
-
         }
-
-
 
 
     }
