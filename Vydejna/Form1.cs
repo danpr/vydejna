@@ -1724,7 +1724,7 @@ namespace Vydejna
             if ((dataRowSearchSelectedIndex != -1) && e.ListChangedType == ListChangedType.Reset)
             {
                 if (dataRowSearchSelectedIndex != -1)
-                {
+                {   // zkusime smazat stary select 
                     if (dataGridView1.SelectedRows.Count > 0)
                     {
                         DataGridViewRow dgvr = dataGridView1.SelectedRows[0];
@@ -1735,23 +1735,29 @@ namespace Vydejna
                         }
                     }
                     DataTable dt = (DataTable)dataGridView1.DataSource;
-                    DataRow dr = dt.Rows[dataRowSearchSelectedIndex];
-
-                    foreach (DataGridViewRow dgvr in this.dataGridView1.Rows)
+                    DataRowCollection drc = dt.Rows;
+                    if (drc != null)
                     {
-                        Int32 indexDgw = dgvr.Index;
-                        DataRow row = ((DataRowView)dgvr.DataBoundItem).Row;
-                        DataRowCollection drc = dt.Rows;
-                        if (dataRowSearchSelectedIndex == drc.IndexOf(row))
+                        DataGridViewRow dgvrs = null;
+                        for (Int32 i = 0; i < dataGridView1.Rows.Count - 1; i++)
                         {
-                            // nase radka
-                            dataGridView1.BeginInvoke((MethodInvoker)delegate()
-                             {
-                                 dataGridView1.Rows[indexDgw].Selected = true;
-                                 dataGridView1.CurrentCell = dataGridView1[1, indexDgw];
-                             });
+                            dgvrs = dataGridView1.Rows[i];
+                            DataRow row = ((DataRowView)dgvrs.DataBoundItem).Row;
+                            if (dataRowSearchSelectedIndex == drc.IndexOf(row))
+                            {
+                                // zavolame asynchrone presun na novy select
+                                dataGridView1.BeginInvoke((MethodInvoker)delegate()
+                                {
+                                    dataGridView1.Rows[i].Selected = true;
+                                    dataGridView1.CurrentCell = dataGridView1[1, i];
+                                });
+                                break;
+                            }
+
                         }
+
                     }
+
                 }
             }
         }
