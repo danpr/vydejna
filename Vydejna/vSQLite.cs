@@ -2103,9 +2103,9 @@ namespace Vydejna
 
                 // nepouzivame for update protoze v SQLite neexistuje - SQLite pouziva srializaci transakci
                 string commandStringRead0 = "SELECT count(*) AS countOC FROM osoby where oscislo = ?";
-                string commandStringRead1 = "SELECT count(*) AS countOC FROM poskozeno where oscislo = ?";
+//                string commandStringRead1 = "SELECT count(*) AS countOC FROM poskozeno where oscislo = ?";
                 string commandStringRead2 = "SELECT count(*) AS countOC FROM pujceno where oscislo = ?";
-                string commandStringRead3 = "SELECT count(*) AS countOC FROM vraceno where oscislo = ?";
+//                string commandStringRead3 = "SELECT count(*) AS countOC FROM vraceno where oscislo = ?";
 
                 string commandString0 = "DELETE from osoby where oscislo = ? ";
                 try

@@ -3417,9 +3417,9 @@ namespace Vydejna
                     };
 
                 string commandStringRead0 = "SELECT oscislo FROM osoby where oscislo = ? FOR UPDATE";
-                string commandStringRead1 = "SELECT count(*) AS countOC FROM poskozeno where oscislo = ?";
+//                string commandStringRead1 = "SELECT count(*) AS countOC FROM poskozeno where oscislo = ?";
                 string commandStringRead2 = "SELECT count(*) AS countOC FROM pujceno where oscislo = ?";
-                string commandStringRead3 = "SELECT count(*) AS countOC FROM vraceno where oscislo = ?";
+//                string commandStringRead3 = "SELECT count(*) AS countOC FROM vraceno where oscislo = ?";
 
                 string commandString0 = "DELETE from osoby where oscislo = ? ";
                 try
