@@ -1709,11 +1709,11 @@ namespace Vydejna
             dataRowSearchSelectedIndex = -1;
             if (e.RowIndex == -1)
             {
-                DataGridViewRow dgvr = dataGridView1.SelectedRows[0];
-                if (dgvr != null)
+                DataGridViewRow dataGridViewSelectedRow = dataGridView1.SelectedRows[0];
+                if (dataGridViewSelectedRow != null)
                 {
                     DataTable dt = (DataTable)dataGridView1.DataSource;
-                    dataRowSearchSelectedIndex = detail.findIndex(dt, dgvr);
+                    dataRowSearchSelectedIndex = detail.findIndex(dt, dataGridViewSelectedRow);
                 }
             }
         }
@@ -1734,30 +1734,31 @@ namespace Vydejna
                             dataGridView1.Rows[indexDGV].Selected = false;
                         }
                     }
-                    DataTable dt = (DataTable)dataGridView1.DataSource;
-                    DataRowCollection drc = dt.Rows;
-                    if (drc != null)
+
+                    if (dataGridView1.Rows.Count > 0)
                     {
-                        DataGridViewRow dgvrs = null;
-                        for (Int32 i = 0; i < dataGridView1.Rows.Count - 1; i++)
+                        DataTable dt = (DataTable)dataGridView1.DataSource;
+                        DataRowCollection drc = dt.Rows;
+                        if (drc != null)
                         {
-                            dgvrs = dataGridView1.Rows[i];
-                            DataRow row = ((DataRowView)dgvrs.DataBoundItem).Row;
-                            if (dataRowSearchSelectedIndex == drc.IndexOf(row))
+                            DataGridViewRow dgvrs = null;
+                            for (Int32 i = 0; i < dataGridView1.Rows.Count - 1; i++)
                             {
-                                // zavolame asynchrone presun na novy select
-                                dataGridView1.BeginInvoke((MethodInvoker)delegate()
+                                dgvrs = dataGridView1.Rows[i];
+                                DataRow row = ((DataRowView)dgvrs.DataBoundItem).Row;
+                                if (dataRowSearchSelectedIndex == drc.IndexOf(row))
                                 {
-                                    dataGridView1.Rows[i].Selected = true;
-                                    dataGridView1.CurrentCell = dataGridView1[1, i];
-                                });
-                                break;
+                                    // zavolame asynchrone presun na novy select
+                                    dataGridView1.BeginInvoke((MethodInvoker)delegate()
+                                    {
+                                        dataGridView1.Rows[i].Selected = true;
+                                        dataGridView1.CurrentCell = dataGridView1[1, i];
+                                    });
+                                    break;
+                                }
                             }
-
                         }
-
                     }
-
                 }
             }
         }

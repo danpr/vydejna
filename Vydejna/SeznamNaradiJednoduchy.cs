@@ -42,6 +42,7 @@ namespace Vydejna
 
 
         private Prohledavani searchWindow;
+        private Int32 dataRowSearchSelectedIndex = -1;
 
 
         public SeznamNaradiJednoduchy(vDatabase myDataBase, Font myFont)
@@ -304,6 +305,67 @@ namespace Vydejna
             {
                 searchWindow.najdiRadku();
             }
+        }
+
+        private void dataGridView1_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            dataRowSearchSelectedIndex = -1;
+            if (e.RowIndex == -1)
+            {
+                DataGridViewRow dataGridViewSelectedRow = dataGridView1.SelectedRows[0];
+                if (dataGridViewSelectedRow != null)
+                {
+                    DataTable dt = (DataTable)dataGridView1.DataSource;
+                    dataRowSearchSelectedIndex = detail.findIndex(dt, dataGridViewSelectedRow);
+                }
+            }
+
+        }
+
+        private void dataGridView1_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            //trideni ukonceno
+            if ((dataRowSearchSelectedIndex != -1) && e.ListChangedType == ListChangedType.Reset)
+            {
+                if (dataRowSearchSelectedIndex != -1)
+                {   // zkusime smazat stary select 
+                    if (dataGridView1.SelectedRows.Count > 0)
+                    {
+                        DataGridViewRow dgvr = dataGridView1.SelectedRows[0];
+                        if (dgvr != null)
+                        {
+                            Int32 indexDGV = dgvr.Index;
+                            dataGridView1.Rows[indexDGV].Selected = false;
+                        }
+                    }
+
+                    if (dataGridView1.Rows.Count > 0)
+                    {
+                        DataTable dt = (DataTable)dataGridView1.DataSource;
+                        DataRowCollection drc = dt.Rows;
+                        if (drc != null)
+                        {
+                            DataGridViewRow dgvrs = null;
+                            for (Int32 i = 0; i < dataGridView1.Rows.Count - 1; i++)
+                            {
+                                dgvrs = dataGridView1.Rows[i];
+                                DataRow row = ((DataRowView)dgvrs.DataBoundItem).Row;
+                                if (dataRowSearchSelectedIndex == drc.IndexOf(row))
+                                {
+                                    // zavolame asynchrone presun na novy select
+                                    dataGridView1.BeginInvoke((MethodInvoker)delegate()
+                                    {
+                                        dataGridView1.Rows[i].Selected = true;
+                                        dataGridView1.CurrentCell = dataGridView1[1, i];
+                                    });
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
         }
 
 

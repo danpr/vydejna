@@ -150,13 +150,13 @@ namespace Vydejna
         /// <param name="myDT">Datova tabulka</param>
         /// <param name="dgvr">Hledany radek</param>
         /// <returns></returns>
-        public static Int32 findIndex(DataTable myDT, DataGridViewRow dgvr)
+        public static Int32 findIndex(DataTable myDT, DataGridViewRow dataGridViewSelectedRow)
         {
-            if (dgvr != null)
+            if (dataGridViewSelectedRow != null)
             {
                 if (myDT != null)
                 {
-                    DataRow row = ((DataRowView)dgvr.DataBoundItem).Row;
+                    DataRow row = ((DataRowView)dataGridViewSelectedRow.DataBoundItem).Row;
                     DataRowCollection drc = myDT.Rows;
                     return drc.IndexOf(row);
                 }
