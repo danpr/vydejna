@@ -329,15 +329,7 @@ namespace Vydejna
             {
                 if (dataRowSearchSelectedIndex != -1)
                 {   // zkusime smazat stary select 
-                    if (dataGridView1.SelectedRows.Count > 0)
-                    {
-                        DataGridViewRow dgvr = dataGridView1.SelectedRows[0];
-                        if (dgvr != null)
-                        {
-                            Int32 indexDGV = dgvr.Index;
-                            dataGridView1.Rows[indexDGV].Selected = false;
-                        }
-                    }
+                    dataGridView1.ClearSelection();
 
                     if (dataGridView1.Rows.Count > 0)
                     {
