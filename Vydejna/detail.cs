@@ -201,10 +201,18 @@ namespace Vydejna
                 if (counter > -1) // neni zadna dalsi polozka
                 {
                     if (nextIndexAfterSelected > counter) nextIndexAfterSelected = counter;
-                    myDataGridView.FirstDisplayedScrollingRowIndex = myDataGridView.Rows[nextIndexAfterSelected].Index;
-                    myDataGridView.Refresh();
-                    myDataGridView.CurrentCell = myDataGridView.Rows[nextIndexAfterSelected].Cells[1];
-                    myDataGridView.Rows[nextIndexAfterSelected].Selected = true;
+//                    myDataGridView.FirstDisplayedScrollingRowIndex = myDataGridView.Rows[nextIndexAfterSelected].Index;
+//                    myDataGridView.Refresh();
+//                    myDataGridView.CurrentCell = myDataGridView.Rows[nextIndexAfterSelected].Cells[1];
+//                    myDataGridView.Rows[nextIndexAfterSelected].Selected = true;
+
+
+                    myDataGridView.BeginInvoke((MethodInvoker)delegate()
+                    {
+                        myDataGridView.Rows[nextIndexAfterSelected].Selected = true;
+                        myDataGridView.CurrentCell = myDataGridView[1, nextIndexAfterSelected];
+                    });
+
                 }
             }
 
@@ -230,10 +238,18 @@ namespace Vydejna
                  if (counter > -1) // neni zadna dalsi polozka
                  {
                      if (nextIndexAfterSelected > counter) nextIndexAfterSelected = counter;
-                     myDataGridView.FirstDisplayedScrollingRowIndex = myDataGridView.Rows[nextIndexAfterSelected].Index;
-                     myDataGridView.Refresh();
-                     myDataGridView.CurrentCell = myDataGridView.Rows[nextIndexAfterSelected].Cells[1];
-                     myDataGridView.Rows[nextIndexAfterSelected].Selected = true;
+//                     myDataGridView.FirstDisplayedScrollingRowIndex = myDataGridView.Rows[nextIndexAfterSelected].Index;
+//                     myDataGridView.Refresh();
+//                     myDataGridView.CurrentCell = myDataGridView.Rows[nextIndexAfterSelected].Cells[1];
+//                     myDataGridView.Rows[nextIndexAfterSelected].Selected = true;
+
+                     myDataGridView.BeginInvoke((MethodInvoker)delegate()
+                     {
+                         myDataGridView.Rows[nextIndexAfterSelected].Selected = true;
+                         myDataGridView.CurrentCell = myDataGridView[1, nextIndexAfterSelected];
+                     });
+
+
                  }
              }
 
@@ -524,11 +540,18 @@ namespace Vydejna
                         //
                         int counter = myDataGridView.Rows.Count - 1;
 
-                        myDataGridView.FirstDisplayedScrollingRowIndex = myDataGridView.Rows[counter].Index;
-                        myDataGridView.Refresh();
+//                        myDataGridView.FirstDisplayedScrollingRowIndex = myDataGridView.Rows[counter].Index;
+//                        myDataGridView.Refresh();
 
-                        myDataGridView.CurrentCell = myDataGridView.Rows[counter].Cells[1];
-                        myDataGridView.Rows[counter].Selected = true;
+//                        myDataGridView.CurrentCell = myDataGridView.Rows[counter].Cells[1];
+//                        myDataGridView.Rows[counter].Selected = true;
+
+                        myDataGridView.BeginInvoke((MethodInvoker)delegate()
+                        {
+                            myDataGridView.Rows[counter].Selected = true;
+                            myDataGridView.CurrentCell = myDataGridView[1, counter];
+                        });
+
 
                     }
                     else
@@ -1303,10 +1326,18 @@ namespace Vydejna
                         (myDataGridView.DataSource as DataTable).Rows.Add(newRow);
                         int counter = myDataGridView.Rows.Count -1;
 
-                        myDataGridView.FirstDisplayedScrollingRowIndex = myDataGridView.Rows[counter].Index;
-                        myDataGridView.Refresh();
-                        myDataGridView.CurrentCell = myDataGridView.Rows[counter].Cells[1];
-                        myDataGridView.Rows[counter].Selected = true;
+//                        myDataGridView.FirstDisplayedScrollingRowIndex = myDataGridView.Rows[counter].Index;
+//                        myDataGridView.Refresh();
+//                        myDataGridView.CurrentCell = myDataGridView.Rows[counter].Cells[1];
+//                        myDataGridView.Rows[counter].Selected = true;
+
+                        myDataGridView.BeginInvoke((MethodInvoker)delegate()
+                        {
+                            myDataGridView.Rows[counter].Selected = true;
+                            myDataGridView.CurrentCell = myDataGridView[1, counter];
+                        });
+
+
                     }
 
 
