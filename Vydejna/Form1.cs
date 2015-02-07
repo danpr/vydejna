@@ -29,6 +29,8 @@ namespace Vydejna
         private parametryDB nastaveniDB;
         private ToolTip dbToolTip;
         private Int32 dataRowSearchSelectedIndex = -1;
+        private BindingSource mainBindingSource = null; 
+
 
         public Vydejna()
         {
@@ -71,7 +73,8 @@ namespace Vydejna
             dataGridView1.AllowUserToOrderColumns = true;
 
             dataGridView1.Columns.Clear();
-            dataGridView1.DataSource = null;
+            mainBindingSource = new BindingSource();
+            dataGridView1.DataSource = mainBindingSource;
 
             dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.DisplayedCellsExceptHeaders;
 
@@ -175,7 +178,9 @@ namespace Vydejna
             {
                 try
                 {
-                    dataGridView1.DataSource = myDB.loadDataTableNaradi();
+//                    dataGridView1.DataSource = myDB.loadDataTableNaradi();
+                    mainBindingSource.DataSource = myDB.loadDataTableNaradi();
+                    dataGridView1.DataSource = mainBindingSource;
                     dataGridView1.RowHeadersVisible = false;
 
                     dataGridView1.Columns["poradi"].HeaderText = "Pořadí";
@@ -1712,7 +1717,9 @@ namespace Vydejna
                 DataGridViewRow dataGridViewSelectedRow = dataGridView1.SelectedRows[0];
                 if (dataGridViewSelectedRow != null)
                 {
-                    DataTable dt = (DataTable)dataGridView1.DataSource;
+//                    DataTable dt = (DataTable)dataGridView1.DataSource;
+                    DataTable dt = ((dataGridView1.DataSource as BindingSource).DataSource as DataTable);
+
                     dataRowSearchSelectedIndex = detail.findIndex(dt, dataGridViewSelectedRow);
                 }
             }

@@ -588,27 +588,28 @@ namespace Vydejna
                     if (updateIsOk)
                     {
                         // je potreba najit index v datove tabulce - po trideni neni schodny s indexem ve view
-                        Int32 dataRowIndex = findIndex((myDataGridView.DataSource as DataTable), "poradi", poradi);
+//                        Int32 dataRowIndex = findIndex((myDataGridView.DataSource as DataTable), "poradi", poradi);
+                        Int32 dataRowIndex = (myDataGridView.DataSource as BindingSource).Find("poradi", poradi); 
 
                         if (dataRowIndex != -1)
                         {
-                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("nazev", mesenger.nazev);
-                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("jk", mesenger.jk);
-                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("fyzstav", mesenger.fyzStav);
-                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("analucet", mesenger.ucet);
-                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("normacsn", mesenger.csn);
-                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("normadin", mesenger.din);
-                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("vyrobce", mesenger.vyrobce);
-                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("rozmer", mesenger.rozmer);
-                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("ucetstav", mesenger.ucetStav);
-                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("cena", mesenger.cenaKs);
-                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("celkcena", mesenger.ucetCena);
-                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("minimum", mesenger.minStav);
-                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("poznamka", mesenger.poznamka);
-                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("ucetkscen", mesenger.ucetCenaKs);
-
+                            ((myDataGridView.DataSource as BindingSource).DataSource as DataTable).Rows[dataRowIndex].SetField("nazev", mesenger.nazev);
+                            ((myDataGridView.DataSource as BindingSource).DataSource as DataTable).Rows[dataRowIndex].SetField("jk", mesenger.jk);
+                            ((myDataGridView.DataSource as BindingSource).DataSource as DataTable).Rows[dataRowIndex].SetField("fyzstav", mesenger.fyzStav);
+                            ((myDataGridView.DataSource as BindingSource).DataSource as DataTable).Rows[dataRowIndex].SetField("analucet", mesenger.ucet);
+                            ((myDataGridView.DataSource as BindingSource).DataSource as DataTable).Rows[dataRowIndex].SetField("normacsn", mesenger.csn);
+                            ((myDataGridView.DataSource as BindingSource).DataSource as DataTable).Rows[dataRowIndex].SetField("normadin", mesenger.din);
+                            ((myDataGridView.DataSource as BindingSource).DataSource as DataTable).Rows[dataRowIndex].SetField("vyrobce", mesenger.vyrobce);
+                            ((myDataGridView.DataSource as BindingSource).DataSource as DataTable).Rows[dataRowIndex].SetField("rozmer", mesenger.rozmer);
+                            ((myDataGridView.DataSource as BindingSource).DataSource as DataTable).Rows[dataRowIndex].SetField("ucetstav", mesenger.ucetStav);
+                            ((myDataGridView.DataSource as BindingSource).DataSource as DataTable).Rows[dataRowIndex].SetField("cena", mesenger.cenaKs);
+                            ((myDataGridView.DataSource as BindingSource).DataSource as DataTable).Rows[dataRowIndex].SetField("celkcena", mesenger.ucetCena);
+                            ((myDataGridView.DataSource as BindingSource).DataSource as DataTable).Rows[dataRowIndex].SetField("minimum", mesenger.minStav);
+                            ((myDataGridView.DataSource as BindingSource).DataSource as DataTable).Rows[dataRowIndex].SetField("poznamka", mesenger.poznamka);
+                            ((myDataGridView.DataSource as BindingSource).DataSource as DataTable).Rows[dataRowIndex].SetField("ucetkscen", mesenger.ucetCenaKs);
                             myDataGridView.Refresh();
                         }
+
                     }
                     else
                     {
