@@ -520,7 +520,7 @@ namespace Vydejna
 
                         //                        (myDataGridView.DataSource as DataTable).Rows.Add(poradi, "", mesenger.nazev, mesenger.jk, mesenger.ucetStav, mesenger.ucet, mesenger.csn, mesenger.din, mesenger.vyrobce, mesenger.rozmer, 0, mesenger.cenaKs, mesenger.ucetCena, mesenger.minStav, mesenger.poznamka, mesenger.ucetCenaKs);
                         //
-                        DataRow newRow = (myDataGridView.DataSource as DataTable).NewRow();
+                        DataRow newRow = ((myDataGridView.DataSource as BindingSource).DataSource as DataTable).NewRow();
                         newRow["poradi"] = poradi;
                         newRow["nazev"] = mesenger.nazev;
                         newRow["jk"] = mesenger.jk;
@@ -536,7 +536,7 @@ namespace Vydejna
                         newRow["minimum"] = mesenger.minStav;
                         newRow["poznamka"] = mesenger.poznamka;
                         newRow["ucetkscen"] = mesenger.ucetCenaKs;
-                        (myDataGridView.DataSource as DataTable).Rows.Add(newRow);
+                        ((myDataGridView.DataSource as BindingSource).DataSource as DataTable).Rows.Add(newRow);
                         //
                         int counter = myDataGridView.Rows.Count - 1;
 

@@ -1736,8 +1736,11 @@ namespace Vydejna
 
                     if (dataGridView1.Rows.Count > 0)
                     {
-                        DataTable dt = (DataTable)dataGridView1.DataSource;
+                        DataTable dt = ((dataGridView1.DataSource as BindingSource).DataSource as DataTable);
                         DataRowCollection drc = dt.Rows;
+                        BindingSource bs = (dataGridView1.DataSource as BindingSource);
+                        bs.Position = dataRowSearchSelectedIndex;
+       
                         if (drc != null)
                         {
                             DataGridViewRow dgvrs = null;
