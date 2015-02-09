@@ -29,7 +29,13 @@ namespace Vydejna
         private parametryDB nastaveniDB;
         private ToolTip dbToolTip;
         private Int32 dataRowSearchSelectedIndex = -1;
+        private Object dataRowSearchSelectedID = null;
+
+        
+        
         private BindingSource mainBindingSource = null; 
+
+
 
 
         public Vydejna()
@@ -349,8 +355,6 @@ namespace Vydejna
 
                 try
                 {
-
-
                     System.Windows.Forms.DialogResult dateChooseResult = vracenoDatum.ShowDialog();
                     DateTime dateFrom = vracenoDatum.dateFromValue;
                     DateTime dateTo = vracenoDatum.dateToValue;
@@ -1711,9 +1715,14 @@ namespace Vydejna
 
         private void dataGridView1_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
         {
+
+            dataRowSearchSelectedID = null;
             dataRowSearchSelectedIndex = -1;
             if (e.RowIndex == -1)
             {
+
+                dataRowSearchSelectedID = karta.getIdOfSelectedGridViewRow();
+
                 DataGridViewRow dataGridViewSelectedRow = dataGridView1.SelectedRows[0];
                 if (dataGridViewSelectedRow != null)
                 {

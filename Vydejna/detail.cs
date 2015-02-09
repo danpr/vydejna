@@ -165,6 +165,16 @@ namespace Vydejna
         }
 
 
+        public static object getIdOfSelectedGridViewRowSt(DataGridView myDataGridView, string columnName)
+        {
+            DataGridViewRow gridRow = myDataGridView.SelectedRows[0];
+            if (gridRow != null)
+            {
+                return gridRow.Cells[columnName].Value;
+            }
+            return null;
+        }
+
 
         public void reloadRow (DataTable myDT, Int32 index, Hashtable DBRow)
         {
@@ -321,6 +331,13 @@ namespace Vydejna
         {
             return "";
         }
+
+
+        public virtual object getIdOfSelectedGridViewRow()
+        {
+            return getIdOfSelectedGridViewRowSt(myDataGridView, "poradi");
+        }
+
 
         public virtual void setColumnIndex()
         {
