@@ -339,6 +339,17 @@ namespace Vydejna
         }
 
 
+        public virtual void SelectedGridViewRow(object orderId)
+        {
+            Int32 poradi = (Int32)orderId;
+            Int32 index = (myDataGridView.DataSource as BindingSource).Find("poradi", poradi);
+            myDataGridView.BeginInvoke((MethodInvoker)delegate()
+            {
+                myDataGridView.Rows[index].Selected = true;
+                myDataGridView.CurrentCell = myDataGridView[1, index];
+            });
+        }
+
         public virtual void setColumnIndex()
         {
            Hashtable DBTableInfo = ConfigReg.loadSettingWindowTableColumnIndex("MAIN", this.jmenoTabulky());
@@ -1297,6 +1308,18 @@ namespace Vydejna
 
             myPermissions.pujcEnableCode = (Int32)permCode.PracZapN;
             myPermissions.vracEnableCode = (Int32)permCode.PracVracN;
+        }
+
+
+        public override void SelectedGridViewRow(object orderId)
+        {
+            string osCislo = (string)orderId;
+            Int32 index = (myDataGridView.DataSource as BindingSource).Find("oscislo", osCislo);
+            myDataGridView.BeginInvoke((MethodInvoker)delegate()
+            {
+                myDataGridView.Rows[index].Selected = true;
+                myDataGridView.CurrentCell = myDataGridView[1, index];
+            });
         }
 
 

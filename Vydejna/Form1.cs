@@ -28,11 +28,7 @@ namespace Vydejna
         private Hashtable DBRow;
         private parametryDB nastaveniDB;
         private ToolTip dbToolTip;
-        private Int32 dataRowSearchSelectedIndex = -1;
         private Object dataRowSearchSelectedID = null;
-
-        
-        
         private BindingSource mainBindingSource = null; 
 
 
@@ -79,8 +75,10 @@ namespace Vydejna
             dataGridView1.AllowUserToOrderColumns = true;
 
             dataGridView1.Columns.Clear();
+
             mainBindingSource = new BindingSource();
             dataGridView1.DataSource = mainBindingSource;
+           
 
             dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.DisplayedCellsExceptHeaders;
 
@@ -235,7 +233,10 @@ namespace Vydejna
             {
                 try
                 {
-                    dataGridView1.DataSource = myDB.loadDataTableZruseno();
+//                    dataGridView1.DataSource = myDB.loadDataTableZruseno();
+                    mainBindingSource.DataSource = myDB.loadDataTableZruseno();
+                    dataGridView1.DataSource = mainBindingSource;
+
                     dataGridView1.RowHeadersVisible = false;
 
                     dataGridView1.Columns["poradi"].HeaderText = "Pořadí";
@@ -295,12 +296,15 @@ namespace Vydejna
                     if (dateChooseResult == System.Windows.Forms.DialogResult.OK)
                     {
                         setDateLabel(dateFrom, dateTo);
-                        dataGridView1.DataSource = myDB.loadDataTablePoskozenoDate(dateFrom, dateTo);
+//                        dataGridView1.DataSource = myDB.loadDataTablePoskozenoDate(dateFrom, dateTo);
+                        mainBindingSource.DataSource = myDB.loadDataTablePoskozenoDate(dateFrom, dateTo);
+                        dataGridView1.DataSource = mainBindingSource;
                     }
                     else
                     {
                         labelDate.Text = "";
-                        dataGridView1.DataSource = myDB.loadDataTablePoskozeno();
+                        mainBindingSource.DataSource = myDB.loadDataTablePoskozeno();
+                        dataGridView1.DataSource = mainBindingSource;
                     }
 
 
@@ -364,11 +368,14 @@ namespace Vydejna
                     if (dateChooseResult == System.Windows.Forms.DialogResult.OK)
                     {
                         setDateLabel(dateFrom, dateTo);
-                        dataGridView1.DataSource = myDB.loadDataTableVracenoDate(dateFrom, dateTo);
+//                        dataGridView1.DataSource = myDB.loadDataTableVracenoDate(dateFrom, dateTo);
+                        mainBindingSource.DataSource = myDB.loadDataTableVracenoDate(dateFrom, dateTo);
+                        dataGridView1.DataSource = mainBindingSource;
                     }
                     else
                     {
                         labelDate.Text = "";
+                        mainBindingSource.DataSource = myDB.loadDataTableVraceno();
                         dataGridView1.DataSource = myDB.loadDataTableVraceno();
                     }
 
@@ -421,7 +428,9 @@ namespace Vydejna
             {
                 try
                 {
-                    dataGridView1.DataSource = myDB.loadDataTableOsoby();
+//                    dataGridView1.DataSource = myDB.loadDataTableOsoby();
+                    mainBindingSource.DataSource = myDB.loadDataTableOsoby();
+                    dataGridView1.DataSource = mainBindingSource;
                     dataGridView1.RowHeadersVisible = false;
 
 
@@ -569,7 +578,8 @@ namespace Vydejna
                     String filepath = dbfPath;
                     progressBarMain.Style = ProgressBarStyle.Marquee;
 
-                    dataGridView1.DataSource = null;
+                    mainBindingSource.DataSource = null;
+                    dataGridView1.DataSource = mainBindingSource;
 
                     // prvni soubor AR_KARET
                     // string connString = @"Provider=vfpoledb.1;Data Source=c:\wwapps\wc3\wwdemo;Exclusive=false;Nulls=false";
@@ -666,7 +676,8 @@ namespace Vydejna
 
         private void konecProgramuToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            dataGridView1.DataSource = null;
+            mainBindingSource.DataSource = null;
+            dataGridView1.DataSource = mainBindingSource;
             Close();
         }
 
@@ -684,7 +695,8 @@ namespace Vydejna
                 {
                     labelView.Text = "Vytvářím tabulky";
                     contextMenuDisable();
-                    dataGridView1.DataSource = null;
+                    mainBindingSource.DataSource = null;
+                    dataGridView1.DataSource = mainBindingSource;
                     karta = new detailNone(null, null);
                     Application.DoEvents();
                     CreateDBTables();
@@ -703,7 +715,8 @@ namespace Vydejna
                     //zruseni tabulek
                     labelView.Text = "Ruším tabulky";
                     contextMenuDisable();
-                    dataGridView1.DataSource = null;
+                    mainBindingSource.DataSource = null;
+                    dataGridView1.DataSource = mainBindingSource;
                     karta = new detailNone(null, null);
                     Application.DoEvents();
                     DropDBTables();
@@ -722,7 +735,8 @@ namespace Vydejna
                 {
                     labelView.Text = "Čistím tabulky";
                     contextMenuDisable();
-                    dataGridView1.DataSource = null;
+                    mainBindingSource.DataSource = null;
+                    dataGridView1.DataSource = mainBindingSource;
                     karta = new detailNone(null, null);
                     Application.DoEvents();
                     DeleteDBTables();
@@ -1224,7 +1238,8 @@ namespace Vydejna
                 {
                     labelView.Text = "Mažu indexi";
                     contextMenuDisable();
-                    dataGridView1.DataSource = null;
+                    mainBindingSource.DataSource = null;
+                    dataGridView1.DataSource = mainBindingSource;
                     karta = new detailNone(null, null);
                     Application.DoEvents();
                     localDB.DropIndexes();
@@ -1717,60 +1732,21 @@ namespace Vydejna
         {
 
             dataRowSearchSelectedID = null;
-            dataRowSearchSelectedIndex = -1;
+//            dataRowSearchSelectedIndex = -1;
             if (e.RowIndex == -1)
             {
-
                 dataRowSearchSelectedID = karta.getIdOfSelectedGridViewRow();
-
-                DataGridViewRow dataGridViewSelectedRow = dataGridView1.SelectedRows[0];
-                if (dataGridViewSelectedRow != null)
-                {
-//                    DataTable dt = (DataTable)dataGridView1.DataSource;
-                    DataTable dt = ((dataGridView1.DataSource as BindingSource).DataSource as DataTable);
-
-                    dataRowSearchSelectedIndex = detail.findIndex(dt, dataGridViewSelectedRow);
-                }
             }
         }
 
         private void dataGridView1_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
             //trideni ukonceno
-            if ((dataRowSearchSelectedIndex != -1) && e.ListChangedType == ListChangedType.Reset)
+            if ((dataRowSearchSelectedID != null) && e.ListChangedType == ListChangedType.Reset)
             {
-                if (dataRowSearchSelectedIndex != -1)
-                {   // zkusime smazat stary select 
-                    dataGridView1.ClearSelection();
-
-                    if (dataGridView1.Rows.Count > 0)
-                    {
-                        DataTable dt = ((dataGridView1.DataSource as BindingSource).DataSource as DataTable);
-                        DataRowCollection drc = dt.Rows;
-                        BindingSource bs = (dataGridView1.DataSource as BindingSource);
-                        bs.Position = dataRowSearchSelectedIndex;
-       
-                        if (drc != null)
-                        {
-                            DataGridViewRow dgvrs = null;
-                            for (Int32 i = 0; i < dataGridView1.Rows.Count - 1; i++)
-                            {
-                                dgvrs = dataGridView1.Rows[i];
-                                DataRow row = ((DataRowView)dgvrs.DataBoundItem).Row;
-                                if (dataRowSearchSelectedIndex == drc.IndexOf(row))
-                                {
-                                    // zavolame asynchrone presun na novy select
-                                    dataGridView1.BeginInvoke((MethodInvoker)delegate()
-                                    {
-                                        dataGridView1.Rows[i].Selected = true;
-                                        dataGridView1.CurrentCell = dataGridView1[1, i];
-                                    });
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                }
+                dataGridView1.ClearSelection();
+                // zavolame nastaveni
+                karta.SelectedGridViewRow(dataRowSearchSelectedID);
             }
         }
 
