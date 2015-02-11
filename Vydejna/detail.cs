@@ -340,14 +340,27 @@ namespace Vydejna
         public virtual void SelectedGridViewRow(object orderId)
         {
             Int32 poradi = (Int32)orderId;
-            Int32 index = (myDataGridView.DataSource as BindingSource).Find("poradi", poradi);
 
-
-            myDataGridView.BeginInvoke((MethodInvoker)delegate()
+            for (Int32 i = 0; i < myDataGridView.Rows.Count; i++)
             {
-                myDataGridView.Rows[index].Selected = true;
-                myDataGridView.CurrentCell = myDataGridView[1, index];
-            });
+                if ((Int32)(myDataGridView.Rows[i].Cells["poradi"].Value) == poradi)
+                {
+                    myDataGridView.BeginInvoke((MethodInvoker)delegate()
+                    {
+                        myDataGridView.Rows[i].Selected = true;
+                        myDataGridView.CurrentCell = myDataGridView[1, i];
+                    });
+                    break;
+                }
+            }
+//            Int32 index = (myDataGridView.DataSource as BindingSource).Find("poradi", poradi);
+
+
+//            myDataGridView.BeginInvoke((MethodInvoker)delegate()
+//            {
+//                myDataGridView.Rows[index].Selected = true;
+//                myDataGridView.CurrentCell = myDataGridView[1, index];
+//            });
         }
 
 

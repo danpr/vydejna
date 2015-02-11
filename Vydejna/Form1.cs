@@ -1732,30 +1732,32 @@ namespace Vydejna
                 {   // zkusime smazat stary select 
                     dataGridView1.ClearSelection();
 
-                    if (dataGridView1.Rows.Count > 0)
-                    {
-                        DataTable dt = (DataTable)dataGridView1.DataSource;
-                        DataRowCollection drc = dt.Rows;
-                        if (drc != null)
-                        {
-                            DataGridViewRow dgvrs = null;
-                            for (Int32 i = 0; i < dataGridView1.Rows.Count - 1; i++)
-                            {
-                                dgvrs = dataGridView1.Rows[i];
-                                DataRow row = ((DataRowView)dgvrs.DataBoundItem).Row;
-                                if (dataRowSearchSelectedIndex == drc.IndexOf(row))
-                                {
-                                    // zavolame asynchrone presun na novy select
-                                    dataGridView1.BeginInvoke((MethodInvoker)delegate()
-                                    {
-                                        dataGridView1.Rows[i].Selected = true;
-                                        dataGridView1.CurrentCell = dataGridView1[1, i];
-                                    });
-                                    break;
-                                }
-                            }
-                        }
-                    }
+                    karta.SelectedGridViewRow(dataRowSearchSelectedID);
+
+//                    if (dataGridView1.Rows.Count > 0)
+//                    {
+//                        DataTable dt = (DataTable)dataGridView1.DataSource;
+//                        DataRowCollection drc = dt.Rows;
+//                        if (drc != null)
+//                        {
+//                            DataGridViewRow dgvrs = null;
+//                            for (Int32 i = 0; i < dataGridView1.Rows.Count - 1; i++)
+//                            {
+//                                dgvrs = dataGridView1.Rows[i];
+//                                DataRow row = ((DataRowView)dgvrs.DataBoundItem).Row;
+//                                if (dataRowSearchSelectedIndex == drc.IndexOf(row))
+//                                {
+//                                    // zavolame asynchrone presun na novy select
+//                                    dataGridView1.BeginInvoke((MethodInvoker)delegate()
+//                                    {
+//                                        dataGridView1.Rows[i].Selected = true;
+//                                        dataGridView1.CurrentCell = dataGridView1[1, i];
+//                                    });
+//                                    break;
+//                                }
+//                            }
+//                        }
+//                    }
                 }
             }
         }
