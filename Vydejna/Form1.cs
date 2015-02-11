@@ -29,6 +29,7 @@ namespace Vydejna
         private parametryDB nastaveniDB;
         private ToolTip dbToolTip;
         private Int32 dataRowSearchSelectedIndex = -1;
+        private Object dataRowSearchSelectedID = null;
 
         public Vydejna()
         {
@@ -1707,8 +1708,12 @@ namespace Vydejna
         private void dataGridView1_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
         {
             dataRowSearchSelectedIndex = -1;
+            dataRowSearchSelectedID = null;
+
             if (e.RowIndex == -1)
             {
+                dataRowSearchSelectedID = karta.getIdOfSelectedGridViewRow();
+
                 DataGridViewRow dataGridViewSelectedRow = dataGridView1.SelectedRows[0];
                 if (dataGridViewSelectedRow != null)
                 {

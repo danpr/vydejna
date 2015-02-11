@@ -165,6 +165,16 @@ namespace Vydejna
         }
 
 
+        public static object getIdOfSelectedGridViewRowSt(DataGridView myDataGridView, string columnName)
+        {
+            DataGridViewRow gridRow = myDataGridView.SelectedRows[0];
+            if (gridRow != null)
+            {
+                return gridRow.Cells[columnName].Value;
+            }
+            return null;
+        }
+
 
         public void reloadRow (DataTable myDT, Int32 index, Hashtable DBRow)
         {
@@ -321,6 +331,25 @@ namespace Vydejna
         {
             return "";
         }
+
+        public virtual object getIdOfSelectedGridViewRow()
+        {
+            return getIdOfSelectedGridViewRowSt(myDataGridView, "poradi");
+        }
+
+        public virtual void SelectedGridViewRow(object orderId)
+        {
+            Int32 poradi = (Int32)orderId;
+            Int32 index = (myDataGridView.DataSource as BindingSource).Find("poradi", poradi);
+
+
+            myDataGridView.BeginInvoke((MethodInvoker)delegate()
+            {
+                myDataGridView.Rows[index].Selected = true;
+                myDataGridView.CurrentCell = myDataGridView[1, index];
+            });
+        }
+
 
         public virtual void setColumnIndex()
         {
@@ -1489,6 +1518,25 @@ namespace Vydejna
         {
             return "osoby";
         }
+
+        public override object getIdOfSelectedGridViewRow()
+        {
+            return getIdOfSelectedGridViewRowSt(myDataGridView, "oscislo");
+        }
+
+
+        public override void SelectedGridViewRow(object orderId)
+        {
+            string osCislo = (string)orderId;
+            Int32 index = (myDataGridView.DataSource as BindingSource).Find("oscislo", osCislo);
+
+            myDataGridView.BeginInvoke((MethodInvoker)delegate()
+            {
+                myDataGridView.Rows[index].Selected = true;
+                myDataGridView.CurrentCell = myDataGridView[1, index];
+            });
+        }
+
 
     }
 
