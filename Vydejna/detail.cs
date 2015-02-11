@@ -343,6 +343,8 @@ namespace Vydejna
         {
             Int32 poradi = (Int32)orderId;
             Int32 index = (myDataGridView.DataSource as BindingSource).Find("poradi", poradi);
+
+
             myDataGridView.BeginInvoke((MethodInvoker)delegate()
             {
                 myDataGridView.Rows[index].Selected = true;
@@ -1311,18 +1313,6 @@ namespace Vydejna
         }
 
 
-        public override void SelectedGridViewRow(object orderId)
-        {
-            string osCislo = (string)orderId;
-            Int32 index = (myDataGridView.DataSource as BindingSource).Find("oscislo", osCislo);
-            myDataGridView.BeginInvoke((MethodInvoker)delegate()
-            {
-                myDataGridView.Rows[index].Selected = true;
-                myDataGridView.CurrentCell = myDataGridView[1, index];
-            });
-        }
-
-
         public override void zobrazKartu(Hashtable DBRow)
         {
             string osCislo = findOsCisloInRow(DBRow);
@@ -1520,6 +1510,17 @@ namespace Vydejna
         }
 
 
+        public override void SelectedGridViewRow(object orderId)
+        {
+            string osCislo = (string)orderId;
+            Int32 index = (myDataGridView.DataSource as BindingSource).Find("oscislo", osCislo);
+            myDataGridView.BeginInvoke((MethodInvoker)delegate()
+            {
+                myDataGridView.Rows[index].Selected = true;
+                myDataGridView.CurrentCell = myDataGridView[1, index];
+            });
+        }
+
 
         public override string preferovanySloupec()
         {
@@ -1530,6 +1531,13 @@ namespace Vydejna
         {
             return "osoby";
         }
+
+
+        public override object getIdOfSelectedGridViewRow()
+        {
+            return getIdOfSelectedGridViewRowSt(myDataGridView, "oscislo");
+        }
+
 
     }
 

@@ -63,7 +63,6 @@ namespace Vydejna
             karta = new detailNone(myDB, dataGridView1); // karta - stavovy objekt - volame vzdy funkci karta.zobrazKartu 
             //  a podle toho jakeho je karta typu se objevi prislusne okno
 
-
             dataGridView1.MultiSelect = false;
             dataGridView1.ReadOnly = true;
 
@@ -71,15 +70,14 @@ namespace Vydejna
             dataGridView1.AllowUserToAddRows = false;
             dataGridView1.AllowUserToResizeRows = false;
             dataGridView1.AllowUserToDeleteRows = false;
-
             dataGridView1.AllowUserToOrderColumns = true;
 
             dataGridView1.Columns.Clear();
 
             mainBindingSource = new BindingSource();
+            mainBindingSource.DataSource = null;
             dataGridView1.DataSource = mainBindingSource;
            
-
             dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.DisplayedCellsExceptHeaders;
 
             DBRow = new Hashtable();
@@ -175,16 +173,18 @@ namespace Vydejna
             // nahraje hlavni tabulku - naradi - skladove karty
             Application.DoEvents();
             dataGridView1.Columns.Clear();
-            dataGridView1.DataSource = null;
+            dataRowSearchSelectedID = null;
+            (dataGridView1.DataSource as BindingSource).DataSource = null;
+            (dataGridView1.DataSource as BindingSource).ResetBindings(true);
             Application.DoEvents();
 
             if (myDB.DBIsOpened())
             {
                 try
                 {
-//                    dataGridView1.DataSource = myDB.loadDataTableNaradi();
-                    mainBindingSource.DataSource = myDB.loadDataTableNaradi();
-                    dataGridView1.DataSource = mainBindingSource;
+                    (dataGridView1.DataSource as BindingSource).DataSource = myDB.loadDataTableNaradi();
+                    (dataGridView1.DataSource as BindingSource).ResetBindings(true);
+                    
                     dataGridView1.RowHeadersVisible = false;
 
                     dataGridView1.Columns["poradi"].HeaderText = "Pořadí";
@@ -226,16 +226,18 @@ namespace Vydejna
             labelDate.Text = "";
             Application.DoEvents();
             dataGridView1.Columns.Clear();
-            dataGridView1.DataSource = null;
+            dataRowSearchSelectedID = null;
+            (dataGridView1.DataSource as BindingSource).DataSource = null;
+            (dataGridView1.DataSource as BindingSource).ResetBindings(true);
+
             Application.DoEvents();
 
             if (myDB.DBIsOpened())
             {
                 try
                 {
-//                    dataGridView1.DataSource = myDB.loadDataTableZruseno();
-                    mainBindingSource.DataSource = myDB.loadDataTableZruseno();
-                    dataGridView1.DataSource = mainBindingSource;
+                    (dataGridView1.DataSource as BindingSource).DataSource = myDB.loadDataTableZruseno();
+                    (dataGridView1.DataSource as BindingSource).ResetBindings(true);
 
                     dataGridView1.RowHeadersVisible = false;
 
@@ -277,7 +279,9 @@ namespace Vydejna
             labelDate.Text = "";
             Application.DoEvents();
             dataGridView1.Columns.Clear();
-            dataGridView1.DataSource = null;
+            dataRowSearchSelectedID = null;
+            (dataGridView1.DataSource as BindingSource).DataSource = null;
+            (dataGridView1.DataSource as BindingSource).ResetBindings(true);
             Application.DoEvents();
 
             if (myDB.DBIsOpened())
@@ -296,15 +300,14 @@ namespace Vydejna
                     if (dateChooseResult == System.Windows.Forms.DialogResult.OK)
                     {
                         setDateLabel(dateFrom, dateTo);
-//                        dataGridView1.DataSource = myDB.loadDataTablePoskozenoDate(dateFrom, dateTo);
-                        mainBindingSource.DataSource = myDB.loadDataTablePoskozenoDate(dateFrom, dateTo);
-                        dataGridView1.DataSource = mainBindingSource;
+                        (dataGridView1.DataSource as BindingSource).DataSource = myDB.loadDataTablePoskozenoDate(dateFrom, dateTo);
+                        (dataGridView1.DataSource as BindingSource).ResetBindings(true);
                     }
                     else
                     {
                         labelDate.Text = "";
-                        mainBindingSource.DataSource = myDB.loadDataTablePoskozeno();
-                        dataGridView1.DataSource = mainBindingSource;
+                        (dataGridView1.DataSource as BindingSource).DataSource = myDB.loadDataTablePoskozeno();
+                        (dataGridView1.DataSource as BindingSource).ResetBindings(true);
                     }
 
 
@@ -349,7 +352,9 @@ namespace Vydejna
             labelDate.Text = "";
             Application.DoEvents();
             dataGridView1.Columns.Clear();
-            dataGridView1.DataSource = null;
+            dataRowSearchSelectedID = null;
+            (dataGridView1.DataSource as BindingSource).DataSource = null;
+            (dataGridView1.DataSource as BindingSource).ResetBindings(true);
             Application.DoEvents();
 
             if (myDB.DBIsOpened())
@@ -368,15 +373,14 @@ namespace Vydejna
                     if (dateChooseResult == System.Windows.Forms.DialogResult.OK)
                     {
                         setDateLabel(dateFrom, dateTo);
-//                        dataGridView1.DataSource = myDB.loadDataTableVracenoDate(dateFrom, dateTo);
-                        mainBindingSource.DataSource = myDB.loadDataTableVracenoDate(dateFrom, dateTo);
-                        dataGridView1.DataSource = mainBindingSource;
+                        (dataGridView1.DataSource as BindingSource).DataSource = myDB.loadDataTableVracenoDate(dateFrom, dateTo);
+                        (dataGridView1.DataSource as BindingSource).ResetBindings(true);
                     }
                     else
                     {
                         labelDate.Text = "";
-                        mainBindingSource.DataSource = myDB.loadDataTableVraceno();
-                        dataGridView1.DataSource = myDB.loadDataTableVraceno();
+                        (dataGridView1.DataSource as BindingSource).DataSource = myDB.loadDataTableVraceno();
+                        (dataGridView1.DataSource as BindingSource).ResetBindings(true);
                     }
 
 
@@ -400,7 +404,6 @@ namespace Vydejna
                     dataGridView1.Columns["pracoviste"].HeaderText = "Provoz";
                     dataGridView1.Columns["poradi"].Visible = false;   // poradi nezobrazujeme
                     dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-
                 }
                 catch (Exception)
                 {
@@ -420,19 +423,18 @@ namespace Vydejna
             labelDate.Text = "";
             Application.DoEvents();
             dataGridView1.Columns.Clear();
-            dataGridView1.DataSource = null;
+            dataRowSearchSelectedID = null;
+            (dataGridView1.DataSource as BindingSource).DataSource = null;
+            (dataGridView1.DataSource as BindingSource).ResetBindings(true);
             Application.DoEvents();
-
 
             if (myDB.DBIsOpened())
             {
                 try
                 {
-//                    dataGridView1.DataSource = myDB.loadDataTableOsoby();
-                    mainBindingSource.DataSource = myDB.loadDataTableOsoby();
-                    dataGridView1.DataSource = mainBindingSource;
+                    (dataGridView1.DataSource as BindingSource).DataSource = myDB.loadDataTableOsoby();
+                    (dataGridView1.DataSource as BindingSource).ResetBindings(true);
                     dataGridView1.RowHeadersVisible = false;
-
 
                     dataGridView1.Columns["prijmeni"].HeaderText = "Přijmení";
                     dataGridView1.Columns["jmeno"].HeaderText = "Jméno";
@@ -449,7 +451,6 @@ namespace Vydejna
                     dataGridView1.Columns["poznamka"].HeaderText = "Poznamka";
 
                     dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-
                 }
                 catch (Exception)
                 {
@@ -578,8 +579,8 @@ namespace Vydejna
                     String filepath = dbfPath;
                     progressBarMain.Style = ProgressBarStyle.Marquee;
 
-                    mainBindingSource.DataSource = null;
-                    dataGridView1.DataSource = mainBindingSource;
+                    (dataGridView1.DataSource as BindingSource).DataSource = null;
+                    (dataGridView1.DataSource as BindingSource).ResetBindings(true);
 
                     // prvni soubor AR_KARET
                     // string connString = @"Provider=vfpoledb.1;Data Source=c:\wwapps\wc3\wwdemo;Exclusive=false;Nulls=false";
@@ -676,8 +677,8 @@ namespace Vydejna
 
         private void konecProgramuToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            mainBindingSource.DataSource = null;
-            dataGridView1.DataSource = mainBindingSource;
+            (dataGridView1.DataSource as BindingSource).DataSource = null;
+            (dataGridView1.DataSource as BindingSource).ResetBindings(true);
             Close();
         }
 
@@ -695,8 +696,8 @@ namespace Vydejna
                 {
                     labelView.Text = "Vytvářím tabulky";
                     contextMenuDisable();
-                    mainBindingSource.DataSource = null;
-                    dataGridView1.DataSource = mainBindingSource;
+                    (dataGridView1.DataSource as BindingSource).DataSource = null;
+                    (dataGridView1.DataSource as BindingSource).ResetBindings(true);
                     karta = new detailNone(null, null);
                     Application.DoEvents();
                     CreateDBTables();
@@ -715,8 +716,8 @@ namespace Vydejna
                     //zruseni tabulek
                     labelView.Text = "Ruším tabulky";
                     contextMenuDisable();
-                    mainBindingSource.DataSource = null;
-                    dataGridView1.DataSource = mainBindingSource;
+                    (dataGridView1.DataSource as BindingSource).DataSource = null;
+                    (dataGridView1.DataSource as BindingSource).ResetBindings(true);
                     karta = new detailNone(null, null);
                     Application.DoEvents();
                     DropDBTables();
@@ -735,8 +736,8 @@ namespace Vydejna
                 {
                     labelView.Text = "Čistím tabulky";
                     contextMenuDisable();
-                    mainBindingSource.DataSource = null;
-                    dataGridView1.DataSource = mainBindingSource;
+                    (dataGridView1.DataSource as BindingSource).DataSource = null;
+                    (dataGridView1.DataSource as BindingSource).ResetBindings(true);
                     karta = new detailNone(null, null);
                     Application.DoEvents();
                     DeleteDBTables();
@@ -944,7 +945,7 @@ namespace Vydejna
                         {
                             if (karta.GetType() == typeof(detailSklad))  // zjisti typ karty
                             {
-                                (dataGridView1.DataSource as DataTable).Rows.Add(poradi, "", mesenger.nazev, mesenger.jk, mesenger.ucetStav, mesenger.ucet, mesenger.csn, mesenger.din, mesenger.vyrobce, mesenger.rozmer, 0, mesenger.cenaKs, mesenger.ucetCena, mesenger.minStav, mesenger.poznamka, mesenger.ucetCenaKs);
+                                ((dataGridView1.DataSource as BindingSource).DataSource as DataTable).Rows.Add(poradi, "", mesenger.nazev, mesenger.jk, mesenger.ucetStav, mesenger.ucet, mesenger.csn, mesenger.din, mesenger.vyrobce, mesenger.rozmer, 0, mesenger.cenaKs, mesenger.ucetCena, mesenger.minStav, mesenger.poznamka, mesenger.ucetCenaKs);
 
                                 int counter = dataGridView1.Rows.Count - 1;
 
@@ -1238,8 +1239,8 @@ namespace Vydejna
                 {
                     labelView.Text = "Mažu indexi";
                     contextMenuDisable();
-                    mainBindingSource.DataSource = null;
-                    dataGridView1.DataSource = mainBindingSource;
+                    (dataGridView1.DataSource as BindingSource).DataSource = null;
+                    (dataGridView1.DataSource as BindingSource).ResetBindings(true);
                     karta = new detailNone(null, null);
                     Application.DoEvents();
                     localDB.DropIndexes();
