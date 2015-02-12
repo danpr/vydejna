@@ -202,10 +202,11 @@ namespace Vydejna
             if (counter > 0)
             {
                 counter--; // ukazuje na posledni prvek
-                Int32 dataRowIndex = detail.findIndex(myDataGridView.DataSource as DataTable, "poradi", poradi);
+//                Int32 dataRowIndex = detail.findIndex(((myDataGridView.DataSource as BindingSource).DataSource as DataTable), "poradi", poradi);
+                Int32 dataRowIndex = Convert.ToInt32((myDataGridView.DataSource as BindingSource).Find("poradi", poradi));
                 Int32 nextIndexAfterSelected = myDataGridView.SelectedRows[0].Index;
 
-                (myDataGridView.DataSource as DataTable).Rows.RemoveAt(dataRowIndex);
+                ((myDataGridView.DataSource as BindingSource).DataSource as DataTable).Rows.RemoveAt(dataRowIndex);
                 counter--; // ukazatel na posledni ... -1 neni zadna
 
                 if (counter > -1) // neni zadna dalsi polozka
@@ -739,8 +740,8 @@ namespace Vydejna
                             Hashtable DBBackRow = myDB.getNaradiZmenyLine(mesenger.poradi, null);
                             if (DBBackRow != null)
                             {
-                                (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("cena", Convert.ToDouble(DBBackRow["cena"]));
-                                (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("celkcena", Convert.ToDouble(DBBackRow["celkcena"]));
+                                ((myDataGridView.DataSource as BindingSource).DataSource as DataTable).Rows[dataRowIndex].SetField("cena", Convert.ToDouble(DBBackRow["cena"]));
+                                ((myDataGridView.DataSource as BindingSource).DataSource as DataTable).Rows[dataRowIndex].SetField("celkcena", Convert.ToDouble(DBBackRow["celkcena"]));
                                 Int32 fyzStav = 0;
                                 Int32 ucetStav = 0;
 
@@ -753,12 +754,12 @@ namespace Vydejna
                                 if (DBBackRow.ContainsKey("fyzstav"))
                                 {
                                     fyzStav = Convert.ToInt32(DBBackRow["fyzstav"]);
-                                    (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("fyzstav", fyzStav);
+                                    ((myDataGridView.DataSource as BindingSource).DataSource as DataTable).Rows[dataRowIndex].SetField("fyzstav", fyzStav);
                                 }
                                 if (DBBackRow.ContainsKey("ucetstav"))
                                 {
                                     ucetStav = Convert.ToInt32(DBBackRow["ucetstav"]);
-                                    (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("ucetstav", ucetStav);
+                                    ((myDataGridView.DataSource as BindingSource).DataSource as DataTable).Rows[dataRowIndex].SetField("ucetstav", ucetStav);
                                 }
 //  ucetni stav je pocet ks na stavu /pujcenych a na vydejn/ a fyzicky je pocet ks na vydejne
 //                                if (fyzStav != ucetStav) MessageBox.Show("Pozor! Účetni a fyzický stav nesouhlasí.");

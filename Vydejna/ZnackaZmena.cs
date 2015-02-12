@@ -21,6 +21,8 @@ namespace Vydejna
             InitializeComponent();
             this.poradi = poradi;
             this.myDB = myDB;
+            this.CancelButton = this.buttonCancel;
+            this.AcceptButton = this.buttonOK;
             loadData();
         }
 

@@ -87,7 +87,7 @@
             this.textBoxZnacka.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxZnacka.Location = new System.Drawing.Point(8, 19);
-            this.textBoxZnacka.MaxLength = 3;
+            this.textBoxZnacka.MaxLength = 2;
             this.textBoxZnacka.Name = "textBoxZnacka";
             this.textBoxZnacka.Size = new System.Drawing.Size(259, 20);
             this.textBoxZnacka.TabIndex = 0;
