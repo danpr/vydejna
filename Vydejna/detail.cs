@@ -675,7 +675,8 @@ namespace Vydejna
             }
             Hashtable newDBRow = null;
             newDBRow = myDB.getNaradiLine(poradi, newDBRow);
-            reloadRow((myDataGridView.DataSource as DataTable), findIndex((myDataGridView.DataSource as DataTable), "poradi", poradi), newDBRow);
+            reloadRow(((myDataGridView.DataSource as BindingSource).DataSource as DataTable),
+                        findIndex(((myDataGridView.DataSource as BindingSource).DataSource as DataTable), "poradi", poradi), newDBRow);
         }
 
 
