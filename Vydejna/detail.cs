@@ -733,7 +733,8 @@ namespace Vydejna
                     }
                     else
                     {
-                        Int32 dataRowIndex = findIndex((myDataGridView.DataSource as DataTable), "poradi", mesenger.poradi);
+                        Int32 dataRowIndex = findIndex(((myDataGridView.DataSource as BindingSource).DataSource as DataTable), "poradi", mesenger.poradi);
+                        dataRowIndex = (myDataGridView.DataSource as BindingSource).Find("poradi", mesenger.poradi);
                         if (dataRowIndex != -1)
                         {
                             // opravime tabulku
