@@ -733,8 +733,8 @@ namespace Vydejna
                     }
                     else
                     {
-                        Int32 dataRowIndex = findIndex(((myDataGridView.DataSource as BindingSource).DataSource as DataTable), "poradi", mesenger.poradi);
-                        dataRowIndex = (myDataGridView.DataSource as BindingSource).Find("poradi", mesenger.poradi);
+//                        Int32 dataRowIndex = findIndex(((myDataGridView.DataSource as BindingSource).DataSource as DataTable), "poradi", mesenger.poradi);
+                        Int32 dataRowIndex = (myDataGridView.DataSource as BindingSource).Find("poradi", mesenger.poradi);
                         if (dataRowIndex != -1)
                         {
                             // opravime tabulku
@@ -792,6 +792,7 @@ namespace Vydejna
                     else
                     {
                         Int32 dataRowIndex = findIndex((myDataGridView.DataSource as DataTable), "poradi", mesenger.poradi);
+                        dataRowIndex = (myDataGridView.DataSource as BindingSource).Find("poradi", mesenger.poradi);
                         if (dataRowIndex != -1)
                         {
                             // opravime tabulku
@@ -801,7 +802,7 @@ namespace Vydejna
                                 Int32 fyzStav = 0;
                                 Int32 ucetStav = 0;
 
-                                (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("celkcena", Convert.ToDouble(DBBackRow["celkcena"]));
+                                ((myDataGridView.DataSource as BindingSource).DataSource as DataTable).Rows[dataRowIndex].SetField("celkcena", Convert.ToDouble(DBBackRow["celkcena"]));
                                 if (DBBackRow.ContainsKey("fyzstav") && DBBackRow.ContainsKey("zmeny_zustatek"))
                                 {
                                     fyzStav = Convert.ToInt32(DBBackRow["fyzstav"]);
@@ -811,12 +812,12 @@ namespace Vydejna
                                 if (DBBackRow.ContainsKey("fyzstav"))
                                 {
                                     fyzStav = Convert.ToInt32(DBBackRow["fyzstav"]);
-                                    (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("fyzstav", fyzStav);
+                                    ((myDataGridView.DataSource as BindingSource).DataSource as DataTable).Rows[dataRowIndex].SetField("fyzstav", fyzStav);
                                 }
                                 if (DBBackRow.ContainsKey("ucetstav"))
                                 {
                                     ucetStav = Convert.ToInt32(DBBackRow["ucetstav"]);
-                                    (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("ucetstav", ucetStav);
+                                    ((myDataGridView.DataSource as BindingSource).DataSource as DataTable).Rows[dataRowIndex].SetField("ucetstav", ucetStav);
                                 }
                                 if (DBBackRow.ContainsKey("fyzstav") && DBBackRow.ContainsKey("ucetstav"))
                                 {
@@ -850,7 +851,7 @@ namespace Vydejna
 
                        if (errCode == -8)
                        {
-                           MessageBox.Show("Lituji. Stavy materialz byly změněny - změna z jiného místa? Nemohu uskutečnit opravu.");
+                           MessageBox.Show("Lituji. Stavy materialu byly změněny - změna z jiného místa? Nemohu uskutečnit opravu.");
                        }
                        if (errCode == -7)
                        {
@@ -886,7 +887,8 @@ namespace Vydejna
                 }
                 Hashtable newDBRow = null;
                 newDBRow = myDB.getNaradiLine(poradi, newDBRow);
-                reloadRow((myDataGridView.DataSource as DataTable), findIndex((myDataGridView.DataSource as DataTable), "poradi", poradi), newDBRow);
+                reloadRow(((myDataGridView.DataSource as BindingSource).DataSource as DataTable), 
+                   (myDataGridView.DataSource as BindingSource).Find("poradi", poradi), newDBRow);
 
             }
         }
