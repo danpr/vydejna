@@ -949,10 +949,17 @@ namespace Vydejna
 
                                 int counter = dataGridView1.Rows.Count - 1;
 
-                                dataGridView1.FirstDisplayedScrollingRowIndex = dataGridView1.Rows[counter].Index;
-                                dataGridView1.Refresh();
-                                dataGridView1.CurrentCell = dataGridView1.Rows[counter].Cells[1];
-                                dataGridView1.Rows[counter].Selected = true;
+//                                dataGridView1.FirstDisplayedScrollingRowIndex = dataGridView1.Rows[counter].Index;
+//                                dataGridView1.Refresh();
+//                                dataGridView1.CurrentCell = dataGridView1.Rows[counter].Cells[1];
+//                                dataGridView1.Rows[counter].Selected = true;
+
+                                dataGridView1.BeginInvoke((MethodInvoker)delegate()
+                                {
+                                    dataGridView1.Rows[counter].Selected = true;
+                                    dataGridView1.CurrentCell = dataGridView1[1, counter];
+                                });
+
 
                             }
                         }

@@ -225,7 +225,7 @@ namespace Vydejna
 
         private void loadColumnInfos()
         {
-            DataTable mdt = (DataTable)myDataGridView.DataSource;
+            DataTable mdt = ((myDataGridView.DataSource as BindingSource).DataSource as DataTable);
 
             for (int i = 0; i < myDataGridView.ColumnCount; i++)
             {
@@ -535,11 +535,19 @@ namespace Vydejna
                 {
                     testingRow--;
                     // presuneme se na nalezenou radku
-                    myDataGridView.FirstDisplayedScrollingRowIndex = myDataGridView.Rows[testingRow].Index;
-                    myDataGridView.Refresh();
 
-                    myDataGridView.CurrentCell = myDataGridView.Rows[testingRow].Cells[1];
-                    myDataGridView.Rows[testingRow].Selected = true;
+//                    myDataGridView.FirstDisplayedScrollingRowIndex = myDataGridView.Rows[testingRow].Index;
+//                    myDataGridView.Refresh();
+
+//                    myDataGridView.CurrentCell = myDataGridView.Rows[testingRow].Cells[1];
+//                    myDataGridView.Rows[testingRow].Selected = true;
+
+                    myDataGridView.BeginInvoke((MethodInvoker)delegate()
+                    {
+                        myDataGridView.Rows[testingRow].Selected = true;
+                        myDataGridView.CurrentCell = myDataGridView[1, testingRow];
+                    });
+
                 }
                 else
                 {
