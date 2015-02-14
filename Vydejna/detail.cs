@@ -203,7 +203,7 @@ namespace Vydejna
             {
                 counter--; // ukazuje na posledni prvek
 //                Int32 dataRowIndex = detail.findIndex(((myDataGridView.DataSource as BindingSource).DataSource as DataTable), "poradi", poradi);
-                Int32 dataRowIndex = Convert.ToInt32((myDataGridView.DataSource as BindingSource).Find("poradi", poradi));
+                Int32 dataRowIndex = findIndex(((myDataGridView.DataSource as BindingSource).DataSource as DataTable), "poradi", poradi);
                 Int32 nextIndexAfterSelected = myDataGridView.SelectedRows[0].Index;
 
                 ((myDataGridView.DataSource as BindingSource).DataSource as DataTable).Rows.RemoveAt(dataRowIndex);
@@ -216,7 +216,6 @@ namespace Vydejna
 //                    myDataGridView.Refresh();
 //                    myDataGridView.CurrentCell = myDataGridView.Rows[nextIndexAfterSelected].Cells[1];
 //                    myDataGridView.Rows[nextIndexAfterSelected].Selected = true;
-
 
                     myDataGridView.BeginInvoke((MethodInvoker)delegate()
                     {
@@ -523,7 +522,8 @@ namespace Vydejna
                     sklKarta.ShowDialog();
 
                     DBRow = myDB.getNaradiLine(poradi, DBRow);
-                    reloadRow((myDataGridView.DataSource as DataTable), findIndex((myDataGridView.DataSource as DataTable), "poradi", poradi), DBRow);
+                    reloadRow(((myDataGridView.DataSource as BindingSource).DataSource as DataTable), 
+                       findIndex(((myDataGridView.DataSource as BindingSource).DataSource as DataTable), "poradi", poradi), DBRow);
                 }
             }
         }
@@ -619,8 +619,7 @@ namespace Vydejna
                     if (updateIsOk)
                     {
                         // je potreba najit index v datove tabulce - po trideni neni schodny s indexem ve view
-//                        Int32 dataRowIndex = findIndex((myDataGridView.DataSource as DataTable), "poradi", poradi);
-                        Int32 dataRowIndex = (myDataGridView.DataSource as BindingSource).Find("poradi", poradi); 
+                        Int32 dataRowIndex = findIndex(((myDataGridView.DataSource as BindingSource).DataSource as DataTable), "poradi", poradi);
 
                         if (dataRowIndex != -1)
                         {
@@ -733,8 +732,7 @@ namespace Vydejna
                     }
                     else
                     {
-//                        Int32 dataRowIndex = findIndex(((myDataGridView.DataSource as BindingSource).DataSource as DataTable), "poradi", mesenger.poradi);
-                        Int32 dataRowIndex = (myDataGridView.DataSource as BindingSource).Find("poradi", mesenger.poradi);
+                        Int32 dataRowIndex = findIndex(((myDataGridView.DataSource as BindingSource).DataSource as DataTable), "poradi", mesenger.poradi);
                         if (dataRowIndex != -1)
                         {
                             // opravime tabulku
@@ -791,8 +789,7 @@ namespace Vydejna
                     }
                     else
                     {
-                        Int32 dataRowIndex = findIndex((myDataGridView.DataSource as DataTable), "poradi", mesenger.poradi);
-                        dataRowIndex = (myDataGridView.DataSource as BindingSource).Find("poradi", mesenger.poradi);
+                        Int32 dataRowIndex = findIndex(((myDataGridView.DataSource as BindingSource).DataSource as DataTable), "poradi", mesenger.poradi);
                         if (dataRowIndex != -1)
                         {
                             // opravime tabulku
@@ -887,9 +884,8 @@ namespace Vydejna
                 }
                 Hashtable newDBRow = null;
                 newDBRow = myDB.getNaradiLine(poradi, newDBRow);
-                reloadRow(((myDataGridView.DataSource as BindingSource).DataSource as DataTable), 
-                   (myDataGridView.DataSource as BindingSource).Find("poradi", poradi), newDBRow);
-
+                reloadRow(((myDataGridView.DataSource as BindingSource).DataSource as DataTable),
+                  findIndex(((myDataGridView.DataSource as BindingSource).DataSource as DataTable), "poradi", poradi), newDBRow);
             }
         }
 
@@ -934,7 +930,8 @@ namespace Vydejna
                 sklKarta.setWinName("Zrušená karta");
                 sklKarta.ShowDialog();
                 DBRow = myDB.getZrusenoLine(poradi, DBRow);
-                reloadRow(((myDataGridView.DataSource as BindingSource).DataSource as DataTable), (myDataGridView.DataSource as BindingSource).Find("poradi", poradi), DBRow);
+                reloadRow(((myDataGridView.DataSource as BindingSource).DataSource as DataTable),
+                    findIndex(((myDataGridView.DataSource as BindingSource).DataSource as DataTable), "poradi", poradi), DBRow);
             }
         }
 
@@ -955,7 +952,7 @@ namespace Vydejna
                     if (updateIsOk)
                     {
                         // je potreba najit index v datove tabulce - po trideni neni schodny s indexem ve view
-                        Int32 dataRowIndex = (myDataGridView.DataSource as BindingSource).Find("poradi", mesenger.poradi);
+                        Int32 dataRowIndex = findIndex(((myDataGridView.DataSource as BindingSource).DataSource as DataTable), "poradi", mesenger.poradi);
 
                         if (dataRowIndex != -1)
                         {
@@ -988,7 +985,8 @@ namespace Vydejna
                 {
                     Hashtable newDBRow = null;
                     newDBRow = myDB.getZrusenoLine(poradi, newDBRow);
-                    reloadRow(((myDataGridView.DataSource as BindingSource).DataSource as DataTable), (myDataGridView.DataSource as BindingSource).Find("poradi", poradi), newDBRow);
+                    reloadRow(((myDataGridView.DataSource as BindingSource).DataSource as DataTable),
+                        findIndex(((myDataGridView.DataSource as BindingSource).DataSource as DataTable), "poradi", poradi), newDBRow);
                 }
 
             }
@@ -1071,7 +1069,8 @@ namespace Vydejna
 //            poskozKarta.Font = myDataGridView.Font;
             poskozKarta.ShowDialog();
             DBRow = myDB.getPoskozenoLine(poradi, DBRow);
-            reloadRow((myDataGridView.DataSource as DataTable), findIndex((myDataGridView.DataSource as DataTable), "poradi", poradi), DBRow);
+            reloadRow(((myDataGridView.DataSource as BindingSource).DataSource as DataTable),
+                findIndex(((myDataGridView.DataSource as BindingSource).DataSource as DataTable), "poradi", poradi), DBRow);
 
         }
 
@@ -1091,25 +1090,25 @@ namespace Vydejna
                     if (updateIsOk)
                     {
                         // je potreba najit index v datove tabulce - po trideni neni schodny s indexem ve view
-                        Int32 dataRowIndex = findIndex((myDataGridView.DataSource as DataTable), "poradi", mesenger.poradi);
+                        Int32 dataRowIndex = findIndex(((myDataGridView.DataSource as BindingSource).DataSource as DataTable), "poradi", mesenger.poradi);
                         if (dataRowIndex != -1)
                         {
-                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("nazev", mesenger.nazev);
-                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("jk", mesenger.jk);
+                            ((myDataGridView.DataSource as BindingSource).DataSource as DataTable).Rows[dataRowIndex].SetField("nazev", mesenger.nazev);
+                            ((myDataGridView.DataSource as BindingSource).DataSource as DataTable).Rows[dataRowIndex].SetField("jk", mesenger.jk);
 
-                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("pocetks", mesenger.pocetKs);
-                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("rozmer", mesenger.rozmer);
+                            ((myDataGridView.DataSource as BindingSource).DataSource as DataTable).Rows[dataRowIndex].SetField("pocetks", mesenger.pocetKs);
+                            ((myDataGridView.DataSource as BindingSource).DataSource as DataTable).Rows[dataRowIndex].SetField("rozmer", mesenger.rozmer);
 
-                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("csn", mesenger.csn);
-                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("cena", mesenger.cena);
-                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("datum", mesenger.datum);
-                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("vyrobek", mesenger.zakazka);
-                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("konto", mesenger.konto);
-                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("jmeno", mesenger.prijmeni);
-                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("krjmeno", mesenger.jmeno);
-                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("oscislo", mesenger.oscislo);
-                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("dilna", mesenger.stredisko);
-                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("pracoviste", mesenger.provoz);
+                            ((myDataGridView.DataSource as BindingSource).DataSource as DataTable).Rows[dataRowIndex].SetField("csn", mesenger.csn);
+                            ((myDataGridView.DataSource as BindingSource).DataSource as DataTable).Rows[dataRowIndex].SetField("cena", mesenger.cena);
+                            ((myDataGridView.DataSource as BindingSource).DataSource as DataTable).Rows[dataRowIndex].SetField("datum", mesenger.datum);
+                            ((myDataGridView.DataSource as BindingSource).DataSource as DataTable).Rows[dataRowIndex].SetField("vyrobek", mesenger.zakazka);
+                            ((myDataGridView.DataSource as BindingSource).DataSource as DataTable).Rows[dataRowIndex].SetField("konto", mesenger.konto);
+                            ((myDataGridView.DataSource as BindingSource).DataSource as DataTable).Rows[dataRowIndex].SetField("jmeno", mesenger.prijmeni);
+                            ((myDataGridView.DataSource as BindingSource).DataSource as DataTable).Rows[dataRowIndex].SetField("krjmeno", mesenger.jmeno);
+                            ((myDataGridView.DataSource as BindingSource).DataSource as DataTable).Rows[dataRowIndex].SetField("oscislo", mesenger.oscislo);
+                            ((myDataGridView.DataSource as BindingSource).DataSource as DataTable).Rows[dataRowIndex].SetField("dilna", mesenger.stredisko);
+                            ((myDataGridView.DataSource as BindingSource).DataSource as DataTable).Rows[dataRowIndex].SetField("pracoviste", mesenger.provoz);
 
                             myDataGridView.Refresh();
                         }
@@ -1123,7 +1122,8 @@ namespace Vydejna
                 {
                     Hashtable newDBRow = null;
                     newDBRow = myDB.getPoskozenoLine(poradi, newDBRow);
-                    reloadRow((myDataGridView.DataSource as DataTable), findIndex((myDataGridView.DataSource as DataTable), "poradi", poradi), newDBRow);
+                    reloadRow(((myDataGridView.DataSource as BindingSource).DataSource as DataTable),
+                        findIndex(((myDataGridView.DataSource as BindingSource).DataSource as DataTable), "poradi", poradi), newDBRow);
                 }
             }
         }
