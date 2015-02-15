@@ -242,7 +242,7 @@ namespace Vydejna
                  Int32 dataRowIndex = detail.findIndex(myDataGridView.DataSource as DataTable, "oscislo", osCislo);
                  Int32 nextIndexAfterSelected = myDataGridView.SelectedRows[0].Index;
 
-                 (myDataGridView.DataSource as DataTable).Rows.RemoveAt(dataRowIndex);
+                 ((myDataGridView.DataSource as BindingSource).DataSource as DataTable).Rows.RemoveAt(dataRowIndex);
                  counter--; // ukazatel na posledni ... -1 neni zadna
 
                  if (counter > -1) // neni zadna dalsi polozka
@@ -1189,7 +1189,8 @@ namespace Vydejna
             vracKarta.setWinName("Vraceno");
             vracKarta.ShowDialog();
             DBRow = myDB.getVracenoLine(poradi, DBRow);
-            reloadRow((myDataGridView.DataSource as DataTable), findIndex((myDataGridView.DataSource as DataTable), "poradi", poradi), DBRow);
+            DataTable localDataTable = (myDataGridView.DataSource as BindingSource).DataSource as DataTable;
+            reloadRow(localDataTable, findIndex(localDataTable, "poradi", poradi), DBRow);
         }
        
         
@@ -1197,6 +1198,7 @@ namespace Vydejna
         {
             Int32 poradi = findPoradiInRow(DBRow);
             DBRow = myDB.getVracenoLine(poradi, DBRow);
+            DataTable localDataTable = (myDataGridView.DataSource as BindingSource).DataSource as DataTable;
             VraceneKarta vracKarta = new VraceneKarta(DBRow, myDB, new tableItemExistDelgInt(myDB.tablePoskozenoItemExist), myDataGridView.Font, vKartaState.edit);
 //            vracKarta.Font = myDataGridView.Font;
             vracKarta.setWinName("Vraceno");
@@ -1207,26 +1209,24 @@ namespace Vydejna
                 if (updateIsOk)
                 {
                     // je potreba najit index v datove tabulce - po trideni neni schodny s indexem ve view
-                    Int32 dataRowIndex = findIndex((myDataGridView.DataSource as DataTable), "poradi", mesenger.poradi);
 
+                    Int32 dataRowIndex = findIndex(localDataTable, "poradi", mesenger.poradi);
                     if (dataRowIndex != -1)
                     {
-                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("naradi", mesenger.nazev);
-                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("jk", mesenger.jk);
-
-                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("pocetks", mesenger.pocetKs);
-                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("rozmer", mesenger.rozmer);
-
-                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("csn", mesenger.csn);
-                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("cena", mesenger.cena);
-                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("datum", mesenger.datum);
-                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("vyrobek", mesenger.zakazka);
-                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("konto", mesenger.konto);
-                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("jmeno", mesenger.prijmeni);
-                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("krjmeno", mesenger.jmeno);
-                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("oscislo", mesenger.oscislo);
-                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("dilna", mesenger.stredisko);
-                        (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("pracoviste", mesenger.provoz);
+                        localDataTable.Rows[dataRowIndex].SetField("nazev", mesenger.nazev);
+                        localDataTable.Rows[dataRowIndex].SetField("jk", mesenger.jk);
+                        localDataTable.Rows[dataRowIndex].SetField("pocetks", mesenger.pocetKs);
+                        localDataTable.Rows[dataRowIndex].SetField("rozmer", mesenger.rozmer);
+                        localDataTable.Rows[dataRowIndex].SetField("csn", mesenger.csn);
+                        localDataTable.Rows[dataRowIndex].SetField("cena", mesenger.cena);
+                        localDataTable.Rows[dataRowIndex].SetField("datum", mesenger.datum);
+                        localDataTable.Rows[dataRowIndex].SetField("vyrobek", mesenger.zakazka);
+                        localDataTable.Rows[dataRowIndex].SetField("konto", mesenger.konto);
+                        localDataTable.Rows[dataRowIndex].SetField("jmeno", mesenger.prijmeni);
+                        localDataTable.Rows[dataRowIndex].SetField("krjmeno", mesenger.jmeno);
+                        localDataTable.Rows[dataRowIndex].SetField("oscislo", mesenger.oscislo);
+                        localDataTable.Rows[dataRowIndex].SetField("dilna", mesenger.stredisko);
+                        localDataTable.Rows[dataRowIndex].SetField("pracoviste", mesenger.provoz);
 
                         myDataGridView.Refresh();
                     }
@@ -1241,7 +1241,7 @@ namespace Vydejna
             {
                 Hashtable newDBRow = null;
                 newDBRow = myDB.getVracenoLine(poradi, newDBRow);
-                reloadRow((myDataGridView.DataSource as DataTable), findIndex((myDataGridView.DataSource as DataTable), "poradi", poradi), newDBRow);
+                reloadRow(localDataTable, findIndex(localDataTable, "poradi", poradi), newDBRow);
             }
         }
 
@@ -1322,12 +1322,13 @@ namespace Vydejna
         {
             string osCislo = findOsCisloInRow(DBRow);
             DBRow = myDB.getOsobyLine(osCislo, DBRow);
+            DataTable localDataTable = (myDataGridView.DataSource as BindingSource).DataSource as DataTable;
 
             PracovniciKarta pracKarta = new PracovniciKarta(DBRow, myDB, myDataGridView.Font);
             pracKarta.ShowDialog();
 
             DBRow = myDB.getOsobyLine(osCislo, DBRow);
-            reloadRow((myDataGridView.DataSource as DataTable), findIndex((myDataGridView.DataSource as DataTable), "oscislo", osCislo), DBRow);
+            reloadRow(localDataTable, findIndex(localDataTable, "oscislo", osCislo), DBRow);
 
 
         }
@@ -1337,6 +1338,7 @@ namespace Vydejna
             // zalozeni nove skladove karty
             if ((myDB != null) && (myDB.DBIsOpened()))
             {
+                DataTable localDataTable = (myDataGridView.DataSource as BindingSource).DataSource as DataTable;
                 PracovniciKarta pracKarta = new PracovniciKarta(myDB, myDataGridView.Font);
                 if (pracKarta.ShowDialog() == DialogResult.OK)
                 {
@@ -1345,7 +1347,7 @@ namespace Vydejna
                     Int32 stav = myDB.addNewLineOsoby(mesenger.prijmeni, mesenger.jmeno, mesenger.ulice, mesenger.mesto, mesenger.psc, mesenger.telHome, mesenger.oscislo, mesenger.stredisko, mesenger.cisZnamky, mesenger.oddeleni, mesenger.pracoviste, mesenger.telZam, mesenger.poznamka);
                     if (stav != -1)
                     {
-                        DataRow newRow = (myDataGridView.DataSource as DataTable).NewRow();
+                        DataRow newRow = localDataTable.NewRow();
                         newRow["prijmeni"] = mesenger.prijmeni;
                         newRow["jmeno"] = mesenger.jmeno;
                         newRow["oscislo"] = mesenger.oscislo;
@@ -1359,7 +1361,7 @@ namespace Vydejna
                         newRow["telhome"] = mesenger.telHome;
                         newRow["telzam"] = mesenger.telZam;
                         newRow["poznamka"] = mesenger.poznamka;
-                        (myDataGridView.DataSource as DataTable).Rows.Add(newRow);
+                        localDataTable.Rows.Add(newRow);
                         int counter = myDataGridView.Rows.Count -1;
 
 //                        myDataGridView.FirstDisplayedScrollingRowIndex = myDataGridView.Rows[counter].Index;
@@ -1372,11 +1374,7 @@ namespace Vydejna
                             myDataGridView.Rows[counter].Selected = true;
                             myDataGridView.CurrentCell = myDataGridView[1, counter];
                         });
-
-
                     }
-
-
                 }
             }
         }
@@ -1388,6 +1386,7 @@ namespace Vydejna
             {
                 string osCislo = findOsCisloInRow(DBRow);
                 DBRow = myDB.getOsobyLine(osCislo, DBRow);
+                DataTable localDataTable = (myDataGridView.DataSource as BindingSource).DataSource as DataTable;
                 PracovniciKarta pracKarta = new PracovniciKarta(DBRow, myDB, myDataGridView.Font, uKartaState.edit);
                 if (pracKarta.ShowDialog() == DialogResult.OK)
                 {
@@ -1399,25 +1398,23 @@ namespace Vydejna
                     {
                         // je potreba najit index v datove tabulce - po trideni neni schodny s indexem ve view
 
-                        Int32 dataRowIndex = findIndex((myDataGridView.DataSource as DataTable), "oscislo", mesenger.oscislo);
+                        Int32 dataRowIndex = findIndex(localDataTable, "oscislo", mesenger.oscislo);
 
                         if (dataRowIndex != -1)
                         {
-                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("prijmeni", mesenger.prijmeni);
-                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("jmeno", mesenger.jmeno);
-
-                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("oscislo", mesenger.oscislo);
-                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("odeleni", mesenger.oddeleni);
-
-                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("stredisko", mesenger.stredisko);
-                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("pracoviste", mesenger.pracoviste);
-                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("cisznamky", mesenger.cisZnamky);
-                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("ulice", mesenger.ulice);
-                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("psc", mesenger.psc);
-                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("mesto", mesenger.mesto);
-                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("telhome", mesenger.telHome);
-                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("telzam", mesenger.telZam);
-                            (myDataGridView.DataSource as DataTable).Rows[dataRowIndex].SetField("poznamka", mesenger.poznamka);
+                            localDataTable.Rows[dataRowIndex].SetField("prijmeni", mesenger.prijmeni);
+                            localDataTable.Rows[dataRowIndex].SetField("jmeno", mesenger.jmeno);
+                            localDataTable.Rows[dataRowIndex].SetField("oscislo", mesenger.oscislo);
+                            localDataTable.Rows[dataRowIndex].SetField("odeleni", mesenger.oddeleni);
+                            localDataTable.Rows[dataRowIndex].SetField("stredisko", mesenger.stredisko);
+                            localDataTable.Rows[dataRowIndex].SetField("pracoviste", mesenger.pracoviste);
+                            localDataTable.Rows[dataRowIndex].SetField("cisznamky", mesenger.cisZnamky);
+                            localDataTable.Rows[dataRowIndex].SetField("ulice", mesenger.ulice);
+                            localDataTable.Rows[dataRowIndex].SetField("psc", mesenger.psc);
+                            localDataTable.Rows[dataRowIndex].SetField("mesto", mesenger.mesto);
+                            localDataTable.Rows[dataRowIndex].SetField("telhome", mesenger.telHome);
+                            localDataTable.Rows[dataRowIndex].SetField("telzam", mesenger.telZam);
+                            localDataTable.Rows[dataRowIndex].SetField("poznamka", mesenger.poznamka);
 
                             myDataGridView.Refresh();
                         }
@@ -1431,11 +1428,10 @@ namespace Vydejna
                 {
                     Hashtable newDBRow = null;
                     newDBRow = myDB.getOsobyLine(osCislo, newDBRow);
-                    reloadRow((myDataGridView.DataSource as DataTable), findIndex((myDataGridView.DataSource as DataTable), "oscislo", osCislo), newDBRow);
+                    reloadRow(localDataTable, findIndex(localDataTable, "oscislo", osCislo), newDBRow);
                 }
-
             }
-    }
+        }
 
         public override void Zapujceno(Hashtable DBRow)
         {
@@ -1518,6 +1514,7 @@ namespace Vydejna
         public override void SelectedGridViewRow(object orderId)
         {
             string osCislo = (string)orderId;
+            // hledame v dataGridView a proto pouzijeme BindingSource.Find
             Int32 index = (myDataGridView.DataSource as BindingSource).Find("oscislo", osCislo);
             myDataGridView.BeginInvoke((MethodInvoker)delegate()
             {
@@ -1562,13 +1559,13 @@ namespace Vydejna
                 {
                     string osCislo = findOsCisloInRow(DBRow);
                     DBRow = myDB.getOsobyLine(osCislo, DBRow);
+                    DataTable localDataTable = (myDataGridView.DataSource as BindingSource).DataSource as DataTable;
                     ZapujceneNaradiKarta zapujcKarta = new ZapujceneNaradiKarta(osCislo, myDB, myDataGridView.Font);// (DBRow, myDataBase, uKartaState.edit);
                     zapujcKarta.ShowDialog();
                     DBRow = myDB.getOsobyLine(osCislo, DBRow);
-                    reloadRow((myDataGridView.DataSource as DataTable), findIndex((myDataGridView.DataSource as DataTable), "oscislo", osCislo), DBRow);
+                    reloadRow(localDataTable, findIndex(localDataTable, "oscislo", osCislo), DBRow);
                 }
             }
-
         }
 
 
