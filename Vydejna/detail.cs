@@ -343,7 +343,8 @@ namespace Vydejna
 
             for (Int32 i = 0; i < myDataGridView.Rows.Count; i++)
             {
-                if ((Int32)(myDataGridView.Rows[i].Cells["poradi"].Value) == poradi)
+//                if ((Int32)(myDataGridView.Rows[i].Cells["poradi"].Value) == poradi)
+                if (myDataGridView.Rows[i].Cells["poradi"].Value.Equals(poradi))
                 {
                     myDataGridView.BeginInvoke((MethodInvoker)delegate()
                     {
