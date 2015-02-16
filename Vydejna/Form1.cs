@@ -763,8 +763,9 @@ namespace Vydejna
                 loadNaradiItems();
                 karta = new detailSklad(myDB, dataGridView1);
                 evenState = evenStateEnum.enable;
-                labelView.Text = "Výdejna nářadí přehled";
                 contextMenuEnable(true, true, true, false, true, true, true);
+                karta.provedUvodniSetrideni();
+                labelView.Text = "Výdejna nářadí přehled";
             }
         }
 
@@ -812,6 +813,7 @@ namespace Vydejna
                 karta = new detailZruseno(myDB, dataGridView1);
                 evenState = evenStateEnum.enable;
                 contextMenuEnable(false, false, false, false, false, true);
+                karta.provedUvodniSetrideni();
                 labelView.Text = "Archív zrušených karet";
             }
         }
@@ -833,6 +835,7 @@ namespace Vydejna
                 karta = new detailVraceno(myDB, dataGridView1, null);
                 evenState = evenStateEnum.enable;
                 contextMenuEnable(false);
+                karta.provedUvodniSetrideni();
                 labelView.Text = "Vrácené nářadí do skladu";
             }
         }
@@ -850,7 +853,7 @@ namespace Vydejna
                 karta = new detailOsoby(myDB, dataGridView1);
                 evenState = evenStateEnum.enable;
                 contextMenuEnable(true, false, false, true, false, true);
-
+                karta.provedUvodniSetrideni();
                 labelView.Text = "Pracovníci provozu";
             }
         }
@@ -882,6 +885,7 @@ namespace Vydejna
                 karta = new detailPoskozeno(myDB, dataGridView1);
                 evenState = evenStateEnum.enable;
                 contextMenuEnable(false);
+                karta.provedUvodniSetrideni();
                 labelView.Text = "Poškozené nářadí";
             }
         }
@@ -947,18 +951,21 @@ namespace Vydejna
                             {
                                 ((dataGridView1.DataSource as BindingSource).DataSource as DataTable).Rows.Add(poradi, "", mesenger.nazev, mesenger.jk, mesenger.ucetStav, mesenger.ucet, mesenger.csn, mesenger.din, mesenger.vyrobce, mesenger.rozmer, 0, mesenger.cenaKs, mesenger.ucetCena, mesenger.minStav, mesenger.poznamka, mesenger.ucetCenaKs);
 
-                                int counter = dataGridView1.Rows.Count - 1;
+//                                int counter = dataGridView1.Rows.Count - 1;
 
 //                                dataGridView1.FirstDisplayedScrollingRowIndex = dataGridView1.Rows[counter].Index;
 //                                dataGridView1.Refresh();
 //                                dataGridView1.CurrentCell = dataGridView1.Rows[counter].Cells[1];
 //                                dataGridView1.Rows[counter].Selected = true;
 
-                                dataGridView1.BeginInvoke((MethodInvoker)delegate()
-                                {
-                                    dataGridView1.Rows[counter].Selected = true;
-                                    dataGridView1.CurrentCell = dataGridView1[1, counter];
-                                });
+                                karta.SelectAndShowGridViewRow(poradi);
+
+
+//                                dataGridView1.BeginInvoke((MethodInvoker)delegate()
+//                                {
+//                                    dataGridView1.Rows[counter].Selected = true;
+//                                    dataGridView1.CurrentCell = dataGridView1[1, counter];
+//                                });
 
 
                             }
@@ -1185,6 +1192,7 @@ namespace Vydejna
                 karta = new detailOsobyZapujcNaradi(myDB, dataGridView1);
                 evenState = evenStateEnum.enable;
                 contextMenuEnable(true, false, false, true, false, true);
+                karta.provedUvodniSetrideni();
                 labelView.Text = "Pracovníci provozu - Zapůjčení nářadí";
             }
         }
@@ -1754,7 +1762,7 @@ namespace Vydejna
             {
                 dataGridView1.ClearSelection();
                 // zavolame nastaveni
-                karta.SelectedGridViewRow(dataRowSearchSelectedID);
+                karta.SelectAndShowGridViewRow(dataRowSearchSelectedID);
             }
         }
 
