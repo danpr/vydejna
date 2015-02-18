@@ -167,10 +167,13 @@ namespace Vydejna
 
         public static object getIdOfSelectedGridViewRowSt(DataGridView myDataGridView, string columnName)
         {
-            DataGridViewRow gridRow = myDataGridView.SelectedRows[0];
-            if (gridRow != null)
+            if (myDataGridView.SelectedRows.Count > 0)
             {
-                return gridRow.Cells[columnName].Value;
+                DataGridViewRow gridRow = myDataGridView.SelectedRows[0];
+                if (gridRow != null)
+                {
+                    return gridRow.Cells[columnName].Value;
+                }
             }
             return null;
         }
@@ -202,7 +205,7 @@ namespace Vydejna
             if (counter > 0)
             {
                 counter--; // ukazuje na posledni prvek
-//                Int32 dataRowIndex = detail.findIndex(((myDataGridView.DataSource as BindingSource).DataSource as DataTable), "poradi", poradi);
+                //                Int32 dataRowIndex = detail.findIndex(((myDataGridView.DataSource as BindingSource).DataSource as DataTable), "poradi", poradi);
                 Int32 dataRowIndex = findIndex(((myDataGridView.DataSource as BindingSource).DataSource as DataTable), "poradi", poradi);
                 Int32 nextIndexAfterSelected = myDataGridView.SelectedRows[0].Index;
 
@@ -212,17 +215,15 @@ namespace Vydejna
                 if (counter > -1) // neni zadna dalsi polozka
                 {
                     if (nextIndexAfterSelected > counter) nextIndexAfterSelected = counter;
-//                    myDataGridView.FirstDisplayedScrollingRowIndex = myDataGridView.Rows[nextIndexAfterSelected].Index;
-//                    myDataGridView.Refresh();
-//                    myDataGridView.CurrentCell = myDataGridView.Rows[nextIndexAfterSelected].Cells[1];
-//                    myDataGridView.Rows[nextIndexAfterSelected].Selected = true;
-
+                    //                    myDataGridView.FirstDisplayedScrollingRowIndex = myDataGridView.Rows[nextIndexAfterSelected].Index;
+                    //                    myDataGridView.Refresh();
+                    //                    myDataGridView.CurrentCell = myDataGridView.Rows[nextIndexAfterSelected].Cells[1];
+                    //                    myDataGridView.Rows[nextIndexAfterSelected].Selected = true;
                     myDataGridView.BeginInvoke((MethodInvoker)delegate()
                     {
                         myDataGridView.Rows[nextIndexAfterSelected].Selected = true;
                         myDataGridView.CurrentCell = myDataGridView[1, nextIndexAfterSelected];
                     });
-
                 }
             }
 
@@ -248,11 +249,6 @@ namespace Vydejna
                  if (counter > -1) // neni zadna dalsi polozka
                  {
                      if (nextIndexAfterSelected > counter) nextIndexAfterSelected = counter;
-//                     myDataGridView.FirstDisplayedScrollingRowIndex = myDataGridView.Rows[nextIndexAfterSelected].Index;
-//                     myDataGridView.Refresh();
-//                     myDataGridView.CurrentCell = myDataGridView.Rows[nextIndexAfterSelected].Cells[1];
-//                     myDataGridView.Rows[nextIndexAfterSelected].Selected = true;
-
                      myDataGridView.BeginInvoke((MethodInvoker)delegate()
                      {
                          myDataGridView.Rows[nextIndexAfterSelected].Selected = true;
@@ -349,12 +345,14 @@ namespace Vydejna
             Int32 poradi = (Int32)orderId;
             Int32 index = (myDataGridView.DataSource as BindingSource).Find("poradi", poradi);
 
-
-            myDataGridView.BeginInvoke((MethodInvoker)delegate()
+            if (myDataGridView.Rows.Count > 0)
             {
-                myDataGridView.Rows[index].Selected = true;
-                myDataGridView.CurrentCell = myDataGridView[1, index];
-            });
+                myDataGridView.BeginInvoke((MethodInvoker)delegate()
+                {
+                    myDataGridView.Rows[index].Selected = true;
+                    myDataGridView.CurrentCell = myDataGridView[1, index];
+                });
+            }
         }
 
         public virtual void setColumnIndex()
@@ -571,14 +569,6 @@ namespace Vydejna
                         newRow["ucetkscen"] = mesenger.ucetCenaKs;
                         ((myDataGridView.DataSource as BindingSource).DataSource as DataTable).Rows.Add(newRow);
                         //
-//                        int counter = myDataGridView.Rows.Count - 1;
-
-//                        myDataGridView.FirstDisplayedScrollingRowIndex = myDataGridView.Rows[counter].Index;
-//                        myDataGridView.Refresh();
-
-//                        myDataGridView.CurrentCell = myDataGridView.Rows[counter].Cells[1];
-//                        myDataGridView.Rows[counter].Selected = true;
-
                         object objectPoradi = poradi;
                         SelectAndShowGridViewRow(poradi);
             
@@ -1378,10 +1368,6 @@ namespace Vydejna
                         localDataTable.Rows.Add(newRow);
                         int counter = myDataGridView.Rows.Count -1;
 
-//                        myDataGridView.FirstDisplayedScrollingRowIndex = myDataGridView.Rows[counter].Index;
-//                        myDataGridView.Refresh();
-//                        myDataGridView.CurrentCell = myDataGridView.Rows[counter].Cells[1];
-//                        myDataGridView.Rows[counter].Selected = true;
 
                         object objectOsCislo = mesenger.oscislo;
                         SelectAndShowGridViewRow(objectOsCislo);
@@ -1533,11 +1519,15 @@ namespace Vydejna
             string osCislo = (string)orderId;
             // hledame v dataGridView a proto pouzijeme BindingSource.Find
             Int32 index = (myDataGridView.DataSource as BindingSource).Find("oscislo", osCislo);
-            myDataGridView.BeginInvoke((MethodInvoker)delegate()
+
+            if (myDataGridView.Rows.Count > 0)
             {
-                myDataGridView.Rows[index].Selected = true;
-                myDataGridView.CurrentCell = myDataGridView[1, index];
-            });
+                myDataGridView.BeginInvoke((MethodInvoker)delegate()
+                {
+                    myDataGridView.Rows[index].Selected = true;
+                    myDataGridView.CurrentCell = myDataGridView[1, index];
+                });
+            }
         }
 
         public override void provedUvodniSetrideni()

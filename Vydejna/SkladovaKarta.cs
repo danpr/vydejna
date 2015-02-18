@@ -148,33 +148,10 @@ namespace Vydejna
                     break;
             }
 
-
-
-
-//            if ((state == sKartaState.show) || (state == sKartaState.showOnly))
-//            {
-//                setShowState();
-//                if ( state == sKartaState.showOnly)
-//                {
-//                    contextMenuStripZmeny.Enabled = false;
-//                }
-//            }
-//            else
-//            {
-//                // edit + add
-//                if (state == sKartaState.add)
-//                {
-//                    setAddState();
-//                }
-//                else
-//                {
-//                    setEditState();
-//                }
-//            }
-
             setData(DBRow);
             loadZmenyItems();
             this.CancelButton = this.buttonCancel;
+            this.AcceptButton = this.buttonOK;
         }
 
 
@@ -198,6 +175,8 @@ namespace Vydejna
 //            buttonTisk.Hide();
             dataGridViewZmeny.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             setAddState();
+            this.CancelButton = this.buttonCancel;
+            this.AcceptButton = this.buttonOK;
         }
 
         private void setFont(Font myFont)

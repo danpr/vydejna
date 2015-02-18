@@ -765,6 +765,7 @@ namespace Vydejna
                 evenState = evenStateEnum.enable;
                 contextMenuEnable(true, true, true, false, true, true, true);
                 karta.provedUvodniSetrideni();
+                selectAndFocusFirstRow();
                 labelView.Text = "Výdejna nářadí přehled";
             }
         }
@@ -814,6 +815,7 @@ namespace Vydejna
                 evenState = evenStateEnum.enable;
                 contextMenuEnable(false, false, false, false, false, true);
                 karta.provedUvodniSetrideni();
+                selectAndFocusFirstRow();
                 labelView.Text = "Archív zrušených karet";
             }
         }
@@ -836,6 +838,7 @@ namespace Vydejna
                 evenState = evenStateEnum.enable;
                 contextMenuEnable(false);
                 karta.provedUvodniSetrideni();
+                selectAndFocusFirstRow();
                 labelView.Text = "Vrácené nářadí do skladu";
             }
         }
@@ -854,6 +857,7 @@ namespace Vydejna
                 evenState = evenStateEnum.enable;
                 contextMenuEnable(true, false, false, true, false, true);
                 karta.provedUvodniSetrideni();
+                selectAndFocusFirstRow();
                 labelView.Text = "Pracovníci provozu";
             }
         }
@@ -886,6 +890,7 @@ namespace Vydejna
                 evenState = evenStateEnum.enable;
                 contextMenuEnable(false);
                 karta.provedUvodniSetrideni();
+                selectAndFocusFirstRow();
                 labelView.Text = "Poškozené nářadí";
             }
         }
@@ -1193,6 +1198,7 @@ namespace Vydejna
                 evenState = evenStateEnum.enable;
                 contextMenuEnable(true, false, false, true, false, true);
                 karta.provedUvodniSetrideni();
+                selectAndFocusFirstRow();
                 labelView.Text = "Pracovníci provozu - Zapůjčení nářadí";
             }
         }
@@ -1765,6 +1771,20 @@ namespace Vydejna
                 karta.SelectAndShowGridViewRow(dataRowSearchSelectedID);
             }
         }
+
+        private void selectAndFocusFirstRow()
+        {
+            dataGridView1.ClearSelection();
+            if (dataGridView1.Rows.Count > 0)
+            {
+                dataGridView1.BeginInvoke((MethodInvoker)delegate()
+                {
+                    dataGridView1.Rows[0].Selected = true;
+                    dataGridView1.CurrentCell = dataGridView1[1, 0];
+                });
+            }
+        }
+                
 
 
     }
