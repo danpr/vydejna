@@ -2521,7 +2521,15 @@ namespace Vydejna
             {
                 try
                 {
-                    transaction = (myDBConn as OdbcConnection).BeginTransaction(System.Data.IsolationLevel.ReadCommitted);
+                    try
+                    {
+                        transaction = (myDBConn as OdbcConnection).BeginTransaction(System.Data.IsolationLevel.ReadCommitted);
+                    }
+                    catch
+                    {
+                    }
+
+
 
                     OdbcCommand cmd = new OdbcCommand(commandString2, myDBConn as OdbcConnection);
 
