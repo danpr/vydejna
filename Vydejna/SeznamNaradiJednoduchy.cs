@@ -57,6 +57,10 @@ namespace Vydejna
             AcceptButton = buttonOK;
             CancelButton = buttonCancel;
 
+            dataGridView1.DataSource = new BindingSource();
+            (dataGridView1.DataSource as BindingSource).DataSource = null;
+
+
             dataGridView1.MultiSelect = false;
             dataGridView1.ReadOnly = true;
 
@@ -66,9 +70,7 @@ namespace Vydejna
             dataGridView1.AllowUserToResizeRows = false;
             dataGridView1.AllowUserToOrderColumns = true;
             dataGridView1.Columns.Clear();
-            dataGridView1.DataSource = null;
-
-
+//            dataGridView1.DataSource = null;
 
             Application.DoEvents();
             this.Font = myFont;
@@ -89,7 +91,8 @@ namespace Vydejna
                     labelView.Text = "Seznam nářadí - Načítání";
                     Application.DoEvents();
 
-                    dataGridView1.DataSource = myDataBase.loadDataTableNaradiJednoduchy();
+                    (dataGridView1.DataSource  as BindingSource).DataSource  = myDataBase.loadDataTableNaradiJednoduchy();
+                    (dataGridView1.DataSource as BindingSource).ResetBindings(true);
 
                     dataGridView1.Columns["poradi"].HeaderText = "Pořadí";
                     dataGridView1.Columns["nazev"].HeaderText = "Název";
@@ -101,6 +104,17 @@ namespace Vydejna
                     dataGridView1.Columns["cena"].Visible = false;   // cenu nezobrazujeme
                     dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
                     labelView.Text = "Pracovníci provozu - Zapůjčení nářadí";
+                    Application.DoEvents();
+                    provedUvodniSetrideni();
+                    dataGridView1.ClearSelection();
+                    if (dataGridView1.Rows.Count > 0)
+                    {
+                        dataGridView1.BeginInvoke((MethodInvoker)delegate()
+                        {
+                            dataGridView1.Rows[0].Selected = true;
+                            dataGridView1.CurrentCell = dataGridView1[1, 0];
+                        });
+                    }
                     Application.DoEvents();
 
                 }
@@ -315,7 +329,7 @@ namespace Vydejna
                 DataGridViewRow dataGridViewSelectedRow = dataGridView1.SelectedRows[0];
                 if (dataGridViewSelectedRow != null)
                 {
-                    DataTable dt = (DataTable)dataGridView1.DataSource;
+                    DataTable dt = (dataGridView1.DataSource as BindingSource).DataSource as DataTable;
                     dataRowSearchSelectedIndex = detail.findIndex(dt, dataGridViewSelectedRow);
                 }
             }
@@ -333,7 +347,7 @@ namespace Vydejna
 
                     if (dataGridView1.Rows.Count > 0)
                     {
-                        DataTable dt = (DataTable)dataGridView1.DataSource;
+                        DataTable dt = (dataGridView1.DataSource as BindingSource).DataSource as DataTable;
                         DataRowCollection drc = dt.Rows;
                         if (drc != null)
                         {
@@ -358,6 +372,13 @@ namespace Vydejna
                 }
             }
 
+        }
+
+        public void provedUvodniSetrideni()
+        {
+            DataGridViewColumn sortColumn;
+            sortColumn = dataGridView1.Columns["nazev"];
+            dataGridView1.Sort(sortColumn, System.ComponentModel.ListSortDirection.Ascending);
         }
 
 
