@@ -1133,8 +1133,8 @@ namespace Vydejna
                     // true osCisloExist
                     if (myReader1.Read() == true)
                     {
-                        poradi = myReader1.GetInt32(0) + 1;
-                        zustatek = myReader1.GetInt32(1);
+                        poradi = myReader1.GetInt32(myReader1.GetOrdinal("poradi")) + 1;
+                        zustatek = myReader1.GetInt32(myReader1.GetOrdinal("zustatek"));
                     }
                     else
                     {
@@ -1157,9 +1157,9 @@ namespace Vydejna
                     // true osCisloExist
                     if (myReader2.Read() == true)
                     {
-                        ucetCenaKs = myReader2.GetDecimal(0);
-                        celkCena = myReader2.GetDecimal(1);
-                        ucetstav = myReader2.GetInt32(2);
+                        ucetCenaKs = Math.Round(Convert.ToDecimal(myReader2.GetValue(myReader2.GetOrdinal("ucetkscen"))),3);
+                        celkCena = Math.Round(Convert.ToDecimal(myReader2.GetValue(myReader2.GetOrdinal("celkcena"))), 3);
+                        ucetstav = myReader2.GetInt32(myReader2.GetOrdinal("ucetstav"));
                     }
                     else
                     {
