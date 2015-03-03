@@ -2687,7 +2687,7 @@ namespace Vydejna
                     {
                         Int32 fyzstav = myReader2.GetInt32(myReader2.GetOrdinal("fyzstav"));
                         Int32 ucetstav = myReader2.GetInt32(myReader2.GetOrdinal("ucetstav"));
-                        decimal ucetkscen = myReader2.GetDecimal(myReader2.GetOrdinal("ucetkscen"));
+                        decimal ucetkscen = Convert.ToDecimal(myReader2.GetValue(myReader2.GetOrdinal("ucetkscen")));
                         string rozmer = myReader2.GetString(myReader2.GetOrdinal("rozmer"));
                         string nazev = myReader2.GetString(myReader2.GetOrdinal("nazev"));
                         string jk = myReader2.GetString(myReader2.GetOrdinal("jk"));
