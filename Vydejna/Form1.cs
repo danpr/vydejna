@@ -1784,6 +1784,37 @@ namespace Vydejna
                 });
             }
         }
+
+        private void vytvořeníZálohyToolStripMenuItem_DoubleClick(object sender, EventArgs e)
+        {
+        }
+
+        private void vytvořeníZálohyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // ulozeni archivace
+            // vybrani adresare
+
+            string xmlPath = "";
+            DialogResult result = folderBrowserDialogArchivace.ShowDialog();
+            if (result == DialogResult.OK) // Test result.
+            {
+                xmlPath = folderBrowserDialogArchivace.SelectedPath;
+            }
+
+            Application.DoEvents();
+
+            string DateTimeString = DateTime.Now.ToShortDateString();// +"_" + DateTime.Now.ToShortTimeString();
+
+            xmlPath = xmlPath + "\\" + DateTimeString;
+            System.IO.Directory.CreateDirectory(xmlPath);
+
+            Application.DoEvents();
+
+            myDB.createXmlDb(xmlPath);
+
+
+            System.IO.Directory.Delete(xmlPath);
+        }
                 
 
 

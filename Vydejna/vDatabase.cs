@@ -965,6 +965,12 @@ namespace Vydejna
         }
 
 
+        // -1 obecna chyba
+        // -2 neni zadny zaznam v seznamu zmen predanych jako pole operaci
+        public virtual Int32 createXmlDb(string xmlPath)
+        {
+            return -1;
+        }
 
     }
 
