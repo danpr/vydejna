@@ -1803,7 +1803,7 @@ namespace Vydejna
 
             Application.DoEvents();
 
-            string DateTimeString = DateTime.Now.ToShortDateString();// +"_" + DateTime.Now.ToShortTimeString();
+            string DateTimeString = DateTime.Now.ToShortDateString() + "_" + DateTime.Now.Hour.ToString() + "_" + DateTime.Now.Minute.ToString();
 
             xmlPath = xmlPath + "\\" + DateTimeString;
             System.IO.Directory.CreateDirectory(xmlPath);
@@ -1815,7 +1815,6 @@ namespace Vydejna
 
             System.IO.Directory.Delete(xmlPath);
         }
-                
 
 
     }

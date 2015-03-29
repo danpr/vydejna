@@ -4858,6 +4858,32 @@ namespace Vydejna
 
         }
 
+        public override Int32 createXmlDb(string xmlPath)
+        {
+            DataTable dtNaradi = loadDataTable("SELECT * from naradi");
+            if (dtNaradi == null) return -2;
+            dtNaradi.TableName = "naradi";
+            DataTable dtKarta = loadDataTable("SELECT * from karta");
+            if (dtKarta == null) return -3;
+            dtKarta.TableName = "karta";
+            DataTable dtPoskozeno = loadDataTable("SELECT * from poskozeno");
+            if (dtPoskozeno == null) return -4;
+            dtPoskozeno.TableName = "poskozeno";
+            DataTable dtVraceno = loadDataTable("SELECT * from vraceno");
+            if (dtVraceno == null) return -4;
+            dtVraceno.TableName = "vraceno";
+
+
+
+            dtNaradi.WriteXml(xmlPath + "\\naradi.db");
+            dtKarta.WriteXml(xmlPath + "\\karta.db");
+            dtPoskozeno.WriteXml(xmlPath + "\\poskozeno.db");
+            dtVraceno.WriteXml(xmlPath + "\\poskozeno.db");
+
+
+
+            return 0;
+        }
 
     }
 }

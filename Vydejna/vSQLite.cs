@@ -4827,6 +4827,13 @@ namespace Vydejna
 
         }
 
+        public override Int32 createXmlDb(string xmlPath)
+        {
+
+
+
+            return -1;
+        }
 
 
 
