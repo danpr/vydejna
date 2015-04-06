@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.IO.Packaging;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -1789,6 +1790,9 @@ namespace Vydejna
         {
         }
 
+
+
+
         private void vytvořeníZálohyToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // ulozeni archivace
@@ -1808,14 +1812,99 @@ namespace Vydejna
             xmlPath = xmlPath + "\\" + DateTimeString;
             System.IO.Directory.CreateDirectory(xmlPath);
 
-            Application.DoEvents();
+            if (Directory.Exists(xmlPath))
+            {
+                Application.DoEvents();
 
-            myDB.createXmlDb(xmlPath);
+                if (myDB.createXmlDb(xmlPath) == 0)
+                {
+                    string[] files = Directory.GetFiles(xmlPath);
+                    string packageFile = xmlPath + ".zip";
+
+                    if (File.Exists(packageFile))
+                    {
+                        File.Delete(packageFile);
+                    }
+                   
+                    foreach (string file in files)
+                    {
+
+                        addFileIntoPackage(file, packageFile);
+
+//                        FileInfo fi = new FileInfo(file);
+
+//                        if ((fi.Length > 0) && (fi.Extension == ".db"))
+//                        {
+//                            string filenameInPackage = ".\\" + fi.Name;
+//                            using (Package package = Package.Open(packageFile, FileMode.OpenOrCreate))
+//                            {
+//                                Uri partUriDocument = PackUriHelper.CreatePartUri(new Uri(filenameInPackage, UriKind.Relative));
+
+//                                PackagePart packagePartDocument = package.CreatePart(partUriDocument, System.Net.Mime.MediaTypeNames.Text.Xml);
+
+//                                using (FileStream fileStream = new FileStream(file, FileMode.Open, FileAccess.Read))
+//                                {
+//                                    CopyStream(fileStream, packagePartDocument.GetStream());
+//                                }
+//                            }
+//                        }
+                    }
+                }
 
 
-            System.IO.Directory.Delete(xmlPath);
+               deleteAllDirectory(xmlPath);
+            }
         }
 
+
+        private static void CopyStream(Stream source, Stream target)
+        {
+            const int bufSize = 0x1000;
+            byte[] buf = new byte[bufSize];
+            int bytesRead = 0;
+            while ((bytesRead = source.Read(buf, 0, bufSize)) > 0)
+                target.Write(buf, 0, bytesRead);
+        }
+
+
+        private void deleteAllDirectory(string dir)
+        {
+            if (Directory.Exists(dir))
+            {
+                foreach (string file in Directory.GetFiles(dir))
+                {
+                    File.Delete(file);
+                }
+                foreach (string subdir in Directory.GetDirectories(dir))
+                {
+                    deleteAllDirectory(subdir);
+                }
+                Directory.Delete(dir);
+            }
+        }
+
+
+        private void addFileIntoPackage(string fileNameWithPath, string packageFile)
+        {
+            FileInfo fi = new FileInfo(fileNameWithPath);
+
+            if ((fi.Length > 0) && (fi.Extension == ".db"))
+            {
+                string filenameInPackage = ".\\" + fi.Name;
+                using (Package package = Package.Open(packageFile, FileMode.OpenOrCreate))
+                {
+                    Uri partUriDocument = PackUriHelper.CreatePartUri(new Uri(filenameInPackage, UriKind.Relative));
+
+                    PackagePart packagePartDocument = package.CreatePart(partUriDocument, System.Net.Mime.MediaTypeNames.Text.Xml);
+
+                    using (FileStream fileStream = new FileStream(fileNameWithPath, FileMode.Open, FileAccess.Read))
+                    {
+                        CopyStream(fileStream, packagePartDocument.GetStream());
+                    }
+                }
+            }
+
+        }
 
     }
 }
