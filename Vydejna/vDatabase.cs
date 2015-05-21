@@ -965,13 +965,6 @@ namespace Vydejna
         }
 
 
-        // -1 obecna chyba
-        // -2 tabulka naradi nelze vytvorit
-        public virtual Int32 createXmlDb(string xmlPath)
-        {
-            return -1;
-        }
-
     }
 
 }

@@ -4858,55 +4858,7 @@ namespace Vydejna
 
         }
 
-        public override Int32 createXmlDb(string xmlPath)
-        {
-            DataTable dtNaradi = loadDataTable("SELECT * from naradi order by poradi");
-            if (dtNaradi == null) return -2;
-            dtNaradi.TableName = "naradi";
-            DataTable dtKarta = loadDataTable("SELECT * from karta order by poradi");
-            if (dtKarta == null) return -3;
-            dtKarta.TableName = "karta";
-            DataTable dtPoskozeno = loadDataTable("SELECT * from poskozeno order by poradi");
-            if (dtPoskozeno == null) return -4;
-            dtPoskozeno.TableName = "poskozeno";
-            DataTable dtVraceno = loadDataTable("SELECT * from vraceno order by poradi");
-            if (dtVraceno == null) return -5;
-            dtVraceno.TableName = "vraceno";
-            DataTable dtPujceno = loadDataTable("SELECT * from pujceno order by poradi");
-            if (dtPujceno == null) return -6;
-            dtPujceno.TableName = "pujceno";
-            DataTable dtZmeny = loadDataTable("SELECT * from zmeny order by parporadi, poradi");
-            if (dtZmeny == null) return -7;
-            dtZmeny.TableName = "zmeny";
-            DataTable dtOsoby = loadDataTable("SELECT * from osoby order by oscislo");
-            if (dtOsoby == null) return -8;
-            dtOsoby.TableName = "osoby";
-            DataTable dtTabSeq = loadDataTable("SELECT * from tabseq order by poradi");
-            if (dtTabSeq == null) return -9;
-            dtTabSeq.TableName = "tabseq";
-            DataTable dtNastaveni = loadDataTable("SELECT * from nastaveni order by setid");
-            if (dtNastaveni == null) return -10;
-            dtNastaveni.TableName = "nastaveni";
-            DataTable dtUzivatele = loadDataTable("SELECT * from uzivatele order by userid");
-            if (dtUzivatele == null) return -11;
-            dtUzivatele.TableName = "uzivatele";
 
-
-            dtNaradi.WriteXml(xmlPath + "\\naradi.db");
-            dtKarta.WriteXml(xmlPath + "\\karta.db");
-            dtPoskozeno.WriteXml(xmlPath + "\\poskozeno.db");
-            dtVraceno.WriteXml(xmlPath + "\\vraceno.db");
-            dtPujceno.WriteXml(xmlPath + "\\pujceno.db");
-            dtZmeny.WriteXml(xmlPath + "\\zmeny.db");
-            dtOsoby.WriteXml(xmlPath + "\\osoby.db");
-            dtTabSeq.WriteXml(xmlPath + "\\tabseq.db");
-            dtNastaveni.WriteXml(xmlPath + "\\nastaveni.db");
-            dtUzivatele.WriteXml(xmlPath + "\\uzivatele.db");
-
-
-
-            return 0;
-        }
 
     }
 }

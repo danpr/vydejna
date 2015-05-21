@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.IO.Packaging;
+using System.IO.Compression;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -1786,17 +1787,42 @@ namespace Vydejna
             }
         }
 
-        private void vytvořeníZálohyToolStripMenuItem_DoubleClick(object sender, EventArgs e)
-        {
-        }
-
 
 
 
         private void vytvořeníZálohyToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            // ulozeni archivace
-            // vybrani adresare
+            vytvoreniZalohyZde();
+        }
+
+        private void vytvoreniZalohyZde()
+        {
+            const int tableCount = 10;
+
+            string[] sqlCommands = new string[tableCount];
+            string[] tableName = new string[tableCount];
+
+            sqlCommands[0] = "SELECT * from naradi order by poradi";
+            tableName[0] = "naradi";
+            sqlCommands[1] = "SELECT * from karta order by poradi";
+            tableName[1] = "karta";
+            sqlCommands[2] = "SELECT * from poskozeno order by poradi";
+            tableName[2] = "poskozeno";
+            sqlCommands[3] = "SELECT * from vraceno order by poradi";
+            tableName[3] = "vraceno";
+            sqlCommands[4] = "SELECT * from pujceno order by poradi";
+            tableName[4] = "pujceno";
+            sqlCommands[5] = "SELECT * from zmeny order by parporadi, poradi";
+            tableName[5] = "zmeny";
+            sqlCommands[6] = "SELECT * from osoby order by oscislo";
+            tableName[6] = "osoby";
+            sqlCommands[7] = "SELECT * from tabseq order by poradi";
+            tableName[7] = "tabseq";
+            sqlCommands[8] = "SELECT * from nastaveni order by setid";
+            tableName[8] = "nastaveni";
+            sqlCommands[9] = "SELECT * from uzivatele order by userid";
+            tableName[9] = "uzivatele";
+
 
             string xmlPath = "";
             DialogResult result = folderBrowserDialogArchivace.ShowDialog();
@@ -1811,60 +1837,31 @@ namespace Vydejna
 
             xmlPath = xmlPath + "\\" + DateTimeString;
             System.IO.Directory.CreateDirectory(xmlPath);
-
             if (Directory.Exists(xmlPath))
             {
-                Application.DoEvents();
 
-                if (myDB.createXmlDb(xmlPath) == 0)
+                string packageFile = xmlPath + ".zip";
+                if (File.Exists(packageFile))
                 {
-                    string[] files = Directory.GetFiles(xmlPath);
-                    string packageFile = xmlPath + ".zip";
-
-                    if (File.Exists(packageFile))
-                    {
-                        File.Delete(packageFile);
-                    }
-                   
-                    foreach (string file in files)
-                    {
-
-                        addFileIntoPackage(file, packageFile);
-
-//                        FileInfo fi = new FileInfo(file);
-
-//                        if ((fi.Length > 0) && (fi.Extension == ".db"))
-//                        {
-//                            string filenameInPackage = ".\\" + fi.Name;
-//                            using (Package package = Package.Open(packageFile, FileMode.OpenOrCreate))
-//                            {
-//                                Uri partUriDocument = PackUriHelper.CreatePartUri(new Uri(filenameInPackage, UriKind.Relative));
-
-//                                PackagePart packagePartDocument = package.CreatePart(partUriDocument, System.Net.Mime.MediaTypeNames.Text.Xml);
-
-//                                using (FileStream fileStream = new FileStream(file, FileMode.Open, FileAccess.Read))
-//                                {
-//                                    CopyStream(fileStream, packagePartDocument.GetStream());
-//                                }
-//                            }
-//                        }
-                    }
+                    File.Delete(packageFile);
                 }
 
+                Application.DoEvents();
 
-               deleteAllDirectory(xmlPath);
+                for (int i = 0; i < tableCount; i++)
+                {
+                    DataTable dtTable = myDB.loadDataTable(sqlCommands[i]);
+                    dtTable.TableName = tableName[i];
+                    string fileName = xmlPath + "\\" + tableName[i] + ".db";
+                    dtTable.WriteXml(fileName);
+                    addFileIntoPackage(fileName, packageFile);
+                    File.Delete(fileName);
+                }
+                deleteAllDirectory(xmlPath);
             }
         }
 
 
-        private static void CopyStream(Stream source, Stream target)
-        {
-            const int bufSize = 0x1000;
-            byte[] buf = new byte[bufSize];
-            int bytesRead = 0;
-            while ((bytesRead = source.Read(buf, 0, bufSize)) > 0)
-                target.Write(buf, 0, bytesRead);
-        }
 
 
         private void deleteAllDirectory(string dir)
@@ -1899,12 +1896,34 @@ namespace Vydejna
 
                     using (FileStream fileStream = new FileStream(fileNameWithPath, FileMode.Open, FileAccess.Read))
                     {
-                        CopyStream(fileStream, packagePartDocument.GetStream());
+                        CopyCompressStream(fileStream, packagePartDocument.GetStream());
                     }
                 }
             }
-
         }
+
+
+
+        private void CopyCompressStream(Stream source, Stream target)
+        {
+            using (GZipStream compressionStream = new GZipStream(target, CompressionMode.Compress))
+            {
+                CopyStream(source, compressionStream);
+            }
+        }
+
+        private static void CopyStream(Stream source, Stream target)
+        {
+            const int bufSize = 0x1000;
+            byte[] buf = new byte[bufSize];
+            int bytesRead = 0;
+            while ((bytesRead = source.Read(buf, 0, bufSize)) > 0)
+                target.Write(buf, 0, bytesRead);
+            target.Flush();
+            target.Close();
+        }
+
+
 
     }
 }
