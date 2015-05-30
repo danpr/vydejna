@@ -12,7 +12,8 @@ namespace Vydejna
     enum permCode
     {
       All = 0,  Nar = 1, NarAdd, NarEd, NarEdM, NarEdNaz, NarEdJK, NarEdCenaKs, NarEdUcCenaKs, NarEdUcCena, NarEdMin, NarEdFyStav, NarEdUcStav, NarDel, NarPrint, NarPrijem, NarPosk, NarOprO,
-      ZNar, ZNarEd, ZNarDel, PNar, PNarEd, PNarDel, VNar, VNarEd, VNarDel, Prac, PracAdd, PracEd, PracDel, PracPrint, PracZapN, PracVracN, PassSet, NarDelPrij, NarOprData, ZNarPrint, NarDelPosk
+      ZNar, ZNarEd, ZNarDel, PNar, PNarEd, PNarDel, VNar, VNarEd, VNarDel, Prac, PracAdd, PracEd, PracDel, PracPrint, PracZapN, PracVracN, PassSet, NarDelPrij, NarOprData, ZNarPrint, NarDelPosk,
+        ArchMake
     };
     
        public class permStruct
@@ -91,6 +92,7 @@ namespace Vydejna
             permList.Add(new permStruct((Int32)permCode.Prac, (Int32)permCode.PracZapN, "Zapůjčení nářadí"));
             permList.Add(new permStruct((Int32)permCode.Prac, (Int32)permCode.PracVracN, "Vrácení nářadí"));
             permList.Add(new permStruct(0, (Int32)permCode.PassSet, "Změna hesla"));
+            permList.Add(new permStruct(0, (Int32)permCode.ArchMake, "Povolení archivace"));
 
         }
 
@@ -256,12 +258,15 @@ namespace Vydejna
             return userLogin;
         }
 
-        public Boolean userIsAdminWM()
+        public Boolean userIsAdminWM(Boolean showErrorMessage = true)
         {
             Boolean returnCode = userIsAdmin();
             if (!(returnCode))
             {
-                MessageBox.Show("Lituji, tuto akci múže vyvolat jen uživatel s administrátorským oprávněním.");
+                if (showErrorMessage)
+                {
+                    MessageBox.Show("Lituji, tuto akci múže vyvolat jen uživatel s administrátorským oprávněním.");
+                }
             }
 
             return returnCode;

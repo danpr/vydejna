@@ -1792,10 +1792,17 @@ namespace Vydejna
 
         private void vytvořeníZálohyToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            vytvoreniZalohyZde();
+            UzivatelData ud = UzivatelData.makeInstance();
+            if (ud.userIsAdminWM(false) || ud.userHasAccessRightsWM((Int32)permCode.ArchMake))
+            {
+                if (MessageBox.Show("Opravdu chcete archív všech dat?", "Archivace tabulek", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    vytvoreniArchivu();
+                }
+            }
         }
 
-        private void vytvoreniZalohyZde()
+        private void vytvoreniArchivu()
         {
             const int tableCount = 10;
 
@@ -1848,16 +1855,31 @@ namespace Vydejna
 
                 Application.DoEvents();
 
+                progressBarMain.Style = ProgressBarStyle.Continuous;
+                progressBarMain.Value = 0;
+                progressBarMain.Maximum = tableCount;
+
                 for (int i = 0; i < tableCount; i++)
                 {
-                    DataTable dtTable = myDB.loadDataTable(sqlCommands[i]);
-                    dtTable.TableName = tableName[i];
-                    string fileName = xmlPath + "\\" + tableName[i] + ".db";
-                    dtTable.WriteXml(fileName);
-                    addFileIntoPackage(fileName, packageFile);
-                    File.Delete(fileName);
+                    try
+                    {
+                        DataTable dtTable = myDB.loadDataTable(sqlCommands[i]);
+                        dtTable.TableName = tableName[i];
+                        string fileName = xmlPath + "\\" + tableName[i] + ".db";
+                        dtTable.WriteXml(fileName);
+                        addFileIntoPackage(fileName, packageFile);
+                        File.Delete(fileName);
+                        progressBarMain.Value = i + 1;
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Lituji. Nemohu archivovat tabulku "+tableName[i]+".");
+                    }
+
                 }
+                progressBarMain.Value = 0;
                 deleteAllDirectory(xmlPath);
+                MessageBox.Show("Data jsou archivovaná.");
             }
         }
 
