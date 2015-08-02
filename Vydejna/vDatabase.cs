@@ -965,6 +965,115 @@ namespace Vydejna
         }
 
 
+//        public virtual  Int32 saveDataSetToSQL(DataSet dSet)
+//        {
+//            if (dSet == null) return -1;
+//            foreach (DataTable dTable in dSet.Tables )
+//            {
+//                if (dTable.TableName == "karta") saveDataTableKartaToSQL(dTable,null);
+//                if (dTable.TableName == "naradi") saveDataTableNaradiToSQL(dTable, null);
+ //           }
+//            return -1;
+//        }
+
+
+        public virtual Int32 saveDataSetToSQL(DataSet dSet, Label labelInfo)
+        {
+            DbTransaction transaction = null;
+            return _saveDataSetToSQL(dSet, transaction, labelInfo);
+        }
+
+
+
+        public Int32 _saveDataSetToSQL(DataSet dSet, DbTransaction transaction, Label labelInfo)
+        {
+            transaction = null;
+
+            if (DBIsOpened())
+            {
+                try
+                {
+                    try
+                    {
+                        transaction = (myDBConn as DbConnection).BeginTransaction(System.Data.IsolationLevel.Serializable);
+                    }
+                    catch
+                    {
+                    }
+
+                    if (dSet == null) return -1;
+
+                    String textPre = labelInfo.Text;
+                    foreach (DataTable dTable in dSet.Tables)
+                    {
+                        if ((labelInfo != null) && (dTable.TableName.Trim() != ""))
+                        {
+                            labelInfo.Text = textPre + dTable.TableName;
+                            Application.DoEvents();
+                        }
+
+                        if (dTable.TableName == "karta") saveDataTableKartaToSQL(dTable, transaction);
+                        if (dTable.TableName == "naradi") saveDataTableNaradiToSQL(dTable, transaction);
+                        if (dTable.TableName == "vraceno") saveDataTableVracenoToSQL(dTable, transaction);
+                        if (dTable.TableName == "poskozeno") saveDataTablePoskozenoToSQL(dTable, transaction);
+                        if (dTable.TableName == "osoby") saveDataTableOsobyToSQL(dTable, transaction);
+                        if (dTable.TableName == "zmeny") saveDataTableZmenyToSQL(dTable, transaction);
+
+                    }
+
+                    if (transaction != null)
+                    {
+                        (transaction as DbTransaction).Commit();
+                    }
+
+                    return 0;
+                }
+
+                catch
+                {
+                    if (transaction != null)
+                    {
+                        (transaction as DbTransaction).Rollback();
+                    }
+                    return -1;  // chyba v trasakci
+                }
+            }
+            return -2;  // databaze neni otevrena
+        }
+
+
+
+        public virtual void saveDataTableKartaToSQL(DataTable dTable, DbTransaction transaction)
+        {
+            return;
+        }
+
+        public virtual void saveDataTableNaradiToSQL(DataTable dTable, DbTransaction transaction)
+        {
+            return;
+        }
+
+        public virtual void saveDataTableVracenoToSQL(DataTable dTable, DbTransaction transaction)
+        {
+            return;
+        }
+
+        public virtual void saveDataTablePoskozenoToSQL(DataTable dTable, DbTransaction transaction)
+        {
+            return;
+        }
+
+        public virtual void saveDataTableOsobyToSQL(DataTable dTable, DbTransaction transaction)
+        {
+            return;
+        }
+
+        public virtual void saveDataTableZmenyToSQL(DataTable dTable, DbTransaction transaction)
+        {
+            return;
+        }
+
+
     }
 
 }

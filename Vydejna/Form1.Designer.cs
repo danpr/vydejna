@@ -104,6 +104,7 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.labelDate = new System.Windows.Forms.Label();
             this.folderBrowserDialogArchivace = new System.Windows.Forms.FolderBrowserDialog();
+            this.openArchiveFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
@@ -231,7 +232,7 @@
             this.seznamPoškozenekZaZakázkuToolStripMenuItem,
             this.seznamPoškozenekZaKontoToolStripMenuItem});
             this.poškozenkyToolStripMenuItem.Name = "poškozenkyToolStripMenuItem";
-            this.poškozenkyToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.poškozenkyToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.poškozenkyToolStripMenuItem.Text = "Poškozenky";
             // 
             // vyhodnoceniPoškozenekDleStřediskaToolStripMenuItem
@@ -320,14 +321,14 @@
             // písnoToolStripMenuItem
             // 
             this.písnoToolStripMenuItem.Name = "písnoToolStripMenuItem";
-            this.písnoToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
+            this.písnoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.písnoToolStripMenuItem.Text = "Písmo";
             this.písnoToolStripMenuItem.Click += new System.EventHandler(this.písmoToolStripMenuItem_Click);
             // 
             // změnaHeslaToolStripMenuItem
             // 
             this.změnaHeslaToolStripMenuItem.Name = "změnaHeslaToolStripMenuItem";
-            this.změnaHeslaToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
+            this.změnaHeslaToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.změnaHeslaToolStripMenuItem.Text = "Změna hesla";
             this.změnaHeslaToolStripMenuItem.Click += new System.EventHandler(this.zmenaHeslaToolStripMenuItem_Click);
             // 
@@ -349,6 +350,7 @@
             this.údržbaToolStripMenuItem.Name = "údržbaToolStripMenuItem";
             this.údržbaToolStripMenuItem.Size = new System.Drawing.Size(96, 20);
             this.údržbaToolStripMenuItem.Text = "Údržba systému";
+            this.údržbaToolStripMenuItem.Click += new System.EventHandler(this.údržbaToolStripMenuItem_Click);
             // 
             // toolStripMenuItem11
             // 
@@ -396,19 +398,21 @@
             this.toolStripMenuItem14.Name = "toolStripMenuItem14";
             this.toolStripMenuItem14.Size = new System.Drawing.Size(257, 22);
             this.toolStripMenuItem14.Text = "Archivace DB";
+            this.toolStripMenuItem14.Click += new System.EventHandler(this.toolStripMenuItem14_Click);
             // 
             // vytvořeníZálohyToolStripMenuItem
             // 
             this.vytvořeníZálohyToolStripMenuItem.Name = "vytvořeníZálohyToolStripMenuItem";
-            this.vytvořeníZálohyToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.vytvořeníZálohyToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
             this.vytvořeníZálohyToolStripMenuItem.Text = "Uložení dat";
             this.vytvořeníZálohyToolStripMenuItem.Click += new System.EventHandler(this.vytvořeníZálohyToolStripMenuItem_Click);
             // 
             // obnovaDatToolStripMenuItem
             // 
             this.obnovaDatToolStripMenuItem.Name = "obnovaDatToolStripMenuItem";
-            this.obnovaDatToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.obnovaDatToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
             this.obnovaDatToolStripMenuItem.Text = "Obnova dat";
+            this.obnovaDatToolStripMenuItem.Click += new System.EventHandler(this.obnovaDatToolStripMenuItem_Click);
             // 
             // vytvoreniTabulekToolStripMenuItem
             // 
@@ -698,6 +702,10 @@
             this.labelDate.TabIndex = 7;
             this.labelDate.Text = "label1";
             // 
+            // openArchiveFileDialog
+            // 
+            this.openArchiveFileDialog.FileName = "openFileDialog1";
+            // 
             // Vydejna
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -803,6 +811,7 @@
         private System.Windows.Forms.ToolStripMenuItem vytvořeníZálohyToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem obnovaDatToolStripMenuItem;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialogArchivace;
+        private System.Windows.Forms.OpenFileDialog openArchiveFileDialog;
     }
 }
 

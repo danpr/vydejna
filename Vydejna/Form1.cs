@@ -589,10 +589,9 @@ namespace Vydejna
 
                     Hashtable DBJoin;
                     DBJoin = new Hashtable();
-
                     DBJoin.Clear();
-
                     DBJoin.Add("test", 1);
+
                     if (myDB == null)
                     {
                         myDB = OpenDataBaseHandle();
@@ -1866,7 +1865,7 @@ namespace Vydejna
                         DataTable dtTable = myDB.loadDataTable(sqlCommands[i]);
                         dtTable.TableName = tableName[i];
                         string fileName = xmlPath + "\\" + tableName[i] + ".db";
-                        dtTable.WriteXml(fileName);
+                        dtTable.WriteXml(fileName,XmlWriteMode.WriteSchema);
                         addFileIntoPackage(fileName, packageFile);
                         File.Delete(fileName);
                         progressBarMain.Value = i + 1;
@@ -1943,6 +1942,121 @@ namespace Vydejna
                 target.Write(buf, 0, bytesRead);
             target.Flush();
             target.Close();
+        }
+
+        private void obnovaDatToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Opravdu nahrát archív všech dat?\nVšechna současná data budou smazána", "Archivace tabulek", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                nacteniArchivu();
+            }
+        }
+
+        private void nacteniArchivu()
+        {
+
+            DialogResult result = openArchiveFileDialog.ShowDialog();
+            if (result == DialogResult.OK) // Test result.
+            {
+                Application.DoEvents();
+                string packageFile = openArchiveFileDialog.FileName;
+                using (Package package = Package.Open(packageFile, FileMode.Open))
+                {
+
+                    progressBarMain.Style = ProgressBarStyle.Marquee;
+
+                    (dataGridView1.DataSource as BindingSource).DataSource = null;
+                    (dataGridView1.DataSource as BindingSource).ResetBindings(true);
+
+                    progressBarMain.MarqueeAnimationSpeed = 100;
+                    labelView.Text = "Čtení dat z archívu";
+                    Application.DoEvents();
+
+                    DataSet dset = new DataSet();
+                    PackagePartCollection archiveCollection = package.GetParts();
+                    foreach (PackagePart onePart in archiveCollection)
+                    {
+                        string name = onePart.Uri.OriginalString;
+                        if (name.Length > 3)
+                        {
+                            string namePref = name.Substring(1, name.Length - 4);
+                            string namePost = name.Substring(name.Length-2,2);
+                            if (namePost == "db")
+                            {
+                                labelView.Text = "Čtení dat z archívu - tabulka : " + namePref ;
+                                Application.DoEvents();
+
+                                DataTable dTable = new DataTable();
+                                dTable.TableName = namePref;
+                                dset.Tables.Add(dTable);
+                                //provedeme natazeni tabulky
+                                Stream inStream = onePart.GetStream();
+                                using (GZipStream compressionStream = new GZipStream(inStream, CompressionMode.Decompress))
+                                {
+                                    dTable.ReadXml(compressionStream);
+                                }
+//                                using (FileStream fileStream = new FileStream("C:\\naradi\\"+namePref, FileMode.Create, FileAccess.ReadWrite))
+//                                {
+//                                    CopyUnCompressStream(inStream,fileStream);
+//                                }
+                            }
+                        }
+                    }                   
+                    package.Close();
+
+                    progressBarMain.MarqueeAnimationSpeed = 0;
+                    labelView.Text = "";
+                    Application.DoEvents();
+
+                    labelView.Text = "Ukladání dat do databaze - tabulka : ";
+                    Application.DoEvents();
+                    progressBarMain.MarqueeAnimationSpeed = 100;
+                    Int32 saveError = myDB.saveDataSetToSQL(dset, labelView);
+                    progressBarMain.MarqueeAnimationSpeed = 0;
+
+                    progressBarMain.Style = ProgressBarStyle.Blocks;
+                    progressBarMain.Value = 0;
+                    labelView.Text = "";
+                    Application.DoEvents();
+
+                    if (saveError == 0)
+                    {
+                        MessageBox.Show("Přesun dat z archivu ukončen.");
+                    }
+                    else
+                    {
+                        if (saveError == -2)
+                        {
+                            MessageBox.Show("Databázi se nepodařilo otevřít.");
+                        }
+                        if (saveError == -1)
+                        {
+                            MessageBox.Show("Chyba při nahrávání dat do databáze.");
+                        }
+
+                    }
+                }
+            }
+
+        }
+
+
+        private void CopyUnCompressStream(Stream source, Stream target)
+        {
+            using (GZipStream compressionStream = new GZipStream(source, CompressionMode.Decompress))
+            {
+                CopyStream(compressionStream, target);
+            }
+        }
+
+        private void údržbaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void toolStripMenuItem14_Click(object sender, EventArgs e)
+        {
+
         }
 
 
