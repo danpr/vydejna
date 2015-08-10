@@ -1958,6 +1958,14 @@ namespace Vydejna
             DialogResult result = openArchiveFileDialog.ShowDialog();
             if (result == DialogResult.OK) // Test result.
             {
+                Boolean makeUzivatele = false;
+
+                if (MessageBox.Show("Chcete nahrat i seznam a prava uživatelů ?", "Archivace tabulek", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    makeUzivatele = true;
+                }
+
+
                 Application.DoEvents();
                 string packageFile = openArchiveFileDialog.FileName;
                 using (Package package = Package.Open(packageFile, FileMode.Open))
@@ -1995,10 +2003,6 @@ namespace Vydejna
                                 {
                                     dTable.ReadXml(compressionStream);
                                 }
-//                                using (FileStream fileStream = new FileStream("C:\\naradi\\"+namePref, FileMode.Create, FileAccess.ReadWrite))
-//                                {
-//                                    CopyUnCompressStream(inStream,fileStream);
-//                                }
                             }
                         }
                     }                   
@@ -2011,7 +2015,8 @@ namespace Vydejna
                     labelView.Text = "Ukladání dat do databaze - tabulka : ";
                     Application.DoEvents();
                     progressBarMain.MarqueeAnimationSpeed = 100;
-                    Int32 saveError = myDB.saveDataSetToSQL(dset, labelView);
+
+                    Int32 saveError = myDB.saveDataSetToSQL(dset, labelView, makeUzivatele);
                     progressBarMain.MarqueeAnimationSpeed = 0;
 
                     progressBarMain.Style = ProgressBarStyle.Blocks;

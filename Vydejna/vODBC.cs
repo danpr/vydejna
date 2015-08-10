@@ -4859,10 +4859,10 @@ namespace Vydejna
         }
 
 
-        public override Int32 saveDataSetToSQL(DataSet dSet, Label labelInfo)
+        public override Int32 saveDataSetToSQL(DataSet dSet, Label labelInfo, Boolean makeUzivatele = true)
         {
             OdbcTransaction transaction = null;
-            return _saveDataSetToSQL(dSet, transaction,labelInfo);
+            return _saveDataSetToSQL(dSet, transaction, labelInfo, makeUzivatele);
         }
 
 
@@ -5159,8 +5159,6 @@ namespace Vydejna
             return;  // ok
         }
 
-//        string commandString = "INSERT INTO zmeny (parporadi, pomozjk, datum, poznamka, prijem, vydej, zustatek, zapkarta, vevcislo, pocivc, stav, poradi )" +
-//              "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
 
         public override void saveDataTableZmenyToSQL(DataTable dTable, DbTransaction transaction)
         {
@@ -5207,6 +5205,144 @@ namespace Vydejna
             return;  // ok
         }
 
+
+        public override void saveDataTablePujcenoToSQL(DataTable dTable, DbTransaction transaction)
+        {
+            string commandString1 = "DELETE FROM pujceno";
+            string commandString2 = "INSERT INTO pujceno ( poradi, oscislo, nporadi, zporadi, stavks, pjmeno, pprijmeni, pnazev, pjk, pdatum, pks, pcena )" +
+                          "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
+
+            OdbcCommand cmd1 = new OdbcCommand(commandString1, myDBConn as OdbcConnection);
+            cmd1.Transaction = (OdbcTransaction)transaction;
+            cmd1.ExecuteNonQuery();
+
+            OdbcCommand cmd2 = new OdbcCommand(commandString2, myDBConn as OdbcConnection);
+            cmd2.Parameters.AddWithValue("@poradi", DbType.Int32);
+            cmd2.Parameters.AddWithValue("@oscislo", DbType.String);
+            cmd2.Parameters.AddWithValue("@nporadi", DbType.Int32);
+            cmd2.Parameters.AddWithValue("@zporadi", DbType.Int32);
+            cmd2.Parameters.AddWithValue("@stavks", DbType.Int32);
+            cmd2.Parameters.AddWithValue("@pjmeno", DbType.String);
+            cmd2.Parameters.AddWithValue("@pprijmeni", DbType.String);
+            cmd2.Parameters.AddWithValue("@pnazev", DbType.String);
+            cmd2.Parameters.AddWithValue("@pjk", DbType.String);
+            cmd2.Parameters.AddWithValue("@pdatum", DbType.Date);
+            cmd2.Parameters.AddWithValue("@pks", DbType.Int32);
+            cmd2.Parameters.AddWithValue("@pcena", DbType.Double);
+
+            foreach (DataRow row in dTable.Rows)
+            {
+                cmd2.Parameters["@poradi"].Value = Convert.ToInt32(row["poradi"]);
+                cmd2.Parameters["@oscislo"].Value = row["oscislo"].ToString();
+                cmd2.Parameters["@nporadi"].Value = Convert.ToInt32(row["nporadi"]);
+                cmd2.Parameters["@zporadi"].Value = Convert.ToInt32(row["zporadi"]);
+                cmd2.Parameters["@stavks"].Value = Convert.ToInt32(row["stavks"]);
+                cmd2.Parameters["@pjmeno"].Value = row["pjmeno"].ToString();
+                cmd2.Parameters["@pprijmeni"].Value = row["pprijmeni"].ToString();
+                cmd2.Parameters["@pnazev"].Value = row["pnazev"].ToString();
+                cmd2.Parameters["@pjk"].Value = row["pjk"].ToString();
+                cmd2.Parameters["@pdatum"].Value = Convert.ToDateTime(row["pdatum"]);
+                cmd2.Parameters["@pks"].Value = Convert.ToInt32(row["pks"]);
+                cmd2.Parameters["@pcena"].Value = Convert.ToDouble(row["pcena"]);
+                cmd2.Transaction = (OdbcTransaction)transaction;
+                cmd2.ExecuteNonQuery();
+                Application.DoEvents();
+            }
+            return;  // ok
+        }
+
+
+        public override void saveDataTableUzivateleToSQL(DataTable dTable, DbTransaction transaction)
+        {
+            string commandString1 = "DELETE FROM uzivatele";
+            string commandString2 = "INSERT INTO uzivatele (userid, password, jmeno, prijmeni, admin, permission )" +
+                   "VALUES ( ?, ?, ?, ?, ?, ? )";
+
+            OdbcCommand cmd1 = new OdbcCommand(commandString1, myDBConn as OdbcConnection);
+            cmd1.Transaction = (OdbcTransaction)transaction;
+            cmd1.ExecuteNonQuery();
+
+            OdbcCommand cmd2 = new OdbcCommand(commandString2, myDBConn as OdbcConnection);
+            cmd2.Parameters.AddWithValue("@userid", DbType.String);
+            cmd2.Parameters.AddWithValue("@password", DbType.String);
+            cmd2.Parameters.AddWithValue("@jmeno", DbType.String);
+            cmd2.Parameters.AddWithValue("@prijmeni", DbType.String);
+            cmd2.Parameters.AddWithValue("@admin", DbType.String);
+            cmd2.Parameters.AddWithValue("@permission", DbType.String);
+
+            foreach (DataRow row in dTable.Rows)
+            {
+                cmd2.Parameters["@userid"].Value = row["userid"].ToString();
+                cmd2.Parameters["@password"].Value = row["password"].ToString();
+                cmd2.Parameters["@jmeno"].Value = row["jmeno"].ToString();
+                cmd2.Parameters["@prijmeni"].Value = row["prijmeni"].ToString();
+                cmd2.Parameters["@admin"].Value = row["admin"].ToString();
+                cmd2.Parameters["@permission"].Value = row["permission"].ToString();
+                cmd2.Transaction = (OdbcTransaction)transaction;
+                cmd2.ExecuteNonQuery();
+                Application.DoEvents();
+            }
+            return;  // ok
+        }
+
+
+        public override void saveDataTableNastaveniToSQL(DataTable dTable, DbTransaction transaction)
+        {
+            string commandString1 = "DELETE FROM nastaveni";
+            string commandString2 = "INSERT INTO nastaveni (setid, permission, permission_hs, permission_hi, userid, datum )" +
+                   "VALUES ( ?, ?, ?, ?, ?, ? )";
+
+            OdbcCommand cmd1 = new OdbcCommand(commandString1, myDBConn as OdbcConnection);
+            cmd1.Transaction = (OdbcTransaction)transaction;
+            cmd1.ExecuteNonQuery();
+
+            OdbcCommand cmd2 = new OdbcCommand(commandString2, myDBConn as OdbcConnection);
+            cmd2.Parameters.AddWithValue("@setid", DbType.String);
+            cmd2.Parameters.AddWithValue("@permission", DbType.String);
+            cmd2.Parameters.AddWithValue("@permission_hs", DbType.String);
+            cmd2.Parameters.AddWithValue("@permission_hi", DbType.Int32);
+            cmd2.Parameters.AddWithValue("@userid", DbType.String);
+            cmd2.Parameters.AddWithValue("@datum", DbType.Date);
+
+            foreach (DataRow row in dTable.Rows)
+            {
+                cmd2.Parameters["@setid"].Value = row["setid"].ToString();
+                cmd2.Parameters["@permission"].Value = row["permission"].ToString();
+                cmd2.Parameters["@permission_hs"].Value = row["permission_hs"].ToString();
+                cmd2.Parameters["@permission_hi"].Value = Convert.ToInt32( row["permission_hi"]);
+                cmd2.Parameters["@userid"].Value = row["userid"].ToString();
+                cmd2.Parameters["@datum"].Value = Convert.ToDateTime( row["datum"]);
+                cmd2.Transaction = (OdbcTransaction)transaction;
+                cmd2.ExecuteNonQuery();
+                Application.DoEvents();
+            }
+            return;  // ok
+        }
+
+        public override void saveDataTableTabseqToSQL(DataTable dTable, DbTransaction transaction)
+        {
+            string commandString1 = "DELETE FROM tabseq";
+            string commandString2 = "INSERT INTO tabseq (nazev, poradi )" +
+                   "VALUES ( ?, ? )";
+
+            OdbcCommand cmd1 = new OdbcCommand(commandString1, myDBConn as OdbcConnection);
+            cmd1.Transaction = (OdbcTransaction)transaction;
+            cmd1.ExecuteNonQuery();
+
+            OdbcCommand cmd2 = new OdbcCommand(commandString2, myDBConn as OdbcConnection);
+            cmd2.Parameters.AddWithValue("@nazev", DbType.String);
+            cmd2.Parameters.AddWithValue("@poradi", DbType.Int32);
+ 
+            foreach (DataRow row in dTable.Rows)
+            {
+                cmd2.Parameters["@nazev"].Value = row["nazev"].ToString();
+                cmd2.Parameters["@poradi"].Value = row["poradi"].ToString();
+                cmd2.Transaction = (OdbcTransaction)transaction;
+                cmd2.ExecuteNonQuery();
+                Application.DoEvents();
+            }
+            return;  // ok
+        }
 
 
     }

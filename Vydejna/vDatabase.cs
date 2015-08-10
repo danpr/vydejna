@@ -965,27 +965,16 @@ namespace Vydejna
         }
 
 
-//        public virtual  Int32 saveDataSetToSQL(DataSet dSet)
-//        {
-//            if (dSet == null) return -1;
-//            foreach (DataTable dTable in dSet.Tables )
-//            {
-//                if (dTable.TableName == "karta") saveDataTableKartaToSQL(dTable,null);
-//                if (dTable.TableName == "naradi") saveDataTableNaradiToSQL(dTable, null);
- //           }
-//            return -1;
-//        }
 
-
-        public virtual Int32 saveDataSetToSQL(DataSet dSet, Label labelInfo)
+        public virtual Int32 saveDataSetToSQL(DataSet dSet, Label labelInfo, Boolean makeUzivatele = true)
         {
             DbTransaction transaction = null;
-            return _saveDataSetToSQL(dSet, transaction, labelInfo);
+            return _saveDataSetToSQL(dSet, transaction, labelInfo, makeUzivatele);
         }
 
 
 
-        public Int32 _saveDataSetToSQL(DataSet dSet, DbTransaction transaction, Label labelInfo)
+        public Int32 _saveDataSetToSQL(DataSet dSet, DbTransaction transaction, Label labelInfo, Boolean makeUzivatele = true)
         {
             transaction = null;
 
@@ -1018,6 +1007,17 @@ namespace Vydejna
                         if (dTable.TableName == "poskozeno") saveDataTablePoskozenoToSQL(dTable, transaction);
                         if (dTable.TableName == "osoby") saveDataTableOsobyToSQL(dTable, transaction);
                         if (dTable.TableName == "zmeny") saveDataTableZmenyToSQL(dTable, transaction);
+                        if (dTable.TableName == "pujceno") saveDataTablePujcenoToSQL(dTable, transaction);
+                        if (dTable.TableName == "nastaveni") saveDataTableNastaveniToSQL(dTable, transaction);
+                        if (dTable.TableName == "tabseq") saveDataTableTabseqToSQL(dTable, transaction);
+
+                        if (dTable.TableName == "uzivatele")
+                        {
+                            if (makeUzivatele)
+                            {
+                                saveDataTableUzivateleToSQL(dTable, transaction);
+                            }
+                        }
 
                     }
 
@@ -1073,6 +1073,25 @@ namespace Vydejna
             return;
         }
 
+        public virtual void saveDataTablePujcenoToSQL(DataTable dTable, DbTransaction transaction)
+        {
+            return;
+        }
+
+        public virtual void saveDataTableUzivateleToSQL(DataTable dTable, DbTransaction transaction)
+        {
+            return;
+        }
+
+        public virtual void saveDataTableNastaveniToSQL(DataTable dTable, DbTransaction transaction)
+        {
+            return;
+        }
+
+        public virtual void saveDataTableTabseqToSQL(DataTable dTable, DbTransaction transaction)
+        {
+            return;
+        }
 
     }
 
