@@ -505,7 +505,7 @@ namespace Vydejna
         }
 
 
-        public virtual DataTable loadDataTable(string DBSelect)
+        public virtual DataTable loadDataTable(string DBSelect, DbTransaction transaction = null)
         {
             return null;
         }
@@ -966,17 +966,43 @@ namespace Vydejna
 
 
 
-        public virtual Int32 saveDataSetToSQL(DataSet dSet, Label labelInfo, Boolean makeUzivatele = true)
+
+
+        public virtual DbTransaction transactionFactory()
         {
-            DbTransaction transaction = null;
-            return _saveDataSetToSQL(dSet, transaction, labelInfo, makeUzivatele);
+            DbTransaction transaction =  null;
+            try
+            {
+                transaction = (myDBConn as DbConnection).BeginTransaction(System.Data.IsolationLevel.Serializable);
+            }
+            catch
+            {
+            }
+            return transaction;
         }
 
 
-
-        public Int32 _saveDataSetToSQL(DataSet dSet, DbTransaction transaction, Label labelInfo, Boolean makeUzivatele = true)
+        public virtual void transactionCommit( DbTransaction transaction)
         {
-            transaction = null;
+            if (transaction != null)
+            {
+                (transaction as DbTransaction).Commit();
+            }
+        }
+
+
+        public virtual void transactionRollback(DbTransaction transaction)
+        {
+            if (transaction != null)
+            {
+                (transaction as DbTransaction).Rollback();
+            }
+        }
+
+
+        public Int32 saveDataSetToSQL(DataSet dSet,  Label labelInfo, Boolean makeUzivatele = true)
+        {
+            DbTransaction transaction = null;
 
             if (DBIsOpened())
             {
@@ -984,7 +1010,8 @@ namespace Vydejna
                 {
                     try
                     {
-                        transaction = (myDBConn as DbConnection).BeginTransaction(System.Data.IsolationLevel.Serializable);
+//                        transaction = (myDBConn as DbConnection).BeginTransaction(System.Data.IsolationLevel.Serializable);
+                        transaction = transactionFactory();
                     }
                     catch
                     {

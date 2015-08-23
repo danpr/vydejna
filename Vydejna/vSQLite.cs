@@ -1129,7 +1129,7 @@ namespace Vydejna
         }
 
 
-        public override DataTable loadDataTable(string DBSelect)
+        public override DataTable loadDataTable(string DBSelect, DbTransaction transaction = null)
         {
             if (DBIsOpened())
             {

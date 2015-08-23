@@ -1803,6 +1803,10 @@ namespace Vydejna
 
         private void vytvoreniArchivu()
         {
+            labelView.Text = "Vztvoření archívu";
+            Application.DoEvents();
+
+
             const int tableCount = 10;
 
             string[] sqlCommands = new string[tableCount];
@@ -1846,7 +1850,7 @@ namespace Vydejna
             if (Directory.Exists(xmlPath))
             {
 
-                string packageFile = xmlPath + ".zip";
+                string packageFile = xmlPath + ".dta";
                 if (File.Exists(packageFile))
                 {
                     File.Delete(packageFile);
@@ -1858,21 +1862,39 @@ namespace Vydejna
                 progressBarMain.Value = 0;
                 progressBarMain.Maximum = tableCount;
 
-                for (int i = 0; i < tableCount; i++)
+                DbTransaction transaction;
+//                for (int i = 0; i < tableCount; i++)
                 {
+                    int i=-1;
+                    transaction = myDB.transactionFactory();
                     try
                     {
-                        DataTable dtTable = myDB.loadDataTable(sqlCommands[i]);
-                        dtTable.TableName = tableName[i];
-                        string fileName = xmlPath + "\\" + tableName[i] + ".db";
-                        dtTable.WriteXml(fileName,XmlWriteMode.WriteSchema);
-                        addFileIntoPackage(fileName, packageFile);
-                        File.Delete(fileName);
-                        progressBarMain.Value = i + 1;
+                        for (i = 0; i < tableCount; i++)
+                        {
+                            DataTable dtTable = myDB.loadDataTable(sqlCommands[i],transaction);
+                            dtTable.TableName = tableName[i];
+                            string fileName = xmlPath + "\\" + tableName[i] + ".db";
+                            dtTable.WriteXml(fileName, XmlWriteMode.WriteSchema);
+                            addFileIntoPackage(fileName, packageFile);
+                            File.Delete(fileName);
+                            progressBarMain.Value = i + 1;
+                        }
+                        myDB.transactionCommit(transaction);
                     }
                     catch
                     {
-                        MessageBox.Show("Lituji. Nemohu archivovat tabulku "+tableName[i]+".");
+                        myDB.transactionRollback(transaction);
+                        if (i < 0)
+                        {
+                            MessageBox.Show("Lituji. Nemohu archivovat.");
+                        }
+                        else
+                        {
+                            MessageBox.Show("Lituji. Nemohu archivovat tabulku " + tableName[i] + ".");
+                        }
+                        progressBarMain.Value = 0;
+                        deleteAllDirectory(xmlPath);
+                        return;
                     }
 
                 }
@@ -1880,6 +1902,9 @@ namespace Vydejna
                 deleteAllDirectory(xmlPath);
                 MessageBox.Show("Data jsou archivovaná.");
             }
+            labelView.Text = "";
+            Application.DoEvents();
+
         }
 
 
@@ -1954,6 +1979,7 @@ namespace Vydejna
 
         private void nacteniArchivu()
         {
+            openArchiveFileDialog.Filter = "Archivni data (.dta) | *.dta";
 
             DialogResult result = openArchiveFileDialog.ShowDialog();
             if (result == DialogResult.OK) // Test result.

@@ -3875,16 +3875,21 @@ namespace Vydejna
 
 
 
-        public override DataTable loadDataTable(string DBSelect)
+        public override DataTable loadDataTable(string DBSelect, DbTransaction transaction = null)
         {
             if (DBIsOpened())
             {
                 OdbcDataAdapter myDataAdapter = new OdbcDataAdapter(DBSelect, myDBConn as OdbcConnection);
 
+                if (transaction != null)
+                {
+                    myDataAdapter.SelectCommand.Transaction = (transaction as OdbcTransaction);
+                }
+
                 DataTable DBDataTable = new DataTable();
                 DBDataTable.Locale = System.Globalization.CultureInfo.InvariantCulture;
                 myDataAdapter.Fill(DBDataTable);
-
+                
                 myDataAdapter.Dispose();
                 return DBDataTable;
             }
@@ -4859,10 +4864,35 @@ namespace Vydejna
         }
 
 
-        public override Int32 saveDataSetToSQL(DataSet dSet, Label labelInfo, Boolean makeUzivatele = true)
+        public override DbTransaction transactionFactory()
         {
             OdbcTransaction transaction = null;
-            return _saveDataSetToSQL(dSet, transaction, labelInfo, makeUzivatele);
+            try
+            {
+                transaction = (myDBConn as OdbcConnection).BeginTransaction(System.Data.IsolationLevel.Serializable);
+            }
+            catch
+            {
+            }
+            return transaction;
+        }
+
+
+        public override void transactionCommit(DbTransaction transaction)
+        {
+            if (transaction != null)
+            {
+               (transaction as OdbcTransaction).Commit();
+            }
+        }
+
+
+        public override void transactionRollback(DbTransaction transaction)
+        {
+            if (transaction != null)
+            {
+                (transaction as OdbcTransaction).Rollback();
+            }
         }
 
 
