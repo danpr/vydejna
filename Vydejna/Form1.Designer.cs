@@ -66,6 +66,7 @@
             this.toolStripMenuItem14 = new System.Windows.Forms.ToolStripMenuItem();
             this.vytvořeníZálohyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.obnovaDatToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.obnovaDatProNastaveníToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.vytvoreniTabulekToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.vytvoreniToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.smazániToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -232,7 +233,7 @@
             this.seznamPoškozenekZaZakázkuToolStripMenuItem,
             this.seznamPoškozenekZaKontoToolStripMenuItem});
             this.poškozenkyToolStripMenuItem.Name = "poškozenkyToolStripMenuItem";
-            this.poškozenkyToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.poškozenkyToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.poškozenkyToolStripMenuItem.Text = "Poškozenky";
             // 
             // vyhodnoceniPoškozenekDleStřediskaToolStripMenuItem
@@ -321,14 +322,14 @@
             // písnoToolStripMenuItem
             // 
             this.písnoToolStripMenuItem.Name = "písnoToolStripMenuItem";
-            this.písnoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.písnoToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
             this.písnoToolStripMenuItem.Text = "Písmo";
             this.písnoToolStripMenuItem.Click += new System.EventHandler(this.písmoToolStripMenuItem_Click);
             // 
             // změnaHeslaToolStripMenuItem
             // 
             this.změnaHeslaToolStripMenuItem.Name = "změnaHeslaToolStripMenuItem";
-            this.změnaHeslaToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.změnaHeslaToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
             this.změnaHeslaToolStripMenuItem.Text = "Změna hesla";
             this.změnaHeslaToolStripMenuItem.Click += new System.EventHandler(this.zmenaHeslaToolStripMenuItem_Click);
             // 
@@ -394,7 +395,8 @@
             // 
             this.toolStripMenuItem14.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.vytvořeníZálohyToolStripMenuItem,
-            this.obnovaDatToolStripMenuItem});
+            this.obnovaDatToolStripMenuItem,
+            this.obnovaDatProNastaveníToolStripMenuItem});
             this.toolStripMenuItem14.Name = "toolStripMenuItem14";
             this.toolStripMenuItem14.Size = new System.Drawing.Size(257, 22);
             this.toolStripMenuItem14.Text = "Archivace DB";
@@ -403,16 +405,23 @@
             // vytvořeníZálohyToolStripMenuItem
             // 
             this.vytvořeníZálohyToolStripMenuItem.Name = "vytvořeníZálohyToolStripMenuItem";
-            this.vytvořeníZálohyToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.vytvořeníZálohyToolStripMenuItem.Size = new System.Drawing.Size(257, 22);
             this.vytvořeníZálohyToolStripMenuItem.Text = "Uložení dat";
             this.vytvořeníZálohyToolStripMenuItem.Click += new System.EventHandler(this.vytvořeníZálohyToolStripMenuItem_Click);
             // 
             // obnovaDatToolStripMenuItem
             // 
             this.obnovaDatToolStripMenuItem.Name = "obnovaDatToolStripMenuItem";
-            this.obnovaDatToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.obnovaDatToolStripMenuItem.Size = new System.Drawing.Size(257, 22);
             this.obnovaDatToolStripMenuItem.Text = "Obnova dat";
             this.obnovaDatToolStripMenuItem.Click += new System.EventHandler(this.obnovaDatToolStripMenuItem_Click);
+            // 
+            // obnovaDatProNastaveníToolStripMenuItem
+            // 
+            this.obnovaDatProNastaveníToolStripMenuItem.Name = "obnovaDatProNastaveníToolStripMenuItem";
+            this.obnovaDatProNastaveníToolStripMenuItem.Size = new System.Drawing.Size(257, 22);
+            this.obnovaDatProNastaveníToolStripMenuItem.Text = "Obnova dat pro nastavení uživatelů";
+            this.obnovaDatProNastaveníToolStripMenuItem.Click += new System.EventHandler(this.obnovaDatProNastaveníToolStripMenuItem_Click);
             // 
             // vytvoreniTabulekToolStripMenuItem
             // 
@@ -812,6 +821,7 @@
         private System.Windows.Forms.ToolStripMenuItem obnovaDatToolStripMenuItem;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialogArchivace;
         private System.Windows.Forms.OpenFileDialog openArchiveFileDialog;
+        private System.Windows.Forms.ToolStripMenuItem obnovaDatProNastaveníToolStripMenuItem;
     }
 }
 

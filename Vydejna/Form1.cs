@@ -1833,7 +1833,6 @@ namespace Vydejna
             sqlCommands[9] = "SELECT * from uzivatele order by userid";
             tableName[9] = "uzivatele";
 
-
             string xmlPath = "";
             DialogResult result = folderBrowserDialogArchivace.ShowDialog();
             if (result == DialogResult.OK) // Test result.
@@ -1841,15 +1840,14 @@ namespace Vydejna
                 xmlPath = folderBrowserDialogArchivace.SelectedPath;
             }
 
+            string tempFilePath = xmlPath;
+
             Application.DoEvents();
 
             string DateTimeString = DateTime.Now.ToShortDateString() + "_" + DateTime.Now.Hour.ToString() + "." + DateTime.Now.Minute.ToString();
 
             xmlPath = xmlPath + "\\" + DateTimeString;
-            System.IO.Directory.CreateDirectory(xmlPath);
-            if (Directory.Exists(xmlPath))
             {
-
                 string packageFile = xmlPath + ".dta";
                 if (File.Exists(packageFile))
                 {
@@ -1863,45 +1861,56 @@ namespace Vydejna
                 progressBarMain.Maximum = tableCount;
 
                 DbTransaction transaction;
-//                for (int i = 0; i < tableCount; i++)
+                //              {
+                int i = -1;
+                transaction = myDB.transactionFactory();
+                string fileName = "";
+                try
                 {
-                    int i=-1;
-                    transaction = myDB.transactionFactory();
-                    try
+                    for (i = 0; i < tableCount; i++)
                     {
-                        for (i = 0; i < tableCount; i++)
-                        {
-                            DataTable dtTable = myDB.loadDataTable(sqlCommands[i],transaction);
-                            dtTable.TableName = tableName[i];
-                            string fileName = xmlPath + "\\" + tableName[i] + ".db";
-                            dtTable.WriteXml(fileName, XmlWriteMode.WriteSchema);
-                            addFileIntoPackage(fileName, packageFile);
-                            File.Delete(fileName);
-                            progressBarMain.Value = i + 1;
-                        }
-                        myDB.transactionCommit(transaction);
-                    }
-                    catch
-                    {
-                        myDB.transactionRollback(transaction);
-                        if (i < 0)
-                        {
-                            MessageBox.Show("Lituji. Nemohu archivovat.");
-                        }
-                        else
-                        {
-                            MessageBox.Show("Lituji. Nemohu archivovat tabulku " + tableName[i] + ".");
-                        }
-                        progressBarMain.Value = 0;
-                        deleteAllDirectory(xmlPath);
-                        return;
-                    }
+                        DataTable dtTable = myDB.loadDataTable(sqlCommands[i], transaction);
+                        dtTable.TableName = tableName[i];
+                        Application.DoEvents();
 
+                        //                            string fileName = xmlPath + "\\" + tableName[i] + ".db";
+                        fileName = tempFilePath + "\\" + tableName[i] + ".db";
+
+                        dtTable.WriteXml(fileName, XmlWriteMode.WriteSchema);
+                        Application.DoEvents();
+
+                        addFileIntoPackage(fileName, packageFile);
+                        File.Delete(fileName);
+                        Application.DoEvents();
+
+                        progressBarMain.Value = i + 1;
+                    }
+                    myDB.transactionCommit(transaction);
                 }
-                progressBarMain.Value = 0;
-                deleteAllDirectory(xmlPath);
-                MessageBox.Show("Data jsou archivovaná.");
+                catch
+                {
+                    myDB.transactionRollback(transaction);
+                    if (i < 0)
+                    {
+                        MessageBox.Show("Lituji. Nemohu archivovat.");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Lituji. Nemohu archivovat tabulku " + tableName[i] + ".");
+                    }
+                    progressBarMain.Value = 0;
+                    if (File.Exists(fileName))
+                    {
+                        File.Delete(fileName);
+                    }
+                    return;
+                }
+
             }
+            progressBarMain.Value = 0;
+            deleteAllDirectory(xmlPath);
+            MessageBox.Show("Data jsou archivovaná.");
+            //            }
             labelView.Text = "";
             Application.DoEvents();
 
@@ -1973,24 +1982,32 @@ namespace Vydejna
         {
             if (MessageBox.Show("Opravdu nahrát archív všech dat?\nVšechna současná data budou smazána", "Archivace tabulek", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                nacteniArchivu();
+                nacteniArchivu(false);
             }
         }
 
-        private void nacteniArchivu()
+        private void nacteniArchivu( Boolean useOnlySettingUser)
         {
             openArchiveFileDialog.Filter = "Archivni data (.dta) | *.dta";
 
             DialogResult result = openArchiveFileDialog.ShowDialog();
             if (result == DialogResult.OK) // Test result.
             {
-                Boolean makeUzivatele = false;
+                Boolean makeUzivateleTable = false;
+                Boolean makeOtherTable = true;
+                if (useOnlySettingUser) makeOtherTable = false;
 
-                if (MessageBox.Show("Chcete nahrat i seznam a prava uživatelů ?", "Archivace tabulek", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                if (!(useOnlySettingUser))
                 {
-                    makeUzivatele = true;
+                    if (MessageBox.Show("Chcete nahrat i seznam a prava uživatelů ?", "Archivace tabulek", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    {
+                        makeUzivateleTable = true;
+                    }
                 }
-
+                else
+                {
+                    makeUzivateleTable = true;
+                }
 
                 Application.DoEvents();
                 string packageFile = openArchiveFileDialog.FileName;
@@ -2042,7 +2059,7 @@ namespace Vydejna
                     Application.DoEvents();
                     progressBarMain.MarqueeAnimationSpeed = 100;
 
-                    Int32 saveError = myDB.saveDataSetToSQL(dset, labelView, makeUzivatele);
+                    Int32 saveError = myDB.saveDataSetToSQL(dset, labelView, makeUzivateleTable, makeOtherTable);
                     progressBarMain.MarqueeAnimationSpeed = 0;
 
                     progressBarMain.Style = ProgressBarStyle.Blocks;
@@ -2087,6 +2104,15 @@ namespace Vydejna
 
         private void toolStripMenuItem14_Click(object sender, EventArgs e)
         {
+
+        }
+
+        private void obnovaDatProNastaveníToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Opravdu nahrát z archívu nastavení uživatelů ?\nVaše současné nastavení /účty a hesla/ bude smazáno", "Archivace tabulek", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                nacteniArchivu(true);
+            }
 
         }
 

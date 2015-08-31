@@ -1135,6 +1135,11 @@ namespace Vydejna
             {
                 SQLiteDataAdapter myDataAdapter = new SQLiteDataAdapter(DBSelect, myDBConn as SQLiteConnection);
 
+                if (transaction != null)
+                {
+                    myDataAdapter.SelectCommand.Transaction = (transaction as SQLiteTransaction);
+                }
+
                 DataTable DBDataTable = new DataTable();
                 DBDataTable.Locale = System.Globalization.CultureInfo.InvariantCulture;
                 myDataAdapter.Fill(DBDataTable);

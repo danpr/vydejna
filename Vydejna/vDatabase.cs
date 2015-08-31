@@ -1000,7 +1000,7 @@ namespace Vydejna
         }
 
 
-        public Int32 saveDataSetToSQL(DataSet dSet,  Label labelInfo, Boolean makeUzivatele = true)
+        public Int32 saveDataSetToSQL(DataSet dSet,  Label labelInfo, Boolean makeUzivateleTable = true, Boolean makeOtherTable = true)
         {
             DbTransaction transaction = null;
 
@@ -1028,19 +1028,22 @@ namespace Vydejna
                             Application.DoEvents();
                         }
 
-                        if (dTable.TableName == "karta") saveDataTableKartaToSQL(dTable, transaction);
-                        if (dTable.TableName == "naradi") saveDataTableNaradiToSQL(dTable, transaction);
-                        if (dTable.TableName == "vraceno") saveDataTableVracenoToSQL(dTable, transaction);
-                        if (dTable.TableName == "poskozeno") saveDataTablePoskozenoToSQL(dTable, transaction);
-                        if (dTable.TableName == "osoby") saveDataTableOsobyToSQL(dTable, transaction);
-                        if (dTable.TableName == "zmeny") saveDataTableZmenyToSQL(dTable, transaction);
-                        if (dTable.TableName == "pujceno") saveDataTablePujcenoToSQL(dTable, transaction);
-                        if (dTable.TableName == "nastaveni") saveDataTableNastaveniToSQL(dTable, transaction);
-                        if (dTable.TableName == "tabseq") saveDataTableTabseqToSQL(dTable, transaction);
-
-                        if (dTable.TableName == "uzivatele")
+                        if (makeOtherTable)
                         {
-                            if (makeUzivatele)
+                            if (dTable.TableName == "karta") saveDataTableKartaToSQL(dTable, transaction);
+                            if (dTable.TableName == "naradi") saveDataTableNaradiToSQL(dTable, transaction);
+                            if (dTable.TableName == "vraceno") saveDataTableVracenoToSQL(dTable, transaction);
+                            if (dTable.TableName == "poskozeno") saveDataTablePoskozenoToSQL(dTable, transaction);
+                            if (dTable.TableName == "osoby") saveDataTableOsobyToSQL(dTable, transaction);
+                            if (dTable.TableName == "zmeny") saveDataTableZmenyToSQL(dTable, transaction);
+                            if (dTable.TableName == "pujceno") saveDataTablePujcenoToSQL(dTable, transaction);
+                            if (dTable.TableName == "nastaveni") saveDataTableNastaveniToSQL(dTable, transaction);
+                            if (dTable.TableName == "tabseq") saveDataTableTabseqToSQL(dTable, transaction);
+                        }
+
+                        if (makeUzivateleTable)
+                        {
+                            if (dTable.TableName == "uzivatele")
                             {
                                 saveDataTableUzivateleToSQL(dTable, transaction);
                             }
