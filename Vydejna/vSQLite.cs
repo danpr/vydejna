@@ -4832,6 +4832,515 @@ namespace Vydejna
 
         }
 
+        public override DbTransaction transactionFactory()
+        {
+            SQLiteTransaction transaction = null;
+            try
+            {
+                transaction = (myDBConn as SQLiteConnection).BeginTransaction(System.Data.IsolationLevel.Serializable);
+            }
+            catch
+            {
+            }
+            return transaction;
+        }
+
+
+        public override void transactionCommit(DbTransaction transaction)
+        {
+            if (transaction != null)
+            {
+                (transaction as SQLiteTransaction).Commit();
+            }
+        }
+
+
+        public override void transactionRollback(DbTransaction transaction)
+        {
+            if (transaction != null)
+            {
+                (transaction as SQLiteTransaction).Rollback();
+            }
+        }
+
+
+
+        public override void saveDataTableKartaToSQL(DataTable dTable, DbTransaction transaction)
+        {
+            string commandString1 = "DELETE FROM karta";
+            string commandString2 = "INSERT INTO karta ( poradi, nazev, jk, normacsn, normadin, vyrobce, cena," +
+                  " poznamka, minimum, celkcena, ucetstav, fyzstav, rozmer, analucet, tdate, stredisko," +
+                  " druh, odpis) " +
+                  "VALUES ( ? ,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+
+            //zrusime
+            SQLiteCommand cmd1 = new SQLiteCommand(commandString1, myDBConn as SQLiteConnection);
+            cmd1.Transaction = (SQLiteTransaction)transaction;
+            cmd1.ExecuteNonQuery();
+
+            SQLiteCommand cmd2 = new SQLiteCommand(commandString2, myDBConn as SQLiteConnection);
+            cmd2.Parameters.AddWithValue("@poradi", DbType.Int32);
+            cmd2.Parameters.AddWithValue("@nazev", DbType.String);
+            cmd2.Parameters.AddWithValue("@jk", DbType.String);
+            cmd2.Parameters.AddWithValue("@normacsn", DbType.String);
+            cmd2.Parameters.AddWithValue("@normadin", DbType.String);
+            cmd2.Parameters.AddWithValue("@vyrobce", DbType.String);
+            cmd2.Parameters.AddWithValue("@cena", DbType.Double);
+            cmd2.Parameters.AddWithValue("@poznamka", DbType.String);
+            cmd2.Parameters.AddWithValue("@minimum", DbType.Int32);
+            cmd2.Parameters.AddWithValue("@celkcena", DbType.Double);
+            cmd2.Parameters.AddWithValue("@ucetstav", DbType.Int32);
+            cmd2.Parameters.AddWithValue("@fyzstav", DbType.Int32);
+            cmd2.Parameters.AddWithValue("@rozmer", DbType.String);
+            cmd2.Parameters.AddWithValue("@analucet", DbType.String);
+            cmd2.Parameters.AddWithValue("@tdate", DbType.Date);
+            cmd2.Parameters.AddWithValue("@stredisko", DbType.String);
+            cmd2.Parameters.AddWithValue("@druh", DbType.String);
+            cmd2.Parameters.AddWithValue("@odpis", DbType.String);
+
+            foreach (DataRow row in dTable.Rows)
+            {
+                cmd2.Parameters["@poradi"].Value = Convert.ToInt32(row["poradi"]);
+                cmd2.Parameters["@nazev"].Value = row["nazev"].ToString();
+                cmd2.Parameters["@jk"].Value = row["jk"].ToString();
+                cmd2.Parameters["@normacsn"].Value = row["normacsn"].ToString();
+                cmd2.Parameters["@normadin"].Value = row["normadin"].ToString();
+                cmd2.Parameters["@vyrobce"].Value = row["vyrobce"].ToString();
+                cmd2.Parameters["@cena"].Value = Convert.ToDouble(row["cena"]);
+                cmd2.Parameters["@poznamka"].Value = row["poznamka"].ToString();
+                cmd2.Parameters["@minimum"].Value = Convert.ToInt32(row["minimum"]);
+                cmd2.Parameters["@celkcena"].Value = Convert.ToDouble(row["celkcena"]);
+                cmd2.Parameters["@ucetstav"].Value = Convert.ToInt32(row["ucetstav"]);
+                cmd2.Parameters["@fyzstav"].Value = Convert.ToInt32(row["fyzstav"]);
+                cmd2.Parameters["@rozmer"].Value = row["rozmer"].ToString();
+                cmd2.Parameters["@analucet"].Value = row["analucet"].ToString();
+                cmd2.Parameters["@tdate"].Value = Convert.ToDateTime(row["tdate"]);
+                cmd2.Parameters["@stredisko"].Value = row["stredisko"].ToString();
+                cmd2.Parameters["@druh"].Value = row["druh"].ToString();
+                cmd2.Parameters["@odpis"].Value = row["odpis"].ToString();
+                cmd2.Transaction = (SQLiteTransaction)transaction;
+                cmd2.ExecuteNonQuery();
+                Application.DoEvents();
+            }
+            return;  // ok
+        }
+
+
+        public override void saveDataTableNaradiToSQL(DataTable dTable, DbTransaction transaction)
+        {
+            string commandString1 = "DELETE FROM naradi";
+            string commandString2 = "INSERT INTO naradi ( poradi, nazev, jk, normacsn, normadin, vyrobce, cena," +
+                  " poznamka, minimum, celkcena, ucetstav, fyzstav, rozmer, analucet, tdate, stredisko, druh," +
+                  " odpis, ucetkscen, kdatum, kodd ) " +
+                  "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
+
+
+            //zrusime
+            SQLiteCommand cmd1 = new SQLiteCommand(commandString1, myDBConn as SQLiteConnection);
+            cmd1.Transaction = (SQLiteTransaction)transaction;
+            cmd1.ExecuteNonQuery();
+
+            SQLiteCommand cmd2 = new SQLiteCommand(commandString2, myDBConn as SQLiteConnection);
+            cmd2.Parameters.AddWithValue("@poradi", DbType.Int32);
+            cmd2.Parameters.AddWithValue("@nazev", DbType.String);
+            cmd2.Parameters.AddWithValue("@jk", DbType.String);
+            cmd2.Parameters.AddWithValue("@normacsn", DbType.String);
+            cmd2.Parameters.AddWithValue("@normadin", DbType.String);
+            cmd2.Parameters.AddWithValue("@vyrobce", DbType.String);
+            cmd2.Parameters.AddWithValue("@cena", DbType.Double);
+            cmd2.Parameters.AddWithValue("@poznamka", DbType.String);
+            cmd2.Parameters.AddWithValue("@minimum", DbType.Int32);
+            cmd2.Parameters.AddWithValue("@celkcena", DbType.Double);
+            cmd2.Parameters.AddWithValue("@ucetstav", DbType.Int32);
+            cmd2.Parameters.AddWithValue("@fyzstav", DbType.Int32);
+            cmd2.Parameters.AddWithValue("@rozmer", DbType.String);
+            cmd2.Parameters.AddWithValue("@analucet", DbType.String);
+            cmd2.Parameters.AddWithValue("@tdate", DbType.Date);
+            cmd2.Parameters.AddWithValue("@stredisko", DbType.String);
+            cmd2.Parameters.AddWithValue("@druh", DbType.String);
+            cmd2.Parameters.AddWithValue("@odpis", DbType.String);
+            cmd2.Parameters.AddWithValue("@ucetkscen", DbType.Double);
+            cmd2.Parameters.AddWithValue("@kdatum", DbType.Date);
+            cmd2.Parameters.AddWithValue("@kodd", DbType.String);
+            foreach (DataRow row in dTable.Rows)
+            {
+                cmd2.Parameters["@poradi"].Value = Convert.ToInt32(row["poradi"]);
+                cmd2.Parameters["@nazev"].Value = row["nazev"].ToString();
+                cmd2.Parameters["@jk"].Value = row["jk"].ToString();
+                cmd2.Parameters["@normacsn"].Value = row["normacsn"].ToString();
+                cmd2.Parameters["@normadin"].Value = row["normadin"].ToString();
+                cmd2.Parameters["@vyrobce"].Value = row["vyrobce"].ToString();
+                cmd2.Parameters["@cena"].Value = Convert.ToDouble(row["cena"]);
+                cmd2.Parameters["@poznamka"].Value = row["poznamka"].ToString();
+                cmd2.Parameters["@minimum"].Value = Convert.ToInt32(row["minimum"]);
+                cmd2.Parameters["@celkcena"].Value = Convert.ToDouble(row["celkcena"]);
+                cmd2.Parameters["@ucetstav"].Value = Convert.ToInt32(row["ucetstav"]);
+                cmd2.Parameters["@fyzstav"].Value = Convert.ToInt32(row["fyzstav"]);
+                cmd2.Parameters["@rozmer"].Value = row["rozmer"].ToString();
+                cmd2.Parameters["@analucet"].Value = row["analucet"].ToString();
+                cmd2.Parameters["@tdate"].Value = Convert.ToDateTime(row["tdate"]);
+                cmd2.Parameters["@stredisko"].Value = row["stredisko"].ToString();
+                cmd2.Parameters["@druh"].Value = row["druh"].ToString();
+                cmd2.Parameters["@odpis"].Value = row["odpis"].ToString();
+                cmd2.Parameters["@ucetkscen"].Value = Convert.ToDouble(row["ucetkscen"]);
+                cmd2.Parameters["@kdatum"].Value = Convert.ToDateTime(row["kdatum"]);
+                cmd2.Parameters["@kodd"].Value = row["kodd"].ToString();
+                cmd2.Transaction = (SQLiteTransaction)transaction;
+                cmd2.ExecuteNonQuery();
+                Application.DoEvents();
+            }
+            return;  // ok
+        }
+
+
+
+        public override void saveDataTableVracenoToSQL(DataTable dTable, DbTransaction transaction)
+        {
+            string commandString1 = "DELETE FROM vraceno";
+            string commandString2 = "INSERT INTO vraceno ( poradi, jmeno, oscislo, dilna, pracoviste, vyrobek, nazev, jk, rozmer, pocetks, cena, datum, csn, krjmeno, celkcena, vevcislo, konto) " +
+                              "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
+
+            SQLiteCommand cmd1 = new SQLiteCommand(commandString1, myDBConn as SQLiteConnection);
+            cmd1.Transaction = (SQLiteTransaction)transaction;
+            cmd1.ExecuteNonQuery();
+
+            SQLiteCommand cmd2 = new SQLiteCommand(commandString2, myDBConn as SQLiteConnection);
+            cmd2.Parameters.AddWithValue("@poradi", DbType.Int32);
+            cmd2.Parameters.AddWithValue("@jmeno", DbType.String);
+            cmd2.Parameters.AddWithValue("@oscislo", DbType.String);
+            cmd2.Parameters.AddWithValue("@dilna", DbType.String);
+            cmd2.Parameters.AddWithValue("@pracoviste", DbType.String);
+            cmd2.Parameters.AddWithValue("@vyrobek", DbType.String);
+            cmd2.Parameters.AddWithValue("@nazev", DbType.String);
+            cmd2.Parameters.AddWithValue("@jk", DbType.String);
+            cmd2.Parameters.AddWithValue("@rozmer", DbType.String);
+            cmd2.Parameters.AddWithValue("@pocetks", DbType.Int32);
+            cmd2.Parameters.AddWithValue("@cena", DbType.Double);
+            cmd2.Parameters.AddWithValue("@datum", DbType.Date);
+            cmd2.Parameters.AddWithValue("@csn", DbType.String);
+            cmd2.Parameters.AddWithValue("@krjmeno", DbType.String);
+            cmd2.Parameters.AddWithValue("@celkcena", DbType.Double);
+            cmd2.Parameters.AddWithValue("@vevcislo", DbType.String);
+            cmd2.Parameters.AddWithValue("@konto", DbType.String);
+
+            foreach (DataRow row in dTable.Rows)
+            {
+                cmd2.Parameters["@poradi"].Value = Convert.ToInt32(row["poradi"]);
+                cmd2.Parameters["@jmeno"].Value = row["jmeno"].ToString();
+                cmd2.Parameters["@oscislo"].Value = row["oscislo"].ToString();
+                cmd2.Parameters["@dilna"].Value = row["dilna"].ToString();
+                cmd2.Parameters["@pracoviste"].Value = row["pracoviste"].ToString();
+                cmd2.Parameters["@vyrobek"].Value = row["vyrobek"].ToString();
+                cmd2.Parameters["@nazev"].Value = row["nazev"].ToString();
+                cmd2.Parameters["@jk"].Value = row["jk"].ToString();
+                cmd2.Parameters["@rozmer"].Value = row["rozmer"].ToString();
+                cmd2.Parameters["@pocetks"].Value = Convert.ToInt32(row["pocetks"]);
+                cmd2.Parameters["@cena"].Value = Convert.ToDouble(row["cena"]);
+                cmd2.Parameters["@datum"].Value = Convert.ToDateTime(row["datum"]);
+                cmd2.Parameters["@csn"].Value = row["csn"].ToString();
+                cmd2.Parameters["@krjmeno"].Value = row["krjmeno"].ToString();
+                cmd2.Parameters["@celkcena"].Value = Convert.ToDouble(row["celkcena"]);
+                cmd2.Parameters["@vevcislo"].Value = row["vevcislo"].ToString();
+                cmd2.Parameters["@konto"].Value = row["konto"].ToString();
+                cmd2.Transaction = (SQLiteTransaction)transaction;
+                cmd2.ExecuteNonQuery();
+                Application.DoEvents();
+            }
+            return;  // ok
+        }
+
+
+
+        public override void saveDataTablePoskozenoToSQL(DataTable dTable, DbTransaction transaction)
+        {
+            string commandString1 = "DELETE FROM poskozeno";
+            string commandString2 = "INSERT INTO poskozeno ( poradi, jmeno, oscislo, dilna, pracoviste, vyrobek, nazev, jk, rozmer, pocetks, cena, datum, csn, krjmeno, celkcena, vevcislo, konto) " +
+                           "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
+
+            SQLiteCommand cmd1 = new SQLiteCommand(commandString1, myDBConn as SQLiteConnection);
+            cmd1.Transaction = (SQLiteTransaction)transaction;
+            cmd1.ExecuteNonQuery();
+
+            SQLiteCommand cmd2 = new SQLiteCommand(commandString2, myDBConn as SQLiteConnection);
+            cmd2.Parameters.AddWithValue("@poradi", DbType.Int32);
+            cmd2.Parameters.AddWithValue("@jmeno", DbType.String);
+            cmd2.Parameters.AddWithValue("@oscislo", DbType.String);
+            cmd2.Parameters.AddWithValue("@dilna", DbType.String);
+            cmd2.Parameters.AddWithValue("@pracoviste", DbType.String);
+            cmd2.Parameters.AddWithValue("@vyrobek", DbType.String);
+            cmd2.Parameters.AddWithValue("@nazev", DbType.String);
+            cmd2.Parameters.AddWithValue("@jk", DbType.String);
+            cmd2.Parameters.AddWithValue("@rozmer", DbType.String);
+            cmd2.Parameters.AddWithValue("@pocetks", DbType.Int32);
+            cmd2.Parameters.AddWithValue("@cena", DbType.Double);
+            cmd2.Parameters.AddWithValue("@datum", DbType.Date);
+            cmd2.Parameters.AddWithValue("@csn", DbType.String);
+            cmd2.Parameters.AddWithValue("@krjmeno", DbType.String);
+            cmd2.Parameters.AddWithValue("@celkcena", DbType.Double);
+            cmd2.Parameters.AddWithValue("@vevcislo", DbType.String);
+            cmd2.Parameters.AddWithValue("@konto", DbType.String);
+
+            foreach (DataRow row in dTable.Rows)
+            {
+                cmd2.Parameters["@poradi"].Value = Convert.ToInt32(row["poradi"]);
+                cmd2.Parameters["@jmeno"].Value = row["jmeno"].ToString();
+                cmd2.Parameters["@oscislo"].Value = row["oscislo"].ToString();
+                cmd2.Parameters["@dilna"].Value = row["dilna"].ToString();
+                cmd2.Parameters["@pracoviste"].Value = row["pracoviste"].ToString();
+                cmd2.Parameters["@vyrobek"].Value = row["vyrobek"].ToString();
+                cmd2.Parameters["@nazev"].Value = row["nazev"].ToString();
+                cmd2.Parameters["@jk"].Value = row["jk"].ToString();
+                cmd2.Parameters["@rozmer"].Value = row["rozmer"].ToString();
+                cmd2.Parameters["@pocetks"].Value = Convert.ToInt32(row["pocetks"]);
+                cmd2.Parameters["@cena"].Value = Convert.ToDouble(row["cena"]);
+                cmd2.Parameters["@datum"].Value = Convert.ToDateTime(row["datum"]);
+                cmd2.Parameters["@csn"].Value = row["csn"].ToString();
+                cmd2.Parameters["@krjmeno"].Value = row["krjmeno"].ToString();
+                cmd2.Parameters["@celkcena"].Value = Convert.ToDouble(row["celkcena"]);
+                cmd2.Parameters["@vevcislo"].Value = row["vevcislo"].ToString();
+                cmd2.Parameters["@konto"].Value = row["konto"].ToString();
+                cmd2.Transaction = (SQLiteTransaction)transaction;
+                cmd2.ExecuteNonQuery();
+                Application.DoEvents();
+            }
+            return;  // ok
+        }
+
+
+        public override void saveDataTableOsobyToSQL(DataTable dTable, DbTransaction transaction)
+        {
+            string commandString1 = "DELETE FROM osoby";
+            string commandString2 = "INSERT INTO osoby (prijmeni, jmeno, ulice, mesto, psc, telhome, oscislo, odeleni, telzam, stredisko, pujsoub, pracoviste, cisznamky, poznamka )" +
+                           "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
+
+            SQLiteCommand cmd1 = new SQLiteCommand(commandString1, myDBConn as SQLiteConnection);
+            cmd1.Transaction = (SQLiteTransaction)transaction;
+            cmd1.ExecuteNonQuery();
+
+            SQLiteCommand cmd2 = new SQLiteCommand(commandString2, myDBConn as SQLiteConnection);
+            cmd2.Parameters.AddWithValue("@prijmeni", DbType.String);
+            cmd2.Parameters.AddWithValue("@jmeno", DbType.String);
+            cmd2.Parameters.AddWithValue("@ulice", DbType.String);
+            cmd2.Parameters.AddWithValue("@mesto", DbType.String);
+            cmd2.Parameters.AddWithValue("@psc", DbType.String);
+            cmd2.Parameters.AddWithValue("@telhome", DbType.String);
+            cmd2.Parameters.AddWithValue("@oscislo", DbType.String);
+            cmd2.Parameters.AddWithValue("@odeleni", DbType.String);
+            cmd2.Parameters.AddWithValue("@telzam", DbType.String);
+            cmd2.Parameters.AddWithValue("@stredisko", DbType.String);
+            cmd2.Parameters.AddWithValue("@pujsoub", DbType.String);
+            cmd2.Parameters.AddWithValue("@pracoviste", DbType.String);
+            cmd2.Parameters.AddWithValue("@cisznamky", DbType.String);
+            cmd2.Parameters.AddWithValue("@poznamka", DbType.String);
+
+            foreach (DataRow row in dTable.Rows)
+            {
+                cmd2.Parameters["@prijmeni"].Value = row["prijmeni"].ToString();
+                cmd2.Parameters["@jmeno"].Value = row["jmeno"].ToString();
+                cmd2.Parameters["@ulice"].Value = row["ulice"].ToString();
+                cmd2.Parameters["@mesto"].Value = row["mesto"].ToString();
+                cmd2.Parameters["@psc"].Value = row["psc"].ToString();
+                cmd2.Parameters["@telhome"].Value = row["telhome"].ToString();
+                cmd2.Parameters["@oscislo"].Value = row["oscislo"].ToString();
+                cmd2.Parameters["@odeleni"].Value = row["odeleni"].ToString();
+                cmd2.Parameters["@telzam"].Value = row["telzam"].ToString();
+                cmd2.Parameters["@stredisko"].Value = row["stredisko"].ToString();
+                cmd2.Parameters["@pujsoub"].Value = row["pujsoub"].ToString();
+                cmd2.Parameters["@pracoviste"].Value = row["pracoviste"].ToString();
+                cmd2.Parameters["@cisznamky"].Value = row["cisznamky"].ToString();
+                cmd2.Parameters["@poznamka"].Value = row["poznamka"].ToString();
+                cmd2.Transaction = (SQLiteTransaction)transaction;
+                cmd2.ExecuteNonQuery();
+                Application.DoEvents();
+            }
+            return;  // ok
+        }
+
+
+        public override void saveDataTableZmenyToSQL(DataTable dTable, DbTransaction transaction)
+        {
+            string commandString1 = "DELETE FROM zmeny";
+            string commandString2 = "INSERT INTO zmeny (parporadi, pomozjk, datum, poznamka, prijem, vydej, zustatek, zapkarta, vevcislo, pocivc, stav, poradi )" +
+                         "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
+
+            SQLiteCommand cmd1 = new SQLiteCommand(commandString1, myDBConn as SQLiteConnection);
+            cmd1.Transaction = (SQLiteTransaction)transaction;
+            cmd1.ExecuteNonQuery();
+
+            SQLiteCommand cmd2 = new SQLiteCommand(commandString2, myDBConn as SQLiteConnection);
+            cmd2.Parameters.AddWithValue("@parporadi", DbType.Int32);
+            cmd2.Parameters.AddWithValue("@pomozjk", DbType.String);
+            cmd2.Parameters.AddWithValue("@datum", DbType.Date);
+            cmd2.Parameters.AddWithValue("@poznamka", DbType.String);
+            cmd2.Parameters.AddWithValue("@prijem", DbType.Int32);
+            cmd2.Parameters.AddWithValue("@vydej", DbType.Int32);
+            cmd2.Parameters.AddWithValue("@zustatek", DbType.Int32);
+            cmd2.Parameters.AddWithValue("@zapkarta", DbType.String);
+            cmd2.Parameters.AddWithValue("@vevcislo", DbType.String);
+            cmd2.Parameters.AddWithValue("@pocivc", DbType.Int32);
+            cmd2.Parameters.AddWithValue("@stav", DbType.String);
+            cmd2.Parameters.AddWithValue("@poradi", DbType.Int32);
+
+            foreach (DataRow row in dTable.Rows)
+            {
+                cmd2.Parameters["@parporadi"].Value = Convert.ToInt32(row["parporadi"]);
+                cmd2.Parameters["@pomozjk"].Value = row["pomozjk"].ToString();
+                cmd2.Parameters["@datum"].Value = Convert.ToDateTime(row["datum"].ToString());
+                cmd2.Parameters["@poznamka"].Value = row["poznamka"].ToString();
+                cmd2.Parameters["@prijem"].Value = Convert.ToInt32(row["prijem"]);
+                cmd2.Parameters["@vydej"].Value = Convert.ToInt32(row["vydej"]);
+                cmd2.Parameters["@zustatek"].Value = Convert.ToInt32(row["zustatek"]);
+                cmd2.Parameters["@zapkarta"].Value = row["zapkarta"].ToString();
+                cmd2.Parameters["@vevcislo"].Value = row["vevcislo"].ToString();
+                cmd2.Parameters["@pocivc"].Value = Convert.ToInt32(row["pocivc"]);
+                cmd2.Parameters["@stav"].Value = row["stav"].ToString();
+                cmd2.Parameters["@poradi"].Value = Convert.ToInt32(row["poradi"]);
+                cmd2.Transaction = (SQLiteTransaction)transaction;
+                cmd2.ExecuteNonQuery();
+                Application.DoEvents();
+            }
+            return;  // ok
+        }
+
+
+        public override void saveDataTablePujcenoToSQL(DataTable dTable, DbTransaction transaction)
+        {
+            string commandString1 = "DELETE FROM pujceno";
+            string commandString2 = "INSERT INTO pujceno ( poradi, oscislo, nporadi, zporadi, stavks, pjmeno, pprijmeni, pnazev, pjk, pdatum, pks, pcena )" +
+                          "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
+
+            SQLiteCommand cmd1 = new SQLiteCommand(commandString1, myDBConn as SQLiteConnection);
+            cmd1.Transaction = (SQLiteTransaction)transaction;
+            cmd1.ExecuteNonQuery();
+
+            SQLiteCommand cmd2 = new SQLiteCommand(commandString2, myDBConn as SQLiteConnection);
+            cmd2.Parameters.AddWithValue("@poradi", DbType.Int32);
+            cmd2.Parameters.AddWithValue("@oscislo", DbType.String);
+            cmd2.Parameters.AddWithValue("@nporadi", DbType.Int32);
+            cmd2.Parameters.AddWithValue("@zporadi", DbType.Int32);
+            cmd2.Parameters.AddWithValue("@stavks", DbType.Int32);
+            cmd2.Parameters.AddWithValue("@pjmeno", DbType.String);
+            cmd2.Parameters.AddWithValue("@pprijmeni", DbType.String);
+            cmd2.Parameters.AddWithValue("@pnazev", DbType.String);
+            cmd2.Parameters.AddWithValue("@pjk", DbType.String);
+            cmd2.Parameters.AddWithValue("@pdatum", DbType.Date);
+            cmd2.Parameters.AddWithValue("@pks", DbType.Int32);
+            cmd2.Parameters.AddWithValue("@pcena", DbType.Double);
+
+            foreach (DataRow row in dTable.Rows)
+            {
+                cmd2.Parameters["@poradi"].Value = Convert.ToInt32(row["poradi"]);
+                cmd2.Parameters["@oscislo"].Value = row["oscislo"].ToString();
+                cmd2.Parameters["@nporadi"].Value = Convert.ToInt32(row["nporadi"]);
+                cmd2.Parameters["@zporadi"].Value = Convert.ToInt32(row["zporadi"]);
+                cmd2.Parameters["@stavks"].Value = Convert.ToInt32(row["stavks"]);
+                cmd2.Parameters["@pjmeno"].Value = row["pjmeno"].ToString();
+                cmd2.Parameters["@pprijmeni"].Value = row["pprijmeni"].ToString();
+                cmd2.Parameters["@pnazev"].Value = row["pnazev"].ToString();
+                cmd2.Parameters["@pjk"].Value = row["pjk"].ToString();
+                cmd2.Parameters["@pdatum"].Value = Convert.ToDateTime(row["pdatum"]);
+                cmd2.Parameters["@pks"].Value = Convert.ToInt32(row["pks"]);
+                cmd2.Parameters["@pcena"].Value = Convert.ToDouble(row["pcena"]);
+                cmd2.Transaction = (SQLiteTransaction)transaction;
+                cmd2.ExecuteNonQuery();
+                Application.DoEvents();
+            }
+            return;  // ok
+        }
+
+
+        public override void saveDataTableUzivateleToSQL(DataTable dTable, DbTransaction transaction)
+        {
+            string commandString1 = "DELETE FROM uzivatele";
+            string commandString2 = "INSERT INTO uzivatele (userid, password, jmeno, prijmeni, admin, permission )" +
+                   "VALUES ( ?, ?, ?, ?, ?, ? )";
+
+            SQLiteCommand cmd1 = new SQLiteCommand(commandString1, myDBConn as SQLiteConnection);
+            cmd1.Transaction = (SQLiteTransaction)transaction;
+            cmd1.ExecuteNonQuery();
+
+            SQLiteCommand cmd2 = new SQLiteCommand(commandString2, myDBConn as SQLiteConnection);
+            cmd2.Parameters.AddWithValue("@userid", DbType.String);
+            cmd2.Parameters.AddWithValue("@password", DbType.String);
+            cmd2.Parameters.AddWithValue("@jmeno", DbType.String);
+            cmd2.Parameters.AddWithValue("@prijmeni", DbType.String);
+            cmd2.Parameters.AddWithValue("@admin", DbType.String);
+            cmd2.Parameters.AddWithValue("@permission", DbType.String);
+
+            foreach (DataRow row in dTable.Rows)
+            {
+                cmd2.Parameters["@userid"].Value = row["userid"].ToString();
+                cmd2.Parameters["@password"].Value = row["password"].ToString();
+                cmd2.Parameters["@jmeno"].Value = row["jmeno"].ToString();
+                cmd2.Parameters["@prijmeni"].Value = row["prijmeni"].ToString();
+                cmd2.Parameters["@admin"].Value = row["admin"].ToString();
+                cmd2.Parameters["@permission"].Value = row["permission"].ToString();
+                cmd2.Transaction = (SQLiteTransaction)transaction;
+                cmd2.ExecuteNonQuery();
+                Application.DoEvents();
+            }
+            return;  // ok
+        }
+
+
+        public override void saveDataTableNastaveniToSQL(DataTable dTable, DbTransaction transaction)
+        {
+            string commandString1 = "DELETE FROM nastaveni";
+            string commandString2 = "INSERT INTO nastaveni (setid, permission, permission_hs, permission_hi, userid, datum )" +
+                   "VALUES ( ?, ?, ?, ?, ?, ? )";
+
+            SQLiteCommand cmd1 = new SQLiteCommand(commandString1, myDBConn as SQLiteConnection);
+            cmd1.Transaction = (SQLiteTransaction)transaction;
+            cmd1.ExecuteNonQuery();
+
+            SQLiteCommand cmd2 = new SQLiteCommand(commandString2, myDBConn as SQLiteConnection);
+            cmd2.Parameters.AddWithValue("@setid", DbType.String);
+            cmd2.Parameters.AddWithValue("@permission", DbType.String);
+            cmd2.Parameters.AddWithValue("@permission_hs", DbType.String);
+            cmd2.Parameters.AddWithValue("@permission_hi", DbType.Int32);
+            cmd2.Parameters.AddWithValue("@userid", DbType.String);
+            cmd2.Parameters.AddWithValue("@datum", DbType.Date);
+
+            foreach (DataRow row in dTable.Rows)
+            {
+                cmd2.Parameters["@setid"].Value = row["setid"].ToString();
+                cmd2.Parameters["@permission"].Value = row["permission"].ToString();
+                cmd2.Parameters["@permission_hs"].Value = row["permission_hs"].ToString();
+                cmd2.Parameters["@permission_hi"].Value = Convert.ToInt32(row["permission_hi"]);
+                cmd2.Parameters["@userid"].Value = row["userid"].ToString();
+                cmd2.Parameters["@datum"].Value = Convert.ToDateTime(row["datum"]);
+                cmd2.Transaction = (SQLiteTransaction)transaction;
+                cmd2.ExecuteNonQuery();
+                Application.DoEvents();
+            }
+            return;  // ok
+        }
+
+        public override void saveDataTableTabseqToSQL(DataTable dTable, DbTransaction transaction)
+        {
+            string commandString1 = "DELETE FROM tabseq";
+            string commandString2 = "INSERT INTO tabseq (nazev, poradi )" +
+                   "VALUES ( ?, ? )";
+
+            SQLiteCommand cmd1 = new SQLiteCommand(commandString1, myDBConn as SQLiteConnection);
+            cmd1.Transaction = (SQLiteTransaction)transaction;
+            cmd1.ExecuteNonQuery();
+
+            SQLiteCommand cmd2 = new SQLiteCommand(commandString2, myDBConn as SQLiteConnection);
+            cmd2.Parameters.AddWithValue("@nazev", DbType.String);
+            cmd2.Parameters.AddWithValue("@poradi", DbType.Int32);
+
+            foreach (DataRow row in dTable.Rows)
+            {
+                cmd2.Parameters["@nazev"].Value = row["nazev"].ToString();
+                cmd2.Parameters["@poradi"].Value = row["poradi"].ToString();
+                cmd2.Transaction = (SQLiteTransaction)transaction;
+                cmd2.ExecuteNonQuery();
+                Application.DoEvents();
+            }
+            return;  // ok
+        }
 
 
     }
