@@ -1803,7 +1803,7 @@ namespace Vydejna
 
         private void vytvoreniArchivu()
         {
-            labelView.Text = "Vztvoření archívu";
+            labelView.Text = "Vytvoření archívu";
             Application.DoEvents();
 
 

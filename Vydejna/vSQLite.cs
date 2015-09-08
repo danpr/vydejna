@@ -598,7 +598,6 @@ namespace Vydejna
                 cmd.Parameters["@p8"].Value = DBminstav;
                 cmd.Parameters.Add("@p9", DbType.Double);
                 cmd.Parameters["@p9"].Value = DBcelkcena;
-
                 cmd.Parameters.Add("@p15", DbType.Int64);
                 cmd.Parameters["@p15"].Value = DBucetstav;
                 cmd.Parameters.Add("@p16", DbType.Int64);
@@ -611,7 +610,6 @@ namespace Vydejna
                 cmd.Parameters["@p19"].Value = DBdate;
                 cmd.Parameters.Add("@p20", DbType.String);
                 cmd.Parameters["@p20"].Value = DBstredisko;
-
                 cmd.Parameters.Add("@p22", DbType.String);
                 cmd.Parameters["@p22"].Value = DBdruhp;
                 cmd.Parameters.Add("@p23", DbType.String);
@@ -1273,7 +1271,7 @@ namespace Vydejna
                     SQLiteCommand cmd = new SQLiteCommand(commandString2, myDBConn as SQLiteConnection);
 
                     cmd.Parameters.AddWithValue("@poradi", maxporadi).DbType = DbType.Int32;
-                    cmd.Parameters.AddWithValue("nazev",DBnazev);
+                    cmd.Parameters.AddWithValue("@nazev",DBnazev);
                     cmd.Parameters.AddWithValue("@jk",DBJK);
                     cmd.Parameters.AddWithValue("@normacsn",DBnormacsn);
                     cmd.Parameters.AddWithValue("@normadin",DBnormadin);
@@ -4880,24 +4878,26 @@ namespace Vydejna
             cmd1.ExecuteNonQuery();
 
             SQLiteCommand cmd2 = new SQLiteCommand(commandString2, myDBConn as SQLiteConnection);
-            cmd2.Parameters.AddWithValue("@poradi", DbType.Int32);
-            cmd2.Parameters.AddWithValue("@nazev", DbType.String);
-            cmd2.Parameters.AddWithValue("@jk", DbType.String);
-            cmd2.Parameters.AddWithValue("@normacsn", DbType.String);
-            cmd2.Parameters.AddWithValue("@normadin", DbType.String);
-            cmd2.Parameters.AddWithValue("@vyrobce", DbType.String);
-            cmd2.Parameters.AddWithValue("@cena", DbType.Double);
-            cmd2.Parameters.AddWithValue("@poznamka", DbType.String);
-            cmd2.Parameters.AddWithValue("@minimum", DbType.Int32);
-            cmd2.Parameters.AddWithValue("@celkcena", DbType.Double);
-            cmd2.Parameters.AddWithValue("@ucetstav", DbType.Int32);
-            cmd2.Parameters.AddWithValue("@fyzstav", DbType.Int32);
-            cmd2.Parameters.AddWithValue("@rozmer", DbType.String);
-            cmd2.Parameters.AddWithValue("@analucet", DbType.String);
-            cmd2.Parameters.AddWithValue("@tdate", DbType.Date);
-            cmd2.Parameters.AddWithValue("@stredisko", DbType.String);
-            cmd2.Parameters.AddWithValue("@druh", DbType.String);
-            cmd2.Parameters.AddWithValue("@odpis", DbType.String);
+
+            cmd2.Parameters.AddWithValue("@poradi", 0).DbType = DbType.Int32;
+            cmd2.Parameters.AddWithValue("@nazev", "").DbType = DbType.String;
+            cmd2.Parameters.AddWithValue("@jk", "").DbType = DbType.String;
+            cmd2.Parameters.AddWithValue("@normacsn", "").DbType = DbType.String;
+            cmd2.Parameters.AddWithValue("@normadin", "").DbType = DbType.String;
+            cmd2.Parameters.AddWithValue("@vyrobce", "").DbType = DbType.String;
+            cmd2.Parameters.AddWithValue("@cena", 0).DbType = DbType.Double;
+            cmd2.Parameters.AddWithValue("@poznamka", "").DbType = DbType.String;
+            cmd2.Parameters.AddWithValue("@minimum", 0).DbType = DbType.Int32;
+            cmd2.Parameters.AddWithValue("@celkcena", 0).DbType = DbType.Double;
+            cmd2.Parameters.AddWithValue("@ucetstav", 0).DbType = DbType.Int32;
+            cmd2.Parameters.AddWithValue("@fyzstav", 0).DbType = DbType.Int32;
+            cmd2.Parameters.AddWithValue("@rozmer", "").DbType = DbType.String;
+            cmd2.Parameters.AddWithValue("@analucet", "").DbType = DbType.String;
+            cmd2.Parameters.AddWithValue("@tdate", new DateTime(0)).DbType = DbType.Date;
+            cmd2.Parameters.AddWithValue("@stredisko", "").DbType = DbType.String;
+            cmd2.Parameters.AddWithValue("@druh", "").DbType = DbType.String;
+            cmd2.Parameters.AddWithValue("@odpis", "").DbType = DbType.String;
+
 
             foreach (DataRow row in dTable.Rows)
             {
@@ -4909,10 +4909,10 @@ namespace Vydejna
                 cmd2.Parameters["@vyrobce"].Value = row["vyrobce"].ToString();
                 cmd2.Parameters["@cena"].Value = Convert.ToDouble(row["cena"]);
                 cmd2.Parameters["@poznamka"].Value = row["poznamka"].ToString();
-                cmd2.Parameters["@minimum"].Value = Convert.ToInt32(row["minimum"]);
+                cmd2.Parameters["@minimum"].Value = Convert.ToInt64(row["minimum"]);
                 cmd2.Parameters["@celkcena"].Value = Convert.ToDouble(row["celkcena"]);
-                cmd2.Parameters["@ucetstav"].Value = Convert.ToInt32(row["ucetstav"]);
-                cmd2.Parameters["@fyzstav"].Value = Convert.ToInt32(row["fyzstav"]);
+                cmd2.Parameters["@ucetstav"].Value = Convert.ToInt64(row["ucetstav"]);
+                cmd2.Parameters["@fyzstav"].Value = Convert.ToInt64(row["fyzstav"]);
                 cmd2.Parameters["@rozmer"].Value = row["rozmer"].ToString();
                 cmd2.Parameters["@analucet"].Value = row["analucet"].ToString();
                 cmd2.Parameters["@tdate"].Value = Convert.ToDateTime(row["tdate"]);
@@ -4942,27 +4942,28 @@ namespace Vydejna
             cmd1.ExecuteNonQuery();
 
             SQLiteCommand cmd2 = new SQLiteCommand(commandString2, myDBConn as SQLiteConnection);
-            cmd2.Parameters.AddWithValue("@poradi", DbType.Int32);
-            cmd2.Parameters.AddWithValue("@nazev", DbType.String);
-            cmd2.Parameters.AddWithValue("@jk", DbType.String);
-            cmd2.Parameters.AddWithValue("@normacsn", DbType.String);
-            cmd2.Parameters.AddWithValue("@normadin", DbType.String);
-            cmd2.Parameters.AddWithValue("@vyrobce", DbType.String);
-            cmd2.Parameters.AddWithValue("@cena", DbType.Double);
-            cmd2.Parameters.AddWithValue("@poznamka", DbType.String);
-            cmd2.Parameters.AddWithValue("@minimum", DbType.Int32);
-            cmd2.Parameters.AddWithValue("@celkcena", DbType.Double);
-            cmd2.Parameters.AddWithValue("@ucetstav", DbType.Int32);
-            cmd2.Parameters.AddWithValue("@fyzstav", DbType.Int32);
-            cmd2.Parameters.AddWithValue("@rozmer", DbType.String);
-            cmd2.Parameters.AddWithValue("@analucet", DbType.String);
-            cmd2.Parameters.AddWithValue("@tdate", DbType.Date);
-            cmd2.Parameters.AddWithValue("@stredisko", DbType.String);
-            cmd2.Parameters.AddWithValue("@druh", DbType.String);
-            cmd2.Parameters.AddWithValue("@odpis", DbType.String);
-            cmd2.Parameters.AddWithValue("@ucetkscen", DbType.Double);
-            cmd2.Parameters.AddWithValue("@kdatum", DbType.Date);
-            cmd2.Parameters.AddWithValue("@kodd", DbType.String);
+            cmd2.Parameters.AddWithValue("@poradi", 0).DbType = DbType.Int32;
+            cmd2.Parameters.AddWithValue("@nazev", "").DbType = DbType.String;
+            cmd2.Parameters.AddWithValue("@jk", "").DbType = DbType.String;
+            cmd2.Parameters.AddWithValue("@normacsn", "").DbType = DbType.String;
+            cmd2.Parameters.AddWithValue("@normadin", "").DbType = DbType.String;
+            cmd2.Parameters.AddWithValue("@vyrobce", "").DbType = DbType.String;
+            cmd2.Parameters.AddWithValue("@cena", 0).DbType = DbType.Double;
+            cmd2.Parameters.AddWithValue("@poznamka", "").DbType = DbType.String;
+            cmd2.Parameters.AddWithValue("@minimum", 0).DbType = DbType.Int32;
+            cmd2.Parameters.AddWithValue("@celkcena", 0).DbType = DbType.Double;
+            cmd2.Parameters.AddWithValue("@ucetstav", 0).DbType = DbType.Int32;
+            cmd2.Parameters.AddWithValue("@fyzstav", 0).DbType = DbType.Int32;
+            cmd2.Parameters.AddWithValue("@rozmer", "").DbType = DbType.String;
+            cmd2.Parameters.AddWithValue("@analucet", "").DbType = DbType.String;
+            cmd2.Parameters.AddWithValue("@tdate", new DateTime(0)).DbType = DbType.Date;
+            cmd2.Parameters.AddWithValue("@stredisko", "").DbType = DbType.String;
+            cmd2.Parameters.AddWithValue("@druh", "").DbType = DbType.String;
+            cmd2.Parameters.AddWithValue("@odpis", "").DbType = DbType.String;
+            cmd2.Parameters.AddWithValue("@ucetkscen","").DbType = DbType.Double;
+            cmd2.Parameters.AddWithValue("@kdatum","").DbType = DbType.Date;
+            cmd2.Parameters.AddWithValue("@kodd","").DbType = DbType.String;
+
             foreach (DataRow row in dTable.Rows)
             {
                 cmd2.Parameters["@poradi"].Value = Convert.ToInt32(row["poradi"]);
@@ -5006,23 +5007,23 @@ namespace Vydejna
             cmd1.ExecuteNonQuery();
 
             SQLiteCommand cmd2 = new SQLiteCommand(commandString2, myDBConn as SQLiteConnection);
-            cmd2.Parameters.AddWithValue("@poradi", DbType.Int32);
-            cmd2.Parameters.AddWithValue("@jmeno", DbType.String);
-            cmd2.Parameters.AddWithValue("@oscislo", DbType.String);
-            cmd2.Parameters.AddWithValue("@dilna", DbType.String);
-            cmd2.Parameters.AddWithValue("@pracoviste", DbType.String);
-            cmd2.Parameters.AddWithValue("@vyrobek", DbType.String);
-            cmd2.Parameters.AddWithValue("@nazev", DbType.String);
-            cmd2.Parameters.AddWithValue("@jk", DbType.String);
-            cmd2.Parameters.AddWithValue("@rozmer", DbType.String);
-            cmd2.Parameters.AddWithValue("@pocetks", DbType.Int32);
-            cmd2.Parameters.AddWithValue("@cena", DbType.Double);
-            cmd2.Parameters.AddWithValue("@datum", DbType.Date);
-            cmd2.Parameters.AddWithValue("@csn", DbType.String);
-            cmd2.Parameters.AddWithValue("@krjmeno", DbType.String);
-            cmd2.Parameters.AddWithValue("@celkcena", DbType.Double);
-            cmd2.Parameters.AddWithValue("@vevcislo", DbType.String);
-            cmd2.Parameters.AddWithValue("@konto", DbType.String);
+            cmd2.Parameters.AddWithValue("@poradi",0).DbType = DbType.Int32;
+            cmd2.Parameters.AddWithValue("@jmeno","").DbType = DbType.String;
+            cmd2.Parameters.AddWithValue("@oscislo","").DbType = DbType.String;
+            cmd2.Parameters.AddWithValue("@dilna","").DbType = DbType.String;
+            cmd2.Parameters.AddWithValue("@pracoviste","").DbType = DbType.String;
+            cmd2.Parameters.AddWithValue("@vyrobek","").DbType = DbType.String;
+            cmd2.Parameters.AddWithValue("@nazev","").DbType = DbType.String;
+            cmd2.Parameters.AddWithValue("@jk","").DbType = DbType.String;
+            cmd2.Parameters.AddWithValue("@rozmer","").DbType = DbType.String;
+            cmd2.Parameters.AddWithValue("@pocetks",0).DbType= DbType.Int32;
+            cmd2.Parameters.AddWithValue("@cena",0).DbType = DbType.Double;
+            cmd2.Parameters.AddWithValue("@datum", new DateTime(0)).DbType = DbType.Date;
+            cmd2.Parameters.AddWithValue("@csn","").DbType = DbType.String;
+            cmd2.Parameters.AddWithValue("@krjmeno","").DbType = DbType.String;
+            cmd2.Parameters.AddWithValue("@celkcena",0).DbType = DbType.Double;
+            cmd2.Parameters.AddWithValue("@vevcislo","").DbType = DbType.String;
+            cmd2.Parameters.AddWithValue("@konto","").DbType = DbType.String;
 
             foreach (DataRow row in dTable.Rows)
             {
@@ -5063,23 +5064,23 @@ namespace Vydejna
             cmd1.ExecuteNonQuery();
 
             SQLiteCommand cmd2 = new SQLiteCommand(commandString2, myDBConn as SQLiteConnection);
-            cmd2.Parameters.AddWithValue("@poradi", DbType.Int32);
-            cmd2.Parameters.AddWithValue("@jmeno", DbType.String);
-            cmd2.Parameters.AddWithValue("@oscislo", DbType.String);
-            cmd2.Parameters.AddWithValue("@dilna", DbType.String);
-            cmd2.Parameters.AddWithValue("@pracoviste", DbType.String);
-            cmd2.Parameters.AddWithValue("@vyrobek", DbType.String);
-            cmd2.Parameters.AddWithValue("@nazev", DbType.String);
-            cmd2.Parameters.AddWithValue("@jk", DbType.String);
-            cmd2.Parameters.AddWithValue("@rozmer", DbType.String);
-            cmd2.Parameters.AddWithValue("@pocetks", DbType.Int32);
-            cmd2.Parameters.AddWithValue("@cena", DbType.Double);
-            cmd2.Parameters.AddWithValue("@datum", DbType.Date);
-            cmd2.Parameters.AddWithValue("@csn", DbType.String);
-            cmd2.Parameters.AddWithValue("@krjmeno", DbType.String);
-            cmd2.Parameters.AddWithValue("@celkcena", DbType.Double);
-            cmd2.Parameters.AddWithValue("@vevcislo", DbType.String);
-            cmd2.Parameters.AddWithValue("@konto", DbType.String);
+            cmd2.Parameters.AddWithValue("@poradi",0).DbType = DbType.Int32;
+            cmd2.Parameters.AddWithValue("@jmeno","").DbType = DbType.String;
+            cmd2.Parameters.AddWithValue("@oscislo","").DbType = DbType.String;
+            cmd2.Parameters.AddWithValue("@dilna","").DbType = DbType.String;
+            cmd2.Parameters.AddWithValue("@pracoviste", "").DbType = DbType.String;
+            cmd2.Parameters.AddWithValue("@vyrobek","").DbType = DbType.String;
+            cmd2.Parameters.AddWithValue("@nazev","").DbType = DbType.String;
+            cmd2.Parameters.AddWithValue("@jk", "").DbType = DbType.String;
+            cmd2.Parameters.AddWithValue("@rozmer","").DbType = DbType.String;
+            cmd2.Parameters.AddWithValue("@pocetks", 0).DbType = DbType.Int32;
+            cmd2.Parameters.AddWithValue("@cena", 0).DbType = DbType.Double;
+            cmd2.Parameters.AddWithValue("@datum",new DateTime(0)).DbType = DbType.Date;
+            cmd2.Parameters.AddWithValue("@csn","").DbType = DbType.String;
+            cmd2.Parameters.AddWithValue("@krjmeno","").DbType = DbType.String;
+            cmd2.Parameters.AddWithValue("@celkcena",0).DbType = DbType.Double;
+            cmd2.Parameters.AddWithValue("@vevcislo","").DbType = DbType.String;
+            cmd2.Parameters.AddWithValue("@konto","").DbType = DbType.String;
 
             foreach (DataRow row in dTable.Rows)
             {
@@ -5119,20 +5120,20 @@ namespace Vydejna
             cmd1.ExecuteNonQuery();
 
             SQLiteCommand cmd2 = new SQLiteCommand(commandString2, myDBConn as SQLiteConnection);
-            cmd2.Parameters.AddWithValue("@prijmeni", DbType.String);
-            cmd2.Parameters.AddWithValue("@jmeno", DbType.String);
-            cmd2.Parameters.AddWithValue("@ulice", DbType.String);
-            cmd2.Parameters.AddWithValue("@mesto", DbType.String);
-            cmd2.Parameters.AddWithValue("@psc", DbType.String);
-            cmd2.Parameters.AddWithValue("@telhome", DbType.String);
-            cmd2.Parameters.AddWithValue("@oscislo", DbType.String);
-            cmd2.Parameters.AddWithValue("@odeleni", DbType.String);
-            cmd2.Parameters.AddWithValue("@telzam", DbType.String);
-            cmd2.Parameters.AddWithValue("@stredisko", DbType.String);
-            cmd2.Parameters.AddWithValue("@pujsoub", DbType.String);
-            cmd2.Parameters.AddWithValue("@pracoviste", DbType.String);
-            cmd2.Parameters.AddWithValue("@cisznamky", DbType.String);
-            cmd2.Parameters.AddWithValue("@poznamka", DbType.String);
+            cmd2.Parameters.AddWithValue("@prijmeni","").DbType = DbType.String;
+            cmd2.Parameters.AddWithValue("@jmeno","").DbType =  DbType.String;
+            cmd2.Parameters.AddWithValue("@ulice","").DbType =  DbType.String;
+            cmd2.Parameters.AddWithValue("@mesto","").DbType =  DbType.String;
+            cmd2.Parameters.AddWithValue("@psc","").DbType =  DbType.String;
+            cmd2.Parameters.AddWithValue("@telhome","").DbType =  DbType.String;
+            cmd2.Parameters.AddWithValue("@oscislo", "").DbType =  DbType.String;
+            cmd2.Parameters.AddWithValue("@odeleni","").DbType =  DbType.String;
+            cmd2.Parameters.AddWithValue("@telzam","").DbType =  DbType.String;
+            cmd2.Parameters.AddWithValue("@stredisko","").DbType =  DbType.String;
+            cmd2.Parameters.AddWithValue("@pujsoub","").DbType =  DbType.String;
+            cmd2.Parameters.AddWithValue("@pracoviste","").DbType =  DbType.String;
+            cmd2.Parameters.AddWithValue("@cisznamky","").DbType =  DbType.String;
+            cmd2.Parameters.AddWithValue("@poznamka","").DbType =  DbType.String;
 
             foreach (DataRow row in dTable.Rows)
             {
@@ -5169,18 +5170,18 @@ namespace Vydejna
             cmd1.ExecuteNonQuery();
 
             SQLiteCommand cmd2 = new SQLiteCommand(commandString2, myDBConn as SQLiteConnection);
-            cmd2.Parameters.AddWithValue("@parporadi", DbType.Int32);
-            cmd2.Parameters.AddWithValue("@pomozjk", DbType.String);
-            cmd2.Parameters.AddWithValue("@datum", DbType.Date);
-            cmd2.Parameters.AddWithValue("@poznamka", DbType.String);
-            cmd2.Parameters.AddWithValue("@prijem", DbType.Int32);
-            cmd2.Parameters.AddWithValue("@vydej", DbType.Int32);
-            cmd2.Parameters.AddWithValue("@zustatek", DbType.Int32);
-            cmd2.Parameters.AddWithValue("@zapkarta", DbType.String);
-            cmd2.Parameters.AddWithValue("@vevcislo", DbType.String);
-            cmd2.Parameters.AddWithValue("@pocivc", DbType.Int32);
-            cmd2.Parameters.AddWithValue("@stav", DbType.String);
-            cmd2.Parameters.AddWithValue("@poradi", DbType.Int32);
+            cmd2.Parameters.AddWithValue("@parporadi",0).DbType = DbType.Int32;
+            cmd2.Parameters.AddWithValue("@pomozjk","").DbType = DbType.String;
+            cmd2.Parameters.AddWithValue("@datum",new DateTime(0)).DbType = DbType.Date;
+            cmd2.Parameters.AddWithValue("@poznamka","").DbType = DbType.String;
+            cmd2.Parameters.AddWithValue("@prijem",0).DbType = DbType.Int32;
+            cmd2.Parameters.AddWithValue("@vydej",0).DbType = DbType.Int32;
+            cmd2.Parameters.AddWithValue("@zustatek",0).DbType = DbType.Int32;
+            cmd2.Parameters.AddWithValue("@zapkarta","").DbType = DbType.String;
+            cmd2.Parameters.AddWithValue("@vevcislo","").DbType = DbType.String;
+            cmd2.Parameters.AddWithValue("@pocivc",0).DbType= DbType.Int32;
+            cmd2.Parameters.AddWithValue("@stav","").DbType = DbType.String;
+            cmd2.Parameters.AddWithValue("@poradi",0).DbType = DbType.Int32;
 
             foreach (DataRow row in dTable.Rows)
             {
@@ -5215,18 +5216,18 @@ namespace Vydejna
             cmd1.ExecuteNonQuery();
 
             SQLiteCommand cmd2 = new SQLiteCommand(commandString2, myDBConn as SQLiteConnection);
-            cmd2.Parameters.AddWithValue("@poradi", DbType.Int32);
-            cmd2.Parameters.AddWithValue("@oscislo", DbType.String);
-            cmd2.Parameters.AddWithValue("@nporadi", DbType.Int32);
-            cmd2.Parameters.AddWithValue("@zporadi", DbType.Int32);
-            cmd2.Parameters.AddWithValue("@stavks", DbType.Int32);
-            cmd2.Parameters.AddWithValue("@pjmeno", DbType.String);
-            cmd2.Parameters.AddWithValue("@pprijmeni", DbType.String);
-            cmd2.Parameters.AddWithValue("@pnazev", DbType.String);
-            cmd2.Parameters.AddWithValue("@pjk", DbType.String);
-            cmd2.Parameters.AddWithValue("@pdatum", DbType.Date);
-            cmd2.Parameters.AddWithValue("@pks", DbType.Int32);
-            cmd2.Parameters.AddWithValue("@pcena", DbType.Double);
+            cmd2.Parameters.AddWithValue("@poradi",0).DbType = DbType.Int32;
+            cmd2.Parameters.AddWithValue("@oscislo","").DbType = DbType.String;
+            cmd2.Parameters.AddWithValue("@nporadi",0).DbType = DbType.Int32;
+            cmd2.Parameters.AddWithValue("@zporadi",0).DbType = DbType.Int32;
+            cmd2.Parameters.AddWithValue("@stavks",0).DbType = DbType.Int32;
+            cmd2.Parameters.AddWithValue("@pjmeno","").DbType = DbType.String;
+            cmd2.Parameters.AddWithValue("@pprijmeni","").DbType = DbType.String;
+            cmd2.Parameters.AddWithValue("@pnazev","").DbType = DbType.String;
+            cmd2.Parameters.AddWithValue("@pjk","").DbType = DbType.String;
+            cmd2.Parameters.AddWithValue("@pdatum",new DateTime(0)).DbType = DbType.Date;
+            cmd2.Parameters.AddWithValue("@pks",0).DbType = DbType.Int32;
+            cmd2.Parameters.AddWithValue("@pcena",0).DbType = DbType.Double;
 
             foreach (DataRow row in dTable.Rows)
             {
@@ -5261,12 +5262,12 @@ namespace Vydejna
             cmd1.ExecuteNonQuery();
 
             SQLiteCommand cmd2 = new SQLiteCommand(commandString2, myDBConn as SQLiteConnection);
-            cmd2.Parameters.AddWithValue("@userid", DbType.String);
-            cmd2.Parameters.AddWithValue("@password", DbType.String);
-            cmd2.Parameters.AddWithValue("@jmeno", DbType.String);
-            cmd2.Parameters.AddWithValue("@prijmeni", DbType.String);
-            cmd2.Parameters.AddWithValue("@admin", DbType.String);
-            cmd2.Parameters.AddWithValue("@permission", DbType.String);
+            cmd2.Parameters.AddWithValue("@userid","").DbType =  DbType.String;
+            cmd2.Parameters.AddWithValue("@password","").DbType =  DbType.String;
+            cmd2.Parameters.AddWithValue("@jmeno","").DbType =  DbType.String;
+            cmd2.Parameters.AddWithValue("@prijmeni","").DbType =  DbType.String;
+            cmd2.Parameters.AddWithValue("@admin","").DbType =  DbType.String;
+            cmd2.Parameters.AddWithValue("@permission","").DbType =  DbType.String;
 
             foreach (DataRow row in dTable.Rows)
             {
@@ -5295,12 +5296,12 @@ namespace Vydejna
             cmd1.ExecuteNonQuery();
 
             SQLiteCommand cmd2 = new SQLiteCommand(commandString2, myDBConn as SQLiteConnection);
-            cmd2.Parameters.AddWithValue("@setid", DbType.String);
-            cmd2.Parameters.AddWithValue("@permission", DbType.String);
-            cmd2.Parameters.AddWithValue("@permission_hs", DbType.String);
-            cmd2.Parameters.AddWithValue("@permission_hi", DbType.Int32);
-            cmd2.Parameters.AddWithValue("@userid", DbType.String);
-            cmd2.Parameters.AddWithValue("@datum", DbType.Date);
+            cmd2.Parameters.AddWithValue("@setid","").DbType = DbType.String;
+            cmd2.Parameters.AddWithValue("@permission", "").DbType = DbType.String;
+            cmd2.Parameters.AddWithValue("@permission_hs","").DbType = DbType.String;
+            cmd2.Parameters.AddWithValue("@permission_hi", 0).DbType = DbType.Int32;
+            cmd2.Parameters.AddWithValue("@userid","").DbType = DbType.String;
+            cmd2.Parameters.AddWithValue("@datum",new DateTime(0)).DbType = DbType.Date;
 
             foreach (DataRow row in dTable.Rows)
             {
@@ -5328,8 +5329,8 @@ namespace Vydejna
             cmd1.ExecuteNonQuery();
 
             SQLiteCommand cmd2 = new SQLiteCommand(commandString2, myDBConn as SQLiteConnection);
-            cmd2.Parameters.AddWithValue("@nazev", DbType.String);
-            cmd2.Parameters.AddWithValue("@poradi", DbType.Int32);
+            cmd2.Parameters.AddWithValue("@nazev","").DbType = DbType.String;
+            cmd2.Parameters.AddWithValue("@poradi",0).DbType = DbType.Int32;
 
             foreach (DataRow row in dTable.Rows)
             {
