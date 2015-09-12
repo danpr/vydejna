@@ -342,7 +342,13 @@ namespace Vydejna
 
         public virtual void SelectAndShowGridViewRow(object orderId)
         {
-            Int32 poradi = (Int32)orderId;
+            Int64 poradi = 0;  //orderId muze byt Int32 nebo In64 zavisi na databazi
+            if (orderId is Int32) poradi = (Int32)orderId;
+            else
+            {
+                if (orderId is Int64) poradi = (Int64)orderId;
+            }
+
             Int32 index = (myDataGridView.DataSource as BindingSource).Find("poradi", poradi);
 
             if (myDataGridView.Rows.Count > 0)
