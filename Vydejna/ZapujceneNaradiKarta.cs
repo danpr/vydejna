@@ -653,5 +653,24 @@ namespace Vydejna
         {
 
         }
+
+        private void toolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            //prevedeme naradi
+            UzivatelData ud = UzivatelData.makeInstance();
+            if (ud.userHasAccessRightsWM((Int32)permCode.PracVracN))
+            {
+                if (dataGridViewZmeny.SelectedRows.Count > 0)
+                {
+                    if ((myDB != null) && (myDB.DBIsOpened()))
+                    {
+                    }
+                }
+            }
+        }
+
+
+
+
     }
 }

@@ -335,7 +335,7 @@
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Name = "VraceniNaradi";
-            this.Text = "VraceniNaradi";
+            this.Text = "Vracení nářadí";
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMnozstvi)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

@@ -57,6 +57,7 @@
             this.vybratPísmoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.písmoAplikaceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonTisk = new System.Windows.Forms.Button();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewZmeny)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -147,12 +148,13 @@
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.zapůjčeníNářadíToolStripMenuItem,
             this.vraceníNářadíToolStripMenuItem,
+            this.toolStripMenuItem2,
             this.toolStripMenuItem1,
             this.toolStripSeparator1,
             this.informaceONářadíToolStripMenuItem,
             this.informaceOZapůjčeToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(185, 142);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(185, 164);
             this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             // 
             // zapůjčeníNářadíToolStripMenuItem
@@ -313,6 +315,13 @@
             this.buttonTisk.UseVisualStyleBackColor = true;
             this.buttonTisk.Click += new System.EventHandler(this.buttonTisk_Click);
             // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(184, 22);
+            this.toolStripMenuItem2.Text = "Převod nářadí";
+            this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
+            // 
             // ZapujceneNaradiKarta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -382,5 +391,6 @@
         private System.Windows.Forms.ToolStripMenuItem vybratPísmoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem písmoAplikaceToolStripMenuItem;
         private System.Windows.Forms.Button buttonTisk;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
     }
 }

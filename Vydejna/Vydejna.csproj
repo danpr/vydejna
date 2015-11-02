@@ -111,6 +111,12 @@
       <DependentUpon>PracovniciKarta.cs</DependentUpon>
     </Compile>
     <Compile Include="PresunDB.cs" />
+    <Compile Include="PrevodNaradi.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PrevodNaradi.Designer.cs">
+      <DependentUpon>PrevodNaradi.cs</DependentUpon>
+    </Compile>
     <Compile Include="PrihlaseniKarta.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -268,6 +274,9 @@
     <EmbeddedResource Include="PracovniciKarta.resx">
       <DependentUpon>PracovniciKarta.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PrevodNaradi.resx">
+      <DependentUpon>PrevodNaradi.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PrihlaseniKarta.resx">
       <DependentUpon>PrihlaseniKarta.cs</DependentUpon>
