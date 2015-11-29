@@ -664,6 +664,36 @@ namespace Vydejna
                 {
                     if ((myDB != null) && (myDB.DBIsOpened()))
                     {
+
+                        Hashtable DBVypujcRow = makeVypujcDBRow(osobyDBRow);
+                        PrevodNaradi prevodNaradi = new PrevodNaradi(DBVypujcRow,myDB);
+                        prevodNaradi.Font = parentFont;
+                        Int32 pujcPoradi = Convert.ToInt32(DBVypujcRow["poradi"]);
+                        if (prevodNaradi.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                        {
+//                            Int32 errCode = myDB.addNewLineZmenyAndVraceno(pujcPoradi, prevodNaradi.getDatum(), prevodNaradi.getKs(),
+//                                prevodNaradi.getPoznamka(), Convert.ToString(DBVypujcRow["oscislo"]));
+
+                            Int32 errCode = -1; 
+                               
+                            if (errCode == -4)
+                            {
+                                MessageBox.Show("Stav změn je záporné číslo. Nejprve opravte data o pohybu nářadí.");
+                            }
+                            if (errCode == -3)
+                            {
+                                MessageBox.Show("Neexistují žádné záznamy o pohybu nářadi. Nejprve opravte data o pohybu nářadí.");
+                            }
+                            if (errCode == -2)
+                            {
+                                MessageBox.Show("Požadujete vrátit vetší možství než je vypůjčeno. Data byla patrně změněna z jiného pracoviště.");
+                            }
+                            if (errCode == -1)
+                            {
+                                MessageBox.Show("Vrácení nářadi se nezdařilo. Lituji.");
+                            }
+                        }
+
                     }
                 }
             }

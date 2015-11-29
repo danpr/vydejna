@@ -12,40 +12,107 @@ namespace Vydejna
 {
     public partial class PrevodNaradi : Form
     {
-
+        private Int32 maximumMnozstvi = 0;
         private vDatabase myDataBase;
+        private string osCislo;
 
-        public PrevodNaradi()
+        public PrevodNaradi(Hashtable DBRow, vDatabase myDataBase)
         {
             InitializeComponent();
+            CancelButton = buttonCancel;
+            AcceptButton = buttonOK;
+
+            buttonOK.Enabled = false;
+
+            labelJmenoNove.Text = "";
+            labelPrijmeniNove.Text = "";
+            labelStrediskoNove.Text = "";
+            labelProvozNove.Text = "";
+
+            this.myDataBase = myDataBase;
+
+            labelPrijmeni.Text = Convert.ToString(DBRow["prijmeni"]);
+            labelJmeno.Text = Convert.ToString(DBRow["jmeno"]);
+            labelOsCislo.Text = Convert.ToString(DBRow["oscislo"]);
+            osCislo = Convert.ToString(DBRow["oscislo"]).Trim();
+            labelStredisko.Text = Convert.ToString(DBRow["stredisko"]);
+            labelProvoz.Text = Convert.ToString(DBRow["odeleni"]);
+            labelNazev.Text = Convert.ToString(DBRow["nazev"]);
+            labelIEvCislo.Text = Convert.ToString(DBRow["vevcislo"]);
+            labelJK.Text = Convert.ToString(DBRow["jk"]);
+            labelVypujceno.Text = Convert.ToString(DBRow["stavks"]);
+
+            //            numericUpDownMnozstvi.Maximum = Convert.ToInt32(DBRow["stavks"]);
+            maximumMnozstvi = Convert.ToInt32(DBRow["stavks"]); ;
+            textBoxPoznamka.Text = "Vráceno";
+
+            string lastNewOsCislo = ConfigReg.loadSettingLastNewOsCislo();
+            if (lastNewOsCislo != null)
+            {
+                if (lastNewOsCislo.Trim() != "")
+                {
+                    if (myDataBase.tableOsobyItemExist(lastNewOsCislo))
+                    {
+                        Hashtable osobaRow = myDataBase.getOsobyLine(lastNewOsCislo, null);
+                        showNewOsobaInfo(osobaRow);
+                    }
+                }
+            }
         }
 
         private void buttonChoosePerson_Click(object sender, EventArgs e)
+        {
+            loadNewOsCisloFromDialog();
+        }
+
+        private void loadNewOsCisloFromDialog()
         {
             VyberRadku vyberOsoby = new VyberRadku(myDataBase, this.Font);
             if (vyberOsoby.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 Hashtable osobaRow = vyberOsoby.getDBRowFromSelectedRow(null);
-                if (osobaRow != null)
+//                if (osobaRow != null)
+//                {
+//                    if (osobaRow.ContainsKey("oscislo"))
+//                    {
+//                        textBoxOsCisloNove.Text = Convert.ToString(osobaRow["oscislo"]);
+//                        /////                        textBoxCisZak.Focus();
+//                    }
+//                    if (osobaRow.ContainsKey("jmeno")) labelJmenoNove.Text = Convert.ToString(osobaRow["jmeno"]);
+//                    if (osobaRow.ContainsKey("prijmeni")) labelPrijmeniNove.Text = Convert.ToString(osobaRow["prijmeni"]);
+//                    if (osobaRow.ContainsKey("stredisko")) labelStrediskoNove.Text = Convert.ToString(osobaRow["stredisko"]);
+//                    if (osobaRow.ContainsKey("pracoviste")) labelProvozNove.Text = Convert.ToString(osobaRow["pracoviste"]);
+//                }
+                showNewOsobaInfo(osobaRow);
+                if (textBoxOsCisloNove.Text == osCislo)
                 {
-                    if (osobaRow.ContainsKey("oscislo"))
-                    {
-                        textBoxOsCisloNove.Text = Convert.ToString(osobaRow["oscislo"]);
-/////                        textBoxCisZak.Focus();
-                    }
-                    if (osobaRow.ContainsKey("jmeno")) labelJmenoNove.Text = Convert.ToString(osobaRow["jmeno"]);
-                    if (osobaRow.ContainsKey("prijmeni")) labelPrijmeniNove.Text = Convert.ToString(osobaRow["prijmeni"]);
-                    if (osobaRow.ContainsKey("stredisko")) labelStrediskoNove.Text = Convert.ToString(osobaRow["stredisko"]);
-                    if (osobaRow.ContainsKey("pracoviste")) labelProvozNove.Text = Convert.ToString(osobaRow["pracoviste"]);
+                    MessageBox.Show("Nelze převádět na stejného pracovníka.");
                 }
                 testKompletnosti();
             }
         }
 
 
+        private void showNewOsobaInfo(Hashtable osobaRow)
+        {
+            if (osobaRow != null)
+            {
+                if (osobaRow.ContainsKey("oscislo"))
+                {
+                    textBoxOsCisloNove.Text = Convert.ToString(osobaRow["oscislo"]);
+                    /////                        textBoxCisZak.Focus();
+                }
+                if (osobaRow.ContainsKey("jmeno")) labelJmenoNove.Text = Convert.ToString(osobaRow["jmeno"]);
+                if (osobaRow.ContainsKey("prijmeni")) labelPrijmeniNove.Text = Convert.ToString(osobaRow["prijmeni"]);
+                if (osobaRow.ContainsKey("stredisko")) labelStrediskoNove.Text = Convert.ToString(osobaRow["stredisko"]);
+                if (osobaRow.ContainsKey("pracoviste")) labelProvozNove.Text = Convert.ToString(osobaRow["pracoviste"]);
+            }
+
+        }
+
         private void testKompletnosti()
         {
-            if ((textBoxOsCisloNove.Text != "") && (numericUpDownMnozstvi.Value > 0))
+            if ((textBoxOsCisloNove.Text != "") && (numericUpDownMnozstvi.Value > 0) && (textBoxOsCisloNove.Text != osCislo ))
             {
                 buttonOK.Enabled = true;
             }
@@ -55,6 +122,31 @@ namespace Vydejna
                 buttonOK.Enabled = false;
             }
         }
+
+
+        public Int32 getKs()
+        {
+            return Convert.ToInt32(numericUpDownMnozstvi.Value);
+        }
+
+
+        public string getPoznamka()
+        {
+            return textBoxPoznamka.Text;
+        }
+
+
+        public DateTime getDatum()
+        {
+            return Convert.ToDateTime(dateTimePickerDatum.Value);
+        }
+
+
+        public string getNewOsCislo()
+        {
+            return textBoxOsCisloNove.Text.Trim();
+        }
+
 
 
     }

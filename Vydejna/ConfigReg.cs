@@ -428,6 +428,41 @@ namespace Vydejna
 
 
 
+        public static string loadSettingLastNewOsCislo()
+        {
+            RegistryKey klic = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\CS", true);
+
+            string lastNewOsCislo;
+
+            if (klic != null)
+            {
+                try
+                {
+                    lastNewOsCislo = klic.GetValue("lastNewOsCislo").ToString();
+                }
+                catch
+                {
+                    return null;
+                }
+                return lastNewOsCislo;
+            }
+            return null;
+        }
+
+        public static void saveSettingLastNewOsCislo(string osCislo)
+        {
+            RegistryKey klic = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\CS", true);
+            if (klic == null)
+            {
+                klic = Registry.CurrentUser.OpenSubKey(@"SOFTWARE", true);
+                klic.CreateSubKey("CS");
+                klic = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\CS", true);
+            }
+            // zapis polozky
+            klic.SetValue("lastNewOsCislo", osCislo);
+        }
+
+
         public static string loadSettingLastUser()
         {
             RegistryKey klic = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\CS", true);
