@@ -327,6 +327,11 @@
             // numericUpDownMnozstvi
             // 
             this.numericUpDownMnozstvi.Location = new System.Drawing.Point(139, 290);
+            this.numericUpDownMnozstvi.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
             this.numericUpDownMnozstvi.Name = "numericUpDownMnozstvi";
             this.numericUpDownMnozstvi.Size = new System.Drawing.Size(120, 20);
             this.numericUpDownMnozstvi.TabIndex = 3;
