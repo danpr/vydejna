@@ -42,9 +42,11 @@ namespace Vydejna
             labelJK.Text = Convert.ToString(DBRow["jk"]);
             labelVypujceno.Text = Convert.ToString(DBRow["stavks"]);
 
-            //            numericUpDownMnozstvi.Maximum = Convert.ToInt32(DBRow["stavks"]);
-            maximumMnozstvi = Convert.ToInt32(DBRow["stavks"]); ;
-            textBoxPoznamka.Text = "Vráceno";
+            maximumMnozstvi = Convert.ToInt32(DBRow["stavks"]);
+            numericUpDownMnozstvi.Value = maximumMnozstvi;
+            numericUpDownMnozstvi.Maximum = maximumMnozstvi;
+
+            textBoxPoznamka.Text = "Převedeno";
 
             string lastNewOsCislo = ConfigReg.loadSettingLastNewOsCislo();
             if (lastNewOsCislo != null)
@@ -55,6 +57,7 @@ namespace Vydejna
                     {
                         Hashtable osobaRow = myDataBase.getOsobyLine(lastNewOsCislo, null);
                         showNewOsobaInfo(osobaRow);
+                        testKompletnosti();
                     }
                 }
             }
@@ -145,6 +148,21 @@ namespace Vydejna
         public string getNewOsCislo()
         {
             return textBoxOsCisloNove.Text.Trim();
+        }
+
+        private void buttonOK_Click(object sender, EventArgs e)
+        {
+//            if (numericUpDownMnozstvi.Value > 0)
+//            {
+//                buttonOK.DialogResult = DialogResult.OK;
+//                this.DialogResult = DialogResult.OK;
+//                Close();
+//            }
+//            else
+//            {
+//                MessageBox.Show("Je nutno zadat množství vypujčeného nářadí.");
+//            }
+
         }
 
 

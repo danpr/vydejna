@@ -671,6 +671,7 @@ namespace Vydejna
                         Int32 pujcPoradi = Convert.ToInt32(DBVypujcRow["poradi"]);
                         if (prevodNaradi.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                         {
+                            ConfigReg.saveSettingLastNewOsCislo(prevodNaradi.getNewOsCislo());
 //                            Int32 errCode = myDB.addNewLineZmenyAndVraceno(pujcPoradi, prevodNaradi.getDatum(), prevodNaradi.getKs(),
 //                                prevodNaradi.getPoznamka(), Convert.ToString(DBVypujcRow["oscislo"]));
 
