@@ -672,11 +672,10 @@ namespace Vydejna
                         if (prevodNaradi.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                         {
                             ConfigReg.saveSettingLastNewOsCislo(prevodNaradi.getNewOsCislo());
-//                            Int32 errCode = myDB.addNewLineZmenyAndVraceno(pujcPoradi, prevodNaradi.getDatum(), prevodNaradi.getKs(),
-//                                prevodNaradi.getPoznamka(), Convert.ToString(DBVypujcRow["oscislo"]));
+                            Int32 errCode = myDB.addNewLineZmenyAndVracenoAndPujceno(pujcPoradi, prevodNaradi.getDatum(), prevodNaradi.getKs(),
+                                prevodNaradi.getPoznamka(), Convert.ToString(DBVypujcRow["oscislo"]), prevodNaradi.getNewOsCislo());
 
-                            Int32 errCode = -1; 
-                               
+                                                          
                             if (errCode == -4)
                             {
                                 MessageBox.Show("Stav změn je záporné číslo. Nejprve opravte data o pohybu nářadí.");

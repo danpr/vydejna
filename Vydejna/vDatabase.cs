@@ -450,6 +450,13 @@ namespace Vydejna
             return -1;
         }
 
+
+        public virtual Int32 addNewLineZmenyAndVracenoAndPujceno(Int32 DBporadi, DateTime DBdatum, Int32 DBks, string DBpoznamka, string DBoldOsCislo, string DBnewOsCislo)
+        {
+            return -1;
+        }
+
+
         public virtual Int32 addNewLineZmenyAndVracenoAndPoskozeno(Int32 DBporadi, DateTime DBdatum, Int32 DBks, string DBpoznamka, string DBosCislo, string DBKonto, string DBcisZak)
         {
             return -1;
