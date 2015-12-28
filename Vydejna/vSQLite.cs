@@ -2803,10 +2803,11 @@ namespace Vydejna
                 string commandReadString3 = "SELECT poradi, zustatek from zmeny where parporadi = ? ORDER BY poradi DESC";
                 //                string commandReadString4 = "SELECT poradi FROM tabseq WHERE nazev = 'vraceno'";
                 string commandReadString4a = "SELECT MAX(poradi) FROM vraceno";
+                string commandReadString4b = "SELECT MAX(poradi) FROM pujceno";
                 string commandReadString5 = "SELECT rtrim(nazev) as nazev, rtrim(jk) as jk, rtrim(rozmer) as rozmer, rtrim(normacsn) as normacsn, cena, celkcena  FROM naradi WHERE poradi = ? ";
-                string commandReadString6 = "SELECT jmeno, prijmeni, odeleni, stredisko, pracoviste FROM osoby WHERE oscislo = ? ";
+//                string commandReadString6 = "SELECT jmeno, prijmeni, odeleni, stredisko, pracoviste FROM osoby WHERE oscislo = ? ";
 
-                string commandString1 = "UPDATE naradi SET fyzstav = fyzstav + ? WHERE poradi = ? ";
+//                string commandString1 = "UPDATE naradi SET fyzstav = fyzstav + ? WHERE poradi = ? ";
 
                 string commandString2 = "INSERT INTO zmeny (parporadi, pomozjk, datum, poznamka, prijem, vydej, zustatek, zapkarta, vevcislo, pocivc, stav, poradi )" +
                     "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
@@ -2817,6 +2818,13 @@ namespace Vydejna
                       "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
                 //                string commandString6 = "UPDATE  tabseq set poradi = poradi +1 WHERE nazev = 'vraceno'";
                 string commandString6a = "UPDATE  tabseq set poradi = ? WHERE nazev = 'vraceno'";
+                string commandString7 = "INSERT INTO pujceno ( poradi, oscislo, nporadi, zporadi, pjmeno, pprijmeni, pnazev, pjk, pdatum, pks, pcena, stavks )" +
+                      "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
+                string commandString8a = "UPDATE  tabseq set poradi = ? WHERE nazev = 'pujceno'";
+
+
+                Int32 newPujcPoradi = 0;
+
 
                 try
                 {
@@ -2917,35 +2925,83 @@ namespace Vydejna
                     }
                     naradiReader.Close();
 
-                    string osobyJmeno;
-                    string osobyPrijmeni;
-                    string osobyOddeleni;
-                    string osobyPracoviste;
-                    string osobyStredisko;
+                    string osobyOldJmeno;
+                    string osobyOldPrijmeni;
+                    string osobyOldOddeleni;
+                    string osobyOldPracoviste;
+                    string osobyOldStredisko;
 
-
-                    SQLiteCommand cmdr6 = new SQLiteCommand(commandReadString6, myDBConn as SQLiteConnection);
-                    cmdr6.Parameters.AddWithValue("@oscislo", DBosCislo);
-                    cmdr6.Transaction = transaction;
-                    SQLiteDataReader osobyReader = cmdr6.ExecuteReader();
-                    if (osobyReader.Read())
+                    if (!getOsobyInfo(transaction, DBoldOsCislo, out osobyOldJmeno, out osobyOldPrijmeni, out osobyOldOddeleni, out osobyOldStredisko, out osobyOldPracoviste))
                     {
-                        osobyJmeno = osobyReader.GetString(osobyReader.GetOrdinal("jmeno"));
-                        osobyPrijmeni = osobyReader.GetString(osobyReader.GetOrdinal("prijmeni"));
-                        osobyOddeleni = osobyReader.GetString(osobyReader.GetOrdinal("odeleni"));
-                        osobyStredisko = osobyReader.GetString(osobyReader.GetOrdinal("stredisko"));
-                        osobyPracoviste = osobyReader.GetString(osobyReader.GetOrdinal("pracoviste"));
-                    }
-                    else
-                    {
-                        osobyReader.Close();
                         if (transaction != null)
                         {
                             (transaction as SQLiteTransaction).Rollback();
                         }
-                        return -1;
+                        return -1; //obecna chyba
                     }
-                    osobyReader.Close();
+
+
+                    string osobyNewJmeno;
+                    string osobyNewPrijmeni;
+                    string osobyNewOddeleni;
+                    string osobyNewPracoviste;
+                    string osobyNewStredisko;
+
+                    if (!getOsobyInfo(transaction, DBnewOsCislo, out osobyNewJmeno, out osobyNewPrijmeni, out osobyNewOddeleni, out osobyNewStredisko, out osobyNewPracoviste))
+                    {
+                        if (transaction != null)
+                        {
+                            (transaction as SQLiteTransaction).Rollback();
+                        }
+                        return -5; //uzivatek neexistuje
+                    }
+
+
+//                    SQLiteCommand cmdr6 = new SQLiteCommand(commandReadString6, myDBConn as SQLiteConnection);
+//                    cmdr6.Parameters.AddWithValue("@oscislo", DBoldOsCislo);
+//                    cmdr6.Transaction = transaction;
+//                    SQLiteDataReader osobyReader = cmdr6.ExecuteReader();
+//                    if (osobyReader.Read())
+//                    {
+//                        osobyJmeno = osobyReader.GetString(osobyReader.GetOrdinal("jmeno"));
+//                        osobyPrijmeni = osobyReader.GetString(osobyReader.GetOrdinal("prijmeni"));
+//                        osobyOddeleni = osobyReader.GetString(osobyReader.GetOrdinal("odeleni"));
+//                        osobyStredisko = osobyReader.GetString(osobyReader.GetOrdinal("stredisko"));
+//                        osobyPracoviste = osobyReader.GetString(osobyReader.GetOrdinal("pracoviste"));
+//                    }
+//                    else
+//                    {
+//                        osobyReader.Close();
+//                        if (transaction != null)
+//                        {
+//                            (transaction as SQLiteTransaction).Rollback();
+//                        }
+//                        return -1; //obecna chyba
+//                    }
+//                    osobyReader.Close();
+
+
+                    // zjisti poradi pro pujceno
+                    SQLiteCommand cmdSeq2 = new SQLiteCommand(commandReadString4b, myDBConn as SQLiteConnection);
+                    cmdSeq2.Transaction = transaction;
+                    SQLiteDataReader seqReader3 = cmdSeq2.ExecuteReader();
+                    if (seqReader3.Read() == true)
+                    {
+                        //                    pujcPoradi = seqReader3.GetInt32(0);
+                        newPujcPoradi = seqReader3.GetInt32(0) + 1;
+                    }
+                    else
+                    {
+                        seqReader3.Close();
+                        if (transaction != null)
+                        {
+                            (transaction as SQLiteTransaction).Rollback();
+                        }
+                        return -1;  //obecna chyba
+                    }
+                    seqReader3.Close();
+
+
 
                     Int32 newZmenyPoradi;
                     Int32 zustatek;
@@ -2982,14 +3038,6 @@ namespace Vydejna
                     }
                     zmenTailReader.Close();
 
-                    // tab naradi zvetsi fyz. stav
-
-//                    SQLiteCommand cmd1 = new SQLiteCommand(commandString1, myDBConn as SQLiteConnection);
-//                    cmd1.Parameters.AddWithValue("@fyzstav", DBks).DbType = DbType.Int32;
-//                    cmd1.Parameters.AddWithValue("@poradi", parPoradi).DbType = DbType.Int32;
-
-//                    cmd1.Transaction = transaction;
-//                    Int32 errCode = cmd1.ExecuteNonQuery();
                     Int32 errCode;
 
                     //  tab zmeny novy zaznam
@@ -3072,10 +3120,10 @@ namespace Vydejna
                     SQLiteCommand cmd5 = new SQLiteCommand(commandString5, myDBConn as SQLiteConnection);
                     // "INSERT INTO vraceno ( poradi, jmeno, oscislo, dilna, pracoviste, vyrobek, nazev, jk, rozmer, pocetks, cena, datum, csn, krjmeno, celkcena, vevcislo, konto) "
                     cmd5.Parameters.AddWithValue("poradi", newVracenoPoradi).DbType = DbType.Int32; //newZmenyPoradi
-                    cmd5.Parameters.AddWithValue("jmeno", osobyPrijmeni);
+                    cmd5.Parameters.AddWithValue("jmeno", osobyOldPrijmeni);
                     cmd5.Parameters.AddWithValue("oscislo", DBoldOsCislo);
-                    cmd5.Parameters.AddWithValue("dilna", osobyStredisko);
-                    cmd5.Parameters.AddWithValue("pracoviste", osobyOddeleni);
+                    cmd5.Parameters.AddWithValue("dilna", osobyOldStredisko);
+                    cmd5.Parameters.AddWithValue("pracoviste", osobyOldOddeleni);
                     cmd5.Parameters.AddWithValue("vyrobek", "");
                     cmd5.Parameters.AddWithValue("nazev", naradiNazev);
                     cmd5.Parameters.AddWithValue("jk", naradiJK);
@@ -3084,7 +3132,7 @@ namespace Vydejna
                     cmd5.Parameters.AddWithValue("cena", naradiCena).DbType = DbType.Double;
                     cmd5.Parameters.AddWithValue("datum", DBdatum);
                     cmd5.Parameters.AddWithValue("csn", naradiCSN);
-                    cmd5.Parameters.AddWithValue("krjmeno", osobyJmeno);
+                    cmd5.Parameters.AddWithValue("krjmeno", osobyOldJmeno);
                     cmd5.Parameters.AddWithValue("celkcena", naradiCelkCena).DbType = DbType.Double;
                     cmd5.Parameters.AddWithValue("vevcislo", zmenyVevcislo);
                     cmd5.Parameters.AddWithValue("konto", "");
@@ -3095,6 +3143,33 @@ namespace Vydejna
                     cmd6.Parameters.AddWithValue("@poradi", newVracenoPoradi + 1).DbType = DbType.Int32; //prvni volne
                     cmd6.Transaction = transaction;
                     cmd6.ExecuteNonQuery();
+
+
+                    //pujceno
+                    // poradi, oscislo, nporadi, zporadi, pjmeno, pprijmeni, pnazev, pjk, pdatum, pks, pcena, stavks
+                    SQLiteCommand cmd = new SQLiteCommand(commandString7, myDBConn as SQLiteConnection);
+                    cmd.Parameters.AddWithValue("@poradi", newPujcPoradi).DbType = DbType.Int32;
+                    cmd.Parameters.AddWithValue("@oscislo", DBnewOsCislo);
+                    cmd.Parameters.AddWithValue("@nporadi", parPoradi).DbType = DbType.Int32;
+                    cmd.Parameters.AddWithValue("@zporadi", newZmenyPoradi + 1).DbType = DbType.Int32;
+                    cmd.Parameters.AddWithValue("@pjmeno", osobyNewJmeno);
+                    cmd.Parameters.AddWithValue("@pprijmeni", osobyNewPrijmeni);
+                    cmd.Parameters.AddWithValue("@pnazev", naradiNazev);
+                    cmd.Parameters.AddWithValue("@pjk", naradiJK);
+                    cmd.Parameters.AddWithValue("@pdatum", DBdatum);
+                    cmd.Parameters.AddWithValue("@pks", DBks).DbType = DbType.Int32;
+                    cmd.Parameters.AddWithValue("@pcena", naradiCena).DbType = DbType.Double;
+                    cmd.Parameters.AddWithValue("@stavks", DBks).DbType = DbType.Int32;
+
+                    cmd.Transaction = transaction;
+                    cmd.ExecuteNonQuery();
+
+
+                    SQLiteCommand cmdSeq3 = new SQLiteCommand(commandString8a, myDBConn as SQLiteConnection);
+                    cmdSeq3.Parameters.AddWithValue("@poradi", newPujcPoradi + 1).DbType = DbType.Int32;
+                    cmdSeq3.Transaction = transaction;
+                    cmdSeq3.ExecuteNonQuery();
+
 
                     if (transaction != null)
                     {
@@ -5674,6 +5749,38 @@ namespace Vydejna
             return;  // ok
         }
 
+
+//-------- private procedures ----------------
+        private Boolean getOsobyInfo(SQLiteTransaction transaction, string osCislo, 
+                out string jmeno, out string prijmeni, out string oddeleni, out string stredisko, out string pracoviste)
+        {
+            string commandReadString = "SELECT jmeno, prijmeni, odeleni, stredisko, pracoviste FROM osoby WHERE oscislo = ? ";
+
+            SQLiteCommand cmdr = new SQLiteCommand(commandReadString, myDBConn as SQLiteConnection);
+            cmdr.Parameters.AddWithValue("@oscislo", osCislo);
+            cmdr.Transaction = transaction;
+            SQLiteDataReader osobyReader = cmdr.ExecuteReader();
+            if (osobyReader.Read())
+            {
+                jmeno = osobyReader.GetString(osobyReader.GetOrdinal("jmeno"));
+                prijmeni = osobyReader.GetString(osobyReader.GetOrdinal("prijmeni"));
+                oddeleni = osobyReader.GetString(osobyReader.GetOrdinal("odeleni"));
+                stredisko = osobyReader.GetString(osobyReader.GetOrdinal("stredisko"));
+                pracoviste = osobyReader.GetString(osobyReader.GetOrdinal("pracoviste"));
+                osobyReader.Close();
+                return true;
+            }
+            else
+            {
+                jmeno = String.Empty;
+                prijmeni = String.Empty;
+                oddeleni = String.Empty;
+                stredisko = String.Empty;
+                pracoviste = String.Empty;
+                osobyReader.Close();
+                return false; //obecna chyba
+            }
+        }
 
     }
 }

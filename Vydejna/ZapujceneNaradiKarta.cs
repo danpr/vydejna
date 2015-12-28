@@ -675,7 +675,11 @@ namespace Vydejna
                             Int32 errCode = myDB.addNewLineZmenyAndVracenoAndPujceno(pujcPoradi, prevodNaradi.getDatum(), prevodNaradi.getKs(),
                                 prevodNaradi.getPoznamka(), Convert.ToString(DBVypujcRow["oscislo"]), prevodNaradi.getNewOsCislo());
 
-                                                          
+
+                            if (errCode == -5)
+                            {
+                                MessageBox.Show("Nový uživatel neexistuje. Data byla patrně změněna z jiného pracoviště.");
+                            }
                             if (errCode == -4)
                             {
                                 MessageBox.Show("Stav změn je záporné číslo. Nejprve opravte data o pohybu nářadí.");
