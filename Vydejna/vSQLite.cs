@@ -3057,6 +3057,8 @@ namespace Vydejna
                     cmd2.Transaction = transaction;
                     errCode = cmd2.ExecuteNonQuery();
 
+                    newZmenyPoradi++;
+
                     SQLiteCommand cmd2a = new SQLiteCommand(commandString2, myDBConn as SQLiteConnection);
                     cmd2a.Parameters.AddWithValue("@parporadi", parPoradi).DbType = DbType.Int32;
                     cmd2a.Parameters.AddWithValue("@pomozjk", naradiJK);
@@ -3064,14 +3066,14 @@ namespace Vydejna
                     cmd2a.Parameters.AddWithValue("@poznamka", DBpoznamka);
                     cmd2a.Parameters.AddWithValue("@prijem", 0).DbType = DbType.Int32;
                     cmd2a.Parameters.AddWithValue("@vydej", DBks).DbType = DbType.Int32;
-                    cmd2a.Parameters.AddWithValue("@zustatek", zustatek - DBks).DbType = DbType.Int32;
-                    cmd2a.Parameters.AddWithValue("@zapkarta", DBnewOsCislo); // !!!! zadat nove
+                    cmd2a.Parameters.AddWithValue("@zustatek", zustatek).DbType = DbType.Int32;
+                    cmd2a.Parameters.AddWithValue("@zapkarta", DBnewOsCislo);
                     cmd2a.Parameters.AddWithValue("@vevcislo", zmenyVevcislo);
                     cmd2a.Parameters.AddWithValue("@pocivc", 0);
                     cmd2a.Parameters.AddWithValue("@stav", "U");
-                    cmd2a.Parameters.AddWithValue("@poradi", newZmenyPoradi+1).DbType = DbType.Int32;
+                    cmd2a.Parameters.AddWithValue("@poradi", newZmenyPoradi).DbType = DbType.Int32;
                     cmd2a.Transaction = transaction;
-                    errCode = cmd2.ExecuteNonQuery();
+                    errCode = cmd2a.ExecuteNonQuery();
 
 
 
@@ -3151,7 +3153,7 @@ namespace Vydejna
                     cmd.Parameters.AddWithValue("@poradi", newPujcPoradi).DbType = DbType.Int32;
                     cmd.Parameters.AddWithValue("@oscislo", DBnewOsCislo);
                     cmd.Parameters.AddWithValue("@nporadi", parPoradi).DbType = DbType.Int32;
-                    cmd.Parameters.AddWithValue("@zporadi", newZmenyPoradi + 1).DbType = DbType.Int32;
+                    cmd.Parameters.AddWithValue("@zporadi", newZmenyPoradi).DbType = DbType.Int32;
                     cmd.Parameters.AddWithValue("@pjmeno", osobyNewJmeno);
                     cmd.Parameters.AddWithValue("@pprijmeni", osobyNewPrijmeni);
                     cmd.Parameters.AddWithValue("@pnazev", naradiNazev);
