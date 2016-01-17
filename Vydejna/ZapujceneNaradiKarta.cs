@@ -696,6 +696,30 @@ namespace Vydejna
                             {
                                 MessageBox.Show("Vrácení nářadi se nezdařilo. Lituji.");
                             }
+                            if (errCode >= 0)
+                            {
+                                // opravime tabulku
+                                Hashtable DBPujcenoRow = null;
+                                DBPujcenoRow = myDB.getPujcenoLine(Convert.ToInt32(DBVypujcRow["poradi"]), DBPujcenoRow);
+                                if (DBPujcenoRow != null)
+                                {
+                                    // opravime radku
+                                    // je potreba najit index v datove tabulce - po trideni neni schodny s indexem ve view
+                                    Int32 dataRowIndex = detail.findIndex(dataGridViewZmeny.DataSource as DataTable, "poradi", pujcPoradi);
+                                    if (dataRowIndex != -1)
+                                    {
+                                        (dataGridViewZmeny.DataSource as DataTable).Rows[dataRowIndex].SetField(6, Convert.ToString(DBPujcenoRow["stavks"]));
+                                        dataGridViewZmeny.Refresh();
+                                    }
+                                }
+                                else
+                                {
+                                    viewZmenyRemoveSelectedRow(pujcPoradi);
+                                    // smazeme radku
+                                }
+                            }
+
+
                         }
 
                     }

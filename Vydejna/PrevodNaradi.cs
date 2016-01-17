@@ -74,18 +74,6 @@ namespace Vydejna
             if (vyberOsoby.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 Hashtable osobaRow = vyberOsoby.getDBRowFromSelectedRow(null);
-//                if (osobaRow != null)
-//                {
-//                    if (osobaRow.ContainsKey("oscislo"))
-//                    {
-//                        textBoxOsCisloNove.Text = Convert.ToString(osobaRow["oscislo"]);
-//                        /////                        textBoxCisZak.Focus();
-//                    }
-//                    if (osobaRow.ContainsKey("jmeno")) labelJmenoNove.Text = Convert.ToString(osobaRow["jmeno"]);
-//                    if (osobaRow.ContainsKey("prijmeni")) labelPrijmeniNove.Text = Convert.ToString(osobaRow["prijmeni"]);
-//                    if (osobaRow.ContainsKey("stredisko")) labelStrediskoNove.Text = Convert.ToString(osobaRow["stredisko"]);
-//                    if (osobaRow.ContainsKey("pracoviste")) labelProvozNove.Text = Convert.ToString(osobaRow["pracoviste"]);
-//                }
                 showNewOsobaInfo(osobaRow);
                 if (textBoxOsCisloNove.Text == osCislo)
                 {
@@ -152,16 +140,16 @@ namespace Vydejna
 
         private void buttonOK_Click(object sender, EventArgs e)
         {
-//            if (numericUpDownMnozstvi.Value > 0)
-//            {
-//                buttonOK.DialogResult = DialogResult.OK;
-//                this.DialogResult = DialogResult.OK;
-//                Close();
-//            }
-//            else
-//            {
-//                MessageBox.Show("Je nutno zadat množství vypujčeného nářadí.");
-//            }
+            if (numericUpDownMnozstvi.Value > 0)
+            {
+                buttonOK.DialogResult = DialogResult.OK;
+                this.DialogResult = DialogResult.OK;
+                Close();
+            }
+            else
+            {
+                MessageBox.Show("Je nutno zadat množství převedeného nářadí.");
+            }
 
         }
 
