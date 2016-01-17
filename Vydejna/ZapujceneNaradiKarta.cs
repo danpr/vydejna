@@ -694,7 +694,7 @@ namespace Vydejna
                             }
                             if (errCode == -1)
                             {
-                                MessageBox.Show("Vrácení nářadi se nezdařilo. Lituji.");
+                                MessageBox.Show("Převod nářadi se nezdařil. Lituji.");
                             }
                             if (errCode >= 0)
                             {

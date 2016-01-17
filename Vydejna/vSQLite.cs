@@ -2803,7 +2803,6 @@ namespace Vydejna
                 string commandReadString3 = "SELECT poradi, zustatek from zmeny where parporadi = ? ORDER BY poradi DESC";
                 //                string commandReadString4 = "SELECT poradi FROM tabseq WHERE nazev = 'vraceno'";
                 string commandReadString4a = "SELECT MAX(poradi) FROM vraceno";
-                string commandReadString4b = "SELECT MAX(poradi) FROM pujceno";
                 string commandReadString5 = "SELECT rtrim(nazev) as nazev, rtrim(jk) as jk, rtrim(rozmer) as rozmer, rtrim(normacsn) as normacsn, cena, celkcena  FROM naradi WHERE poradi = ? ";
 //                string commandReadString6 = "SELECT jmeno, prijmeni, odeleni, stredisko, pracoviste FROM osoby WHERE oscislo = ? ";
 
@@ -2822,9 +2821,7 @@ namespace Vydejna
                       "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
                 string commandString8a = "UPDATE  tabseq set poradi = ? WHERE nazev = 'pujceno'";
 
-
                 Int32 newPujcPoradi = 0;
-
 
                 try
                 {
@@ -2835,10 +2832,22 @@ namespace Vydejna
                     catch
                     {
                     }
+
+
+                    newPujcPoradi = getPujcenoNewIndex(transaction, false);
+                    if (newPujcPoradi == -1)
+                    {
+                        if (transaction != null)
+                        {
+                            (transaction as SQLiteTransaction).Rollback();
+                        }
+                        return -1;  // chyba
+                    }
+
+
                     Int32 parPoradi;
                     Int32 zmenPoradi;
                     Int32 pujcKs;
-
 
                     // soucasny stav pujceno
                     SQLiteCommand cmdr2 = new SQLiteCommand(commandReadString2, myDBConn as SQLiteConnection);
@@ -2955,52 +2964,6 @@ namespace Vydejna
                         }
                         return -5; //uzivatek neexistuje
                     }
-
-
-//                    SQLiteCommand cmdr6 = new SQLiteCommand(commandReadString6, myDBConn as SQLiteConnection);
-//                    cmdr6.Parameters.AddWithValue("@oscislo", DBoldOsCislo);
-//                    cmdr6.Transaction = transaction;
-//                    SQLiteDataReader osobyReader = cmdr6.ExecuteReader();
-//                    if (osobyReader.Read())
-//                    {
-//                        osobyJmeno = osobyReader.GetString(osobyReader.GetOrdinal("jmeno"));
-//                        osobyPrijmeni = osobyReader.GetString(osobyReader.GetOrdinal("prijmeni"));
-//                        osobyOddeleni = osobyReader.GetString(osobyReader.GetOrdinal("odeleni"));
-//                        osobyStredisko = osobyReader.GetString(osobyReader.GetOrdinal("stredisko"));
-//                        osobyPracoviste = osobyReader.GetString(osobyReader.GetOrdinal("pracoviste"));
-//                    }
-//                    else
-//                    {
-//                        osobyReader.Close();
-//                        if (transaction != null)
-//                        {
-//                            (transaction as SQLiteTransaction).Rollback();
-//                        }
-//                        return -1; //obecna chyba
-//                    }
-//                    osobyReader.Close();
-
-
-                    // zjisti poradi pro pujceno
-                    SQLiteCommand cmdSeq2 = new SQLiteCommand(commandReadString4b, myDBConn as SQLiteConnection);
-                    cmdSeq2.Transaction = transaction;
-                    SQLiteDataReader seqReader3 = cmdSeq2.ExecuteReader();
-                    if (seqReader3.Read() == true)
-                    {
-                        //                    pujcPoradi = seqReader3.GetInt32(0);
-                        newPujcPoradi = seqReader3.GetInt32(0) + 1;
-                    }
-                    else
-                    {
-                        seqReader3.Close();
-                        if (transaction != null)
-                        {
-                            (transaction as SQLiteTransaction).Rollback();
-                        }
-                        return -1;  //obecna chyba
-                    }
-                    seqReader3.Close();
-
 
 
                     Int32 newZmenyPoradi;
@@ -5783,6 +5746,36 @@ namespace Vydejna
                 return false; //obecna chyba
             }
         }
+
+
+        private Int32 getPujcenoNewIndex(SQLiteTransaction transaction, Boolean useForUpdate)
+        {
+            string commandReadStringFU = "SELECT MAX(poradi) FROM pujceno FOR UPDATE";
+            string commandReadString = "SELECT MAX(poradi) FROM pujceno";
+            SQLiteCommand cmdSeq;
+            if (useForUpdate)
+            {
+                cmdSeq = new SQLiteCommand(commandReadStringFU, myDBConn as SQLiteConnection);
+            }
+            else
+            {
+                cmdSeq = new SQLiteCommand(commandReadString, myDBConn as SQLiteConnection);
+            }
+            cmdSeq.Transaction = transaction;
+            SQLiteDataReader seqReader = cmdSeq.ExecuteReader();
+            if (seqReader.Read() == true)
+            {
+                Int32 newIndex = seqReader.GetInt32(0) + 1;
+                seqReader.Close();
+                return newIndex;
+            }
+            else
+            {
+                seqReader.Close();
+                return -1;  //obecna chyba
+            }
+        }
+
 
     }
 }
