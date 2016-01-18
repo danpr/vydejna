@@ -5750,8 +5750,16 @@ namespace Vydejna
 
         private Int32 getPujcenoNewIndex(SQLiteTransaction transaction, Boolean useForUpdate)
         {
-            string commandReadStringFU = "SELECT MAX(poradi) FROM pujceno FOR UPDATE";
-            string commandReadString = "SELECT MAX(poradi) FROM pujceno";
+            return getNewIndex(transaction,
+                "SELECT MAX(poradi) FROM pujceno FOR UPDATE",
+                "SELECT MAX(poradi) FROM pujceno", useForUpdate);
+        }
+
+
+
+        private Int32 getNewIndex(SQLiteTransaction transaction,
+                string commandReadStringFU, string commandReadString, Boolean useForUpdate)
+        {
             SQLiteCommand cmdSeq;
             if (useForUpdate)
             {
