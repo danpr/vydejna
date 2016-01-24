@@ -576,97 +576,97 @@
             this.toolStripSeparator8,
             this.opravaDatToolStripMenuItem14});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(265, 248);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(293, 248);
             this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             // 
             // přidatPoložkuToolStripMenuItem
             // 
             this.přidatPoložkuToolStripMenuItem.Name = "přidatPoložkuToolStripMenuItem";
-            this.přidatPoložkuToolStripMenuItem.Size = new System.Drawing.Size(264, 22);
+            this.přidatPoložkuToolStripMenuItem.Size = new System.Drawing.Size(292, 22);
             this.přidatPoložkuToolStripMenuItem.Text = "Přidat položku";
             this.přidatPoložkuToolStripMenuItem.Click += new System.EventHandler(this.ConMenuAddItem);
             // 
             // opravitPoložkuToolStripMenuItem
             // 
             this.opravitPoložkuToolStripMenuItem.Name = "opravitPoložkuToolStripMenuItem";
-            this.opravitPoložkuToolStripMenuItem.Size = new System.Drawing.Size(264, 22);
+            this.opravitPoložkuToolStripMenuItem.Size = new System.Drawing.Size(292, 22);
             this.opravitPoložkuToolStripMenuItem.Text = "Opravit položku";
             this.opravitPoložkuToolStripMenuItem.Click += new System.EventHandler(this.ConMenuEditItem);
             // 
             // toolStripMenuItem9
             // 
             this.toolStripMenuItem9.Name = "toolStripMenuItem9";
-            this.toolStripMenuItem9.Size = new System.Drawing.Size(264, 22);
+            this.toolStripMenuItem9.Size = new System.Drawing.Size(292, 22);
             this.toolStripMenuItem9.Text = "Změnit značku";
             this.toolStripMenuItem9.Click += new System.EventHandler(this.comMenuChangeMark);
             // 
             // smazatPoložkuToolStripMenuItem
             // 
             this.smazatPoložkuToolStripMenuItem.Name = "smazatPoložkuToolStripMenuItem";
-            this.smazatPoložkuToolStripMenuItem.Size = new System.Drawing.Size(264, 22);
+            this.smazatPoložkuToolStripMenuItem.Size = new System.Drawing.Size(292, 22);
             this.smazatPoložkuToolStripMenuItem.Text = "Smazat položku";
             this.smazatPoložkuToolStripMenuItem.Click += new System.EventHandler(this.ConMenuDeleteItem);
             // 
             // toolStripMenuItem13
             // 
             this.toolStripMenuItem13.Name = "toolStripMenuItem13";
-            this.toolStripMenuItem13.Size = new System.Drawing.Size(264, 22);
+            this.toolStripMenuItem13.Size = new System.Drawing.Size(292, 22);
             this.toolStripMenuItem13.Text = "Tisk položky";
             this.toolStripMenuItem13.Click += new System.EventHandler(this.ConMenuPrintItem);
             // 
             // toolStripSeparator6
             // 
             this.toolStripSeparator6.Name = "toolStripSeparator6";
-            this.toolStripSeparator6.Size = new System.Drawing.Size(261, 6);
+            this.toolStripSeparator6.Size = new System.Drawing.Size(289, 6);
             // 
             // příjemMaterialuToolStripMenuItem
             // 
             this.příjemMaterialuToolStripMenuItem.Name = "příjemMaterialuToolStripMenuItem";
-            this.příjemMaterialuToolStripMenuItem.Size = new System.Drawing.Size(264, 22);
+            this.příjemMaterialuToolStripMenuItem.Size = new System.Drawing.Size(292, 22);
             this.příjemMaterialuToolStripMenuItem.Text = "Příjem na kartu";
             this.příjemMaterialuToolStripMenuItem.Click += new System.EventHandler(this.conMenuAddMat);
             // 
             // poškozeníNářadíToolStripMenuItem
             // 
             this.poškozeníNářadíToolStripMenuItem.Name = "poškozeníNářadíToolStripMenuItem";
-            this.poškozeníNářadíToolStripMenuItem.Size = new System.Drawing.Size(264, 22);
+            this.poškozeníNářadíToolStripMenuItem.Size = new System.Drawing.Size(292, 22);
             this.poškozeníNářadíToolStripMenuItem.Text = "Poškození nářadí";
             this.poškozeníNářadíToolStripMenuItem.Click += new System.EventHandler(this.conMenuDelMat_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(261, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(289, 6);
             // 
             // zapůjčeníNářadíToolStripMenuItem
             // 
             this.zapůjčeníNářadíToolStripMenuItem.Name = "zapůjčeníNářadíToolStripMenuItem";
-            this.zapůjčeníNářadíToolStripMenuItem.Size = new System.Drawing.Size(264, 22);
-            this.zapůjčeníNářadíToolStripMenuItem.Text = "Zapůjčení/Vrácení/Poškození nářadí";
+            this.zapůjčeníNářadíToolStripMenuItem.Size = new System.Drawing.Size(292, 22);
+            this.zapůjčeníNářadíToolStripMenuItem.Text = "Zapůjčení/Vrácení/Poškození/Převod nářadí";
             this.zapůjčeníNářadíToolStripMenuItem.Click += new System.EventHandler(this.ConMenuPujcNaradi_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(261, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(289, 6);
             // 
             // prohledáváníToolStripMenuItem
             // 
             this.prohledáváníToolStripMenuItem.Name = "prohledáváníToolStripMenuItem";
             this.prohledáváníToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F)));
-            this.prohledáváníToolStripMenuItem.Size = new System.Drawing.Size(264, 22);
+            this.prohledáváníToolStripMenuItem.Size = new System.Drawing.Size(292, 22);
             this.prohledáváníToolStripMenuItem.Text = "Prohledávání";
             this.prohledáváníToolStripMenuItem.Click += new System.EventHandler(this.ConMenuProhledávani_Click);
             // 
             // toolStripSeparator8
             // 
             this.toolStripSeparator8.Name = "toolStripSeparator8";
-            this.toolStripSeparator8.Size = new System.Drawing.Size(261, 6);
+            this.toolStripSeparator8.Size = new System.Drawing.Size(289, 6);
             // 
             // opravaDatToolStripMenuItem14
             // 
             this.opravaDatToolStripMenuItem14.Name = "opravaDatToolStripMenuItem14";
-            this.opravaDatToolStripMenuItem14.Size = new System.Drawing.Size(264, 22);
+            this.opravaDatToolStripMenuItem14.Size = new System.Drawing.Size(292, 22);
             this.opravaDatToolStripMenuItem14.Text = "Oprava dat";
             this.opravaDatToolStripMenuItem14.Click += new System.EventHandler(this.conMenuCorrectDate);
             // 
