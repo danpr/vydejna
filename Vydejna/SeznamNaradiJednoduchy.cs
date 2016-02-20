@@ -381,6 +381,11 @@ namespace Vydejna
             dataGridView1.Sort(sortColumn, System.ComponentModel.ListSortDirection.Ascending);
         }
 
+        private void prohledáváníToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            NastaveniHledani(this.Location.X + this.Size.Width, this.Top);
+        }
+
 
 
     }

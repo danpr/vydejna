@@ -149,15 +149,15 @@
             // pracovníciProvozuToolStripMenuItem
             // 
             this.pracovníciProvozuToolStripMenuItem.Name = "pracovníciProvozuToolStripMenuItem";
-            this.pracovníciProvozuToolStripMenuItem.Size = new System.Drawing.Size(330, 22);
+            this.pracovníciProvozuToolStripMenuItem.Size = new System.Drawing.Size(374, 22);
             this.pracovníciProvozuToolStripMenuItem.Text = "Pracovníci provozu";
             this.pracovníciProvozuToolStripMenuItem.Click += new System.EventHandler(this.pracovníciProvozuToolStripMenuItem_Click);
             // 
             // zapujceniNářadíToolStripMenuItem
             // 
             this.zapujceniNářadíToolStripMenuItem.Name = "zapujceniNářadíToolStripMenuItem";
-            this.zapujceniNářadíToolStripMenuItem.Size = new System.Drawing.Size(330, 22);
-            this.zapujceniNářadíToolStripMenuItem.Text = "Zapůjčení / Vrácení / Poškození zapůjčeného nářadí";
+            this.zapujceniNářadíToolStripMenuItem.Size = new System.Drawing.Size(374, 22);
+            this.zapujceniNářadíToolStripMenuItem.Text = "Zapůjčení / Vrácení / Poškození / Převod zapůjčeného nářadí";
             this.zapujceniNářadíToolStripMenuItem.Click += new System.EventHandler(this.zapujceniNaradi_Click);
             // 
             // toolStripMenuItem1
