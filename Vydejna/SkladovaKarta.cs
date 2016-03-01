@@ -979,8 +979,18 @@ namespace Vydejna
 
                                 if (ud.userHasAccessRightsWM((Int32)permCode.NarDelPosk))
                                 {
-                                    Int32 errCode = myDB.deleteLastPoskozeni(poradi, poradiZ, vydejZ);
-//                                    Int32 errCode = -9;
+                                    Int32 errCode = myDB.deleteLastPoskozeni(poradi, poradiZ, vydejZ, true);
+                                    if (errCode == -11)
+                                    {
+                                        DialogResult result11 = MessageBox.Show("V seznamu poškozeného nářadí existuje více záznamu, není jednoznačný záznam. Chcete přesto pokračovat ?", "", MessageBoxButtons.YesNo);
+                                        if (result11 == System.Windows.Forms.DialogResult.Yes)
+                                        {
+                                            errCode = myDB.deleteLastPoskozeni(poradi, poradiZ, vydejZ, false);
+                                        }
+                                    }
+
+
+
                                     if (errCode < 0)
                                     {
                                         if (errCode == -11)

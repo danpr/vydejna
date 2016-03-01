@@ -4375,7 +4375,7 @@ namespace Vydejna
         }
 
 
-        public override Int32 deleteLastPoskozeni(Int32 DBnaradiPoradi, Int32 DBzmenyPoradi, Int32 DBvydej)
+        public override Int32 deleteLastPoskozeni(Int32 DBnaradiPoradi, Int32 DBzmenyPoradi, Int32 DBvydej, Boolean useTestSingle)
         {
             OdbcTransaction transaction = null;
 
@@ -4385,8 +4385,8 @@ namespace Vydejna
                     "select max(poradi) from zmeny where parporadi = ?)";
                 string commandStringRead2 = "SELECT fyzstav, ucetstav, ucetkscen, celkcena, cena, jk  FROM naradi where poradi = ? FOR UPDATE";
 //                string commandStringRead3 = "SELECT permission FROM nastaveni WHERE setid = \'prumucetcena\'";
-                string commandStringRead4 = "SELECT poradi FROM poskozeno WHERE jk = ? AND pocetks = ? AND datum = ? AND oscislo = ?";
-
+                string commandStringRead4 = "SELECT poradi FROM poskozeno WHERE jk = ? AND pocetks = ? AND datum = ? AND oscislo = ? ORDER BY poradi DESC";
+                // order by poradi desc
 
                 string commandString1 = "DELETE FROM zmeny where parporadi = ? AND poradi = ? ";
                 string commandString2 = "UPDATE naradi SET fyzstav = fyzstav + ?, ucetstav = ucetstav + ?  WHERE poradi = ? ";
@@ -4530,21 +4530,25 @@ namespace Vydejna
                     cmdr4.Transaction = transaction;
                     OdbcDataReader myReader4 = cmdr4.ExecuteReader();
                     Int32 poskozenoPoradi;
-                    
+
                     if (myReader4.Read() == true)
                     {
                         poskozenoPoradi = myReader4.GetInt32(myReader4.GetOrdinal("poradi"));
-                        if (myReader4.Read() == true)
+                        if (useTestSingle)
                         {
-                            myReader4.Close();
-                            //existuje dalsi zaznam - nejednoznacnost
-                            if (transaction != null)
+                            if (myReader4.Read() == true)
                             {
-                                (transaction as OdbcTransaction).Rollback();
+                                myReader4.Close();
+                                //existuje dalsi zaznam - nejednoznacnost
+                                if (transaction != null)
+                                {
+                                    (transaction as OdbcTransaction).Rollback();
+                                }
+                                return -11;
                             }
-                            return -11;
                         }
                         myReader4.Close();
+
                     }
                     else
                     {

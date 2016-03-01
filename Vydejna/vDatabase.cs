@@ -948,7 +948,8 @@ namespace Vydejna
         // -9 Zaznam o zmene neexistuje - zmena z jineho mista
         // -10 zaznam poskozenky v seznamu poskozeneho naradi neexistuje
         // -11 nejednoznacny zaznam v seznamu poskozeneho naradi - vice zaznamu
-        public virtual Int32 deleteLastPoskozeni(Int32 DBnaradiPoradi, Int32 DBzmenyPoradi, Int32 DBvydej)
+        // useTestSingle kontroluje jednoznacnost
+        public virtual Int32 deleteLastPoskozeni(Int32 DBnaradiPoradi, Int32 DBzmenyPoradi, Int32 DBvydej, Boolean useTestSingle)
         {
             return -1;
         }
