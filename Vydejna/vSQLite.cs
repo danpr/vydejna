@@ -1154,38 +1154,77 @@ namespace Vydejna
 
         public override Int64 countOfRows(string DBSelect, string whileValue)
         {
+            SQLiteTransaction transaction = null;
 
             if (DBIsOpened())
             {
-                SQLiteCommand cmd = new SQLiteCommand(DBSelect, myDBConn as SQLiteConnection);
+                try
+                {
+                    transaction = (myDBConn as SQLiteConnection).BeginTransaction(System.Data.IsolationLevel.ReadCommitted);
+                    SQLiteCommand cmd = new SQLiteCommand(DBSelect, myDBConn as SQLiteConnection);
+                    cmd.Transaction = transaction;
 
-                SQLiteParameter p1 = new SQLiteParameter("p1", DbType.String);
-                p1.Value = whileValue;
-                cmd.Parameters.Add(p1);
-                SQLiteDataReader myReader = cmd.ExecuteReader();
-                myReader.Read();
-                Int64 countRows = myReader.GetInt64(0);
-                myReader.Close();
-                return countRows;
+                    SQLiteParameter p1 = new SQLiteParameter("p1", DbType.String);
+                    p1.Value = whileValue;
+                    cmd.Parameters.Add(p1);
+                    SQLiteDataReader myReader = cmd.ExecuteReader();
+                    myReader.Read();
+                    Int64 countRows = myReader.GetInt64(0);
+                    myReader.Close();
+                    if (transaction != null)
+                    {
+                        (transaction as SQLiteTransaction).Commit();
+                    }
+                    return countRows;
+                }
+                catch (Exception)
+                {
+                    // doslo k chybe
+                    if (transaction != null)
+                    {
+                        (transaction as SQLiteTransaction).Rollback();
+                    }
+                    return -1;
+                }
             }
             return -1;
         }
 
         public override Int64 countOfRows(string DBSelect, Int32 whileValue)
         {
+            SQLiteTransaction transaction = null;
 
             if (DBIsOpened())
             {
-                SQLiteCommand cmd = new SQLiteCommand(DBSelect, myDBConn as SQLiteConnection);
+                try
+                {
+                    transaction = (myDBConn as SQLiteConnection).BeginTransaction(System.Data.IsolationLevel.ReadCommitted);
+                    SQLiteCommand cmd = new SQLiteCommand(DBSelect, myDBConn as SQLiteConnection);
+                    cmd.Transaction = transaction;
 
-                SQLiteParameter p1 = new SQLiteParameter("p1", DbType.Int32);
-                p1.Value = whileValue;
-                cmd.Parameters.Add(p1);
-                SQLiteDataReader myReader = cmd.ExecuteReader();
-                myReader.Read();
-                Int64 countRows = myReader.GetInt64(0);
-                myReader.Close();
-                return countRows;
+                    SQLiteParameter p1 = new SQLiteParameter("p1", DbType.Int32);
+                    p1.Value = whileValue;
+                    cmd.Parameters.Add(p1);
+                    SQLiteDataReader myReader = cmd.ExecuteReader();
+                    myReader.Read();
+                    Int64 countRows = myReader.GetInt64(0);
+                    myReader.Close();
+                    if (transaction != null)
+                    {
+                        (transaction as SQLiteTransaction).Commit();
+                    }
+                    return countRows;
+                }
+                catch (Exception)
+                {
+                    // doslo k chybe
+                    if (transaction != null)
+                    {
+                        (transaction as SQLiteTransaction).Rollback();
+                    }
+                    return -1;
+                }
+
             }
             return -1;
         }

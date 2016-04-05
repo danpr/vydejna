@@ -4099,35 +4099,88 @@ namespace Vydejna
 
             if (DBIsOpened())
             {
-                OdbcCommand cmd = new OdbcCommand(DBSelect, myDBConn as OdbcConnection);
+                OdbcTransaction transaction = null;
+                try
+                {
+                    try
+                    {
+                        transaction = (myDBConn as OdbcConnection).BeginTransaction(System.Data.IsolationLevel.ReadCommitted);
+                    }
+                    catch
+                    {
+                    }
 
-                OdbcParameter p1 = new OdbcParameter("p1", OdbcType.NChar);
-                p1.Value = whileValue;
-                cmd.Parameters.Add(p1);
-                OdbcDataReader myReader = cmd.ExecuteReader();
-                myReader.Read();
-                Int64 countRows = myReader.GetInt64(0);
-                myReader.Close();
-                return countRows;
+                    OdbcCommand cmd = new OdbcCommand(DBSelect, myDBConn as OdbcConnection);
+                    cmd.Transaction = transaction;
+
+                    OdbcParameter p1 = new OdbcParameter("p1", OdbcType.NChar);
+                    p1.Value = whileValue;
+                    cmd.Parameters.Add(p1);
+                    OdbcDataReader myReader = cmd.ExecuteReader();
+                    myReader.Read();
+                    Int64 countRows = myReader.GetInt64(0);
+                    myReader.Close();
+                    if (transaction != null)
+                    {
+                        (transaction as OdbcTransaction).Commit();
+                    }
+                    return countRows;
+                }
+                catch (Exception)
+                {
+                    // doslo k chybe
+                    if (transaction != null)
+                    {
+                        (transaction as OdbcTransaction).Rollback();
+                    }
+                    return -1;  // chyba
+                }
             }
             return -1;
         }
 
         public override Int64 countOfRows(string DBSelect, Int32 whileValue)
         {
-
             if (DBIsOpened())
             {
-                OdbcCommand cmd = new OdbcCommand(DBSelect, myDBConn as OdbcConnection);
+                OdbcTransaction transaction = null;
+                try
+                {
+                    try
+                    {
+                        transaction = (myDBConn as OdbcConnection).BeginTransaction(System.Data.IsolationLevel.ReadCommitted);
+                    }
+                    catch
+                    {
+                    }
 
-                OdbcParameter p1 = new OdbcParameter("p1", OdbcType.Int);
-                p1.Value = whileValue;
-                cmd.Parameters.Add(p1);
-                OdbcDataReader myReader = cmd.ExecuteReader();
-                myReader.Read();
-                Int64 countRows = myReader.GetInt64(0);
-                myReader.Close();
-                return countRows;
+                    OdbcCommand cmd = new OdbcCommand(DBSelect, myDBConn as OdbcConnection);
+                    cmd.Transaction = transaction;
+
+                    OdbcParameter p1 = new OdbcParameter("p1", OdbcType.Int);
+                    p1.Value = whileValue;
+                    cmd.Parameters.Add(p1);
+                    OdbcDataReader myReader = cmd.ExecuteReader();
+                    myReader.Read();
+                    Int64 countRows = myReader.GetInt64(0);
+                    myReader.Close();
+                    if (transaction != null)
+                    {
+                        (transaction as OdbcTransaction).Commit();
+                    }
+
+                    return countRows;
+                }
+                catch (Exception)
+                {
+                    // doslo k chybe
+                    if (transaction != null)
+                    {
+                        (transaction as OdbcTransaction).Rollback();
+                    }
+                    return -1;  // chyba
+                }
+
             }
             return -1;
         }
