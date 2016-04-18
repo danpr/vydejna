@@ -4228,6 +4228,10 @@ namespace Vydejna
                     else
                     {
                         myReader.Close();
+                        if (transaction != null)
+                        {
+                            (transaction as OdbcTransaction).Rollback();
+                        }
                         return null;
                     }
 
