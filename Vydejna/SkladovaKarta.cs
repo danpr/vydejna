@@ -1068,6 +1068,12 @@ namespace Vydejna
 
                 }
 
+                private void sestavaToolStripMenuItem_Click(object sender, EventArgs e)
+                {
+                    SestavaDefault sestava = new SestavaDefault(myDB, new StrategieStavZaPolozku(), parentFont,textBoxJK.Text);
+                    sestava.ShowDialog();
+                }
+
     
     }
 }

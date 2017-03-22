@@ -2116,6 +2116,18 @@ namespace Vydejna
 
         }
 
+        private void vyhodnoceniDlePoložkyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SestavaDefault sestava = new SestavaDefault(myDB, new StrategieStavZaPolozku(), dataGridView1.Font);
+            sestava.ShowDialog();
+
+        }
+
+        private void stavToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
 
 
     }

@@ -60,6 +60,23 @@ namespace Vydejna
             return 0;
         }
 
+        public string getSumPreLabel()
+        {
+            return "";
+        }
+
+
+        public Decimal makeSumExt2(DataTable dt)
+        {
+            return 0;
+        }
+
+        public string getSumPreLabelExt2()
+        {
+            return "";
+        }
+
+
         public void makeSumProcent(DataTable dt)
         {
         }

@@ -44,7 +44,7 @@ namespace Vydejna
         protected DataTable dataTablePrintRows;
 
 
-        public SestavaDefault(vDatabase myDataBase, ISestava1 strategie, Font myFont)
+        public SestavaDefault(vDatabase myDataBase, ISestava1 strategie, Font myFont, string defaultValue = "")
         {
             evenState = evenStateEnum.disable;
             InitializeComponent();
@@ -68,6 +68,8 @@ namespace Vydejna
             dataGridViewSestava.AllowUserToOrderColumns = false;
             dataGridViewSestava.Columns.Clear();
             dataGridViewSestava.DataSource = null;
+
+            if (defaultValue.Trim() != "") textBoxVyber.Text = defaultValue;
 
             this.Text = strategie.getWindowHeader();
             if (strategie.existTextVyber())
@@ -144,7 +146,16 @@ namespace Vydejna
 
         protected virtual void makeSum()
         {
-            labelCelkem.Text = Convert.ToString(strategie.makeSum(dataGridViewSestava.DataSource as DataTable));
+            if (strategie.getSumPreLabelExt2().Trim() == "")
+            {
+                labelCelkem.Text = strategie.getSumPreLabel() + Convert.ToString(strategie.makeSum(dataGridViewSestava.DataSource as DataTable));
+            }
+            else
+            {
+                labelCelkem.Text = strategie.getSumPreLabel() + Convert.ToString(strategie.makeSum(dataGridViewSestava.DataSource as DataTable))
+                                   + "     " + strategie.getSumPreLabelExt2() + Convert.ToString(strategie.makeSumExt2(dataGridViewSestava.DataSource as DataTable));
+
+            }
         }
 
         protected void makeSum(string column)

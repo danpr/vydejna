@@ -21,6 +21,12 @@ namespace Vydejna
 
         Decimal makeSum(DataTable dt);
 
+        string getSumPreLabel();
+
+        Decimal makeSumExt2(DataTable dt);
+
+        string getSumPreLabelExt2();
+
         void makeSumProcent(DataTable dt);
 
         DataTable loadDataTable(vDatabase myDataBase, DateTime dateTimeFrom, DateTime dateTimeTo, string text1);

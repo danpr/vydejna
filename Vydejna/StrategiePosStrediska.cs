@@ -60,6 +60,24 @@ namespace Vydejna
         }
 
 
+        public string getSumPreLabel()
+        {
+            return "";
+        }
+
+
+        public Decimal makeSumExt2(DataTable dt)
+        {
+            return 0;
+        }
+
+
+        public string getSumPreLabelExt2()
+        {
+            return "";
+        }
+
+
         public void makeSumProcent(DataTable dt)
         {
 
@@ -75,6 +93,8 @@ namespace Vydejna
                 }
             }
         }
+
+
 
 
         public DataTable loadDataTable(vDatabase myDataBase, DateTime dateTimeFrom, DateTime dateTimeTo, string text1)

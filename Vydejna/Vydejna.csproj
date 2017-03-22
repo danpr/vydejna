@@ -74,6 +74,7 @@
     <Compile Include="AboutBox.Designer.cs">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </Compile>
+    <Compile Include="Class1.cs" />
     <Compile Include="ConfigReg.cs" />
     <Compile Include="dbfPrepare.cs" />
     <Compile Include="detail.cs" />
@@ -167,6 +168,7 @@
     <Compile Include="StrategiePosZaKonto.cs" />
     <Compile Include="StrategiePosZaOsobu.cs" />
     <Compile Include="StrategiePosZaZakazku.cs" />
+    <Compile Include="StrategieStavZaPolozku.cs" />
     <Compile Include="TiskDefault.cs" />
     <Compile Include="TiskNaradi.cs" />
     <Compile Include="TiskVypujcky.cs" />

@@ -678,6 +678,13 @@ namespace Vydejna
         }
 
 
+        public virtual DataTable loadDataTableSestavaStavZaPolozku(DateTime dateFrom, DateTime dateTo, string jk)
+        {
+            return loadDataTable("select b.prijem as prijem , b.vydej as vydej, b.datum as datum, b.zapkarta, b.poznamka from naradi a, zmeny b where b.datum >= ? and b.datum <= ? and a.jk = ? and a.poradi = b.parporadi order by b.poradi", dateFrom, dateTo, jk);
+        }
+
+
+
         public virtual Boolean tableUzivateleExist()
         {
             return tableExist("uzivatele");
