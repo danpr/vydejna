@@ -59,6 +59,7 @@
             this.zapujcenoNaKartuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.zrušeníPříjmuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.zrušeníPoškozenkyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sestavaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonOK = new System.Windows.Forms.Button();
             this.numericUpDownCenaKs = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownUcetCenaKs = new System.Windows.Forms.NumericUpDown();
@@ -72,7 +73,6 @@
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.písmoAplikaceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonTisk = new System.Windows.Forms.Button();
-            this.sestavaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMinStav)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownUcetStav)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewZmeny)).BeginInit();
@@ -358,7 +358,7 @@
             this.zrušeníPoškozenkyToolStripMenuItem,
             this.sestavaToolStripMenuItem});
             this.contextMenuStripZmeny.Name = "contextMenuStripZmeny";
-            this.contextMenuStripZmeny.Size = new System.Drawing.Size(179, 136);
+            this.contextMenuStripZmeny.Size = new System.Drawing.Size(179, 114);
             this.contextMenuStripZmeny.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripZmeny_Opening);
             // 
             // opravaÚdajuToolStripMenuItem
@@ -388,6 +388,13 @@
             this.zrušeníPoškozenkyToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
             this.zrušeníPoškozenkyToolStripMenuItem.Text = "Zrušení poškozenky";
             this.zrušeníPoškozenkyToolStripMenuItem.Click += new System.EventHandler(this.zrušeníPoškozenkyToolStripMenuItem_Click);
+            // 
+            // sestavaToolStripMenuItem
+            // 
+            this.sestavaToolStripMenuItem.Name = "sestavaToolStripMenuItem";
+            this.sestavaToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
+            this.sestavaToolStripMenuItem.Text = "Sestava dle času";
+            this.sestavaToolStripMenuItem.Click += new System.EventHandler(this.sestavaToolStripMenuItem_Click);
             // 
             // buttonOK
             // 
@@ -455,7 +462,7 @@
             0});
             this.numericUpDownUcetCena.Location = new System.Drawing.Point(708, 187);
             this.numericUpDownUcetCena.Maximum = new decimal(new int[] {
-            1000000,
+            10000000,
             0,
             0,
             0});
@@ -567,13 +574,6 @@
             this.buttonTisk.Text = "Tisk";
             this.buttonTisk.UseVisualStyleBackColor = true;
             this.buttonTisk.Click += new System.EventHandler(this.buttonTisk_Click);
-            // 
-            // sestavaToolStripMenuItem
-            // 
-            this.sestavaToolStripMenuItem.Name = "sestavaToolStripMenuItem";
-            this.sestavaToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
-            this.sestavaToolStripMenuItem.Text = "Sestava dle času";
-            this.sestavaToolStripMenuItem.Click += new System.EventHandler(this.sestavaToolStripMenuItem_Click);
             // 
             // SkladovaKarta
             // 
